@@ -7,5 +7,12 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "frontends/todos-todos-e2e": {
+      "tags": []
+    },
+    "frontends-todos-todos": {
+      "tags": ["scope:web", "type:app"]
+    }
+  }
 }
