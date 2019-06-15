@@ -16,7 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@workspace/frontend/common/ui/side-nav": [
+      "@workspace/common/ui/side-nav": [
         "libs/frontend/common/ui/side-nav/src/index.ts"
       ]
     }

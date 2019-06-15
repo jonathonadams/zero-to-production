@@ -83,9 +83,7 @@
               "apps/frontends/todos/todos/tsconfig.app.json",
               "apps/frontends/todos/todos/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -124,7 +122,7 @@
         }
       }
     },
-    "frontend-common-ui-side-nav": {
+    "common-ui-side-nav": {
       "projectType": "library",
       "root": "libs/frontend/common/ui/side-nav",
       "sourceRoot": "libs/frontend/common/ui/side-nav/src",
@@ -137,9 +135,7 @@
               "libs/frontend/common/ui/side-nav/tsconfig.lib.json",
               "libs/frontend/common/ui/side-nav/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
