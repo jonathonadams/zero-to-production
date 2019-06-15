@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'workspace-root',
+  selector: 'todo-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

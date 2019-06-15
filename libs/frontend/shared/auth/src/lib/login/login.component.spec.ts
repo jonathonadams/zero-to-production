@@ -10,7 +10,7 @@ describe('CommonLoginComponent', () => {
   let debugEl: DebugElement;
   let nativeEl: HTMLElement;
   let authFacade: AuthFacade;
-  let authFacadeSpy = { login: jest.fn() };
+  const authFacadeSpy = { login: jest.fn() };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,7 +20,7 @@ describe('CommonLoginComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    authFacade = TestBed.get(AuthFacade);
+    authFacade = TestBed.get<AuthFacade>(AuthFacade);
   }));
 
   beforeEach(() => {

@@ -23,8 +23,8 @@ describe('AuthService', () => {
       ],
       imports: [RouterTestingModule.withRoutes([])]
     });
-    authService = TestBed.get(AuthService);
-    graphQLStub = TestBed.get(GraphQLService);
+    authService = TestBed.get<AuthService>(AuthService);
+    graphQLStub = TestBed.get<GraphQLService>(GraphQLService);
 
     // Create a JWT for each test that is valid and has not expired
     JWT = sign(

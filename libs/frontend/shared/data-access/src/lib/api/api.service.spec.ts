@@ -11,6 +11,7 @@ interface TestData {
 }
 
 import { ApiService } from './api.service';
+import { Type } from '@angular/core';
 
 describe('ApiService', () => {
   const testData: TestData = { id: '1', data: 'some data' };
@@ -25,9 +26,11 @@ describe('ApiService', () => {
     });
 
     // Inject the http service and test controller for each test
-    apiService = TestBed.get(ApiService);
-    httpClient = TestBed.get(HttpClient);
-    httpTestingController = TestBed.get(HttpTestingController);
+    apiService = TestBed.get<ApiService>(ApiService);
+    httpClient = TestBed.get<HttpClient>(HttpClient);
+    httpTestingController = TestBed.get(HttpTestingController as Type<
+      HttpTestingController
+    >);
   });
 
   it('should be created', () => {

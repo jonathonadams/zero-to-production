@@ -3,7 +3,7 @@
     <form
       class="login-page-form"
       [formGroup]="form"
-      (ngSubmit)="onSubmit.emit(form)"
+      (ngSubmit)="loginSubmit.emit(form)"
     >
       <mat-form-field color="primary" appearance="standard">
         <mat-label>Username</mat-label>

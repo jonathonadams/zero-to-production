@@ -7,8 +7,9 @@ import {
 import { AuthInterceptor } from './auth-interceptor';
 import { AuthService } from '../services/auth.service';
 import { AuthFacade } from '../+state/auth.facade';
+import { Type } from '@angular/core';
 
-describe('AuthIntercepter', () => {
+describe('AuthInterceptor', () => {
   const testData = { name: 'Test Data' };
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
@@ -31,10 +32,12 @@ describe('AuthIntercepter', () => {
       ]
     });
 
-    httpClient = TestBed.get(HttpClient);
-    httpTestingController = TestBed.get(HttpTestingController);
-    authServiceSpy = TestBed.get(AuthService);
-    authFacade = TestBed.get(AuthFacade);
+    httpClient = TestBed.get<HttpClient>(HttpClient);
+    httpTestingController = TestBed.get(HttpTestingController as Type<
+      HttpTestingController
+    >);
+    authServiceSpy = TestBed.get<AuthService>(AuthService);
+    authFacade = TestBed.get<AuthFacade>(AuthFacade);
   });
 
   it('should add a Bearer token to the Authorization header of all outgoing request', () => {

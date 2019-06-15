@@ -22,5 +22,5 @@ import { FormGroup } from '@angular/forms';
 })
 export class UiLoginComponent {
   @Input() public form: FormGroup | undefined;
-  @Output() public onSubmit = new EventEmitter();
+  @Output() public loginSubmit = new EventEmitter();
 }

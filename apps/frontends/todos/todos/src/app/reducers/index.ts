@@ -1,19 +1,11 @@
-import {
-  ActionReducer,
-  ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
-  MetaReducer
-} from '@ngrx/store';
-import { environment } from '../../environments/environment';
+import { ActionReducerMap } from '@ngrx/store';
 
-export interface State {
+// The interface of the AppState
+export interface AppState {}
+// NOTE: All State currently belongs in feature modules
+// This results in an empty interface that one of the ts lint rules error out on
+// If there is any properties in the AppState, then change this in the tslint rules
+// "no-empty-interface": false,
 
-}
-
-export const reducers: ActionReducerMap<State> = {
-
-};
-
-
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+// A map of all the reducers
+export const reducers: ActionReducerMap<AppState> = {};

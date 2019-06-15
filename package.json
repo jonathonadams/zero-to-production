@@ -17,16 +17,30 @@
     "affected:lint": "nx affected:lint",
     "affected:dep-graph": "nx affected:dep-graph",
     "affected": "nx affected",
-    "format": "nx format:write",
-    "format:write": "nx format:write",
-    "format:check": "nx format:check",
+    "format:fix": "pretty-quick --staged",
     "update": "ng update @nrwl/workspace",
     "update:check": "ng update",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "lint-staged": "lint-staged"
   },
-  "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.ts": [
+        "npm run format:fix",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "**/dist/*.min.js"
+    ]
+  },
   "dependencies": {
     "@angular/animations": "^8.0.0",
     "@angular/cdk": "~8.0.1",
@@ -56,12 +70,12 @@
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
     "lodash-es": "^4.17.11",
-    "rxjs": "~6.4.0",
+    "rxjs": "~6.5.2",
     "zone.js": "^0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.800.0",
-    "@angular/cli": "8.0.0",
+    "@angular/cli": "8.0.3",
     "@angular/compiler-cli": "^8.0.0",
     "@angular/language-service": "^8.0.0",
     "@nrwl/cypress": "8.1.0",
@@ -74,13 +88,16 @@
     "@types/node": "~8.9.4",
     "codelyzer": "~5.0.1",
     "cypress": "~3.3.1",
-    "dotenv": "6.2.0",
-    "jest": "24.1.0",
+    "dotenv": "^8.0.0",
+    "husky": "^2.4.1",
+    "jest": "^24.8.0",
     "jest-marbles": "^2.3.1",
-    "jest-preset-angular": "7.0.0",
-    "prettier": "1.16.4",
-    "ts-jest": "24.0.0",
-    "ts-node": "~7.0.0",
+    "jest-preset-angular": "^7.1.1",
+    "lint-staged": "^8.2.1",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
     "tslint": "~5.11.0",
     "typescript": "~3.4.5"
   }

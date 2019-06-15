@@ -45,10 +45,10 @@ describe('AuthEffects', () => {
       ]
     });
 
-    effects = TestBed.get(AuthEffects);
-    authService = TestBed.get(AuthService);
-    actions$ = TestBed.get(Actions);
-    router = TestBed.get(Router);
+    effects = TestBed.get<AuthEffects>(AuthEffects);
+    authService = TestBed.get<AuthService>(AuthService);
+    actions$ = TestBed.get<Actions>(Actions);
+    router = TestBed.get<Router>(Router);
 
     spyOn(router, 'navigate').and.callThrough();
   });
@@ -84,6 +84,7 @@ describe('AuthEffects', () => {
        * hence the response observable is not an error thrown, but a successful response
        */
       actions$ = hot('-a---', { a: action });
+      // Do not throw error, success with an errors property
       const response = cold('-a|', { a: { errors: [error] } });
       const expected = cold('--b', { b: completion });
       authService.login = jest.fn(() => response);
@@ -142,7 +143,7 @@ describe('AuthEffects', () => {
 
       actions$ = hot('-a---', { a: action });
 
-      effects.logout$.subscribe(action => {
+      effects.logout$.subscribe(act => {
         expect(spy).toHaveBeenCalled();
         done();
       });

@@ -15,8 +15,8 @@ describe('GraphQLService', () => {
     });
 
     // Inject the Apollo service and test controller for each test
-    graphQLService = TestBed.get(GraphQLService);
-    apolloSpy = TestBed.get(Apollo);
+    graphQLService = TestBed.get<GraphQLService>(GraphQLService);
+    apolloSpy = TestBed.get<Apollo>(Apollo);
   });
 
   it('should be created', () => {

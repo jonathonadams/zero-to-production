@@ -8,7 +8,7 @@
     "nx.json": "*"
   },
   "projects": {
-    "frontends/todos-todos-e2e": {
+    "frontends-todos-todos-e2e": {
       "tags": []
     },
     "frontends-todos-todos": {
@@ -17,16 +17,10 @@
     "frontend-common-ui-side-nav": {
       "tags": []
     },
-    "frontend-common-login": {
-      "tags": []
-    },
-    "frontends-shared-data-access": {
+    "frontend-shared-data-access": {
       "tags": []
     },
     "frontend-shared-auth": {
-      "tags": []
-    },
-    "frontend-shared-auth2": {
       "tags": []
     },
     "frontend-utils-test-helpers": {

@@ -12,7 +12,7 @@
       },
       "root": "apps/frontends/todos/todos",
       "sourceRoot": "apps/frontends/todos/todos/src",
-      "prefix": "workspace",
+      "prefix": "todo",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -126,7 +126,7 @@
       "projectType": "library",
       "root": "libs/frontend/common/ui/side-nav",
       "sourceRoot": "libs/frontend/common/ui/side-nav/src",
-      "prefix": "todos",
+      "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -230,13 +230,6 @@
             ],
             "exclude": ["**/node_modules/**"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/frontend/utils/test-helpers/jest.config.js",
-            "tsConfig": "libs/frontend/utils/test-helpers/tsconfig.spec.json"
-          }
         }
       }
     },
@@ -244,7 +237,7 @@
       "projectType": "library",
       "root": "libs/frontend/common/ui/custom-material",
       "sourceRoot": "libs/frontend/common/ui/custom-material/src",
-      "prefix": "workspace",
+      "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -255,14 +248,6 @@
             ],
             "exclude": ["**/node_modules/**"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/frontend/common/ui/custom-material/jest.config.js",
-            "tsConfig": "libs/frontend/common/ui/custom-material/tsconfig.spec.json",
-            "setupFile": "libs/frontend/common/ui/custom-material/src/test-setup.ts"
-          }
         }
       },
       "schematics": {}
@@ -271,7 +256,7 @@
       "projectType": "library",
       "root": "libs/frontend/common/ui/toolbar",
       "sourceRoot": "libs/frontend/common/ui/toolbar/src",
-      "prefix": "workspace",
+      "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
