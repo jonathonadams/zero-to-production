@@ -82,3 +82,10 @@ Run `npm run dep-graph` to see a diagram of the dependencies of your projects.
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
+
+## Jest & ES6 Modules
+
+Currently Jest does not support es6 Modules, so modules can not be used in testing
+lodash-es is tree shakeable, however fails tests at the moment so install individual common lodash libraries for now then remove them when
+the below issue is resolved.
+https://github.com/facebook/jest/issues/4842

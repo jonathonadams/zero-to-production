@@ -96,7 +96,7 @@
         }
       }
     },
-    "frontends/todos-todos-e2e": {
+    "frontends-todos-todos-e2e": {
       "root": "apps/frontends/todos/todos-e2e",
       "sourceRoot": "apps/frontends/todos/todos-e2e/src",
       "projectType": "application",
@@ -122,7 +122,7 @@
         }
       }
     },
-    "common-ui-side-nav": {
+    "frontend-common-ui-side-nav": {
       "projectType": "library",
       "root": "libs/frontend/common/ui/side-nav",
       "sourceRoot": "libs/frontend/common/ui/side-nav/src",
@@ -150,6 +150,93 @@
       "schematics": {
         "@nrwl/angular:component": {
           "styleext": "scss"
+        }
+      }
+    },
+    "frontend-shared-data-access": {
+      "projectType": "library",
+      "root": "libs/frontend/shared/data-access",
+      "sourceRoot": "libs/frontend/shared/data-access/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/shared/data-access/tsconfig.lib.json",
+              "libs/frontend/shared/data-access/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/shared/data-access/jest.config.js",
+            "tsConfig": "libs/frontend/shared/data-access/tsconfig.spec.json",
+            "setupFile": "libs/frontend/shared/data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "frontend-shared-auth": {
+      "projectType": "library",
+      "root": "libs/frontend/shared/auth",
+      "sourceRoot": "libs/frontend/shared/auth/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/shared/auth/tsconfig.lib.json",
+              "libs/frontend/shared/auth/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/shared/auth/jest.config.js",
+            "tsConfig": "libs/frontend/shared/auth/tsconfig.spec.json",
+            "setupFile": "libs/frontend/shared/auth/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "frontend-utils-test-helpers": {
+      "root": "libs/frontend/utils/test-helpers",
+      "sourceRoot": "libs/frontend/utils/test-helpers/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/utils/test-helpers/tsconfig.lib.json",
+              "libs/frontend/utils/test-helpers/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/utils/test-helpers/jest.config.js",
+            "tsConfig": "libs/frontend/utils/test-helpers/tsconfig.spec.json"
+          }
         }
       }
     }

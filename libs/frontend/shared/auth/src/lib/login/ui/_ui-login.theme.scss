@@ -1,0 +1,13 @@
+@import '~@angular/material/theming';
+
+@mixin ui-login-theme($theme) {
+  $background: map-get($theme, background);
+
+  .login-page-content {
+    background-color: mat-color($background, background);
+  }
+
+  .login-page-input {
+    background-color: mat-color($background, card);
+  }
+}

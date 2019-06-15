@@ -16,6 +16,21 @@
     },
     "frontend-common-ui-side-nav": {
       "tags": []
+    },
+    "frontend-common-login": {
+      "tags": []
+    },
+    "frontends-shared-data-access": {
+      "tags": []
+    },
+    "frontend-shared-auth": {
+      "tags": []
+    },
+    "frontend-shared-auth2": {
+      "tags": []
+    },
+    "frontend-utils-test-helpers": {
+      "tags": []
     }
   }
 }
