@@ -31,6 +31,15 @@
     },
     "frontend-common-ui-toolbar": {
       "tags": []
+    },
+    "frontend-common-utils-overlay": {
+      "tags": []
+    },
+    "frontend-common-utils-notifications": {
+      "tags": []
+    },
+    "frontend-common-utils-errors": {
+      "tags": []
     }
   }
 }

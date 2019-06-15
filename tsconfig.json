@@ -34,6 +34,15 @@
       ],
       "@workspace/frontend/common/ui/toolbar": [
         "libs/frontend/common/ui/toolbar/src/index.ts"
+      ],
+      "@workspace/frontend/common/utils/overlay": [
+        "libs/frontend/common/utils/overlay/src/index.ts"
+      ],
+      "@workspace/frontend/common/utils/notifications": [
+        "libs/frontend/common/utils/notifications/src/index.ts"
+      ],
+      "@workspace/frontend/common/utils/errors": [
+        "libs/frontend/common/utils/errors/src/index.ts"
       ]
     }
   },

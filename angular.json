@@ -278,6 +278,99 @@
         }
       },
       "schematics": {}
+    },
+    "frontend-common-utils-overlay": {
+      "projectType": "library",
+      "root": "libs/frontend/common/utils/overlay",
+      "sourceRoot": "libs/frontend/common/utils/overlay/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/common/utils/overlay/tsconfig.lib.json",
+              "libs/frontend/common/utils/overlay/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/common/utils/overlay/jest.config.js",
+            "tsConfig": "libs/frontend/common/utils/overlay/tsconfig.spec.json",
+            "setupFile": "libs/frontend/common/utils/overlay/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "frontend-common-utils-notifications": {
+      "projectType": "library",
+      "root": "libs/frontend/common/utils/notifications",
+      "sourceRoot": "libs/frontend/common/utils/notifications/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/common/utils/notifications/tsconfig.lib.json",
+              "libs/frontend/common/utils/notifications/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/common/utils/notifications/jest.config.js",
+            "tsConfig": "libs/frontend/common/utils/notifications/tsconfig.spec.json",
+            "setupFile": "libs/frontend/common/utils/notifications/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "frontend-common-utils-errors": {
+      "projectType": "library",
+      "root": "libs/frontend/common/utils/errors",
+      "sourceRoot": "libs/frontend/common/utils/errors/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/common/utils/errors/tsconfig.lib.json",
+              "libs/frontend/common/utils/errors/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/common/utils/errors/jest.config.js",
+            "tsConfig": "libs/frontend/common/utils/errors/tsconfig.spec.json",
+            "setupFile": "libs/frontend/common/utils/errors/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

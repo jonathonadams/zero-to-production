@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedDataAccessModule } from '@workspace/frontend/shared/data-access';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,7 +13,7 @@ import { SharedDataAccessModule } from '@workspace/frontend/shared/data-access';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule.forRoot(),
-    SharedDataAccessModule.forRoot()
+    SharedDataAccessModule.forRoot(environment)
   ],
   providers: [],
   bootstrap: [AppComponent]

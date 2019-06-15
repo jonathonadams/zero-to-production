@@ -10,10 +10,9 @@ import { ApiService } from './api/api.service';
   exports: [ApolloModule, HttpLinkModule]
 })
 export class SharedDataAccessModule {
-  static forRoot({
-    graphQLUrl = 'graphql',
-    apiBaseUrl = 'api'
-  } = {}): ModuleWithProviders {
+  static forRoot(
+    { graphQLUrl = 'graphql', apiBaseUrl = 'api' } = {} as any
+  ): ModuleWithProviders {
     return {
       ngModule: SharedDataAccessModule,
       providers: [
