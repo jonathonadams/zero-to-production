@@ -1,14 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
-import { FrontendSharedAuthModule } from './frontend-shared-auth.module';
+import { SharedAuthModule } from './frontend-shared-auth.module';
 
-describe('FrontendSharedAuth2Module', () => {
+describe('SharedAuthModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FrontendSharedAuthModule]
+      imports: [SharedAuthModule.forRoot()]
     }).compileComponents();
   }));
 
   it('should create', () => {
-    expect(FrontendSharedAuthModule).toBeDefined();
+    expect(SharedAuthModule).toBeDefined();
   });
 });

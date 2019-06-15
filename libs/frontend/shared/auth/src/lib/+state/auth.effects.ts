@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { exhaustMap, map, tap } from 'rxjs/operators';
+import { LoginCredentials } from '@workspace/shared/data';
 import {
   AuthActionTypes,
   Login,
@@ -11,7 +12,7 @@ import {
   LogoutRedirect
 } from './auth.actions';
 import { AuthService } from '../services/auth.service';
-import { LoginCredentials } from 'typings/auth';
+import { JWTAuthService } from '../services/jwt-auth.service';
 
 @Injectable()
 export class AuthEffects {
@@ -39,16 +40,20 @@ export class AuthEffects {
   @Effect()
   loginSuccess$ = this.actions$.pipe(
     ofType<LoginSuccess>(AuthActionTypes.LoginSuccess),
-    tap(action => this.authService.setAuthorizationToken(action.payload.token)),
+    tap(action => this.jwtService.setAuthorizationToken(action.payload.token)),
     map(action => new LoginRedirect())
   );
 
   @Effect()
   logout$ = this.actions$.pipe(
     ofType<Logout>(AuthActionTypes.Logout),
-    tap(() => this.authService.removeAuthorizationToken()),
+    tap(() => this.jwtService.removeAuthorizationToken()),
     map(() => new LogoutRedirect())
   );
 
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private jwtService: JWTAuthService
+  ) {}
 }

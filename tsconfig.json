@@ -43,7 +43,10 @@
       ],
       "@workspace/frontend/common/utils/errors": [
         "libs/frontend/common/utils/errors/src/index.ts"
-      ]
+      ],
+      "@workspace/shared/data": ["libs/shared/data/src/index.ts"],
+      "@workspace/shared/enums": ["libs/shared/enums/src/index.ts"],
+      "@workspace/shared/utils/auth": ["libs/shared/utils/auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

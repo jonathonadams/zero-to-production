@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Login, Logout, LoginRedirect } from './auth.actions';
-import { LoginCredentials } from 'typings/auth';
+import { LoginCredentials } from '@workspace/shared/data';
 
 @Injectable()
 export class AuthFacade {

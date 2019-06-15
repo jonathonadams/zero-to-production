@@ -1,4 +1,4 @@
-import { ActionWithPayload } from 'typings/actions';
+import { ActionWithPayload } from '@workspace/shared/data';
 
 export enum ErrorActions {
   Http = '[Error] Http'

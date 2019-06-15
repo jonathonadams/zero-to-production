@@ -1,53 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import * as jwtDecode from 'jwt-decode';
-import { ApolloQueryResult } from 'apollo-client';
-import { DecodedJWT, LoginCredentials, LoginResponse } from 'typings/auth';
 import { GraphQLService } from '@workspace/frontend/shared/data-access';
-import { FetchResult } from 'apollo-link';
-
-// TODO: -> Data Access Lib as dependent
+import { JWTAuthService } from './jwt-auth.service';
+import { LoginCredentials, LoginResponse } from '@workspace/shared/data';
+import { isPasswordAllowed } from '@workspace/shared/utils/auth';
 
 @Injectable()
 export class AuthService {
-  private storageKey = 'access_token';
-
-  constructor(private graphQL: GraphQLService) {}
-
-  setAuthorizationToken(token: string): void {
-    localStorage.setItem(this.storageKey, token);
-  }
-
-  getAuthorizationToken(): string | null {
-    return localStorage.getItem(this.storageKey);
-  }
-
-  removeAuthorizationToken(): void {
-    localStorage.removeItem(this.storageKey);
-  }
-
-  decodeToken(token: string): DecodedJWT {
-    return jwtDecode<DecodedJWT>(token);
-  }
-
-  getDecodedToken(): DecodedJWT | undefined {
-    const token = this.getAuthorizationToken();
-    if (token !== null) {
-      return this.decodeToken(token);
-    }
-  }
-
-  checkTokenIsValid(token: string): boolean {
-    const now = Math.floor(Date.now() / 1000);
-    const expTime: number = this.decodeToken(token).exp;
-    return now < expTime ? true : false;
-  }
+  constructor(private jwt: JWTAuthService, private graphQL: GraphQLService) {}
 
   // Checks if the user is logged in
   checkUserIsLoggedIn(): boolean {
-    const token = this.getAuthorizationToken();
-    return token && this.checkTokenIsValid(token) ? true : false;
+    const token = this.jwt.getAuthorizationToken();
+    return token && this.jwt.checkTokenIsValid(token) ? true : false;
   }
 
   // Login function that returns a user and JWT
@@ -71,21 +36,10 @@ export class AuthService {
   //   return this.http.post<LoginResponse>(`${environment.serverUrl}/authorize`, credentials);
   // }
 
-  /**
-   * Move into a shared utils function
-   */
-  isPasswordAllowed(password: string): boolean {
-    return (
-      !!password &&
-      password.length > 6 &&
-      /\d/.test(password) &&
-      /\D/.test(password)
-    );
-  }
-
+  // A wrapper around the is password allowed method to create a form validator
   passwordValidator() {
     return (control: AbstractControl) => {
-      const allowed = this.isPasswordAllowed(control.value);
+      const allowed = isPasswordAllowed(control.value);
       return allowed ? null : { forbiddenName: { value: control.value } };
     };
   }

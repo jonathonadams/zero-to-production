@@ -1,7 +1,10 @@
 import { Action } from '@ngrx/store';
-import { ActionWithPayload } from 'typings/actions';
-import { LoginCredentials, LoginResponse } from 'typings/auth';
 import { GraphQLError } from 'graphql';
+import {
+  ActionWithPayload,
+  LoginCredentials,
+  LoginResponse
+} from '@workspace/shared/data';
 
 export enum AuthActionTypes {
   Login = '[Auth] Login',

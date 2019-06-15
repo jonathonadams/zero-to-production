@@ -7,7 +7,7 @@ import { cold, hot, Scheduler } from 'jest-marbles';
 import { createSpyObj } from '@workspace/frontend/utils/test-helpers';
 import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
-import { LoginCredentials } from 'typings/auth';
+import { LoginCredentials } from '@workspace/shared/data';
 import {
   Login,
   LoginSuccess,
@@ -17,14 +17,16 @@ import {
   LogoutRedirect
 } from './auth.actions';
 import { GraphQLError } from 'graphql';
+import { JWTAuthService } from '../services/jwt-auth.service';
 
 describe('AuthEffects', () => {
   let effects: AuthEffects;
-  let authService: any;
+  let authService: AuthService;
   let actions$: Observable<any>;
-  let router: any;
-  const authSpy = createSpyObj('AuthService', [
-    'login',
+  let router: Router;
+  let jwtService: JWTAuthService;
+  const authSpy = createSpyObj('AuthService', ['login']);
+  const jwtServiceSpy = createSpyObj('JWTAuthService', [
     'setAuthorizationToken',
     'removeAuthorizationToken'
   ]);
@@ -33,6 +35,7 @@ describe('AuthEffects', () => {
     TestBed.configureTestingModule({
       providers: [
         AuthEffects,
+        { provide: JWTAuthService, useValue: jwtServiceSpy },
         {
           provide: AuthService,
           useValue: authSpy
@@ -49,6 +52,7 @@ describe('AuthEffects', () => {
     authService = TestBed.get<AuthService>(AuthService);
     actions$ = TestBed.get<Actions>(Actions);
     router = TestBed.get<Router>(Router);
+    jwtService = TestBed.get<JWTAuthService>(JWTAuthService);
 
     spyOn(router, 'navigate').and.callThrough();
   });
@@ -106,7 +110,7 @@ describe('AuthEffects', () => {
     });
 
     it('should call the AuthService.setAuthorizationToken with the returned token', done => {
-      const spy = jest.spyOn(authService, 'setAuthorizationToken');
+      const spy = jest.spyOn(jwtService, 'setAuthorizationToken');
       spy.mockReset();
       const token = 'JWT.TOKEN';
       const action = new LoginSuccess({ token });
@@ -137,7 +141,7 @@ describe('AuthEffects', () => {
     });
 
     it('should call the AuthService.removeAuthorizationToken with the returned token', done => {
-      const spy = jest.spyOn(authService, 'removeAuthorizationToken');
+      const spy = jest.spyOn(jwtService, 'removeAuthorizationToken');
       spy.mockReset();
       const action = new Logout();
 

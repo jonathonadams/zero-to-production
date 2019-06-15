@@ -40,6 +40,15 @@
     },
     "frontend-common-utils-errors": {
       "tags": []
+    },
+    "shared-data": {
+      "tags": []
+    },
+    "shared-enums": {
+      "tags": []
+    },
+    "shared-utils-auth": {
+      "tags": []
     }
   }
 }
