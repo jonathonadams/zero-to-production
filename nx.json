@@ -13,6 +13,9 @@
     },
     "frontends-todos-todos": {
       "tags": ["scope:web", "type:app"]
+    },
+    "frontend-common-ui-side-nav": {
+      "tags": []
     }
   }
 }

@@ -1,0 +1,21 @@
+<mat-sidenav-container hasBackdrop="true">
+  <mat-sidenav mode="over" class="mat-elevation-z6">
+    <mat-nav-list>
+      <mat-list-item
+        *ngFor="let link of navLinks"
+        mat-button
+        [routerLink]="link.path"
+        routerLinkActive="active"
+      >
+        <mat-icon>{{ link.icon }}</mat-icon
+        >&nbsp;&nbsp;<a class="nav-link">{{ link.label }}</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="app-content">
+      <router-outlet #sideNav="outlet"></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

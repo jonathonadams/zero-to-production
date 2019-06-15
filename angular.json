@@ -26,7 +26,10 @@
               "apps/frontends/todos/todos/src/favicon.ico",
               "apps/frontends/todos/todos/src/assets"
             ],
-            "styles": ["apps/frontends/todos/todos/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "apps/frontends/todos/todos/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -80,7 +83,9 @@
               "apps/frontends/todos/todos/tsconfig.app.json",
               "apps/frontends/todos/todos/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -116,6 +121,39 @@
           "options": {
             "tsConfig": "apps/frontends/todos/todos-e2e/tsconfig.e2e.json"
           }
+        }
+      }
+    },
+    "frontend-common-ui-side-nav": {
+      "projectType": "library",
+      "root": "libs/frontend/common/ui/side-nav",
+      "sourceRoot": "libs/frontend/common/ui/side-nav/src",
+      "prefix": "todos",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/common/ui/side-nav/tsconfig.lib.json",
+              "libs/frontend/common/ui/side-nav/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/common/ui/side-nav/jest.config.js",
+            "tsConfig": "libs/frontend/common/ui/side-nav/tsconfig.spec.json",
+            "setupFile": "libs/frontend/common/ui/side-nav/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
         }
       }
     }
