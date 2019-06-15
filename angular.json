@@ -239,6 +239,60 @@
           }
         }
       }
+    },
+    "frontend-common-ui-custom-material": {
+      "projectType": "library",
+      "root": "libs/frontend/common/ui/custom-material",
+      "sourceRoot": "libs/frontend/common/ui/custom-material/src",
+      "prefix": "workspace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/common/ui/custom-material/tsconfig.lib.json",
+              "libs/frontend/common/ui/custom-material/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/common/ui/custom-material/jest.config.js",
+            "tsConfig": "libs/frontend/common/ui/custom-material/tsconfig.spec.json",
+            "setupFile": "libs/frontend/common/ui/custom-material/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "frontend-common-ui-toolbar": {
+      "projectType": "library",
+      "root": "libs/frontend/common/ui/toolbar",
+      "sourceRoot": "libs/frontend/common/ui/toolbar/src",
+      "prefix": "workspace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/common/ui/toolbar/tsconfig.lib.json",
+              "libs/frontend/common/ui/toolbar/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/common/ui/toolbar/jest.config.js",
+            "tsConfig": "libs/frontend/common/ui/toolbar/tsconfig.spec.json",
+            "setupFile": "libs/frontend/common/ui/toolbar/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

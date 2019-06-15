@@ -27,6 +27,12 @@
       ],
       "@workspace/frontend/utils/test-helpers": [
         "libs/frontend/utils/test-helpers/src/index.ts"
+      ],
+      "@workspace/frontend/common/ui/custom-material": [
+        "libs/frontend/common/ui/custom-material/src/index.ts"
+      ],
+      "@workspace/frontend/common/ui/toolbar": [
+        "libs/frontend/common/ui/toolbar/src/index.ts"
       ]
     }
   },

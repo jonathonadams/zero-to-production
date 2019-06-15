@@ -31,6 +31,12 @@
     },
     "frontend-utils-test-helpers": {
       "tags": []
+    },
+    "frontend-common-ui-custom-material": {
+      "tags": []
+    },
+    "frontend-common-ui-toolbar": {
+      "tags": []
     }
   }
 }
