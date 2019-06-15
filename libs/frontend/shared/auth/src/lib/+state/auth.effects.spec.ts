@@ -16,6 +16,7 @@ import {
   Logout,
   LogoutRedirect
 } from './auth.actions';
+import { GraphQLError } from 'graphql';
 
 describe('AuthEffects', () => {
   let effects: AuthEffects;
@@ -74,11 +75,16 @@ describe('AuthEffects', () => {
         password: ''
       };
       const action = new Login(credentials);
-      const error = 'Invalid username or password';
-      const completion = new LoginFailure(new Error(error));
+      const error = new GraphQLError('Invalid username or password');
+      const completion = new LoginFailure(error);
 
+      /**
+       * Note that with a GraphQL error, the http request does not fail,
+       * rather it succeeds but has a errors property that is an array of GraphQL error
+       * hence the response observable is not an error thrown, but a successful response
+       */
       actions$ = hot('-a---', { a: action });
-      const response = cold('-#', {}, new Error(error));
+      const response = cold('-a|', { a: { errors: [error] } });
       const expected = cold('--b', { b: completion });
       authService.login = jest.fn(() => response);
 

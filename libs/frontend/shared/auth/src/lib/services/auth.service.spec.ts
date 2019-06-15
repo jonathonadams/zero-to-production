@@ -25,16 +25,15 @@ describe('AuthService', () => {
     });
     authService = TestBed.get(AuthService);
     graphQLStub = TestBed.get(GraphQLService);
-    // httpTestingController = TestBed.get(HttpTestingController);
 
     // Create a JWT for each test that is valid and has not expired
     JWT = sign(
       {
-        sub: '123',
-        admin: true // used to conditionally hide routes on the client
+        role: 0
       },
       tokenSecret,
       {
+        subject: '123',
         expiresIn: 1000
       }
     );
@@ -99,14 +98,14 @@ describe('AuthService', () => {
 
   describe('checkTokenIsValid', () => {
     it('should return true if the token has not expired', () => {
-      const token = sign({ sub: '1' }, tokenSecret, { expiresIn: 10000 });
+      const token = sign({}, tokenSecret, { expiresIn: 10000, subject: '1' });
       const valid = authService.checkTokenIsValid(token);
 
       expect(valid).toEqual(true);
     });
 
     it('should return false if the token has expired', () => {
-      const token = sign({ sub: '1' }, tokenSecret, { expiresIn: -10000 });
+      const token = sign({}, tokenSecret, { expiresIn: -10000, subject: '1' });
       const valid = authService.checkTokenIsValid(token);
 
       expect(valid).toEqual(false);
@@ -128,7 +127,7 @@ describe('AuthService', () => {
     });
 
     it('should return false if the token is invalid', () => {
-      const token = sign({ sub: '1' }, tokenSecret, { expiresIn: -1000 });
+      const token = sign({}, tokenSecret, { expiresIn: -10000, subject: '1' });
       localStorage.setItem(storageKey, token);
 
       const loggedIn = authService.checkUserIsLoggedIn();
@@ -155,8 +154,8 @@ describe('AuthService', () => {
       authService.login(loginCredentials).subscribe(
         response => {
           expect(response.errors).toBeUndefined();
-          expect(response.data.login).toBeDefined();
-          expect(response.data.login).toEqual(expectedResponse);
+          expect((response.data as any).login).toBeDefined();
+          expect((response.data as any).login).toEqual(expectedResponse);
           expect(graphQLStub.mutation).toHaveBeenCalled();
           expect(spy.mock.calls[0][1]).toEqual(loginCredentials);
         },
@@ -169,16 +168,16 @@ describe('AuthService', () => {
         username: 'unauthorized',
         password: 'noi dea'
       };
-      const graphErrors: GraphQLError[] = [
+      const graphErrors = [
         { name: 'Unauthorized Error', message: 'Unauthorized' }
-      ];
+      ] as GraphQLError[];
       // Set the response from the the stub
       graphQLStub.setErrorResponse(graphErrors);
       authService.login(loginCredentials).subscribe(
         response => {
           expect(response.data).toEqual(null);
           expect(response.errors).toBeDefined();
-          expect(response.errors[0].message).toEqual('Unauthorized');
+          expect((response.errors as any[][0]).message).toEqual('Unauthorized');
           expect(graphQLStub.mutation).toHaveBeenCalled();
           expect(spy.mock.calls[0][1]).toEqual(loginCredentials);
         },

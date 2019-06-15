@@ -21,10 +21,18 @@ export class AuthEffects {
     ofType<Login>(AuthActionTypes.Login),
     map(action => action.payload),
     exhaustMap((auth: LoginCredentials) =>
+      // Note that when using GraphQL as a login option,
+      // Any errors will not be errors in the HTTP request (will be status 200)
+      // But rather an array on the result.errors property
       this.authService.login(auth).pipe(
-        map(result => result.data.login), // use this for graphql
-        map(loginResponse => new LoginSuccess(loginResponse)),
-        catchError(error => of(new LoginFailure(error)))
+        map(result => {
+          if (result.errors) {
+            return new LoginFailure(result.errors[0]);
+          } else {
+            // The data property will alway exist here as there was not errors property
+            return new LoginSuccess((result.data as any).login);
+          }
+        })
       )
     )
   );

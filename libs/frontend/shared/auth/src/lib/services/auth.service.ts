@@ -5,6 +5,7 @@ import * as jwtDecode from 'jwt-decode';
 import { ApolloQueryResult } from 'apollo-client';
 import { DecodedJWT, LoginCredentials, LoginResponse } from 'typings/auth';
 import { GraphQLService } from '@workspace/frontend/shared/data-access';
+import { FetchResult } from 'apollo-link';
 
 // TODO: -> Data Access Lib as dependent
 
@@ -18,7 +19,7 @@ export class AuthService {
     localStorage.setItem(this.storageKey, token);
   }
 
-  getAuthorizationToken(): string {
+  getAuthorizationToken(): string | null {
     return localStorage.getItem(this.storageKey);
   }
 
@@ -30,8 +31,11 @@ export class AuthService {
     return jwtDecode<DecodedJWT>(token);
   }
 
-  getDecodedToken(): DecodedJWT {
-    return this.decodeToken(this.getAuthorizationToken());
+  getDecodedToken(): DecodedJWT | undefined {
+    const token = this.getAuthorizationToken();
+    if (token !== null) {
+      return this.decodeToken(token);
+    }
   }
 
   checkTokenIsValid(token: string): boolean {
@@ -48,9 +52,7 @@ export class AuthService {
 
   // Login function that returns a user and JWT
   // This is a graphql login function
-  login(
-    credentials: LoginCredentials
-  ): Observable<ApolloQueryResult<{ login: LoginResponse }>> {
+  login(credentials: LoginCredentials) {
     const query = `
       mutation LoginUser($username: String!, $password: String!){
         login(username: $username, password: $password){

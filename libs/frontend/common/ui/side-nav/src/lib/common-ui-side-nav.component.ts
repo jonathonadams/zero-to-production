@@ -7,5 +7,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonUiSideNavComponent {
-  @Input() navLinks: { path: string; icon: string; label: string }[];
+  @Input() navLinks:
+    | { path: string; icon: string; label: string }[]
+    | undefined;
 }

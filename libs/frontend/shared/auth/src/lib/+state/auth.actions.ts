@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { ActionWithPayload } from 'typings/actions';
 import { LoginCredentials, LoginResponse } from 'typings/auth';
+import { GraphQLError } from 'graphql';
 
 export enum AuthActionTypes {
   Login = '[Auth] Login',
@@ -29,9 +30,9 @@ export class LoginSuccess implements ActionWithPayload<LoginResponse> {
   constructor(readonly payload: { token: string }) {}
 }
 
-export class LoginFailure implements ActionWithPayload<Error> {
+export class LoginFailure implements ActionWithPayload<GraphQLError> {
   readonly type = AuthActionTypes.LoginFailure;
-  constructor(readonly payload: Error) {}
+  constructor(readonly payload: GraphQLError) {}
 }
 
 export class Logout implements Action {

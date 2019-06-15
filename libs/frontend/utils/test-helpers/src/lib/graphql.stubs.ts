@@ -7,7 +7,7 @@ import { GraphQLError } from 'graphql';
 // https://github.com/apollographql/apollo-client/blob/master/packages/apollo-client/src/core/networkStatus.ts
 
 export class GraphQLStub {
-  private expectedResponse: ApolloQueryResult<any>;
+  private expectedResponse: ApolloQueryResult<any> | undefined;
 
   setExpectedResponse<T>(data: T): void {
     this.expectedResponse = {
@@ -28,16 +28,22 @@ export class GraphQLStub {
     };
   }
 
-  // Use for debuging only
+  // Use for debugging only
   getExpectedResponse() {
     return this.expectedResponse;
   }
 
-  query<T>(query: string, variables?: any): Observable<ApolloQueryResult<T>> {
-    return of<ApolloQueryResult<T>>(this.expectedResponse);
+  query<T>(
+    query: string,
+    variables?: any
+  ): Observable<ApolloQueryResult<T> | undefined> {
+    return of<ApolloQueryResult<T> | undefined>(this.expectedResponse);
   }
 
-  mutation<T>(query: string, variables: any): Observable<FetchResult<T>> {
-    return of<ApolloQueryResult<T>>(this.expectedResponse);
+  mutation<T>(
+    query: string,
+    variables: any
+  ): Observable<FetchResult<T> | undefined> {
+    return of<ApolloQueryResult<T> | undefined>(this.expectedResponse);
   }
 }

@@ -39,7 +39,7 @@ export class GraphQLService {
     variables: undefined | { [key: string]: any | undefined }
   ): undefined | { [key: string]: any | undefined } {
     if (variables) {
-      const cleanVariables = {};
+      const cleanVariables: any = {};
       Object.keys(variables).forEach(key => {
         if (typeof variables[key] === 'object') {
           delete variables[key]['__typename'];
