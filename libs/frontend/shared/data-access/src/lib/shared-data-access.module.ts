@@ -1,13 +1,13 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { GraphQLService } from './graphql/graphql.service';
-import { APOLLO_OPTIONS } from 'apollo-angular';
+import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
 import { createApollo } from './graphql/createApollo';
-import { HttpLink } from 'apollo-angular-link-http';
+import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
 import { ApiService } from './api/api.service';
 
 @NgModule({
-  imports: [CommonModule]
+  imports: [ApolloModule, HttpLinkModule],
+  exports: [ApolloModule, HttpLinkModule]
 })
 export class SharedDataAccessModule {
   static forRoot({

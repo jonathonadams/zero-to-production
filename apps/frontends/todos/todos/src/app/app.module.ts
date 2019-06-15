@@ -4,8 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { GraphQLModule } from './graphql.module';
-import { HttpClientModule } from '@angular/common/http';
+import { SharedDataAccessModule } from '@workspace/frontend/shared/data-access';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule.forRoot(),
-    GraphQLModule
+    SharedDataAccessModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
