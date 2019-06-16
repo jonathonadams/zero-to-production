@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from '../services/auth.service';
-import { authServiceStub } from '@workspace/frontend/utils/test-helpers';
 import { AuthFacade } from '../+state/auth.facade';
 
 describe('AuthGuard', () => {
@@ -10,12 +9,13 @@ describe('AuthGuard', () => {
   let authFacade: AuthFacade;
 
   const authFacadeSpy = { logout: jest.fn() };
+  const authServiceSpy = { checkUserIsLoggedIn: jest.fn() };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         AuthGuard,
-        { provide: AuthService, useValue: authServiceStub },
+        { provide: AuthService, useValue: authServiceSpy },
         { provide: AuthFacade, useValue: authFacadeSpy }
       ]
     });

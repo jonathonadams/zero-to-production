@@ -1,1 +1,1 @@
-export * from './lib/shared-enums';
+export { TodoFilterStatus } from './lib/todos';

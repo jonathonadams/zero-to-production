@@ -50,9 +50,3 @@ export const storeStub = {
   select: jest.fn(),
   pipe: jest.fn()
 };
-
-export const authServiceStub = {
-  userIsLoggedIn: jest.fn(),
-  userIsAdmin: jest.fn(),
-  getDecodedToken: jest.fn()
-};

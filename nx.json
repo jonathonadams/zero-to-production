@@ -61,6 +61,15 @@
     },
     "frontend-todos-feature-shell": {
       "tags": []
+    },
+    "frontend-todos-data-access": {
+      "tags": []
+    },
+    "frontend-todos-todo-detail": {
+      "tags": []
+    },
+    "frontend-todos-all-todos": {
+      "tags": []
     }
   }
 }

@@ -548,6 +548,95 @@
           "styleext": "scss"
         }
       }
+    },
+    "frontend-todos-data-access": {
+      "projectType": "library",
+      "root": "libs/frontend/todos/data-access",
+      "sourceRoot": "libs/frontend/todos/data-access/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/todos/data-access/tsconfig.lib.json",
+              "libs/frontend/todos/data-access/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/todos/data-access/jest.config.js",
+            "tsConfig": "libs/frontend/todos/data-access/tsconfig.spec.json",
+            "setupFile": "libs/frontend/todos/data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "frontend-todos-todo-detail": {
+      "projectType": "library",
+      "root": "libs/frontend/todos/todo-detail",
+      "sourceRoot": "libs/frontend/todos/todo-detail/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/todos/todo-detail/tsconfig.lib.json",
+              "libs/frontend/todos/todo-detail/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/todos/todo-detail/jest.config.js",
+            "tsConfig": "libs/frontend/todos/todo-detail/tsconfig.spec.json",
+            "setupFile": "libs/frontend/todos/todo-detail/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "frontend-todos-all-todos": {
+      "projectType": "library",
+      "root": "libs/frontend/todos/all-todos",
+      "sourceRoot": "libs/frontend/todos/all-todos/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/todos/all-todos/tsconfig.lib.json",
+              "libs/frontend/todos/all-todos/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/todos/all-todos/jest.config.js",
+            "tsConfig": "libs/frontend/todos/all-todos/tsconfig.spec.json",
+            "setupFile": "libs/frontend/todos/all-todos/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

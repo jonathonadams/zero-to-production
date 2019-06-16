@@ -10,12 +10,13 @@ describe('LoggedInGuard', () => {
   let authFacade: AuthFacade;
 
   const authFacadeSpy = { loginRedirect: jest.fn() };
+  const authServiceSpy = { checkUserIsLoggedIn: jest.fn() };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         LoggedInGuard,
-        { provide: AuthService, useValue: authServiceStub },
+        { provide: AuthService, useValue: authServiceSpy },
         { provide: AuthFacade, useValue: authFacadeSpy }
       ]
     });

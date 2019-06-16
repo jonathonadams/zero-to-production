@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { exhaustMap, map, tap } from 'rxjs/operators';
+import { exhaustMap, map, tap, catchError } from 'rxjs/operators';
 import { LoginCredentials } from '@workspace/shared/data';
 import {
   AuthActionTypes,
@@ -13,6 +13,8 @@ import {
 } from './auth.actions';
 import { AuthService } from '../services/auth.service';
 import { JWTAuthService } from '../services/jwt-auth.service';
+
+// TODO -> All HTTP ERRORS
 
 @Injectable()
 export class AuthEffects {

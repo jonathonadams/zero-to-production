@@ -56,6 +56,15 @@
       "@workspace/frontend/dashboard": ["libs/frontend/dashboard/src/index.ts"],
       "@workspace/frontend/todos/feature-shell": [
         "libs/frontend/todos/feature-shell/src/index.ts"
+      ],
+      "@workspace/frontend/todos/data-access": [
+        "libs/frontend/todos/data-access/src/index.ts"
+      ],
+      "@workspace/frontend/todos/todo-detail": [
+        "libs/frontend/todos/todo-detail/src/index.ts"
+      ],
+      "@workspace/frontend/todos/all-todos": [
+        "libs/frontend/todos/all-todos/src/index.ts"
       ]
     }
   },

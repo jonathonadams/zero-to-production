@@ -23,7 +23,7 @@ export enum UserActionTypes {
 
 export class SelectUser implements ActionWithPayload<string> {
   readonly type = UserActionTypes.Select;
-  constructor(public payload: string) {}
+  constructor(readonly payload: string) {}
 }
 
 export class ClearSelectedUser implements Action {
@@ -68,17 +68,17 @@ export class LoadAllUsersFail implements ActionWithPayload<Error> {
 
 export class CreateUser implements ActionWithPayload<User> {
   readonly type = UserActionTypes.Create;
-  constructor(public payload: User) {}
+  constructor(readonly payload: User) {}
 }
 
 export class CreateUserSuccess implements ActionWithPayload<User> {
   readonly type = UserActionTypes.CreateSuccess;
-  constructor(public payload: User) {}
+  constructor(readonly payload: User) {}
 }
 
 export class CreateUserFail implements ActionWithPayload<User> {
   readonly type = UserActionTypes.CreateFail;
-  constructor(public payload: User) {}
+  constructor(readonly payload: User) {}
 }
 
 /**
@@ -87,17 +87,17 @@ export class CreateUserFail implements ActionWithPayload<User> {
 
 export class UpdateUser implements ActionWithPayload<User> {
   readonly type = UserActionTypes.Update;
-  constructor(public payload: User) {}
+  constructor(readonly payload: User) {}
 }
 
 export class UpdateUserSuccess implements ActionWithPayload<User> {
   readonly type = UserActionTypes.UpdateSuccess;
-  constructor(public payload: User) {}
+  constructor(readonly payload: User) {}
 }
 
 export class UpdateUserFail implements ActionWithPayload<User> {
   readonly type = UserActionTypes.UpdateFail;
-  constructor(public payload: User) {}
+  constructor(readonly payload: User) {}
 }
 
 /**
@@ -106,17 +106,17 @@ export class UpdateUserFail implements ActionWithPayload<User> {
 
 export class DeleteUser implements ActionWithPayload<User> {
   readonly type = UserActionTypes.Delete;
-  constructor(public payload: User) {}
+  constructor(readonly payload: User) {}
 }
 
 export class DeleteUserSuccess implements ActionWithPayload<User> {
   readonly type = UserActionTypes.DeleteSuccess;
-  constructor(public payload: User) {}
+  constructor(readonly payload: User) {}
 }
 
 export class DeleteUserFail implements ActionWithPayload<User> {
   readonly type = UserActionTypes.DeleteFail;
-  constructor(public payload: User) {}
+  constructor(readonly payload: User) {}
 }
 
 export type UserActionUnion =
