@@ -29,6 +29,7 @@ describe('AuthService', () => {
     });
     authService = TestBed.get<AuthService>(AuthService);
     graphQLStub = TestBed.get<GraphQLService>(GraphQLService);
+    jwtService = TestBed.get<JWTAuthService>(JWTAuthService);
   });
 
   it('should be created', () => {

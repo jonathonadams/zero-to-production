@@ -5,15 +5,15 @@ import {
   HttpClientTestingModule
 } from '@angular/common/http/testing';
 import { AuthInterceptor } from './auth-interceptor';
-import { AuthService } from '../services/auth.service';
 import { AuthFacade } from '../+state/auth.facade';
 import { Type } from '@angular/core';
+import { JWTAuthService } from '../services/jwt-auth.service';
 
 describe('AuthInterceptor', () => {
   const testData = { name: 'Test Data' };
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
-  let authServiceSpy: AuthService;
+  let authServiceSpy: JWTAuthService;
   let authFacade: AuthFacade;
   const authSpy = { getAuthorizationToken: jest.fn() };
   const authFacadeSpy = { logout: jest.fn() };
@@ -27,7 +27,7 @@ describe('AuthInterceptor', () => {
           useClass: AuthInterceptor,
           multi: true
         },
-        { provide: AuthService, useValue: authSpy },
+        { provide: JWTAuthService, useValue: authSpy },
         { provide: AuthFacade, useValue: authFacadeSpy }
       ]
     });
@@ -36,7 +36,7 @@ describe('AuthInterceptor', () => {
     httpTestingController = TestBed.get(HttpTestingController as Type<
       HttpTestingController
     >);
-    authServiceSpy = TestBed.get<AuthService>(AuthService);
+    authServiceSpy = TestBed.get<JWTAuthService>(JWTAuthService);
     authFacade = TestBed.get<AuthFacade>(AuthFacade);
   });
 

@@ -387,13 +387,6 @@
             ],
             "exclude": ["**/node_modules/**"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/data/jest.config.js",
-            "tsConfig": "libs/shared/data/tsconfig.spec.json"
-          }
         }
       }
     },
@@ -411,13 +404,6 @@
               "libs/shared/enums/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/enums/jest.config.js",
-            "tsConfig": "libs/shared/enums/tsconfig.spec.json"
           }
         }
       }
@@ -473,6 +459,95 @@
         }
       },
       "schematics": {}
+    },
+    "frontend-common-theme": {
+      "projectType": "library",
+      "root": "libs/frontend/common/theme",
+      "sourceRoot": "libs/frontend/common/theme/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/common/theme/tsconfig.lib.json",
+              "libs/frontend/common/theme/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/common/theme/jest.config.js",
+            "tsConfig": "libs/frontend/common/theme/tsconfig.spec.json",
+            "setupFile": "libs/frontend/common/theme/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "frontend-dashboard": {
+      "projectType": "library",
+      "root": "libs/frontend/dashboard",
+      "sourceRoot": "libs/frontend/dashboard/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/dashboard/tsconfig.lib.json",
+              "libs/frontend/dashboard/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/dashboard/jest.config.js",
+            "tsConfig": "libs/frontend/dashboard/tsconfig.spec.json",
+            "setupFile": "libs/frontend/dashboard/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "frontend-todos-feature-shell": {
+      "projectType": "library",
+      "root": "libs/frontend/todos/feature-shell",
+      "sourceRoot": "libs/frontend/todos/feature-shell/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/todos/feature-shell/tsconfig.lib.json",
+              "libs/frontend/todos/feature-shell/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/todos/feature-shell/jest.config.js",
+            "tsConfig": "libs/frontend/todos/feature-shell/tsconfig.spec.json",
+            "setupFile": "libs/frontend/todos/feature-shell/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

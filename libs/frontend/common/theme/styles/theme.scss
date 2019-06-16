@@ -1,0 +1,274 @@
+// For more information on angular material hemming, visit the below link
+// https://material.angular.io/guide/theming
+
+:root {
+  --light-primary-color: #ff5722;
+  --light-accent-color: #009688;
+  --dark-primary-color: #ff3460;
+  --dark-accent-color: #00c782;
+}
+
+// Angular Theme
+@import '~@angular/material/theming';
+
+// https://github.com/angular/material2/blob/master/src/lib/core/theming/_palette.scss
+/* 
+ The below hard-coded colors have been taken from the source code below.
+ https://github.com/angular/material2/blob/master/src/lib/core/theming/_palette.scss
+
+ Normally you do not need to redeclare all these variables, however to change any of them
+ (i.e the disabled form field text then you need to redeclare them
+
+ Un comment below to access / modify the colors
+*/
+
+// $dark-primary-text: rgba(black, 0.87);
+// $dark-secondary-text: rgba(black, 0.54);
+// $dark-disabled-text: rgba(black, 0.38);
+// $dark-dividers: rgba(black, 0.12);
+// $dark-focused: rgba(black, 0.12);
+// $light-primary-text: white;
+// $light-secondary-text: rgba(white, 0.7);
+// $light-disabled-text: rgba(white, 0.5);
+// $light-dividers: rgba(white, 0.12);
+// $light-focused: rgba(white, 0.12);
+
+// // Foreground palette for light themes.
+// $mat-light-theme-foreground: (
+//   base: black,
+//   divider: $dark-dividers,
+//   dividers: $dark-dividers,
+//   disabled: $dark-disabled-text,
+//   disabled-button: rgba(black, 0.26),
+//   disabled-text: $dark-disabled-text,
+//   elevation: black,
+//   hint-text: $dark-disabled-text,
+//   secondary-text: $dark-secondary-text,
+//   icon: rgba(black, 0.54),
+//   icons: rgba(black, 0.54),
+//   text: rgba(black, 0.87),
+//   slider-min: rgba(black, 0.87),
+//   slider-off: rgba(black, 0.26),
+//   slider-off-active: rgba(black, 0.38)
+// );
+
+// // Foreground palette for dark themes.
+// $mat-dark-theme-foreground: (
+//   base: white,
+//   divider: $light-dividers,
+//   dividers: $light-dividers,
+//   disabled: $light-disabled-text,
+//   disabled-button: rgba(white, 0.3),
+//   disabled-text: $light-disabled-text,
+//   elevation: black,
+//   hint-text: $light-disabled-text,
+//   secondary-text: $light-secondary-text,
+//   icon: white,
+//   icons: white,
+//   text: white,
+//   slider-min: white,
+//   slider-off: rgba(white, 0.3),
+//   slider-off-active: rgba(white, 0.3)
+// );
+
+$light-primary-pallet: (
+  50: #ffebe4,
+  100: #ffcdbd,
+  200: #ffab91,
+  300: #ff8964,
+  400: #ff7043,
+  500: var(--light-primary-color),
+  600: #ff4f1e,
+  700: #ff4619,
+  800: #ff3c14,
+  900: #ff2c0c,
+  A100: #ffffff,
+  A200: #fff7f6,
+  A400: #ffc9c3,
+  A700: #ffb2a9,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+$light-accent-pallet: (
+  50: #e0f2f1,
+  100: #b3e0db,
+  200: #80cbc4,
+  300: #4db6ac,
+  400: #26a69a,
+  500: var(--light-accent-color),
+  600: #008e80,
+  700: #008375,
+  800: #00796b,
+  900: #006858,
+  A100: #97ffec,
+  A200: #64ffe3,
+  A400: #31ffda,
+  A700: #18ffd5,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+$dark-primary-pallet: (
+  50: #ffe6ec,
+  100: #ffbfcf,
+  200: #ff96b0,
+  300: #ff6b90,
+  400: #ff4c77,
+  500: var(--dark-primary-color),
+  600: #ee2e5d,
+  700: #d8285a,
+  800: #c32257,
+  900: #9f1652,
+  A100: #ffffff,
+  A200: #ffffff,
+  A400: #ffcdd7,
+  A700: #ffb3c3,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+$dark-accent-pallet: (
+  50: #dafff4,
+  100: #a1ffe3,
+  200: #34ffd2,
+  300: #00fcbf,
+  400: #00f4b0,
+  500: var(--dark-accent-color),
+  600: #00dc93,
+  700: #00c782,
+  800: #00b574,
+  900: #009259,
+  A100: #a7ffeb,
+  A200: #64ffda,
+  A400: #1de9b6,
+  A700: #00bfa5,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+$light-background: (
+  50: #fafafa,
+  100: #f5f5f5,
+  200: #eeeeee,
+  300: #e0e0e0,
+  400: #bdbdbd,
+  500: #9e9e9e,
+  600: #757575,
+  700: #616161,
+  800: #424242,
+  900: #212121,
+  A100: #82b1ff,
+  A200: #448aff,
+  A400: #2979ff,
+  A700: #2962ff,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+$dark-background: (
+  50: #fafafa,
+  100: #f5f5f5,
+  200: #eeeeee,
+  300: #e0e0e0,
+  400: #bdbdbd,
+  500: #9e9e9e,
+  600: #757575,
+  700: #616161,
+  800: #424242,
+  900: #212121,
+  A100: #82b1ff,
+  A200: #448aff,
+  A400: #2979ff,
+  A700: #2962ff,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+// --------------------------------------------------------------------
+$app-primary: mat-palette($light-primary-pallet);
+$app-accent: mat-palette($light-accent-pallet);
+$app-theme: mat-light-theme($app-primary, $app-accent);
+// --------------------------------------------------------------------
+$dark-primary: mat-palette($dark-primary-pallet);
+$dark-accent: mat-palette($dark-accent-pallet);
+$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);

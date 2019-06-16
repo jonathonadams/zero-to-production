@@ -4,14 +4,19 @@ import { RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonUiSideNavComponent } from './common-ui-side-nav.component';
+import { CommonUiSideNavService } from './common-ui-side-nav.service';
 
 @NgModule({
+  declarations: [CommonUiSideNavComponent],
   imports: [
     CommonModule,
     RouterModule,
     MatSidenavModule,
     MatListModule,
     MatIconModule
-  ]
+  ],
+  providers: [CommonUiSideNavService],
+  exports: [CommonUiSideNavComponent]
 })
 export class CommonUiSideNavModule {}

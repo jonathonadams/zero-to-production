@@ -12,5 +12,5 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonUiToolbarComponent {
-  @Output() toggleNavigation = new EventEmitter<void>();
+  @Output() navToggle = new EventEmitter<void>();
 }

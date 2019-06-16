@@ -8,11 +8,11 @@ import {
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthFacade } from '../+state/auth.facade';
-import { AuthService } from '../services/auth.service';
+import { JWTAuthService } from '../services/jwt-auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private auth: AuthService, private facade: AuthFacade) {}
+  constructor(private auth: JWTAuthService, private facade: AuthFacade) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // Get the auth token from the service.

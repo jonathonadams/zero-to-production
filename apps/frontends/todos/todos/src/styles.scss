@@ -1,4 +1,30 @@
+// css reset
+// @import '~reset-css/reset.css';
+// Angular Material Themeing Mixins
+@import '~@angular/material/theming';
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+// import the theming file
+@import 'libs/frontend/common/theme/styles/theme.scss';
+@include angular-material-theme($app-theme);
+.dark-theme {
+  @include angular-material-theme($dark-theme);
+}
+
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body,
+todo-root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+// ------------------------------------------------
+// Insert additional styles here
+// ------------------------------------------------

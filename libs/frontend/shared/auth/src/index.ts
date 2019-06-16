@@ -1,4 +1,4 @@
-export { SharedAuthModule } from './lib/frontend-shared-auth.module';
+export { SharedAuthModule } from './lib/shared-auth.module';
 export * from './lib/+state/auth.actions';
 export { AuthEffects } from './lib/+state/auth.effects';
 export { AuthGuard } from './lib/guards/auth.guard';

@@ -8,4 +8,4 @@ export interface AppState {}
 // "no-empty-interface": false,
 
 // A map of all the reducers
-export const reducers: ActionReducerMap<AppState> = {};
+export const appReducers: ActionReducerMap<AppState> = {};

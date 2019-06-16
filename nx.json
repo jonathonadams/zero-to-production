@@ -52,6 +52,15 @@
     },
     "frontend-data-access-users": {
       "tags": []
+    },
+    "frontend-common-theme": {
+      "tags": []
+    },
+    "frontend-dashboard": {
+      "tags": []
+    },
+    "frontend-todos-feature-shell": {
+      "tags": []
     }
   }
 }

@@ -1,5 +1,5 @@
 import { async, TestBed } from '@angular/core/testing';
-import { SharedAuthModule } from './frontend-shared-auth.module';
+import { SharedAuthModule } from './shared-auth.module';
 
 describe('SharedAuthModule', () => {
   beforeEach(async(() => {

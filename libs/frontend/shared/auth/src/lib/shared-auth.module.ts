@@ -1,5 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { CommonLoginComponent } from './login/login.component';
 import { UiLoginComponent } from './login/ui/ui-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -12,7 +13,7 @@ import { AuthFacade } from './+state/auth.facade';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { LoggedInGuard } from './guards/logged-in.guard';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { JWTAuthService } from './services/jwt-auth.service';
 

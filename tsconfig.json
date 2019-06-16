@@ -49,6 +49,13 @@
       "@workspace/shared/utils/auth": ["libs/shared/utils/auth/src/index.ts"],
       "@workspace/frontend/data-access/users": [
         "libs/frontend/data-access/users/src/index.ts"
+      ],
+      "@workspace/frontend/common/theme": [
+        "libs/frontend/common/theme/src/index.ts"
+      ],
+      "@workspace/frontend/dashboard": ["libs/frontend/dashboard/src/index.ts"],
+      "@workspace/frontend/todos/feature-shell": [
+        "libs/frontend/todos/feature-shell/src/index.ts"
       ]
     }
   },

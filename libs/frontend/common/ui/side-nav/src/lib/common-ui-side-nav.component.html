@@ -1,6 +1,11 @@
 <mat-sidenav-container hasBackdrop="true">
-  <mat-sidenav mode="over" class="mat-elevation-z6">
-    <mat-nav-list>
+  <mat-sidenav
+    [opened]="opened$ | async"
+    (openedChange)="setValue($event)"
+    class="mat-elevation-z6"
+  >
+    <p>Inside sidenave</p>
+    <!-- <mat-nav-list>
       <mat-list-item
         *ngFor="let link of navLinks"
         mat-button
@@ -10,7 +15,7 @@
         <mat-icon>{{ link.icon }}</mat-icon
         >&nbsp;&nbsp;<a class="nav-link">{{ link.label }}</a>
       </mat-list-item>
-    </mat-nav-list>
+    </mat-nav-list> -->
   </mat-sidenav>
 
   <mat-sidenav-content>

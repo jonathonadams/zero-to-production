@@ -10,8 +10,8 @@ import { FormGroup } from '@angular/forms';
 
 /**
  * The login page is themed by the light/dark theme, hence
- * ViewEncapsulation is set to None as them theme class
- * is a the router level
+ * ViewEncapsulation is set to None as the theme class
+ * is at the router level
  */
 @Component({
   selector: 'todo-common-ui-login',

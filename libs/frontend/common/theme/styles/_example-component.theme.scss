@@ -1,0 +1,46 @@
+@import '~@angular/material/theming';
+
+// Create a _component.theme.scss file and create a
+// custom mixin to be included in the component scss file like the below
+// The mixin accepts a material theme pallet like the below
+// Extract the desired colour and add then use them in the appropriate css selector
+@mixin my-custom-component-mixin($theme) {
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  :host {
+    background-color: mat-color($background, background);
+  }
+
+  .login-input {
+    background-color: mat-color($background, card);
+  }
+}
+
+// https://blog.thoughtram.io/angular/2017/05/23/custom-themes-with-angular-material.html
+// https://github.com/angular/material2/issues/9069
+// https://github.com/angular/material2/blob/master/src/lib/core/theming/_palette.scss#L666-L679
+
+// Below is an example of the opacities you can use in the mat-color mixin
+// divider
+// dialog
+// hover
+// card
+// can also use some predefined opacity, i.e A400
+// darker
+// lighter
+// background
+// text
+
+// Then in your component scss file you can do something like this.
+
+// Top level styles are applied by doing the below @include
+@include my-custom-component-mixin($app-theme);
+
+// Different styles may be applied by nesting the mixing inside of
+// additional css selectors
+.dark-theme {
+  @include my-custom-component-mixin($dark-theme);
+}
