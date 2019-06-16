@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UsersReducer DeleteSuccess action should delete the existing user state 1`] = `
+Object {
+  "entities": Object {},
+  "ids": Array [],
+  "selectedUserId": null,
+}
+`;
+
+exports[`UsersReducer LoadSuccess action should add the user to the user state 1`] = `
+Object {
+  "authUserId": null,
+  "entities": Object {
+    "2": Object {
+      "emailAddress": "some@emailAddress.com",
+      "id": "2",
+      "username": "someUser",
+    },
+  },
+  "ids": Array [
+    "2",
+  ],
+  "selectedUserId": null,
+}
+`;
+
+exports[`UsersReducer UpdateSuccess action should update the existing user state 1`] = `
+Object {
+  "entities": Object {
+    "1": Object {
+      "emailAddress": "some@emailAddress.com",
+      "id": "1",
+      "username": "updatedName",
+    },
+  },
+  "ids": Array [
+    "1",
+  ],
+  "selectedUserId": null,
+}
+`;
+
+exports[`UsersReducer undefined action should return the default state 1`] = `
+Object {
+  "authUserId": null,
+  "entities": Object {},
+  "ids": Array [],
+  "selectedUserId": null,
+}
+`;

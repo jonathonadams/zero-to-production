@@ -49,6 +49,9 @@
     },
     "shared-utils-auth": {
       "tags": []
+    },
+    "frontend-data-access-users": {
+      "tags": []
     }
   }
 }

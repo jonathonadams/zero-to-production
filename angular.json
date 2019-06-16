@@ -446,6 +446,33 @@
           }
         }
       }
+    },
+    "frontend-data-access-users": {
+      "projectType": "library",
+      "root": "libs/frontend/data-access/users",
+      "sourceRoot": "libs/frontend/data-access/users/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/data-access/users/tsconfig.lib.json",
+              "libs/frontend/data-access/users/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/data-access/users/jest.config.js",
+            "tsConfig": "libs/frontend/data-access/users/tsconfig.spec.json",
+            "setupFile": "libs/frontend/data-access/users/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {
