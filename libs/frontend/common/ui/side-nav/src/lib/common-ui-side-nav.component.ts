@@ -1,5 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ISideNaveLink } from '@workspace/shared/data';
 import { CommonUiSideNavService } from './common-ui-side-nav.service';
 
 @Component({
@@ -9,9 +10,7 @@ import { CommonUiSideNavService } from './common-ui-side-nav.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonUiSideNavComponent {
-  @Input() navLinks:
-    | { path: string; icon: string; label: string }[]
-    | undefined;
+  @Input() navLinks: ISideNaveLink[] | undefined;
 
   public opened$: Observable<boolean>;
 

@@ -13,7 +13,7 @@ import { TodoFilterStatus } from '@workspace/shared/enums';
 
 @Injectable()
 export class TodosFacade {
-  filteredTodo$: Observable<Todo[] | []>;
+  filteredTodo$: Observable<Todo[]>;
   selectedTodo$: Observable<Todo | undefined>;
   allTodoFilter$: Observable<TodoFilterStatus>;
   todoIds$: Observable<string[] | number[]>;
@@ -34,7 +34,7 @@ export class TodosFacade {
   }
 
   public clearSelected(): void {
-    this.store.dispatch(TodoActions.loadTodos());
+    this.store.dispatch(TodoActions.clearSelected());
   }
 
   public statusChange(status: TodoFilterStatus) {

@@ -3,6 +3,7 @@ import { catchError, map, exhaustMap, mergeMap } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as TodoActions from './todos.actions';
 import { TodosService } from '../todos.service';
+import { of } from 'rxjs';
 
 // Note: when merging observable from multiple sources there are 4x operators tha can be uses
 // exhaustMap, mergeMap, switchMap and concatMap
@@ -36,8 +37,8 @@ export class TodoEffects {
               todos: result.data.allTodos
             });
           }
-        })
-        // catchError(error => of(new LoadTodosFail(error)))
+        }),
+        catchError(error => of(TodoActions.loadTodosFail(error)))
       )
     )
   );
@@ -55,7 +56,8 @@ export class TodoEffects {
               todo: result.data.newTodo
             });
           }
-        })
+        }),
+        catchError(error => of(TodoActions.createTodoFail(error)))
       )
     )
   );
@@ -73,7 +75,8 @@ export class TodoEffects {
               todo: { id: todo.id, changes: result.data.updateTodo }
             });
           }
-        })
+        }),
+        catchError(error => of(TodoActions.updateTodoFail(error)))
       )
     )
   );
@@ -89,7 +92,8 @@ export class TodoEffects {
           } else if (result.data) {
             return TodoActions.deleteTodoSuccess({ id: todo.id });
           }
-        })
+        }),
+        catchError(error => of(TodoActions.deleteTodoFail(error)))
       )
     )
   );

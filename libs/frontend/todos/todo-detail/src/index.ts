@@ -1,1 +1,1 @@
-export * from './lib/frontend-todos-todo-detail.module';
+export { TodosDetailModule } from './lib/todo-detail.module';

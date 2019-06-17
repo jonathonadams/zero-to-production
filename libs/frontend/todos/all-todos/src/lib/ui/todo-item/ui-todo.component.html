@@ -1,0 +1,19 @@
+<mat-card (click)="selected.emit(todo)">
+  <mat-card-subtitle>{{ todo.title }}</mat-card-subtitle>
+  <mat-card-content>
+    <span>{{ todo.description }}</span>
+    <mat-slide-toggle
+      [checked]="todo.completed"
+      (click)="$event.stopPropagation()"
+      (change)="update.emit({ todo: todo, completed: $event.checked })"
+      >Completed</mat-slide-toggle
+    >
+  </mat-card-content>
+  <mat-card-actions fxLayoutAlign="end">
+    <mat-icon
+      class="button"
+      (click)="delete.emit(todo); $event.stopPropagation()"
+      >delete</mat-icon
+    >
+  </mat-card-actions>
+</mat-card>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
+import { TodoLayoutComponent } from './todos-layout.component';
 
 export const TODOS_ROUTES: Routes = [
   {
@@ -11,6 +12,10 @@ export const TODOS_ROUTES: Routes = [
         path: 'home',
         loadChildren: () =>
           import('@workspace/frontend/dashboard').then(m => m.DashboardModule)
+      },
+      {
+        path: 'todos',
+        component: TodoLayoutComponent
       }
     ]
   }

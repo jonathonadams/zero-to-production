@@ -2,7 +2,7 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as TodoActions from './todos.actions';
 import { Todo } from '@workspace/shared/data';
 import { TodoFilterStatus } from '@workspace/shared/enums';
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 
 // 1. define the entity state
 export interface TodosEntityState extends EntityState<Todo> {
@@ -49,3 +49,7 @@ export const todosReducer = createReducer(
     return adapter.removeOne(id, state);
   })
 );
+
+export function reducer(state: TodosEntityState | undefined, action: Action) {
+  return todosReducer(state, action);
+}

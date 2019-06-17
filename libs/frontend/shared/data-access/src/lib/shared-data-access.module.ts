@@ -12,7 +12,11 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class SharedDataAccessModule {
   static forRoot(
-    { graphQLUrl = 'graphql', apiBaseUrl = 'api' } = {} as any
+    {
+      graphQLUrl = 'graphql',
+      apiBaseUrl = 'api',
+      production = true
+    } = {} as any
   ): ModuleWithProviders {
     return {
       ngModule: SharedDataAccessModule,
@@ -22,7 +26,7 @@ export class SharedDataAccessModule {
         {
           provide: APOLLO_OPTIONS,
           useFactory: createApollo,
-          deps: [HttpLink, 'graphQLUrl']
+          deps: [HttpLink, 'graphQLUrl', production]
         },
         {
           provide: 'graphQLUrl',
@@ -31,6 +35,10 @@ export class SharedDataAccessModule {
         {
           provide: 'apiBaseUrl',
           useValue: apiBaseUrl
+        },
+        {
+          provide: production,
+          useValue: production
         }
       ]
     };

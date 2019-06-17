@@ -1,0 +1,6 @@
+<ui-todo-detail
+  [selectedTodo]="selectedTodo$ | async"
+  [todoForm]="todoForm"
+  (onSubmit)="onSubmit($event)"
+  (cancelled)="clearTodo()"
+></ui-todo-detail>

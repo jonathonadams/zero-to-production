@@ -31,10 +31,11 @@ export class TodosService {
 
   public createTodo(todo: Todo): Observable<FetchResult<{ newTodo: Todo }>> {
     // Set the user id of the current JWT id
-    todo.user = (this.auth.getDecodedToken() as DecodedJWT).sub;
+    const userId = (this.auth.getDecodedToken() as DecodedJWT).sub;
+    const newTodo: Todo = { ...todo, user: userId };
     // set the completed state to false
-    todo.completed = false;
-    const variables = { input: todo };
+    // todo.completed = false;
+    const variables = { input: newTodo };
 
     return this.graphQl.mutation<{ newTodo: Todo }>(
       CREATE_TODO_QUERY,
