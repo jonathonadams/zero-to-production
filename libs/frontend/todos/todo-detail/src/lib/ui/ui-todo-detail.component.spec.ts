@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiTodoDetailComponent } from './ui-todo-detail.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('UiTodoDetailComponent', () => {
   let component: UiTodoDetailComponent;
@@ -8,7 +9,8 @@ describe('UiTodoDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [UiTodoDetailComponent]
+      declarations: [UiTodoDetailComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 

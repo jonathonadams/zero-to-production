@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiFilterTodosComponent } from './ui-filter-todos.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('UiFilterTodosComponent', () => {
   let component: UiFilterTodosComponent;
@@ -8,7 +9,8 @@ describe('UiFilterTodosComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [UiFilterTodosComponent]
+      declarations: [UiFilterTodosComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 

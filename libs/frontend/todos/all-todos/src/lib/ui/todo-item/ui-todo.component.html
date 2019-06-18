@@ -1,9 +1,9 @@
 <mat-card (click)="selected.emit(todo)">
-  <mat-card-subtitle>{{ todo.title }}</mat-card-subtitle>
+  <mat-card-subtitle>{{ todo?.title }}</mat-card-subtitle>
   <mat-card-content>
-    <span>{{ todo.description }}</span>
+    <span>{{ todo?.description }}</span>
     <mat-slide-toggle
-      [checked]="todo.completed"
+      [checked]="todo?.completed"
       (click)="$event.stopPropagation()"
       (change)="update.emit({ todo: todo, completed: $event.checked })"
       >Completed</mat-slide-toggle

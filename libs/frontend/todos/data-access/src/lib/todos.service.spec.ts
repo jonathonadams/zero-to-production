@@ -75,7 +75,8 @@ describe('TodoService', () => {
       const originalTodo: Todo = {
         user: '1',
         title: 'some title',
-        description: 'some description'
+        description: 'some description',
+        completed: false
       } as Todo;
 
       const sentTodo = {

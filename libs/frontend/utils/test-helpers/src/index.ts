@@ -8,6 +8,5 @@ export {
   createSpyObj,
   ButtonClickEvents,
   click,
-  storeStub,
-  authServiceStub
+  storeStub
 } from './lib/helper-functions';
