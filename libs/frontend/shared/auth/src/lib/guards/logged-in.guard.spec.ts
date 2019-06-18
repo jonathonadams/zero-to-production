@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { LoggedInGuard } from './logged-in.guard';
 import { AuthService } from '../services/auth.service';
-import { authServiceStub } from '@workspace/frontend/utils/test-helpers';
 import { AuthFacade } from '../+state/auth.facade';
 
 describe('LoggedInGuard', () => {

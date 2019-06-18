@@ -16,6 +16,11 @@ export const TODOS_ROUTES: Routes = [
       {
         path: 'todos',
         component: TodoLayoutComponent
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'home'
       }
     ]
   }

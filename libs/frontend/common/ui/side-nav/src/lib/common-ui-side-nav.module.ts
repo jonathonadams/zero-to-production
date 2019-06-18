@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { CommonUiSideNavComponent } from './common-ui-side-nav.component';
 import { CommonUiSideNavService } from './common-ui-side-nav.service';
 
@@ -14,7 +15,8 @@ import { CommonUiSideNavService } from './common-ui-side-nav.service';
     RouterModule,
     MatSidenavModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [CommonUiSideNavService],
   exports: [CommonUiSideNavComponent]

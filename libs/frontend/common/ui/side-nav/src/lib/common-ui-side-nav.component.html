@@ -7,12 +7,13 @@
     <mat-nav-list>
       <mat-list-item
         *ngFor="let link of navLinks"
-        mat-button
         [routerLink]="link.path"
         routerLinkActive="active"
       >
-        <mat-icon>{{ link.icon }}</mat-icon
-        >&nbsp;&nbsp;<a class="nav-link">{{ link.label }}</a>
+        <a matLine>{{ link.label }}</a>
+        <button mat-icon-button>
+          <mat-icon>{{ link.icon }}</mat-icon>
+        </button>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
