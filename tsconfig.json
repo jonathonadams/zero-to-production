@@ -65,6 +65,9 @@
       ],
       "@workspace/frontend/todos/all-todos": [
         "libs/frontend/todos/all-todos/src/index.ts"
+      ],
+      "@workspace/frontend/data-access/user-auth": [
+        "libs/frontend/data-access/user-auth/src/index.ts"
       ]
     }
   },

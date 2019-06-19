@@ -9,16 +9,22 @@ import {
   UpdateUser,
   DeleteUser
 } from './users.actions';
-import { selectAllUsers, selectCurrentUser } from './users.reducer';
+import {
+  selectAllUsers,
+  selectCurrentUser,
+  selectUserEntities
+} from './users.reducer';
 
 @Injectable()
 export class UsersFacade {
-  public user$: Observable<User[]>;
-  public selectedUser$: Observable<User | undefined>;
+  user$: Observable<User[]>;
+  selectedUser$: Observable<User | undefined>;
+  userEntities$: Observable<any>;
 
   constructor(private store: Store<any>) {
     this.user$ = this.store.pipe(select(selectAllUsers));
     this.selectedUser$ = this.store.pipe(select(selectCurrentUser));
+    this.userEntities$ = this.store.pipe(select(selectUserEntities));
   }
 
   loadUsers() {

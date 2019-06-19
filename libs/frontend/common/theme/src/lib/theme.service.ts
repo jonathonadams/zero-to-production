@@ -1,11 +1,10 @@
 import { Injectable, OnDestroy, Inject } from '@angular/core';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { filter, distinctUntilChanged } from 'rxjs/operators';
-// import { AuthUsersFacade } from 'libs/common/data-access/user-auth/src/lib/services/users.facade';
 import { DOCUMENT } from '@angular/common';
-
-// TODO -> Abstract this away from users
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { filter, distinctUntilChanged } from 'rxjs/operators';
+import { AuthUserFacade } from '@workspace/frontend/data-access/user-auth';
+import { User } from '@workspace/shared/data';
 
 @Injectable()
 export class ThemeService implements OnDestroy {
@@ -17,12 +16,12 @@ export class ThemeService implements OnDestroy {
   public darkTheme$: Observable<boolean> = this.darkTheme.asObservable();
 
   private subscription: Subscription;
-  // private userSubscription: Subscription;
+  private userSubscription: Subscription;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    overlayContainer: OverlayContainer
-    // private facade: AuthUsersFacade
+    overlayContainer: OverlayContainer,
+    private facade: AuthUserFacade
   ) {
     /**
      * listen to the changes of the theme service and add
@@ -34,12 +33,15 @@ export class ThemeService implements OnDestroy {
         : overlayContainer.getContainerElement().classList.remove('dark-theme');
     });
 
-    // this.userSubscription = this.facade.authUser$
-    //   .pipe(
-    //     filter(user => user !== undefined),
-    //     distinctUntilChanged()
-    //   )
-    //   .subscribe(user => this.darkTheme.next(user.settings.darkMode));
+    this.userSubscription = (this.facade.authUser$ as Observable<User>)
+      .pipe(
+        filter(user => user !== undefined),
+        distinctUntilChanged()
+      )
+      .subscribe(user => {
+        this.darkTheme.next(user.settings.darkMode);
+        this.setThemeColors(user.settings.colors);
+      });
   }
 
   public setThemeColors({
@@ -66,6 +68,6 @@ export class ThemeService implements OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    // this.userSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 }

@@ -1,25 +1,26 @@
-// import { TestBed } from '@angular/core/testing';
-// import { of } from 'rxjs';
-// import { ThemeService } from './theme.service';
-// import { AuthFacade } from 'libs/shared/data-access/auth/src/public-api';
+import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
+import { AuthUserFacade } from '@workspace/frontend/data-access/user-auth';
+import { ThemeService } from './theme.service';
 
-// describe('ThemeService', () => {
-//   let themeService: ThemeService;
-//   let authFacade: AuthFacade;
-//   const authSpy = { authenticatedUser$: of(jest.fn()) };
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       providers: [ThemeService, { provide: AuthFacade, useValue: authSpy }]
-//     });
-//     themeService = TestBed.get(ThemeService);
-//     authFacade = TestBed.get(AuthFacade);
-//   });
+describe('ThemeService', () => {
+  let themeService: ThemeService;
+  let authFacade: AuthUserFacade;
+  const authSpy = { authUser$: of(jest.fn()) };
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        ThemeService,
+        { provide: AuthUserFacade, useValue: authSpy },
+        { provide: DOCUMENT, useValue: {} }
+      ]
+    });
+    themeService = TestBed.get<ThemeService>(ThemeService);
+    authFacade = TestBed.get<AuthUserFacade>(AuthUserFacade);
+  });
 
-//   it('should be created', () => {
-//     expect(themeService).toBeTruthy();
-//   });
-// });
-
-it('should be true', () => {
-  expect(true).toBe(true);
+  it('should be created', () => {
+    expect(themeService).toBeTruthy();
+  });
 });
