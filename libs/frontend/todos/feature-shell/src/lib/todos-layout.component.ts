@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'todos-layout',
+  selector: 'todo-layout',
   templateUrl: './todos-layout.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

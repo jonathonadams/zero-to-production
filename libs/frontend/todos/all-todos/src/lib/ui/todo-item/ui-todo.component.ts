@@ -8,7 +8,7 @@ import {
 import { Todo } from '@workspace/shared/data';
 
 @Component({
-  selector: 'ui-todo-item',
+  selector: 'todo-ui-todo-item',
   templateUrl: './ui-todo.component.html',
   styleUrls: ['./ui-todo.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

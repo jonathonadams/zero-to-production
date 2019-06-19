@@ -13,7 +13,7 @@ import { TodosFacade } from '@workspace/frontend/todos/data-access';
 import { UiFilterTodosComponent } from './ui/filter-todos/ui-filter-todos.component';
 
 @Component({
-  selector: 'all-todos',
+  selector: 'todo-all-todos',
   templateUrl: './all-todos.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

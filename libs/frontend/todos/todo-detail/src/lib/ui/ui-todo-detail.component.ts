@@ -10,7 +10,7 @@ import { FormGroupDirective, FormGroup } from '@angular/forms';
 import { Todo } from '@workspace/shared/data';
 
 @Component({
-  selector: 'ui-todo-detail',
+  selector: 'todo-ui-todo-detail',
   templateUrl: './ui-todo-detail.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -23,7 +23,7 @@ export class UiTodoDetailComponent {
   @Input() todoForm!: FormGroup;
   @Input() selectedTodo: Todo | undefined;
   @Output()
-  onSubmit = new EventEmitter<FormGroup>();
+  formSubmit = new EventEmitter<FormGroup>();
   @Output()
   cancelled = new EventEmitter<void>();
 }

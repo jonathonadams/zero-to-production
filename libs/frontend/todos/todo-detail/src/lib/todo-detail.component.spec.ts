@@ -15,7 +15,10 @@ describe('TodoDetailComponent', () => {
   let todoFacade: TodosFacade;
   let activatedRoute: ActivatedRoute;
   let location: Location;
-  let todoFacadeSpy = { selectedTodo$: of(jest.fn()), todoIds$: of(jest.fn()) };
+  const todoFacadeSpy = {
+    selectedTodo$: of(jest.fn()),
+    todoIds$: of(jest.fn())
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

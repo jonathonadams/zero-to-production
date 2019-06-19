@@ -31,9 +31,9 @@ describe('TodoEffects', () => {
         provideMockActions(() => action$)
       ]
     });
-    effects = TestBed.get(TodoEffects);
-    action$ = TestBed.get(Actions);
-    todoService = TestBed.get(TodosService);
+    effects = TestBed.get<TodoEffects>(TodoEffects);
+    action$ = TestBed.get<Actions>(Actions);
+    todoService = TestBed.get<TodosService>(TodosService);
     mockTodo = {
       id: '1',
       user: '1',

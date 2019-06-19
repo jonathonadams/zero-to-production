@@ -15,7 +15,7 @@ import { debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
 import { TodoFilterStatus } from '@workspace/shared/enums';
 
 @Component({
-  selector: 'ui-filter-todos',
+  selector: 'todo-ui-filter-todos',
   templateUrl: './ui-filter-todos.component.html',
   styleUrls: ['./ui-filter-todos.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

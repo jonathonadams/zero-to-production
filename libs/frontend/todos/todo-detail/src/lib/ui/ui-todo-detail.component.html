@@ -1,5 +1,5 @@
 <mat-card>
-  <form [formGroup]="todoForm" (ngSubmit)="onSubmit.emit(todoForm)">
+  <form [formGroup]="todoForm" (ngSubmit)="formSubmit.emit(todoForm)">
     <mat-card-title>{{ selectedTodo ? 'Edit' : 'Create' }} Todo</mat-card-title>
     <mat-card-subtitle>
       <mat-form-field appearance="standard">

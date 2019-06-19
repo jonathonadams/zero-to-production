@@ -49,10 +49,10 @@ export class TodoDetailComponent implements OnDestroy {
       });
 
     this.subscription.add(
-      combineLatest(
+      combineLatest([
         this.route.paramMap.pipe(map(paramMap => paramMap.get('id'))),
         this.facade.todoIds$
-      ).subscribe(([id, ids]) => {
+      ]).subscribe(([id, ids]) => {
         if (id !== null && (ids as string[]).indexOf(id) !== -1) {
           this.facade.selectTodo(id);
         } else {

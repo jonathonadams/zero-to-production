@@ -68,7 +68,7 @@ describe('TodoReducer', () => {
 
   describe('CreateSuccess', () => {
     it('should add a todo to the todo state', () => {
-      const todo = {
+      const newTodo = {
         id: '2',
         user: '1',
         title: 'another title',
@@ -76,7 +76,7 @@ describe('TodoReducer', () => {
         completed: false
       };
 
-      const action = TodoActions.createTodoSuccess({ todo });
+      const action = TodoActions.createTodoSuccess({ todo: newTodo });
       const result = todosReducer(initialState, action);
       expect(result).toMatchSnapshot();
     });

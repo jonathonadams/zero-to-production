@@ -9,7 +9,10 @@ describe('AllTodosComponent', () => {
   let fixture: ComponentFixture<AllTodosComponent>;
 
   let todosFacade: TodosFacade;
-  let todosFacadeSpy = { filteredTodo$: jest.fn(), allTodoFilter$: jest.fn() };
+  const todosFacadeSpy = {
+    filteredTodo$: jest.fn(),
+    allTodoFilter$: jest.fn()
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
