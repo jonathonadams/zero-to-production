@@ -13,14 +13,14 @@ import { AppState, appReducers } from './app.state';
 
 import { SharedAuthModule } from '@workspace/frontend/shared/auth';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { DataAccessUsersModule } from '@workspace/frontend/data-access/users';
+import { DataAccessUserAuthModule } from '@workspace/frontend/data-access/user-auth';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    SharedDataAccessModule.forRoot(environment),
-    AppRoutingModule.forRoot(),
     StoreModule.forRoot<AppState>(appReducers, {
       metaReducers: [debug],
       runtimeChecks: {
@@ -32,11 +32,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     }),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    SharedDataAccessModule.forRoot(environment),
     SharedAuthModule.forRoot(),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production
-    })
+    DataAccessUserAuthModule,
+    DataAccessUsersModule,
+    AppRoutingModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

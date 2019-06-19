@@ -1,6 +1,11 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CommonLoginComponent } from '@workspace/frontend/shared/auth';
+import {
+  CommonLoginComponent,
+  AuthGuard,
+  LoggedInGuard
+} from '@workspace/frontend/shared/auth';
+import { AuthUsersResolver } from '@workspace/frontend/data-access/user-auth';
 
 const ROUTES: Routes = [
   {
@@ -8,9 +13,18 @@ const ROUTES: Routes = [
     loadChildren: () =>
       import('@workspace/frontend/todos/feature-shell').then(
         m => m.TodosFeatureShellModule
-      )
+      ),
+    canActivate: [AuthGuard],
+    resolve: {
+      user: AuthUsersResolver
+    }
   },
-  { path: 'login', pathMatch: 'full', component: CommonLoginComponent }
+  {
+    path: 'login',
+    pathMatch: 'full',
+    component: CommonLoginComponent
+    // canActivate: [LoggedInGuard]
+  }
 ];
 
 @NgModule({

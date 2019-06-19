@@ -1,0 +1,22 @@
+@import 'libs/frontend/common/theme/styles/theme.scss';
+@import 'ui-drop-down-menu.theme';
+
+// Light theme
+@include drop-down-menu-theme($app-theme);
+
+// Dark theme
+.dark-theme {
+  @include drop-down-menu-theme($dark-theme);
+}
+
+.drop-down-menu-overlay-container {
+  border-radius: 0.2em;
+}
+
+.drop-down-user-profile {
+  cursor: pointer;
+}
+
+.drop-down-logout-button {
+  width: 100%;
+}

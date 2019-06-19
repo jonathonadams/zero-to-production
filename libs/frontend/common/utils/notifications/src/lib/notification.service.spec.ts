@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { NotificationService } from './notification.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { createSpyObj } from '@workspace/frontend/utils/test-helpers';
 
 describe('NotificationService', () => {

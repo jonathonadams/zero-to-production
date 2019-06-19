@@ -668,6 +668,68 @@
           "styleext": "scss"
         }
       }
+    },
+    "frontend-common-ui-layouts": {
+      "projectType": "library",
+      "root": "libs/frontend/common/ui/layouts",
+      "sourceRoot": "libs/frontend/common/ui/layouts/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/common/ui/layouts/tsconfig.lib.json",
+              "libs/frontend/common/ui/layouts/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/common/ui/layouts/jest.config.js",
+            "tsConfig": "libs/frontend/common/ui/layouts/tsconfig.spec.json",
+            "setupFile": "libs/frontend/common/ui/layouts/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "frontend-data-access-floating-menu": {
+      "projectType": "library",
+      "root": "libs/frontend/data-access/floating-menu",
+      "sourceRoot": "libs/frontend/data-access/floating-menu/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/data-access/floating-menu/tsconfig.lib.json",
+              "libs/frontend/data-access/floating-menu/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/data-access/floating-menu/jest.config.js",
+            "tsConfig": "libs/frontend/data-access/floating-menu/tsconfig.spec.json",
+            "setupFile": "libs/frontend/data-access/floating-menu/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

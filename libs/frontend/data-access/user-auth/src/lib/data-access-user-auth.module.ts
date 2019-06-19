@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
-import { UsersFacade } from '@workspace/frontend/data-access/users';
-import { AuthUsersResolver } from '..';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthUsersResolver } from './users.resolver';
 import { AuthUserSate, reducer } from './+state/users.reducer';
+import { AuthUserFacade } from './+state/users.facade';
+import { AuthUsersEffects } from './+state/users.effects';
 
 @NgModule({
-  imports: [StoreModule.forFeature<AuthUserSate>('authUser', reducer)],
-  providers: [UsersFacade, AuthUsersResolver]
+  imports: [
+    StoreModule.forFeature<AuthUserSate>('authUser', reducer),
+    EffectsModule.forFeature([AuthUsersEffects])
+  ],
+  providers: [AuthUserFacade, AuthUsersResolver]
 })
 export class DataAccessUserAuthModule {}

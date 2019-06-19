@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBarConfig, MatSnackBar } from '@angular/material';
+import { MatSnackBarConfig, MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class NotificationService {

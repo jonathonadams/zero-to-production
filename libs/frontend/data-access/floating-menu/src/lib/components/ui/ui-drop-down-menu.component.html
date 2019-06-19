@@ -1,0 +1,30 @@
+<div class="drop-down-menu-overlay-container mat-elevation-z6">
+  <mat-list role="list">
+    <mat-list-item role="listitem">
+      <h3
+        *ngIf="user"
+        (click)="navigateToProfile.emit()"
+        class="drop-down-user-profile"
+      >
+        {{ user.firstName }} {{ user.lastName }}
+      </h3></mat-list-item
+    >
+    <mat-list-item role="listitem"
+      ><mat-slide-toggle
+        (change)="toggleDarkMode.emit($event.checked)"
+        [checked]="user?.settings.darkMode"
+        >Dark Mode</mat-slide-toggle
+      ></mat-list-item
+    >
+    <mat-list-item role="listitem"
+      ><button
+        mat-button
+        class="drop-down-logout-button"
+        type="button"
+        (click)="logout.emit()"
+      >
+        Logout
+      </button></mat-list-item
+    >
+  </mat-list>
+</div>

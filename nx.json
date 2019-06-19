@@ -73,6 +73,12 @@
     },
     "frontend-data-access-user-auth": {
       "tags": []
+    },
+    "frontend-common-ui-layouts": {
+      "tags": []
+    },
+    "frontend-data-access-floating-menu": {
+      "tags": []
     }
   }
 }
