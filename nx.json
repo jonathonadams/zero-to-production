@@ -79,6 +79,9 @@
     },
     "frontend-data-access-floating-menu": {
       "tags": []
+    },
+    "backends-api": {
+      "tags": []
     }
   }
 }

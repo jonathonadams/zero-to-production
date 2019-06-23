@@ -730,6 +730,69 @@
           "styleext": "scss"
         }
       }
+    },
+    "backends-api": {
+      "root": "apps/backends/api",
+      "sourceRoot": "apps/backends/api/src",
+      "projectType": "application",
+      "prefix": "backends-api",
+      "schematics": {},
+      "architect": {
+        "touch": {
+          "builder": "./tools/builders:command",
+          "options": {
+            "outputPath": "dist/apps/backends/api",
+            "main": "apps/backends/api/src/main.ts",
+            "tsConfig": "apps/backends/api/tsconfig.app.json",
+            "assets": ["apps/backends/api/src/assets"]
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/backends/api",
+            "main": "apps/backends/api/src/main.ts",
+            "tsConfig": "apps/backends/api/tsconfig.app.json",
+            "assets": ["apps/backends/api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/backends/api/src/environments/environment.ts",
+                  "with": "apps/backends/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "backends-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/backends/api/tsconfig.app.json",
+              "apps/backends/api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/backends/api/jest.config.js",
+            "tsConfig": "apps/backends/api/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {
