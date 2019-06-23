@@ -2,9 +2,13 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "../../../dist/out-tsc",
+    "outDir": "../../../dist/apps/backends/api",
     "types": ["node"]
   },
   "exclude": ["**/*.spec.ts"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts"],
+  "references": [
+    { "path": "../../../libs/shared/data" },
+    { "path": "../../../libs/shared/enums" }
+  ]
 }

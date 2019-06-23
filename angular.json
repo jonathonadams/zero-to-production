@@ -378,6 +378,14 @@
       "projectType": "library",
       "schematics": {},
       "architect": {
+        "build": {
+          "builder": "./tools/builders/api:build",
+          "options": {
+            "outputPath": "dist/libs/shared/data",
+            "main": "libs/shared/data/src/index.ts",
+            "tsConfig": "libs/shared/data/tsconfig.json"
+          }
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -738,20 +746,11 @@
       "prefix": "backends-api",
       "schematics": {},
       "architect": {
-        "touch": {
-          "builder": "./tools/builders:command",
-          "options": {
-            "outputPath": "dist/apps/backends/api",
-            "main": "apps/backends/api/src/main.ts",
-            "tsConfig": "apps/backends/api/tsconfig.app.json",
-            "assets": ["apps/backends/api/src/assets"]
-          }
-        },
         "build": {
-          "builder": "@nrwl/node:build",
+          "builder": "./tools/builders/api:build",
           "options": {
             "outputPath": "dist/apps/backends/api",
-            "main": "apps/backends/api/src/main.ts",
+            "src": "apps/backends/api/src",
             "tsConfig": "apps/backends/api/tsconfig.app.json",
             "assets": ["apps/backends/api/src/assets"]
           },
@@ -790,6 +789,39 @@
           "options": {
             "jestConfig": "apps/backends/api/jest.config.js",
             "tsConfig": "apps/backends/api/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "backend-auth": {
+      "root": "libs/backend/auth",
+      "sourceRoot": "libs/backend/auth/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "./tools/builders/api:build",
+          "options": {
+            "outputPath": "dist/libs/backend/auth",
+            "main": "libs/backend/auth/src/index.ts",
+            "tsConfig": "libs/backend/auth/tsconfig.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/backend/auth/tsconfig.lib.json",
+              "libs/backend/auth/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/backend/auth/jest.config.js",
+            "tsConfig": "libs/backend/auth/tsconfig.spec.json"
           }
         }
       }

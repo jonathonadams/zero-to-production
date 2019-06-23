@@ -1,6 +1,10 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
+    "declaration": true,
+    "composite": true,
+    "rootDir": "./src",
+    "outDir": "../../../dist/libs/shared/data",
     "types": ["node", "jest"]
   },
   "include": ["**/*.ts"]

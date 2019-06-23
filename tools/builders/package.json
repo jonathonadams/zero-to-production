@@ -1,9 +1,0 @@
-{
-  "name": "@example/command-runner",
-  "version": "1.0.0",
-  "description": "Builder for Command Runner",
-  "builders": "builders.json",
-  "devDependencies": {
-    "@angular-devkit/architect": "^1.0.0"
-  }
-}

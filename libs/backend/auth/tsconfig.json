@@ -1,10 +1,6 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "declaration": true,
-    "composite": true,
-    "rootDir": "./src",
-    "outDir": "../../../dist/libs/shared/enums",
     "types": ["node", "jest"]
   },
   "include": ["**/*.ts"]

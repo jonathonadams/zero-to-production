@@ -74,7 +74,8 @@
       ],
       "@workspace/frontend/data-access/floating-menu": [
         "libs/frontend/data-access/floating-menu/src/index.ts"
-      ]
+      ],
+      "@workspace/backend/auth": ["libs/backend/auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

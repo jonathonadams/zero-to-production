@@ -96,3 +96,10 @@ TS does not correctly infer the types when using filters, current typescript iss
 
 https://github.com/Microsoft/TypeScript/issues/10734
 https://github.com/Microsoft/TypeScript/issues/16069
+
+## TypeScript Path Remapping
+
+TS does not rewrite path aliases, once ES modules are no longer experimental they will as per below github link
+https://github.com/Microsoft/TypeScript/issues/10866
+
+https://www.npmjs.com/package/tspath
