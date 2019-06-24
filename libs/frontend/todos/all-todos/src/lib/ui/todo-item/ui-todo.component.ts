@@ -5,6 +5,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Todo } from '@workspace/shared/data';
 
 @Component({
@@ -15,7 +16,7 @@ import { Todo } from '@workspace/shared/data';
 })
 export class UiTodoItemComponent {
   @Input()
-  todo: Todo | undefined;
+  todo!: Todo;
   @Output()
   selected = new EventEmitter<Todo>();
   @Output()
@@ -26,4 +27,8 @@ export class UiTodoItemComponent {
     todo: Todo;
     completed: boolean;
   }>();
+
+  toggleChange(todo: Todo, change: MatSlideToggleChange) {
+    this.update.emit({ todo, completed: change.checked });
+  }
 }

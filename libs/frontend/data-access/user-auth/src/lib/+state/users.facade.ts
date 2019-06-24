@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '@workspace/shared/data';
 import { selectAuthUser } from './users.reducer';
 import { loadAuthUser } from './users.actions';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class AuthUserFacade {

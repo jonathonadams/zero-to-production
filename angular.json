@@ -30,7 +30,8 @@
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "apps/frontends/todos/todos/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "aot": true
           },
           "configurations": {
             "production": {
@@ -823,6 +824,37 @@
             "jestConfig": "libs/backend/auth/jest.config.js",
             "tsConfig": "libs/backend/auth/tsconfig.spec.json"
           }
+        }
+      }
+    },
+    "frontend-profile": {
+      "projectType": "library",
+      "root": "libs/frontend/profile",
+      "sourceRoot": "libs/frontend/profile/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/profile/tsconfig.lib.json",
+              "libs/frontend/profile/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/profile/jest.config.js",
+            "tsConfig": "libs/frontend/profile/tsconfig.spec.json",
+            "setupFile": "libs/frontend/profile/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
         }
       }
     }

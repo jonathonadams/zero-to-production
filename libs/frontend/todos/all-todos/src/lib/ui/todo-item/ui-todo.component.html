@@ -5,7 +5,7 @@
     <mat-slide-toggle
       [checked]="todo?.completed"
       (click)="$event.stopPropagation()"
-      (change)="update.emit({ todo: todo, completed: $event.checked })"
+      (change)="toggleChange(todo, $event)"
       >Completed</mat-slide-toggle
     >
   </mat-card-content>

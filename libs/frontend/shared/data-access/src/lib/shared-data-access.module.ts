@@ -26,7 +26,7 @@ export class SharedDataAccessModule {
         {
           provide: APOLLO_OPTIONS,
           useFactory: createApollo,
-          deps: [HttpLink, 'graphQLUrl', production]
+          deps: [HttpLink, 'graphQLUrl', 'production']
         },
         {
           provide: 'graphQLUrl',
@@ -37,7 +37,7 @@ export class SharedDataAccessModule {
           useValue: apiBaseUrl
         },
         {
-          provide: production,
+          provide: 'production',
           useValue: production
         }
       ]

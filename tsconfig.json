@@ -29,7 +29,7 @@
       "@workspace/frontend/utils/test-helpers": [
         "libs/frontend/utils/test-helpers/src/index.ts"
       ],
-      "@workspace/frontend/common/ui/custom-material": [
+      "@workspace/common/ui/custom-material": [
         "libs/frontend/common/ui/custom-material/src/index.ts"
       ],
       "@workspace/frontend/common/ui/toolbar": [
@@ -75,7 +75,8 @@
       "@workspace/frontend/data-access/floating-menu": [
         "libs/frontend/data-access/floating-menu/src/index.ts"
       ],
-      "@workspace/backend/auth": ["libs/backend/auth/src/index.ts"]
+      "@workspace/backend/auth": ["libs/backend/auth/src/index.ts"],
+      "@workspace/frontend/profile": ["libs/frontend/profile/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

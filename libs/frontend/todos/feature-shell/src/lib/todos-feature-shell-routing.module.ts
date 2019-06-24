@@ -18,6 +18,13 @@ export const TODOS_ROUTES: Routes = [
         component: TodoLayoutComponent
       },
       {
+        path: 'profile',
+        loadChildren: () =>
+          import('@workspace/frontend/profile').then(
+            m => m.FrontendProfileModule
+          )
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'home'

@@ -33,7 +33,7 @@ export class DropDownMenuComponent {
   }
 
   navigateToProfile() {
-    this.router.navigate(['users/profile']);
+    this.router.navigate(['/profile']);
   }
 
   logout() {

@@ -103,3 +103,8 @@ TS does not rewrite path aliases, once ES modules are no longer experimental the
 https://github.com/Microsoft/TypeScript/issues/10866
 
 https://www.npmjs.com/package/tspath
+
+## Angular IVY and Strict Mode
+
+Generic template checking.
+https://github.com/angular/angular/issues/30235
