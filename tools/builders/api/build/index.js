@@ -5,8 +5,6 @@ const architect_1 = require('@angular-devkit/architect');
 const childProcess = require('child_process');
 const glob = require('glob');
 const cpFile = require('cp-file');
-const { sync } = glob;
-// import * as tsPath from 'tspath'
 exports.default = architect_1.createBuilder(_commandBuilder);
 function _commandBuilder(options, context) {
   return tslib_1.__awaiter(this, void 0, void 0, function*() {
@@ -28,7 +26,11 @@ function _commandBuilder(options, context) {
         resolve({ success: code === 0 });
       });
     });
-    const srcFiles = sync(`${options.src}/**/*.graphql`);
+    const srcFiles = yield new Promise((resolve, reject) => {
+      glob(`${options.src}/**/*.graphql`, (err, matches) => {
+        resolve(matches);
+      });
+    });
     const destinationFiles = srcFiles.map(fileName => {
       return `${options.outputPath}${fileName.substr(
         options.src.length,

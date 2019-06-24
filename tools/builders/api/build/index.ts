@@ -1,4 +1,3 @@
-import { readFileSync } from 'fs';
 import {
   BuilderOutput,
   createBuilder,
@@ -8,10 +7,6 @@ import * as childProcess from 'child_process';
 import { JsonObject } from '@angular-devkit/core';
 import * as glob from 'glob';
 import * as cpFile from 'cp-file';
-
-const { sync } = glob;
-
-// import * as tsPath from 'tspath'
 
 export default createBuilder(_commandBuilder);
 
@@ -45,7 +40,11 @@ async function _commandBuilder(
     });
   });
 
-  const srcFiles = sync(`${options.src}/**/*.graphql`);
+  const srcFiles: string[] = await new Promise((resolve, reject) => {
+    glob(`${options.src}/**/*.graphql`, (err, matches) => {
+      resolve(matches);
+    });
+  });
 
   const destinationFiles = srcFiles.map(fileName => {
     return `${options.outputPath}${fileName.substr(

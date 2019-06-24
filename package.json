@@ -23,7 +23,8 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "postinstall": "./tools/scripts/postinstall.js"
   },
   "husky": {
     "hooks": {
@@ -90,6 +91,8 @@
     "@types/jest": "24.0.9",
     "@types/jsonwebtoken": "^8.3.2",
     "@types/jwt-decode": "^2.2.1",
+    "@types/koa": "^2.0.48",
+    "@types/koa-router": "^7.0.41",
     "@types/lodash-es": "^4.17.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~5.0.1",
@@ -107,7 +110,6 @@
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "tslint": "~5.11.0",
-    "tspath": "^1.3.7",
     "typescript": "~3.4.5"
   }
 }

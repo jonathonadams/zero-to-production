@@ -1,0 +1,14 @@
+{
+  "name": "todo-api",
+  "version": "0.0.1",
+  "description": "Todo API with GraphQL",
+  "main": "jest.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jonathon Adams",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.7.0"
+  }
+}
