@@ -5,13 +5,17 @@ import { User } from '@workspace/shared/data';
 import { selectAuthUser } from './users.reducer';
 import { loadAuthUser } from './users.actions';
 import { tap } from 'rxjs/operators';
+import { ThemeService } from '@workspace/frontend/common/theme';
 
 @Injectable()
 export class AuthUserFacade {
   public authUser$: Observable<User | undefined>;
 
-  constructor(private store: Store<any>) {
-    this.authUser$ = this.store.pipe(select(selectAuthUser));
+  constructor(private store: Store<any>, private theme: ThemeService) {
+    this.authUser$ = this.store.pipe(
+      select(selectAuthUser),
+      tap(user => this.theme.setUserSettings(user))
+    );
   }
 
   loadAuthUser() {

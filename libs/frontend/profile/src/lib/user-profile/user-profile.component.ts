@@ -7,6 +7,8 @@ import { AuthUserFacade } from '@workspace/frontend/data-access/user-auth';
 import { UsersFacade } from '@workspace/frontend/data-access/users';
 import { ThemeService } from '@workspace/frontend/common/theme';
 
+// TODO -> Can Deactivate Guard -> Reset User Settings
+
 @Component({
   selector: 'todo-user-profile',
   templateUrl: './user-profile.component.html',
