@@ -20,12 +20,10 @@
       "@workspace/frontend/common/ui/side-nav": [
         "libs/frontend/common/ui/side-nav/src/index.ts"
       ],
-      "@workspace/frontend/shared/data-access": [
-        "libs/frontend/shared/data-access/src/index.ts"
+      "@workspace/frontend/core/data-access": [
+        "libs/frontend/core/data-access/src/index.ts"
       ],
-      "@workspace/frontend/shared/auth": [
-        "libs/frontend/shared/auth/src/index.ts"
-      ],
+      "@workspace/frontend/core/auth": ["libs/frontend/core/auth/src/index.ts"],
       "@workspace/frontend/utils/test-helpers": [
         "libs/frontend/utils/test-helpers/src/index.ts"
       ],

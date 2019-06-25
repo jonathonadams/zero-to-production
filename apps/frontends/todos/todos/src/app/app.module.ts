@@ -7,11 +7,11 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SharedDataAccessModule } from '@workspace/frontend/shared/data-access';
+import { SharedDataAccessModule } from '@workspace/frontend/core/data-access';
 
 import { AppState, appReducers } from './app.state';
 
-import { SharedAuthModule } from '@workspace/frontend/shared/auth';
+import { SharedAuthModule } from '@workspace/frontend/core/auth';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { DataAccessUsersModule } from '@workspace/frontend/data-access/users';
 import { DataAccessUserAuthModule } from '@workspace/frontend/data-access/user-auth';

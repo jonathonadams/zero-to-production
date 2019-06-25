@@ -4,7 +4,7 @@ import {
   CommonLoginComponent,
   AuthGuard,
   LoggedInGuard
-} from '@workspace/frontend/shared/auth';
+} from '@workspace/frontend/core/auth';
 import { AuthUsersResolver } from '@workspace/frontend/data-access/user-auth';
 
 const ROUTES: Routes = [

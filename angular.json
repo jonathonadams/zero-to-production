@@ -154,18 +154,18 @@
         }
       }
     },
-    "frontend-shared-data-access": {
+    "frontend-core-data-access": {
       "projectType": "library",
-      "root": "libs/frontend/shared/data-access",
-      "sourceRoot": "libs/frontend/shared/data-access/src",
+      "root": "libs/frontend/core/data-access",
+      "sourceRoot": "libs/frontend/core/data-access/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/shared/data-access/tsconfig.lib.json",
-              "libs/frontend/shared/data-access/tsconfig.spec.json"
+              "libs/frontend/core/data-access/tsconfig.lib.json",
+              "libs/frontend/core/data-access/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }
@@ -173,9 +173,9 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/shared/data-access/jest.config.js",
-            "tsConfig": "libs/frontend/shared/data-access/tsconfig.spec.json",
-            "setupFile": "libs/frontend/shared/data-access/src/test-setup.ts"
+            "jestConfig": "libs/frontend/core/data-access/jest.config.js",
+            "tsConfig": "libs/frontend/core/data-access/tsconfig.spec.json",
+            "setupFile": "libs/frontend/core/data-access/src/test-setup.ts"
           }
         }
       },
@@ -185,18 +185,18 @@
         }
       }
     },
-    "frontend-shared-auth": {
+    "frontend-core-auth": {
       "projectType": "library",
-      "root": "libs/frontend/shared/auth",
-      "sourceRoot": "libs/frontend/shared/auth/src",
+      "root": "libs/frontend/core/auth",
+      "sourceRoot": "libs/frontend/core/auth/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/shared/auth/tsconfig.lib.json",
-              "libs/frontend/shared/auth/tsconfig.spec.json"
+              "libs/frontend/core/auth/tsconfig.lib.json",
+              "libs/frontend/core/auth/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }
@@ -204,9 +204,9 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/shared/auth/jest.config.js",
-            "tsConfig": "libs/frontend/shared/auth/tsconfig.spec.json",
-            "setupFile": "libs/frontend/shared/auth/src/test-setup.ts"
+            "jestConfig": "libs/frontend/core/auth/jest.config.js",
+            "tsConfig": "libs/frontend/core/auth/tsconfig.spec.json",
+            "setupFile": "libs/frontend/core/auth/src/test-setup.ts"
           }
         }
       },

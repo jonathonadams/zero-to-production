@@ -17,10 +17,10 @@
     "frontend-common-ui-side-nav": {
       "tags": []
     },
-    "frontend-shared-data-access": {
+    "frontend-core-data-access": {
       "tags": []
     },
-    "frontend-shared-auth": {
+    "frontend-core-auth": {
       "tags": []
     },
     "frontend-utils-test-helpers": {

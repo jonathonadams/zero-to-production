@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiService } from '@workspace/frontend/shared/data-access';
+import { ApiService } from '@workspace/frontend/core/data-access';
 import { User } from '@workspace/shared/data';
 
 @Injectable()

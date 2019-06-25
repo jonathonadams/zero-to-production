@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { GraphQLService } from '@workspace/frontend/shared/data-access';
-import { JWTAuthService } from '@workspace/frontend/shared/auth';
+import { GraphQLService } from '@workspace/frontend/core/data-access';
+import { JWTAuthService } from '@workspace/frontend/core/auth';
 import {
   ALL_TODOS_QUERY,
   LOAD_TODO_QUERY,
