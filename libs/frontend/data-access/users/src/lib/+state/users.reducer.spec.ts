@@ -1,10 +1,6 @@
 import { User } from '@workspace/shared/data';
 import { usersReducer, UsersEntityState } from './users.reducer';
-import {
-  LoadAllUsersSuccess,
-  UpdateUserSuccess,
-  DeleteUserSuccess
-} from './users.actions';
+import * as UserActions from './users.actions';
 
 describe('UsersReducer', () => {
   describe('undefined action', () => {
@@ -21,7 +17,7 @@ describe('UsersReducer', () => {
       const users = [
         { id: '2', username: 'someUser', emailAddress: 'some@emailAddress.com' }
       ] as User[];
-      const action = new LoadAllUsersSuccess(users);
+      const action = UserActions.loadUsersSuccess({ users });
 
       const result = usersReducer(undefined, action);
 
@@ -46,7 +42,12 @@ describe('UsersReducer', () => {
       };
 
       const userToUpdate = { id: '1', username: 'updatedName' } as User;
-      const action = new UpdateUserSuccess(userToUpdate);
+      const action = UserActions.updateUserSuccess({
+        user: {
+          id: userToUpdate.id,
+          changes: userToUpdate
+        }
+      });
 
       const result = usersReducer(initialState, action);
 
@@ -72,7 +73,7 @@ describe('UsersReducer', () => {
 
       const userToDelete = { id: '1' } as User;
 
-      const action = new DeleteUserSuccess(userToDelete);
+      const action = UserActions.deleteUserSuccess(userToDelete);
 
       const result = usersReducer(initialState, action);
 

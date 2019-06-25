@@ -1,137 +1,81 @@
-import { Action } from '@ngrx/store';
-import { ActionWithPayload, User } from '@workspace/shared/data';
+import { createAction, props } from '@ngrx/store';
+import { User } from '@workspace/shared/data';
+import { GraphQLError } from 'graphql';
+import { Update } from '@ngrx/entity';
 
-export enum UserActionTypes {
-  Load = '[User] Load',
-  LoadSuccess = '[User] Load Success',
-  LoadFail = '[User] Load Fail',
-  LoadAll = '[User] Load All',
-  LoadAllSuccess = '[User] Load All Success',
-  LoadAllFail = '[User] Load All Fail',
-  Create = '[User] Create',
-  CreateSuccess = '[User] Create Success',
-  CreateFail = '[User] Create Fail',
-  Update = '[User] Update',
-  UpdateSuccess = '[User] Update Success',
-  UpdateFail = '[User] Update Fail',
-  Delete = '[User] Delete',
-  DeleteSuccess = '[User] Delete Success',
-  DeleteFail = '[User] Delete Fail',
-  Select = '[User] Select',
-  ClearSelected = '[User] Clear Selected'
-}
+export const selectUser = createAction(
+  '[User/UI] Select',
+  props<{ id: string }>()
+);
 
-export class SelectUser implements ActionWithPayload<string> {
-  readonly type = UserActionTypes.Select;
-  constructor(readonly payload: string) {}
-}
+export const clearSelected = createAction('[User/UI] Clear');
 
-export class ClearSelectedUser implements Action {
-  readonly type = UserActionTypes.ClearSelected;
-}
+export const loadUser = createAction(
+  '[User/API] Load User',
+  props<{ id: string }>()
+);
 
-/**
- * Load user actions
- */
-export class LoadUser implements ActionWithPayload<string | number> {
-  readonly type = UserActionTypes.Load;
-  constructor(readonly payload: string | number) {}
-}
+export const loadUserSuccess = createAction(
+  '[User/API] Load User Success',
+  props<{ user: User }>()
+);
 
-export class LoadUserSuccess implements ActionWithPayload<User> {
-  readonly type = UserActionTypes.LoadSuccess;
-  constructor(readonly payload: User) {}
-}
+export const loadUserFail = createAction(
+  '[User/API] Load User Fail',
+  props<{ error: GraphQLError | Error }>()
+);
 
-export class LoadUserFail implements ActionWithPayload<Error> {
-  readonly type = UserActionTypes.LoadFail;
-  constructor(readonly payload: Error) {}
-}
+export const loadUsers = createAction('[User/API] Load Users');
 
-export class LoadAllUsers implements Action {
-  readonly type = UserActionTypes.LoadAll;
-}
+export const loadUsersSuccess = createAction(
+  '[User/API] Load Success',
+  props<{ users: User[] }>()
+);
 
-export class LoadAllUsersSuccess implements ActionWithPayload<User[]> {
-  readonly type = UserActionTypes.LoadAllSuccess;
-  constructor(readonly payload: User[]) {}
-}
+export const loadUsersFail = createAction(
+  '[User/API] Load Fail',
+  props<{ error: GraphQLError | Error }>()
+);
 
-export class LoadAllUsersFail implements ActionWithPayload<Error> {
-  readonly type = UserActionTypes.LoadAllFail;
-  constructor(readonly payload: Error) {}
-}
+export const createUser = createAction(
+  '[User/API] Create ',
+  props<{ user: User }>()
+);
+export const createUserSuccess = createAction(
+  '[User/API] Create Success',
+  props<{ user: User }>()
+);
 
-/**
- * Create User actions
- */
+export const createUserFail = createAction(
+  '[User/API] Create Fail',
+  props<{ error: GraphQLError }>()
+);
 
-export class CreateUser implements ActionWithPayload<User> {
-  readonly type = UserActionTypes.Create;
-  constructor(readonly payload: User) {}
-}
+export const updateUser = createAction(
+  '[User/API] Update ',
+  props<{ user: User }>()
+);
+export const updateUserSuccess = createAction(
+  '[User/API] Update Success',
+  props<{ user: Update<User> }>()
+);
 
-export class CreateUserSuccess implements ActionWithPayload<User> {
-  readonly type = UserActionTypes.CreateSuccess;
-  constructor(readonly payload: User) {}
-}
+export const updateUserFail = createAction(
+  '[User/API] Update Fail',
+  props<{ error: GraphQLError }>()
+);
 
-export class CreateUserFail implements ActionWithPayload<User> {
-  readonly type = UserActionTypes.CreateFail;
-  constructor(readonly payload: User) {}
-}
+export const deleteUser = createAction(
+  '[User/API] Delete',
+  props<{ user: User }>()
+);
 
-/**
- * Update User actions
- */
+export const deleteUserSuccess = createAction(
+  '[User/API] Delete Success',
+  props<{ id: string }>()
+);
 
-export class UpdateUser implements ActionWithPayload<User> {
-  readonly type = UserActionTypes.Update;
-  constructor(readonly payload: User) {}
-}
-
-export class UpdateUserSuccess implements ActionWithPayload<User> {
-  readonly type = UserActionTypes.UpdateSuccess;
-  constructor(readonly payload: User) {}
-}
-
-export class UpdateUserFail implements ActionWithPayload<User> {
-  readonly type = UserActionTypes.UpdateFail;
-  constructor(readonly payload: User) {}
-}
-
-/**
- * Delete User actions
- */
-
-export class DeleteUser implements ActionWithPayload<User> {
-  readonly type = UserActionTypes.Delete;
-  constructor(readonly payload: User) {}
-}
-
-export class DeleteUserSuccess implements ActionWithPayload<User> {
-  readonly type = UserActionTypes.DeleteSuccess;
-  constructor(readonly payload: User) {}
-}
-
-export class DeleteUserFail implements ActionWithPayload<User> {
-  readonly type = UserActionTypes.DeleteFail;
-  constructor(readonly payload: User) {}
-}
-
-export type UserActionUnion =
-  | LoadUser
-  | LoadUserSuccess
-  | LoadUserFail
-  | LoadAllUsers
-  | LoadAllUsersSuccess
-  | LoadAllUsersFail
-  | CreateUser
-  | CreateUserSuccess
-  | CreateUserFail
-  | UpdateUser
-  | UpdateUserSuccess
-  | UpdateUserFail
-  | DeleteUser
-  | DeleteUserSuccess
-  | DeleteUserFail;
+export const deleteUserFail = createAction(
+  '[User/API] Delete Fail',
+  props<{ error: GraphQLError }>()
+);

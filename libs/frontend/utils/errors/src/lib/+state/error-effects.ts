@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { HttpErrorAction, ErrorActions } from './error.actions';
 import { NotificationService } from '@workspace/frontend/utils/notifications';
+import * as ErrorActions from './error.actions';
 
 @Injectable()
 export class ErrorEffects {
@@ -10,8 +10,7 @@ export class ErrorEffects {
 
   @Effect({ dispatch: false })
   httpError$ = this.actions$.pipe(
-    ofType<HttpErrorAction>(ErrorActions.Http),
-    map(action => action.payload),
+    ofType(ErrorActions.httpErrorAction),
     tap(() => this.ns.emit('An error has occurred.')),
     map(error => console.log(error))
   );

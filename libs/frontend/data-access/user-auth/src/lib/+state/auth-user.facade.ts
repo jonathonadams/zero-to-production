@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { User } from '@workspace/shared/data';
-import { selectAuthUser } from './users.reducer';
-import { loadAuthUser } from './users.actions';
 import { tap } from 'rxjs/operators';
+import { User } from '@workspace/shared/data';
 import { ThemeService } from '@workspace/frontend/common/theme';
+import { selectAuthUser } from './auth-user.reducer';
+import { loadAuthUser } from './auth-user.actions';
 
 @Injectable()
 export class AuthUserFacade {

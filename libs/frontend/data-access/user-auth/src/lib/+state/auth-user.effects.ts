@@ -1,26 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { DecodedJWT } from '@workspace/shared/data';
 import {
-  LoginSuccess,
-  AuthActionTypes,
-  Logout,
-  JWTAuthService
+  JWTAuthService,
+  loginSuccess,
+  logout
 } from '@workspace/frontend/data-access/auth';
 import {
   UsersService,
-  LoadUserSuccess
+  loadUserSuccess
 } from '@workspace/frontend/data-access/users';
-import * as AuthUserActions from './users.actions';
+import * as AuthUserActions from './auth-user.actions';
 
 @Injectable()
 export class AuthUsersEffects {
   @Effect()
   loginSuccess$ = this.actions$.pipe(
-    ofType<LoginSuccess>(AuthActionTypes.LoginSuccess),
-    map(action => AuthUserActions.loadAuthUser())
+    ofType(loginSuccess),
+    map(() => AuthUserActions.loadAuthUser())
   );
 
   @Effect()
@@ -43,7 +42,7 @@ export class AuthUsersEffects {
   @Effect()
   loadAuthUserSuccess$ = this.actions$.pipe(
     ofType(AuthUserActions.loadAuthUserSuccess),
-    map(action => new LoadUserSuccess(action.user))
+    map(user => loadUserSuccess(user))
   );
 
   @Effect()
@@ -54,7 +53,7 @@ export class AuthUsersEffects {
 
   @Effect()
   clearAuthenticatedUser$ = this.actions$.pipe(
-    ofType<Logout>(AuthActionTypes.Logout),
+    ofType(logout),
     map(() => AuthUserActions.clearAuthUser())
   );
 

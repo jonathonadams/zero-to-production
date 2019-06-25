@@ -1,13 +1,9 @@
 import { NgModule } from '@angular/core';
-import { StoreModule, ActionReducer } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { TodosFacade } from './+state/todos.facade';
 import { TodosService } from './todos.service';
-import {
-  TodosEntityState,
-  initialTodoState,
-  reducer
-} from './+state/todos.reducer';
+import { TodosEntityState, reducer } from './+state/todos.reducer';
 import { TodoEffects } from './+state/todos.effects';
 
 @NgModule({

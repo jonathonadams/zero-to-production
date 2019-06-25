@@ -5,8 +5,8 @@ import {
   on,
   Action
 } from '@ngrx/store';
-import * as UserAuthActions from './users.actions';
 import { selectUserEntities } from '@workspace/frontend/data-access/users';
+import * as UserAuthActions from './auth-user.actions';
 
 export interface AuthUserSate {
   authUserId: string | number | null;
