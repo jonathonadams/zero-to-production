@@ -7,11 +7,11 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SharedDataAccessModule } from '@workspace/frontend/core/data-access';
+import { DataAccessApiModule } from '@workspace/frontend/data-access/api';
 
 import { AppState, appReducers } from './app.state';
 
-import { SharedAuthModule } from '@workspace/frontend/core/auth';
+import { DataAccessAuthModule } from '@workspace/frontend/data-access/auth';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { DataAccessUsersModule } from '@workspace/frontend/data-access/users';
 import { DataAccessUserAuthModule } from '@workspace/frontend/data-access/user-auth';
@@ -32,8 +32,8 @@ import { DataAccessUserAuthModule } from '@workspace/frontend/data-access/user-a
     }),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    SharedDataAccessModule.forRoot(environment),
-    SharedAuthModule.forRoot(),
+    DataAccessApiModule.forRoot(environment),
+    DataAccessAuthModule.forRoot(),
     DataAccessUserAuthModule,
     DataAccessUsersModule,
     AppRoutingModule.forRoot()

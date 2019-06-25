@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiUserProfileComponent } from './ui-user-profile.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('UiUserProfileComponent', () => {
   let component: UiUserProfileComponent;
@@ -8,7 +10,9 @@ describe('UiUserProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [UiUserProfileComponent]
+      imports: [ReactiveFormsModule],
+      declarations: [UiUserProfileComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 

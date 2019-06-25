@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ElementRef } from '@angular/core';
-import { OverlayService } from '@workspace/frontend/common/utils/overlay';
+import { OverlayService } from '@workspace/frontend/utils/overlay';
 import { DropDownMenuComponent } from '../drop-down-menu/drop-down-menu.component';
 
 @Component({

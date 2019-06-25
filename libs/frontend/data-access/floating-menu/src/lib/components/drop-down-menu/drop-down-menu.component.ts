@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { take, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { User } from '@workspace/shared/data';
-import { AuthFacade } from '@workspace/frontend/core/auth';
+import { AuthFacade } from '@workspace/frontend/data-access/auth';
 import { AuthUserFacade } from '@workspace/frontend/data-access/user-auth';
 import { UsersFacade } from '@workspace/frontend/data-access/users';
 

@@ -154,18 +154,18 @@
         }
       }
     },
-    "frontend-core-data-access": {
+    "frontend-data-access-api": {
       "projectType": "library",
-      "root": "libs/frontend/core/data-access",
-      "sourceRoot": "libs/frontend/core/data-access/src",
+      "root": "libs/frontend/data-access/api",
+      "sourceRoot": "libs/frontend/data-access/api/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/core/data-access/tsconfig.lib.json",
-              "libs/frontend/core/data-access/tsconfig.spec.json"
+              "libs/frontend/data-access/api/tsconfig.lib.json",
+              "libs/frontend/data-access/api/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }
@@ -173,9 +173,9 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/core/data-access/jest.config.js",
-            "tsConfig": "libs/frontend/core/data-access/tsconfig.spec.json",
-            "setupFile": "libs/frontend/core/data-access/src/test-setup.ts"
+            "jestConfig": "libs/frontend/data-access/api/jest.config.js",
+            "tsConfig": "libs/frontend/data-access/api/tsconfig.spec.json",
+            "setupFile": "libs/frontend/data-access/api/src/test-setup.ts"
           }
         }
       },
@@ -185,18 +185,18 @@
         }
       }
     },
-    "frontend-core-auth": {
+    "frontend-data-access-auth": {
       "projectType": "library",
-      "root": "libs/frontend/core/auth",
-      "sourceRoot": "libs/frontend/core/auth/src",
+      "root": "libs/frontend/data-access/auth",
+      "sourceRoot": "libs/frontend/data-access/auth/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/core/auth/tsconfig.lib.json",
-              "libs/frontend/core/auth/tsconfig.spec.json"
+              "libs/frontend/data-access/auth/tsconfig.lib.json",
+              "libs/frontend/data-access/auth/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }
@@ -204,33 +204,15 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/core/auth/jest.config.js",
-            "tsConfig": "libs/frontend/core/auth/tsconfig.spec.json",
-            "setupFile": "libs/frontend/core/auth/src/test-setup.ts"
+            "jestConfig": "libs/frontend/data-access/auth/jest.config.js",
+            "tsConfig": "libs/frontend/data-access/auth/tsconfig.spec.json",
+            "setupFile": "libs/frontend/data-access/auth/src/test-setup.ts"
           }
         }
       },
       "schematics": {
         "@nrwl/angular:component": {
           "styleext": "scss"
-        }
-      }
-    },
-    "frontend-utils-test-helpers": {
-      "root": "libs/frontend/utils/test-helpers",
-      "sourceRoot": "libs/frontend/utils/test-helpers/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/frontend/utils/test-helpers/tsconfig.lib.json",
-              "libs/frontend/utils/test-helpers/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
         }
       }
     },
@@ -280,18 +262,18 @@
       },
       "schematics": {}
     },
-    "frontend-common-utils-overlay": {
+    "frontend-utils-overlay": {
       "projectType": "library",
-      "root": "libs/frontend/common/utils/overlay",
-      "sourceRoot": "libs/frontend/common/utils/overlay/src",
+      "root": "libs/frontend/utils/overlay",
+      "sourceRoot": "libs/frontend/utils/overlay/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/common/utils/overlay/tsconfig.lib.json",
-              "libs/frontend/common/utils/overlay/tsconfig.spec.json"
+              "libs/frontend/utils/overlay/tsconfig.lib.json",
+              "libs/frontend/utils/overlay/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }
@@ -299,9 +281,9 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/common/utils/overlay/jest.config.js",
-            "tsConfig": "libs/frontend/common/utils/overlay/tsconfig.spec.json",
-            "setupFile": "libs/frontend/common/utils/overlay/src/test-setup.ts"
+            "jestConfig": "libs/frontend/utils/overlay/jest.config.js",
+            "tsConfig": "libs/frontend/utils/overlay/tsconfig.spec.json",
+            "setupFile": "libs/frontend/utils/overlay/src/test-setup.ts"
           }
         }
       },
@@ -311,18 +293,18 @@
         }
       }
     },
-    "frontend-common-utils-notifications": {
+    "frontend-utils-notifications": {
       "projectType": "library",
-      "root": "libs/frontend/common/utils/notifications",
-      "sourceRoot": "libs/frontend/common/utils/notifications/src",
+      "root": "libs/frontend/utils/notifications",
+      "sourceRoot": "libs/frontend/utils/notifications/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/common/utils/notifications/tsconfig.lib.json",
-              "libs/frontend/common/utils/notifications/tsconfig.spec.json"
+              "libs/frontend/utils/notifications/tsconfig.lib.json",
+              "libs/frontend/utils/notifications/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }
@@ -330,9 +312,9 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/common/utils/notifications/jest.config.js",
-            "tsConfig": "libs/frontend/common/utils/notifications/tsconfig.spec.json",
-            "setupFile": "libs/frontend/common/utils/notifications/src/test-setup.ts"
+            "jestConfig": "libs/frontend/utils/notifications/jest.config.js",
+            "tsConfig": "libs/frontend/utils/notifications/tsconfig.spec.json",
+            "setupFile": "libs/frontend/utils/notifications/src/test-setup.ts"
           }
         }
       },
@@ -342,18 +324,18 @@
         }
       }
     },
-    "frontend-common-utils-errors": {
+    "frontend-utils-errors": {
       "projectType": "library",
-      "root": "libs/frontend/common/utils/errors",
-      "sourceRoot": "libs/frontend/common/utils/errors/src",
+      "root": "libs/frontend/utils/errors",
+      "sourceRoot": "libs/frontend/utils/errors/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/common/utils/errors/tsconfig.lib.json",
-              "libs/frontend/common/utils/errors/tsconfig.spec.json"
+              "libs/frontend/utils/errors/tsconfig.lib.json",
+              "libs/frontend/utils/errors/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }
@@ -361,9 +343,9 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/common/utils/errors/jest.config.js",
-            "tsConfig": "libs/frontend/common/utils/errors/tsconfig.spec.json",
-            "setupFile": "libs/frontend/common/utils/errors/src/test-setup.ts"
+            "jestConfig": "libs/frontend/utils/errors/jest.config.js",
+            "tsConfig": "libs/frontend/utils/errors/tsconfig.spec.json",
+            "setupFile": "libs/frontend/utils/errors/src/test-setup.ts"
           }
         }
       },

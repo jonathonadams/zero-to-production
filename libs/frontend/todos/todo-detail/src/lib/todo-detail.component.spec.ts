@@ -7,7 +7,7 @@ import { TodosFacade } from '@workspace/frontend/todos/data-access';
 import { Location } from '@angular/common';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '@workspace/frontend/utils/test-helpers';
+import { ActivatedRouteStub } from '@testing/stubs/activated-router.stubs';
 
 describe('TodoDetailComponent', () => {
   let component: TodoDetailComponent;

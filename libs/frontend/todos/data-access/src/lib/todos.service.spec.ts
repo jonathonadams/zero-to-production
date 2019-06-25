@@ -1,7 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { TodosService } from './todos.service';
 import { RouterTestingModule } from '@angular/router/testing';
-
+import { JWTAuthService } from '@workspace/frontend/data-access/auth';
+import { GraphQLService } from '@workspace/frontend/data-access/api';
+import { Todo, DecodedJWT } from '@workspace/shared/data';
+import { createSpyObj } from '@testing/frontend-helpers';
+import { GraphQLStub } from '@testing/stubs/graphql.stubs';
 import {
   ALL_TODOS_QUERY,
   LOAD_TODO_QUERY,
@@ -9,13 +13,6 @@ import {
   UPDATE_TODO_QUERY,
   REMOTE_TODO_QUERY
 } from './todos.queries';
-import { JWTAuthService } from '@workspace/frontend/shared/auth';
-import { GraphQLService } from '@workspace/frontend/shared/data-access';
-import {
-  GraphQLStub,
-  createSpyObj
-} from '@workspace/frontend/utils/test-helpers';
-import { Todo, DecodedJWT } from '@workspace/shared/data';
 
 describe('TodoService', () => {
   let service: TodosService;

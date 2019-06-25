@@ -17,30 +17,31 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@testing/*": ["testing/*"],
       "@workspace/frontend/common/ui/side-nav": [
         "libs/frontend/common/ui/side-nav/src/index.ts"
       ],
-      "@workspace/frontend/core/data-access": [
-        "libs/frontend/core/data-access/src/index.ts"
+      "@workspace/frontend/data-access/api": [
+        "libs/frontend/data-access/api/src/index.ts"
       ],
-      "@workspace/frontend/core/auth": ["libs/frontend/core/auth/src/index.ts"],
-      "@workspace/frontend/utils/test-helpers": [
-        "libs/frontend/utils/test-helpers/src/index.ts"
+      "@workspace/frontend/data-access/auth": [
+        "libs/frontend/data-access/auth/src/index.ts"
       ],
+
       "@workspace/common/ui/custom-material": [
         "libs/frontend/common/ui/custom-material/src/index.ts"
       ],
       "@workspace/frontend/common/ui/toolbar": [
         "libs/frontend/common/ui/toolbar/src/index.ts"
       ],
-      "@workspace/frontend/common/utils/overlay": [
-        "libs/frontend/common/utils/overlay/src/index.ts"
+      "@workspace/frontend/utils/overlay": [
+        "libs/frontend/utils/overlay/src/index.ts"
       ],
-      "@workspace/frontend/common/utils/notifications": [
-        "libs/frontend/common/utils/notifications/src/index.ts"
+      "@workspace/frontend/utils/notifications": [
+        "libs/frontend/utils/notifications/src/index.ts"
       ],
-      "@workspace/frontend/common/utils/errors": [
-        "libs/frontend/common/utils/errors/src/index.ts"
+      "@workspace/frontend/utils/errors": [
+        "libs/frontend/utils/errors/src/index.ts"
       ],
       "@workspace/shared/data": ["libs/shared/data/src/index.ts"],
       "@workspace/shared/enums": ["libs/shared/enums/src/index.ts"],

@@ -17,13 +17,10 @@
     "frontend-common-ui-side-nav": {
       "tags": []
     },
-    "frontend-core-data-access": {
+    "frontend-data-access-api": {
       "tags": []
     },
-    "frontend-core-auth": {
-      "tags": []
-    },
-    "frontend-utils-test-helpers": {
+    "frontend-data-access-auth": {
       "tags": []
     },
     "frontend-common-ui-custom-material": {
@@ -32,13 +29,13 @@
     "frontend-common-ui-toolbar": {
       "tags": []
     },
-    "frontend-common-utils-overlay": {
+    "frontend-utils-overlay": {
       "tags": []
     },
-    "frontend-common-utils-notifications": {
+    "frontend-utils-notifications": {
       "tags": []
     },
-    "frontend-common-utils-errors": {
+    "frontend-utils-errors": {
       "tags": []
     },
     "shared-data": {

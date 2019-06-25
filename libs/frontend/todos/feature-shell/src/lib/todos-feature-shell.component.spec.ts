@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TodoFeatureShellComponent } from './todos-feature-shell.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonUiSideNavService } from '@workspace/frontend/common/ui/side-nav';
+import { TodoFeatureShellComponent } from './todos-feature-shell.component';
 
 describe('TodoFeatureShellComponent', () => {
   let component: TodoFeatureShellComponent;

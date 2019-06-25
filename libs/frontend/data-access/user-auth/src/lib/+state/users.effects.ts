@@ -8,7 +8,7 @@ import {
   AuthActionTypes,
   Logout,
   JWTAuthService
-} from '@workspace/frontend/core/auth';
+} from '@workspace/frontend/data-access/auth';
 import {
   UsersService,
   LoadUserSuccess

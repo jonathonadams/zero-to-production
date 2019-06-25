@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AllTodosComponent } from './all-todos.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TodosFacade } from '@workspace/frontend/todos/data-access';
+import { AllTodosComponent } from './all-todos.component';
 
 describe('AllTodosComponent', () => {
   let component: AllTodosComponent;
