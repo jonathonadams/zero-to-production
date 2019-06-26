@@ -25,7 +25,7 @@ export class RouterFacade {
     this.url = this.store.pipe(select(selectUrl));
   }
 
-  navigate(go: RouterNavigate) {
+  go(go: RouterNavigate) {
     this.store.dispatch(RouterActions.navigate(go));
   }
 

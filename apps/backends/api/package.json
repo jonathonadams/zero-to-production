@@ -9,6 +9,7 @@
   "author": "Jonathon Adams",
   "license": "ISC",
   "dependencies": {
-    "koa": "^2.7.0"
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0"
   }
 }

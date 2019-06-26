@@ -1,2 +1,2 @@
 export * from './lib/app.state';
-export * from './lib/meta.reducers';
+export { debug } from './lib/meta.reducers';

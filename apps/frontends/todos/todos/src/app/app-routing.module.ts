@@ -21,9 +21,8 @@ const ROUTES: Routes = [
   },
   {
     path: 'login',
-    pathMatch: 'full',
-    component: CommonLoginComponent
-    // canActivate: [LoggedInGuard]
+    component: CommonLoginComponent,
+    canActivate: [LoggedInGuard]
   }
 ];
 

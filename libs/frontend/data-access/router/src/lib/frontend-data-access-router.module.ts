@@ -7,4 +7,4 @@ import { RouterEffects } from './+state/router.effects';
   imports: [EffectsModule.forFeature([RouterEffects])],
   providers: [RouterFacade]
 })
-export class FrontendDataAccessRouterModule {}
+export class DataAccessRouterModule {}

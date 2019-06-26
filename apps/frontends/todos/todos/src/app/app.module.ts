@@ -13,12 +13,13 @@ import { DataAccessAuthModule } from '@workspace/frontend/data-access/auth';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { DataAccessUsersModule } from '@workspace/frontend/data-access/users';
 import { DataAccessUserAuthModule } from '@workspace/frontend/data-access/user-auth';
-
 import {
   AppState,
   debug,
   appReducer
 } from '@workspace/frontend/data-access/app-state';
+import { AppEffects } from './app.effects';
+import { DataAccessRouterModule } from '@workspace/frontend/data-access/router';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,12 +35,13 @@ import {
         strictActionSerializability: true
       }
     }),
-    EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([AppEffects]),
+    // !environment.production ? StoreDevtoolsModule.instrument() : [],
     DataAccessApiModule.forRoot(environment),
     DataAccessAuthModule.forRoot(),
     DataAccessUserAuthModule,
     DataAccessUsersModule,
+    DataAccessRouterModule,
     AppRoutingModule.forRoot()
   ],
   providers: [],
