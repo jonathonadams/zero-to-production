@@ -870,6 +870,37 @@
           "styleext": "csss"
         }
       }
+    },
+    "frontend-data-access-router": {
+      "projectType": "library",
+      "root": "libs/frontend/data-access/router",
+      "sourceRoot": "libs/frontend/data-access/router/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/data-access/router/tsconfig.lib.json",
+              "libs/frontend/data-access/router/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/data-access/router/jest.config.js",
+            "tsConfig": "libs/frontend/data-access/router/tsconfig.spec.json",
+            "setupFile": "libs/frontend/data-access/router/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

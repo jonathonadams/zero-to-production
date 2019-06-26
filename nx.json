@@ -88,6 +88,9 @@
     },
     "frontend-data-access-app-state": {
       "tags": []
+    },
+    "frontend-data-access-router": {
+      "tags": []
     }
   }
 }

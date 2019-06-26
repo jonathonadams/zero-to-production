@@ -1,0 +1,39 @@
+import { Injectable } from '@angular/core';
+import * as RouterActions from './router.actions';
+import { Observable } from 'rxjs';
+import { Params } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import {
+  selectQueryParams,
+  selectRouteParams,
+  selectRouteData,
+  selectUrl
+} from './router.selector';
+import { RouterNavigate } from './router.actions';
+
+@Injectable()
+export class RouterFacade {
+  queryParams: Observable<Params>;
+  routerParams: Observable<Params>;
+  routerData: Observable<any>;
+  url: Observable<string>;
+
+  constructor(private store: Store<any>) {
+    this.queryParams = this.store.pipe(select(selectQueryParams));
+    this.routerParams = this.store.pipe(select(selectRouteParams));
+    this.routerData = this.store.pipe(select(selectRouteData));
+    this.url = this.store.pipe(select(selectUrl));
+  }
+
+  navigate(go: RouterNavigate) {
+    this.store.dispatch(RouterActions.navigate(go));
+  }
+
+  navigateForward() {
+    this.store.dispatch(RouterActions.navigateForward());
+  }
+
+  navigateBackward() {
+    this.store.dispatch(RouterActions.navigateBack());
+  }
+}
