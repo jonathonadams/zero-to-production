@@ -85,6 +85,9 @@
     },
     "frontend-profile": {
       "tags": []
+    },
+    "frontend-data-access-app-state": {
+      "tags": []
     }
   }
 }
