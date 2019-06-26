@@ -5,6 +5,7 @@
   (searchStringChanged)="searchStringChanged($event)"
 ></todo-ui-filter-todos>
 <todo-ui-todo-item
+  class="list-items"
   *ngFor="let todo of filteredTodo$ | async"
   [todo]="todo"
   (selected)="selectTodo($event)"

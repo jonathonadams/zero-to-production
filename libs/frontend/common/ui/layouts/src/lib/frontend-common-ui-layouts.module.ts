@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { TwoColumnComponent } from './two-column/two-column.component';
 
 @NgModule({
-  imports: [CommonModule]
+  imports: [],
+  declarations: [TwoColumnComponent],
+  exports: [TwoColumnComponent]
 })
-export class FrontendCommonUiLayoutsModule {}
+export class CommonUiLayoutsModule {}

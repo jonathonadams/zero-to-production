@@ -1,7 +1,9 @@
-# frontend-common-ui-layouts
+# Common UI Layouts
 
-This library was generated with [Nx](https://nx.dev).
+A Library that contains common UI layouts.
 
-## Running unit tests
+## Two Column
 
-Run `ng test frontend-common-ui-layouts` to execute the unit tests.
+A two column layout. Targe the left column the css class 'left-column' and the right with 'right-column'.
+
+Response to CSS Media queries and will stack them vertically on small screens.

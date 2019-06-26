@@ -1,14 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
-import { FrontendCommonUiLayoutsModule } from './frontend-common-ui-layouts.module';
+import { CommonUiLayoutsModule } from './frontend-common-ui-layouts.module';
 
-describe('FrontendCommonUiLayoutsModule', () => {
+describe('CommonUiLayoutsModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FrontendCommonUiLayoutsModule]
+      imports: [CommonUiLayoutsModule]
     }).compileComponents();
   }));
 
   it('should create', () => {
-    expect(FrontendCommonUiLayoutsModule).toBeDefined();
+    expect(CommonUiLayoutsModule).toBeDefined();
   });
 });
