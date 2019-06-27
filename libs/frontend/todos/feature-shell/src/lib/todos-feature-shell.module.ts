@@ -21,7 +21,7 @@ import { TodoLayoutComponent } from './ui/todos-layout.component';
     CommonUiToolbarModule,
     TodosFeatureShellRoutingModule,
     DataAccessFloatingMenuModule,
-    CommonThemeModule,
+    // CommonThemeModule,
     CommonUiLayoutsModule
   ]
 })

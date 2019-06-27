@@ -4,6 +4,8 @@ import {
   EventEmitter,
   ChangeDetectionStrategy
 } from '@angular/core';
+import { ToolbarService } from './toolbar.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'todo-ui-toolbar',
@@ -12,5 +14,10 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonUiToolbarComponent {
+  visible$: Observable<boolean>;
   @Output() navToggle = new EventEmitter<void>();
+
+  constructor(private toolbarService: ToolbarService) {
+    this.visible$ = this.toolbarService.visible$;
+  }
 }

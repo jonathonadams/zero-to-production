@@ -1,4 +1,8 @@
-<mat-toolbar color="primary" fxLayoutAlign="space-between center">
+<mat-toolbar
+  color="primary"
+  class="toolbar"
+  [ngClass]="{ hidden: !(visible$ | async) }"
+>
   <button (click)="navToggle.emit()" mat-mini-fab color="accent">
     <mat-icon>menu</mat-icon>
   </button>
