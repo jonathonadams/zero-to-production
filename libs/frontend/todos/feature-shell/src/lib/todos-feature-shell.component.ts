@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonUiSideNavService } from '@workspace/frontend/common/ui/side-nav';
 import { ISideNaveLink } from '@workspace/shared/data';
-// import { ToolbarService } from '@workspace/frontend/common/ui/toolbar';
+import { ToolbarService } from '@workspace/frontend/common/ui/toolbar';
 
 @Component({
   selector: 'todo-feature-shell',
@@ -11,14 +11,12 @@ import { ISideNaveLink } from '@workspace/shared/data';
 })
 export class TodoFeatureShellComponent {
   constructor(
-    private sideNavService: CommonUiSideNavService // private toolbarService: ToolbarService
+    private sideNavService: CommonUiSideNavService,
+    private toolbarService: ToolbarService
   ) {
-    // sideNavService.lastScrollDown$.subscribe(down => {
-    //   // if(down) {
-    //   console.log(down);
-    //   // this.toolbarService.show = !down;
-    //   // }
-    // });
+    this.sideNavService.lastScrollDown$.subscribe(down => {
+      this.toolbarService.show = !down;
+    });
   }
 
   navLinks: ISideNaveLink[] = [

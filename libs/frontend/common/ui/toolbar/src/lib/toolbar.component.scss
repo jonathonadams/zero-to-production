@@ -2,9 +2,9 @@
   justify-content: space-between;
 }
 
-// .toolbar {
-//   transition: height 0.25s ease-in-out;
-//   .hidden {
-//     height: 0;
-//   }
-// }
+.toolbar {
+  transition: height 0.25s ease-in-out;
+  &.hidden {
+    height: 0;
+  }
+}

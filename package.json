@@ -23,8 +23,7 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "lint-staged": "lint-staged",
-    "postinstall": "./tools/scripts/postinstall.js"
+    "lint-staged": "lint-staged"
   },
   "husky": {
     "hooks": {
