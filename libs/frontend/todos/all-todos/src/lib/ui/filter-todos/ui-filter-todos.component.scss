@@ -1,8 +1,15 @@
 .search-fields {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   > * {
-    margin-right: 2em;
+    width: 48%;
   }
-  :last-child {
-    margin-right: none;
+
+  @media (max-width: 599px) {
+    flex-direction: column;
+    > * {
+      width: 100%;
+    }
   }
 }
