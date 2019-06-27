@@ -37,6 +37,9 @@ export const usersReducer = createReducer(
   on(UserActions.createUserSuccess, (state, { user }) => {
     return adapter.addOne(user, state);
   }),
+  on(UserActions.updateUserSuccess, (state, { user }) => {
+    return adapter.updateOne(user, state);
+  }),
   on(UserActions.deleteUserSuccess, (state, { id }) => {
     return adapter.removeOne(id, state);
   })

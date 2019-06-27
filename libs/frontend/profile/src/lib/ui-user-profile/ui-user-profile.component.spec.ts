@@ -19,7 +19,6 @@ describe('UiUserProfileComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UiUserProfileComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

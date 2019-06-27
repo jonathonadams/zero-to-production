@@ -21,12 +21,12 @@ export class UserProfileComponent implements OnDestroy {
   private subscription: Subscription;
 
   constructor(
-    fb: FormBuilder,
+    private fb: FormBuilder,
     private authFacade: AuthUserFacade,
     private userFacade: UsersFacade,
     private themeService: ThemeService
   ) {
-    this.profileForm = fb.group({
+    this.profileForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       emailAddress: [
@@ -65,17 +65,15 @@ export class UserProfileComponent implements OnDestroy {
 
   onSubmit({ valid, value }: FormGroup) {
     if (valid) {
-      (this.authFacade.authUser$ as Observable<User>)
-        .pipe(take(1))
-        .subscribe(user => {
-          const userSettings = { ...user.settings, colors: value.settings };
-          const userToSave = {
-            ...user,
-            ...value,
-            settings: userSettings
-          } as User;
-          this.userFacade.updateUser(userToSave);
-        });
+      (this.user$ as Observable<User>).pipe(take(1)).subscribe(user => {
+        const userSettings = { ...user.settings, colors: value.settings };
+        const userToSave = {
+          ...user,
+          ...value,
+          settings: userSettings
+        } as User;
+        this.userFacade.updateUser(userToSave);
+      });
     }
   }
 
