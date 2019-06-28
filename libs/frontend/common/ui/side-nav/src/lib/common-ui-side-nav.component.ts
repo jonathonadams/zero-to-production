@@ -17,8 +17,8 @@ import { CommonUiSideNavService } from './common-ui-side-nav.service';
 })
 export class CommonUiSideNavComponent {
   @Input() navLinks: ISideNaveLink[] | undefined;
-  private lastScrollPosition: number = 0;
-  private lastScrollDown: boolean = false;
+  private lastScrollPosition = 0;
+  private lastScrollDown = false;
 
   public opened$: Observable<boolean>;
 

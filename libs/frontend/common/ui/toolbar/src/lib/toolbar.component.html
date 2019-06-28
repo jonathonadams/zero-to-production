@@ -1,7 +1,7 @@
 <mat-toolbar
   color="primary"
   class="toolbar"
-  [ngClass]="{ hidden: !(visible$ | async) }"
+  [ngClass]="{ hidden: (visible$ | async) === false }"
 >
   <button (click)="navToggle.emit()" mat-mini-fab color="accent">
     <mat-icon>menu</mat-icon>
