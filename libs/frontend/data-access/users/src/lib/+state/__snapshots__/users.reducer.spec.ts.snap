@@ -2,6 +2,7 @@
 
 exports[`UsersReducer DeleteSuccess action should delete the existing user state 1`] = `
 Object {
+  "authUserId": null,
   "entities": Object {},
   "ids": Array [],
   "selectedUserId": null,
@@ -27,6 +28,7 @@ Object {
 
 exports[`UsersReducer UpdateSuccess action should update the existing user state 1`] = `
 Object {
+  "authUserId": null,
   "entities": Object {
     "1": Object {
       "emailAddress": "some@emailAddress.com",

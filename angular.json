@@ -84,7 +84,7 @@
               "apps/frontends/todos/todos/tsconfig.app.json",
               "apps/frontends/todos/todos/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/frontends/todos/todos/**"]
           }
         },
         "test": {
@@ -118,7 +118,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "apps/frontends/todos/todos-e2e/tsconfig.e2e.json"
+            "tsConfig": "apps/frontends/todos/todos-e2e/tsconfig.e2e.json",
+            "exclude": ["!apps/frontends/todos/todos-e2e/**"]
           }
         }
       }
@@ -136,7 +137,10 @@
               "libs/frontend/common/ui/side-nav/tsconfig.lib.json",
               "libs/frontend/common/ui/side-nav/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/common/ui/side-nav/**"
+            ]
           }
         },
         "test": {
@@ -167,7 +171,10 @@
               "libs/frontend/data-access/api/tsconfig.lib.json",
               "libs/frontend/data-access/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/data-access/api/**"
+            ]
           }
         },
         "test": {
@@ -198,7 +205,10 @@
               "libs/frontend/data-access/auth/tsconfig.lib.json",
               "libs/frontend/data-access/auth/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/data-access/auth/**"
+            ]
           }
         },
         "test": {
@@ -229,7 +239,10 @@
               "libs/frontend/common/ui/custom-material/tsconfig.lib.json",
               "libs/frontend/common/ui/custom-material/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/common/ui/custom-material/**"
+            ]
           }
         }
       },
@@ -248,7 +261,10 @@
               "libs/frontend/common/ui/toolbar/tsconfig.lib.json",
               "libs/frontend/common/ui/toolbar/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/common/ui/toolbar/**"
+            ]
           }
         },
         "test": {
@@ -275,7 +291,7 @@
               "libs/frontend/utils/overlay/tsconfig.lib.json",
               "libs/frontend/utils/overlay/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/frontend/utils/overlay/**"]
           }
         },
         "test": {
@@ -306,7 +322,10 @@
               "libs/frontend/utils/notifications/tsconfig.lib.json",
               "libs/frontend/utils/notifications/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/utils/notifications/**"
+            ]
           }
         },
         "test": {
@@ -337,7 +356,7 @@
               "libs/frontend/utils/errors/tsconfig.lib.json",
               "libs/frontend/utils/errors/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/frontend/utils/errors/**"]
           }
         },
         "test": {
@@ -376,7 +395,7 @@
               "libs/shared/data/tsconfig.lib.json",
               "libs/shared/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/shared/data/**"]
           }
         }
       }
@@ -394,7 +413,7 @@
               "libs/shared/enums/tsconfig.lib.json",
               "libs/shared/enums/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/shared/enums/**"]
           }
         }
       }
@@ -412,7 +431,7 @@
               "libs/shared/utils/auth/tsconfig.lib.json",
               "libs/shared/utils/auth/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/shared/utils/auth/**"]
           }
         },
         "test": {
@@ -437,7 +456,10 @@
               "libs/frontend/data-access/users/tsconfig.lib.json",
               "libs/frontend/data-access/users/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/data-access/users/**"
+            ]
           }
         },
         "test": {
@@ -464,7 +486,7 @@
               "libs/frontend/common/theme/tsconfig.lib.json",
               "libs/frontend/common/theme/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/frontend/common/theme/**"]
           }
         },
         "test": {
@@ -491,7 +513,7 @@
               "libs/frontend/dashboard/tsconfig.lib.json",
               "libs/frontend/dashboard/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/frontend/dashboard/**"]
           }
         },
         "test": {
@@ -522,7 +544,10 @@
               "libs/frontend/todos/feature-shell/tsconfig.lib.json",
               "libs/frontend/todos/feature-shell/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/todos/feature-shell/**"
+            ]
           }
         },
         "test": {
@@ -553,7 +578,10 @@
               "libs/frontend/todos/data-access/tsconfig.lib.json",
               "libs/frontend/todos/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/todos/data-access/**"
+            ]
           }
         },
         "test": {
@@ -580,7 +608,10 @@
               "libs/frontend/todos/todo-detail/tsconfig.lib.json",
               "libs/frontend/todos/todo-detail/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/todos/todo-detail/**"
+            ]
           }
         },
         "test": {
@@ -611,7 +642,10 @@
               "libs/frontend/todos/all-todos/tsconfig.lib.json",
               "libs/frontend/todos/all-todos/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/todos/all-todos/**"
+            ]
           }
         },
         "test": {
@@ -642,7 +676,10 @@
               "libs/frontend/common/ui/layouts/tsconfig.lib.json",
               "libs/frontend/common/ui/layouts/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/common/ui/layouts/**"
+            ]
           }
         },
         "test": {
@@ -673,7 +710,10 @@
               "libs/frontend/data-access/floating-menu/tsconfig.lib.json",
               "libs/frontend/data-access/floating-menu/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/data-access/floating-menu/**"
+            ]
           }
         },
         "test": {
@@ -733,7 +773,7 @@
               "apps/backends/api/tsconfig.app.json",
               "apps/backends/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/backends/api/**"]
           }
         },
         "test": {
@@ -766,7 +806,7 @@
               "libs/backend/auth/tsconfig.lib.json",
               "libs/backend/auth/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/backend/auth/**"]
           }
         },
         "test": {
@@ -791,7 +831,7 @@
               "libs/frontend/profile/tsconfig.lib.json",
               "libs/frontend/profile/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/frontend/profile/**"]
           }
         },
         "test": {
@@ -822,7 +862,10 @@
               "libs/frontend/data-access/app-state/tsconfig.lib.json",
               "libs/frontend/data-access/app-state/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/data-access/app-state/**"
+            ]
           }
         },
         "test": {
@@ -853,7 +896,10 @@
               "libs/frontend/data-access/router/tsconfig.lib.json",
               "libs/frontend/data-access/router/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/data-access/router/**"
+            ]
           }
         },
         "test": {
