@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
 import { User } from '@workspace/shared/data';
-import { AuthUserFacade } from '@workspace/frontend/data-access/user-auth';
 import { UsersFacade } from '@workspace/frontend/data-access/users';
 import { ThemeService } from '@workspace/frontend/common/theme';
 
@@ -22,7 +21,6 @@ export class UserProfileComponent implements OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private authFacade: AuthUserFacade,
     private userFacade: UsersFacade,
     private themeService: ThemeService
   ) {
@@ -41,7 +39,7 @@ export class UserProfileComponent implements OnDestroy {
       })
     });
 
-    this.user$ = this.authFacade.authUser$;
+    this.user$ = this.userFacade.authUser$;
 
     (this.user$ as Observable<User>)
       .pipe(

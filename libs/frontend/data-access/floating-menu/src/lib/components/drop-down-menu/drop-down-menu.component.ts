@@ -1,10 +1,12 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { take, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { User } from '@workspace/shared/data';
-import { AuthFacade } from '@workspace/frontend/data-access/auth';
-import { AuthUserFacade } from '@workspace/frontend/data-access/user-auth';
 import { UsersFacade } from '@workspace/frontend/data-access/users';
 
 @Component({
@@ -15,13 +17,13 @@ import { UsersFacade } from '@workspace/frontend/data-access/users';
 export class DropDownMenuComponent {
   public user$: Observable<User | undefined>;
 
-  constructor(
-    private userFacade: UsersFacade,
-    private facade: AuthUserFacade,
-    private router: Router,
-    private authFacade: AuthFacade
-  ) {
-    this.user$ = this.facade.authUser$.pipe(filter(user => user !== undefined));
+  @Output() navigateToProfile = new EventEmitter();
+  @Output() logout = new EventEmitter();
+
+  constructor(private userFacade: UsersFacade) {
+    this.user$ = this.userFacade.authUser$.pipe(
+      filter(user => user !== undefined)
+    );
   }
 
   toggleDarkMode(darkMode: boolean) {
@@ -30,13 +32,5 @@ export class DropDownMenuComponent {
       const userSettings = { darkMode, colors: user.settings.colors };
       this.userFacade.updateUser({ ...user, settings: userSettings });
     });
-  }
-
-  navigateToProfile() {
-    this.router.navigate(['/profile']);
-  }
-
-  logout() {
-    this.authFacade.logout();
   }
 }

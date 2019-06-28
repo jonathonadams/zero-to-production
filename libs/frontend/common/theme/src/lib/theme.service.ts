@@ -2,7 +2,6 @@ import { Injectable, OnDestroy, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
-import { User } from '@workspace/shared/data';
 
 @Injectable()
 export class ThemeService implements OnDestroy {
@@ -28,13 +27,6 @@ export class ThemeService implements OnDestroy {
         ? overlayContainer.getContainerElement().classList.add('dark-theme')
         : overlayContainer.getContainerElement().classList.remove('dark-theme');
     });
-  }
-
-  setUserSettings(user: User | undefined) {
-    if (user !== undefined) {
-      this.setDarkThemeStatus(user.settings.darkMode);
-      this.setThemeColors(user.settings.colors);
-    }
   }
 
   setThemeColors({

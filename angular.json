@@ -629,37 +629,6 @@
         }
       }
     },
-    "frontend-data-access-user-auth": {
-      "projectType": "library",
-      "root": "libs/frontend/data-access/user-auth",
-      "sourceRoot": "libs/frontend/data-access/user-auth/src",
-      "prefix": "todo",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/frontend/data-access/user-auth/tsconfig.lib.json",
-              "libs/frontend/data-access/user-auth/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/frontend/data-access/user-auth/jest.config.js",
-            "tsConfig": "libs/frontend/data-access/user-auth/tsconfig.spec.json",
-            "setupFile": "libs/frontend/data-access/user-auth/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
     "frontend-common-ui-layouts": {
       "projectType": "library",
       "root": "libs/frontend/common/ui/layouts",

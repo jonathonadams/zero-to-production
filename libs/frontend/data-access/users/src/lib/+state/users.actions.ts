@@ -10,6 +10,25 @@ export const selectUser = createAction(
 
 export const clearSelected = createAction('[User/UI] Clear');
 
+export const selectAuthUser = createAction(
+  '[User/UI] Select Auth',
+  props<{ id: string }>()
+);
+
+export const clearAuthUser = createAction('[User/UI] Clear Auth');
+
+export const loadAuthUser = createAction('[User/API] Load Auth');
+
+export const loadAuthUserSuccess = createAction(
+  '[User/API] Load Auth Success',
+  props<{ user: User }>()
+);
+
+export const loadAuthUserFail = createAction(
+  '[User/API] Load Auth Fail',
+  props<{ error: GraphQLError | Error }>()
+);
+
 export const loadUser = createAction(
   '[User/API] Load User',
   props<{ id: string }>()

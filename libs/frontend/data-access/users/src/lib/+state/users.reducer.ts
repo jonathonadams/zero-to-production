@@ -11,6 +11,7 @@ import * as UserActions from './users.actions';
 
 export interface UsersEntityState extends EntityState<User> {
   selectedUserId: string | null;
+  authUserId: string | number | null;
 }
 
 const adapter: EntityAdapter<User> = createEntityAdapter<User>();
@@ -27,6 +28,12 @@ export const usersReducer = createReducer(
   }),
   on(UserActions.clearSelected, state => {
     return { ...state, selectedUserId: null };
+  }),
+  on(UserActions.selectAuthUser, (state, { id }) => {
+    return { ...state, authUserId: id };
+  }),
+  on(UserActions.clearAuthUser, state => {
+    return { ...state, authUserId: null };
   }),
   on(UserActions.loadUsersSuccess, (state, { users }) => {
     return adapter.addAll(users, state);
@@ -67,4 +74,14 @@ export const selectCurrentUser = createSelector(
   selectUserEntities,
   selectCurrentUserId,
   (userEntities, userId) => userEntities[`${userId}`] // TODO  -> Is the coercion necessary? For TS to be strict it has to be
+);
+
+export const selectAuthUserId = createSelector(
+  selectUserState,
+  state => state.authUserId
+);
+export const selectAuthUser = createSelector(
+  selectUserEntities,
+  selectAuthUserId,
+  (userEntities, id) => userEntities[`${id}`] // TODO -> don't cast?
 );

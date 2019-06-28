@@ -5,7 +5,7 @@ import {
   AuthGuard,
   LoggedInGuard
 } from '@workspace/frontend/data-access/auth';
-import { AuthUsersResolver } from '@workspace/frontend/data-access/user-auth';
+import { AuthUsersResolver } from '@workspace/frontend/data-access/users';
 
 const ROUTES: Routes = [
   {

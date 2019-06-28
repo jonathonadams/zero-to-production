@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take, filter, tap } from 'rxjs/operators';
 import { Resolve } from '@angular/router';
-import { AuthUserFacade } from './+state/auth-user.facade';
 import { User } from '@workspace/shared/data';
+import { UsersFacade } from './+state/users.facade';
 
 @Injectable()
 export class AuthUsersResolver implements Resolve<User | undefined> {
-  constructor(private facade: AuthUserFacade) {}
+  constructor(private facade: UsersFacade) {}
 
   resolve(): Observable<User | undefined> {
     /**

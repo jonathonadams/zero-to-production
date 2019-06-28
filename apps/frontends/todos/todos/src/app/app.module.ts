@@ -10,9 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DataAccessApiModule } from '@workspace/frontend/data-access/api';
 
 import { DataAccessAuthModule } from '@workspace/frontend/data-access/auth';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { DataAccessUsersModule } from '@workspace/frontend/data-access/users';
-import { DataAccessUserAuthModule } from '@workspace/frontend/data-access/user-auth';
 import {
   AppState,
   debug,
@@ -39,7 +37,6 @@ import { DataAccessRouterModule } from '@workspace/frontend/data-access/router';
     // !environment.production ? StoreDevtoolsModule.instrument() : [],
     DataAccessApiModule.forRoot(environment),
     DataAccessAuthModule.forRoot(),
-    DataAccessUserAuthModule,
     DataAccessUsersModule,
     DataAccessRouterModule,
     AppRoutingModule.forRoot()

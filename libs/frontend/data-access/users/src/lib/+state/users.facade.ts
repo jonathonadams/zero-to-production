@@ -6,19 +6,23 @@ import * as UserActions from './users.actions';
 import {
   selectAllUsers,
   selectCurrentUser,
-  selectUserEntities
+  selectAuthUser
 } from './users.reducer';
 
 @Injectable()
 export class UsersFacade {
   user$: Observable<User[]>;
   selectedUser$: Observable<User | undefined>;
-  userEntities$: Observable<any>;
+  authUser$: Observable<User | undefined>;
 
   constructor(private store: Store<any>) {
     this.user$ = this.store.pipe(select(selectAllUsers));
     this.selectedUser$ = this.store.pipe(select(selectCurrentUser));
-    this.userEntities$ = this.store.pipe(select(selectUserEntities));
+    this.authUser$ = this.store.pipe(select(selectAuthUser));
+  }
+
+  loadAuthUser() {
+    this.store.dispatch(UserActions.loadAuthUser());
   }
 
   loadUsers() {
