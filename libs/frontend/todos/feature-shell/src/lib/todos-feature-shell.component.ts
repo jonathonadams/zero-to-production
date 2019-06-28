@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonUiSideNavService } from '@workspace/frontend/common/ui/side-nav';
 import { ISideNaveLink } from '@workspace/shared/data';
 import { ToolbarService } from '@workspace/frontend/common/ui/toolbar';
+import { UserThemeService } from '@workspace/frontend/common/theme';
 
 @Component({
   selector: 'todo-feature-shell',
@@ -11,6 +12,7 @@ import { ToolbarService } from '@workspace/frontend/common/ui/toolbar';
 })
 export class TodoFeatureShellComponent {
   constructor(
+    private theme: UserThemeService,
     private sideNavService: CommonUiSideNavService,
     private toolbarService: ToolbarService
   ) {

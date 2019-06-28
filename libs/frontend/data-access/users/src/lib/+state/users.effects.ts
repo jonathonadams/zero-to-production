@@ -45,7 +45,7 @@ export class UsersEffects {
   @Effect()
   selectAuthenticatedUser$ = this.actions$.pipe(
     ofType(UserActions.loadAuthUserSuccess),
-    map(props => UserActions.selectAuthUser({ id: props.user.id }))
+    map(({ user }) => UserActions.selectAuthUser({ id: user.id }))
   );
 
   @Effect()
