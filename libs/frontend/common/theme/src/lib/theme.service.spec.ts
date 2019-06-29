@@ -2,6 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { DOCUMENT } from '@angular/common';
 import { ThemeService } from './theme.service';
 
+// TODO -> TESTS
+
 describe('ThemeService', () => {
   let themeService: ThemeService;
   beforeEach(() => {

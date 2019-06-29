@@ -9,6 +9,7 @@ describe('TodoFeatureShellComponent', () => {
   let component: TodoFeatureShellComponent;
   let fixture: ComponentFixture<TodoFeatureShellComponent>;
 
+  // TODO -> TESTS
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TodoFeatureShellComponent],

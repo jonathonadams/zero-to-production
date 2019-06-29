@@ -4,6 +4,8 @@ import { CommonUiToolbarComponent } from './toolbar.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ToolbarService } from './toolbar.service';
 
+// TODO -> TESTS
+
 describe('CommonUiToolbarComponent', () => {
   let component: CommonUiToolbarComponent;
   let fixture: ComponentFixture<CommonUiToolbarComponent>;

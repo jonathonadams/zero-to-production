@@ -3,6 +3,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TodosFacade } from '@workspace/frontend/todos/data-access';
 import { AllTodosComponent } from './all-todos.component';
 
+// TODO  -> TESTS
+
 describe('AllTodosComponent', () => {
   let component: AllTodosComponent;
   let fixture: ComponentFixture<AllTodosComponent>;

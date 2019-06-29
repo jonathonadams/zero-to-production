@@ -11,7 +11,6 @@ import { ThemeService } from '@workspace/frontend/common/theme';
 @Component({
   selector: 'todo-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserProfileComponent implements OnDestroy {

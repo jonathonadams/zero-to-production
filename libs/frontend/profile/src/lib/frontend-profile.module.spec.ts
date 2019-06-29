@@ -1,6 +1,8 @@
 import { async, TestBed } from '@angular/core/testing';
 import { FrontendProfileModule } from './frontend-profile.module';
 
+// TODO -> TESTS
+
 describe('FrontendProfileModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({

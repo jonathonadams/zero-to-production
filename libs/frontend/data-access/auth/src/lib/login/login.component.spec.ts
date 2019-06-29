@@ -4,6 +4,8 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AuthFacade } from '@workspace/frontend/data-access/auth';
 import { ReactiveFormsModule } from '@angular/forms';
 
+// TODO  -> TESTS
+
 describe('CommonLoginComponent', () => {
   let component: CommonLoginComponent;
   let fixture: ComponentFixture<CommonLoginComponent>;

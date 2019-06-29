@@ -1,22 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { DataAccessApiModule } from '@workspace/frontend/data-access/api';
 
+import { environment } from '../environments/environment';
+
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { DataAccessApiModule } from '@workspace/frontend/data-access/api';
 import { DataAccessAuthModule } from '@workspace/frontend/data-access/auth';
 import { DataAccessUsersModule } from '@workspace/frontend/data-access/users';
 import {
   AppState,
   debug,
-  appReducer
+  appReducer,
+  AppEffects
 } from '@workspace/frontend/data-access/app-state';
-import { AppEffects } from './app.effects';
 import { DataAccessRouterModule } from '@workspace/frontend/data-access/router';
 
 @NgModule({

@@ -4,6 +4,8 @@ import { UiUserProfileComponent } from './ui-user-profile.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
+// TODO -> TESTS
+
 describe('UiUserProfileComponent', () => {
   let component: UiUserProfileComponent;
   let fixture: ComponentFixture<UiUserProfileComponent>;

@@ -7,6 +7,8 @@ import { UsersFacade } from '@workspace/frontend/data-access/users';
 import { ThemeService } from '@workspace/frontend/common/theme';
 import { of } from 'rxjs';
 
+// TODO -> TESTS
+
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
   let fixture: ComponentFixture<UserProfileComponent>;

@@ -5,6 +5,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CommonUiSideNavComponent } from './common-ui-side-nav.component';
 import { CommonUiSideNavService } from './common-ui-side-nav.service';
 
+// TODO -> TESTS
+
 describe('CommonUiSideNavComponent', () => {
   let component: CommonUiSideNavComponent;
   let fixture: ComponentFixture<CommonUiSideNavComponent>;
