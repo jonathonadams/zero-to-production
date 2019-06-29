@@ -1,3 +1,5 @@
+import { ClientFunction } from 'testcafe';
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +25,10 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+export const getPageUrl = ClientFunction(() => window.location.href);
+
+export const localStorageSet = ClientFunction((key, val) =>
+  localStorage.setItem(key, val)
+);
+export const localStorageGet = ClientFunction(key => localStorage.getItem(key));

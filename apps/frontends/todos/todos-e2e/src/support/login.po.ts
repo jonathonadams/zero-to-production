@@ -1,12 +1,7 @@
 import { t, Selector, ClientFunction } from 'testcafe';
 import { AngularSelector } from 'testcafe-angular-selectors';
 import { AUTHENTICATED_USER, UN_AUTHENTICATED_USER } from '../../config.e2e';
-
-const getPageUrl = ClientFunction(() => window.location.href);
-const localStorageSet = ClientFunction((key, val) =>
-  localStorage.setItem(key, val)
-);
-const localStorageGet = ClientFunction(key => localStorage.getItem(key));
+import { localStorageGet, getPageUrl } from './commands';
 
 export class LoginPageObject {
   constructor(
