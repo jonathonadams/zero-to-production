@@ -1,9 +1,9 @@
 import { Injectable, OnDestroy, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 
-@Injectable()
+// Only want one instance of the theme service
+@Injectable({ providedIn: 'root' })
 export class ThemeService implements OnDestroy {
   /**
    * Use a behavior subject as the state needs to be emitted
@@ -14,19 +14,24 @@ export class ThemeService implements OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    overlayContainer: OverlayContainer
-  ) {
+  constructor(@Inject(DOCUMENT) private document: Document) {
     /**
      * listen to the changes of the theme service and add
-     * the dark-theme to the global overlay element
+     * the dark-theme to the body element so it sits above all elements
      */
     this.subscription = this.darkTheme$.subscribe(active => {
+      const body = this.document.querySelector('body') as HTMLElement;
       active
-        ? overlayContainer.getContainerElement().classList.add('dark-theme')
-        : overlayContainer.getContainerElement().classList.remove('dark-theme');
+        ? body.classList.add('dark-theme')
+        : body.classList.remove('dark-theme');
     });
+
+    // overlayContainer: OverlayContainer
+    // this.subscription = this.darkTheme$.subscribe(active => {
+    //   active
+    //     ? overlayContainer.getContainerElement().classList.add('dark-theme')
+    //     : overlayContainer.getContainerElement().classList.remove('dark-theme');
+    // });
   }
 
   setThemeColors({

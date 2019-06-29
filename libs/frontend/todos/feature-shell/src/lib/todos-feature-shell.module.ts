@@ -6,7 +6,6 @@ import { DataAccessFloatingMenuModule } from '@workspace/frontend/data-access/fl
 import { CommonUiToolbarModule } from '@workspace/frontend/common/ui/toolbar';
 import { CommonUiSideNavModule } from '@workspace/frontend/common/ui/side-nav';
 import { CommonUiLayoutsModule } from '@workspace/frontend/common/ui/layouts';
-import { CommonThemeModule } from '@workspace/frontend/common/theme';
 import { TodosFeatureShellRoutingModule } from './todos-feature-shell-routing.module';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
 import { TodoLayoutComponent } from './ui/todos-layout.component';
@@ -21,7 +20,6 @@ import { TodoLayoutComponent } from './ui/todos-layout.component';
     CommonUiToolbarModule,
     TodosFeatureShellRoutingModule,
     DataAccessFloatingMenuModule,
-    CommonThemeModule,
     CommonUiLayoutsModule
   ]
 })

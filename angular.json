@@ -31,7 +31,7 @@
               "apps/frontends/todos/todos/src/styles.scss"
             ],
             "scripts": [],
-            "aot": true
+            "aot": false
           },
           "configurations": {
             "production": {

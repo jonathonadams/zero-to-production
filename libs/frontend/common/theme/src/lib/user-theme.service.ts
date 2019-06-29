@@ -5,7 +5,7 @@ import { User } from '@workspace/shared/data';
 import { UsersFacade } from '@workspace/frontend/data-access/users';
 import { ThemeService } from './theme.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UserThemeService implements OnDestroy {
   private subscription: Subscription;
   constructor(private users: UsersFacade, private theme: ThemeService) {

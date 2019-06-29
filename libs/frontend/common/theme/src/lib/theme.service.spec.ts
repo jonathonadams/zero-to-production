@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { ThemeService } from './theme.service';
 

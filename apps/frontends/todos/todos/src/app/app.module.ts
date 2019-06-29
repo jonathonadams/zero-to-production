@@ -37,7 +37,7 @@ import { DataAccessRouterModule } from '@workspace/frontend/data-access/router';
     // !environment.production ? StoreDevtoolsModule.instrument() : [],
     DataAccessApiModule.forRoot(environment),
     DataAccessAuthModule.forRoot(),
-    DataAccessUsersModule,
+    DataAccessUsersModule.forRoot(),
     DataAccessRouterModule,
     AppRoutingModule.forRoot()
   ],
