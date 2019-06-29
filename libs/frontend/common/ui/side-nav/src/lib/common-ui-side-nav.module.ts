@@ -6,7 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonUiSideNavComponent } from './common-ui-side-nav.component';
-import { CommonUiSideNavService } from './common-ui-side-nav.service';
+import { SideNavService } from './common-ui-side-nav.service';
 
 @NgModule({
   declarations: [CommonUiSideNavComponent],
@@ -18,7 +18,7 @@ import { CommonUiSideNavService } from './common-ui-side-nav.service';
     MatIconModule,
     MatButtonModule
   ],
-  providers: [CommonUiSideNavService],
+  providers: [SideNavService],
   exports: [CommonUiSideNavComponent]
 })
 export class CommonUiSideNavModule {}

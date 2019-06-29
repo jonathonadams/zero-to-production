@@ -108,3 +108,7 @@ https://www.npmjs.com/package/tspath
 
 Generic template checking.
 https://github.com/angular/angular/issues/30235
+
+## TestCafe E2E Builder
+
+TODO -> Create an TestCafe Builder

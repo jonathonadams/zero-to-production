@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 @Injectable()
-export class CommonUiSideNavService {
+export class SideNavService {
   private opened = new BehaviorSubject<boolean>(false);
   opened$ = this.opened.asObservable();
 

@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ISideNaveLink } from '@workspace/shared/data';
-import { CommonUiSideNavService } from './common-ui-side-nav.service';
+import { SideNavService } from './common-ui-side-nav.service';
 
 // TODO -> Redux store and dumb component for view
 @Component({
@@ -27,7 +27,7 @@ export class CommonUiSideNavComponent {
     HTMLElement
   >;
 
-  constructor(private sideNavService: CommonUiSideNavService) {
+  constructor(private sideNavService: SideNavService) {
     this.opened$ = sideNavService.opened$;
   }
 
