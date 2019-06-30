@@ -1,3 +1,5 @@
+import { AuthenticationRoles } from './auth';
+
 export interface User {
   id: string;
   username: string;
@@ -6,6 +8,7 @@ export interface User {
   emailAddress: string;
   dateOfBirth: Date;
   settings: UserSettings;
+  role: AuthenticationRoles;
 }
 
 export interface UserSettings {

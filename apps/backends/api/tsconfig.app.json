@@ -1,9 +1,6 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "strictPropertyInitialization": false,
-    "moduleResolution": "node",
-    "module": "commonjs",
     "rootDir": "./src",
     "outDir": "../../../dist/apps/backends/api",
     "types": ["node"]

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { AuthenticationRoles } from '../../auth/roles';
+import { AuthenticationRoles } from '@workspace/shared/data';
 import { defaultSchemaOptions } from '../../db/schema-options';
 
 export class UserClass extends mongoose.Model {

@@ -25,11 +25,9 @@ async function _buildApiBuilder(
   );
 
   tsChild.stdout.on('data', data => {
-    console.log('on data');
     context.logger.info(data.toString());
   });
   tsChild.stderr.on('data', data => {
-    console.log('on error');
     context.logger.error(data.toString());
   });
 
