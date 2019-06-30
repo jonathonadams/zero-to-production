@@ -8,9 +8,9 @@ import { JsonObject } from '@angular-devkit/core';
 import glob from 'glob';
 import cpFile from 'cp-file';
 
-export default createBuilder(_commandBuilder);
+export default createBuilder(_buildApiBuilder);
 
-async function _commandBuilder(
+async function _buildApiBuilder(
   options: JsonObject,
   context: BuilderContext
 ): Promise<BuilderOutput> {

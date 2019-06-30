@@ -1,19 +1,21 @@
-import * as tslib_1 from 'tslib';
-import { Architect } from '@angular-devkit/architect';
-import { TestingArchitectHost } from '@angular-devkit/architect/testing';
-import { logging, schema } from '@angular-devkit/core';
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+const tslib_1 = require('tslib');
+const architect_1 = require('@angular-devkit/architect');
+const testing_1 = require('@angular-devkit/architect/testing');
+const core_1 = require('@angular-devkit/core');
 const { join } = require('path');
 describe('Command Runner Builder', () => {
   let architect;
   let architectHost;
   beforeEach(() =>
     tslib_1.__awaiter(this, void 0, void 0, function*() {
-      const registry = new schema.CoreSchemaRegistry();
-      registry.addPostTransform(schema.transforms.addUndefinedDefaults);
+      const registry = new core_1.schema.CoreSchemaRegistry();
+      registry.addPostTransform(core_1.schema.transforms.addUndefinedDefaults);
       // Arguments to TestingArchitectHost are workspace and current directories.
       // Since we don't use those, both are the same in this case.
-      architectHost = new TestingArchitectHost(__dirname, __dirname);
-      architect = new Architect(architectHost, registry);
+      architectHost = new testing_1.TestingArchitectHost(__dirname, __dirname);
+      architect = new architect_1.Architect(architectHost, registry);
       // This will either take a Node package name, or a path to the directory
       // for the package.json file.
       yield architectHost.addBuilderFromPackage(join(__dirname, '..'));
@@ -24,7 +26,7 @@ describe('Command Runner Builder', () => {
   it('can run ls', () =>
     tslib_1.__awaiter(this, void 0, void 0, function*() {
       // Create a logger that keeps an array of all messages that were logged.
-      const logger = new logging.Logger('');
+      const logger = new core_1.logging.Logger('');
       const logs = [];
       logger.subscribe(ev => logs.push(ev.message));
       // A "run" can contain multiple outputs, and contains progress information.

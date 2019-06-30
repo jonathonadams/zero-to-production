@@ -763,7 +763,11 @@
         "serve": {
           "builder": "./tools/builders/api:serve",
           "options": {
-            "buildTarget": "backends-api:build"
+            "outputPath": "dist/apps/backends/api",
+            "src": "apps/backends/api/src",
+            "tsConfig": "apps/backends/api/tsconfig.app.json",
+            "main": "dist/apps/backends/api/index.js",
+            "envPath": "apps/backends/api/.env"
           }
         },
         "lint": {
