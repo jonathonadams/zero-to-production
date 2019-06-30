@@ -26,11 +26,11 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "lint-staged": "lint-staged",
-    "validate-packages": "./tools/scripts/validate-packages.js"
+    "validate-packages": "node ./tools/scripts/validate-packages.js"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-staged",
+      "pre-commit": "npm run validate-packages && npm run lint-staged",
       "pre-push": "npm run lint"
     }
   },
@@ -38,8 +38,7 @@
     "linters": {
       "*.ts": [
         "npm run format:fix",
-        "git add",
-        "npm run validate-packages"
+        "git add"
       ]
     },
     "ignore": [
@@ -57,6 +56,7 @@
     "@angular/platform-browser": "^8.0.0",
     "@angular/platform-browser-dynamic": "^8.0.0",
     "@angular/router": "^8.0.0",
+    "@hapi/boom": "^7.4.2",
     "@ngrx/effects": "^8.0.1",
     "@ngrx/entity": "^8.0.1",
     "@ngrx/router-store": "^8.0.1",
@@ -69,16 +69,30 @@
     "apollo-client": "^2.6.0",
     "apollo-link": "^1.2.11",
     "apollo-link-error": "^1.1.11",
+    "apollo-server-koa": "^2.6.7",
+    "bcryptjs": "^2.4.3",
     "core-js": "^2.5.4",
+    "dataloader": "^1.4.0",
+    "glob": "^7.1.4",
     "graphql": "^14.3.1",
+    "graphql-iso-date": "^3.6.1",
     "graphql-tag": "^2.10.0",
+    "graphql-tools": "^4.0.5",
     "hammerjs": "^2.0.8",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
+    "kcors": "^2.2.2",
     "koa": "^2.7.0",
+    "koa-bearer-token": "^1.0.0",
+    "koa-compress": "^3.0.0",
+    "koa-helmet": "^4.2.0",
+    "koa-morgan": "^1.0.1",
     "koa-router": "^7.4.0",
     "lodash-es": "^4.17.11",
+    "lodash.keyby": "^4.6.0",
+    "lodash.merge": "^4.6.1",
     "lodash.omit": "^4.5.0",
+    "mongoose": "^5.6.2",
     "reset-css": "^4.0.1",
     "rxjs": "~6.5.2",
     "zone.js": "^0.9.1"
@@ -104,7 +118,6 @@
     "cp-file": "^7.0.0",
     "cypress": "~3.3.1",
     "dotenv": "^8.0.0",
-    "glob": "^7.1.4",
     "husky": "^2.4.1",
     "jest": "^24.8.0",
     "jest-marbles": "^2.3.1",
