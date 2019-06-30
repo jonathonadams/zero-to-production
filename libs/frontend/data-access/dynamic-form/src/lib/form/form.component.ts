@@ -41,14 +41,14 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    combineLatest(
+    combineLatest([
       this.structure$.pipe(
         map(str => this.formBuilder(str)),
         tap(form => (this.form = form)),
         tap(form => this.listenFormChanges(form))
       ),
       this.data$
-    )
+    ])
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(this.patchValue);
 

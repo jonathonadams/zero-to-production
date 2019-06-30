@@ -3,10 +3,10 @@ import {
   createBuilder,
   BuilderContext
 } from '@angular-devkit/architect';
-import * as childProcess from 'child_process';
+import childProcess from 'child_process';
 import { JsonObject } from '@angular-devkit/core';
-import * as glob from 'glob';
-import * as cpFile from 'cp-file';
+import glob from 'glob';
+import cpFile from 'cp-file';
 
 export default createBuilder(_commandBuilder);
 
