@@ -14,6 +14,7 @@ declare module 'koa-bearer-token';
 declare module 'koa-compress';
 declare module 'koa-helmet';
 declare module 'kcors';
+declare module 'dotenv';
 
 /**
  * Rather than declaring individually, you could declare all like below

@@ -7,15 +7,17 @@ export default createBuilder(_commandBuilder);
 function _commandBuilder(options, context) {
   return tslib_1.__awaiter(this, void 0, void 0, function*() {
     context.reportStatus(`Executing custom builder...`);
-    const tsChild = childProcess.spawn('tsc', ['--build', options.tsConfig], {
-      stdio: 'pipe'
-    });
+    const tsChild = childProcess.spawn(
+      'tsc',
+      ['--build', options.tsConfig, '--watch'],
+      {
+        stdio: 'pipe'
+      }
+    );
     tsChild.stdout.on('data', data => {
-      console.log('on data');
       context.logger.info(data.toString());
     });
     tsChild.stderr.on('data', data => {
-      console.log('on error');
       context.logger.error(data.toString());
     });
     yield new Promise(resolve => {

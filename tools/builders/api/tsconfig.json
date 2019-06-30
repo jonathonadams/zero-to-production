@@ -1,7 +1,7 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "./build",
+    "rootDir": "./",
     "moduleResolution": "node",
     "module": "commonjs"
   }

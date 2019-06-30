@@ -4,6 +4,11 @@
       "implementation": "./build",
       "schema": "./build/schema.json",
       "description": "Runs Composite TS compilation and copies GraphQL Files"
+    },
+    "serve": {
+      "implementation": "./serve",
+      "schema": "./serve/schema.json",
+      "description": "Runs Composite TS compilation and copies GraphQL Files"
     }
   }
 }

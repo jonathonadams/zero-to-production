@@ -24,11 +24,11 @@ export default class ApiServer {
    * @param {Koa} app an instance of a koa server
    * @param {Router} router an instance of a koa-router
    */
-  private async setupServer(app: Koa, router: Router) {
+  setupServer(app: Koa, router: Router) {
     /**
      * Start the db connection
      */
-    await dbConnection();
+    dbConnection();
 
     /**
      * Setup all the required middleware for the app
@@ -60,12 +60,14 @@ export default class ApiServer {
     router.get('/healthz', ctx => {
       ctx.status = 200;
     });
+
+    return app.callback();
   }
 
-  /**
-   *
-   * @returns a request handler callback for node's native http/http2 server.
-   */
+  // /**
+  //  *
+  //  * @returns a request handler callback for node's native http/http2 server.
+  //  */
   public start() {
     return this.app.callback();
   }

@@ -1,9 +1,9 @@
 import http from 'http';
 import config from './server/config';
-import ApiServer from './server';
 import Koa from 'koa';
 import Router from 'koa-router';
 import { apolloServer } from './server/api/graphql';
+import ApiServer from './server/server';
 
 /**
  * A instance of the API ApplicationA

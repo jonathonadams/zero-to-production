@@ -29,5 +29,10 @@
     "lodash.merge": "^4.6.1",
     "lodash.omit": "^4.5.0",
     "mongoose": "^5.6.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^0.800.6",
+    "@angular/cli": "^8.1.0-rc.0",
+    "cp-file": "^7.0.0"
   }
 }
