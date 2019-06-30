@@ -2,13 +2,22 @@
   "$schema": "http://json-schema.org/schema",
   "type": "object",
   "properties": {
-    "command": {
-      "type": "string"
-    },
-    "args": {
-      "type": "array",
-      "items": {
-        "type": "string"
+    "options": {
+      "type": "object",
+      "properties": {
+        "outputPath": {
+          "type": "string"
+        },
+        "src": {
+          "outputPath": {
+            "type": "string"
+          }
+        },
+        "tsConfig": {
+          "outputPath": {
+            "type": "string"
+          }
+        }
       }
     }
   }

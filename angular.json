@@ -743,8 +743,7 @@
           "options": {
             "outputPath": "dist/apps/backends/api",
             "src": "apps/backends/api/src",
-            "tsConfig": "apps/backends/api/tsconfig.app.json",
-            "assets": ["apps/backends/api/src/assets"]
+            "tsConfig": "apps/backends/api/tsconfig.app.json"
           },
           "configurations": {
             "production": {
