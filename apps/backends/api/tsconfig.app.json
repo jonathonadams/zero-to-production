@@ -1,12 +1,15 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "strictPropertyInitialization": false,
+    "moduleResolution": "node",
+    "module": "commonjs",
     "rootDir": "./src",
     "outDir": "../../../dist/apps/backends/api",
     "types": ["node"]
   },
-  "exclude": ["**/*.spec.ts"],
-  "include": ["**/*.ts"],
+  "exclude": ["**/*.spec.ts", "**/*.e2e.ts"],
+  "include": ["**/*.ts", "**/*.d.ts"],
   "references": [
     { "path": "../../../libs/shared/data" },
     { "path": "../../../libs/shared/enums" }
