@@ -1,36 +1,13 @@
 <div class="login-page-content">
   <div class="login-page-input mat-elevation-z3">
-    <form
+    <app-form-errors></app-form-errors>
+    <app-dynamic-form
       class="login-page-form"
-      [formGroup]="form"
-      (ngSubmit)="loginSubmit.emit(form)"
+      (formSubmit)="loginSubmit.emit($event)"
     >
-      <mat-form-field color="primary" appearance="standard">
-        <mat-label>Username</mat-label>
-        <input
-          matInput
-          type="text"
-          autocomplete="username"
-          formControlName="username"
-        />
-      </mat-form-field>
-      <mat-form-field color="primary" appearance="standard">
-        <mat-label>Password</mat-label>
-        <input
-          matInput
-          type="password"
-          autocomplete="current-password"
-          formControlName="password"
-        />
-      </mat-form-field>
-      <button
-        mat-raised-button
-        color="accent"
-        type="submit"
-        [disabled]="!form?.valid"
-      >
+      <button mat-raised-button color="accent" type="submit">
         Login
       </button>
-    </form>
+    </app-dynamic-form>
   </div>
 </div>

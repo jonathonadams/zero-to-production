@@ -4,7 +4,6 @@ import { exhaustMap, map, tap, catchError } from 'rxjs/operators';
 import * as AuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
 import { JWTAuthService } from '../services/jwt-auth.service';
-
 // TODO -> All HTTP ERRORS
 
 @Injectable()
@@ -34,6 +33,12 @@ export class AuthEffects {
     ofType(AuthActions.loginSuccess),
     tap(({ token }) => this.jwtService.setAuthorizationToken(token)),
     map(action => AuthActions.loginRedirect())
+  );
+
+  @Effect({ dispatch: false })
+  loginFailure$ = this.actions$.pipe(
+    ofType(AuthActions.loginFailure),
+    tap(({ error }) => console.log(error))
   );
 
   @Effect()

@@ -78,6 +78,9 @@
       ],
       "@workspace/frontend/data-access/router": [
         "libs/frontend/data-access/router/src/index.ts"
+      ],
+      "@workspace/frontend/data-access/dynamic-form": [
+        "libs/frontend/data-access/dynamic-form/src/index.ts"
       ]
     }
   },

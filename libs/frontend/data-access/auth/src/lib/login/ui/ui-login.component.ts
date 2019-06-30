@@ -1,12 +1,10 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  Input,
   Output,
   EventEmitter,
   ViewEncapsulation
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 
 /**
  * The login page is themed by the light/dark theme, hence
@@ -21,6 +19,5 @@ import { FormGroup } from '@angular/forms';
   encapsulation: ViewEncapsulation.None
 })
 export class UiLoginComponent {
-  @Input() public form: FormGroup | undefined;
   @Output() public loginSubmit = new EventEmitter();
 }

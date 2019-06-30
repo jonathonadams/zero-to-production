@@ -1,0 +1,13 @@
+<mat-form-field
+  [formGroup]="group"
+  [appearance]="field?.appearance"
+  [color]="field?.color"
+>
+  <mat-label>{{ field.label }}</mat-label>
+  <input
+    matInput
+    [type]="field?.type"
+    [autocomplete]="field?.autocomplete"
+    [formControlName]="field?.name"
+  />
+</mat-form-field>

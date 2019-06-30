@@ -29,6 +29,10 @@
     .login-page-form {
       display: flex;
       flex-direction: column;
+
+      button {
+        width: 100%;
+      }
     }
   }
 }

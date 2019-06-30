@@ -1,13 +1,11 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonLoginComponent } from './login/login.component';
 import { UiLoginComponent } from './login/ui/ui-login.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { EffectsModule } from '@ngrx/effects';
+import { CustomMaterialModule } from '@workspace/common/ui/custom-material';
+import { DataAccessDynamicFormModule } from '@workspace/frontend/data-access/dynamic-form';
 import { AuthEffects } from './+state/auth.effects';
 import { AuthFacade } from './+state/auth.facade';
 import { AuthService } from './services/auth.service';
@@ -21,10 +19,8 @@ import { JWTAuthService } from './services/jwt-auth.service';
   declarations: [CommonLoginComponent, UiLoginComponent],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
+    CustomMaterialModule,
+    DataAccessDynamicFormModule,
     EffectsModule.forFeature([AuthEffects])
   ]
 })

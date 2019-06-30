@@ -88,6 +88,9 @@
     },
     "frontend-data-access-router": {
       "tags": []
+    },
+    "frontend-data-access-dynamic-form": {
+      "tags": []
     }
   }
 }

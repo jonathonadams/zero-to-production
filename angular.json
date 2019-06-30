@@ -916,6 +916,40 @@
           "styleext": "scss"
         }
       }
+    },
+    "frontend-data-access-dynamic-form": {
+      "projectType": "library",
+      "root": "libs/frontend/data-access/dynamic-form",
+      "sourceRoot": "libs/frontend/data-access/dynamic-form/src",
+      "prefix": "todo",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/data-access/dynamic-form/tsconfig.lib.json",
+              "libs/frontend/data-access/dynamic-form/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/data-access/dynamic-form/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/data-access/dynamic-form/jest.config.js",
+            "tsConfig": "libs/frontend/data-access/dynamic-form/tsconfig.spec.json",
+            "setupFile": "libs/frontend/data-access/dynamic-form/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {
