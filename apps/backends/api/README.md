@@ -68,3 +68,5 @@ The Github issue can be found [here](https://github.com/facebook/jest/issues/484
 ### Archived Postgres & Sequelize setup
 
 This API Server was initially setup with Postgres & Sequelize. The final version of the API using Postgres & Sequelize has been tagged `Final-Postgres/Sequelize`. You can check that out to view the API before switching to MongoDB & Mongoose
+
+// Aliases are in respect to to the root directory, i.e the index.js file

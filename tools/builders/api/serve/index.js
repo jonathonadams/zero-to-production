@@ -5,6 +5,7 @@ const architect_1 = require('@angular-devkit/architect');
 const child_process_1 = tslib_1.__importDefault(require('child_process'));
 const glob_1 = tslib_1.__importDefault(require('glob'));
 const cp_file_1 = tslib_1.__importDefault(require('cp-file'));
+const replace_in_file_1 = tslib_1.__importDefault(require('replace-in-file'));
 exports.default = architect_1.createBuilder(_serveApiBuilder);
 function _serveApiBuilder(options, context) {
   return tslib_1.__awaiter(this, void 0, void 0, function*() {
@@ -36,6 +37,10 @@ function _serveApiBuilder(options, context) {
         }
       });
     });
+    /**
+     * Need to copy the GraphQL files as well. Create a collection of all the GraphQL files
+     * and their destinations
+     */
     const graphQLFiles = yield new Promise((resolve, reject) => {
       glob_1.default(`${options.src}/**/*.graphql`, (err, matches) => {
         resolve(matches);
@@ -47,25 +52,46 @@ function _serveApiBuilder(options, context) {
         fileName.length
       )}`;
     });
-    const aliasFiles = yield new Promise((resolve, reject) => {
-      glob_1.default(`${__dirname}/aliases/*.js`, (err, matches) => {
+    /**
+     * As typescript does not currently rewrite path aliases.
+     * To get around this, in development create a dummy 'index.dev.js' as
+     * an entry point to serve that imports the aliases and use the 'module-alias'
+     * packages for rewrites. In production, this is not used and the paths are rewritten.
+     */
+    const pathFiles = yield new Promise((resolve, reject) => {
+      glob_1.default(`${__dirname}/paths/*.js`, (err, matches) => {
         resolve(matches);
       });
     });
-    const aliasFileNames = aliasFiles.map(name =>
-      name.substr(`${__dirname}/aliases`.length, name.length)
+    const pathFileNames = pathFiles.map(name =>
+      name.substr(`${__dirname}/paths`.length, name.length)
     );
+    /**
+     * Copy all the files across. This includes the GraphQL Files,
+     * The temporary index.dev.js and paths.js to use when serving
+     * and the paths.json file to override the paths.
+     */
     yield Promise.all([
       graphQLFiles.map((value, i) =>
         cp_file_1.default(value, destinationFiles[i])
       ),
-      aliasFiles.map((value, i) =>
+      pathFiles.map((value, i) =>
         cp_file_1.default(
           value,
-          `${process.cwd()}/${options.outputPath}${aliasFileNames[i]}`
+          `${process.cwd()}/${options.outputPath}${pathFileNames[i]}`
         )
-      )
+      ),
+      cp_file_1.default(options.pathAliases, `${options.outputPath}/paths.json`)
     ]);
+    // Find the entry point file (from the options that is passed in)
+    // And subtract the '.js' from the end
+    const entryFile = options.main.substring(0, options.main.length - 3);
+    // Replace the "<<entry-point-to-override>>" with the main entry point file
+    yield replace_in_file_1.default({
+      files: `${options.outputPath}/index.dev.js`,
+      from: '<<entry-point-to-override>>',
+      to: entryFile
+    });
     const nodeMonChild = child_process_1.default.spawn(
       uniNpx,
       [

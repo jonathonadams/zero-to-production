@@ -3,11 +3,11 @@ import {
   createBuilder,
   BuilderContext
 } from '@angular-devkit/architect';
-import childProcess, { exec } from 'child_process';
+import childProcess from 'child_process';
 import { JsonObject } from '@angular-devkit/core';
 import glob from 'glob';
 import cpFile from 'cp-file';
-import { readdirSync } from 'fs';
+import replaceInFIle from 'replace-in-file';
 
 export default createBuilder(_serveApiBuilder);
 
@@ -47,6 +47,10 @@ async function _serveApiBuilder(
     });
   });
 
+  /**
+   * Need to copy the GraphQL files as well. Create a collection of all the GraphQL files
+   * and their destinations
+   */
   const graphQLFiles: string[] = await new Promise((resolve, reject) => {
     glob(`${options.src}/**/*.graphql`, (err, matches) => {
       resolve(matches);
@@ -60,25 +64,51 @@ async function _serveApiBuilder(
     )}`;
   });
 
-  const aliasFiles: string[] = await new Promise((resolve, reject) => {
-    glob(`${__dirname}/aliases/*.js`, (err, matches) => {
+  /**
+   * As typescript does not currently rewrite path aliases.
+   * To get around this, in development create a dummy 'index.dev.js' as
+   * an entry point to serve that imports the aliases and use the 'module-alias'
+   * packages for rewrites. In production, this is not used and the paths are rewritten.
+   */
+  const pathFiles: string[] = await new Promise((resolve, reject) => {
+    glob(`${__dirname}/paths/*.js`, (err, matches) => {
       resolve(matches);
     });
   });
 
-  const aliasFileNames = aliasFiles.map(name =>
-    name.substr(`${__dirname}/aliases`.length, name.length)
+  const pathFileNames = pathFiles.map(name =>
+    name.substr(`${__dirname}/paths`.length, name.length)
   );
 
+  /**
+   * Copy all the files across. This includes the GraphQL Files,
+   * The temporary index.dev.js and paths.js to use when serving
+   * and the paths.json file to override the paths.
+   */
   await Promise.all([
     graphQLFiles.map((value, i) => cpFile(value, destinationFiles[i])),
-    aliasFiles.map((value, i) =>
+    pathFiles.map((value, i) =>
       cpFile(
         value,
-        `${process.cwd()}/${options.outputPath as string}${aliasFileNames[i]}`
+        `${process.cwd()}/${options.outputPath as string}${pathFileNames[i]}`
       )
-    )
+    ),
+    cpFile(options.pathAliases as string, `${options.outputPath}/paths.json`)
   ]);
+
+  // Find the entry point file (from the options that is passed in)
+  // And subtract the '.js' from the end
+  const entryFile = (options.main as string).substring(
+    0,
+    (options.main as string).length - 3
+  );
+
+  // Replace the "<<entry-point-to-override>>" with the main entry point file
+  await replaceInFIle({
+    files: `${options.outputPath}/index.dev.js`,
+    from: '<<entry-point-to-override>>',
+    to: entryFile
+  });
 
   const nodeMonChild = childProcess.spawn(
     uniNpx,

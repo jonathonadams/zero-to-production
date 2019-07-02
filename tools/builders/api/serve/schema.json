@@ -23,6 +23,11 @@
             "type": "string"
           }
         },
+        "pathAliases": {
+          "outputPath": {
+            "type": "string"
+          }
+        },
         "envPath": {
           "outputPath": {
             "type": "string"
