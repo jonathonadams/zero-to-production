@@ -3,9 +3,5 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  aliases: {
-    '@workspace/shared': `${__dirname}../../../../../libs/shared`,
-    '@workspace/backend': `${__dirname}../../../../../libs/backend`
-  }
+  production: false
 };
