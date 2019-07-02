@@ -26,6 +26,7 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "lint-staged": "lint-staged",
+    "compile-builders:api": "tsc -p tools/builders/api",
     "validate-packages": "node ./tools/scripts/validate-packages.js"
   },
   "husky": {
