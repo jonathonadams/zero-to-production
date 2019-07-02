@@ -1,6 +1,10 @@
 {
-  "extends": "../../../tsconfig.node.json",
+  "extends": "../../../tsconfig.json",
   "compilerOptions": {
+    "declaration": true,
+    "composite": true,
+    "rootDir": "./src",
+    "outDir": "../../../dist/libs/backend/auth",
     "types": ["node", "jest"]
   },
   "include": ["**/*.ts"]

@@ -90,6 +90,14 @@ async function _serveApiBuilder(
     context.logger.error(data.toString());
   });
 
+  // // Handle messages sent from the Parent
+  // nodeMonChild.on('message', msg => {
+  //   if (msg.action === 'STOP') {
+  //     // Execute Graceful Termination code
+  //     nodeMonChild.exit(0); // Exit Process with no Errors
+  //   }
+  // });
+
   return new Promise<BuilderOutput>(resolve => {
     context.reportStatus(`Done with TypeScript Compilation.`);
     tsChild.on('close', code => {

@@ -1,6 +1,9 @@
 {
-  "extends": "../../../tsconfig.node.json",
+  "extends": "../../../tsconfig.json",
   "compilerOptions": {
+    "strictPropertyInitialization": false,
+    "moduleResolution": "node",
+    "module": "commonjs",
     "types": ["node", "jest"]
   },
   "include": ["**/*.ts"]

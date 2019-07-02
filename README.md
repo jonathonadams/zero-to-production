@@ -102,7 +102,15 @@ https://github.com/Microsoft/TypeScript/issues/16069
 TS does not rewrite path aliases, once ES modules are no longer experimental they will as per below github link
 https://github.com/Microsoft/TypeScript/issues/10866
 
+https://github.com/Microsoft/TypeScript/issues/15479
+
 https://www.npmjs.com/package/tspath
+
+https://github.com/cevek/ttypescript
+
+https://github.com/LeDDGroup/typescript-transform-paths
+
+https://github.com/dividab/tsconfig-paths
 
 ## Angular IVY and Strict Mode
 

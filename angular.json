@@ -765,7 +765,7 @@
             "outputPath": "dist/apps/backends/api",
             "src": "apps/backends/api/src",
             "tsConfig": "apps/backends/api/tsconfig.app.json",
-            "main": "dist/apps/backends/api/index.js",
+            "main": "dist/apps/backends/api/index.dev.js",
             "envPath": "apps/backends/api/.env"
           }
         },
