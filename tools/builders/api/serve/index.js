@@ -8,10 +8,11 @@ const cp_file_1 = tslib_1.__importDefault(require('cp-file'));
 exports.default = architect_1.createBuilder(_serveApiBuilder);
 function _serveApiBuilder(options, context) {
   return tslib_1.__awaiter(this, void 0, void 0, function*() {
+    const uniNpx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
     context.reportStatus(`Executing custom builder...`);
     const tsChild = child_process_1.default.spawn(
-      'tsc',
-      ['--build', options.tsConfig, '--watch'],
+      uniNpx,
+      ['tsc', '--build', options.tsConfig, '--watch'],
       {
         stdio: 'pipe'
       }
@@ -52,7 +53,7 @@ function _serveApiBuilder(options, context) {
       })
     ]);
     const nodeMonChild = child_process_1.default.spawn(
-      'npx',
+      uniNpx,
       [
         'cross-env',
         'NODE_ENV=dev',
@@ -75,6 +76,13 @@ function _serveApiBuilder(options, context) {
     nodeMonChild.stderr.on('data', data => {
       context.logger.error(data.toString());
     });
+    // // Handle messages sent from the Parent
+    // nodeMonChild.on('message', msg => {
+    //   if (msg.action === 'STOP') {
+    //     // Execute Graceful Termination code
+    //     nodeMonChild.exit(0); // Exit Process with no Errors
+    //   }
+    // });
     return new Promise(resolve => {
       context.reportStatus(`Done with TypeScript Compilation.`);
       tsChild.on('close', code => {

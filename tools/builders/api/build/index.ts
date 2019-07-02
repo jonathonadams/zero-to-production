@@ -14,11 +14,12 @@ async function _buildApiBuilder(
   options: JsonObject,
   context: BuilderContext
 ): Promise<BuilderOutput> {
+  const uniNpx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
   context.reportStatus(`Executing custom builder...`);
 
   const tsChild = childProcess.spawn(
-    'tsc',
-    ['--build', options.tsConfig as string],
+    uniNpx,
+    ['tsc', '--build', options.tsConfig as string],
     {
       stdio: 'pipe'
     }

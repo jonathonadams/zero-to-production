@@ -14,11 +14,12 @@ async function _serveApiBuilder(
   options: JsonObject,
   context: BuilderContext
 ): Promise<BuilderOutput> {
+  const uniNpx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
   context.reportStatus(`Executing custom builder...`);
 
   const tsChild = childProcess.spawn(
-    'tsc',
-    ['--build', options.tsConfig as string, '--watch'],
+    uniNpx,
+    ['tsc', '--build', options.tsConfig as string, '--watch'],
     {
       stdio: 'pipe'
     }
@@ -65,7 +66,7 @@ async function _serveApiBuilder(
   ]);
 
   const nodeMonChild = childProcess.spawn(
-    'npx',
+    uniNpx,
     [
       'cross-env',
       'NODE_ENV=dev',

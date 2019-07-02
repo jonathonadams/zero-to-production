@@ -8,20 +8,19 @@ const cp_file_1 = tslib_1.__importDefault(require('cp-file'));
 exports.default = architect_1.createBuilder(_buildApiBuilder);
 function _buildApiBuilder(options, context) {
   return tslib_1.__awaiter(this, void 0, void 0, function*() {
+    const uniNpx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
     context.reportStatus(`Executing custom builder...`);
     const tsChild = child_process_1.default.spawn(
-      'tsc',
-      ['--build', options.tsConfig],
+      uniNpx,
+      ['tsc', '--build', options.tsConfig],
       {
         stdio: 'pipe'
       }
     );
     tsChild.stdout.on('data', data => {
-      console.log('on data');
       context.logger.info(data.toString());
     });
     tsChild.stderr.on('data', data => {
-      console.log('on error');
       context.logger.error(data.toString());
     });
     yield new Promise(resolve => {

@@ -1,2 +1,2 @@
 Build the builders
-tsc -p tools/builders/api/
+npx tsc -p tools/builders/api/
