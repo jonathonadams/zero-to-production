@@ -26,7 +26,7 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "lint-staged": "lint-staged",
-    "compile-builders:api": "tsc -p tools/builders/api",
+    "compile-builders": "tsc -p tools/builders",
     "validate-packages": "node ./tools/scripts/validate-packages.js"
   },
   "husky": {
@@ -133,6 +133,7 @@
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
     "read-package-json": "^2.0.13",
+    "replace-in-file": "^4.1.0",
     "testcafe": "^1.2.1",
     "testcafe-angular-selectors": "^0.3.2",
     "ts-jest": "^24.0.2",

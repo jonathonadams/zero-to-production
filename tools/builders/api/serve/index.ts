@@ -7,6 +7,7 @@ import childProcess, { exec } from 'child_process';
 import { JsonObject } from '@angular-devkit/core';
 import glob from 'glob';
 import cpFile from 'cp-file';
+import { readdirSync } from 'fs';
 
 export default createBuilder(_serveApiBuilder);
 
@@ -25,7 +26,7 @@ async function _serveApiBuilder(
     }
   );
 
-  let stream = tsChild.stdout.on('data', data => {
+  tsChild.stdout.on('data', data => {
     context.logger.info(data.toString());
   });
   tsChild.stderr.on('data', data => {
@@ -33,7 +34,7 @@ async function _serveApiBuilder(
   });
 
   // A function to block, and wait until the tsc compiler has emitted a message
-  // saying it is now watching, so that node-mon does not try an run before it is ready
+  // saying it is now watching, so that nodemon does not try an run before it is ready
   await new Promise((resolve, reject) => {
     // Add th event handler with a named reference so it can be removed later
     tsChild.stdout.on('data', function watchingHandler(data) {
@@ -46,23 +47,37 @@ async function _serveApiBuilder(
     });
   });
 
-  const srcFiles: string[] = await new Promise((resolve, reject) => {
+  const graphQLFiles: string[] = await new Promise((resolve, reject) => {
     glob(`${options.src}/**/*.graphql`, (err, matches) => {
       resolve(matches);
     });
   });
 
-  const destinationFiles = srcFiles.map(fileName => {
+  const destinationFiles = graphQLFiles.map(fileName => {
     return `${options.outputPath}${fileName.substr(
       (options.src as string).length,
       fileName.length
     )}`;
   });
 
+  const aliasFiles: string[] = await new Promise((resolve, reject) => {
+    glob(`${__dirname}/aliases/*.js`, (err, matches) => {
+      resolve(matches);
+    });
+  });
+
+  const aliasFileNames = aliasFiles.map(name =>
+    name.substr(`${__dirname}/aliases`.length, name.length)
+  );
+
   await Promise.all([
-    srcFiles.map((value, i) => {
-      return cpFile(value, destinationFiles[i]);
-    })
+    graphQLFiles.map((value, i) => cpFile(value, destinationFiles[i])),
+    aliasFiles.map((value, i) =>
+      cpFile(
+        value,
+        `${process.cwd()}/${options.outputPath as string}${aliasFileNames[i]}`
+      )
+    )
   ]);
 
   const nodeMonChild = childProcess.spawn(
@@ -73,7 +88,7 @@ async function _serveApiBuilder(
       'nodemon',
       '-r',
       'dotenv/config',
-      `${options.main}`,
+      `${options.outputPath}/index.dev.js`,
       `dotenv_config_path=${options.envPath}`
     ],
     {

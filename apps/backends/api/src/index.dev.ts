@@ -1,2 +1,2 @@
-import './aliases';
-import './index';
+// import './aliases';
+// import './index';
