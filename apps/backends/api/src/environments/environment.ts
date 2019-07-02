@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   aliases: {
-    '@workspace/shared': `${__dirname}../../../../libs/shared`,
-    '@workspace/backend': `${__dirname}../../../../libs/backend`
+    '@workspace/shared': `${__dirname}../../../../../libs/shared`,
+    '@workspace/backend': `${__dirname}../../../../../libs/backend`
   }
 };
