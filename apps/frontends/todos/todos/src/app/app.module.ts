@@ -20,6 +20,7 @@ import {
   AppEffects
 } from '@workspace/frontend/data-access/app-state';
 import { DataAccessRouterModule } from '@workspace/frontend/data-access/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,7 +42,10 @@ import { DataAccessRouterModule } from '@workspace/frontend/data-access/router';
     DataAccessAuthModule.forRoot(),
     DataAccessUsersModule.forRoot(),
     DataAccessRouterModule,
-    AppRoutingModule.forRoot()
+    AppRoutingModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
