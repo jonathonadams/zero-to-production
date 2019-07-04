@@ -7,6 +7,7 @@ import childProcess from 'child_process';
 import { JsonObject } from '@angular-devkit/core';
 import glob from 'glob';
 import cpFile from 'cp-file';
+import del from 'del';
 
 export default createBuilder(_buildApiBuilder);
 
@@ -16,6 +17,9 @@ async function _buildApiBuilder(
 ): Promise<BuilderOutput> {
   const uniNpx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
   context.reportStatus(`Executing custom builder...`);
+
+  // Wipe the directory
+  await del([`${options.outputPath}/**`, `!${options.outputPath}`]);
 
   const tsChild = childProcess.spawn(
     uniNpx,

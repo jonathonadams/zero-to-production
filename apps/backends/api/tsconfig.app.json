@@ -2,13 +2,15 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "../../../dist/apps/backends/api",
+    "outDir": "../../../dist/backends/api",
     "types": ["node"]
   },
   "exclude": ["**/*.spec.ts", "**/*.e2e.ts"],
   "include": ["**/*.ts", "**/*.d.ts"],
   "references": [
-    { "path": "../../../libs/shared/data" },
-    { "path": "../../../libs/shared/enums" }
+    { "path": "../../../libs/shared/data/tsconfig.lib.json" },
+    { "path": "../../../libs/shared/enums/tsconfig.lib.json" },
+    { "path": "../../../libs/backend/auth/tsconfig.lib.json" },
+    { "path": "../../../libs/backend/auth" }
   ]
 }

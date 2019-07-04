@@ -741,7 +741,7 @@
         "build": {
           "builder": "./tools/builders/api:build",
           "options": {
-            "outputPath": "dist/apps/backends/api",
+            "outputPath": "dist/backends/api",
             "src": "apps/backends/api/src",
             "tsConfig": "apps/backends/api/tsconfig.app.json"
           },
@@ -762,7 +762,7 @@
         "serve": {
           "builder": "./tools/builders/api:serve",
           "options": {
-            "outputPath": "dist/apps/backends/api",
+            "outputPath": "dist/backends/api",
             "src": "apps/backends/api/src",
             "tsConfig": "apps/backends/api/tsconfig.app.json",
             "main": "main.js",
