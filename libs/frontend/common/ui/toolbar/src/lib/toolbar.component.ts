@@ -8,7 +8,7 @@ import { ToolbarService } from './toolbar.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'todo-ui-toolbar',
+  selector: 'ngw-ui-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

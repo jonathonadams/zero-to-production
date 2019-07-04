@@ -16,7 +16,7 @@ import { User } from '@workspace/shared/data';
  * eg do not use generic selectors life "container" etc
  */
 @Component({
-  selector: 'todo-ui-drop-down-menu',
+  selector: 'ngw-ui-drop-down-menu',
   templateUrl: './ui-drop-down-menu.component.html',
   styleUrls: ['./ui-drop-down-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

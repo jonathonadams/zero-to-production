@@ -11,7 +11,7 @@ import { SideNavService } from './common-ui-side-nav.service';
 
 // TODO -> Redux store and dumb component for view
 @Component({
-  selector: 'todo-common-side-nav',
+  selector: 'ngw-common-side-nav',
   templateUrl: './common-ui-side-nav.component.html',
   styleUrls: ['./common-ui-side-nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

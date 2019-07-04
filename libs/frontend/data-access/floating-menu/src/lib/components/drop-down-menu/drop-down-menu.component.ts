@@ -10,7 +10,7 @@ import { User } from '@workspace/shared/data';
 import { UsersFacade } from '@workspace/frontend/data-access/users';
 
 @Component({
-  selector: 'todo-drop-down-menu',
+  selector: 'ngw-drop-down-menu',
   templateUrl: './drop-down-menu.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

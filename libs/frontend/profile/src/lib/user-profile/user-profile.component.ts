@@ -9,7 +9,7 @@ import { ThemeService } from '@workspace/frontend/common/theme';
 // TODO -> Can Deactivate Guard -> Reset User Settings
 
 @Component({
-  selector: 'todo-user-profile',
+  selector: 'ngw-user-profile',
   templateUrl: './user-profile.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

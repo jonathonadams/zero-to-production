@@ -9,7 +9,7 @@ import { FormGroup } from '@angular/forms';
 import { User } from '@workspace/shared/data';
 
 @Component({
-  selector: 'todo-ui-user-profile',
+  selector: 'ngw-ui-user-profile',
   templateUrl: './ui-user-profile.component.html',
   styleUrls: ['./ui-user-profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

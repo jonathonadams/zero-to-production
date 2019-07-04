@@ -5,7 +5,7 @@ import { AuthFacade } from '@workspace/frontend/data-access/auth';
 import { DropDownMenuComponent } from '../drop-down-menu/drop-down-menu.component';
 
 @Component({
-  selector: 'todo-toolbar-menu-icon',
+  selector: 'ngw-toolbar-menu-icon',
   templateUrl: './toolbar-menu-icon.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

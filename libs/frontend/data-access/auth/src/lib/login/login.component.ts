@@ -31,7 +31,7 @@ const STRUCTURE: Field[] = [
 ];
 
 @Component({
-  selector: 'todo-common-login',
+  selector: 'ngw-common-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

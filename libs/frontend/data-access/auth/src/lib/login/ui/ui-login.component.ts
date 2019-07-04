@@ -12,7 +12,7 @@ import {
  * is at the router level
  */
 @Component({
-  selector: 'todo-common-ui-login',
+  selector: 'ngw-common-ui-login',
   templateUrl: './ui-login.component.html',
   styleUrls: ['./ui-login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
