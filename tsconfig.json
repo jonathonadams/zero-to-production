@@ -52,7 +52,9 @@
       "@workspace/frontend/common/theme": [
         "libs/frontend/common/theme/src/index.ts"
       ],
-      "@workspace/frontend/dashboard": ["libs/frontend/dashboard/src/index.ts"],
+      "@workspace/frontend/dashboard": [
+        "libs/frontend/shared/dashboard/src/index.ts"
+      ],
       "@workspace/frontend/todos/feature-shell": [
         "libs/frontend/todos/feature-shell/src/index.ts"
       ],
@@ -72,7 +74,9 @@
         "libs/frontend/data-access/floating-menu/src/index.ts"
       ],
       "@workspace/backend/auth": ["libs/backend/auth/src/index.ts"],
-      "@workspace/frontend/profile": ["libs/frontend/profile/src/index.ts"],
+      "@workspace/frontend/shared/profile": [
+        "libs/frontend/shared/profile/src/index.ts"
+      ],
       "@workspace/frontend/data-access/app-state": [
         "libs/frontend/data-access/app-state/src/index.ts"
       ],
@@ -81,6 +85,9 @@
       ],
       "@workspace/frontend/data-access/dynamic-form": [
         "libs/frontend/data-access/dynamic-form/src/index.ts"
+      ],
+      "@workspace/frontend/data-access/service-worker": [
+        "libs/frontend/data-access/service-worker/src/index.ts"
       ]
     }
   },

@@ -20,7 +20,7 @@ export const TODOS_ROUTES: Routes = [
       {
         path: 'profile',
         loadChildren: () =>
-          import('@workspace/frontend/profile').then(
+          import('@workspace/frontend/shared/profile').then(
             m => m.FrontendProfileModule
           )
       },

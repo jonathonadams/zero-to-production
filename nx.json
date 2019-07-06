@@ -53,7 +53,7 @@
     "frontend-common-theme": {
       "tags": []
     },
-    "frontend-dashboard": {
+    "frontend-shared-dashboard": {
       "tags": []
     },
     "frontend-todos-feature-shell": {
@@ -80,7 +80,7 @@
     "backend-auth": {
       "tags": []
     },
-    "frontend-profile": {
+    "frontend-shared-profile": {
       "tags": []
     },
     "frontend-data-access-app-state": {
@@ -90,6 +90,9 @@
       "tags": []
     },
     "frontend-data-access-dynamic-form": {
+      "tags": []
+    },
+    "frontend-data-access-service-worker": {
       "tags": []
     }
   }
