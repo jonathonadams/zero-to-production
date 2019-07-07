@@ -16,12 +16,19 @@ interface FilteredReferences {
  * This function needs to take in a path to a ts config file
  * and then return an object of aliases to relative paths based of the outDirs
  */
-export async function resolvePaths(configPath: string) {
+export async function resolvePaths(
+  configPath: string
+): Promise<{
+  aliasMap: { [alias: string]: string | undefined };
+  outDir: string;
+}> {
+  const aliasMap: { [alias: string]: string | undefined } = {};
+
   // 1. Get a reference to the directory the original tsConfig is located
   const configDir = path.dirname(configPath);
-  const absConfigDir = `${process.cwd()}/${configDir}`;
 
-  // 2. Create a combined object of all config options
+  // 2. Create a combined tsConfig object of all config options
+  // The relevant directories are captured as it walks up the parent chain
   const { combinedConfig, directories } = await readTsConfigFile(configPath);
   const { baseUrl, outDir, rootDir } = directories;
 
@@ -37,9 +44,10 @@ export async function resolvePaths(configPath: string) {
   if (rootDir === undefined) {
     throw new Error('rootDir is not defined');
   }
+
   const {
     compilerOptions,
-    references
+    references // The externally referenced tsconfig dirs
   }: {
     compilerOptions: any;
     references: { path: string }[];
@@ -47,65 +55,68 @@ export async function resolvePaths(configPath: string) {
 
   const { paths }: { paths: any } = compilerOptions;
 
-  const reversePathMap = pathToReference(paths);
+  if (paths === undefined) {
+    throw new Error('No paths have been defined');
+  }
 
-  // 3. Filter the paths that inside the child src tsConfig
-  const filterAliases = await filterReferences(paths, baseUrl, absConfigDir);
+  // Create a reveres object map of { "src/files.ts": "@alias"}
+  const reversePathMap = createReversPathsMap(paths);
 
   // 4. Make relative path references to those that are inside the src directory
   // TODO
-
-  // console.log(paths);
-  // console.log(references);
-  // console.log(filterAliases);
-
-  const referencedAliases = filterAliases.referenced;
-  /// ------>>>>>>> Loop
-
-  // console.log(referencedAliases);
+  // const filterAliases = await filterReferences(paths, baseUrl, configDir);
 
   // 5. Make absolute path aliases for those that are referenced (requires TS.v3)
-  const absReferencedPath = await resolveReferencedPathsToTsConfigs(
-    references[0],
-    configDir
-  );
+  // For each external reference
+  for (let ref of references) {
+    // Get an absolute path to the referenced ts config
+    const absReferencedPath = await resolveReferencedPathsToTsConfigs(
+      ref,
+      configDir
+    );
 
-  // console.log(absReferencedPath);
+    // Creates an objects with relevant properties from the tsConfig
+    const sourceToOutDirMap = await resolveRelativeReferencedTsConfig(
+      absReferencedPath
+    );
 
-  // console.log(absReferencedPaths);
+    // Filter out from the reverse maps?
+    // Uses the revers map to add the alias for a given path
+    const referenceObject = addReferenceKey(sourceToOutDirMap, reversePathMap);
 
-  const sourceToOutDirMap = await resolveRelativeReferencedTsConfig(
-    absReferencedPath
-  );
+    // Create the respective relative import (from root) by using the outDir of the main project
+    // and the outDir of the referenced project
+    const resolvedDir = path.relative(
+      outDir,
+      path.resolve(referenceObject.outDir, referenceObject.relativeToSrc)
+    );
 
-  // console.log(sourceToOutDirMap);
+    // Add to the alias map
+    aliasMap[referenceObject.alias] = path.format({
+      dir: resolvedDir,
+      base: referenceObject.baseFile
+    });
+  }
 
-  // Filter out from the reverse maps?
-
-  const a = addReferenceKey(sourceToOutDirMap, reversePathMap);
-
-  // const relative = path.relative()
-  console.log(a);
-  console.log(outDir);
-
-  const almost = path.relative(outDir, path.resolve(a.outDir, a.relativeToSrc));
-  const format = path.format({
-    dir: almost,
-    base: a.baseFile
-  });
-  const map: any = {};
-  map[a.alias] = format;
-  console.log(map);
-
-  return map;
+  return {
+    aliasMap,
+    outDir
+  };
 }
 
+/**
+ * add the following properties to the reference object.
+ * alias, baseFile & relativeToSrc
+ *
+ * @param refObject
+ * @param reversePathMap
+ */
 function addReferenceKey(
   refObject: any,
   reversePathMap: { [key: string]: string }
 ) {
   // TODO -> to many iterations
-  const te: any = Object.keys(reversePathMap).reduce((acc, key) => {
+  const resolution: any = Object.keys(reversePathMap).reduce((acc, key) => {
     // Resolve the directory
     // TODO -> is using the base url correct here?
     // Appropriate error checking
@@ -121,10 +132,7 @@ function addReferenceKey(
       return acc;
     }
   }, {});
-
-  console.log(te);
-  // return { ...refObject, alias: te['alias'], ref: te[0] };
-  return { ...refObject, ...te };
+  return { ...refObject, ...resolution };
 }
 
 /**
@@ -177,51 +185,49 @@ async function readTsConfigFile(
       combinedConfig: childConfig,
       directories
     };
-    // return childConfig;
   }
 }
 
+/**
+ * TODO -> I think the only relevant ones here are the ones that are inside the src directory
+ *  as the relatives will take care of the rest
+ */
 function filterReferences(
   paths: any,
   baseUrl: string,
-  configDir: string
+  baseDir: string
 ): FilteredReferences {
+  const configDir = path.resolve(baseDir);
+
   // 3. Iterate over the 'paths' property and filter those that are under
   // the src directory of the entry tsConfig or not. Most probably they are not
-  if (paths) {
-    const filteredAliases = Object.keys(paths).reduce(
-      (acc, curr) => {
-        // Each property is an array
-        if ((paths[curr] as string[]).length > 0) {
-          // TODO -> More than one in the array
-          let alias = (paths[curr] as string[]).slice().shift() as string;
-          let aliasPath: string = path.resolve(baseUrl, alias);
+  const filteredAliases = Object.keys(paths).reduce(
+    (acc, curr) => {
+      // Each property is an array
+      if ((paths[curr] as string[]).length > 0) {
+        // TODO -> More than one in the array
+        let alias = (paths[curr] as string[]).slice().shift() as string;
+        let aliasPath: string = path.resolve(baseUrl, alias);
 
-          // If the first section of the alias is the same as the src tsConfig
-          // Then the files are NOT referenced and no further lookups for tsConfig
-          // Need to happen
-          if (aliasPath.substr(0, configDir.length) === configDir) {
-            // Then the
-            acc.notReferenced[curr] = paths[curr];
-          } else {
-            acc.referenced[curr] = paths[curr];
-          }
+        // If the first section of the alias is the same as the src tsConfig
+        // Then the files are NOT referenced and no further lookups for tsConfig
+        // Need to happen
+        if (aliasPath.substr(0, configDir.length) === configDir) {
+          // Then the
+          acc.notReferenced[curr] = paths[curr];
         } else {
+          acc.referenced[curr] = paths[curr];
         }
-        return acc;
-      },
-      {
-        notReferenced: {},
-        referenced: {}
-      } as FilteredReferences
-    );
-    return filteredAliases;
-  } else {
-    return {
+      } else {
+      }
+      return acc;
+    },
+    {
       notReferenced: {},
       referenced: {}
-    } as FilteredReferences;
-  }
+    } as FilteredReferences
+  );
+  return filteredAliases;
 }
 
 async function resolveReferencedPathsToTsConfigs(
@@ -234,55 +240,25 @@ async function resolveReferencedPathsToTsConfigs(
   // that loads the ts config or a config file itself.
   const arePathsFiles = await fs.stat(referencedTsConfig);
 
+  // If it is a file, return the path, else add the default 'tsconfig.json' to id
   if (arePathsFiles.isFile()) {
     return referencedTsConfig;
   } else {
     return path.resolve(referencedTsConfig, 'tsconfig.json');
   }
-  // return referencedTsConfigs.map((ref, i) => {
-  //   if (arePathsFiles[i].isFile()) {
-  //     return ref;
-  //   } else {
-  //     return
-  //   }
-  // });
 }
 
+/**
+ * Resolve each individual referenced ts config
+ *
+ * @param configPath
+ */
 async function resolveRelativeReferencedTsConfig(configPath: string) {
   const relative = await readTsConfigFile(configPath);
-  const temp: any = { ...relative.directories };
-  temp['configDir'] = path.dirname(configPath);
-  // temp[]
-  return temp;
-
-  // const referencedDirectory =
-  // // 1. Read the file and parse it
-  // const child = await fs.readFile(configPath, 'utf8');
-  // const childConfig = JSON.parse(child);
-  // const { extends: extendsParent, compilerOptions } = childConfig;
-
-  // const { outDir, rootDir } = compilerOptions;
-  // if (outDir && !dirs.outDir) {
-  //   dirs.outDir;
-  // }
-
-  // console.log(outDir);
-  // console.log(rootDir);
-  // console.log();
-
-  // // 2. Check if the config extends another one
-  // // if (referencedOutDir) {
-  // return {
-  //   outDir: path.resolve(referencedDirectory, outDir),
-  //   configDir: configPath
-  //   // };
-  //   // console.log(referencedDirectory);
-  //   // console.log(referencedOutDir);
-  //   // console.log(path.resolve(referencedDirectory, referencedOutDir));
-  // };
+  return { ...relative.directories, configDir: path.dirname(configPath) };
 }
 
-function pathToReference(paths: { [ref: string]: string[] }) {
+function createReversPathsMap(paths: { [ref: string]: string[] }) {
   return Object.keys(paths).reduce(
     (acc, ref) => {
       let src = paths[ref].slice()[0];

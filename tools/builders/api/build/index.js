@@ -2,7 +2,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 const tslib_1 = require('tslib');
 const architect_1 = require('@angular-devkit/architect');
-const child_process_1 = tslib_1.__importDefault(require('child_process'));
+const child_process_1 = tslib_1.__importStar(require('child_process'));
 const glob_1 = tslib_1.__importDefault(require('glob'));
 const cp_file_1 = tslib_1.__importDefault(require('cp-file'));
 const del_1 = tslib_1.__importDefault(require('del'));
@@ -11,16 +11,8 @@ function _buildApiBuilder(options, context) {
   return tslib_1.__awaiter(this, void 0, void 0, function*() {
     const uniNpx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
     context.reportStatus(`Executing custom builder...`);
-    console.log(options.outputPath);
     // Wipe the directory
-    try {
-      yield del_1.default([
-        `${options.outputPath}/**`,
-        `!${options.outputPath}`
-      ]);
-    } catch (err) {
-      console.log(err);
-    }
+    yield del_1.default([`${options.outputPath}/**`, `!${options.outputPath}`]);
     const tsChild = child_process_1.default.spawn(
       uniNpx,
       ['tsc', '--build', options.tsConfig],
@@ -56,6 +48,21 @@ function _buildApiBuilder(options, context) {
         return cp_file_1.default(value, destinationFiles[i]);
       })
     ]);
+    // TODO  -> Move this to own npm package
+    yield new Promise((resolve, reject) => {
+      child_process_1.exec(
+        `node tools/scripts/alias-replace/replace-aliases.js --tsConfig ${options.tsConfig}`,
+        (error, stdout, stderr) => {
+          if (error) {
+            reject(error);
+          }
+          if (stderr) {
+            console.log(stderr);
+          }
+          resolve(stdout);
+        }
+      );
+    });
     return new Promise(resolve => {
       context.reportStatus(`Done with .`);
       resolve({ success: true });

@@ -3,7 +3,7 @@ import {
   createBuilder,
   BuilderContext
 } from '@angular-devkit/architect';
-import childProcess from 'child_process';
+import childProcess, { exec } from 'child_process';
 import { JsonObject } from '@angular-devkit/core';
 import glob from 'glob';
 import cpFile from 'cp-file';
@@ -61,6 +61,22 @@ async function _buildApiBuilder(
       return cpFile(value, destinationFiles[i]);
     })
   ]);
+
+  // TODO  -> Move this to own npm package
+  await new Promise((resolve, reject) => {
+    exec(
+      `node tools/scripts/alias-replace/replace-aliases.js --tsConfig ${options.tsConfig as string}`,
+      (error, stdout, stderr) => {
+        if (error) {
+          reject(error);
+        }
+        if (stderr) {
+          console.log(stderr);
+        }
+        resolve(stdout);
+      }
+    );
+  });
 
   return new Promise<BuilderOutput>(resolve => {
     context.reportStatus(`Done with .`);
