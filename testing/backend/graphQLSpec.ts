@@ -1,7 +1,7 @@
 import 'jest-extended';
 import mongoose from 'mongoose';
 import { runQuery, setupTestDB } from './helpers';
-import { signAccessToken } from '../server/auth/auth';
+import { signAccessToken } from './auth';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { User } from '@workspace/shared/data';
@@ -18,7 +18,10 @@ import { GraphQLSchema } from 'graphql';
  * @param resourceToUpdate
  * @param testDependents
  */
-export default function createGraphQLSpec<T>(schema: GraphQLSchema) {
+export default function createGraphQLSpec<T>(
+  schema: GraphQLSchema,
+  tokenSecret: string
+) {
   return function(
     model: any,
     resourceName: string,
@@ -49,7 +52,7 @@ export default function createGraphQLSpec<T>(schema: GraphQLSchema) {
 
       beforeAll(async () => {
         ({ db, mongoServer } = await setupTestDB());
-        jwt = signAccessToken({ id: '1', role: 0 } as User);
+        jwt = signAccessToken({ id: '1', role: 0 } as User, tokenSecret);
 
         resource = await model.create(resourceToCreate);
       });
