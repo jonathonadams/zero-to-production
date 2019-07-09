@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { take, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { User } from '@workspace/shared/data';
+import { IUser } from '@workspace/shared/interfaces';
 import { UsersFacade } from '@workspace/frontend/data-access/users';
 
 @Component({
@@ -15,7 +15,7 @@ import { UsersFacade } from '@workspace/frontend/data-access/users';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DropDownMenuComponent {
-  public user$: Observable<User | undefined>;
+  public user$: Observable<IUser | undefined>;
 
   @Output() navigateToProfile = new EventEmitter();
   @Output() logout = new EventEmitter();
@@ -28,7 +28,7 @@ export class DropDownMenuComponent {
 
   toggleDarkMode(darkMode: boolean) {
     // the user is only undefined when not logged in, it is safe to type cast here
-    (this.user$ as Observable<User>).pipe(take(1)).subscribe(user => {
+    (this.user$ as Observable<IUser>).pipe(take(1)).subscribe(user => {
       const userSettings = { darkMode, colors: user.settings.colors };
       this.userFacade.updateUser({ ...user, settings: userSettings });
     });

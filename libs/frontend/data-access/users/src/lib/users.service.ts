@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from '@workspace/frontend/data-access/api';
-import { User } from '@workspace/shared/data';
+import { IUser } from '@workspace/shared/interfaces';
 
 @Injectable()
 export class UsersService {
@@ -9,15 +9,15 @@ export class UsersService {
 
   constructor(private api: ApiService) {}
 
-  getAllUsers(): Observable<User[]> {
-    return this.api.get<User[]>(this.resourceUrl);
+  getAllUsers(): Observable<IUser[]> {
+    return this.api.get<IUser[]>(this.resourceUrl);
   }
 
-  getOneUser(id: string | number): Observable<User> {
-    return this.api.getOne<User>(this.resourceUrl, id);
+  getOneUser(id: string | number): Observable<IUser> {
+    return this.api.getOne<IUser>(this.resourceUrl, id);
   }
 
-  updateUser(user: User): Observable<User> {
-    return this.api.put<User>(this.resourceUrl, user);
+  updateUser(user: IUser): Observable<IUser> {
+    return this.api.put<IUser>(this.resourceUrl, user);
   }
 }

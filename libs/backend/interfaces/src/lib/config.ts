@@ -11,6 +11,7 @@ export interface GlobalConfig {
 }
 
 export interface EnvironnementConfig {
+  production: boolean;
   logging: false | 'dev';
   docs: boolean;
   databaseOptions: ConnectionOptions;

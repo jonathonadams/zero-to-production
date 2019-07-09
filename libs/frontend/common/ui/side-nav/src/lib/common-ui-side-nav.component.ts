@@ -6,7 +6,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ISideNaveLink } from '@workspace/shared/data';
+import { ISideNaveLink } from '@workspace/shared/interfaces';
 import { SideNavService } from './common-ui-side-nav.service';
 
 // TODO -> Redux store and dumb component for view

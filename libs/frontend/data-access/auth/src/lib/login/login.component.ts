@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { LoginCredentials } from '@workspace/shared/data';
+import { LoginCredentials } from '@workspace/shared/interfaces';
 import { Validators } from '@angular/forms';
 import { AuthFacade } from '../+state/auth.facade';
 import {

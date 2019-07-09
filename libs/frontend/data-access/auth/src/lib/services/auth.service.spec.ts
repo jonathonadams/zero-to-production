@@ -3,7 +3,7 @@ import { GraphQLError } from 'graphql';
 import { createSpyObj } from '@testing/frontend-helpers';
 import { GraphQLStub } from '@testing/stubs/graphql.stubs';
 import { GraphQLService } from '@workspace/frontend/data-access/api';
-import { LoginCredentials, LoginResponse } from '@workspace/shared/data';
+import { LoginCredentials, LoginResponse } from '@workspace/shared/interfaces';
 import { AuthService } from './auth.service';
 import { JWTAuthService } from './jwt-auth.service';
 

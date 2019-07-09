@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { User, IUserDocument } from './user.model';
-import { runQuery, setupTestDB } from '../../../tests/helpers';
+import { runQuery, setupTestDB } from '@testing/backend/helpers';
 import { signAccessToken } from '../../auth/auth';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
+import { schema } from '../graphql';
 
 const user = ({
   username: 'test user',
@@ -48,7 +49,7 @@ describe(`GraphQL / User`, () => {
     it(`should return all Users`, async () => {
       const queryName = `allUsers`;
       //language=GraphQL
-      const result = await runQuery(
+      const result = await runQuery(schema)(
         `
         {
           ${queryName} {
@@ -71,7 +72,7 @@ describe(`GraphQL / User`, () => {
     it(`should return a User by id`, async () => {
       const queryName = `User`;
 
-      const result = await runQuery(
+      const result = await runQuery(schema)(
         `
       {
         ${queryName}(id: "${createdUser.id}") {
@@ -103,7 +104,7 @@ describe(`GraphQL / User`, () => {
       delete differentUser['hashedPassword'];
 
       const queryName = `register`;
-      const result = await runQuery(
+      const result = await runQuery(schema)(
         `
       mutation Register($input: NewUserInput!) {
         ${queryName}(input: $input) {
@@ -135,7 +136,7 @@ describe(`GraphQL / User`, () => {
 
       (updatedUser as any).id = createdUser.id;
 
-      const result = await runQuery(
+      const result = await runQuery(schema)(
         `
           mutation UpdateUser($input: UpdatedUserInput!) {
             ${queryName}(input: $input) {
@@ -160,7 +161,7 @@ describe(`GraphQL / User`, () => {
   describe(`removeUser($id: ID!)`, () => {
     it(`should delete a User by id`, async () => {
       const queryName = `removeUser`;
-      const result = await runQuery(
+      const result = await runQuery(schema)(
         `
           mutation RemoveUser($id: ID!) {
             ${queryName}(id: $id) {

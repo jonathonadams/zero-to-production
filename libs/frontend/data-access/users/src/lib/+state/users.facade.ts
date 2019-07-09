@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { User } from '@workspace/shared/data';
+import { IUser } from '@workspace/shared/interfaces';
 import * as UserActions from './users.actions';
 import {
   selectAllUsers,
@@ -11,9 +11,9 @@ import {
 
 @Injectable()
 export class UsersFacade {
-  user$: Observable<User[]>;
-  selectedUser$: Observable<User | undefined>;
-  authUser$: Observable<User | undefined>;
+  user$: Observable<IUser[]>;
+  selectedUser$: Observable<IUser | undefined>;
+  authUser$: Observable<IUser | undefined>;
 
   constructor(private store: Store<any>) {
     this.user$ = this.store.pipe(select(selectAllUsers));
@@ -29,7 +29,7 @@ export class UsersFacade {
     this.store.dispatch(UserActions.loadUsers());
   }
 
-  selectUser(user: User) {
+  selectUser(user: IUser) {
     this.store.dispatch(UserActions.selectUser({ id: user.id }));
   }
 
@@ -37,11 +37,11 @@ export class UsersFacade {
     this.store.dispatch(UserActions.clearSelected());
   }
 
-  updateUser(user: User) {
+  updateUser(user: IUser) {
     this.store.dispatch(UserActions.updateUser({ user }));
   }
 
-  deleteUser(user: User) {
+  deleteUser(user: IUser) {
     this.store.dispatch(UserActions.deleteUser({ user }));
   }
 }

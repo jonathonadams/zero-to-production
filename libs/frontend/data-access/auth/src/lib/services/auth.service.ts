@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { GraphQLService } from '@workspace/frontend/data-access/api';
-import { LoginCredentials, LoginResponse } from '@workspace/shared/data';
+import { LoginCredentials, LoginResponse } from '@workspace/shared/interfaces';
 import { isPasswordAllowed } from '@workspace/shared/utils/auth';
 import { JWTAuthService } from './jwt-auth.service';
 

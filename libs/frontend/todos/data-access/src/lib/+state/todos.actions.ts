@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Todo } from '@workspace/shared/data';
+import { ITodo } from '@workspace/shared/interfaces';
 import { TodoFilterStatus } from '@workspace/shared/enums';
 import { Update } from '@ngrx/entity';
 import { GraphQLError } from 'graphql';
@@ -25,7 +25,7 @@ export const loadTodos = createAction('[Todo/API] Load Todos');
 
 export const loadTodosSuccess = createAction(
   '[Todo/API] Load Success',
-  props<{ todos: Todo[] }>()
+  props<{ todos: ITodo[] }>()
 );
 
 export const loadTodosFail = createAction(
@@ -35,11 +35,11 @@ export const loadTodosFail = createAction(
 
 export const createTodo = createAction(
   '[Todo/API] Create ',
-  props<{ todo: Todo }>()
+  props<{ todo: ITodo }>()
 );
 export const createTodoSuccess = createAction(
   '[Todo/API] Create Success',
-  props<{ todo: Todo }>()
+  props<{ todo: ITodo }>()
 );
 
 export const createTodoFail = createAction(
@@ -49,11 +49,11 @@ export const createTodoFail = createAction(
 
 export const updateTodo = createAction(
   '[Todo/API] Update ',
-  props<{ todo: Todo }>()
+  props<{ todo: ITodo }>()
 );
 export const updateTodoSuccess = createAction(
   '[Todo/API] Update Success',
-  props<{ todo: Update<Todo> }>()
+  props<{ todo: Update<ITodo> }>()
 );
 
 export const updateTodoFail = createAction(
@@ -63,7 +63,7 @@ export const updateTodoFail = createAction(
 
 export const deleteTodo = createAction(
   '[Todo/API] Delete',
-  props<{ todo: Todo }>()
+  props<{ todo: ITodo }>()
 );
 
 export const deleteTodoSuccess = createAction(

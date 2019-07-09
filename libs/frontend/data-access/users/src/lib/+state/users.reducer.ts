@@ -1,4 +1,4 @@
-import { User } from '@workspace/shared/data';
+import { IUser } from '@workspace/shared/interfaces';
 import {
   createFeatureSelector,
   createSelector,
@@ -9,12 +9,12 @@ import {
 import { EntityState, createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import * as UserActions from './users.actions';
 
-export interface UsersEntityState extends EntityState<User> {
+export interface UsersEntityState extends EntityState<IUser> {
   selectedUserId: string | null;
   authUserId: string | number | null;
 }
 
-const adapter: EntityAdapter<User> = createEntityAdapter<User>();
+const adapter: EntityAdapter<IUser> = createEntityAdapter<IUser>();
 
 const initialSate: UsersEntityState = adapter.getInitialState({
   selectedUserId: null,

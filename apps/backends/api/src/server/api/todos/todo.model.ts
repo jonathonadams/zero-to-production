@@ -1,12 +1,6 @@
 import mongoose from 'mongoose';
 import { defaultSchemaOptions } from '../../db/schema-options';
-
-export class TodoClass extends mongoose.Model {
-  user: mongoose.Types.ObjectId;
-  title: string;
-  description: string;
-  completed: boolean;
-}
+import { ITodo } from '@workspace/shared/interfaces';
 
 export const todoSchema = new mongoose.Schema(
   {
@@ -27,15 +21,12 @@ export const todoSchema = new mongoose.Schema(
   }
 );
 
-export interface ITodoDocument extends mongoose.Document {
-  user: mongoose.Types.ObjectId;
-  title: string;
-  description: string;
-  completed: boolean;
+export interface ITodoDocument extends ITodo, mongoose.Document {
+  id: string;
 }
+
 export interface ITodoModel extends mongoose.Model<ITodoDocument> {}
 
-todoSchema.loadClass(TodoClass);
 export const Todo = mongoose.model<ITodoDocument, ITodoModel>(
   'todo',
   todoSchema

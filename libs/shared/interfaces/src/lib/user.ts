@@ -1,17 +1,19 @@
 import { AuthenticationRoles } from './auth';
 
-export interface User {
+export interface IUser {
   id: string;
   username: string;
   firstName: string;
   lastName: string;
   emailAddress: string;
   dateOfBirth: Date;
-  settings: UserSettings;
+  settings: IUserSettings;
   role: AuthenticationRoles;
+  active: boolean;
+  hashedPassword?: string;
 }
 
-export interface UserSettings {
+export interface IUserSettings {
   darkMode: boolean;
   colors: {
     lightPrimary: string;

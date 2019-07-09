@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatSelectChange } from '@angular/material/select';
-import { Todo } from '@workspace/shared/data';
+import { ITodo } from '@workspace/shared/interfaces';
 import { TodoFilterStatus } from '@workspace/shared/enums';
 import { TodosFacade } from '@workspace/frontend/todos/data-access';
 import { UiFilterTodosComponent } from './ui/filter-todos/ui-filter-todos.component';
@@ -20,7 +20,7 @@ import { UiFilterTodosComponent } from './ui/filter-todos/ui-filter-todos.compon
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AllTodosComponent implements OnInit {
-  filteredTodo$: Observable<Todo[]>;
+  filteredTodo$: Observable<ITodo[]>;
   todoFilter$: Observable<TodoFilterStatus>;
 
   @ViewChild(UiFilterTodosComponent, { static: true }) filter!: ElementRef<
@@ -49,16 +49,16 @@ export class AllTodosComponent implements OnInit {
     this.facade.statusChange(event.value);
   }
 
-  update({ todo, completed }: { todo: Todo; completed: boolean }) {
-    const updatedTodo: Todo = { ...todo, completed };
+  update({ todo, completed }: { todo: ITodo; completed: boolean }) {
+    const updatedTodo: ITodo = { ...todo, completed };
     this.facade.saveTodo(updatedTodo);
   }
 
-  selectTodo(todo: Todo) {
+  selectTodo(todo: ITodo) {
     this.facade.selectTodo(todo.id);
   }
 
-  deleteTodo(todo: Todo) {
+  deleteTodo(todo: ITodo) {
     this.facade.deleteTodo(todo);
   }
 }

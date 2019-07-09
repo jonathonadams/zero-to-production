@@ -1,9 +1,15 @@
 import http from 'http';
-import config from './server/config';
 import Koa from 'koa';
 import Router from 'koa-router';
+import config from './server/config';
 import { apolloServer } from './server/api/graphql';
 import ApiServer from './server/server';
+
+const koa = new Koa();
+const router = new Router();
+
+// Set the proxy to true if in production mode
+koa.proxy = config.production;
 
 /**
  * A instance of the API ApplicationA
@@ -11,7 +17,7 @@ import ApiServer from './server/server';
  * @param {Koa} app an instance of a koa server
  * @param {Router} router an instance of a koa-router
  */
-const app = new ApiServer(new Koa(), new Router());
+const app = new ApiServer(koa, router);
 
 /**
  * Create and export a http server

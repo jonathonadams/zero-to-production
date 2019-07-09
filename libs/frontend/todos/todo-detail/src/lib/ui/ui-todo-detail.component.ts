@@ -7,7 +7,7 @@ import {
   Input
 } from '@angular/core';
 import { FormGroupDirective, FormGroup } from '@angular/forms';
-import { Todo } from '@workspace/shared/data';
+import { ITodo } from '@workspace/shared/interfaces';
 
 @Component({
   selector: 'todo-ui-todo-detail',
@@ -21,7 +21,7 @@ export class UiTodoDetailComponent {
   @ViewChild(FormGroupDirective, { static: false })
   formDirective!: FormGroupDirective;
   @Input() todoForm!: FormGroup;
-  @Input() selectedTodo: Todo | undefined;
+  @Input() selectedTodo: ITodo | undefined;
   @Output()
   formSubmit = new EventEmitter<FormGroup>();
   @Output()

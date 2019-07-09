@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import jwtDecode from 'jwt-decode';
-import { DecodedJWT } from '@workspace/shared/data';
+import { DecodedJWT } from '@workspace/shared/interfaces';
 
 @Injectable()
 export class JWTAuthService {

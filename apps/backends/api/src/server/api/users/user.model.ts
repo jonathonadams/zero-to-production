@@ -1,44 +1,8 @@
 import mongoose from 'mongoose';
-import { AuthenticationRoles } from '@workspace/shared/data';
-import { defaultSchemaOptions } from '../../db/schema-options';
+import { AuthenticationRoles, IUser } from '@workspace/shared/interfaces';
+import { defaultSchemaOptions } from '../../../../../../../libs/backend/resources/src/lib/schema-options';
 
-export class UserClass extends mongoose.Model {
-  id: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  emailAddress: string;
-  dateOfBirth: Date | string;
-  active: boolean;
-  settings: {
-    darkMode: boolean;
-    colors: {
-      lightPrimary: string;
-      lightAccent: string;
-      darkPrimary: string;
-      darkAccent: string;
-    };
-  };
-  hashedPassword: string;
-  role: AuthenticationRoles;
-
-  /**
-   * This function is only used for the auth function and hence, must return the hashed password
-   *
-   * @param username The username to search by.
-   */
-  public static findByUsername(
-    username: string
-  ): Promise<IUserDocument | null> {
-    return this.findOne({
-      username: username
-    })
-      .select('+hashedPassword +role')
-      .exec();
-  }
-}
-
-export const userSchema = new mongoose.Schema(
+export const userSchema = new mongoose.Schema<IUser>(
   {
     username: {
       type: String,
@@ -95,32 +59,29 @@ export const userSchema = new mongoose.Schema(
   }
 );
 
-export interface IUserDocument extends mongoose.Document {
+/**
+ * This function is only used for the auth function and hence, must return the hashed password
+ *
+ * @param username The username to search by.
+ */
+userSchema.statics.findByUsername = function(
+  username: string
+): Promise<IUserDocument | null> {
+  return this.findOne({
+    username: username
+  })
+    .select('+hashedPassword +role')
+    .exec();
+};
+
+export interface IUserDocument extends IUser, mongoose.Document {
   id: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  emailAddress: string;
-  dateOfBirth: Date | string;
-  active: boolean;
-  settings: {
-    darkMode: boolean;
-    colors: {
-      lightPrimary: string;
-      lightAccent: string;
-      darkPrimary: string;
-      darkAccent: string;
-    };
-  };
-  hashedPassword: string;
-  role: AuthenticationRoles;
 }
 
 export interface IUserModel extends mongoose.Model<IUserDocument> {
   findByUsername: (userName: string) => Promise<IUserDocument | null>;
 }
 
-userSchema.loadClass(UserClass);
 export const User = mongoose.model<IUserDocument, IUserModel>(
   'user',
   userSchema

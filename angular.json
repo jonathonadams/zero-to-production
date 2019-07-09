@@ -377,28 +377,28 @@
         }
       }
     },
-    "shared-data": {
-      "root": "libs/shared/data",
-      "sourceRoot": "libs/shared/data/src",
+    "shared-interfaces": {
+      "root": "libs/shared/interfaces",
+      "sourceRoot": "libs/shared/interfaces/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "./tools/builders/api:build",
           "options": {
-            "outputPath": "dist/libs/shared/data",
-            "main": "libs/shared/data/src/index.ts",
-            "tsConfig": "libs/shared/data/tsconfig.json"
+            "outputPath": "dist/libs/shared/interfaces",
+            "main": "libs/shared/interfaces/src/index.ts",
+            "tsConfig": "libs/shared/interfaces/tsconfig.json"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/shared/data/tsconfig.lib.json",
-              "libs/shared/data/tsconfig.spec.json"
+              "libs/shared/interfaces/tsconfig.lib.json",
+              "libs/shared/interfaces/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/data/**"]
+            "exclude": ["**/node_modules/**", "!libs/shared/interfaces/**"]
           }
         }
       }
@@ -995,6 +995,56 @@
       "schematics": {
         "@nrwl/angular:component": {
           "styleext": "scss"
+        }
+      }
+    },
+    "backend-interfaces": {
+      "root": "libs/backend/interfaces",
+      "sourceRoot": "libs/backend/interfaces/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/backend/interfaces/tsconfig.lib.json",
+              "libs/backend/interfaces/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/backend/interfaces/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/backend/interfaces/jest.config.js",
+            "tsConfig": "libs/backend/interfaces/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "backend-resources": {
+      "root": "libs/backend/resources",
+      "sourceRoot": "libs/backend/resources/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/backend/resources/tsconfig.lib.json",
+              "libs/backend/resources/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/backend/resources/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/backend/resources/jest.config.js",
+            "tsConfig": "libs/backend/resources/tsconfig.spec.json"
+          }
         }
       }
     }

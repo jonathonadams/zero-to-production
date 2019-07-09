@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
   Input
 } from '@angular/core';
-import { User } from '@workspace/shared/data';
+import { IUser } from '@workspace/shared/interfaces';
 
 /**
  * For the purpose of themeing, view encapsulation has been set to none.
@@ -23,7 +23,7 @@ import { User } from '@workspace/shared/data';
   encapsulation: ViewEncapsulation.None
 })
 export class UiDropDownMenuComponent {
-  @Input() user: User | undefined;
+  @Input() user: IUser | undefined;
   @Output() toggleDarkMode = new EventEmitter<boolean>();
   @Output() logout = new EventEmitter<void>();
   @Output() navigateToProfile = new EventEmitter();

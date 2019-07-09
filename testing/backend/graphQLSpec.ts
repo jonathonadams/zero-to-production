@@ -4,7 +4,7 @@ import { runQuery, setupTestDB } from './helpers';
 import { signAccessToken } from './auth';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { User } from '@workspace/shared/data';
+import { IUser } from '@workspace/shared/interfaces';
 import { GraphQLSchema } from 'graphql';
 
 /**
@@ -52,7 +52,7 @@ export default function createGraphQLSpec<T>(
 
       beforeAll(async () => {
         ({ db, mongoServer } = await setupTestDB());
-        jwt = signAccessToken({ id: '1', role: 0 } as User, tokenSecret);
+        jwt = signAccessToken({ id: '1', role: 0 } as IUser, tokenSecret);
 
         resource = await model.create(resourceToCreate);
       });

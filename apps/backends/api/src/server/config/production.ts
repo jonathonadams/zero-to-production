@@ -1,12 +1,13 @@
 /* istanbul ignore file */
 
 import { randomBytes } from 'crypto';
-import { EnvironnementConfig } from './config';
+import { EnvironnementConfig } from '@workspace/backend/interfaces';
 
 /**
  * Production environment settings
  */
 const prodConfig: EnvironnementConfig = {
+  production: true,
   logging: false,
   docs: false,
   databaseOptions: {

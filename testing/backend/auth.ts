@@ -1,7 +1,7 @@
 import { sign } from 'jsonwebtoken';
-import { User } from '@workspace/shared/data';
+import { IUser } from '@workspace/shared/interfaces';
 
-export function signAccessToken(user: User, secret: string): string {
+export function signAccessToken(user: IUser, secret: string): string {
   return sign(
     {
       // TODO

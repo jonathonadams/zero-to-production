@@ -7,7 +7,7 @@ import { cold, hot, Scheduler } from 'jest-marbles';
 import { createSpyObj } from '@testing/frontend-helpers';
 import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
-import { LoginCredentials } from '@workspace/shared/data';
+import { LoginCredentials } from '@workspace/shared/interfaces';
 import * as AuthActions from './auth.actions';
 import { GraphQLError } from 'graphql';
 import { JWTAuthService } from '../services/jwt-auth.service';
@@ -110,7 +110,7 @@ describe('AuthEffects', () => {
 
       actions$ = hot('-a---', { a: action });
 
-      effects.loginSuccess$.subscribe(actn => {
+      effects.loginSuccess$.subscribe(someAction => {
         expect(spy).toHaveBeenCalled();
         expect(spy).toHaveBeenCalledWith(token);
         done();

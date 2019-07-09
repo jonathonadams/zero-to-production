@@ -1,4 +1,4 @@
-import { User } from '@workspace/shared/data';
+import { IUser } from '@workspace/shared/interfaces';
 import { usersReducer, UsersEntityState } from './users.reducer';
 import * as UserActions from './users.actions';
 
@@ -16,7 +16,7 @@ describe('UsersReducer', () => {
     it('should add the user to the user state', () => {
       const users = [
         { id: '2', username: 'someUser', emailAddress: 'some@emailAddress.com' }
-      ] as User[];
+      ] as IUser[];
       const action = UserActions.loadUsersSuccess({ users });
 
       const result = usersReducer(undefined, action);
@@ -31,7 +31,7 @@ describe('UsersReducer', () => {
         id: '1',
         username: 'initialUser',
         emailAddress: 'some@emailAddress.com'
-      } as User;
+      } as IUser;
 
       const initialState: UsersEntityState = {
         ids: [user.id],
@@ -42,7 +42,7 @@ describe('UsersReducer', () => {
         authUserId: null
       };
 
-      const userToUpdate = { id: '1', username: 'updatedName' } as User;
+      const userToUpdate = { id: '1', username: 'updatedName' } as IUser;
       const action = UserActions.updateUserSuccess({
         user: {
           id: userToUpdate.id,
@@ -62,7 +62,7 @@ describe('UsersReducer', () => {
         id: '1',
         username: 'initialUser',
         emailAddress: 'some@emailAddress.com'
-      } as User;
+      } as IUser;
 
       const initialState: UsersEntityState = {
         ids: [user.id],
@@ -73,7 +73,7 @@ describe('UsersReducer', () => {
         authUserId: null
       };
 
-      const userToDelete = { id: '1' } as User;
+      const userToDelete = { id: '1' } as IUser;
 
       const action = UserActions.deleteUserSuccess(userToDelete);
 

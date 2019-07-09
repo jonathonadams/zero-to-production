@@ -10,7 +10,7 @@ import {
   UPDATE_TODO_QUERY,
   REMOTE_TODO_QUERY
 } from './todos.queries';
-import { Todo, DecodedJWT } from '@workspace/shared/data';
+import { ITodo, DecodedJWT } from '@workspace/shared/interfaces';
 import { FetchResult } from 'apollo-link';
 
 @Injectable()
@@ -21,32 +21,34 @@ export class TodosService {
     private router: Router
   ) {}
 
-  public getAllTodos(): Observable<FetchResult<{ allTodos: Todo[] }>> {
-    return this.graphQl.query<{ allTodos: Todo[] }>(ALL_TODOS_QUERY);
+  public getAllTodos(): Observable<FetchResult<{ allTodos: ITodo[] }>> {
+    return this.graphQl.query<{ allTodos: ITodo[] }>(ALL_TODOS_QUERY);
   }
 
-  public getOneTodo(id: string): Observable<FetchResult<{ Todo: Todo }>> {
-    return this.graphQl.query<{ Todo: Todo }>(LOAD_TODO_QUERY, { id });
+  public getOneTodo(id: string): Observable<FetchResult<{ Todo: ITodo }>> {
+    return this.graphQl.query<{ Todo: ITodo }>(LOAD_TODO_QUERY, { id });
   }
 
-  public createTodo(todo: Todo): Observable<FetchResult<{ newTodo: Todo }>> {
+  public createTodo(todo: ITodo): Observable<FetchResult<{ newTodo: ITodo }>> {
     // Set the user id of the current JWT id
     const userId = (this.auth.getDecodedToken() as DecodedJWT).sub;
-    const newTodo: Todo = { ...todo, user: userId };
+    const newTodo: ITodo = { ...todo, user: userId };
     // set the completed state to false
     // todo.completed = false;
     const variables = { input: newTodo };
 
-    return this.graphQl.mutation<{ newTodo: Todo }>(
+    return this.graphQl.mutation<{ newTodo: ITodo }>(
       CREATE_TODO_QUERY,
       variables
     );
   }
 
-  public updateTodo(todo: Todo): Observable<FetchResult<{ updateTodo: Todo }>> {
+  public updateTodo(
+    todo: ITodo
+  ): Observable<FetchResult<{ updateTodo: ITodo }>> {
     const variables = { input: todo };
 
-    return this.graphQl.mutation<{ updateTodo: Todo }>(
+    return this.graphQl.mutation<{ updateTodo: ITodo }>(
       UPDATE_TODO_QUERY,
       variables
     );

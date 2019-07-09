@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { GraphQLError } from 'graphql';
-import { LoginCredentials, LoginResponse } from '@workspace/shared/data';
+import { LoginCredentials, LoginResponse } from '@workspace/shared/interfaces';
 
 export const loginRedirect = createAction('[Auth] Login Redirect');
 

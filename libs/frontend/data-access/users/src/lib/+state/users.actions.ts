@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from '@workspace/shared/data';
+import { IUser } from '@workspace/shared/interfaces';
 import { GraphQLError } from 'graphql';
 import { Update } from '@ngrx/entity';
 
@@ -21,7 +21,7 @@ export const loadAuthUser = createAction('[User/API] Load Auth');
 
 export const loadAuthUserSuccess = createAction(
   '[User/API] Load Auth Success',
-  props<{ user: User }>()
+  props<{ user: IUser }>()
 );
 
 export const loadAuthUserFail = createAction(
@@ -36,7 +36,7 @@ export const loadUser = createAction(
 
 export const loadUserSuccess = createAction(
   '[User/API] Load User Success',
-  props<{ user: User }>()
+  props<{ user: IUser }>()
 );
 
 export const loadUserFail = createAction(
@@ -48,7 +48,7 @@ export const loadUsers = createAction('[User/API] Load Users');
 
 export const loadUsersSuccess = createAction(
   '[User/API] Load Success',
-  props<{ users: User[] }>()
+  props<{ users: IUser[] }>()
 );
 
 export const loadUsersFail = createAction(
@@ -58,11 +58,11 @@ export const loadUsersFail = createAction(
 
 export const createUser = createAction(
   '[User/API] Create ',
-  props<{ user: User }>()
+  props<{ user: IUser }>()
 );
 export const createUserSuccess = createAction(
   '[User/API] Create Success',
-  props<{ user: User }>()
+  props<{ user: IUser }>()
 );
 
 export const createUserFail = createAction(
@@ -72,11 +72,11 @@ export const createUserFail = createAction(
 
 export const updateUser = createAction(
   '[User/API] Update ',
-  props<{ user: User }>()
+  props<{ user: IUser }>()
 );
 export const updateUserSuccess = createAction(
   '[User/API] Update Success',
-  props<{ user: Update<User> }>()
+  props<{ user: Update<IUser> }>()
 );
 
 export const updateUserFail = createAction(
@@ -86,7 +86,7 @@ export const updateUserFail = createAction(
 
 export const deleteUser = createAction(
   '[User/API] Delete',
-  props<{ user: User }>()
+  props<{ user: IUser }>()
 );
 
 export const deleteUserSuccess = createAction(

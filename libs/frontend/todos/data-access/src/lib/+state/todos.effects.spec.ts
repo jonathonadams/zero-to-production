@@ -6,7 +6,7 @@ import { Actions } from '@ngrx/effects';
 import { hot, cold } from 'jest-marbles';
 import * as TodoActions from './todos.actions';
 import { TodosService } from '../todos.service';
-import { Todo } from '@workspace/shared/data';
+import { ITodo } from '@workspace/shared/interfaces';
 import { createSpyObj } from '@testing/frontend-helpers';
 import { GraphQLError } from 'graphql';
 
@@ -14,7 +14,7 @@ describe('TodoEffects', () => {
   let effects: TodoEffects;
   let action$: Observable<any>;
   let todoService: TodosService;
-  let mockTodo: Todo;
+  let mockTodo: ITodo;
   const todoServiceSpy = createSpyObj('TodoService', [
     'loadTodos',
     'getTodo',
@@ -48,8 +48,8 @@ describe('TodoEffects', () => {
   });
 
   describe('loadTodos$', () => {
-    it('should retun a LoadTodoSuccess action with a payload of todos', () => {
-      const todos: Todo[] = [
+    it('should return a LoadTodoSuccess action with a payload of todos', () => {
+      const todos: ITodo[] = [
         {
           id: '1',
           user: '1',
@@ -79,7 +79,7 @@ describe('TodoEffects', () => {
     });
 
     it('should return a LoadTodosFail action if the service throws', () => {
-      const error = new GraphQLError('An error occured');
+      const error = new GraphQLError('An error occurred');
       const action = TodoActions.loadTodos();
       const completion = TodoActions.loadTodosFail({ error });
 
@@ -108,7 +108,7 @@ describe('TodoEffects', () => {
     });
 
     it('should return a CreateTodoFail action if the service throws', () => {
-      const error = new GraphQLError('An error occured');
+      const error = new GraphQLError('An error occurred');
       const action = TodoActions.createTodo({ todo: mockTodo });
       const completion = TodoActions.createTodoFail({ error });
 

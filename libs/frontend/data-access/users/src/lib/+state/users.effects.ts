@@ -9,7 +9,7 @@ import {
   loginSuccess,
   logout
 } from '@workspace/frontend/data-access/auth';
-import { DecodedJWT } from '@workspace/shared/data';
+import { DecodedJWT } from '@workspace/shared/interfaces';
 
 @Injectable()
 export class UsersEffects {

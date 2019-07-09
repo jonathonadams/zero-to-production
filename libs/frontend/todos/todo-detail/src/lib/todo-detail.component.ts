@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, combineLatest } from 'rxjs';
 import { map, filter, take } from 'rxjs/operators';
 import { UiTodoDetailComponent } from './ui/ui-todo-detail.component';
-import { Todo } from '@workspace/shared/data';
+import { ITodo } from '@workspace/shared/interfaces';
 import { TodosFacade } from '@workspace/frontend/todos/data-access';
 
 @Component({
@@ -24,7 +24,7 @@ export class TodoDetailComponent implements OnDestroy {
   formDirective!: UiTodoDetailComponent;
 
   public todoForm: FormGroup;
-  public selectedTodo$: Observable<Todo | undefined>;
+  public selectedTodo$: Observable<ITodo | undefined>;
   private subscription: Subscription;
 
   constructor(
@@ -41,7 +41,7 @@ export class TodoDetailComponent implements OnDestroy {
 
     this.selectedTodo$ = this.facade.selectedTodo$;
 
-    this.subscription = (this.selectedTodo$ as Observable<Todo>)
+    this.subscription = (this.selectedTodo$ as Observable<ITodo>)
       .pipe(filter(todo => todo !== undefined))
       .subscribe(todo => {
         this.todoForm.reset(todo);

@@ -3,7 +3,7 @@ import { TodosService } from './todos.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { JWTAuthService } from '@workspace/frontend/data-access/auth';
 import { GraphQLService } from '@workspace/frontend/data-access/api';
-import { Todo, DecodedJWT } from '@workspace/shared/data';
+import { ITodo, DecodedJWT } from '@workspace/shared/interfaces';
 import { createSpyObj } from '@testing/frontend-helpers';
 import { GraphQLStub } from '@testing/stubs/graphql.stubs';
 import {
@@ -69,18 +69,18 @@ describe('TodoService', () => {
     it('should call the GraphQL service with the newTodo mutation with the todo', () => {
       const spy = jest.spyOn(graphQLService, 'mutation');
 
-      const originalTodo: Todo = {
+      const originalTodo: ITodo = {
         user: '1',
         title: 'some title',
         description: 'some description',
         completed: false
-      } as Todo;
+      } as ITodo;
 
       const sentTodo = {
         ...originalTodo,
         completed: false,
         user: '1'
-      } as Todo;
+      } as ITodo;
       authService.getDecodedToken = jest.fn(() => {
         return {
           sub: '1'
@@ -99,7 +99,7 @@ describe('TodoService', () => {
     it('should call the GraphQL service with the updateTodo mutation with the updated todo', () => {
       const spy = jest.spyOn(graphQLService, 'mutation');
 
-      const updatedTodo: Todo = {
+      const updatedTodo: ITodo = {
         id: '1',
         user: '1',
         title: 'some title',
@@ -122,7 +122,7 @@ describe('TodoService', () => {
     it('should call the GraphQL service with the removeTodo mutation with the todo id to remove', () => {
       const spy = jest.spyOn(graphQLService, 'mutation');
 
-      const todo: Todo = {
+      const todo: ITodo = {
         id: '1',
         user: '1',
         title: 'some title',

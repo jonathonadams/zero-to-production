@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take, filter, tap } from 'rxjs/operators';
 import { Resolve } from '@angular/router';
-import { User } from '@workspace/shared/data';
+import { IUser } from '@workspace/shared/interfaces';
 import { UsersFacade } from './+state/users.facade';
 
 @Injectable()
-export class AuthUsersResolver implements Resolve<User | undefined> {
+export class AuthUsersResolver implements Resolve<IUser | undefined> {
   constructor(private facade: UsersFacade) {}
 
-  resolve(): Observable<User | undefined> {
+  resolve(): Observable<IUser | undefined> {
     /**
      * The resolver function checks to see if the the user is defined,
      * if it is not defined then it will attempt to load the authenticated

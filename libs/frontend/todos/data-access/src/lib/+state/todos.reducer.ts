@@ -1,11 +1,11 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as TodoActions from './todos.actions';
-import { Todo } from '@workspace/shared/data';
+import { ITodo } from '@workspace/shared/interfaces';
 import { TodoFilterStatus } from '@workspace/shared/enums';
 import { createReducer, on, Action } from '@ngrx/store';
 
 // 1. define the entity state
-export interface TodosEntityState extends EntityState<Todo> {
+export interface TodosEntityState extends EntityState<ITodo> {
   // Add custom property state
   selectedTodoId: string | null;
   statusFilter: TodoFilterStatus;
@@ -13,7 +13,7 @@ export interface TodosEntityState extends EntityState<Todo> {
 }
 
 // 2. Create entity adapter
-export const adapter: EntityAdapter<Todo> = createEntityAdapter<Todo>();
+export const adapter: EntityAdapter<ITodo> = createEntityAdapter<ITodo>();
 
 // 3. Define the initial state
 export const initialTodoState: TodosEntityState = adapter.getInitialState({

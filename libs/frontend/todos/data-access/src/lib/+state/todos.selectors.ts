@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { TodosEntityState, adapter } from './todos.reducer';
-import { Todo } from '@workspace/shared/data';
+import { ITodo } from '@workspace/shared/interfaces';
 import { TodoFilterStatus } from '@workspace/shared/enums';
 
 // Select the top level 'todos' state.
@@ -39,7 +39,11 @@ export const selectFilteredTodos = createSelector(
   selectAllTodos,
   selectTodoFilterStatus,
   selectTodoSearchFilter,
-  (todos: Todo[], selection: TodoFilterStatus, searchString: string | null) => {
+  (
+    todos: ITodo[],
+    selection: TodoFilterStatus,
+    searchString: string | null
+  ) => {
     if (selection === TodoFilterStatus.All) {
       if (searchString === null || searchString === '') {
         return todos;
@@ -70,7 +74,7 @@ export const selectFilteredTodos = createSelector(
   }
 );
 
-function isTodoInSearchString(todo: Todo, searchString: string): boolean {
+function isTodoInSearchString(todo: ITodo, searchString: string): boolean {
   if (
     todo.title.toLowerCase().includes(searchString) ||
     todo.description.toLowerCase().includes(searchString)

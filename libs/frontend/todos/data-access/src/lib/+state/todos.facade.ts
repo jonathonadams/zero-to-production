@@ -8,13 +8,13 @@ import {
   selectTodoIds
 } from './todos.selectors';
 import * as TodoActions from './todos.actions';
-import { Todo } from '@workspace/shared/data';
+import { ITodo } from '@workspace/shared/interfaces';
 import { TodoFilterStatus } from '@workspace/shared/enums';
 
 @Injectable()
 export class TodosFacade {
-  filteredTodo$: Observable<Todo[]>;
-  selectedTodo$: Observable<Todo | undefined>;
+  filteredTodo$: Observable<ITodo[]>;
+  selectedTodo$: Observable<ITodo | undefined>;
   allTodoFilter$: Observable<TodoFilterStatus>;
   todoIds$: Observable<string[] | number[]>;
 
@@ -45,19 +45,19 @@ export class TodosFacade {
     this.store.dispatch(TodoActions.searchFilter({ search }));
   }
 
-  public saveTodo(todo: Todo): void {
+  public saveTodo(todo: ITodo): void {
     todo.id ? this.updateTodo(todo) : this.createTodo(todo);
   }
 
-  public createTodo(todo: Todo): void {
+  public createTodo(todo: ITodo): void {
     this.store.dispatch(TodoActions.createTodo({ todo }));
   }
 
-  public updateTodo(todo: Todo): void {
+  public updateTodo(todo: ITodo): void {
     this.store.dispatch(TodoActions.updateTodo({ todo }));
   }
 
-  public deleteTodo(todo: Todo): void {
+  public deleteTodo(todo: ITodo): void {
     this.store.dispatch(TodoActions.deleteTodo({ todo }));
   }
 }

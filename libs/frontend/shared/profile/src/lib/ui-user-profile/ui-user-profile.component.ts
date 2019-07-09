@@ -6,7 +6,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { User } from '@workspace/shared/data';
+import { IUser } from '@workspace/shared/interfaces';
 
 @Component({
   selector: 'ngw-ui-user-profile',
@@ -15,7 +15,7 @@ import { User } from '@workspace/shared/data';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiUserProfileComponent {
-  @Input() user: User | undefined;
+  @Input() user: IUser | undefined;
   @Input() profileForm: FormGroup | undefined;
   @Output() formSubmit = new EventEmitter<FormGroup>();
 }

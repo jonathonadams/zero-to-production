@@ -1,18 +1,21 @@
-// A reducer is just a pure function, it takes inputs and return a value when called
-// Because it is pure function we do not need to configure any of angular testing
-// module because it does not need of angular configuration to operate.
-// We can also just use snapshot testing to test the output of the function
-// and not need to use assertion testing
+/**
+ * A reducer is just a pure function, it takes inputs and return a
+ * value when called because it is pure function we do not need to
+ * configure any of angular testing module because it does not need
+ * of angular configuration to operate. We can also just use snapshot
+ * testing to test the output of the function and not need to use
+ * assertion testing
+ */
 import { todosReducer, TodosEntityState } from './todos.reducer';
 import * as TodoActions from './todos.actions';
 import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { Todo } from '@workspace/shared/data';
+import { ITodo } from '@workspace/shared/interfaces';
 import { TodoFilterStatus } from '@workspace/shared/enums';
 
 describe('TodoReducer', () => {
-  let adapter: EntityAdapter<Todo>;
+  let adapter: EntityAdapter<ITodo>;
 
-  const todo: Todo = {
+  const todo: ITodo = {
     id: '1',
     user: '1',
     title: 'some title',
@@ -30,7 +33,7 @@ describe('TodoReducer', () => {
   };
 
   beforeEach(() => {
-    adapter = createEntityAdapter<Todo>();
+    adapter = createEntityAdapter<ITodo>();
   });
 
   describe('undefined action', () => {
@@ -43,7 +46,7 @@ describe('TodoReducer', () => {
 
   describe('LoadSuccess', () => {
     it('should add the todos to the todo state', () => {
-      const todos: Todo[] = [
+      const todos: ITodo[] = [
         {
           id: '1',
           user: '1',
@@ -107,7 +110,7 @@ describe('TodoReducer', () => {
       const updateTodo = {
         id: '2',
         completed: true
-      } as Todo;
+      } as ITodo;
 
       const action = TodoActions.updateTodoSuccess({
         todo: { id: updateTodo.id, changes: updateTodo }
@@ -141,7 +144,7 @@ describe('TodoReducer', () => {
 
       const todoToDelete = {
         id: '2'
-      } as Todo;
+      } as ITodo;
 
       const action = TodoActions.deleteTodoSuccess(todoToDelete);
       const result = todosReducer(state, action);

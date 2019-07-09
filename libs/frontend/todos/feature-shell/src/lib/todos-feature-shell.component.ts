@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SideNavService } from '@workspace/frontend/common/ui/side-nav';
-import { ISideNaveLink } from '@workspace/shared/data';
+import { ISideNaveLink } from '@workspace/shared/interfaces';
 import { ToolbarService } from '@workspace/frontend/common/ui/toolbar';
 import { UserThemeService } from '@workspace/frontend/common/theme';
 

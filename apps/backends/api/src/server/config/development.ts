@@ -1,11 +1,12 @@
 /* istanbul ignore file */
 
-import { EnvironnementConfig } from './config';
+import { EnvironnementConfig } from '@workspace/backend/interfaces';
 
 /**
  * Development environment settings
  */
 const devConfig: EnvironnementConfig = {
+  production: false,
   logging: 'dev',
   docs: true,
   databaseOptions: {

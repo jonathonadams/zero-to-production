@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
-import { User } from '@workspace/shared/data';
+import { IUser } from '@workspace/shared/interfaces';
 import { UsersFacade } from '@workspace/frontend/data-access/users';
 import { ThemeService } from '@workspace/frontend/common/theme';
 
@@ -15,7 +15,7 @@ import { ThemeService } from '@workspace/frontend/common/theme';
 })
 export class UserProfileComponent implements OnDestroy {
   public profileForm: FormGroup;
-  public user$: Observable<User | undefined>;
+  public user$: Observable<IUser | undefined>;
   private subscription: Subscription;
 
   constructor(
@@ -40,7 +40,7 @@ export class UserProfileComponent implements OnDestroy {
 
     this.user$ = this.userFacade.authUser$;
 
-    (this.user$ as Observable<User>)
+    (this.user$ as Observable<IUser>)
       .pipe(
         filter(val => val !== undefined),
         take(1)
@@ -62,13 +62,13 @@ export class UserProfileComponent implements OnDestroy {
 
   onSubmit({ valid, value }: FormGroup) {
     if (valid) {
-      (this.user$ as Observable<User>).pipe(take(1)).subscribe(user => {
+      (this.user$ as Observable<IUser>).pipe(take(1)).subscribe(user => {
         const userSettings = { ...user.settings, colors: value.settings };
         const userToSave = {
           ...user,
           ...value,
           settings: userSettings
-        } as User;
+        } as IUser;
         this.userFacade.updateUser(userToSave);
       });
     }

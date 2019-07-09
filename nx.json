@@ -38,7 +38,7 @@
     "frontend-utils-errors": {
       "tags": []
     },
-    "shared-data": {
+    "shared-interfaces": {
       "tags": []
     },
     "shared-enums": {
@@ -93,6 +93,12 @@
       "tags": []
     },
     "frontend-data-access-service-worker": {
+      "tags": []
+    },
+    "backend-interfaces": {
+      "tags": []
+    },
+    "backend-resources": {
       "tags": []
     }
   }
