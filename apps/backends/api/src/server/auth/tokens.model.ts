@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { defaultSchemaOptions } from '../db/schema-options';
+import { defaultSchemaOptions } from '@workspace/backend/resources';
 import { IUserDocument } from '../api/users/user.model';
 
 /**
