@@ -10,11 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/boom": "^7.4.2",
-    "apollo-server-koa": "^2.6.7",
+    "apollo-server-koa": "^2.6.8",
     "bcryptjs": "^2.4.3",
     "dataloader": "^1.4.0",
     "glob": "^7.1.4",
-    "graphql": "^14.4.1",
+    "graphql": "^14.4.2",
     "graphql-iso-date": "^3.6.1",
     "graphql-tools": "^4.0.5",
     "jsonwebtoken": "^8.5.1",
@@ -26,9 +26,9 @@
     "koa-morgan": "^1.0.1",
     "koa-router": "^7.4.0",
     "lodash.keyby": "^4.6.0",
-    "lodash.merge": "^4.6.1",
+    "lodash.merge": "^4.6.2",
     "lodash.omit": "^4.5.0",
-    "mongoose": "^5.6.2"
+    "mongoose": "^5.6.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.801.1",
