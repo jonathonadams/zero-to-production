@@ -1,8 +1,13 @@
-import { createControllers } from './create-controllers';
-import { authenticateRequest, verifyToken } from '../auth/authGuardGraphQL';
 import { GraphQLFieldResolver } from 'graphql';
 import mongoose from 'mongoose';
 import { ObjectId } from 'mongodb';
+import { createControllers } from '../controllers/create-controllers';
+
+// TODO -> Move once out
+import {
+  authenticateRequest,
+  verifyToken
+} from '../../../../../../apps/backends/api/src/server/auth/authGuardGraphQL';
 
 // const resolver = async (rootValue, args, context, info) => {
 //   -> place logic here
@@ -14,8 +19,8 @@ import { ObjectId } from 'mongodb';
 
 type Resolver<T> = GraphQLFieldResolver<any, any, T>;
 
-export function generateResolvers<T extends mongoose.Document>(
-  model: mongoose.Model<T>
+export function generateResolvers<T extends mongoose.Model<mongoose.Document>>(
+  model: T
 ) {
   const controllers = createControllers(model);
 
@@ -64,8 +69,8 @@ export function generateResolvers<T extends mongoose.Document>(
   };
 }
 
-export function createTypeResolver<T extends mongoose.Document>(
-  model: mongoose.Model<T>,
+export function createTypeResolver<T extends mongoose.Model<mongoose.Document>>(
+  model: T,
   name: string
 ): {
   Query: {

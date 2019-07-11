@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { defaultSchemaOptions } from '@workspace/backend/resources';
-import { IUserDocument } from '../api/users/user.model';
+import { IUserDocument } from '@workspace/shared/interfaces';
 
 /**
  * This resource is not publicly available but used to store all refresh tokens

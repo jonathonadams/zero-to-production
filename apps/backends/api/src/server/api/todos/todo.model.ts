@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import { defaultSchemaOptions } from '../../db/schema-options';
-import { ITodo } from '@workspace/shared/interfaces';
+import { ITodo, ITodoDocument, ITodoModel } from '@workspace/shared/interfaces';
+import { defaultSchemaOptions } from '@workspace/backend/resources';
 
-export const todoSchema = new mongoose.Schema(
+export const todoSchema = new mongoose.Schema<ITodo>(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -20,12 +20,6 @@ export const todoSchema = new mongoose.Schema(
     ...defaultSchemaOptions
   }
 );
-
-export interface ITodoDocument extends ITodo, mongoose.Document {
-  id: string;
-}
-
-export interface ITodoModel extends mongoose.Model<ITodoDocument> {}
 
 export const Todo = mongoose.model<ITodoDocument, ITodoModel>(
   'todo',

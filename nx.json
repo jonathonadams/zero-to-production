@@ -100,6 +100,15 @@
     },
     "backend-resources": {
       "tags": []
+    },
+    "backend-uploads": {
+      "tags": []
+    },
+    "backend-middleware": {
+      "tags": []
+    },
+    "backend-utils": {
+      "tags": []
     }
   }
 }

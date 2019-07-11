@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom';
 import mongoose from 'mongoose';
-import { Utils } from './utils';
 import { ObjectId } from 'mongodb';
+import { Utils } from '../utils';
 
 /**
  * A helper function to create all CRUD related controllers.

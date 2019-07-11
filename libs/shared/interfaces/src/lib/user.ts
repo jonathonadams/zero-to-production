@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { AuthenticationRoles } from './auth';
 
 export interface IUser {
@@ -21,4 +22,12 @@ export interface IUserSettings {
     darkPrimary: string;
     darkAccent: string;
   };
+}
+
+export interface IUserDocument extends IUser, mongoose.Document {
+  id: string;
+}
+
+export interface IUserModel extends mongoose.Model<IUserDocument> {
+  findByUsername: (userName: string) => Promise<IUserDocument | null>;
 }

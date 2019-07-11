@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
-import { AuthenticationRoles, IUser } from '@workspace/shared/interfaces';
-import { defaultSchemaOptions } from '../../../../../../../libs/backend/resources/src/lib/schema-options';
+import {
+  AuthenticationRoles,
+  IUser,
+  IUserDocument,
+  IUserModel
+} from '@workspace/shared/interfaces';
+import { defaultSchemaOptions } from '@workspace/backend/resources';
 
 export const userSchema = new mongoose.Schema<IUser>(
   {
@@ -73,14 +78,6 @@ userSchema.statics.findByUsername = function(
     .select('+hashedPassword +role')
     .exec();
 };
-
-export interface IUserDocument extends IUser, mongoose.Document {
-  id: string;
-}
-
-export interface IUserModel extends mongoose.Model<IUserDocument> {
-  findByUsername: (userName: string) => Promise<IUserDocument | null>;
-}
 
 export const User = mongoose.model<IUserDocument, IUserModel>(
   'user',

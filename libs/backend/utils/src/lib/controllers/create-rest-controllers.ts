@@ -1,7 +1,7 @@
-import { createControllers } from './create-controllers';
 import { ParameterizedContext } from 'koa';
 import Router from 'koa-router';
 import mongoose from 'mongoose';
+import { createControllers } from './create-controllers';
 
 export function generateRestEndpoints(
   model: mongoose.Model<mongoose.Document>
@@ -49,12 +49,15 @@ export function generateRestControllers(
     },
     createOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
       ctx.status = 201;
-      ctx.body = await controllers.createOne(ctx.request.body);
+      ctx.body = await controllers.createOne((ctx.request as any).body);
     },
     updateOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
       try {
         ctx.status = 201;
-        ctx.body = await controllers.updateOne(ctx.state.id, ctx.request.body);
+        ctx.body = await controllers.updateOne(
+          ctx.state.id,
+          (ctx.request as any).body
+        );
       } catch (err) {
         throw err;
       }

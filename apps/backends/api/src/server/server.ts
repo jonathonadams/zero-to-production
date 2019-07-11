@@ -1,9 +1,10 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import { setupMiddleware } from './middleware';
+import { setupMiddleware } from '@workspace/backend/middleware';
 import { applyApiEndpoints } from './api';
 import { applyAuthorizationRoutes } from './auth/auth-routes';
 import { dbConnection } from './db/db-connection';
+import config from './config';
 
 /**
  * Crates a new API Server
@@ -33,7 +34,7 @@ export default class ApiServer {
     /**
      * Setup all the required middleware for the app
      */
-    setupMiddleware(app);
+    setupMiddleware({ app, logging: config.logging });
 
     /**
      * Apply the API endpoints

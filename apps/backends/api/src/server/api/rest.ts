@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import { generateRestEndpoints } from '../util/create-rest-controllers';
+import { generateRestEndpoints } from '../../../../../../libs/backend/utils/src/lib/controllers/create-rest-controllers';
 import { router as userRouter } from './users';
 import { Todo } from './todos';
 import { verifyToken } from '../auth/authGuardRest';
