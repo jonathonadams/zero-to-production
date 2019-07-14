@@ -98,9 +98,6 @@
     "backend-interfaces": {
       "tags": []
     },
-    "backend-resources": {
-      "tags": []
-    },
     "backend-uploads": {
       "tags": []
     },
@@ -108,6 +105,9 @@
       "tags": []
     },
     "backend-utils": {
+      "tags": []
+    },
+    "frontend-common-animations": {
       "tags": []
     }
   }

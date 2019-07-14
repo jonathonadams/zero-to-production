@@ -90,10 +90,12 @@
         "libs/frontend/data-access/service-worker/src/index.ts"
       ],
       "@workspace/backend/interfaces": ["libs/backend/interfaces/src/index.ts"],
-      "@workspace/backend/resources": ["libs/backend/resources/src/index.ts"],
       "@workspace/backend/uploads": ["libs/backend/uploads/src/index.ts"],
       "@workspace/backend/middleware": ["libs/backend/middleware/src/index.ts"],
-      "@workspace/backend/utils": ["libs/backend/utils/src/index.ts"]
+      "@workspace/backend/utils": ["libs/backend/utils/src/index.ts"],
+      "@workspace/frontend/common/animations": [
+        "libs/frontend/common/animations/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

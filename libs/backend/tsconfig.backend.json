@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.libs.json",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "../../dist/buildcache/backend.tsbuildinfo"
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    { "path": "./interfaces/tsconfig.lib.json" },
+    { "path": "./auth/tsconfig.lib.json" },
+    { "path": "./utils/tsconfig.lib.json" },
+    { "path": "./middleware/tsconfig.lib.json" }
+  ]
+}

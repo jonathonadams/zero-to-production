@@ -4,10 +4,6 @@ import { ObjectId } from 'mongodb';
 import { createControllers } from '../controllers/create-controllers';
 
 // TODO -> Move once out
-import {
-  authenticateRequest,
-  verifyToken
-} from '../../../../../../apps/backends/api/src/server/auth/authGuardGraphQL';
 
 // const resolver = async (rootValue, args, context, info) => {
 //   -> place logic here
@@ -19,10 +15,10 @@ import {
 
 type Resolver<T> = GraphQLFieldResolver<any, any, T>;
 
-export function generateResolvers<T extends mongoose.Model<mongoose.Document>>(
-  model: T
+export function generateResolvers<T extends mongoose.Document>(
+  model: mongoose.Model<T>
 ) {
-  const controllers = createControllers(model);
+  const controllers = createControllers<T>(model);
 
   const getAll: Resolver<any> = async (root, args, ctx, info) => {
     return await controllers.getAll();
@@ -67,41 +63,4 @@ export function generateResolvers<T extends mongoose.Model<mongoose.Document>>(
     updateOne,
     removeOne
   };
-}
-
-export function createTypeResolver<T extends mongoose.Model<mongoose.Document>>(
-  model: T,
-  name: string
-): {
-  Query: {
-    [queryName: string]: GraphQLFieldResolver<any, any, any> | undefined;
-  };
-  Mutation: {
-    [mutationName: string]: GraphQLFieldResolver<any, any, any> | undefined;
-  };
-} {
-  const resolvers = generateResolvers<T>(model);
-
-  const typeResolver = {
-    Query: {} as any,
-    Mutation: {} as any
-  };
-
-  typeResolver.Query[`${name}`] = authenticateRequest(verifyToken)(
-    resolvers.getOne
-  );
-  typeResolver.Query[`all${name}s`] = authenticateRequest(verifyToken)(
-    resolvers.getAll
-  );
-  typeResolver.Mutation[`new${name}`] = authenticateRequest(verifyToken)(
-    resolvers.createOne
-  );
-  typeResolver.Mutation[`update${name}`] = authenticateRequest(verifyToken)(
-    resolvers.updateOne
-  );
-  typeResolver.Mutation[`remove${name}`] = authenticateRequest(verifyToken)(
-    resolvers.removeOne
-  );
-
-  return typeResolver;
 }

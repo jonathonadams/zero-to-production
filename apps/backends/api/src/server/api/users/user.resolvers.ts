@@ -1,6 +1,9 @@
-import { IUserDocument, User } from '@workspace/backend/resources';
+import { IUserDocument } from '@workspace/shared/interfaces';
+import { generateResolvers } from '@workspace/backend/utils';
+import { User } from './user.model';
+import { authenticateRequest, verifyToken } from '../../auth/authGuardGraphQL';
+
 // import { login, register } from '../../auth/graphqlAuth';
-import { generateResolvers } from '../../../../../../../libs/backend/utils/src/lib/resolvers/create-resolvers';
 
 const resolvers = generateResolvers<IUserDocument>(User);
 

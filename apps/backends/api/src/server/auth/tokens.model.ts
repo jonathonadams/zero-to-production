@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { defaultSchemaOptions } from '@workspace/backend/resources';
+import { defaultSchemaOptions } from '@workspace/backend/utils';
 import { IUserDocument } from '@workspace/shared/interfaces';
 
 /**

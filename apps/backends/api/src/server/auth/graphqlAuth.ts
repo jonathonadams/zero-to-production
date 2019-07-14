@@ -1,5 +1,5 @@
 import { GraphQLFieldResolver } from 'graphql';
-import { IUserDocument } from '../api/users/user.model';
+import { IUserDocument } from '@workspace/shared/interfaces';
 import { loginController, registerController } from './auth.controllers';
 
 /**

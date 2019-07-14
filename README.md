@@ -1,11 +1,5 @@
 # Workspace
 
-This project was generated using [Nx](https://nx.dev).
-
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
-
-🔎 **Nx is a set of Angular CLI power-ups for modern development.**
-
 ## Quick Start & Documentation
 
 [Nx Documentation](https://nx.dev)
@@ -116,6 +110,12 @@ https://github.com/dividab/tsconfig-paths
 
 Generic template checking.
 https://github.com/angular/angular/issues/30235
+
+## TS Path References are not inherited
+
+Once merged, remove references from the tsconfig.lib.json's
+
+https://github.com/Microsoft/TypeScript/issues/27098
 
 ## TestCafe E2E Builder
 

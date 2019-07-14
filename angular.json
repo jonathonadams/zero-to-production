@@ -768,7 +768,7 @@
         "serve": {
           "builder": "./tools/builders/api:serve",
           "options": {
-            "outputPath": "dist/backends/api",
+            "outputPath": "dist/api",
             "src": "apps/backends/api/src",
             "tsConfig": "apps/backends/api/tsconfig.app.json",
             "main": "main.js",
@@ -1023,31 +1023,6 @@
         }
       }
     },
-    "backend-resources": {
-      "root": "libs/backend/resources",
-      "sourceRoot": "libs/backend/resources/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/backend/resources/tsconfig.lib.json",
-              "libs/backend/resources/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/backend/resources/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/backend/resources/jest.config.js",
-            "tsConfig": "libs/backend/resources/tsconfig.spec.json"
-          }
-        }
-      }
-    },
     "backend-uploads": {
       "root": "libs/backend/uploads",
       "sourceRoot": "libs/backend/uploads/src",
@@ -1120,6 +1095,40 @@
             "jestConfig": "libs/backend/utils/jest.config.js",
             "tsConfig": "libs/backend/utils/tsconfig.spec.json"
           }
+        }
+      }
+    },
+    "frontend-common-animations": {
+      "projectType": "library",
+      "root": "libs/frontend/common/animations",
+      "sourceRoot": "libs/frontend/common/animations/src",
+      "prefix": "ngw",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/common/animations/tsconfig.lib.json",
+              "libs/frontend/common/animations/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/common/animations/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/common/animations/jest.config.js",
+            "tsConfig": "libs/frontend/common/animations/tsconfig.spec.json",
+            "setupFile": "libs/frontend/common/animations/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
         }
       }
     }

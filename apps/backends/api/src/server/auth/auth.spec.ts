@@ -1,5 +1,5 @@
 import { isPasswordAllowed, userToJSON } from './auth';
-import { IUserDocument } from '../api/users/user.model';
+import { IUserDocument } from '@workspace/shared/interfaces';
 
 describe('Authentication Functions', () => {
   describe('isPasswordAllowed', () => {

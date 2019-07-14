@@ -8,7 +8,7 @@ import {
   refreshAccessTokenController,
   revokeRefreshTokenController
 } from './auth.controllers';
-import { IUserDocument } from '../api/users/user.model';
+import { IUserDocument } from '@workspace/shared/interfaces';
 
 export function applyAuthorizationRoutes(app: Koa) {
   const router = new Router();

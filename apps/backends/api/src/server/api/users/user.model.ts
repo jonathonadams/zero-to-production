@@ -1,11 +1,7 @@
 import mongoose from 'mongoose';
-import {
-  AuthenticationRoles,
-  IUser,
-  IUserDocument,
-  IUserModel
-} from '@workspace/shared/interfaces';
-import { defaultSchemaOptions } from '@workspace/backend/resources';
+import { AuthenticationRoles } from '@workspace/shared/enums';
+import { IUser, IUserDocument, IUserModel } from '@workspace/shared/interfaces';
+import { defaultSchemaOptions } from '@workspace/backend/utils';
 
 export const userSchema = new mongoose.Schema<IUser>(
   {

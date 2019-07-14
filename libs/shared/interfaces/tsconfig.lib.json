@@ -1,9 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/libs/shared/data",
+    "outDir": "../../../dist/libs/shared/interfaced",
+    "tsBuildInfoFile": "../../../dist/buildcache/shared-interfaces.tsbuildinfo",
     "types": []
   },
   "exclude": ["**/*.spec.ts"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts"],
+  "references": [{ "path": "../enums/tsconfig.lib.json" }]
 }

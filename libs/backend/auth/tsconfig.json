@@ -7,5 +7,6 @@
     "rootDir": "./src",
     "types": ["node", "jest"]
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts"],
+  "references": [{ "path": "../../shared/interfaces/tsconfig.lib.json" }]
 }

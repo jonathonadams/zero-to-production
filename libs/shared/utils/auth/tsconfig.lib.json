@@ -1,9 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../../dist/out-tsc",
+    "outDir": "../../../../dist/libs/shared/utils/auth",
+    "tsBuildInfoFile": "../../../../dist/buildcache/shared-utils-auth.tsbuildinfo",
     "types": []
   },
   "exclude": ["**/*.spec.ts"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts"],
+  "references": [{ "path": "../../interfaces/tsconfig.lib.json" }]
 }

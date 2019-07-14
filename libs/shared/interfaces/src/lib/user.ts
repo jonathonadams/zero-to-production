@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { AuthenticationRoles } from './auth';
+import { AuthenticationRoles } from '@workspace/shared/enums';
 
 export interface IUser {
   id: string;

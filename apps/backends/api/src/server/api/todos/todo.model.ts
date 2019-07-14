@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { ITodo, ITodoDocument, ITodoModel } from '@workspace/shared/interfaces';
-import { defaultSchemaOptions } from '@workspace/backend/resources';
+import { defaultSchemaOptions } from '@workspace/backend/utils';
 
 export const todoSchema = new mongoose.Schema<ITodo>(
   {

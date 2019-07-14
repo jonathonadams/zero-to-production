@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { User, IUserDocument } from './user.model';
 import { runQuery, setupTestDB } from '@testing/backend/helpers';
+import { IUserDocument } from '@workspace/shared/interfaces';
+import { User } from './user.model';
 import { signAccessToken } from '../../auth/auth';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
 import { schema } from '../graphql';

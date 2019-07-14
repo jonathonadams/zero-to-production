@@ -64,5 +64,3 @@ switch (process.env.NODE_ENV) {
 merge(config, environmentSettings);
 
 export default config as ServerConfig;
-
-process.env.ENV_CONFIG = config;

@@ -6,5 +6,6 @@
     "module": "commonjs",
     "types": ["node", "jest"]
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts"],
+  "references": [{ "path": "../../../libs/tsconfig.libs.json" }]
 }

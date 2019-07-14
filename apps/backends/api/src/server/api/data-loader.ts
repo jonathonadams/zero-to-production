@@ -1,11 +1,11 @@
 /* istanbul ignore file */
-
+// @ts-ignore
 import DataLoader from 'dataloader';
+// @ts-ignore
 import keyBy from 'lodash.keyby';
 import { User } from './users';
 import { Todo } from './todos';
-import { IUserDocument } from './users/user.model';
-import { ITodoDocument } from './todos/todo.model';
+import { IUserDocument, ITodoDocument } from '@workspace/shared/interfaces';
 
 const createUsersLoader = () => {
   return new DataLoader<string, IUserDocument>(async usersIds => {

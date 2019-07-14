@@ -1,9 +1,10 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import { generateRestEndpoints } from '../../../../../../libs/backend/utils/src/lib/controllers/create-rest-controllers';
-import { router as userRouter } from './users';
+import { usersRouter } from './users';
 import { Todo } from './todos';
 import { verifyToken } from '../auth/authGuardRest';
+import { ITodoDocument } from '@workspace/shared/interfaces';
+import { generateRestEndpoints } from '@workspace/backend/utils';
 
 export function applyRestEndpoints(app: Koa) {
   const router = new Router({
@@ -14,8 +15,8 @@ export function applyRestEndpoints(app: Koa) {
   router.use(verifyToken);
 
   // Apply all your routes here
-  router.use('/users', userRouter.routes());
-  router.use('/todos', generateRestEndpoints(Todo));
+  router.use('/users', usersRouter.routes());
+  router.use('/todos', generateRestEndpoints<ITodoDocument>(Todo));
 
   app.use(router.routes());
 }

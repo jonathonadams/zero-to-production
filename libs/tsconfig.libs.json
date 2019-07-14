@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "../dist/buildcache/libs.tsbuildinfo"
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    { "path": "./shared/tsconfig.shared.json" },
+    { "path": "./backend/tsconfig.backend.json" }
+  ]
+}
