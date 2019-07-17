@@ -1,5 +1,4 @@
 import { ConnectionOptions } from 'mongoose';
-
 /*
  * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-connect
  * http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html

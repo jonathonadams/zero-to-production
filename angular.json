@@ -998,31 +998,6 @@
         }
       }
     },
-    "backend-interfaces": {
-      "root": "libs/backend/interfaces",
-      "sourceRoot": "libs/backend/interfaces/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/backend/interfaces/tsconfig.lib.json",
-              "libs/backend/interfaces/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/backend/interfaces/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/backend/interfaces/jest.config.js",
-            "tsConfig": "libs/backend/interfaces/tsconfig.spec.json"
-          }
-        }
-      }
-    },
     "backend-uploads": {
       "root": "libs/backend/uploads",
       "sourceRoot": "libs/backend/uploads/src",

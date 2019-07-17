@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
 import { randomBytes } from 'crypto';
-import { EnvironnementConfig } from '@workspace/backend/interfaces';
+import { EnvironnementConfig } from '@workspace/shared/interfaces';
 
 /**
  * Production environment settings
