@@ -9,7 +9,7 @@ import {
   loginSuccess,
   logout
 } from '@workspace/frontend/data-access/auth';
-import { DecodedJWT } from '@workspace/shared/interfaces';
+import { IJWTPayload } from '@workspace/shared/interfaces';
 
 @Injectable()
 export class UsersEffects {
@@ -27,7 +27,7 @@ export class UsersEffects {
      * It is not be possible for the JWT to be undefined
      * as the resolver will run AFTER the AuthGuard runs,
      */
-    map(action => this.jwtService.getDecodedToken() as DecodedJWT),
+    map(action => this.jwtService.getDecodedToken() as IJWTPayload),
     switchMap(token =>
       this.usersService.getOneUser(token.sub).pipe(
         map(user => UserActions.loadAuthUserSuccess({ user })),

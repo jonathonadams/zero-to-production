@@ -10,7 +10,7 @@ import {
   UPDATE_TODO_QUERY,
   REMOTE_TODO_QUERY
 } from './todos.queries';
-import { ITodo, DecodedJWT } from '@workspace/shared/interfaces';
+import { ITodo, IJWTPayload } from '@workspace/shared/interfaces';
 import { FetchResult } from 'apollo-link';
 
 @Injectable()
@@ -31,7 +31,7 @@ export class TodosService {
 
   public createTodo(todo: ITodo): Observable<FetchResult<{ newTodo: ITodo }>> {
     // Set the user id of the current JWT id
-    const userId = (this.auth.getDecodedToken() as DecodedJWT).sub;
+    const userId = (this.auth.getDecodedToken() as IJWTPayload).sub;
     const newTodo: ITodo = { ...todo, user: userId };
     // set the completed state to false
     // todo.completed = false;

@@ -61,18 +61,18 @@ export class AuthModule {
 
   get graphQlGuards() {
     // export the below array to use in the authenticate request function.
-    const verifyToken = [checkToken(this._accessTokenSecret)];
-    const verifyUserIsActive = [
-      ...verifyToken,
+    const verifyTokenM = [checkToken(this._accessTokenSecret)];
+    const verifyUserIsActiveM = [
+      ...verifyTokenM,
       checkUserIsActive(this._userModel)
     ];
 
     return {
-      verifyToken: authenticateRequest(verifyToken),
-      verifyUserIsActive: authenticateRequest(verifyUserIsActive),
+      verifyToken: authenticateRequest(verifyTokenM),
+      verifyUserIsActive: authenticateRequest(verifyUserIsActiveM),
       verifyUserRole(role: AuthenticationRoles) {
         return authenticateRequest([
-          ...verifyUserIsActive,
+          ...verifyUserIsActiveM,
           checkUserRole(role)
         ]);
       }

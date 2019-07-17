@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { GraphQLService } from '@workspace/frontend/data-access/api';
-import { LoginCredentials, LoginResponse } from '@workspace/shared/interfaces';
+import {
+  ILoginCredentials,
+  ILoginResponse
+} from '@workspace/shared/interfaces';
 import { isPasswordAllowed } from '@workspace/shared/utils/auth';
 import { JWTAuthService } from './jwt-auth.service';
 
@@ -17,7 +20,7 @@ export class AuthService {
 
   // Login function that returns a user and JWT
   // This is a graphql login function
-  login(credentials: LoginCredentials) {
+  login(credentials: ILoginCredentials) {
     const query = `
       mutation LoginUser($username: String!, $password: String!){
         login(username: $username, password: $password){
@@ -25,7 +28,7 @@ export class AuthService {
         }
       }
     `;
-    return this.graphQL.mutation<{ data: { login: LoginResponse } }>(
+    return this.graphQL.mutation<{ data: { login: ILoginResponse } }>(
       query,
       credentials
     );

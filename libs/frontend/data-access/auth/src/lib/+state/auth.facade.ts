@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
-import { LoginCredentials } from '@workspace/shared/interfaces';
+import { ILoginCredentials } from '@workspace/shared/interfaces';
 
 @Injectable()
 export class AuthFacade {
   constructor(private store: Store<any>) {}
 
-  login(credentials: LoginCredentials): void {
+  login(credentials: ILoginCredentials): void {
     this.store.dispatch(AuthActions.login(credentials));
   }
 

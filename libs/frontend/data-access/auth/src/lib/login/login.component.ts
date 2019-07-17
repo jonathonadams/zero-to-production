@@ -1,15 +1,16 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { LoginCredentials } from '@workspace/shared/interfaces';
+import { ILoginCredentials } from '@workspace/shared/interfaces';
 import { Validators } from '@angular/forms';
 import { AuthFacade } from '../+state/auth.facade';
 import {
   Field,
-  DynamicFormFacade
+  DynamicFormFacade,
+  FormFieldTypes
 } from '@workspace/frontend/data-access/dynamic-form';
 
 const STRUCTURE: Field[] = [
   {
-    component: 'INPUT',
+    component: FormFieldTypes.Input,
     type: 'text',
     name: 'username',
     label: 'Username',
@@ -19,7 +20,7 @@ const STRUCTURE: Field[] = [
     appearance: 'standard'
   },
   {
-    component: 'INPUT',
+    component: FormFieldTypes.Input,
     type: 'password',
     name: 'password',
     label: 'Password',
@@ -46,7 +47,7 @@ export class CommonLoginComponent implements OnInit {
     this.formFacade.setStructure({ structure: STRUCTURE });
   }
 
-  public onSubmit(credentials: LoginCredentials): void {
+  public onSubmit(credentials: ILoginCredentials): void {
     this.facade.login(credentials);
   }
 }

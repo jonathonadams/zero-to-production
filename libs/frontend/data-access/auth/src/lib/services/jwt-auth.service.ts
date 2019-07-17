@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import jwtDecode from 'jwt-decode';
-import { DecodedJWT } from '@workspace/shared/interfaces';
+import { IJWTPayload } from '@workspace/shared/interfaces';
 
 @Injectable()
 export class JWTAuthService {
@@ -18,11 +18,11 @@ export class JWTAuthService {
     localStorage.removeItem(this.storageKey);
   }
 
-  decodeToken(token: string): DecodedJWT {
-    return jwtDecode<DecodedJWT>(token);
+  decodeToken(token: string): IJWTPayload {
+    return jwtDecode<IJWTPayload>(token);
   }
 
-  getDecodedToken(): DecodedJWT | undefined {
+  getDecodedToken(): IJWTPayload | undefined {
     const token = this.getAuthorizationToken();
     if (token !== null) {
       return this.decodeToken(token);

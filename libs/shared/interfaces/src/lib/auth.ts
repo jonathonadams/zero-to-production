@@ -10,7 +10,7 @@ export interface ILoginResponse {
   token: string;
 }
 
-export interface IDecodedJWT {
+export interface IJWTPayload {
   sub: string; // subject (id)
   exp: number; // expire time
   iat: string; // issued at time

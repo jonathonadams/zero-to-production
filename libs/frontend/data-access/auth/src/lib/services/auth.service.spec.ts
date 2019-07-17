@@ -1,9 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { GraphQLError } from 'graphql';
-import { createSpyObj } from '@testing/frontend-helpers';
-import { GraphQLStub } from '@testing/stubs/graphql.stubs';
+import { createSpyObj } from '@testing/frontend/helpers';
+import { GraphQLStub } from '@testing/frontend/stubs/graphql.stubs';
 import { GraphQLService } from '@workspace/frontend/data-access/api';
-import { LoginCredentials, LoginResponse } from '@workspace/shared/interfaces';
+import {
+  ILoginCredentials,
+  ILoginResponse
+} from '@workspace/shared/interfaces';
 import { AuthService } from './auth.service';
 import { JWTAuthService } from './jwt-auth.service';
 
@@ -66,15 +69,15 @@ describe('AuthService', () => {
     // GraphQL login response check
     it('should return a LoginResponse if called with valid credentials', () => {
       const spy = jest.spyOn(graphQLStub, 'mutation');
-      const loginCredentials: LoginCredentials = {
+      const loginCredentials: ILoginCredentials = {
         username: 'admin',
         password: 'secret'
       };
-      const expectedResponse: LoginResponse = {
+      const expectedResponse: ILoginResponse = {
         token: 'JWT'
       };
       // Set the response from the the stub
-      graphQLStub.setExpectedResponse<{ login: LoginResponse }>({
+      graphQLStub.setExpectedResponse<{ login: ILoginResponse }>({
         login: expectedResponse
       });
       authService.login(loginCredentials).subscribe(
@@ -90,7 +93,7 @@ describe('AuthService', () => {
     });
     it('should return an error if credentials are incorrect', () => {
       const spy = jest.spyOn(graphQLStub, 'mutation');
-      const loginCredentials: LoginCredentials = {
+      const loginCredentials: ILoginCredentials = {
         username: 'unauthorized',
         password: 'noi dea'
       };

@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { Actions } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot, Scheduler } from 'jest-marbles';
-import { createSpyObj } from '@testing/frontend-helpers';
+import { createSpyObj } from '@testing/frontend/helpers';
 import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
-import { LoginCredentials } from '@workspace/shared/interfaces';
+import { ILoginCredentials } from '@workspace/shared/interfaces';
 import * as AuthActions from './auth.actions';
 import { GraphQLError } from 'graphql';
 import { JWTAuthService } from '../services/jwt-auth.service';
@@ -52,7 +52,7 @@ describe('AuthEffects', () => {
 
   describe('login$', () => {
     it('should return an LoginSuccess action, with user information if login succeeds', () => {
-      const credentials: LoginCredentials = { username: 'test', password: '' };
+      const credentials: ILoginCredentials = { username: 'test', password: '' };
       const token = 'JWT.TOKEN';
       const action = AuthActions.login(credentials);
       const completion = AuthActions.loginSuccess({ token });
@@ -67,7 +67,7 @@ describe('AuthEffects', () => {
     });
 
     it('should return a new LoginFailure if the login service throws', () => {
-      const credentials: LoginCredentials = {
+      const credentials: ILoginCredentials = {
         username: 'someOne',
         password: ''
       };

@@ -1,6 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 import { GraphQLError } from 'graphql';
-import { LoginCredentials, LoginResponse } from '@workspace/shared/interfaces';
+import {
+  ILoginCredentials,
+  ILoginResponse
+} from '@workspace/shared/interfaces';
 
 export const loginRedirect = createAction('[Auth] Login Redirect');
 
@@ -8,12 +11,12 @@ export const logoutRedirect = createAction('[Auth] Logout Redirect');
 
 export const login = createAction(
   '[Auth/API] Login',
-  props<LoginCredentials>()
+  props<ILoginCredentials>()
 );
 
 export const loginSuccess = createAction(
   '[Auth/API] Login Success',
-  props<LoginResponse>()
+  props<ILoginResponse>()
 );
 
 export const loginFailure = createAction(

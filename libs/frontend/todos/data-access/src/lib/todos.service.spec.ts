@@ -3,9 +3,9 @@ import { TodosService } from './todos.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { JWTAuthService } from '@workspace/frontend/data-access/auth';
 import { GraphQLService } from '@workspace/frontend/data-access/api';
-import { ITodo, DecodedJWT } from '@workspace/shared/interfaces';
-import { createSpyObj } from '@testing/frontend-helpers';
-import { GraphQLStub } from '@testing/stubs/graphql.stubs';
+import { ITodo, IJWTPayload } from '@workspace/shared/interfaces';
+import { createSpyObj } from '@testing/frontend/helpers';
+import { GraphQLStub } from '@testing/frontend/stubs/graphql.stubs';
 import {
   ALL_TODOS_QUERY,
   LOAD_TODO_QUERY,
@@ -84,7 +84,7 @@ describe('TodoService', () => {
       authService.getDecodedToken = jest.fn(() => {
         return {
           sub: '1'
-        } as DecodedJWT;
+        } as IJWTPayload;
       });
       service.createTodo(originalTodo);
 
@@ -180,7 +180,7 @@ describe('TodoService', () => {
 //     authService.getDecodedToken = jest.fn(() => {
 //       return {
 //         sub: '1'
-//       } as DecodedJWT;
+//       } as IJWTPayload;
 //     });
 //     service.createTodo(todo);
 

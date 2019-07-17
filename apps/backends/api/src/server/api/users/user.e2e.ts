@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { runQuery, setupTestDB } from '@testing/backend/helpers';
-import { IUserDocument } from '@workspace/shared/interfaces';
+import { IUserDocument, IUser } from '@workspace/shared/interfaces';
 import { User } from './user.model';
-import { signAccessToken } from '../../auth/auth';
+import { signTestAccessToken } from '@testing/index';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
 import { schema } from '../graphql';
+import config from '../../config';
 
 const user = ({
   username: 'test user',
@@ -19,7 +20,7 @@ const user = ({
   settings: {
     darkMode: false
   }
-} as any) as IUserDocument;
+} as any) as IUser;
 
 const updatedUser = { username: 'updated user' };
 
@@ -38,7 +39,7 @@ describe(`GraphQL / User`, () => {
 
     createdUser = await User.create(user);
     [createdUser.id, createdUser._id] = [createdUser._id, createdUser.id];
-    jwt = signAccessToken(createdUser);
+    jwt = signTestAccessToken(createdUser, config.secrets.accessToken);
   });
 
   afterAll(async () => {
