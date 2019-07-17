@@ -2,7 +2,7 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import { setupMiddleware } from '@workspace/backend/middleware';
 import { applyApiEndpoints } from './api';
-import { applyAuthorizationRoutes } from './auth/auth-routes';
+import auth from './auth/auth';
 import { dbConnection } from './db/db-connection';
 import config from './config';
 
@@ -44,7 +44,7 @@ export default class ApiServer {
     /**
      * apply all authorization routes
      */
-    applyAuthorizationRoutes(app);
+    auth.applyAuthorizationRoutes(app);
 
     /**
      * Apply the routes

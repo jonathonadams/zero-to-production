@@ -8,5 +8,8 @@
     "types": ["node", "jest"]
   },
   "include": ["**/*.ts"],
-  "references": [{ "path": "../../shared/interfaces/tsconfig.lib.json" }]
+  "references": [
+    { "path": "../../shared/interfaces/tsconfig.lib.json" },
+    { "path": "../../shared/utils/auth/tsconfig.lib.json" }
+  ]
 }

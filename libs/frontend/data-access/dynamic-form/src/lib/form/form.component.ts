@@ -21,7 +21,6 @@ import { Field, FormErrors } from '../form.models';
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent implements OnInit, OnDestroy {

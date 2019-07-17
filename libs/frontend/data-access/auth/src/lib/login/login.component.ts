@@ -23,7 +23,7 @@ const STRUCTURE: Field[] = [
     type: 'password',
     name: 'password',
     label: 'Password',
-    autocomplete: 'password',
+    autocomplete: 'current-password',
     initialValue: '',
     validators: [Validators.required],
     appearance: 'standard'

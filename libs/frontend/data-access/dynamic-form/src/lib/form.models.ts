@@ -7,25 +7,40 @@ export interface BaseField {
   label: string;
   initialValue?: any;
   validators: ValidatorFn[];
-  autocomplete: string;
+  autocomplete: AutoComplete;
   appearance?: FormFieldAppearance;
   color?: string;
   attrs?: any;
 }
 
 export interface InputField extends BaseField {
-  component: 'INPUT';
+  component: FormFieldTypes.Input;
   type: InputType;
 }
 
 export interface SelectField extends BaseField {
-  component: 'SELECT';
+  component: FormFieldTypes.Select;
   selectOptions: SelectOption[];
 }
 
 export interface SelectOption {
   value: any;
 }
+
+// There are more to complete here
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
+export type AutoComplete =
+  | 'off'
+  | 'on'
+  | 'name'
+  | 'email'
+  | 'username'
+  | 'new-password'
+  | 'current-password'
+  | 'one-time-code'
+  | 'organization-title'
+  | 'organization'
+  | 'street-address';
 
 export type InputType =
   | 'color'
@@ -46,4 +61,9 @@ export type FormFieldAppearance = 'standard' | 'fill' | 'outline';
 
 export interface FormErrors {
   [key: string]: ValidationErrors;
+}
+
+export enum FormFieldTypes {
+  Input = 'INPUT',
+  Select = 'SELECT'
 }

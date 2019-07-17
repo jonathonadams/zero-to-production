@@ -11,10 +11,12 @@ import {
 import { FormGroup } from '@angular/forms';
 import { InputComponent } from '../fields/input/input.component';
 import { Field } from '../form.models';
+import { FormFieldTypes } from '../form.models';
+import { SelectComponent } from '../fields/select/select.component';
 
 const componentsMapper: { [key: string]: Type<any> } = {
-  INPUT: InputComponent
-  // TEXTAREA: TextareaComponent
+  [FormFieldTypes.Input]: InputComponent,
+  [FormFieldTypes.Select]: SelectComponent
 };
 
 @Directive({

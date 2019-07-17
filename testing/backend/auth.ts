@@ -1,7 +1,7 @@
 import { sign } from 'jsonwebtoken';
 import { IUser } from '@workspace/shared/interfaces';
 
-export function signAccessToken(user: IUser, secret: string): string {
+export function signTestAccessToken(user: IUser, secret: string): string {
   return sign(
     {
       // TODO
@@ -9,8 +9,7 @@ export function signAccessToken(user: IUser, secret: string): string {
     },
     secret,
     {
-      subject: user.id.toString(),
-      issuer: 'your-company-here'
+      subject: user.id.toString()
     }
   );
 }

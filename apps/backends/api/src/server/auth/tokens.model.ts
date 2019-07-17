@@ -1,22 +1,13 @@
 import mongoose from 'mongoose';
 import { defaultSchemaOptions } from '@workspace/backend/utils';
-import { IUserDocument } from '@workspace/shared/interfaces';
+import {
+  IRefreshTokenDocument,
+  IRefreshTokenModel
+} from '@workspace/shared/interfaces';
 
 /**
  * This resource is not publicly available but used to store all refresh tokens
  */
-export class RefreshTokenClass extends mongoose.Model {
-  user: IUserDocument;
-  token: string;
-
-  static findByTokenWithUser(
-    token: string
-  ): Promise<IRefreshTokenDocument | null> {
-    return this.findOne({ token })
-      .populate('user')
-      .exec();
-  }
-}
 
 export const refreshTokenSchema = new mongoose.Schema(
   {
@@ -35,17 +26,14 @@ export const refreshTokenSchema = new mongoose.Schema(
   }
 );
 
-export interface IRefreshTokenDocument extends mongoose.Document {
-  user: IUserDocument;
-  token: string;
-}
+refreshTokenSchema.statics.findByTokenWithUser = function(
+  token: string
+): Promise<IRefreshTokenDocument | null> {
+  return this.findOne({ token })
+    .populate('user')
+    .exec();
+};
 
-export interface IRefreshTokenModel
-  extends mongoose.Model<IRefreshTokenDocument> {
-  findByTokenWithUser: (token: string) => Promise<IRefreshTokenDocument | null>;
-}
-
-refreshTokenSchema.loadClass(RefreshTokenClass);
 export const RefreshToken = mongoose.model<
   IRefreshTokenDocument,
   IRefreshTokenModel
