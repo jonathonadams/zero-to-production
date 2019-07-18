@@ -19,7 +19,12 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div (scroll)="scroll()" #appContent class="app-content">
+    <div
+      (scroll)="scroll()"
+      #appContent
+      class="app-content"
+      [@routeAnimations]="prepareRoute(sideNav)"
+    >
       <router-outlet #sideNav="outlet"></router-outlet>
     </div>
   </mat-sidenav-content>

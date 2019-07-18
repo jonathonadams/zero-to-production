@@ -11,18 +11,21 @@ export const TODOS_ROUTES: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('@workspace/frontend/dashboard').then(m => m.DashboardModule)
+          import('@workspace/frontend/dashboard').then(m => m.DashboardModule),
+        data: { animation: 'DashBoardPage' }
       },
       {
         path: 'todos',
-        component: TodoLayoutComponent
+        component: TodoLayoutComponent,
+        data: { animation: 'TodosPage' }
       },
       {
         path: 'profile',
         loadChildren: () =>
           import('@workspace/frontend/shared/profile').then(
             m => m.FrontendProfileModule
-          )
+          ),
+        data: { animation: 'ProfilePage' }
       },
       {
         path: '',

@@ -46,7 +46,6 @@ export const userSchema = new mongoose.Schema<IUser>(
     role: {
       type: Number,
       required: true,
-      select: false,
       default: AuthenticationRoles.User
     },
     hashedPassword: {
@@ -71,7 +70,7 @@ userSchema.statics.findByUsername = function(
   return this.findOne({
     username: username
   })
-    .select('+hashedPassword +role')
+    .select('+hashedPassword')
     .exec();
 };
 

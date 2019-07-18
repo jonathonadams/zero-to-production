@@ -7,6 +7,7 @@ import { signTestAccessToken } from '@testing/index';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
 import { schema } from '../graphql';
 import config from '../../config';
+import { AuthenticationRoles } from '@workspace/shared/enums';
 
 const user = ({
   username: 'test user',
@@ -162,6 +163,16 @@ describe(`GraphQL / User`, () => {
 
   describe(`removeUser($id: ID!)`, () => {
     it(`should delete a User by id`, async () => {
+      const tempUser = {
+        ...createdUser.toJSON(),
+        role: AuthenticationRoles.Admin
+      };
+
+      const jwtToken = signTestAccessToken(
+        tempUser,
+        config.secrets.accessToken
+      );
+
       const queryName = `removeUser`;
       const result = await runQuery(schema)(
         `
@@ -171,7 +182,7 @@ describe(`GraphQL / User`, () => {
             }
           }`,
         { id: createdUser.id },
-        jwt
+        jwtToken
       );
 
       expect(result.errors).not.toBeDefined();

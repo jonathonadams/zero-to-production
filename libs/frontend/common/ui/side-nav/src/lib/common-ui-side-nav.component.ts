@@ -8,13 +8,16 @@ import {
 import { Observable } from 'rxjs';
 import { ISideNaveLink } from '@workspace/shared/interfaces';
 import { SideNavService } from './common-ui-side-nav.service';
+import { RouterOutlet } from '@angular/router';
+import { slideInAnimation } from '@workspace/frontend/common/animations';
 
 // TODO -> Redux store and dumb component for view
 @Component({
   selector: 'ngw-common-side-nav',
   templateUrl: './common-ui-side-nav.component.html',
   styleUrls: ['./common-ui-side-nav.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [slideInAnimation]
 })
 export class CommonUiSideNavComponent {
   @Input() navLinks: ISideNaveLink[] | undefined;
@@ -48,5 +51,13 @@ export class CommonUiSideNavComponent {
       }
     }
     this.lastScrollPosition = this.content.nativeElement.scrollTop;
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return (
+      outlet &&
+      outlet.activatedRouteData &&
+      outlet.activatedRouteData['animation']
+    );
   }
 }
