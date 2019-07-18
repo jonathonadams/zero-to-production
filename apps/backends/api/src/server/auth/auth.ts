@@ -13,11 +13,17 @@ const authConfig: AuthConfig = {
 
 const auth = new AuthModule(authConfig);
 
+/**
+ * Guards for use in Routes
+ */
 export const {
   verifyToken: verifyTokenRest,
   verifyUserIsActive: verifyUserIsActiveRest
 } = auth.restGuards;
 
+/**
+ * Guards to user with GraphQL
+ */
 export const {
   verifyToken: verifyTokenGraphQL,
   verifyUserIsActive: verifyUserIsActiveGraphQL,

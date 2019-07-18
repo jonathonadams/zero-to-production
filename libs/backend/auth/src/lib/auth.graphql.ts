@@ -17,13 +17,14 @@ export function authenticateRequest(authMiddlewares: AuthMiddleware[]) {
       ctx: any,
       info: GraphQLResolveInfo
     ) {
+      /**
+       * loop over there auth functions if any
+       * errors occurs they will throw bubble up
+       */
       for (const middleware of authMiddlewares) {
-        /**
-         * loop over there auth functions
-         * If any errors occurs they will bubble up
-         */
         await middleware(parent, args, ctx, info);
       }
+
       // Return the resolver function to be called
       return resolverFunction(parent, args, ctx, info);
     };
