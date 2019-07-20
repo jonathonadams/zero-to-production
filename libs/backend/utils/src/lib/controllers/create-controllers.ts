@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom';
 import mongoose from 'mongoose';
 import { ObjectId } from 'mongodb';
-import { Utils } from '../utils';
+import { swapId } from '../utils';
 
 /**
  * A helper function to create all CRUD related controllers.
@@ -24,7 +24,7 @@ export function createControllers<T extends mongoose.Document>(
         .lean()
         .exec();
 
-      return resources.map(Utils.swapId);
+      return resources.map(swapId);
     },
 
     // Get an individual resource
@@ -39,7 +39,7 @@ export function createControllers<T extends mongoose.Document>(
           'Cannot find a resource with the supplied parameters.'
         );
 
-      return Utils.swapId(resource);
+      return swapId(resource);
     },
 
     // Create a Resource
@@ -57,7 +57,7 @@ export function createControllers<T extends mongoose.Document>(
         throw Boom.notFound(
           'Cannot find a resource with the supplied parameters.'
         );
-      return Utils.swapId(resource);
+      return swapId(resource);
     },
 
     // Remove one
@@ -70,7 +70,7 @@ export function createControllers<T extends mongoose.Document>(
         throw Boom.notFound(
           'Cannot find a resource with the supplied parameters.'
         );
-      return Utils.swapId(resource);
+      return swapId(resource);
     }
   };
 }

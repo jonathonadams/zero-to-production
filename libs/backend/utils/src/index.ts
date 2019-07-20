@@ -1,4 +1,4 @@
-export { Utils } from './lib/utils';
+export { swapId } from './lib/utils';
 export { createControllers } from './lib/controllers/create-controllers';
 export { defaultSchemaOptions } from './lib/db/schema-options';
 export {

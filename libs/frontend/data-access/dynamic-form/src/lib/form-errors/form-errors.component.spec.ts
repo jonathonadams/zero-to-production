@@ -1,21 +1,31 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormErrorsComponent } from './form-errors.component';
+import { DynamicFormFacade } from '../+state/dynamic-form.facade';
+import { of } from 'rxjs';
+import { FormErrorPipe } from './form-error.pipe';
 
 describe('FormErrorsComponent', () => {
   let component: FormErrorsComponent;
   let fixture: ComponentFixture<FormErrorsComponent>;
+  let facade: DynamicFormFacade;
+
+  const facadeSpy = {
+    errors$: of(jest.fn())
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FormErrorsComponent]
+      declarations: [FormErrorsComponent, FormErrorPipe],
+      providers: [{ provide: DynamicFormFacade, useValue: facadeSpy }]
     }).compileComponents();
+
+    facade = TestBed.get<DynamicFormFacade>(DynamicFormFacade);
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FormErrorsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

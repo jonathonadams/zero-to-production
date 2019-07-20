@@ -13,7 +13,7 @@ export class AuthUsersResolver implements Resolve<IUser | undefined> {
     /**
      * The resolver function checks to see if the the user is defined,
      * if it is not defined then it will attempt to load the authenticated
-     * user from the JWT stored in local storage. This handles cased such
+     * user from the JWT stored in local storage. This handles cases such
      * as when the page is refreshed and the user does not have to authenticate
      * again.It also filters out the scenario where the current user is not
      * the current authenticated user, i.e. logout and then log back in

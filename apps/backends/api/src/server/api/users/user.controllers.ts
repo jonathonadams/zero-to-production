@@ -1,6 +1,6 @@
 import { ParameterizedContext } from 'koa';
 import Boom from '@hapi/boom';
-import { Utils } from '@workspace/backend/utils';
+import { swapId } from '@workspace/backend/utils';
 import { User } from './user.model';
 
 export async function params(
@@ -19,7 +19,7 @@ export async function getAll(ctx: ParameterizedContext): Promise<void> {
     .lean()
     .exec();
 
-  ctx.body = resources.map(Utils.swapId);
+  ctx.body = resources.map(swapId);
 }
 
 // Get an individual user
@@ -32,7 +32,7 @@ export async function getOne(ctx: ParameterizedContext): Promise<void> {
     throw Boom.notFound('Cannot find a user with the supplied parameters.');
 
   ctx.status = 200;
-  ctx.body = Utils.swapId(user);
+  ctx.body = swapId(user);
 }
 
 // Create a Resource
@@ -55,7 +55,7 @@ export async function updateOne(ctx: ParameterizedContext): Promise<void> {
     throw Boom.notFound('Cannot find a user with the supplied parameters.');
 
   ctx.status = 201;
-  ctx.body = Utils.swapId(updatedUser);
+  ctx.body = swapId(updatedUser);
 }
 
 // Remove one
@@ -68,5 +68,5 @@ export async function removeOne(ctx: ParameterizedContext): Promise<void> {
     throw Boom.notFound('Cannot find a user with the supplied parameters.');
 
   ctx.status = 200;
-  ctx.body = Utils.swapId(removedUser);
+  ctx.body = swapId(removedUser);
 }
