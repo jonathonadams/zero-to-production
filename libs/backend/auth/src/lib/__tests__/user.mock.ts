@@ -33,18 +33,18 @@ export class MockUserModel {
     }
   }
 
-  async save() {
-    if (!this._user.id) {
-      this._user.id = newId();
-    }
-    return this._user;
-  }
-
   static reset() {
     this._user = undefined;
   }
 
   toJSON() {
+    return this._user;
+  }
+
+  async save() {
+    if (!this._user.id) {
+      this._user.id = newId();
+    }
     return this._user;
   }
 }
