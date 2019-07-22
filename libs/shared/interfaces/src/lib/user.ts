@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { AuthenticationRoles } from '@workspace/shared/enums';
+import { IFindByUsername } from './auth';
 
 export interface IUser {
   id: string;
@@ -28,6 +29,6 @@ export interface IUserDocument extends IUser, mongoose.Document {
   id: string;
 }
 
-export interface IUserModel extends mongoose.Model<IUserDocument> {
-  findByUsername: (userName: string) => Promise<IUserDocument | null>;
-}
+export interface IUserModel
+  extends mongoose.Model<IUserDocument>,
+    IFindByUsername<IUserDocument> {}

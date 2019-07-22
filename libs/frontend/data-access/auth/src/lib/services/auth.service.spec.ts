@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { GraphQLError } from 'graphql';
-import { createSpyObj } from '@testing/frontend/helpers';
-import { GraphQLStub } from '@testing/frontend/stubs/graphql.stubs';
+import { createSpyObj } from '@app-testing/frontend/helpers';
+import { GraphQLStub } from '@app-testing/frontend/stubs/graphql.stubs';
 import { GraphQLService } from '@workspace/frontend/data-access/api';
 import {
   ILoginCredentials,

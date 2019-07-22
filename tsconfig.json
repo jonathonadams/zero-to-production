@@ -18,7 +18,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@testing/*": ["testing/*"],
+      "@app-testing/*": ["testing/src/*"],
       "@workspace/frontend/common/ui/side-nav": [
         "libs/frontend/common/ui/side-nav/src/index.ts"
       ],
@@ -89,7 +89,6 @@
       "@workspace/frontend/data-access/service-worker": [
         "libs/frontend/data-access/service-worker/src/index.ts"
       ],
-      "@workspace/backend/uploads": ["libs/backend/uploads/src/index.ts"],
       "@workspace/backend/middleware": ["libs/backend/middleware/src/index.ts"],
       "@workspace/backend/utils": ["libs/backend/utils/src/index.ts"],
       "@workspace/frontend/common/animations": [

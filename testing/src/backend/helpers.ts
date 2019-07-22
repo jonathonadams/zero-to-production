@@ -6,10 +6,9 @@ import { graphql, GraphQLSchema } from 'graphql';
 /**
  * Helper function to generate ObjectID, note it returns the hex string of the ObjectId
  */
-export const newId = () => {
-  return (mongoose.Types.ObjectId().toHexString() as unknown) as ObjectId;
-};
-
+export function newId() {
+  return mongoose.Types.ObjectId().toHexString();
+}
 export const runQuery = function(schema: GraphQLSchema) {
   return async (
     query: string,

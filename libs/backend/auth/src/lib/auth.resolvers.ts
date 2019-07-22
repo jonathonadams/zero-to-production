@@ -1,6 +1,6 @@
 import { GraphQLFieldResolver } from 'graphql';
 import { loginController, registerController } from './auth.controllers';
-import { IUserModel, IUser } from 'dist/libs/shared/interface';
+import { IUserModel, IUser } from '@workspace/shared/interfaces';
 
 /**
  *  A function that handles logging a user in

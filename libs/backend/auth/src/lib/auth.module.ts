@@ -1,6 +1,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import { IUserModel, IRefreshTokenModel } from '@workspace/shared/interfaces';
+import { AuthenticationRoles } from '@workspace/shared/enums';
 import {
   login,
   register,
@@ -10,7 +11,6 @@ import {
 } from './auth.routes';
 import { verifyToken, verifyUserIsActive } from './rest.guards';
 import { checkToken, checkUserIsActive, checkUserRole } from './graphql.guards';
-import { AuthenticationRoles } from 'dist/libs/shared/enums';
 import { authenticateRequest } from './auth.graphql';
 
 export interface AuthConfig {

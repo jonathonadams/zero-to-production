@@ -6,7 +6,7 @@ import { ApplicationRef } from '@angular/core';
 import { of } from 'rxjs';
 
 describe('ServiceWorkerService', () => {
-  let service: ServiceWorkerService;
+  let swService: ServiceWorkerService;
   let updates: SwUpdate;
   let appRef: ApplicationRef;
   const updateSpy = {
@@ -25,7 +25,7 @@ describe('ServiceWorkerService', () => {
         { provide: ApplicationRef, useValue: appRefSpy }
       ]
     });
-    service = TestBed.get<ServiceWorkerService>(ServiceWorkerService);
+    swService = TestBed.get<ServiceWorkerService>(ServiceWorkerService);
     updates = TestBed.get<SwUpdate>(SwUpdate);
     appRef = TestBed.get<ApplicationRef>(ApplicationRef);
   });

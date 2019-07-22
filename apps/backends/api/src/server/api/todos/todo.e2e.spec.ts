@@ -1,6 +1,6 @@
 import { Todo } from './todo.model';
-import { newId } from '@testing/backend/helpers';
-import { createGraphQLSpec } from '@testing/index';
+import { newId } from '@app-testing/backend/helpers';
+import { createGraphQLSpec } from '@app-testing/backend/graphQLSpec';
 import { schema } from '../graphql';
 import config from '../../config';
 

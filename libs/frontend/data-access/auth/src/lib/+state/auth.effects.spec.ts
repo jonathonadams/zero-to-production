@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Actions } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot, Scheduler } from 'jest-marbles';
-import { createSpyObj } from '@testing/frontend/helpers';
+import { createSpyObj } from '@app-testing/frontend/helpers';
 import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
 import { ILoginCredentials } from '@workspace/shared/interfaces';

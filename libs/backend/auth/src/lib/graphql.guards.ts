@@ -30,7 +30,7 @@ export function checkUserIsActive(User: IUserModel): AuthMiddleware {
   return async function checkActiveUser(parent, args, context, info) {
     const id = context.state.token.sub;
     const user = await User.findById(id);
-    if (!user) throw unauthorized();
+    if (!user || !user.active) throw unauthorized();
     context.state.user = user;
   };
 }

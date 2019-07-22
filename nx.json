@@ -95,9 +95,6 @@
     "frontend-data-access-service-worker": {
       "tags": []
     },
-    "backend-uploads": {
-      "tags": []
-    },
     "backend-middleware": {
       "tags": []
     },

@@ -4,8 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { JWTAuthService } from '@workspace/frontend/data-access/auth';
 import { GraphQLService } from '@workspace/frontend/data-access/api';
 import { ITodo, IJWTPayload } from '@workspace/shared/interfaces';
-import { createSpyObj } from '@testing/frontend/helpers';
-import { GraphQLStub } from '@testing/frontend/stubs/graphql.stubs';
+import { createSpyObj } from '@app-testing/frontend/helpers';
+import { GraphQLStub } from '@app-testing/frontend/stubs/graphql.stubs';
 import {
   ALL_TODOS_QUERY,
   LOAD_TODO_QUERY,

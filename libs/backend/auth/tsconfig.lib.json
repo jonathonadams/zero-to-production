@@ -9,6 +9,8 @@
   "include": ["**/*.ts"],
   "references": [
     { "path": "../../shared/interfaces/tsconfig.lib.json" },
-    { "path": "../../shared/utils/auth/tsconfig.lib.json" }
+    { "path": "../../shared/enums/tsconfig.lib.json" },
+    { "path": "../../shared/utils/auth/tsconfig.lib.json" },
+    { "path": "../../../testing/tsconfig.tests.json" }
   ]
 }

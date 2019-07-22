@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { runQuery, setupTestDB } from '@testing/backend/helpers';
-import { IUserDocument, IUser } from '@workspace/shared/interfaces';
-import { User } from './user.model';
-import { signTestAccessToken } from '@testing/index';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
+import { runQuery, setupTestDB } from '@app-testing/backend/helpers';
+import { IUserDocument, IUser } from '@workspace/shared/interfaces';
+import { AuthenticationRoles } from '@workspace/shared/enums';
+import { signTestAccessToken } from '@app-testing/backend/auth';
+import { User } from './user.model';
 import { schema } from '../graphql';
 import config from '../../config';
-import { AuthenticationRoles } from '@workspace/shared/enums';
 
 const user = ({
   username: 'test user',

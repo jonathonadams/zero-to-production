@@ -2,7 +2,6 @@ import 'jest-extended';
 import mongoose from 'mongoose';
 import { GraphQLSchema } from 'graphql';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { IUser } from '@workspace/shared/interfaces';
 import { runQuery, setupTestDB } from './helpers';
 import { signTestAccessToken } from './auth';
 
@@ -51,7 +50,7 @@ export function createGraphQLSpec<T>(
 
       beforeAll(async () => {
         ({ db, mongoServer } = await setupTestDB());
-        jwt = signTestAccessToken({ id: '1', role: 0 } as IUser, tokenSecret);
+        jwt = signTestAccessToken({ id: '1', role: 0 }, tokenSecret);
 
         resource = await model.create(resourceToCreate);
       });

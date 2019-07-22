@@ -32,3 +32,7 @@ export interface IRefreshTokenModel
   extends mongoose.Model<IRefreshTokenDocument> {
   findByTokenWithUser(token: string): Promise<IRefreshTokenDocument | null>;
 }
+
+export interface IFindByUsername<T> {
+  findByUsername(name: string): Promise<T | null>;
+}

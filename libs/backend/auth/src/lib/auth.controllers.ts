@@ -17,7 +17,7 @@ export function registerController(User: IUserModel) {
     if (!password) badRequest('No password provided');
 
     if (!isPasswordAllowed(password))
-      throw badRequest('Password does not match requirements');
+      throw badRequest('Password does not meet requirements');
 
     const currentUser = await User.findByUsername(user.username);
     if (currentUser !== null) throw badRequest('Username is not available');
@@ -56,7 +56,7 @@ export function loginController({
   ): Promise<{ token: string }> {
     const user = await userModel.findByUsername(username);
 
-    if (!user || user.active === false) throw unauthorized('Unauthorized');
+    if (!user || !user.active) throw unauthorized('Unauthorized');
 
     const valid = await compare(password, user.hashedPassword as string);
 

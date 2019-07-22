@@ -1,12 +1,12 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "sourceRoot": ".",
     "module": "commonjs",
     "composite": true,
     "declaration": true,
-    "outDir": "../dist",
+    "outDir": "../dist/testing",
+    "rootDir": "./src",
+    "types": ["node", "jest"],
     "tsBuildInfoFile": "../dist/buildcache/testing.tsbuildinfo"
-  },
-  "references": [{ "path": "../libs/shared/interfaces/tsconfig.lib.json" }]
+  }
 }
