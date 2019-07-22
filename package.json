@@ -27,7 +27,7 @@
     "help": "nx help",
     "lint-staged": "lint-staged",
     "build:builders": "tsc -p tools/builders",
-    "build:libs": "tsc -b libs/tsconfig.libs.json",
+    "build:libs": "tsc -b tsconfig.libs.json",
     "validate-packages": "node ./tools/scripts/validate-packages.js"
   },
   "husky": {
