@@ -40,11 +40,11 @@ export class MockUserModel {
     return this._user;
   }
 
-  toJSON() {
-    return this._user;
-  }
-
   static reset() {
     this._user = undefined;
+  }
+
+  toJSON() {
+    return this._user;
   }
 }
