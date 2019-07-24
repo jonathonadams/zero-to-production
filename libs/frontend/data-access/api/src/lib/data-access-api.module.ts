@@ -12,11 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class DataAccessApiModule {
   static forRoot(
-    {
-      graphQLUrl = 'graphql',
-      apiBaseUrl = 'api',
-      production = true
-    } = {} as any
+    { graphQLUrl = 'graphql', apiBaseUrl = 'api' } = {} as any
   ): ModuleWithProviders {
     return {
       ngModule: DataAccessApiModule,
@@ -26,7 +22,7 @@ export class DataAccessApiModule {
         {
           provide: APOLLO_OPTIONS,
           useFactory: createApollo,
-          deps: [HttpLink, 'graphQLUrl', 'production']
+          deps: [HttpLink, 'graphQLUrl']
         },
         {
           provide: 'graphQLUrl',
@@ -35,10 +31,6 @@ export class DataAccessApiModule {
         {
           provide: 'apiBaseUrl',
           useValue: apiBaseUrl
-        },
-        {
-          provide: 'production',
-          useValue: production
         }
       ]
     };

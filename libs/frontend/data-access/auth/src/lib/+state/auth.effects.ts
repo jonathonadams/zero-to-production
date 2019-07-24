@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { HttpErrorResponse } from '@angular/common/http';
+import { of } from 'rxjs';
 import { exhaustMap, map, tap, catchError } from 'rxjs/operators';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
 import { JWTAuthService } from '../services/jwt-auth.service';
-// TODO -> All HTTP ERRORS
 
 @Injectable()
 export class AuthEffects {
@@ -18,12 +19,17 @@ export class AuthEffects {
       this.authService.login(credentials).pipe(
         map(result => {
           if (result.errors) {
-            return AuthActions.loginFailure({ error: result.errors[0] });
+            return AuthActions.loginFailure({
+              error: result.errors[0].name
+            });
           } else {
             // The data property will alway exist here as there was not errors property
             return AuthActions.loginSuccess((result.data as any).login);
           }
-        })
+        }),
+        catchError((error: HttpErrorResponse) =>
+          of(AuthActions.loginFailure({ error: error.message }))
+        )
       )
     )
   );
@@ -33,12 +39,6 @@ export class AuthEffects {
     ofType(AuthActions.loginSuccess),
     tap(({ token }) => this.jwtService.setAuthorizationToken(token)),
     map(action => AuthActions.loginRedirect())
-  );
-
-  @Effect({ dispatch: false })
-  loginFailure$ = this.actions$.pipe(
-    ofType(AuthActions.loginFailure),
-    tap(({ error }) => console.log(error))
   );
 
   @Effect()

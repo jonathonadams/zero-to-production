@@ -12,6 +12,8 @@ export function loginResolver(config: {
   secret: string;
   expireTime: number;
 }): GraphQLFieldResolver<any, { username: string; password: string }, any> {
+  const controller = loginController(config);
+
   return async function login(
     root,
     args,
@@ -21,14 +23,15 @@ export function loginResolver(config: {
     const username: string = args.username;
     const password: string = args.password;
 
-    return await loginController(config)(username, password);
+    return await controller(username, password);
   };
 }
 
 export function registerResolver(
   userModel: IUserModel
 ): GraphQLFieldResolver<any, { input: IUser }, any> {
+  const controller = registerController(userModel);
   return async function register(root, args, context, info) {
-    return registerController(userModel)(args.input);
+    return controller(args.input);
   };
 }

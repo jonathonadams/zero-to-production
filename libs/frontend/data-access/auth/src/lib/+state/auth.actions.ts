@@ -21,7 +21,7 @@ export const loginSuccess = createAction(
 
 export const loginFailure = createAction(
   '[Auth/API] Login Failure',
-  props<{ error: GraphQLError }>()
+  props<{ error: string }>()
 );
 
 export const logout = createAction('[Auth] Logout');
