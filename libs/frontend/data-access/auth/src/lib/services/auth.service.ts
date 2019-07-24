@@ -1,16 +1,27 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { GraphQLService } from '@workspace/frontend/data-access/api';
+import {
+  GraphQLService,
+  ApiService
+} from '@workspace/frontend/data-access/api';
 import {
   ILoginCredentials,
-  ILoginResponse
+  ILoginResponse,
+  IRegistrationDetails,
+  IUser
 } from '@workspace/shared/interfaces';
 import { isPasswordAllowed } from '@workspace/shared/utils/auth';
 import { JWTAuthService } from './jwt-auth.service';
+import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
-  constructor(private jwt: JWTAuthService, private graphQL: GraphQLService) {}
+  constructor(
+    private jwt: JWTAuthService,
+    private graphQL: GraphQLService,
+    private api: ApiService
+  ) {}
 
   // Checks if the user is logged in
   checkUserIsLoggedIn(): boolean {
@@ -28,16 +39,32 @@ export class AuthService {
         }
       }
     `;
-    return this.graphQL.mutation<{ data: { login: ILoginResponse } }>(
-      query,
-      credentials
-    );
+    return this.graphQL.mutation<{ login: ILoginResponse }>(query, credentials);
   }
 
   // swap out for a REST login function
   // login(credentials: LoginCredentials): Observable<LoginResponse> {
   //   return this.http.post<LoginResponse>(`${environment.serverUrl}/authorize`, credentials);
   // }
+
+  register(details: IRegistrationDetails) {
+    const query = `
+      mutation Register($input: NewUserInput!) {
+        register(input: $input) {
+          id
+        }
+      }
+    `;
+    return this.graphQL.mutation<{ register: IUser }>(query, details);
+  }
+
+  public isUsernameAvailable(
+    username: string
+  ): Observable<{ isAvailable: boolean }> {
+    return this.api.get<{ isAvailable: boolean }>(`users/available`, {
+      username
+    });
+  }
 
   // A wrapper around the is password allowed method to create a form validator
   passwordValidator() {

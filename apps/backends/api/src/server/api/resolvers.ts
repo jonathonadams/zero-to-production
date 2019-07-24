@@ -3,11 +3,12 @@ import { createTypeResolver } from '@workspace/backend/utils';
 import { ITodoDocument } from '@workspace/shared/interfaces';
 import { userResolvers } from './users/index';
 import { Todo } from './todos/index';
-import { verifyTokenGraphQL } from '../auth/auth';
+import { verifyTokenGraphQL, authResolvers } from '../auth/auth';
 
 // All the resolvers as an object.
 const resolvers = merge(
   {},
+  authResolvers,
   userResolvers,
   createTypeResolver<ITodoDocument>({
     model: Todo,

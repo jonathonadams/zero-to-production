@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommonLoginComponent } from './login.component';
+import { LoginComponent } from './login.component';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AuthFacade } from '@workspace/frontend/data-access/auth';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -7,9 +7,9 @@ import { DynamicFormFacade } from '@workspace/frontend/data-access/dynamic-form'
 
 // TODO  -> TESTS
 
-describe('CommonLoginComponent', () => {
-  let component: CommonLoginComponent;
-  let fixture: ComponentFixture<CommonLoginComponent>;
+describe('LoginComponent', () => {
+  let component: LoginComponent;
+  let fixture: ComponentFixture<LoginComponent>;
   let debugEl: DebugElement;
   let nativeEl: HTMLElement;
   let authFacade: AuthFacade;
@@ -23,7 +23,7 @@ describe('CommonLoginComponent', () => {
         { provide: AuthFacade, useValue: authFacadeSpy },
         { provide: DynamicFormFacade, useValue: {} }
       ],
-      declarations: [CommonLoginComponent],
+      declarations: [LoginComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
@@ -32,7 +32,7 @@ describe('CommonLoginComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CommonLoginComponent);
+    fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     debugEl = fixture.debugElement;
     nativeEl = fixture.nativeElement;

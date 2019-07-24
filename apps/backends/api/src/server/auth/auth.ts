@@ -14,6 +14,11 @@ const authConfig: AuthConfig = {
 const auth = new AuthModule(authConfig);
 
 /**
+ * Auth Resolvers
+ */
+export const { authResolvers } = auth.authResolvers;
+
+/**
  * Guards for use in Routes
  */
 export const {

@@ -6,6 +6,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
 import { JWTAuthService } from '../services/jwt-auth.service';
+import { IUser, ILoginResponse } from '@workspace/shared/interfaces';
 
 @Injectable()
 export class AuthEffects {
@@ -20,11 +21,13 @@ export class AuthEffects {
         map(result => {
           if (result.errors) {
             return AuthActions.loginFailure({
-              error: result.errors[0].name
+              error: result.errors[0].message
             });
           } else {
             // The data property will alway exist here as there was not errors property
-            return AuthActions.loginSuccess((result.data as any).login);
+            return AuthActions.loginSuccess(
+              (result.data as { login: ILoginResponse }).login
+            );
           }
         }),
         catchError((error: HttpErrorResponse) =>
@@ -39,6 +42,35 @@ export class AuthEffects {
     ofType(AuthActions.loginSuccess),
     tap(({ token }) => this.jwtService.setAuthorizationToken(token)),
     map(action => AuthActions.loginRedirect())
+  );
+
+  @Effect()
+  register$ = this.actions$.pipe(
+    ofType(AuthActions.register),
+    exhaustMap(details =>
+      this.authService.register(details).pipe(
+        map(result => {
+          if (result.errors) {
+            return AuthActions.registerFailure({
+              error: result.errors[0].message
+            });
+          } else {
+            return AuthActions.registerSuccess(
+              (result.data as { register: IUser }).register
+            );
+          }
+        }),
+        catchError((error: HttpErrorResponse) =>
+          of(AuthActions.registerFailure({ error: error.message }))
+        )
+      )
+    )
+  );
+
+  @Effect({ dispatch: false })
+  registerSuccess$ = this.actions$.pipe(
+    ofType(AuthActions.registerSuccess),
+    tap(success => console.log(success))
   );
 
   @Effect()

@@ -7,6 +7,7 @@ import {
   DynamicFormFacade,
   FormFieldTypes
 } from '@workspace/frontend/data-access/dynamic-form';
+import { RouterFacade } from '@workspace/frontend/data-access/router';
 
 const STRUCTURE: Field[] = [
   {
@@ -32,22 +33,27 @@ const STRUCTURE: Field[] = [
 ];
 
 @Component({
-  selector: 'ngw-common-login',
+  selector: 'ngw-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommonLoginComponent implements OnInit {
+export class LoginComponent implements OnInit {
   constructor(
     private formFacade: DynamicFormFacade,
-    private facade: AuthFacade
+    private facade: AuthFacade,
+    private router: RouterFacade
   ) {}
 
   ngOnInit() {
     this.formFacade.setStructure({ structure: STRUCTURE });
   }
 
-  public onSubmit(credentials: ILoginCredentials): void {
+  onSubmit(credentials: ILoginCredentials): void {
     this.facade.login(credentials);
+  }
+
+  registerUser() {
+    this.router.go({ path: ['register'] });
   }
 }

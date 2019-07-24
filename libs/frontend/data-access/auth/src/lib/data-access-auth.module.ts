@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CommonLoginComponent } from './login/login.component';
+import { LoginComponent } from './login/login.component';
 import { UiLoginComponent } from './login/ui/ui-login.component';
 import { EffectsModule } from '@ngrx/effects';
 import { CustomMaterialModule } from '@workspace/common/ui/custom-material';
@@ -14,13 +14,26 @@ import { LoggedInGuard } from './guards/logged-in.guard';
 
 import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { JWTAuthService } from './services/jwt-auth.service';
+import { RegisterComponent } from './register/register.component';
+import { UiRegisterComponent } from './register/ui/ui-register.component';
+import { UsernameAvailableValidator } from './services/username-available.validator';
+import { StoreModule } from '@ngrx/store';
+import { reducer, AuthState, initialState } from './+state/auth.reducer';
+
+const COMPONENTS = [
+  LoginComponent,
+  UiLoginComponent,
+  RegisterComponent,
+  UiRegisterComponent
+];
 
 @NgModule({
-  declarations: [CommonLoginComponent, UiLoginComponent],
+  declarations: COMPONENTS,
   imports: [
     CommonModule,
     CustomMaterialModule,
     DataAccessDynamicFormModule,
+    StoreModule.forFeature<AuthState>('authState', reducer, { initialState }),
     EffectsModule.forFeature([AuthEffects])
   ]
 })
@@ -36,6 +49,7 @@ export class DataAccessAuthModule {
         JWTAuthService,
         AuthGuard,
         LoggedInGuard,
+        UsernameAvailableValidator,
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
       ]
     };

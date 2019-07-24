@@ -6,7 +6,8 @@ export interface BaseField {
   name: string;
   label: string;
   initialValue?: any;
-  validators: ValidatorFn[];
+  validators?: ValidatorFn[];
+  asyncValidators?: any[];
   autocomplete: AutoComplete;
   appearance?: FormFieldAppearance;
   color?: string;
@@ -35,6 +36,8 @@ export type AutoComplete =
   | 'name'
   | 'email'
   | 'username'
+  | 'bday'
+  | 'tel'
   | 'new-password'
   | 'current-password'
   | 'one-time-code'

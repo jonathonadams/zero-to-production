@@ -1,7 +1,8 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-  CommonLoginComponent,
+  LoginComponent,
+  RegisterComponent,
   AuthGuard,
   LoggedInGuard
 } from '@workspace/frontend/data-access/auth';
@@ -21,8 +22,12 @@ const ROUTES: Routes = [
   },
   {
     path: 'login',
-    component: CommonLoginComponent,
+    component: LoginComponent,
     canActivate: [LoggedInGuard]
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   }
 ];
 

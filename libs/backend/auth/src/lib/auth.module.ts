@@ -12,6 +12,7 @@ import {
 import { verifyToken, verifyUserIsActive } from './rest.guards';
 import { checkToken, checkUserIsActive, checkUserRole } from './graphql.guards';
 import { authenticateRequest } from './auth.graphql';
+import { loginResolver, registerResolver } from './auth.resolvers';
 
 export interface AuthConfig {
   userModel: IUserModel;
@@ -79,6 +80,30 @@ export class AuthModule {
     };
   }
 
+  get authResolvers() {
+    return {
+      authResolvers: {
+        Mutation: {
+          login: loginResolver({
+            userModel: this._userModel,
+            secret: this._accessTokenSecret,
+            expireTime: this._accessTokenExpireTime
+          }),
+          register: registerResolver(this._userModel)
+        }
+      }
+    };
+  }
+
+  /**
+   * This will register 5 routes for authentication
+   *
+   * '/authorize/login' -> return access token only when user logs in
+   * '/authorize/register' -> return access token when user successfully registers
+   * '/authorize' -> returns an access token and refresh token.
+   * '/authorize/token' -> returns a new access token from a valid refresh token
+   * '/authorize/token/revoke' -> revokes the provided refresh token.
+   */
   applyAuthorizationRoutes(app: Koa): void {
     const router = new Router();
 

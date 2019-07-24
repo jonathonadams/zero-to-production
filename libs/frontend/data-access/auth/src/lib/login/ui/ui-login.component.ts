@@ -12,7 +12,7 @@ import {
  * is at the router level
  */
 @Component({
-  selector: 'ngw-common-ui-login',
+  selector: 'ngw-ui-login',
   templateUrl: './ui-login.component.html',
   styleUrls: ['./ui-login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,4 +20,5 @@ import {
 })
 export class UiLoginComponent {
   @Output() public loginSubmit = new EventEmitter();
+  @Output() public registerUser = new EventEmitter();
 }

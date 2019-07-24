@@ -4,17 +4,20 @@ import {
   ChangeDetectionStrategy,
   Output,
   EventEmitter,
-  OnDestroy
+  OnDestroy,
+  Injector
 } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   Validators,
   FormControl,
-  ValidationErrors
+  ValidationErrors,
+  AsyncValidator,
+  AsyncValidatorFn
 } from '@angular/forms';
 import { Observable, Subject, combineLatest } from 'rxjs';
-import { map, tap, debounceTime, takeUntil } from 'rxjs/operators';
+import { map, tap, debounceTime, takeUntil, filter } from 'rxjs/operators';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { Field, FormErrors } from '../form.models';
 
@@ -33,7 +36,11 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   @Output() formSubmit = new EventEmitter<any>();
 
-  constructor(private fb: FormBuilder, private facade: DynamicFormFacade) {
+  constructor(
+    private fb: FormBuilder,
+    private injector: Injector,
+    private facade: DynamicFormFacade
+  ) {
     this.structure$ = this.facade.structure$;
     this.data$ = this.facade.data$;
     this.touched$ = this.facade.touched$;
@@ -51,14 +58,14 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(this.patchValue);
 
-    // if (this.touched$) {
-    //   this.touched$
-    //     .pipe(
-    //       filter(t => !t && !!this.form),
-    //       takeUntil(this.unsubscribe$)
-    //     )
-    //     .subscribe(_ => (this.form as FormGroup).reset());
-    // }
+    if (this.touched$) {
+      this.touched$
+        .pipe(
+          filter(t => !t && !!this.form),
+          takeUntil(this.unsubscribe$)
+        )
+        .subscribe(_ => (this.form as FormGroup).reset());
+    }
   }
 
   private formBuilder(structure: Field[]): FormGroup {
@@ -70,7 +77,19 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   private createControl(field: Field): FormControl {
-    return this.fb.control('', Validators.compose(field.validators));
+    const asyncValidators: AsyncValidatorFn[] = [];
+    if (field.asyncValidators) {
+      field.asyncValidators.forEach(di => {
+        const validator = this.injector.get<AsyncValidator>(di);
+        asyncValidators.push(validator.validate.bind(validator));
+      });
+    }
+
+    return this.fb.control(
+      '',
+      Validators.compose(field.validators ? field.validators : []),
+      asyncValidators
+    );
   }
 
   private patchValue([form, data = {}]: [FormGroup, any]) {

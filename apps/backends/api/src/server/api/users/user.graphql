@@ -49,6 +49,7 @@ input UpdatedUserInput {
   username: String
   emailAddress: String
   dateOfBirth: Date
+  settings: UserSettingsInput
 }
 
 type AuthPayload {

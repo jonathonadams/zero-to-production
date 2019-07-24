@@ -1,0 +1,13 @@
+@import '~@angular/material/theming';
+
+@mixin ui-register-theme($theme) {
+  $background: map-get($theme, background);
+
+  .register-page-content {
+    background-color: mat-color($background, background);
+  }
+
+  .register-page-input {
+    background-color: mat-color($background, card);
+  }
+}

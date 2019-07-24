@@ -1,8 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { GraphQLError } from 'graphql';
 import {
   ILoginCredentials,
-  ILoginResponse
+  ILoginResponse,
+  IRegistrationDetails,
+  IUser
 } from '@workspace/shared/interfaces';
 
 export const loginRedirect = createAction('[Auth] Login Redirect');
@@ -23,5 +24,30 @@ export const loginFailure = createAction(
   '[Auth/API] Login Failure',
   props<{ error: string }>()
 );
+
+export const register = createAction(
+  '[Auth/API] Register',
+  props<IRegistrationDetails>()
+);
+
+export const registerSuccess = createAction(
+  '[Auth/API] Register Success',
+  props<IUser>()
+);
+
+export const registerFailure = createAction(
+  '[Auth/API] Register Failure',
+  props<{ error: string }>()
+);
+
+export const usernamePending = createAction('[Auth/API] Username Pending');
+
+export const usernameAvailable = createAction('[Auth/API] Username Available');
+
+export const usernameUnAvailable = createAction(
+  '[Auth/API] Username UnAvailable'
+);
+
+export const clearAvailability = createAction('[Auth/Api] Username Clear');
 
 export const logout = createAction('[Auth] Logout');

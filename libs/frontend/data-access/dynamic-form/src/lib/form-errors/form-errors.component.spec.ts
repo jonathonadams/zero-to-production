@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { of } from 'rxjs';
 import { FormErrorsComponent } from './form-errors.component';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
-import { of } from 'rxjs';
 import { FormErrorPipe } from './form-error.pipe';
 
 describe('FormErrorsComponent', () => {
