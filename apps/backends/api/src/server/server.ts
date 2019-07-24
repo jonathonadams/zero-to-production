@@ -4,7 +4,7 @@ import { setupMiddleware } from '@workspace/backend/middleware';
 import { applyApiEndpoints } from './api';
 import auth from './auth/auth';
 import { dbConnection } from './db/db-connection';
-import config from './config';
+import config from '../environments';
 
 /**
  * Crates a new API Server

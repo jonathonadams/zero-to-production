@@ -1,6 +1,6 @@
 import { AuthModule, AuthConfig } from '@workspace/backend/auth';
 import { RefreshToken } from './tokens.model';
-import config from '../config';
+import config from '../../environments';
 import { User } from '../api/users';
 
 const authConfig: AuthConfig = {

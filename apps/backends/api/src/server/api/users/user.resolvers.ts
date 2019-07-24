@@ -4,7 +4,7 @@ import { generateResolvers } from '@workspace/backend/utils';
 import { AuthenticationRoles } from '@workspace/shared/enums';
 import { User } from './user.model';
 import { verifyTokenGraphQL, verifyUserRoleGraphQL } from '../../auth/auth';
-import config from '../../config';
+import config from '../../../environments';
 
 const resolvers = generateResolvers<IUserDocument>(User);
 

@@ -1,7 +1,7 @@
 import http from 'http';
 import Koa from 'koa';
 import Router from 'koa-router';
-import config from './server/config';
+import config from './environments';
 import { apolloServer } from './server/api/graphql';
 import ApiServer from './server/server';
 

@@ -21,7 +21,7 @@ export interface AuthConfig {
   refreshTokenModel?: IRefreshTokenModel;
 }
 
-// TODO -> Best way to deal with this? attach to user?, Separate model?
+// TODO -> Best way to deal with Refresh Tokens this? attach to user?, Separate model?
 
 export class AuthModule {
   _userModel: IUserModel;

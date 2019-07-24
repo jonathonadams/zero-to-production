@@ -7,7 +7,7 @@ import { AuthenticationRoles } from '@workspace/shared/enums';
 import { signTestAccessToken } from '@app-testing/backend/auth';
 import { User } from './user.model';
 import { schema } from '../graphql';
-import config from '../../config';
+import config from '../../../environments';
 
 const user = ({
   username: 'test user',

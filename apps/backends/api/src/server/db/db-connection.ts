@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import config from '../config';
+import config from '../../environments';
 
 const uri = `mongodb://${config.database.host}:${config.database.port}`;
 

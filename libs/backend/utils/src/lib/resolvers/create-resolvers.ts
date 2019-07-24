@@ -3,8 +3,6 @@ import mongoose from 'mongoose';
 import { ObjectId } from 'mongodb';
 import { createControllers } from '../controllers/create-controllers';
 
-// TODO -> Move once out
-
 // const resolver = async (rootValue, args, context, info) => {
 //   -> place logic here
 // }

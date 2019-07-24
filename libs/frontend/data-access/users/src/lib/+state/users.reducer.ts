@@ -73,7 +73,7 @@ export const selectCurrentUserId = createSelector(
 export const selectCurrentUser = createSelector(
   selectUserEntities,
   selectCurrentUserId,
-  (userEntities, userId) => userEntities[`${userId}`] // TODO  -> Is the coercion necessary? For TS to be strict it has to be
+  (userEntities, userId) => userEntities[`${userId}`]
 );
 
 export const selectAuthUserId = createSelector(
@@ -83,5 +83,5 @@ export const selectAuthUserId = createSelector(
 export const selectAuthUser = createSelector(
   selectUserEntities,
   selectAuthUserId,
-  (userEntities, id) => userEntities[`${id}`] // TODO -> don't cast?
+  (userEntities, id) => userEntities[`${id}`]
 );

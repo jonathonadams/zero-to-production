@@ -2,7 +2,7 @@ import { Todo } from './todo.model';
 import { newId } from '@app-testing/backend/helpers';
 import { createGraphQLSpec } from '@app-testing/backend/graphQLSpec';
 import { schema } from '../graphql';
-import config from '../../config';
+import config from '../../../environments';
 
 const todo = {
   title: 'Some Todo',
