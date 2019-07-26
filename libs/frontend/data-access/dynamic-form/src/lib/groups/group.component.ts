@@ -9,6 +9,7 @@ import { IFormGroup } from '../form.models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormGroupComponent {
+  @Input() id!: number;
   @Input() form!: FormGroup;
   @Input() group!: IFormGroup;
 

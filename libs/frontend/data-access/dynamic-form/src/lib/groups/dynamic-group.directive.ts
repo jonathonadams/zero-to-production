@@ -15,6 +15,7 @@ import { FormGroup } from '@angular/forms';
   selector: '[appDynamicGroup]'
 })
 export class DynamicGroupDirective implements OnInit, OnChanges {
+  @Input() id!: number;
   @Input() form!: FormGroup;
   @Input() group!: IFormGroup;
   component!: ComponentRef<FormGroupComponent>;
@@ -31,14 +32,18 @@ export class DynamicGroupDirective implements OnInit, OnChanges {
     this.viewContainerRef.clear();
     this.component = this.viewContainerRef.createComponent(componentFactory);
 
-    this.component.instance.group = this.group;
-    this.component.instance.form = this.form;
+    this.setInstanceProperties();
   }
 
   ngOnChanges() {
     if (this.component) {
-      this.component.instance.group = this.group;
-      this.component.instance.form = this.form;
+      this.setInstanceProperties();
     }
+  }
+
+  setInstanceProperties() {
+    this.component.instance.id = this.id;
+    this.component.instance.group = this.group;
+    this.component.instance.form = this.form;
   }
 }

@@ -123,73 +123,59 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
       this.facade.clearErrors();
     } else {
       // collect all form errors
-      const errors = this.getAllFormControlErrors(form);
+      const errors = this.getAllFormErrors(form);
       this.facade.setErrors({ errors });
     }
   }
 
-  // TODO -> Handle nested form groups
-  getAllFormControlErrors(form: FormGroup) {
-    // console.log(form);
-
-    const formErrors: IFormErrors = {};
-
+  getAllFormErrors(form: FormGroup) {
+    const errors: IFormErrors = {};
     if (form.errors) {
-      formErrors['form'] = form.errors;
+      errors['form'] = form.errors;
     }
-
-    this.temp(form, formErrors);
-
-    console.log('$$$$$$$$$$$$$$$$$$$$');
-    console.log(formErrors);
-    return formErrors;
+    return { ...errors, ...this.getControlErrors(form) };
   }
 
-  temp(form: FormGroup, formErrors: IFormErrors): IFormErrors {
+  getControlErrors(form: FormGroup): IFormErrors {
+    // Get a list of all the control names
     const formControls = Object.keys(form.controls);
+    /*
+     * Iterate over them, each time checking if it is a form control or group
+     * if it is a group, then recursively collect the errors
+     */
+    return formControls.reduce(
+      (errors, controlName) => {
+        const control = form.controls[controlName];
 
-    formControls.forEach(controlName => {
-      const control: AbstractControl | FormGroup = form.controls[controlName];
+        if (this.isControlAFormGroup(control)) {
+          // A form group may have a top level for error
+          if (this.controlHasErrors(control)) {
+            errors[controlName] = control.errors as ValidationErrors;
+          }
 
-      console.log(control);
-      if ((control as FormGroup).controls !== undefined) {
-        // it is a form croup
-        if (control.errors !== null) {
-          formErrors[controlName] = control.errors;
+          return {
+            ...errors,
+            ...this.getControlErrors(control as FormGroup)
+          };
+        } else {
+          // it is a control
+          if (this.controlHasErrors(control)) {
+            errors[controlName] = control.errors as ValidationErrors;
+          }
+          return errors;
         }
-        this.temp(control as FormGroup, formErrors);
-      } else {
-        // it is a control
-
-        console.log('@@@@@@@@@@@@@@@@@@@@@');
-        console.log(control);
-
-        if (control.errors !== null) {
-          formErrors[controlName] = control.errors;
-        }
-        // return Object.keys(control.controls).reduce((errors, controlName) => {
-        //   if (form.controls[controlName].errors !== null) {
-        //     errors[controlName] = form.controls[controlName]
-        //       .errors as ValidationErrors;
-        //   }
-        //   return errors;
-        // }, formErrors);
-      }
-    });
-    return formErrors;
+      },
+      {} as IFormErrors
+    );
   }
 
-  getAllControlErrors(form: FormGroup): IFormErrors {
-    if (form.controls === undefined) {
-      // return ?
-      return {};
-    } else {
-      return Object.keys(form.controls).reduce((errors, controlName) => {
-        return errors;
-      }, {});
-    }
+  isControlAFormGroup(control: AbstractControl | FormGroup) {
+    return (control as FormGroup).controls !== undefined;
   }
 
+  controlHasErrors(control: AbstractControl | FormGroup) {
+    return control.errors !== null;
+  }
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

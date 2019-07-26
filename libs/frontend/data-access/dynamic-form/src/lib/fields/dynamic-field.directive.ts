@@ -38,14 +38,18 @@ export class DynamicFieldDirective implements OnInit, OnChanges {
     );
     this.viewContainerRef.clear();
     this.component = this.viewContainerRef.createComponent(component);
-    this.component.instance.field = this.field;
-    this.component.instance.group = this.group;
+
+    this.setInstanceProperties();
   }
 
   ngOnChanges() {
     if (this.component) {
-      this.component.instance.field = this.field;
-      this.component.instance.group = this.group;
+      this.setInstanceProperties();
     }
+  }
+
+  setInstanceProperties() {
+    this.component.instance.field = this.field;
+    this.component.instance.group = this.group;
   }
 }
