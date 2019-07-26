@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Field, FormErrors } from '../form.models';
+import { IFormErrors, TFormGroups } from '../form.models';
 
 export const setFormData = createAction(
   '[Dynamic Form] Set Data',
@@ -13,12 +13,12 @@ export const updateFormData = createAction(
 
 export const setFormStructure = createAction(
   '[Dynamic Form] Set Structure',
-  props<{ structure: Field[] }>()
+  props<{ structure: TFormGroups }>()
 );
 
 export const setFormErrors = createAction(
   '[Dynamic Form] Set Errors',
-  props<{ errors: FormErrors }>()
+  props<{ errors: IFormErrors }>()
 );
 
 export const clearFormErrors = createAction('[Dynamic Form] Clear Errors');

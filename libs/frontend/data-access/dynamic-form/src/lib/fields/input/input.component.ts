@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Field } from '../../form.models';
+import { TField } from '../../form.models';
 
 @Component({
   selector: 'app-input',
@@ -9,6 +9,6 @@ import { Field } from '../../form.models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputComponent {
-  @Input() field!: Field;
+  @Input() field!: TField;
   @Input() group!: FormGroup;
 }

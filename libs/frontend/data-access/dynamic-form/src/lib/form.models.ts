@@ -1,36 +1,43 @@
-import { ValidatorFn, ValidationErrors } from '@angular/forms';
+import { ValidatorFn, ValidationErrors, AsyncValidator } from '@angular/forms';
+import { Type } from '@angular/core';
 
-export type Field = InputField | SelectField;
+export type TField = IInputField | ISelectField;
+export type TFormGroups = IFormGroup[];
 
-export interface BaseField {
+export interface IFormGroup {
+  name: string;
+  fields: TField[];
+}
+
+export interface IBaseField {
   name: string;
   label: string;
   initialValue?: any;
   validators?: ValidatorFn[];
-  asyncValidators?: any[];
-  autocomplete: AutoComplete;
-  appearance?: FormFieldAppearance;
+  asyncValidators?: Type<AsyncValidator>[];
+  autocomplete: TAutoComplete;
+  appearance?: TFormFieldAppearance;
   color?: string;
   attrs?: any;
 }
 
-export interface InputField extends BaseField {
+export interface IInputField extends IBaseField {
   component: FormFieldTypes.Input;
-  type: InputType;
+  type: TInputType;
 }
 
-export interface SelectField extends BaseField {
+export interface ISelectField extends IBaseField {
   component: FormFieldTypes.Select;
-  selectOptions: SelectOption[];
+  selectOptions: ISelectOption[];
 }
 
-export interface SelectOption {
+export interface ISelectOption {
   value: any;
 }
 
 // There are more to complete here
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
-export type AutoComplete =
+export type TAutoComplete =
   | 'off'
   | 'on'
   | 'name'
@@ -45,7 +52,7 @@ export type AutoComplete =
   | 'organization'
   | 'street-address';
 
-export type InputType =
+export type TInputType =
   | 'color'
   | 'date'
   | 'datetime-local'
@@ -60,9 +67,9 @@ export type InputType =
   | 'url'
   | 'week';
 
-export type FormFieldAppearance = 'standard' | 'fill' | 'outline';
+export type TFormFieldAppearance = 'standard' | 'fill' | 'outline';
 
-export interface FormErrors {
+export interface IFormErrors {
   [key: string]: ValidationErrors;
 }
 

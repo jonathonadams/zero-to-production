@@ -1,11 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {
-  LoginComponent,
-  RegisterComponent,
-  AuthGuard,
-  LoggedInGuard
-} from '@workspace/frontend/data-access/auth';
+import { AuthGuard, AUTH_ROUTES } from '@workspace/frontend/data-access/auth';
 import { AuthUsersResolver } from '@workspace/frontend/data-access/users';
 
 const ROUTES: Routes = [
@@ -20,15 +15,7 @@ const ROUTES: Routes = [
       user: AuthUsersResolver
     }
   },
-  {
-    path: 'login',
-    component: LoginComponent,
-    canActivate: [LoggedInGuard]
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
-  }
+  ...AUTH_ROUTES
 ];
 
 @NgModule({

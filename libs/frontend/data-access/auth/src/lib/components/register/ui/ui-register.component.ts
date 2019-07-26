@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
   Input
 } from '@angular/core';
-import { AvailableStatus } from '../../+state/auth.reducer';
+import { AvailableStatus } from '../../../+state/auth.reducer';
 
 @Component({
   selector: 'ngw-ui-register',
@@ -18,4 +18,5 @@ import { AvailableStatus } from '../../+state/auth.reducer';
 export class UiRegisterComponent {
   @Input() available!: AvailableStatus | null;
   @Output() registerSubmit = new EventEmitter();
+  @Output() cancel = new EventEmitter();
 }

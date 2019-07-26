@@ -1,12 +1,12 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as FormActions from './dynamic-form.actions';
-import { Field, FormErrors } from '../form.models';
+import { IFormErrors, TFormGroups } from '../form.models';
 
 export interface DynamicFormState {
   data: any;
-  structure: Field[];
+  structure: TFormGroups;
   valid: boolean;
-  errors: FormErrors;
+  errors: IFormErrors;
   touched: boolean;
 }
 

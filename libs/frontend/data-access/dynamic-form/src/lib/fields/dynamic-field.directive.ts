@@ -9,10 +9,10 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { InputComponent } from '../fields/input/input.component';
-import { Field } from '../form.models';
+import { InputComponent } from './input/input.component';
+import { TField } from '../form.models';
 import { FormFieldTypes } from '../form.models';
-import { SelectComponent } from '../fields/select/select.component';
+import { SelectComponent } from './select/select.component';
 
 const componentsMapper: { [key: string]: Type<any> } = {
   [FormFieldTypes.Input]: InputComponent,
@@ -23,20 +23,21 @@ const componentsMapper: { [key: string]: Type<any> } = {
   selector: '[appDynamicField]'
 })
 export class DynamicFieldDirective implements OnInit, OnChanges {
-  @Input() field!: Field;
+  @Input() field!: TField;
   @Input() group!: FormGroup;
   component!: ComponentRef<any>;
 
   constructor(
     private resolver: ComponentFactoryResolver,
-    private container: ViewContainerRef
+    private viewContainerRef: ViewContainerRef
   ) {}
 
   ngOnInit() {
     const component = this.resolver.resolveComponentFactory<any>(
       componentsMapper[this.field.component]
     );
-    this.component = this.container.createComponent(component);
+    this.viewContainerRef.clear();
+    this.component = this.viewContainerRef.createComponent(component);
     this.component.instance.field = this.field;
     this.component.instance.group = this.group;
   }

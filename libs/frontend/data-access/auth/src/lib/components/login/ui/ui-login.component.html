@@ -1,0 +1,12 @@
+<div class="login-page mat-elevation-z3">
+  <app-form-errors></app-form-errors>
+  <app-dynamic-form
+    class="login-page-form"
+    (formSubmit)="loginSubmit.emit($event)"
+  >
+    <button mat-raised-button color="accent" type="submit">
+      Login
+    </button>
+  </app-dynamic-form>
+  <a (click)="registerUser.emit()">Don't have an account? Register here</a>
+</div>

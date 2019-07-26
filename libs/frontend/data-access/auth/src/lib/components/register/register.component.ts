@@ -1,11 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from '@angular/core';
 import { IRegistrationDetails } from '@workspace/shared/interfaces';
 import { DynamicFormFacade } from '@workspace/frontend/data-access/dynamic-form';
 import { RouterFacade } from '@workspace/frontend/data-access/router';
-import { AuthFacade } from '../+state/auth.facade';
-import { REGISTER_STRUCTURE } from './register.form.strcuture';
+import { AuthFacade } from '../../+state/auth.facade';
+import { REGISTER_STRUCTURE } from './register.structure';
 import { Observable } from 'rxjs';
-import { AvailableStatus } from '../+state/auth.reducer';
+import { AvailableStatus } from '../../+state/auth.reducer';
 
 @Component({
   selector: 'ngw-register',
@@ -13,7 +18,7 @@ import { AvailableStatus } from '../+state/auth.reducer';
   styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   availability$: Observable<AvailableStatus | null>;
 
   constructor(
@@ -30,5 +35,14 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(details: IRegistrationDetails): void {
     this.facade.register(details);
+  }
+
+  cancel() {
+    this.formFacade.setData({ data: {} });
+    this.router.go({ path: ['login'] });
+  }
+
+  ngOnDestroy() {
+    this.facade.clearAvailable();
   }
 }

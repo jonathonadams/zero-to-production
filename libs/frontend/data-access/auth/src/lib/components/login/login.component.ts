@@ -1,34 +1,39 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ILoginCredentials } from '@workspace/shared/interfaces';
 import { Validators } from '@angular/forms';
-import { AuthFacade } from '../+state/auth.facade';
 import {
-  Field,
   DynamicFormFacade,
-  FormFieldTypes
+  FormFieldTypes,
+  TFormGroups
 } from '@workspace/frontend/data-access/dynamic-form';
 import { RouterFacade } from '@workspace/frontend/data-access/router';
+import { AuthFacade } from '../../+state/auth.facade';
 
-const STRUCTURE: Field[] = [
+const STRUCTURE: TFormGroups = [
   {
-    component: FormFieldTypes.Input,
-    type: 'text',
-    name: 'username',
-    label: 'Username',
-    autocomplete: 'username',
-    initialValue: '',
-    validators: [Validators.required],
-    appearance: 'standard'
-  },
-  {
-    component: FormFieldTypes.Input,
-    type: 'password',
-    name: 'password',
-    label: 'Password',
-    autocomplete: 'current-password',
-    initialValue: '',
-    validators: [Validators.required],
-    appearance: 'standard'
+    name: 'credentials',
+    fields: [
+      {
+        component: FormFieldTypes.Input,
+        type: 'text',
+        name: 'username',
+        label: 'Username',
+        autocomplete: 'username',
+        initialValue: '',
+        validators: [Validators.required],
+        appearance: 'standard'
+      },
+      {
+        component: FormFieldTypes.Input,
+        type: 'password',
+        name: 'password',
+        label: 'Password',
+        autocomplete: 'current-password',
+        initialValue: '',
+        validators: [Validators.required],
+        appearance: 'standard'
+      }
+    ]
   }
 ];
 
@@ -49,7 +54,7 @@ export class LoginComponent implements OnInit {
     this.formFacade.setStructure({ structure: STRUCTURE });
   }
 
-  onSubmit(credentials: ILoginCredentials): void {
+  onSubmit({ credentials }: { credentials: ILoginCredentials }): void {
     this.facade.login(credentials);
   }
 

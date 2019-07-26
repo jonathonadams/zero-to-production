@@ -8,13 +8,13 @@ import {
   selectErrors,
   selectTouchedForm
 } from './dynamic-form.selectors';
-import { Field, FormErrors } from '../form.models';
+import { IFormErrors, TFormGroups } from '../form.models';
 
 @Injectable()
 export class DynamicFormFacade {
   data$: Observable<any>;
-  structure$: Observable<Field[]>;
-  errors$: Observable<FormErrors>;
+  structure$: Observable<TFormGroups>;
+  errors$: Observable<IFormErrors>;
   touched$: Observable<boolean>;
 
   constructor(private store: Store<any>) {
@@ -24,7 +24,7 @@ export class DynamicFormFacade {
     this.touched$ = this.store.select(selectTouchedForm);
   }
 
-  setStructure(data: { structure: Field[] }) {
+  setStructure(data: { structure: TFormGroups }) {
     this.store.dispatch(FormActions.setFormStructure(data));
   }
 
@@ -32,7 +32,7 @@ export class DynamicFormFacade {
     this.store.dispatch(FormActions.setFormData(data));
   }
 
-  setErrors({ errors }: { errors: FormErrors }) {
+  setErrors({ errors }: { errors: IFormErrors }) {
     this.store.dispatch(FormActions.setFormErrors({ errors }));
   }
 

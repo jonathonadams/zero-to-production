@@ -5,11 +5,18 @@
   (ngSubmit)="onSubmit(form)"
 >
   <ng-container
-    *ngFor="let field of structure$ | async"
-    appDynamicField
-    [field]="field"
-    [group]="form"
+    *ngFor="let group of structure$ | async"
+    appDynamicGroup
+    [form]="form"
+    [group]="group"
   >
+    <!-- <ng-container
+      *ngFor="let field of group.fields"
+      appDynamicField
+      [field]="field"
+      [group]="getFormGroup(group.name)"
+    >
+    </ng-container> -->
   </ng-container>
 
   <ng-content select='button[type="submit"]'></ng-content>

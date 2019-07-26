@@ -1,0 +1,38 @@
+@import 'libs/frontend/common/theme/styles/theme.scss';
+@import 'ui-login.theme';
+
+// Light theme
+@include ui-login-theme($app-theme);
+
+// Dark theme
+.dark-theme {
+  @include ui-login-theme($dark-theme);
+}
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+// .login-page-content {
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+
+.login-page {
+  padding: 1em;
+  width: 20em;
+  border-radius: 0.5em;
+
+  .login-page-form {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+// }

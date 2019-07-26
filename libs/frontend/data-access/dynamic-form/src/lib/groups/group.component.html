@@ -1,0 +1,11 @@
+<div class="dynamic-form-group" [formGroup]="form">
+  <section [formGroupName]="group.name">
+    <ng-container
+      *ngFor="let field of group.fields"
+      appDynamicField
+      [field]="field"
+      [group]="getFormGroup(group.name)"
+    >
+    </ng-container>
+  </section>
+</div>

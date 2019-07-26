@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DynamicFormComponent } from './form/form.component';
 import { InputComponent } from './fields/input/input.component';
 import { SelectComponent } from './fields/select/select.component';
-import { DynamicFieldDirective } from './form/dynamic-field.directive';
+import { DynamicFieldDirective } from './fields/dynamic-field.directive';
 import { DynamicFormFacade } from './+state/dynamic-form.facade';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
@@ -13,28 +13,32 @@ import { reducer, initialFormState } from './+state/dynamic-form.reducer';
 import { CustomMaterialModule } from '@workspace/common/ui/custom-material';
 import { FormErrorsComponent } from './form-errors/form-errors.component';
 import { FormErrorPipe } from './form-errors/form-error.pipe';
+import { DynamicGroupDirective } from './groups/dynamic-group.directive';
+import { FormGroupComponent } from './groups/group.component';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     CustomMaterialModule,
-    StoreModule.forFeature('ngrxForm', reducer, {
+    StoreModule.forFeature('dynoForm', reducer, {
       initialState: initialFormState
     }),
     EffectsModule.forFeature([DynamicFormsEffects])
   ],
   providers: [DynamicFormFacade],
   declarations: [
+    DynamicGroupDirective,
+    DynamicFieldDirective,
+    FormGroupComponent,
     InputComponent,
     SelectComponent,
     DynamicFormComponent,
-    DynamicFieldDirective,
     FormErrorsComponent,
     FormErrorsComponent,
     FormErrorPipe
   ],
-  entryComponents: [InputComponent, SelectComponent],
+  entryComponents: [FormGroupComponent, InputComponent, SelectComponent],
   exports: [DynamicFormComponent, FormErrorsComponent]
 })
 export class DataAccessDynamicFormModule {}
