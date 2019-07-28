@@ -4,46 +4,58 @@ import {
   query,
   style,
   animateChild,
-  group,
   animate,
   sequence
 } from '@angular/animations';
 
+const ANIMATION_TIMING = '150ms ease-in-out';
+
+// The host view must use relative positioning, and the child views must use absolute positioning.
 export const slideInAnimation = trigger('routeAnimations', [
   transition('LoginPage <=> RegisterPage', [
-    // style({
-    //   // backfaceVisibility: 'hidden',
-    //   opacity: 1
-    // }),
-    // sequence([
-    query(':leave', [
+    // First set, the parent to be relative positioning
+    // and set the transform style to 3d
+    style({
+      position: 'relative',
+      transformStyle: 'preserve-3d'
+    }),
+    query(':enter, :leave', [
+      // Hide the background, although you never see it and set absolute positioning
       style({
-        // backfaceVisibility: 'hidden',
-        opacity: 1
-      }),
-      animate(
-        '1s',
-        style({
-          opacity: 0
-          // transform: 'rotateY(180deg)'
-        })
-      )
+        backfaceVisibility: 'hidden',
+        position: 'absolute'
+      })
     ]),
-    query(':enter', [animate('1s', style({}))])
-    // ])
-    //   query(':enter, :leave', [
-    //     style({
-    //       position: 'absolute',
-    //       top: 0,
-    //       left: 0,
-    //       width: '100%'
-    //     })
-    //   ]),
-    //   query(':enter', [style({ left: '-100%' })]),
-    //   group([
-    //     query(':leave', [animate('200ms ease-out', style({ left: '100%' }))]),
-    //     query(':enter', [animate('300ms ease-out', style({ left: '0%' }))])
-    //   ]),
-    //   query(':enter', animateChild())
+    // Move the newly entered element off screen
+    query(':enter', [style({ left: '1000%' })]),
+    // because fo flexbox styling, to maintain the hight set the leaving to relative
+    query(':leave', [style({ position: 'relative' })]),
+
+    // Allow the children of the leaving element to animate
+    query(':leave', animateChild()),
+
+    // complete all animations in order
+    sequence([
+      // for the leaving card, we want flip 90 deg from its starting position
+      query(':leave', [
+        style({ transform: 'none' }),
+        animate(ANIMATION_TIMING, style({ transform: 'rotateY(-90deg)' }))
+      ]),
+      // Once it has flipped, set to absolute positioning and move off screen
+      query(':leave', [style({ left: '1000%', position: 'absolute' })]),
+      // move the card entered, back to the center, relative positioning for flexbox height
+      // and start it 90 degrees flipped
+      query(':enter', [
+        style({
+          position: 'relative',
+          left: 0,
+          transform: 'rotateY(+90deg)'
+        }),
+        // animate to normal positions
+        animate(ANIMATION_TIMING, style({ transform: 'none' }))
+      ])
+    ]),
+    // Allow children to animate
+    query(':enter', animateChild())
   ])
 ]);
