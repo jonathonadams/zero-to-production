@@ -27,7 +27,7 @@ export const loginFailure = createAction(
 
 export const register = createAction(
   '[Auth/API] Register',
-  props<IRegistrationDetails>()
+  props<{ details: IRegistrationDetails }>()
 );
 
 export const registerSuccess = createAction(

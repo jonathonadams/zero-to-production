@@ -22,6 +22,9 @@ export const AUTH_ROUTES: Routes = [
         component: RegisterComponent,
         data: { animation: 'RegisterPage' }
       }
-    ]
+    ],
+    data: {
+      animation: 'AuthPages'
+    }
   }
 ];

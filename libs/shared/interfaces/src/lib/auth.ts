@@ -13,9 +13,9 @@ export interface ILoginResponse {
 export interface IRegistrationDetails {
   username: string;
   password: string;
-  firstName: string;
-  lastName: string;
-  emailAddress: string;
+  givenName: string;
+  surname: string;
+  email: string;
   dateOfBirth: Date;
   settings: IUserSettings;
 }

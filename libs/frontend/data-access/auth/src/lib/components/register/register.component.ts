@@ -12,6 +12,27 @@ import { REGISTER_STRUCTURE } from './register.structure';
 import { Observable } from 'rxjs';
 import { AvailableStatus } from '../../+state/auth.reducer';
 
+interface IRegistrationFormStructure {
+  details: {
+    username: string;
+    givenName: string;
+    surname: string;
+    email: string;
+    dateOfBirth: Date;
+  };
+  themeSettings: {
+    darkMode: boolean;
+    lightPrimary: string;
+    lightAccent: string;
+    darkPrimary: string;
+    darkAccent: string;
+  };
+  password: {
+    password: string;
+    passwordCheck: string;
+  };
+}
+
 @Component({
   selector: 'ngw-register',
   templateUrl: './register.component.html',
@@ -35,9 +56,21 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.formFacade.setStructure({ structure: REGISTER_STRUCTURE });
   }
 
-  onSubmit(details: IRegistrationDetails): void {
-    console.log(details);
-    // this.facade.register(details);
+  onSubmit(details: IRegistrationFormStructure): void {
+    // pop the darkMode off from the collection
+    const { darkMode, ...colors } = details.themeSettings;
+
+    const settings: IRegistrationDetails = {
+      ...details.details,
+      settings: {
+        darkMode,
+        colors
+      },
+      password: details.password.password
+    };
+
+    console.log(settings);
+    this.facade.register(settings);
   }
 
   cancel() {

@@ -24,7 +24,7 @@ export class AuthFacade {
   }
 
   register(userDetails: IRegistrationDetails) {
-    this.store.dispatch(AuthActions.register(userDetails));
+    this.store.dispatch(AuthActions.register({ details: userDetails }));
   }
 
   loginRedirect(): void {

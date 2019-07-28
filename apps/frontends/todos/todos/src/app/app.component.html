@@ -1,1 +1,3 @@
-<router-outlet #routerOutlet="outlet"></router-outlet>
+<div class="main-app-content" [@appRouterAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>

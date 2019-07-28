@@ -24,19 +24,19 @@ input ColorSettingInput {
 
 type User {
   id: ID!
-  firstName: String!
-  lastName: String!
+  givenName: String!
+  surname: String!
   username: String!
-  emailAddress: String!
+  email: String!
   dateOfBirth: Date!
   settings: UserSettings
 }
 
 input NewUserInput {
-  firstName: String!
-  lastName: String!
+  givenName: String!
+  surname: String!
   username: String!
-  emailAddress: String!
+  email: String!
   dateOfBirth: Date!
   password: String!
   settings: UserSettingsInput
@@ -44,8 +44,8 @@ input NewUserInput {
 
 input UpdatedUserInput {
   id: ID!
-  firstName: String
-  lastName: String
+  givenName: String
+  surname: String
   username: String
   emailAddress: String
   dateOfBirth: Date

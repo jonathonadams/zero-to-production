@@ -29,42 +29,45 @@ const PASSWORD_GROUP: IFormGroup = {
 };
 
 export const THEME_GROUP: IFormGroup = {
-  name: 'themSettings',
+  name: 'themeSettings',
   fields: [
     {
-      component: FormFieldTypes.Input,
-      type: 'text',
+      component: FormFieldTypes.Toggle,
       name: 'darkMode',
-      label: 'Mode',
-
+      label: 'Dark Mode',
+      initialValue: false,
       validators: [Validators.required]
     },
     {
       component: FormFieldTypes.Input,
-      type: 'text',
+      type: 'color',
       name: 'lightPrimary',
       label: 'Light Mode - Primary Colour',
+      initialValue: '#000',
       validators: [Validators.required]
     },
     {
       component: FormFieldTypes.Input,
-      type: 'text',
+      type: 'color',
       name: 'lightAccent',
       label: 'Light Mode - Accent Colour',
+      initialValue: '#000',
       validators: [Validators.required]
     },
     {
       component: FormFieldTypes.Input,
-      type: 'text',
+      type: 'color',
       name: 'darkPrimary',
       label: 'Dark Mode - Primary Colour',
+      initialValue: '#000',
       validators: [Validators.required]
     },
     {
       component: FormFieldTypes.Input,
-      type: 'text',
+      type: 'color',
       name: 'darkAccent',
       label: 'Dark Mode - Primary Colour',
+      initialValue: '#000',
       validators: [Validators.required]
     }
   ]
@@ -85,22 +88,30 @@ export const DETAILS_GROUP: IFormGroup = {
     {
       component: FormFieldTypes.Input,
       type: 'text',
-      name: 'name',
-      label: 'Name',
-      autocomplete: 'name',
+      name: 'givenName',
+      label: 'Given Name',
+      autocomplete: 'given-name',
       validators: [Validators.required]
     },
     {
       component: FormFieldTypes.Input,
       type: 'text',
-      name: 'emailAddress',
+      name: 'surname',
+      label: 'Surname',
+      autocomplete: 'family-name',
+      validators: [Validators.required]
+    },
+    {
+      component: FormFieldTypes.Input,
+      type: 'email',
+      name: 'email',
       label: 'Email',
       autocomplete: 'email',
       validators: [Validators.required]
     },
     {
       component: FormFieldTypes.Input,
-      type: 'text',
+      type: 'date',
       name: 'dateOfBirth',
       label: 'Date Of Birth',
       autocomplete: 'bday',

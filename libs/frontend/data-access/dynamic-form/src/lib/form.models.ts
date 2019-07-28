@@ -1,7 +1,7 @@
 import { ValidatorFn, ValidationErrors, AsyncValidator } from '@angular/forms';
 import { Type } from '@angular/core';
 
-export type TField = IInputField | ISelectField;
+export type TField = IInputField | ISelectField | IToggleField;
 export type TFormGroups = IFormGroup[];
 
 export interface IFormGroup {
@@ -31,6 +31,10 @@ export interface ISelectField extends IBaseField {
   selectOptions: ISelectOption[];
 }
 
+export interface IToggleField extends IBaseField {
+  component: FormFieldTypes.Toggle;
+}
+
 export interface ISelectOption {
   value: any;
 }
@@ -41,6 +45,8 @@ export type TAutoComplete =
   | 'off'
   | 'on'
   | 'name'
+  | 'given-name'
+  | 'family-name'
   | 'email'
   | 'username'
   | 'bday'
@@ -75,5 +81,6 @@ export interface IFormErrors {
 
 export enum FormFieldTypes {
   Input = 'INPUT',
-  Select = 'SELECT'
+  Select = 'SELECT',
+  Toggle = 'TOGGLE'
 }

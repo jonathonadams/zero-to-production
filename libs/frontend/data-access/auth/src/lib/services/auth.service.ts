@@ -55,7 +55,10 @@ export class AuthService {
         }
       }
     `;
-    return this.graphQL.mutation<{ register: IUser }>(query, details);
+    const variables = { input: details };
+    return this.graphQL.mutation<{ register: IUser }>(query, {
+      input: details
+    });
   }
 
   public isUsernameAvailable(

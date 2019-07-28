@@ -5,9 +5,9 @@ import { IFindByUsername } from './auth';
 export interface IUser {
   id: string;
   username: string;
-  firstName: string;
-  lastName: string;
-  emailAddress: string;
+  givenName: string;
+  surname: string;
+  email: string;
   dateOfBirth: Date;
   settings: IUserSettings;
   role: AuthenticationRoles;

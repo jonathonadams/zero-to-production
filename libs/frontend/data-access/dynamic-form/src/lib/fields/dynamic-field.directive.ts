@@ -13,10 +13,12 @@ import { InputComponent } from './input/input.component';
 import { TField } from '../form.models';
 import { FormFieldTypes } from '../form.models';
 import { SelectComponent } from './select/select.component';
+import { ToggleComponent } from './toggle/toggle.components';
 
 const componentsMapper: { [key: string]: Type<any> } = {
   [FormFieldTypes.Input]: InputComponent,
-  [FormFieldTypes.Select]: SelectComponent
+  [FormFieldTypes.Select]: SelectComponent,
+  [FormFieldTypes.Toggle]: ToggleComponent
 };
 
 @Directive({

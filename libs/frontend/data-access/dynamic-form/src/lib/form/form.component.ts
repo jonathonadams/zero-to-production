@@ -22,7 +22,7 @@ import { Observable, Subject, combineLatest } from 'rxjs';
 import { map, tap, debounceTime, takeUntil, filter } from 'rxjs/operators';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { TField, IFormErrors, TFormGroups } from '../form.models';
-import { dynamicFormTransitions } from './form.animations';
+import { expandFromCenter } from '@workspace/frontend/common/animations';
 import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
 
 @Component({
@@ -30,7 +30,7 @@ import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [dynamicFormTransitions]
+  animations: [expandFromCenter]
 })
 export class DynamicFormComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
@@ -60,14 +60,13 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.facade.resetIndex();
 
-    combineLatest([
-      this.structure$.pipe(
-        map(str => this.formBuilder(str)),
-        tap(form => (this.form = form)),
-        tap(form => this.listenFormChanges(form))
-      ),
-      this.data$
-    ])
+    const form$ = this.structure$.pipe(
+      map(str => this.formBuilder(str)),
+      tap(form => (this.form = form)),
+      tap(form => this.listenFormChanges(form))
+    );
+
+    combineLatest([form$, this.data$])
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(this.patchValue);
 

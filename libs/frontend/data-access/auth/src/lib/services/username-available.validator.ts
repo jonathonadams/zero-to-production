@@ -4,8 +4,8 @@ import {
   AbstractControl,
   ValidationErrors
 } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
+import { Observable, of, timer } from 'rxjs';
+import { map, catchError, tap, switchMap, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { AuthFacade } from '../+state/auth.facade';
 
@@ -17,14 +17,15 @@ export class UsernameAvailableValidator implements AsyncValidator {
     // Set to pending each request
     this.facade.usernamePending();
 
-    return this.auth.isUsernameAvailable(ctrl.value).pipe(
-      map(response => response.isAvailable),
-      tap(available =>
+    return timer(400).pipe(
+      take(1),
+      switchMap(() => this.auth.isUsernameAvailable(ctrl.value)),
+      tap(({ isAvailable }) => {
         // Set to available or not
-        available
+        isAvailable
           ? this.facade.usernameAvailable()
-          : this.facade.usernameUnAvailable()
-      ),
+          : this.facade.usernameUnAvailable();
+      }),
       map(available => (available ? null : { notAvailable: true })),
       catchError(() => of(null))
     );

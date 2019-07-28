@@ -47,7 +47,7 @@ export class AuthEffects {
   @Effect()
   register$ = this.actions$.pipe(
     ofType(AuthActions.register),
-    exhaustMap(details =>
+    exhaustMap(({ details }) =>
       this.authService.register(details).pipe(
         map(result => {
           if (result.errors) {

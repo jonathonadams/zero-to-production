@@ -28,7 +28,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     BrowserModule,
     BrowserAnimationsModule,
     StoreModule.forRoot<AppState>(appReducer, {
-      metaReducers: !environment.production ? [debug] : [],
+      metaReducers: !environment.production ? [] : [],
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { slideInAnimation } from './router.animations';
+import { authRouterAnimations } from './auth-router.animations';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -7,7 +7,7 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [slideInAnimation]
+  animations: [authRouterAnimations]
 })
 export class AuthComponent {
   prepareRoute(outlet: RouterOutlet) {

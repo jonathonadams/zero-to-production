@@ -8,10 +8,15 @@ import {
   sequence
 } from '@angular/animations';
 
-const ANIMATION_TIMING = '150ms ease-in-out';
-
-// The host view must use relative positioning, and the child views must use absolute positioning.
-export const slideInAnimation = trigger('routeAnimations', [
+/**
+ * The card flip happens in two stages. The leaving card flips half way and
+ * then the entering card flips the other 90 degrees. This means the total timing
+ * of the card flip is 2x the timing listed below. Additionally the card leaving uses the
+ * ease-in easing as the card entering use ease-out. This is because you want the
+ * perception that at the midway point is at its fastest.
+ */
+const ANIMATION_TIMING = '0.2s';
+export const authRouterAnimations = trigger('authRouterAnimations', [
   transition('LoginPage <=> RegisterPage', [
     // First set, the parent to be relative positioning
     // and set the transform style to 3d
@@ -39,7 +44,10 @@ export const slideInAnimation = trigger('routeAnimations', [
       // for the leaving card, we want flip 90 deg from its starting position
       query(':leave', [
         style({ transform: 'none' }),
-        animate(ANIMATION_TIMING, style({ transform: 'rotateY(-90deg)' }))
+        animate(
+          `${ANIMATION_TIMING} ease-in`,
+          style({ transform: 'rotateY(-90deg)' })
+        )
       ]),
       // Once it has flipped, set to absolute positioning and move off screen
       query(':leave', [style({ left: '1000%', position: 'absolute' })]),
@@ -52,7 +60,7 @@ export const slideInAnimation = trigger('routeAnimations', [
           transform: 'rotateY(+90deg)'
         }),
         // animate to normal positions
-        animate(ANIMATION_TIMING, style({ transform: 'none' }))
+        animate(`${ANIMATION_TIMING} ease-out`, style({ transform: 'none' }))
       ])
     ]),
     // Allow children to animate

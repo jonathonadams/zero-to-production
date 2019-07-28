@@ -7,17 +7,18 @@ export const userSchema = new mongoose.Schema<IUser>(
   {
     username: {
       type: String,
-      required: true
+      required: true,
+      index: true
     },
-    firstName: {
+    givenName: {
       type: String,
       required: true
     },
-    lastName: {
+    surname: {
       type: String,
       required: true
     },
-    emailAddress: {
+    email: {
       type: String,
       required: true,
       unique: true

@@ -13,6 +13,7 @@ import { reducer, initialFormState } from './+state/dynamic-form.reducer';
 import { CustomMaterialModule } from '@workspace/common/ui/custom-material';
 import { FormErrorsComponent } from './form-errors/form-errors.component';
 import { FormErrorPipe } from './form-errors/form-error.pipe';
+import { ToggleComponent } from './fields/toggle/toggle.components';
 
 @NgModule({
   imports: [
@@ -29,12 +30,13 @@ import { FormErrorPipe } from './form-errors/form-error.pipe';
     DynamicFieldDirective,
     InputComponent,
     SelectComponent,
+    ToggleComponent,
     DynamicFormComponent,
     FormErrorsComponent,
     FormErrorsComponent,
     FormErrorPipe
   ],
-  entryComponents: [InputComponent, SelectComponent],
+  entryComponents: [InputComponent, SelectComponent, ToggleComponent],
   exports: [DynamicFormComponent, FormErrorsComponent]
 })
 export class DataAccessDynamicFormModule {}

@@ -13,6 +13,9 @@ const ROUTES: Routes = [
     canActivate: [AuthGuard],
     resolve: {
       user: AuthUsersResolver
+    },
+    data: {
+      animation: 'AppPages'
     }
   },
   ...AUTH_ROUTES
