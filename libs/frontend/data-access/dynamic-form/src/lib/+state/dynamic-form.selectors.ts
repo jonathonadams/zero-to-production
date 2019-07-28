@@ -26,3 +26,12 @@ export const selectTouchedForm = createSelector(
   selectDynamicFormState,
   (state: DynamicFormState) => state.touched
 );
+export const selectFormIdx = createSelector(
+  selectDynamicFormState,
+  state => state.index
+);
+
+export const selectFormConfig = createSelector(
+  selectDynamicFormState,
+  state => state.config
+);

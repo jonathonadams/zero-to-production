@@ -5,26 +5,45 @@ import {
   style,
   animateChild,
   group,
-  animate
+  animate,
+  sequence
 } from '@angular/animations';
 
 export const slideInAnimation = trigger('routeAnimations', [
   transition('LoginPage <=> RegisterPage', [
-    style({ position: 'relative' }),
-    query(':enter, :leave', [
+    // style({
+    //   // backfaceVisibility: 'hidden',
+    //   opacity: 1
+    // }),
+    // sequence([
+    query(':leave', [
       style({
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%'
-      })
+        // backfaceVisibility: 'hidden',
+        opacity: 1
+      }),
+      animate(
+        '1s',
+        style({
+          opacity: 0
+          // transform: 'rotateY(180deg)'
+        })
+      )
     ]),
-    query(':enter', [style({ left: '-100%' })]),
-    query(':leave', animateChild()),
-    group([
-      query(':leave', [animate('200ms ease-out', style({ left: '100%' }))]),
-      query(':enter', [animate('300ms ease-out', style({ left: '0%' }))])
-    ]),
-    query(':enter', animateChild())
+    query(':enter', [animate('1s', style({}))])
+    // ])
+    //   query(':enter, :leave', [
+    //     style({
+    //       position: 'absolute',
+    //       top: 0,
+    //       left: 0,
+    //       width: '100%'
+    //     })
+    //   ]),
+    //   query(':enter', [style({ left: '-100%' })]),
+    //   group([
+    //     query(':leave', [animate('200ms ease-out', style({ left: '100%' }))]),
+    //     query(':enter', [animate('300ms ease-out', style({ left: '0%' }))])
+    //   ]),
+    //   query(':enter', animateChild())
   ])
 ]);

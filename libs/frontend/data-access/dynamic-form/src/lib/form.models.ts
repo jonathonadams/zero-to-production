@@ -15,7 +15,7 @@ export interface IBaseField {
   initialValue?: any;
   validators?: ValidatorFn[];
   asyncValidators?: Type<AsyncValidator>[];
-  autocomplete: TAutoComplete;
+  autocomplete?: TAutoComplete;
   appearance?: TFormFieldAppearance;
   color?: string;
   attrs?: any;

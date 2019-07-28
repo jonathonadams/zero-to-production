@@ -3,6 +3,8 @@ import * as FormActions from './dynamic-form.actions';
 import { IFormErrors, TFormGroups } from '../form.models';
 
 export interface DynamicFormState {
+  config: IDynamicFormConfig;
+  index: number;
   data: any;
   structure: TFormGroups;
   valid: boolean;
@@ -10,7 +12,19 @@ export interface DynamicFormState {
   touched: boolean;
 }
 
+export interface IDynamicFormConfig {
+  animations: boolean;
+  paginateSections: boolean;
+}
+
+export const initialFormConfig: IDynamicFormConfig = {
+  animations: true,
+  paginateSections: true
+};
+
 export const initialFormState: DynamicFormState = {
+  config: initialFormConfig,
+  index: 0,
   data: {},
   structure: [],
   valid: true,
@@ -40,6 +54,30 @@ export const formReducer = createReducer(
   }),
   on(FormActions.resetForm, state => {
     return { ...state, touched: true };
+  }),
+  on(FormActions.resetIdx, state => {
+    return { ...state, index: 0 };
+  }),
+  on(FormActions.gotToIdx, (state, { idx }) => {
+    return { ...state, index: idx };
+  }),
+  on(FormActions.nextIdx, state => {
+    return { ...state, index: state.index + 1 };
+  }),
+  on(FormActions.backIdx, state => {
+    return { ...state, index: state.index - 1 };
+  }),
+  on(FormActions.setFormConfig, (state, config) => {
+    return { ...state, config };
+  }),
+  on(FormActions.resetForm, state => {
+    return { ...state, config: initialFormConfig };
+  }),
+  on(FormActions.enableAnimations, state => {
+    return { ...state, config: { ...state.config, animations: true } };
+  }),
+  on(FormActions.disableAnimations, state => {
+    return { ...state, config: { ...state.config, animations: false } };
   })
 );
 

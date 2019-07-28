@@ -30,11 +30,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // we do want animations for the register form
+    this.formFacade.enableAnimations();
     this.formFacade.setStructure({ structure: REGISTER_STRUCTURE });
   }
 
   onSubmit(details: IRegistrationDetails): void {
-    this.facade.register(details);
+    console.log(details);
+    // this.facade.register(details);
   }
 
   cancel() {

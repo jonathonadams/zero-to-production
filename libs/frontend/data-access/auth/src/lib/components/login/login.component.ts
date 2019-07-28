@@ -19,9 +19,7 @@ const STRUCTURE: TFormGroups = [
         name: 'username',
         label: 'Username',
         autocomplete: 'username',
-        initialValue: '',
-        validators: [Validators.required],
-        appearance: 'standard'
+        validators: [Validators.required]
       },
       {
         component: FormFieldTypes.Input,
@@ -29,9 +27,7 @@ const STRUCTURE: TFormGroups = [
         name: 'password',
         label: 'Password',
         autocomplete: 'current-password',
-        initialValue: '',
-        validators: [Validators.required],
-        appearance: 'standard'
+        validators: [Validators.required]
       }
     ]
   }
@@ -51,6 +47,8 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // We do not want form group animations for the login page.
+    this.formFacade.disableAnimations();
     this.formFacade.setStructure({ structure: STRUCTURE });
   }
 

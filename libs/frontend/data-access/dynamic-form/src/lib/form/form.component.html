@@ -4,18 +4,44 @@
   [formGroup]="form"
   autocomplete="off"
   (ngSubmit)="onSubmit(form)"
+  [@.disabled]="!(config$ | async).animations"
 >
-  <ng-container
-    *ngFor="let group of structure"
-    appDynamicGroup
-    [form]="form"
-    [group]="group"
-  >
+  <div class="nav-buttons" *ngIf="(structure$ | async).length > 1">
+    <button
+      type="button"
+      class="nav-button"
+      mat-icon-button
+      [disabled]="(formIdx$ | async) <= 0"
+      (click)="backASection()"
+    >
+      <mat-icon>navigate_before</mat-icon>
+    </button>
+    <button
+      type="button"
+      class="nav-button"
+      mat-icon-button
+      [disabled]="(formIdx$ | async) >= structure.length - 1"
+      (click)="nextSection()"
+    >
+      <mat-icon>navigate_next</mat-icon>
+    </button>
+  </div>
+
+  <ng-container *ngFor="let group of structure; let idx = index">
+    <section
+      *ngIf="(formIdx$ | async) === idx"
+      [formGroupName]="group.name"
+      @flyInOut
+    >
+      <ng-container
+        *ngFor="let field of group.fields"
+        appDynamicField
+        [field]="field"
+        [group]="getFormGroup(group.name)"
+      >
+      </ng-container>
+    </section>
   </ng-container>
 
-  <nav class="nav-buttons" *ngIf="structure.length > 1">
-    <button type="button">Back</button>
-    <button type="button">Forward</button>
-  </nav>
   <ng-content select='button[type="submit"]'></ng-content>
 </form>

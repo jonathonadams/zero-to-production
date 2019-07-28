@@ -13,8 +13,6 @@ import { reducer, initialFormState } from './+state/dynamic-form.reducer';
 import { CustomMaterialModule } from '@workspace/common/ui/custom-material';
 import { FormErrorsComponent } from './form-errors/form-errors.component';
 import { FormErrorPipe } from './form-errors/form-error.pipe';
-import { DynamicGroupDirective } from './groups/dynamic-group.directive';
-import { FormGroupComponent } from './groups/group.component';
 
 @NgModule({
   imports: [
@@ -28,9 +26,7 @@ import { FormGroupComponent } from './groups/group.component';
   ],
   providers: [DynamicFormFacade],
   declarations: [
-    DynamicGroupDirective,
     DynamicFieldDirective,
-    FormGroupComponent,
     InputComponent,
     SelectComponent,
     DynamicFormComponent,
@@ -38,7 +34,7 @@ import { FormGroupComponent } from './groups/group.component';
     FormErrorsComponent,
     FormErrorPipe
   ],
-  entryComponents: [FormGroupComponent, InputComponent, SelectComponent],
+  entryComponents: [InputComponent, SelectComponent],
   exports: [DynamicFormComponent, FormErrorsComponent]
 })
 export class DataAccessDynamicFormModule {}

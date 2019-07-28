@@ -5,7 +5,8 @@ import {
   Output,
   EventEmitter,
   OnDestroy,
-  Injector
+  Injector,
+  ChangeDetectorRef
 } from '@angular/core';
 import {
   FormBuilder,
@@ -21,15 +22,21 @@ import { Observable, Subject, combineLatest } from 'rxjs';
 import { map, tap, debounceTime, takeUntil, filter } from 'rxjs/operators';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { TField, IFormErrors, TFormGroups } from '../form.models';
+import { dynamicFormTransitions } from './form.animations';
+import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
 
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: './form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [dynamicFormTransitions]
 })
 export class DynamicFormComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
 
+  config$: Observable<IDynamicFormConfig>;
+  formIdx$: Observable<number>;
   structure$: Observable<TFormGroups>;
   data$: Observable<any>;
   touched$: Observable<boolean>;
@@ -40,14 +47,19 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private injector: Injector,
-    private facade: DynamicFormFacade
+    private facade: DynamicFormFacade,
+    private cd: ChangeDetectorRef
   ) {
+    this.config$ = this.facade.config$;
+    this.formIdx$ = this.facade.idx$;
     this.structure$ = this.facade.structure$;
     this.data$ = this.facade.data$;
     this.touched$ = this.facade.touched$;
   }
 
   ngOnInit() {
+    this.facade.resetIndex();
+
     combineLatest([
       this.structure$.pipe(
         map(str => this.formBuilder(str)),
@@ -78,8 +90,8 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
       // Create a form group,
       const fg = this.fb.group({});
       // and add all nested groups to the form
-      group.fields.forEach(nestedGroup => {
-        fg.addControl(nestedGroup.name, this.createControl(nestedGroup));
+      group.fields.forEach(field => {
+        fg.addControl(field.name, this.createControl(field));
       });
       // then add the nested form group to the top level group
       form.addControl(group.name, fg);
@@ -97,7 +109,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     }
 
     return this.fb.control(
-      '',
+      field.initialValue ? field.initialValue : '',
       Validators.compose(field.validators ? field.validators : []),
       asyncValidators
     );
@@ -176,6 +188,21 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   controlHasErrors(control: AbstractControl | FormGroup) {
     return control.errors !== null;
   }
+
+  getFormGroup(name: string): FormGroup {
+    return this.form.get(name) as FormGroup;
+  }
+
+  nextSection() {
+    this.facade.nextSection();
+    this.cd.detectChanges();
+  }
+
+  backASection() {
+    this.facade.backASection();
+    this.cd.detectChanges();
+  }
+
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
