@@ -5,25 +5,23 @@ import {
   Output,
   EventEmitter,
   OnDestroy,
-  Injector,
   ChangeDetectorRef
 } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Observable, Subject } from 'rxjs';
 import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl,
-  ValidationErrors,
-  AsyncValidator,
-  AsyncValidatorFn,
-  AbstractControl
-} from '@angular/forms';
-import { Observable, Subject, combineLatest } from 'rxjs';
-import { map, tap, debounceTime, takeUntil, filter } from 'rxjs/operators';
+  map,
+  tap,
+  debounceTime,
+  takeUntil,
+  filter,
+  take
+} from 'rxjs/operators';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
-import { TField, IFormErrors, TFormGroups } from '../form.models';
+import { TFormGroups } from '../form.models';
 import { expandFromCenter } from '@workspace/frontend/common/animations';
 import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
+import { DynamicFormService } from '../form.service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -45,8 +43,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   @Output() formSubmit = new EventEmitter<any>();
 
   constructor(
-    private fb: FormBuilder,
-    private injector: Injector,
+    private service: DynamicFormService,
     private facade: DynamicFormFacade,
     private cd: ChangeDetectorRef
   ) {
@@ -60,62 +57,31 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.facade.resetIndex();
 
-    const form$ = this.structure$.pipe(
-      map(str => this.formBuilder(str)),
-      tap(form => (this.form = form)),
-      tap(form => this.listenFormChanges(form))
-    );
+    this.structure$
+      .pipe(
+        map(str => this.service.formBuilder(str)),
+        tap(form => (this.form = form)),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe(form => this.listenFormChanges(form));
 
-    combineLatest([form$, this.data$])
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(this.patchValue);
+    this.data$
+      .pipe(
+        filter(() => !!this.form),
+        take(1)
+      )
+      .subscribe(data => this.patchValue(data));
 
-    if (this.touched$) {
-      this.touched$
-        .pipe(
-          filter(t => !t && !!this.form),
-          takeUntil(this.unsubscribe$)
-        )
-        .subscribe(_ => (this.form as FormGroup).reset());
-    }
+    this.touched$
+      .pipe(
+        filter(t => !t && !!this.form),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe(_ => (this.form as FormGroup).reset());
   }
 
-  private formBuilder(structure: TFormGroups): FormGroup {
-    // Top level group
-    const form = this.fb.group({});
-
-    // For each top level group
-    structure.forEach(group => {
-      // Create a form group,
-      const fg = this.fb.group({});
-      // and add all nested groups to the form
-      group.fields.forEach(field => {
-        fg.addControl(field.name, this.createControl(field));
-      });
-      // then add the nested form group to the top level group
-      form.addControl(group.name, fg);
-    });
-    return form;
-  }
-
-  private createControl(field: TField): FormControl {
-    const asyncValidators: AsyncValidatorFn[] = [];
-    if (field.asyncValidators) {
-      field.asyncValidators.forEach(di => {
-        const validator = this.injector.get<AsyncValidator>(di);
-        asyncValidators.push(validator.validate.bind(validator));
-      });
-    }
-
-    return this.fb.control(
-      field.initialValue ? field.initialValue : '',
-      Validators.compose(field.validators ? field.validators : []),
-      asyncValidators
-    );
-  }
-
-  private patchValue([form, data = {}]: [FormGroup, any]) {
-    form.patchValue(data, { emitEvent: false });
+  private patchValue(data: any = {}) {
+    this.form.patchValue(data, { emitEvent: false });
   }
 
   private listenFormChanges(form: FormGroup) {
@@ -134,62 +100,13 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
       this.facade.clearErrors();
     } else {
       // collect all form errors
-      const errors = this.getAllFormErrors(form);
+      const errors = this.service.getAllFormErrors(form);
       this.facade.setErrors({ errors });
     }
   }
 
-  getAllFormErrors(form: FormGroup) {
-    const errors: IFormErrors = {};
-    if (form.errors) {
-      errors['form'] = form.errors;
-    }
-    return { ...errors, ...this.getControlErrors(form) };
-  }
-
-  getControlErrors(form: FormGroup): IFormErrors {
-    // Get a list of all the control names
-    const formControls = Object.keys(form.controls);
-    /*
-     * Iterate over them, each time checking if it is a form control or group
-     * if it is a group, then recursively collect the errors
-     */
-    return formControls.reduce(
-      (errors, controlName) => {
-        const control = form.controls[controlName];
-
-        if (this.isControlAFormGroup(control)) {
-          // A form group may have a top level for error
-          if (this.controlHasErrors(control)) {
-            errors[controlName] = control.errors as ValidationErrors;
-          }
-
-          return {
-            ...errors,
-            ...this.getControlErrors(control as FormGroup)
-          };
-        } else {
-          // it is a control
-          if (this.controlHasErrors(control)) {
-            errors[controlName] = control.errors as ValidationErrors;
-          }
-          return errors;
-        }
-      },
-      {} as IFormErrors
-    );
-  }
-
-  isControlAFormGroup(control: AbstractControl | FormGroup) {
-    return (control as FormGroup).controls !== undefined;
-  }
-
-  controlHasErrors(control: AbstractControl | FormGroup) {
-    return control.errors !== null;
-  }
-
   getFormGroup(name: string): FormGroup {
-    return this.form.get(name) as FormGroup;
+    return (this.form as FormGroup).get(name) as FormGroup;
   }
 
   nextSection() {

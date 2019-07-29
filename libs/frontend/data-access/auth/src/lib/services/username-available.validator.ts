@@ -17,7 +17,9 @@ export class UsernameAvailableValidator implements AsyncValidator {
     // Set to pending each request
     this.facade.usernamePending();
 
-    return timer(400).pipe(
+    // Don't need to worry about using takeUntil(ctrl.valueChanges)
+    // because the form unsubscribes when the ctrl value changes
+    return timer(200).pipe(
       take(1),
       switchMap(() => this.auth.isUsernameAvailable(ctrl.value)),
       tap(({ isAvailable }) => {

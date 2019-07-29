@@ -14,6 +14,7 @@ import { CustomMaterialModule } from '@workspace/common/ui/custom-material';
 import { FormErrorsComponent } from './form-errors/form-errors.component';
 import { FormErrorPipe } from './form-errors/form-error.pipe';
 import { ToggleComponent } from './fields/toggle/toggle.components';
+import { DynamicFormService } from './form.service';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { ToggleComponent } from './fields/toggle/toggle.components';
     }),
     EffectsModule.forFeature([DynamicFormsEffects])
   ],
-  providers: [DynamicFormFacade],
+  providers: [DynamicFormService, DynamicFormFacade],
   declarations: [
     DynamicFieldDirective,
     InputComponent,
