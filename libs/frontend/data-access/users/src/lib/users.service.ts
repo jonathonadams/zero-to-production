@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiService } from '@workspace/frontend/data-access/api';
-import { IUser } from '@workspace/shared/interfaces';
+import { ApiService } from '@ngw/frontend/data-access/api';
+import { IUser } from '@ngw/shared/interfaces';
 
 @Injectable()
 export class UsersService {

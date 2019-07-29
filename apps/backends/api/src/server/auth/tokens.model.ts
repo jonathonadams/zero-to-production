@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import { defaultSchemaOptions } from '@workspace/backend/utils';
+import { defaultSchemaOptions } from '@ngw/backend/utils';
 import {
   IRefreshTokenDocument,
   IRefreshTokenModel
-} from '@workspace/shared/interfaces';
+} from '@ngw/shared/interfaces';
 
 /**
  * This resource is not publicly available but used to store all refresh tokens

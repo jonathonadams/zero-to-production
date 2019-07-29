@@ -1,4 +1,4 @@
-import { AuthModule, AuthConfig } from '@workspace/backend/auth';
+import { AuthModule, AuthConfig } from '@ngw/backend/auth';
 import { RefreshToken } from './tokens.model';
 import config from '../../environments';
 import { User } from '../api/users';

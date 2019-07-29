@@ -1,4 +1,4 @@
-import { IUser } from '@workspace/shared/interfaces';
+import { IUser } from '@ngw/shared/interfaces';
 import { newId } from '@app-testing/index';
 
 export class MockUserModel {

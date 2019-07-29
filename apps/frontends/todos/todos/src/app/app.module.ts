@@ -10,16 +10,16 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { DataAccessApiModule } from '@workspace/frontend/data-access/api';
-import { DataAccessAuthModule } from '@workspace/frontend/data-access/auth';
-import { DataAccessUsersModule } from '@workspace/frontend/data-access/users';
+import { DataAccessApiModule } from '@ngw/frontend/data-access/api';
+import { DataAccessAuthModule } from '@ngw/frontend/data-access/auth';
+import { DataAccessUsersModule } from '@ngw/frontend/data-access/users';
 import {
   AppState,
   debug,
   appReducer,
   AppEffects
-} from '@workspace/frontend/data-access/app-state';
-import { DataAccessRouterModule } from '@workspace/frontend/data-access/router';
+} from '@ngw/frontend/data-access/app-state';
+import { DataAccessRouterModule } from '@ngw/frontend/data-access/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({

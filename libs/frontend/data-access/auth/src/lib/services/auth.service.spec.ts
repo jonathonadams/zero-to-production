@@ -2,11 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { GraphQLError } from 'graphql';
 import { createSpyObj } from '@app-testing/frontend/helpers';
 import { GraphQLStub } from '@app-testing/frontend/stubs/graphql.stubs';
-import { GraphQLService } from '@workspace/frontend/data-access/api';
-import {
-  ILoginCredentials,
-  ILoginResponse
-} from '@workspace/shared/interfaces';
+import { GraphQLService } from '@ngw/frontend/data-access/api';
+import { ILoginCredentials, ILoginResponse } from '@ngw/shared/interfaces';
 import { AuthService } from './auth.service';
 import { JWTAuthService } from './jwt-auth.service';
 

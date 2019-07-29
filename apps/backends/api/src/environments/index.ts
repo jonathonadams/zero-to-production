@@ -5,7 +5,7 @@ import {
   GlobalConfig,
   EnvironnementConfig,
   ServerConfig
-} from '@workspace/shared/interfaces';
+} from '@ngw/shared/interfaces';
 import devConfig from './development';
 import prodConfig from './production';
 import testConfig from './test';

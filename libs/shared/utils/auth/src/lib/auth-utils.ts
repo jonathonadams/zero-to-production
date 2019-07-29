@@ -1,6 +1,6 @@
 // @ts-ignore
 import omit from 'lodash.omit';
-import { IUser } from '@workspace/shared/interfaces';
+import { IUser } from '@ngw/shared/interfaces';
 
 /**
  * Move into a shared utils function

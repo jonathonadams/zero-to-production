@@ -2,9 +2,9 @@ import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
-import { IUser } from '@workspace/shared/interfaces';
-import { UsersFacade } from '@workspace/frontend/data-access/users';
-import { ThemeService } from '@workspace/frontend/common/theme';
+import { IUser } from '@ngw/shared/interfaces';
+import { UsersFacade } from '@ngw/frontend/data-access/users';
+import { ThemeService } from '@ngw/frontend/common/theme';
 
 // TODO -> Can Deactivate Guard -> Reset User Settings
 

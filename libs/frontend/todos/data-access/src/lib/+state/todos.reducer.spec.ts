@@ -9,8 +9,8 @@
 import { todosReducer, TodosEntityState } from './todos.reducer';
 import * as TodoActions from './todos.actions';
 import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { ITodo } from '@workspace/shared/interfaces';
-import { TodoFilterStatus } from '@workspace/shared/enums';
+import { ITodo } from '@ngw/shared/interfaces';
+import { TodoFilterStatus } from '@ngw/shared/enums';
 
 describe('TodoReducer', () => {
   let adapter: EntityAdapter<ITodo>;

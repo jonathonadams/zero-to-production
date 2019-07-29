@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
-import { EnvironnementConfig } from '@workspace/shared/interfaces';
+import { EnvironnementConfig } from '@ngw/shared/interfaces';
 
 /**
  * Test environment settings

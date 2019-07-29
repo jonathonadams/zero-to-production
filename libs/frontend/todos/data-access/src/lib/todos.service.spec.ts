@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { TodosService } from './todos.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { JWTAuthService } from '@workspace/frontend/data-access/auth';
-import { GraphQLService } from '@workspace/frontend/data-access/api';
-import { ITodo, IJWTPayload } from '@workspace/shared/interfaces';
+import { JWTAuthService } from '@ngw/frontend/data-access/auth';
+import { GraphQLService } from '@ngw/frontend/data-access/api';
+import { ITodo, IJWTPayload } from '@ngw/shared/interfaces';
 import { createSpyObj } from '@app-testing/frontend/helpers';
 import { GraphQLStub } from '@app-testing/frontend/stubs/graphql.stubs';
 import {

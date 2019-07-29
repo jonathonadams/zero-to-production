@@ -6,7 +6,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
 import { JWTAuthService } from '../services/jwt-auth.service';
-import { IUser, ILoginResponse } from '@workspace/shared/interfaces';
+import { IUser, ILoginResponse } from '@ngw/shared/interfaces';
 
 @Injectable()
 export class AuthEffects {

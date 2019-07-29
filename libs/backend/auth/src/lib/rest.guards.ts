@@ -1,7 +1,7 @@
 import koa from 'koa';
 import { unauthorized } from '@hapi/boom';
 import { verify } from 'jsonwebtoken';
-import { IUserModel } from '@workspace/shared/interfaces';
+import { IUserModel } from '@ngw/shared/interfaces';
 
 /**
  * npm module koa-bearer-token will get the bearer token from Authorize Header

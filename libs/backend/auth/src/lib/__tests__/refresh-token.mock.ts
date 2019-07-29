@@ -1,4 +1,4 @@
-import { IRefreshToken, IUser } from '@workspace/shared/interfaces';
+import { IRefreshToken, IUser } from '@ngw/shared/interfaces';
 
 export class MockRefreshTokenModel {
   static _token: IRefreshToken | null | undefined;

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IUser } from '@workspace/shared/interfaces';
+import { IUser } from '@ngw/shared/interfaces';
 import { GraphQLError } from 'graphql';
 import { Update } from '@ngrx/entity';
 

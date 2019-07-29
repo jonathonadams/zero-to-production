@@ -6,10 +6,10 @@ import {
   ViewChild
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ISideNaveLink } from '@workspace/shared/interfaces';
+import { ISideNaveLink } from '@ngw/shared/interfaces';
 import { SideNavService } from './common-ui-side-nav.service';
 import { RouterOutlet } from '@angular/router';
-import { slideInAnimation } from '@workspace/frontend/common/animations';
+import { slideInAnimation } from '@ngw/frontend/common/animations';
 
 // TODO -> Redux store and dumb component for view
 @Component({

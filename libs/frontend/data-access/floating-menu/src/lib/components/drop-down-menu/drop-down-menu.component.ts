@@ -6,8 +6,8 @@ import {
 } from '@angular/core';
 import { take, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { IUser } from '@workspace/shared/interfaces';
-import { UsersFacade } from '@workspace/frontend/data-access/users';
+import { IUser } from '@ngw/shared/interfaces';
+import { UsersFacade } from '@ngw/frontend/data-access/users';
 
 @Component({
   selector: 'ngw-drop-down-menu',

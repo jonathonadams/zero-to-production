@@ -1,7 +1,7 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as TodoActions from './todos.actions';
-import { ITodo } from '@workspace/shared/interfaces';
-import { TodoFilterStatus } from '@workspace/shared/enums';
+import { ITodo } from '@ngw/shared/interfaces';
+import { TodoFilterStatus } from '@ngw/shared/enums';
 import { createReducer, on, Action } from '@ngrx/store';
 
 // 1. define the entity state

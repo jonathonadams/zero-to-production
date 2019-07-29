@@ -6,7 +6,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IUser } from '@workspace/shared/interfaces';
+import { IUser } from '@ngw/shared/interfaces';
 
 @Component({
   selector: 'ngw-ui-user-profile',

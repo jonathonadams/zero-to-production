@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import { setupMiddleware } from '@workspace/backend/middleware';
+import { setupMiddleware } from '@ngw/backend/middleware';
 import { applyApiEndpoints } from './api';
 import auth from './auth/auth';
 import { dbConnection } from './db/db-connection';

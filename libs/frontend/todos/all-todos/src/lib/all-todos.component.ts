@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatSelectChange } from '@angular/material/select';
-import { ITodo } from '@workspace/shared/interfaces';
-import { TodoFilterStatus } from '@workspace/shared/enums';
-import { TodosFacade } from '@workspace/frontend/todos/data-access';
+import { ITodo } from '@ngw/shared/interfaces';
+import { TodoFilterStatus } from '@ngw/shared/enums';
+import { TodosFacade } from '@ngw/frontend/todos/data-access';
 import { UiFilterTodosComponent } from './ui/filter-todos/ui-filter-todos.component';
 
 // TODO  -> overflow scrolling of the list of todos

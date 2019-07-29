@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { IUser } from '@workspace/shared/interfaces';
+import { IUser } from '@ngw/shared/interfaces';
 import * as UserActions from './users.actions';
 import {
   selectAllUsers,

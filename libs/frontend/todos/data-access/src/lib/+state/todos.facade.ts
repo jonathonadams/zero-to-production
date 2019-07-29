@@ -8,8 +8,8 @@ import {
   selectTodoIds
 } from './todos.selectors';
 import * as TodoActions from './todos.actions';
-import { ITodo } from '@workspace/shared/interfaces';
-import { TodoFilterStatus } from '@workspace/shared/enums';
+import { ITodo } from '@ngw/shared/interfaces';
+import { TodoFilterStatus } from '@ngw/shared/enums';
 
 @Injectable()
 export class TodosFacade {

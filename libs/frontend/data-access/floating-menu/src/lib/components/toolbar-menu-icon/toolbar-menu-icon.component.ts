@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ElementRef } from '@angular/core';
-import { OverlayService } from '@workspace/frontend/utils/overlay';
+import { OverlayService } from '@ngw/frontend/utils/overlay';
 import { Router } from '@angular/router';
-import { AuthFacade } from '@workspace/frontend/data-access/auth';
+import { AuthFacade } from '@ngw/frontend/data-access/auth';
 import { DropDownMenuComponent } from '../drop-down-menu/drop-down-menu.component';
 
 @Component({

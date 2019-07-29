@@ -10,7 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { DynamicFormsEffects } from './+state/dynamic-form.effects';
 import { reducer, initialFormState } from './+state/dynamic-form.reducer';
-import { CustomMaterialModule } from '@workspace/common/ui/custom-material';
+import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
 import { FormErrorsComponent } from './form-errors/form-errors.component';
 import { FormErrorPipe } from './form-errors/form-error.pipe';
 import { ToggleComponent } from './fields/toggle/toggle.components';

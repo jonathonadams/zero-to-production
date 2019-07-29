@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { IUser } from '@workspace/shared/interfaces';
-import { UsersFacade } from '@workspace/frontend/data-access/users';
+import { IUser } from '@ngw/shared/interfaces';
+import { UsersFacade } from '@ngw/frontend/data-access/users';
 import { ThemeService } from './theme.service';
 
 @Injectable({ providedIn: 'root' })

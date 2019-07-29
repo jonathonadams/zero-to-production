@@ -6,7 +6,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { ITodo } from '@workspace/shared/interfaces';
+import { ITodo } from '@ngw/shared/interfaces';
 
 @Component({
   selector: 'todo-ui-todo-item',

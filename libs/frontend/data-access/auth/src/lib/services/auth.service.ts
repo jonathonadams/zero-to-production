@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import {
-  GraphQLService,
-  ApiService
-} from '@workspace/frontend/data-access/api';
+import { GraphQLService, ApiService } from '@ngw/frontend/data-access/api';
 import {
   ILoginCredentials,
   ILoginResponse,
   IRegistrationDetails,
   IUser
-} from '@workspace/shared/interfaces';
-import { isPasswordAllowed } from '@workspace/shared/utils/auth';
+} from '@ngw/shared/interfaces';
+import { isPasswordAllowed } from '@ngw/shared/utils/auth';
 import { JWTAuthService } from './jwt-auth.service';
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';

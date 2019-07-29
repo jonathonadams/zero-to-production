@@ -19,7 +19,7 @@ import {
 } from 'rxjs/operators';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { TFormGroups } from '../form.models';
-import { expandFromCenter } from '@workspace/frontend/common/animations';
+import { expandFromCenter } from '@ngw/frontend/common/animations';
 import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
 import { DynamicFormService } from '../form.service';
 

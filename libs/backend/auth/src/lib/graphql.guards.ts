@@ -1,7 +1,7 @@
 import { verify } from 'jsonwebtoken';
 import { unauthorized } from '@hapi/boom';
-import { IUserModel, IUser } from '@workspace/shared/interfaces';
-import { AuthenticationRoles } from '@workspace/shared/enums';
+import { IUserModel, IUser } from '@ngw/shared/interfaces';
+import { AuthenticationRoles } from '@ngw/shared/enums';
 import { AuthMiddleware } from './auth.graphql';
 
 /**

@@ -1,4 +1,4 @@
-import { IUser } from '@workspace/shared/interfaces';
+import { IUser } from '@ngw/shared/interfaces';
 import { usersReducer, UsersEntityState } from './users.reducer';
 import * as UserActions from './users.actions';
 

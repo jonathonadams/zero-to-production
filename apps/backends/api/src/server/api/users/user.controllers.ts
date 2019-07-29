@@ -1,6 +1,6 @@
 import { ParameterizedContext } from 'koa';
 import Boom from '@hapi/boom';
-import { swapId } from '@workspace/backend/utils';
+import { swapId } from '@ngw/backend/utils';
 import { User } from './user.model';
 
 export async function params(

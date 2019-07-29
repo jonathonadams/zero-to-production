@@ -12,7 +12,7 @@ import {
 import { MatSelectChange } from '@angular/material/select';
 import { Subscription, fromEvent } from 'rxjs';
 import { debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
-import { TodoFilterStatus } from '@workspace/shared/enums';
+import { TodoFilterStatus } from '@ngw/shared/enums';
 
 @Component({
   selector: 'todo-ui-filter-todos',

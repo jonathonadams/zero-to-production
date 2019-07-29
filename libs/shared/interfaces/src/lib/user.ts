@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { AuthenticationRoles } from '@workspace/shared/enums';
+import { AuthenticationRoles } from '@ngw/shared/enums';
 import { IFindByUsername } from './auth';
 
 export interface IUser {

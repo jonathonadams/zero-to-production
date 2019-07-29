@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { GraphQLService } from '@workspace/frontend/data-access/api';
-import { JWTAuthService } from '@workspace/frontend/data-access/auth';
+import { GraphQLService } from '@ngw/frontend/data-access/api';
+import { JWTAuthService } from '@ngw/frontend/data-access/auth';
 import {
   ALL_TODOS_QUERY,
   LOAD_TODO_QUERY,
@@ -10,7 +10,7 @@ import {
   UPDATE_TODO_QUERY,
   REMOTE_TODO_QUERY
 } from './todos.queries';
-import { ITodo, IJWTPayload } from '@workspace/shared/interfaces';
+import { ITodo, IJWTPayload } from '@ngw/shared/interfaces';
 import { FetchResult } from 'apollo-link';
 
 @Injectable()

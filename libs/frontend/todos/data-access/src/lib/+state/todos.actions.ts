@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { ITodo } from '@workspace/shared/interfaces';
-import { TodoFilterStatus } from '@workspace/shared/enums';
+import { ITodo } from '@ngw/shared/interfaces';
+import { TodoFilterStatus } from '@ngw/shared/enums';
 import { Update } from '@ngrx/entity';
 import { GraphQLError } from 'graphql';
 

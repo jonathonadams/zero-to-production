@@ -1,12 +1,8 @@
 import { verify } from 'jsonwebtoken';
 import { unauthorized, badRequest } from '@hapi/boom';
 import { compare, hash } from 'bcryptjs';
-import { isPasswordAllowed, userToJSON } from '@workspace/shared/utils/auth';
-import {
-  IUser,
-  IUserModel,
-  IRefreshTokenModel
-} from '@workspace/shared/interfaces';
+import { isPasswordAllowed, userToJSON } from '@ngw/shared/utils/auth';
+import { IUser, IUserModel, IRefreshTokenModel } from '@ngw/shared/interfaces';
 import { signAccessToken, signRefreshToken } from './auth';
 
 // TODO -> Refresh Token Model/Storage

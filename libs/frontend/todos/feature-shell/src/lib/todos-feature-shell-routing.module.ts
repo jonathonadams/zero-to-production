@@ -11,7 +11,7 @@ export const TODOS_ROUTES: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('@workspace/frontend/dashboard').then(m => m.DashboardModule),
+          import('@ngw/frontend/dashboard').then(m => m.DashboardModule),
         data: { animation: 'DashBoardPage' }
       },
       {
@@ -22,7 +22,7 @@ export const TODOS_ROUTES: Routes = [
       {
         path: 'profile',
         loadChildren: () =>
-          import('@workspace/frontend/shared/profile').then(
+          import('@ngw/frontend/shared/profile').then(
             m => m.FrontendProfileModule
           ),
         data: { animation: 'ProfilePage' }

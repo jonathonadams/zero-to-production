@@ -1,12 +1,12 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { ILoginCredentials } from '@workspace/shared/interfaces';
+import { ILoginCredentials } from '@ngw/shared/interfaces';
 import { Validators } from '@angular/forms';
 import {
   DynamicFormFacade,
   FormFieldTypes,
   TFormGroups
-} from '@workspace/frontend/data-access/dynamic-form';
-import { RouterFacade } from '@workspace/frontend/data-access/router';
+} from '@ngw/frontend/data-access/dynamic-form';
+import { RouterFacade } from '@ngw/frontend/data-access/router';
 import { AuthFacade } from '../../+state/auth.facade';
 
 const STRUCTURE: TFormGroups = [

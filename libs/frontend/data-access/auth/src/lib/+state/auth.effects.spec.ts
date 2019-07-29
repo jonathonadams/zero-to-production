@@ -7,7 +7,7 @@ import { cold, hot, Scheduler } from 'jest-marbles';
 import { createSpyObj } from '@app-testing/frontend/helpers';
 import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
-import { ILoginCredentials } from '@workspace/shared/interfaces';
+import { ILoginCredentials } from '@ngw/shared/interfaces';
 import * as AuthActions from './auth.actions';
 import { GraphQLError } from 'graphql';
 import { JWTAuthService } from '../services/jwt-auth.service';

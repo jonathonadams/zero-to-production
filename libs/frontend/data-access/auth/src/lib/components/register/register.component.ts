@@ -4,9 +4,9 @@ import {
   ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
-import { IRegistrationDetails } from '@workspace/shared/interfaces';
-import { DynamicFormFacade } from '@workspace/frontend/data-access/dynamic-form';
-import { RouterFacade } from '@workspace/frontend/data-access/router';
+import { IRegistrationDetails } from '@ngw/shared/interfaces';
+import { DynamicFormFacade } from '@ngw/frontend/data-access/dynamic-form';
+import { RouterFacade } from '@ngw/frontend/data-access/router';
 import { AuthFacade } from '../../+state/auth.facade';
 import { REGISTER_STRUCTURE } from './register.structure';
 import { Observable } from 'rxjs';

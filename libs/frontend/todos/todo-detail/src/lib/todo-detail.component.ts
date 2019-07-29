@@ -10,8 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, combineLatest } from 'rxjs';
 import { map, filter, take } from 'rxjs/operators';
 import { UiTodoDetailComponent } from './ui/ui-todo-detail.component';
-import { ITodo } from '@workspace/shared/interfaces';
-import { TodosFacade } from '@workspace/frontend/todos/data-access';
+import { ITodo } from '@ngw/shared/interfaces';
+import { TodosFacade } from '@ngw/frontend/todos/data-access';
 
 @Component({
   selector: 'todo-detail',

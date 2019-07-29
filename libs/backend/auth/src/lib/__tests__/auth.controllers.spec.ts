@@ -1,9 +1,5 @@
-import {
-  IUser,
-  IUserModel,
-  IRefreshTokenModel
-} from '@workspace/shared/interfaces';
-import { AuthenticationRoles } from '@workspace/shared/enums';
+import { IUser, IUserModel, IRefreshTokenModel } from '@ngw/shared/interfaces';
+import { AuthenticationRoles } from '@ngw/shared/enums';
 import { newId } from '@app-testing/index';
 import {
   registerController,

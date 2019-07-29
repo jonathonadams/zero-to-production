@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { TodosEntityState, adapter } from './todos.reducer';
-import { ITodo } from '@workspace/shared/interfaces';
-import { TodoFilterStatus } from '@workspace/shared/enums';
+import { ITodo } from '@ngw/shared/interfaces';
+import { TodoFilterStatus } from '@ngw/shared/enums';
 
 // Select the top level 'todos' state.
 export const selectTodoState = createFeatureSelector<TodosEntityState>(

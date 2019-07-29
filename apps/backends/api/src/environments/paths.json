@@ -1,4 +1,4 @@
 {
-  "@workspace/shared": "../../libs/shared",
-  "@workspace/backend": "../../libs/backend"
+  "@ngw/shared": "../../libs/shared",
+  "@ngw/backend": "../../libs/backend"
 }

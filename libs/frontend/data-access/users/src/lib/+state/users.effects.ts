@@ -8,8 +8,8 @@ import {
   JWTAuthService,
   loginSuccess,
   logout
-} from '@workspace/frontend/data-access/auth';
-import { IJWTPayload } from '@workspace/shared/interfaces';
+} from '@ngw/frontend/data-access/auth';
+import { IJWTPayload } from '@ngw/shared/interfaces';
 
 @Injectable()
 export class UsersEffects {

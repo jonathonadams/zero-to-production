@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { SideNavService } from '@workspace/frontend/common/ui/side-nav';
+import { SideNavService } from '@ngw/frontend/common/ui/side-nav';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
-import { ToolbarService } from '@workspace/frontend/common/ui/toolbar';
+import { ToolbarService } from '@ngw/frontend/common/ui/toolbar';
 import { of } from 'rxjs';
-import { UserThemeService } from '@workspace/frontend/common/theme';
+import { UserThemeService } from '@ngw/frontend/common/theme';
 
 // TODO -> TESTS
 describe('TodoFeatureShellComponent', () => {

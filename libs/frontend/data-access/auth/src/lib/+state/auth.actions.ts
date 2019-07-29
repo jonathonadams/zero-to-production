@@ -4,7 +4,7 @@ import {
   ILoginResponse,
   IRegistrationDetails,
   IUser
-} from '@workspace/shared/interfaces';
+} from '@ngw/shared/interfaces';
 
 export const loginRedirect = createAction('[Auth] Login Redirect');
 

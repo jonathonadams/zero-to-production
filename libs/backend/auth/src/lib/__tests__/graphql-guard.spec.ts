@@ -1,7 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { newId } from '@app-testing/index';
-import { IUserDocument, IUserModel } from '@workspace/shared/interfaces';
-import { AuthenticationRoles } from '@workspace/shared/enums';
+import { IUserDocument, IUserModel } from '@ngw/shared/interfaces';
+import { AuthenticationRoles } from '@ngw/shared/enums';
 import {
   checkToken,
   checkUserIsActive,

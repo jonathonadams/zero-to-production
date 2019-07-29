@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import {
-  loginRedirect,
-  logoutRedirect
-} from '@workspace/frontend/data-access/auth';
-import { RouterFacade } from '@workspace/frontend/data-access/router';
+import { loginRedirect, logoutRedirect } from '@ngw/frontend/data-access/auth';
+import { RouterFacade } from '@ngw/frontend/data-access/router';
 import { tap } from 'rxjs/operators';
 
 @Injectable({

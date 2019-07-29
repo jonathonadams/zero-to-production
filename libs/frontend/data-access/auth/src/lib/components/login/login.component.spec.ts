@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { AuthFacade } from '@workspace/frontend/data-access/auth';
+import { AuthFacade } from '@ngw/frontend/data-access/auth';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DynamicFormFacade } from '@workspace/frontend/data-access/dynamic-form';
+import { DynamicFormFacade } from '@ngw/frontend/data-access/dynamic-form';
 
 // TODO  -> TESTS
 

@@ -3,8 +3,8 @@ import Router from 'koa-router';
 import { usersRouter } from './users';
 import { Todo } from './todos';
 import { verifyTokenRest } from '../auth/auth';
-import { ITodoDocument } from '@workspace/shared/interfaces';
-import { generateRestEndpoints } from '@workspace/backend/utils';
+import { ITodoDocument } from '@ngw/shared/interfaces';
+import { generateRestEndpoints } from '@ngw/backend/utils';
 import { usernameAvailable } from './users/user.controllers';
 
 export function applyRestEndpoints(app: Koa) {

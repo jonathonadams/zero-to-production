@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take, filter, tap } from 'rxjs/operators';
 import { Resolve } from '@angular/router';
-import { IUser } from '@workspace/shared/interfaces';
+import { IUser } from '@ngw/shared/interfaces';
 import { UsersFacade } from './+state/users.facade';
 
 @Injectable()

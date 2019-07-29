@@ -3,7 +3,7 @@ import {
   FormFieldTypes,
   TFormGroups,
   IFormGroup
-} from '@workspace/frontend/data-access/dynamic-form';
+} from '@ngw/frontend/data-access/dynamic-form';
 import { UsernameAvailableValidator } from '../../services/username-available.validator';
 
 const PASSWORD_GROUP: IFormGroup = {

@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import { unauthorized } from '@hapi/boom';
-import { IUserModel, IRefreshTokenModel } from '@workspace/shared/interfaces';
+import { IUserModel, IRefreshTokenModel } from '@ngw/shared/interfaces';
 import {
   loginController,
   registerController,

@@ -1,5 +1,5 @@
 import { sign } from 'jsonwebtoken';
-import { IUser } from '@workspace/shared/interfaces';
+import { IUser } from '@ngw/shared/interfaces';
 
 // A function that returns a singed JWT
 export function signAccessToken({

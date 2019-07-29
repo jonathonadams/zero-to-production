@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
   Input
 } from '@angular/core';
-import { IUser } from '@workspace/shared/interfaces';
+import { IUser } from '@ngw/shared/interfaces';
 
 /**
  * For the purpose of themeing, view encapsulation has been set to none.

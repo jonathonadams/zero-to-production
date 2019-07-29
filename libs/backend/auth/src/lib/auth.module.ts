@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import { IUserModel, IRefreshTokenModel } from '@workspace/shared/interfaces';
-import { AuthenticationRoles } from '@workspace/shared/enums';
+import { IUserModel, IRefreshTokenModel } from '@ngw/shared/interfaces';
+import { AuthenticationRoles } from '@ngw/shared/enums';
 import {
   login,
   register,

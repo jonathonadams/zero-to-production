@@ -4,7 +4,7 @@ import * as AuthActions from './auth.actions';
 import {
   ILoginCredentials,
   IRegistrationDetails
-} from '@workspace/shared/interfaces';
+} from '@ngw/shared/interfaces';
 import { Observable } from 'rxjs';
 import { AvailableStatus } from './auth.reducer';
 import { selectLoggedInStatus, selectAvailability } from './auth.selectors';
