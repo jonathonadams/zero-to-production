@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "nx lint && ng lint",
+    "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
     "e2e:chrome": "testcafe -c 3 chrome apps/frontends/todos/todos-e2e/",
     "snapshot:update": "jest --updateSnapshot --testPathPattern",
@@ -28,7 +28,8 @@
     "lint-staged": "lint-staged",
     "build:builders": "tsc -p tools/builders",
     "build:libs": "tsc -b tsconfig.libs.json",
-    "validate-packages": "node ./tools/scripts/validate-packages.js"
+    "validate-packages": "node ./tools/scripts/validate-packages.js",
+    "nx": "nx"
   },
   "husky": {
     "hooks": {
@@ -61,7 +62,7 @@
     "@ngrx/router-store": "^8.1.0",
     "@ngrx/store": "^8.1.0",
     "@ngrx/store-devtools": "^8.1.0",
-    "@nrwl/angular": "^8.2.0",
+    "@nrwl/angular": "^8.4.0",
     "apollo-angular": "^1.6.0",
     "apollo-angular-link-http": "^1.6.0",
     "apollo-cache-inmemory": "^1.3.2",
@@ -102,9 +103,9 @@
     "@angular/cli": "^8.1.1",
     "@angular/compiler-cli": "^8.1.1",
     "@angular/language-service": "^8.1.1",
-    "@nrwl/jest": "8.2.0",
-    "@nrwl/node": "8.2.0",
-    "@nrwl/workspace": "8.2.0",
+    "@nrwl/jest": "8.4.0",
+    "@nrwl/node": "8.4.0",
+    "@nrwl/workspace": "8.4.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/glob": "^7.1.1",
     "@types/graphql": "^14.2.0",
