@@ -23,8 +23,8 @@ export function createCardFlipAnimation({
   perspective = '80em'
 } = {}) {
   let enterFlip = 'rotateY(90deg)',
-    exitFlip = 'rotateY(-90deg)',
-    enterTE = `${timingEnter} ${easingEnter}`,
+    exitFlip = 'rotateY(-90deg)';
+  const enterTE = `${timingEnter} ${easingEnter}`,
     exitTE = `${timingExit} ${easingExit}`;
 
   if (flipLeft) {

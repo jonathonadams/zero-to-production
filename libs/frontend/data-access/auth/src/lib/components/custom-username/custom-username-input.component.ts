@@ -3,7 +3,8 @@ import {
   ChangeDetectionStrategy,
   Input,
   HostBinding,
-  ElementRef
+  ElementRef,
+  OnDestroy
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
@@ -24,7 +25,7 @@ import { TField } from '@ngw/frontend/data-access/dynamic-form';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CustomUsernameInputComponent {
+export class CustomUsernameInputComponent implements OnDestroy {
   usernameAvailability$: Observable<AvailableStatus | null>;
 
   @Input() group!: FormGroup;
@@ -76,7 +77,7 @@ export class CustomUsernameInputComponent {
   }
 
   onContainerClick(event: MouseEvent) {
-    if ((event.target as Element).tagName.toLowerCase() != 'input') {
+    if ((event.target as Element).tagName.toLowerCase() !== 'input') {
       (this.elRef.nativeElement.querySelector(
         'input'
       ) as HTMLInputElement).focus();
