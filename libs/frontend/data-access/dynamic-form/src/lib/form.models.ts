@@ -19,20 +19,21 @@ export interface IBaseField {
   appearance?: TFormFieldAppearance;
   color?: string;
   attrs?: any;
+  customComponent?: Type<any>;
 }
 
 export interface IInputField extends IBaseField {
-  component: FormFieldTypes.Input;
+  componentType: FormFieldTypes.Input;
   type: TInputType;
 }
 
 export interface ISelectField extends IBaseField {
-  component: FormFieldTypes.Select;
+  componentType: FormFieldTypes.Select;
   selectOptions: ISelectOption[];
 }
 
 export interface IToggleField extends IBaseField {
-  component: FormFieldTypes.Toggle;
+  componentType: FormFieldTypes.Toggle;
 }
 
 export interface ISelectOption {

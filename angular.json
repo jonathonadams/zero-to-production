@@ -1081,6 +1081,37 @@
           "styleext": "scss"
         }
       }
+    },
+    "frontend-utils-storage": {
+      "projectType": "library",
+      "root": "libs/frontend/utils/storage",
+      "sourceRoot": "libs/frontend/utils/storage/src",
+      "prefix": "ngw",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/utils/storage/tsconfig.lib.json",
+              "libs/frontend/utils/storage/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/frontend/utils/storage/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/utils/storage/jest.config.js",
+            "tsConfig": "libs/frontend/utils/storage/tsconfig.spec.json",
+            "setupFile": "libs/frontend/utils/storage/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

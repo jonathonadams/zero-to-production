@@ -14,7 +14,7 @@ const STRUCTURE: TFormGroups = [
     name: 'credentials',
     fields: [
       {
-        component: FormFieldTypes.Input,
+        componentType: FormFieldTypes.Input,
         type: 'text',
         name: 'username',
         label: 'Username',
@@ -22,7 +22,7 @@ const STRUCTURE: TFormGroups = [
         validators: [Validators.required]
       },
       {
-        component: FormFieldTypes.Input,
+        componentType: FormFieldTypes.Input,
         type: 'password',
         name: 'password',
         label: 'Password',

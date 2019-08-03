@@ -14,12 +14,10 @@ export class UsernameAvailableValidator implements AsyncValidator {
   constructor(private auth: AuthService, private facade: AuthFacade) {}
 
   validate(ctrl: AbstractControl): Observable<ValidationErrors | null> {
-    // Set to pending each request
-    this.facade.usernamePending();
-
     // Don't need to worry about using takeUntil(ctrl.valueChanges)
     // because the form unsubscribes when the ctrl value changes
     return timer(200).pipe(
+      tap(() => this.facade.usernamePending()),
       take(1),
       switchMap(() => this.auth.isUsernameAvailable(ctrl.value)),
       tap(({ isAvailable }) => {
@@ -28,7 +26,7 @@ export class UsernameAvailableValidator implements AsyncValidator {
           ? this.facade.usernameAvailable()
           : this.facade.usernameUnAvailable();
       }),
-      map(available => (available ? null : { notAvailable: true })),
+      map(({ isAvailable }) => (isAvailable ? null : { notAvailable: true })),
       catchError(() => of(null))
     );
   }

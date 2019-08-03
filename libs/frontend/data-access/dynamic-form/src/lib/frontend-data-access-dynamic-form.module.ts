@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DynamicFormComponent } from './form/form.component';
 import { InputComponent } from './fields/input/input.component';
 import { SelectComponent } from './fields/select/select.component';
-import { DynamicFieldDirective } from './fields/dynamic-field.directive';
+import { DynamicFormFieldDirective } from './fields/form-field.directive';
 import { DynamicFormFacade } from './+state/dynamic-form.facade';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
@@ -28,7 +28,7 @@ import { DynamicFormService } from './form.service';
   ],
   providers: [DynamicFormService, DynamicFormFacade],
   declarations: [
-    DynamicFieldDirective,
+    DynamicFormFieldDirective,
     InputComponent,
     SelectComponent,
     ToggleComponent,

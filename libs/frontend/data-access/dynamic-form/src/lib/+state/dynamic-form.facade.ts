@@ -32,12 +32,16 @@ export class DynamicFormFacade {
     this.store.dispatch(fromActions.setFormData(data));
   }
 
-  setErrors({ errors }: { errors: IFormErrors }) {
-    this.store.dispatch(fromActions.setFormErrors({ errors }));
-  }
-
   updateData(data: { data: any }) {
     this.store.dispatch(fromActions.updateFormData(data));
+  }
+
+  clearData() {
+    this.setData({ data: {} });
+  }
+
+  setErrors({ errors }: { errors: IFormErrors }) {
+    this.store.dispatch(fromActions.setFormErrors({ errors }));
   }
 
   initializeForm() {
@@ -48,6 +52,7 @@ export class DynamicFormFacade {
     this.store.dispatch(fromActions.clearFormErrors());
   }
 
+  // Sets touched -> false
   resetForm() {
     this.store.dispatch(fromActions.resetForm());
   }
@@ -71,6 +76,7 @@ export class DynamicFormFacade {
   setFormConfig(config: IDynamicFormConfig) {
     this.store.dispatch(fromActions.setFormConfig(config));
   }
+
   resetFormConfig() {
     this.store.dispatch(fromActions.resetFormConfig());
   }

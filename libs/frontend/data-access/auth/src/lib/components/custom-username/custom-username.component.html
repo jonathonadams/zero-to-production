@@ -1,0 +1,11 @@
+<mat-form-field
+  [appearance]="field?.appearance ? field.appearance : 'standard'"
+  [color]="field?.color"
+>
+  <mat-label>{{ field.label }}</mat-label>
+  <ngw-custom-username-input
+    [field]="field"
+    [group]="group"
+    required
+  ></ngw-custom-username-input>
+</mat-form-field>

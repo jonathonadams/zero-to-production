@@ -6,8 +6,25 @@
   (ngSubmit)="onSubmit(form)"
   [@.disabled]="!(config$ | async).animations"
 >
-  <div class="nav-buttons" *ngIf="(structure$ | async).length > 1">
+  <ng-container *ngFor="let group of structure; let idx = index">
+    <section
+      *ngIf="(formIdx$ | async) === idx"
+      [formGroupName]="group.name"
+      @centerExpand
+    >
+      <ng-container
+        *ngFor="let field of group.fields"
+        appDynamicFormField
+        [field]="field"
+        [group]="getFormGroup(group.name)"
+      >
+      </ng-container>
+    </section>
+  </ng-container>
+
+  <div class="action-buttons">
     <button
+      *ngIf="(structure$ | async).length > 1"
       type="button"
       class="nav-button"
       mat-icon-button
@@ -16,7 +33,14 @@
     >
       <mat-icon>navigate_before</mat-icon>
     </button>
+
+    <ng-content
+      class="select-button"
+      select='button[type="submit"]'
+    ></ng-content>
+
     <button
+      *ngIf="(structure$ | async).length > 1"
       type="button"
       class="nav-button"
       mat-icon-button
@@ -26,22 +50,4 @@
       <mat-icon>navigate_next</mat-icon>
     </button>
   </div>
-
-  <ng-container *ngFor="let group of structure; let idx = index">
-    <section
-      *ngIf="(formIdx$ | async) === idx"
-      [formGroupName]="group.name"
-      @centerExpand
-    >
-      <ng-container
-        *ngFor="let field of group.fields"
-        appDynamicField
-        [field]="field"
-        [group]="getFormGroup(group.name)"
-      >
-      </ng-container>
-    </section>
-  </ng-container>
-
-  <ng-content select='button[type="submit"]'></ng-content>
 </form>

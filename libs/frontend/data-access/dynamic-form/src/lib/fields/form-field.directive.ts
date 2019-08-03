@@ -5,26 +5,17 @@ import {
   Input,
   OnChanges,
   OnInit,
-  Type,
-  ViewContainerRef
+  ViewContainerRef,
+  ComponentFactory
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { InputComponent } from './input/input.component';
 import { TField } from '../form.models';
-import { FormFieldTypes } from '../form.models';
-import { SelectComponent } from './select/select.component';
-import { ToggleComponent } from './toggle/toggle.components';
-
-const componentsMapper: { [key: string]: Type<any> } = {
-  [FormFieldTypes.Input]: InputComponent,
-  [FormFieldTypes.Select]: SelectComponent,
-  [FormFieldTypes.Toggle]: ToggleComponent
-};
+import { componentMap } from './component-map';
 
 @Directive({
-  selector: '[appDynamicField]'
+  selector: '[appDynamicFormField]'
 })
-export class DynamicFieldDirective implements OnInit, OnChanges {
+export class DynamicFormFieldDirective implements OnInit, OnChanges {
   @Input() field!: TField;
   @Input() group!: FormGroup;
   component!: ComponentRef<any>;
@@ -35,9 +26,18 @@ export class DynamicFieldDirective implements OnInit, OnChanges {
   ) {}
 
   ngOnInit() {
-    const component = this.resolver.resolveComponentFactory<any>(
-      componentsMapper[this.field.component]
-    );
+    let component: ComponentFactory<any>;
+
+    if (this.field.customComponent) {
+      component = this.resolver.resolveComponentFactory<any>(
+        this.field.customComponent
+      );
+    } else {
+      component = this.resolver.resolveComponentFactory<any>(
+        componentMap[this.field.componentType]
+      );
+    }
+
     this.viewContainerRef.clear();
     this.component = this.viewContainerRef.createComponent(component);
 

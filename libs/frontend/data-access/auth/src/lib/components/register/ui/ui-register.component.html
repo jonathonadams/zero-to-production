@@ -1,18 +1,13 @@
-<!-- <div class="register-page-content"> -->
 <div class="register-page-input mat-elevation-z3">
-  <pre>{{ available | json }}</pre>
+  <h3>Register an account</h3>
   <app-form-errors></app-form-errors>
   <app-dynamic-form
     class="register-page-form"
     (formSubmit)="registerSubmit.emit($event)"
   >
-    <button mat-raised-button type="submit">
+    <button class="register-button" mat-raised-button type="submit">
       Register
     </button>
   </app-dynamic-form>
-
-  <button (click)="cancel.emit()" mat-raised-button type="button">
-    Cancel
-  </button>
+  <a (click)="cancel.emit()">Go Back</a>
 </div>
-<!-- </div> -->

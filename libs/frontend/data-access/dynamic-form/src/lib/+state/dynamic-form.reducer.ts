@@ -70,7 +70,7 @@ export const formReducer = createReducer(
   on(FormActions.setFormConfig, (state, config) => {
     return { ...state, config };
   }),
-  on(FormActions.resetForm, state => {
+  on(FormActions.resetFormConfig, state => {
     return { ...state, config: initialFormConfig };
   }),
   on(FormActions.enableAnimations, state => {

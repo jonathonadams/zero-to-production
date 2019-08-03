@@ -21,13 +21,20 @@ import { StoreModule } from '@ngrx/store';
 import { reducer, AuthState, initialState } from './+state/auth.reducer';
 import { AuthComponent } from './components/auth.component';
 import { RouterModule } from '@angular/router';
+import { FrontendUtilsStorageModule } from '@ngw/frontend/utils/storage';
+import { CommonNotificationModule } from '@ngw/frontend/utils/notifications';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CustomUsernameComponent } from './components/custom-username/custom-username.components';
+import { CustomUsernameInputComponent } from './components/custom-username/custom-username-input.component';
 
 const COMPONENTS = [
   AuthComponent,
   LoginComponent,
   UiLoginComponent,
   RegisterComponent,
-  UiRegisterComponent
+  UiRegisterComponent,
+  CustomUsernameComponent,
+  CustomUsernameInputComponent
 ];
 
 @NgModule({
@@ -35,12 +42,16 @@ const COMPONENTS = [
   imports: [
     CommonModule,
     RouterModule,
-    CustomMaterialModule,
+    CustomMaterialModule, //
+    CommonNotificationModule, // TODO -> maybe move these to their own auth ui module?
+    ReactiveFormsModule, //
+    FrontendUtilsStorageModule,
     DataAccessDynamicFormModule,
     StoreModule.forFeature<AuthState>('authState', reducer, { initialState }),
     EffectsModule.forFeature([AuthEffects])
   ],
-  exports: [...COMPONENTS]
+  exports: [...COMPONENTS],
+  entryComponents: [CustomUsernameComponent]
 })
 export class RootDataAccessAuthModule {}
 

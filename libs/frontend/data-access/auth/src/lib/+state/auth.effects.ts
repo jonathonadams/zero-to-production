@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { exhaustMap, map, tap, catchError } from 'rxjs/operators';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
+import { NotificationService } from '@ngw/frontend/utils/notifications';
 import * as AuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
 import { JWTAuthService } from '../services/jwt-auth.service';
 import { IUser, ILoginResponse } from '@ngw/shared/interfaces';
+import { DynamicFormFacade } from '@ngw/frontend/data-access/dynamic-form';
 
 @Injectable()
 export class AuthEffects {
@@ -41,7 +43,21 @@ export class AuthEffects {
   loginSuccess$ = this.actions$.pipe(
     ofType(AuthActions.loginSuccess),
     tap(({ token }) => this.jwtService.setAuthorizationToken(token)),
+    tap(() => this.formFacade.clearData()),
     map(action => AuthActions.loginRedirect())
+  );
+
+  loginFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.loginFailure),
+        tap(() =>
+          this.ns.emit('Provided credentials are incorrect. Please Try Again')
+        )
+      ),
+    {
+      dispatch: false
+    }
   );
 
   @Effect()
@@ -70,7 +86,9 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   registerSuccess$ = this.actions$.pipe(
     ofType(AuthActions.registerSuccess),
-    tap(success => console.log(success))
+    tap(() => this.formFacade.clearData()),
+    tap(() => this.ns.emit('Registration Successful. Please log in.')),
+    map(() => AuthActions.logoutRedirect())
   );
 
   @Effect()
@@ -83,6 +101,8 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private jwtService: JWTAuthService
+    private jwtService: JWTAuthService,
+    private formFacade: DynamicFormFacade,
+    private ns: NotificationService
   ) {}
 }

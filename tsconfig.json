@@ -89,6 +89,9 @@
       "@ngw/backend/utils": ["libs/backend/utils/src/index.ts"],
       "@ngw/frontend/common/animations": [
         "libs/frontend/common/animations/src/index.ts"
+      ],
+      "@ngw/frontend/utils/storage": [
+        "libs/frontend/utils/storage/src/index.ts"
       ]
     }
   },

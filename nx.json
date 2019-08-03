@@ -103,6 +103,9 @@
     },
     "frontend-common-animations": {
       "tags": []
+    },
+    "frontend-utils-storage": {
+      "tags": []
     }
   }
 }

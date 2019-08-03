@@ -5,12 +5,13 @@ import {
   IFormGroup
 } from '@ngw/frontend/data-access/dynamic-form';
 import { UsernameAvailableValidator } from '../../services/username-available.validator';
+import { CustomUsernameComponent } from '../custom-username/custom-username.components';
 
 const PASSWORD_GROUP: IFormGroup = {
   name: 'password',
   fields: [
     {
-      component: FormFieldTypes.Input,
+      componentType: FormFieldTypes.Input,
       type: 'password',
       name: 'password',
       label: 'Select Password',
@@ -18,7 +19,7 @@ const PASSWORD_GROUP: IFormGroup = {
       validators: [Validators.required]
     },
     {
-      component: FormFieldTypes.Input,
+      componentType: FormFieldTypes.Input,
       type: 'password',
       name: 'passwordCheck',
       label: 'Verify Password',
@@ -32,14 +33,14 @@ export const THEME_GROUP: IFormGroup = {
   name: 'themeSettings',
   fields: [
     {
-      component: FormFieldTypes.Toggle,
+      componentType: FormFieldTypes.Toggle,
       name: 'darkMode',
       label: 'Dark Mode',
       initialValue: false,
       validators: [Validators.required]
     },
     {
-      component: FormFieldTypes.Input,
+      componentType: FormFieldTypes.Input,
       type: 'color',
       name: 'lightPrimary',
       label: 'Light Mode - Primary Colour',
@@ -47,7 +48,7 @@ export const THEME_GROUP: IFormGroup = {
       validators: [Validators.required]
     },
     {
-      component: FormFieldTypes.Input,
+      componentType: FormFieldTypes.Input,
       type: 'color',
       name: 'lightAccent',
       label: 'Light Mode - Accent Colour',
@@ -55,7 +56,7 @@ export const THEME_GROUP: IFormGroup = {
       validators: [Validators.required]
     },
     {
-      component: FormFieldTypes.Input,
+      componentType: FormFieldTypes.Input,
       type: 'color',
       name: 'darkPrimary',
       label: 'Dark Mode - Primary Colour',
@@ -63,7 +64,7 @@ export const THEME_GROUP: IFormGroup = {
       validators: [Validators.required]
     },
     {
-      component: FormFieldTypes.Input,
+      componentType: FormFieldTypes.Input,
       type: 'color',
       name: 'darkAccent',
       label: 'Dark Mode - Primary Colour',
@@ -77,16 +78,17 @@ export const DETAILS_GROUP: IFormGroup = {
   name: 'details',
   fields: [
     {
-      component: FormFieldTypes.Input,
+      componentType: FormFieldTypes.Input,
       type: 'text',
       name: 'username',
       label: 'Username',
       autocomplete: 'username',
       validators: [Validators.required],
-      asyncValidators: [UsernameAvailableValidator]
+      asyncValidators: [UsernameAvailableValidator],
+      customComponent: CustomUsernameComponent
     },
     {
-      component: FormFieldTypes.Input,
+      componentType: FormFieldTypes.Input,
       type: 'text',
       name: 'givenName',
       label: 'Given Name',
@@ -94,7 +96,7 @@ export const DETAILS_GROUP: IFormGroup = {
       validators: [Validators.required]
     },
     {
-      component: FormFieldTypes.Input,
+      componentType: FormFieldTypes.Input,
       type: 'text',
       name: 'surname',
       label: 'Surname',
@@ -102,7 +104,7 @@ export const DETAILS_GROUP: IFormGroup = {
       validators: [Validators.required]
     },
     {
-      component: FormFieldTypes.Input,
+      componentType: FormFieldTypes.Input,
       type: 'email',
       name: 'email',
       label: 'Email',
@@ -110,7 +112,7 @@ export const DETAILS_GROUP: IFormGroup = {
       validators: [Validators.required]
     },
     {
-      component: FormFieldTypes.Input,
+      componentType: FormFieldTypes.Input,
       type: 'date',
       name: 'dateOfBirth',
       label: 'Date Of Birth',

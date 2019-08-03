@@ -4,8 +4,7 @@ import {
   ChangeDetectionStrategy,
   Output,
   EventEmitter,
-  OnDestroy,
-  ChangeDetectorRef
+  OnDestroy
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
@@ -15,7 +14,7 @@ import {
   debounceTime,
   takeUntil,
   filter,
-  take
+  switchMap
 } from 'rxjs/operators';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { TFormGroups } from '../form.models';
@@ -44,8 +43,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: DynamicFormService,
-    private facade: DynamicFormFacade,
-    private cd: ChangeDetectorRef
+    private facade: DynamicFormFacade
   ) {
     this.config$ = this.facade.config$;
     this.formIdx$ = this.facade.idx$;
@@ -61,21 +59,23 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
       .pipe(
         map(str => this.service.formBuilder(str)),
         tap(form => (this.form = form)),
-        takeUntil(this.unsubscribe$)
-      )
-      .subscribe(form => this.listenFormChanges(form));
-
-    this.data$
-      .pipe(
-        filter(() => !!this.form),
-        take(1)
+        tap(form => this.listenFormChanges(form)),
+        switchMap(() => this.data$),
+        takeUntil(this.unsubscribe$) // TODO -> subscription
       )
       .subscribe(data => this.patchValue(data));
+
+    // this.data$
+    //   .pipe(
+    //     filter(() => !!this.form),
+    //     take(1)
+    //   )
+    //   .subscribe(data => this.patchValue(data));
 
     this.touched$
       .pipe(
         filter(t => !t && !!this.form),
-        takeUntil(this.unsubscribe$)
+        takeUntil(this.unsubscribe$) // TODO -> subscription
       )
       .subscribe(_ => (this.form as FormGroup).reset());
   }
@@ -111,12 +111,10 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   nextSection() {
     this.facade.nextSection();
-    this.cd.detectChanges();
   }
 
   backASection() {
     this.facade.backASection();
-    this.cd.detectChanges();
   }
 
   ngOnDestroy() {

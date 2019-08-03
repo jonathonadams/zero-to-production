@@ -14,13 +14,6 @@
   height: 100%;
 }
 
-// .register-page-content {
-//   height: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-
 .register-page-input {
   padding: 1em;
   width: 20em;
@@ -29,6 +22,10 @@
   .register-page-form {
     display: flex;
     flex-direction: column;
+
+    .register-button {
+      width: 40%;
+      margin: auto;
+    }
   }
 }
-// }
