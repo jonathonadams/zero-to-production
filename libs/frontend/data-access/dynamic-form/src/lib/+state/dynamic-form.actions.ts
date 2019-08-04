@@ -52,3 +52,5 @@ export const enableAnimations = createAction(
 export const disableAnimations = createAction(
   '[Dynamic Form] Disable Animations'
 );
+
+export const submitForm = createAction('[Dynamic Form] Submit');

@@ -9,7 +9,7 @@ import { DynamicFormFacade } from '@ngw/frontend/data-access/dynamic-form';
 import { RouterFacade } from '@ngw/frontend/data-access/router';
 import { AuthFacade } from '../../+state/auth.facade';
 import { REGISTER_STRUCTURE } from './register.structure';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AvailableStatus } from '../../+state/auth.reducer';
 
 interface IRegistrationFormStructure {
@@ -41,6 +41,7 @@ interface IRegistrationFormStructure {
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   availability$: Observable<AvailableStatus | null>;
+  private subscription: Subscription;
 
   constructor(
     private formFacade: DynamicFormFacade,
@@ -48,6 +49,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private router: RouterFacade
   ) {
     this.availability$ = this.facade.usernameAvailability$;
+
+    this.subscription = this.formFacade.submit$.subscribe(
+      (details: IRegistrationFormStructure) => {
+        this.register(details);
+      }
+    );
   }
 
   ngOnInit() {
@@ -56,7 +63,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.formFacade.setStructure({ structure: REGISTER_STRUCTURE });
   }
 
-  onSubmit(details: IRegistrationFormStructure): void {
+  register(details: IRegistrationFormStructure): void {
     // pop the darkMode off from the collection
     const { darkMode, ...colors } = details.themeSettings;
 
@@ -69,7 +76,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       password: details.password.password
     };
 
-    console.log(settings);
     this.facade.register(settings);
   }
 
@@ -79,6 +85,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.subscription.unsubscribe();
     this.facade.clearAvailable();
   }
 }

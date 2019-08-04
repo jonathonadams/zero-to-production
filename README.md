@@ -23,7 +23,7 @@
 
 ### Web App
 
-- [ ] Finish registration
+- [ ] Finish user registration. NOTE -> For the demo, allow not unique emails
 - [ ] Write tests for dynamic form
 - [ ] Complete Unit tests
 - [ ] Complete e2e tests
@@ -73,6 +73,10 @@ https://github.com/angular/angular/issues/30235
 Once merged, remove references from the tsconfig.lib.json's
 
 https://github.com/Microsoft/TypeScript/issues/27098
+
+### Nativescript does not currently support the monorepo design
+
+https://github.com/NativeScript/NativeScript/issues/7537
 
 ## TestCafe E2E Builder
 

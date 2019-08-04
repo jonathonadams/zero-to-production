@@ -19,6 +19,5 @@ import {
   encapsulation: ViewEncapsulation.None
 })
 export class UiLoginComponent {
-  @Output() public loginSubmit = new EventEmitter();
   @Output() public registerUser = new EventEmitter();
 }

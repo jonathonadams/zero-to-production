@@ -36,7 +36,7 @@ export const THEME_GROUP: IFormGroup = {
       componentType: FormFieldTypes.Toggle,
       name: 'darkMode',
       label: 'Dark Mode',
-      initialValue: false,
+      initialValue: true,
       validators: [Validators.required]
     },
     {

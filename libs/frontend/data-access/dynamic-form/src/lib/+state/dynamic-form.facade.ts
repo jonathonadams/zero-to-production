@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable, from } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import * as fromActions from './dynamic-form.actions';
 import * as fromSelectors from './dynamic-form.selectors';
 import { IFormErrors, TFormGroups } from '../form.models';
@@ -13,7 +13,7 @@ export class DynamicFormFacade {
   data$: Observable<any>;
   structure$: Observable<TFormGroups>;
   errors$: Observable<IFormErrors>;
-  touched$: Observable<boolean>;
+  submit$: Subject<any> = new Subject();
 
   constructor(private store: Store<any>) {
     this.config$ = this.store.pipe(select(fromSelectors.selectFormConfig));
@@ -21,7 +21,6 @@ export class DynamicFormFacade {
     this.data$ = this.store.pipe(select(fromSelectors.selectData));
     this.structure$ = this.store.pipe(select(fromSelectors.selectStructure));
     this.errors$ = this.store.pipe(select(fromSelectors.selectErrors));
-    this.touched$ = this.store.pipe(select(fromSelectors.selectTouchedForm));
   }
 
   setStructure(data: { structure: TFormGroups }) {
@@ -36,7 +35,7 @@ export class DynamicFormFacade {
     this.store.dispatch(fromActions.updateFormData(data));
   }
 
-  clearData() {
+  clearData(): void {
     this.setData({ data: {} });
   }
 
@@ -87,5 +86,17 @@ export class DynamicFormFacade {
 
   disableAnimations() {
     this.store.dispatch(fromActions.disableAnimations());
+  }
+
+  submit() {
+    this.store.dispatch(fromActions.submitForm());
+  }
+
+  formSubmits(data: any): void {
+    this.submit$.next(data);
+  }
+
+  onDestroy() {
+    this.submit$.complete();
   }
 }

@@ -7,7 +7,7 @@ import {
   OnDestroy
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import {
   map,
   tap,
@@ -30,16 +30,16 @@ import { DynamicFormService } from '../form.service';
   animations: [expandFromCenter]
 })
 export class DynamicFormComponent implements OnInit, OnDestroy {
-  private unsubscribe$ = new Subject<void>();
+  private subscription: Subscription | undefined;
+  public form: FormGroup | undefined;
 
   config$: Observable<IDynamicFormConfig>;
   formIdx$: Observable<number>;
   structure$: Observable<TFormGroups>;
   data$: Observable<any>;
-  touched$: Observable<boolean>;
-  form!: FormGroup;
 
-  @Output() formSubmit = new EventEmitter<any>();
+  // The
+  // @Output() formSubmit = new EventEmitter<any>();
 
   constructor(
     private service: DynamicFormService,
@@ -49,54 +49,38 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     this.formIdx$ = this.facade.idx$;
     this.structure$ = this.facade.structure$;
     this.data$ = this.facade.data$;
-    this.touched$ = this.facade.touched$;
   }
 
   ngOnInit() {
     this.facade.resetIndex();
 
-    this.structure$
+    this.subscription = this.structure$
       .pipe(
+        // Build the form
         map(str => this.service.formBuilder(str)),
+        // Set the internal form property with the new form
         tap(form => (this.form = form)),
-        tap(form => this.listenFormChanges(form)),
-        switchMap(() => this.data$),
-        takeUntil(this.unsubscribe$) // TODO -> subscription
+        // Update the store with default values
+        tap(form => this.facade.updateData({ data: form.value })),
+        // Switch to the observable of the change in form values
+        switchMap(form =>
+          form.valueChanges.pipe(
+            // Wait 200ms before updating the store
+            debounceTime(200)
+          )
+        )
       )
-      .subscribe(data => this.patchValue(data));
-
-    // this.data$
-    //   .pipe(
-    //     filter(() => !!this.form),
-    //     take(1)
-    //   )
-    //   .subscribe(data => this.patchValue(data));
-
-    this.touched$
-      .pipe(
-        filter(t => !t && !!this.form),
-        takeUntil(this.unsubscribe$) // TODO -> subscription
-      )
-      .subscribe(_ => (this.form as FormGroup).reset());
-  }
-
-  private patchValue(data: any = {}) {
-    this.form.patchValue(data, { emitEvent: false });
-  }
-
-  private listenFormChanges(form: FormGroup) {
-    form.valueChanges
-      .pipe(
-        debounceTime(100),
-        takeUntil(this.unsubscribe$)
-      )
-      .subscribe((data: any) => this.facade.updateData({ data }));
+      .subscribe(data => {
+        // Update the store
+        this.facade.updateData({ data });
+      });
   }
 
   onSubmit(form: FormGroup) {
     const { valid, value } = form;
     if (valid) {
-      this.formSubmit.emit(value);
+      this.facade.submit();
+      // this.formSubmit.emit(value);
       this.facade.clearErrors();
     } else {
       // collect all form errors
@@ -118,7 +102,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
+    (this.subscription as Subscription).unsubscribe();
   }
 }

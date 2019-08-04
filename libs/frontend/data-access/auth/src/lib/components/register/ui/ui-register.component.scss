@@ -18,6 +18,7 @@
   padding: 1em;
   width: 20em;
   border-radius: 0.5em;
+  text-align: center;
 
   .register-page-form {
     display: flex;
@@ -26,6 +27,19 @@
     .register-button {
       width: 40%;
       margin: auto;
+    }
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 0.5em;
+    text-decoration: underline;
+    color: #3665f3;
+    cursor: pointer;
+
+    &:visited {
+      color: #6a29b9;
+      text-decoration: none;
     }
   }
 }

@@ -44,7 +44,7 @@ export class AuthEffects {
     ofType(AuthActions.loginSuccess),
     tap(({ token }) => this.jwtService.setAuthorizationToken(token)),
     tap(() => this.formFacade.clearData()),
-    map(action => AuthActions.loginRedirect())
+    map(() => AuthActions.loginRedirect())
   );
 
   loginFailure$ = createEffect(
@@ -83,7 +83,7 @@ export class AuthEffects {
     )
   );
 
-  @Effect({ dispatch: false })
+  @Effect()
   registerSuccess$ = this.actions$.pipe(
     ofType(AuthActions.registerSuccess),
     tap(() => this.formFacade.clearData()),

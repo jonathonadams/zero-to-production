@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
 import { ILoginCredentials } from '@ngw/shared/interfaces';
 import { Validators } from '@angular/forms';
 import {
@@ -8,6 +13,7 @@ import {
 } from '@ngw/frontend/data-access/dynamic-form';
 import { RouterFacade } from '@ngw/frontend/data-access/router';
 import { AuthFacade } from '../../+state/auth.facade';
+import { Subscription } from 'apollo-client/util/Observable';
 
 const STRUCTURE: TFormGroups = [
   {
@@ -39,12 +45,19 @@ const STRUCTURE: TFormGroups = [
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+  private subscription: Subscription;
   constructor(
     private formFacade: DynamicFormFacade,
     private facade: AuthFacade,
     private router: RouterFacade
-  ) {}
+  ) {
+    this.subscription = this.formFacade.submit$.subscribe(
+      ({ credentials }: { credentials: ILoginCredentials }) => {
+        this.facade.login(credentials);
+      }
+    );
+  }
 
   ngOnInit() {
     // We do not want form group animations for the login page.
@@ -52,11 +65,11 @@ export class LoginComponent implements OnInit {
     this.formFacade.setStructure({ structure: STRUCTURE });
   }
 
-  onSubmit({ credentials }: { credentials: ILoginCredentials }): void {
-    this.facade.login(credentials);
-  }
-
   registerUser() {
     this.router.go({ path: ['register'] });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

@@ -18,6 +18,7 @@
   padding: 1em;
   width: 20em;
   border-radius: 0.5em;
+  text-align: center;
 
   .login-page-form {
     display: flex;
@@ -25,6 +26,19 @@
 
     button {
       width: 100%;
+    }
+  }
+
+  .register-link {
+    display: inline-block;
+    margin-top: 0.5em;
+    text-decoration: underline;
+    color: #3665f3;
+    cursor: pointer;
+
+    &:visited {
+      color: #6a29b9;
+      text-decoration: none;
     }
   }
 }

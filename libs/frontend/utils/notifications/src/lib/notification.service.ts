@@ -12,8 +12,11 @@ export class NotificationService {
     this.config.horizontalPosition = 'center';
   }
 
-  emit(notification: string, duration?: number) {
-    const temp = { ...this.config, duration };
-    this.snackBar.open(notification, 'Dismiss', temp);
+  emit(message: string, duration?: number) {
+    const tempConfig = { ...this.config };
+    if (duration) {
+      tempConfig.duration = duration;
+    }
+    this.snackBar.open(message, 'Dismiss', tempConfig);
   }
 }

@@ -31,6 +31,7 @@ const config: GlobalConfig = {
    * Global database options for sequelize
    */
   databaseOptions: {
+    autoIndex: false,
     useNewUrlParser: true,
     promiseLibrary: Promise
   }

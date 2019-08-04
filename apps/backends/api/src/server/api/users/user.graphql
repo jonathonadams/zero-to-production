@@ -47,7 +47,7 @@ input UpdatedUserInput {
   givenName: String
   surname: String
   username: String
-  emailAddress: String
+  email: String
   dateOfBirth: Date
   settings: UserSettingsInput
 }

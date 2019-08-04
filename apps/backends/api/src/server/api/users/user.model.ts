@@ -8,7 +8,7 @@ export const userSchema = new mongoose.Schema<IUser>(
     username: {
       type: String,
       required: true,
-      index: true
+      text: true
     },
     givenName: {
       type: String,

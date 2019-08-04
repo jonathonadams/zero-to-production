@@ -10,6 +10,7 @@ const devConfig: EnvironnementConfig = {
   logging: 'dev',
   docs: true,
   databaseOptions: {
+    autoIndex: true,
     loggerLevel: 'warn'
   },
   expireTime: Number(process.env.JWT_EXPIRE_TIME) || 86400,
