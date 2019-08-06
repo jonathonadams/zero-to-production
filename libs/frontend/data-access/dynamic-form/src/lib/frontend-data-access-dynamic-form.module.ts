@@ -15,6 +15,7 @@ import { FormErrorsComponent } from './form-errors/form-errors.component';
 import { FormErrorPipe } from './form-errors/form-error.pipe';
 import { ToggleComponent } from './fields/toggle/toggle.components';
 import { DynamicFormService } from './form.service';
+import { FormErrorsDirective } from './form-errors/form-errors.directive';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { DynamicFormService } from './form.service';
   providers: [DynamicFormService, DynamicFormFacade],
   declarations: [
     DynamicFormFieldDirective,
+    FormErrorsDirective,
     InputComponent,
     SelectComponent,
     ToggleComponent,
@@ -37,7 +39,12 @@ import { DynamicFormService } from './form.service';
     FormErrorsComponent,
     FormErrorPipe
   ],
-  entryComponents: [InputComponent, SelectComponent, ToggleComponent],
+  entryComponents: [
+    FormErrorsComponent,
+    InputComponent,
+    SelectComponent,
+    ToggleComponent
+  ],
   exports: [DynamicFormComponent, FormErrorsComponent]
 })
 export class DataAccessDynamicFormModule {}

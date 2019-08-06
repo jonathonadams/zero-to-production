@@ -14,19 +14,18 @@ export const selectData = createSelector(
   selectDynamicFormState,
   (state: DynamicFormState) => state.data
 );
-export const isValid = createSelector(
-  selectDynamicFormState,
-  (state: DynamicFormState) => state.valid
-);
+
 export const selectErrors = createSelector(
   selectDynamicFormState,
   (state: DynamicFormState) => state.errors
 );
-export const selectTouchedForm = createSelector(
+
+export const selectFormValidators = createSelector(
   selectDynamicFormState,
-  (state: DynamicFormState) => state.touched
+  state => state.formValidators
 );
-export const selectFormIdx = createSelector(
+
+export const selectFormIndex = createSelector(
   selectDynamicFormState,
   state => state.index
 );

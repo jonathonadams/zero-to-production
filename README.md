@@ -23,8 +23,19 @@
 
 ### Web App
 
+#### App
+
 - [ ] Finish user registration. NOTE -> For the demo, allow not unique emails
+
+#### Dynamic Form
+
+- [ ] Dynamic Form to accept validators
+- [ ] Dynamic Form global errors (with animations)
+- [ ] Make the form errors pipe accept form level errors.
 - [ ] Write tests for dynamic form
+
+#### Tests
+
 - [ ] Complete Unit tests
 - [ ] Complete e2e tests
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { GraphQLService, ApiService } from '@ngw/frontend/data-access/api';
 import {
   ILoginCredentials,
@@ -7,10 +7,7 @@ import {
   IRegistrationDetails,
   IUser
 } from '@ngw/shared/interfaces';
-import { isPasswordAllowed } from '@ngw/shared/utils/auth';
 import { JWTAuthService } from './jwt-auth.service';
-import { Observable } from 'rxjs';
-import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
@@ -52,7 +49,6 @@ export class AuthService {
         }
       }
     `;
-    const variables = { input: details };
     return this.graphQL.mutation<{ register: IUser }>(query, {
       input: details
     });
@@ -64,13 +60,5 @@ export class AuthService {
     return this.api.get<{ isAvailable: boolean }>(`users/available`, {
       username
     });
-  }
-
-  // A wrapper around the is password allowed method to create a form validator
-  passwordValidator() {
-    return (control: AbstractControl) => {
-      const allowed = isPasswordAllowed(control.value);
-      return allowed ? null : { forbiddenName: { value: control.value } };
-    };
   }
 }

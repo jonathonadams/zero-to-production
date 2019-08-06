@@ -6,17 +6,28 @@ import {
 } from '@ngw/frontend/data-access/dynamic-form';
 import { UsernameAvailableValidator } from '../../services/username-available.validator';
 import { CustomUsernameComponent } from '../custom-username/custom-username.components';
+import { passwordValidator } from '../../services/auth.validators';
 
 const PASSWORD_GROUP: IFormGroup = {
   name: 'password',
   fields: [
     {
       componentType: FormFieldTypes.Input,
+      type: 'text',
+      name: 'username',
+      label: 'Username',
+      autocomplete: 'username',
+      validators: [Validators.required],
+      asyncValidators: [UsernameAvailableValidator],
+      customComponent: CustomUsernameComponent
+    },
+    {
+      componentType: FormFieldTypes.Input,
       type: 'password',
       name: 'password',
       label: 'Select Password',
       autocomplete: 'new-password',
-      validators: [Validators.required]
+      validators: [Validators.required, passwordValidator]
     },
     {
       componentType: FormFieldTypes.Input,
@@ -77,16 +88,6 @@ export const THEME_GROUP: IFormGroup = {
 export const DETAILS_GROUP: IFormGroup = {
   name: 'details',
   fields: [
-    {
-      componentType: FormFieldTypes.Input,
-      type: 'text',
-      name: 'username',
-      label: 'Username',
-      autocomplete: 'username',
-      validators: [Validators.required],
-      asyncValidators: [UsernameAvailableValidator],
-      customComponent: CustomUsernameComponent
-    },
     {
       componentType: FormFieldTypes.Input,
       type: 'text',

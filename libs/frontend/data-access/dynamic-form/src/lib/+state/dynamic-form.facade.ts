@@ -5,6 +5,7 @@ import * as fromActions from './dynamic-form.actions';
 import * as fromSelectors from './dynamic-form.selectors';
 import { IFormErrors, TFormGroups } from '../form.models';
 import { IDynamicFormConfig } from './dynamic-form.reducer';
+import { ValidatorFn } from '@angular/forms';
 
 @Injectable()
 export class DynamicFormFacade {
@@ -12,14 +13,18 @@ export class DynamicFormFacade {
   idx$: Observable<number>;
   data$: Observable<any>;
   structure$: Observable<TFormGroups>;
-  errors$: Observable<IFormErrors>;
+  errors$: Observable<IFormErrors | null>;
+  validators$: Observable<ValidatorFn[]>;
   submit$: Subject<any> = new Subject();
 
   constructor(private store: Store<any>) {
     this.config$ = this.store.pipe(select(fromSelectors.selectFormConfig));
-    this.idx$ = this.store.pipe(select(fromSelectors.selectFormIdx));
+    this.idx$ = this.store.pipe(select(fromSelectors.selectFormIndex));
     this.data$ = this.store.pipe(select(fromSelectors.selectData));
     this.structure$ = this.store.pipe(select(fromSelectors.selectStructure));
+    this.validators$ = this.store.pipe(
+      select(fromSelectors.selectFormValidators)
+    );
     this.errors$ = this.store.pipe(select(fromSelectors.selectErrors));
   }
 
@@ -43,49 +48,44 @@ export class DynamicFormFacade {
     this.store.dispatch(fromActions.setFormErrors({ errors }));
   }
 
-  initializeForm() {
-    this.store.dispatch(fromActions.initializeForm());
+  resetForm() {
+    this.store.dispatch(fromActions.resetForm());
   }
 
   clearErrors() {
     this.store.dispatch(fromActions.clearFormErrors());
   }
 
-  // Sets touched -> false
-  resetForm() {
-    this.store.dispatch(fromActions.resetForm());
+  setFormValidators(validators: ValidatorFn[]) {
+    this.store.dispatch(fromActions.setFormValidators({ validators }));
+  }
+
+  resetFormValidators() {
+    this.store.dispatch(fromActions.resetFormValidators());
   }
 
   nextSection() {
-    this.store.dispatch(fromActions.nextIdx());
+    this.store.dispatch(fromActions.nextIndex());
   }
 
   backASection() {
-    this.store.dispatch(fromActions.backIdx());
+    this.store.dispatch(fromActions.backIndex());
   }
 
-  goToSection(section: number) {
-    this.store.dispatch(fromActions.gotToIdx({ idx: section }));
+  goToSection(index: number) {
+    this.store.dispatch(fromActions.gotToIndex({ index }));
   }
 
   resetIndex() {
-    this.store.dispatch(fromActions.resetIdx());
+    this.store.dispatch(fromActions.resetIndex());
   }
 
   setFormConfig(config: IDynamicFormConfig) {
-    this.store.dispatch(fromActions.setFormConfig(config));
+    this.store.dispatch(fromActions.setFormConfig({ config }));
   }
 
   resetFormConfig() {
     this.store.dispatch(fromActions.resetFormConfig());
-  }
-
-  enableAnimations() {
-    this.store.dispatch(fromActions.enableAnimations());
-  }
-
-  disableAnimations() {
-    this.store.dispatch(fromActions.disableAnimations());
   }
 
   submit() {

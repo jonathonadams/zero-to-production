@@ -14,7 +14,7 @@ import {
  * ease-in easing as the card entering use ease-out. This is because you want the
  * perception that at the midway point is at its fastest.
  */
-export function createCardFlipAnimation({
+export function routerCardFlipAnimation({
   flipLeft = false,
   timingEnter = '0.2s',
   easingEnter = 'ease-out',

@@ -2,22 +2,19 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Output,
-  EventEmitter,
   OnDestroy
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   map,
   tap,
   debounceTime,
-  takeUntil,
-  filter,
-  switchMap
+  switchMap,
+  withLatestFrom
 } from 'rxjs/operators';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
-import { TFormGroups } from '../form.models';
+import { TFormGroups, IFormErrors } from '../form.models';
 import { expandFromCenter } from '@ngw/frontend/common/animations';
 import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
 import { DynamicFormService } from '../form.service';
@@ -37,9 +34,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   formIdx$: Observable<number>;
   structure$: Observable<TFormGroups>;
   data$: Observable<any>;
-
-  // The
-  // @Output() formSubmit = new EventEmitter<any>();
+  errors$: Observable<IFormErrors | null>;
 
   constructor(
     private service: DynamicFormService,
@@ -49,6 +44,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     this.formIdx$ = this.facade.idx$;
     this.structure$ = this.facade.structure$;
     this.data$ = this.facade.data$;
+    this.errors$ = this.facade.errors$;
   }
 
   ngOnInit() {
@@ -58,6 +54,10 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
       .pipe(
         // Build the form
         map(str => this.service.formBuilder(str)),
+        // Add the form validators
+        withLatestFrom(this.facade.validators$),
+        tap(([form, validators]) => form.setValidators(validators)),
+        map(([form, validators]) => form),
         // Set the internal form property with the new form
         tap(form => (this.form = form)),
         // Update the store with default values
@@ -74,10 +74,12 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
         // Update the store
         this.facade.updateData({ data });
       });
+
+    (this.form as FormGroup).setValidators;
   }
 
   onSubmit(form: FormGroup) {
-    const { valid, value } = form;
+    const { valid } = form;
     if (valid) {
       this.facade.submit();
       // this.formSubmit.emit(value);

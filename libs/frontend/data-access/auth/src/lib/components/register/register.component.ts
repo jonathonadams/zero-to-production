@@ -11,10 +11,10 @@ import { AuthFacade } from '../../+state/auth.facade';
 import { REGISTER_STRUCTURE } from './register.structure';
 import { Observable, Subscription } from 'rxjs';
 import { AvailableStatus } from '../../+state/auth.reducer';
+import { passwordMatchValidator } from '../../services/auth.validators';
 
 interface IRegistrationFormStructure {
   details: {
-    username: string;
     givenName: string;
     surname: string;
     email: string;
@@ -28,6 +28,7 @@ interface IRegistrationFormStructure {
     darkAccent: string;
   };
   password: {
+    username: string;
     password: string;
     passwordCheck: string;
   };
@@ -44,8 +45,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   constructor(
-    private formFacade: DynamicFormFacade,
     private facade: AuthFacade,
+    private formFacade: DynamicFormFacade,
     private router: RouterFacade
   ) {
     this.availability$ = this.facade.usernameAvailability$;
@@ -58,8 +59,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    const passwordCheck = passwordMatchValidator(
+      'password',
+      'password',
+      'passwordCheck'
+    );
     // we do want animations for the register form
-    this.formFacade.enableAnimations();
+    this.formFacade.setFormConfig({ animations: true });
+    this.formFacade.setFormValidators([passwordCheck]);
     this.formFacade.setStructure({ structure: REGISTER_STRUCTURE });
   }
 
@@ -68,6 +75,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     const { darkMode, ...colors } = details.themeSettings;
 
     const settings: IRegistrationDetails = {
+      username: details.password.username,
       ...details.details,
       settings: {
         darkMode,
@@ -87,5 +95,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.facade.clearAvailable();
+    this.formFacade.resetFormValidators();
   }
 }

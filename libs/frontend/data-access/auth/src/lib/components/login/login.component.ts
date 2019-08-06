@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // We do not want form group animations for the login page.
-    this.formFacade.disableAnimations();
+    this.formFacade.setFormConfig({ animations: false });
     this.formFacade.setStructure({ structure: STRUCTURE });
   }
 

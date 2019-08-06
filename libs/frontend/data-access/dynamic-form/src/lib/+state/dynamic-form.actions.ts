@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { IFormErrors, TFormGroups } from '../form.models';
 import { IDynamicFormConfig } from './dynamic-form.reducer';
+import { ValidatorFn } from '@angular/forms';
 
 export const setFormData = createAction(
   '[Dynamic Form] Set Data',
@@ -22,35 +23,35 @@ export const setFormErrors = createAction(
   props<{ errors: IFormErrors }>()
 );
 
-export const gotToIdx = createAction(
+export const gotToIndex = createAction(
   '[Dynamic Form] Go To',
-  props<{ idx: number }>()
+  props<{ index: number }>()
 );
 
-export const nextIdx = createAction('[Dynamic Form] Next');
+export const nextIndex = createAction('[Dynamic Form] Next');
 
-export const backIdx = createAction('[Dynamic Form] Back');
+export const backIndex = createAction('[Dynamic Form] Back');
 
-export const resetIdx = createAction('[Dynamic Form] Reset');
+export const resetIndex = createAction('[Dynamic Form] Reset');
 
 export const clearFormErrors = createAction('[Dynamic Form] Clear Errors');
-
-export const initializeForm = createAction('[Dynamic Form] Initialize ');
 
 export const resetForm = createAction('[Dynamic Form] Reset ');
 
 export const setFormConfig = createAction(
   '[Dynamic Form] Set Config',
-  props<IDynamicFormConfig>()
+  props<{ config: IDynamicFormConfig }>()
 );
 
 export const resetFormConfig = createAction('[Dynamic Form] Reset Config');
 
-export const enableAnimations = createAction(
-  '[Dynamic Form] Enable Animations'
-);
-export const disableAnimations = createAction(
-  '[Dynamic Form] Disable Animations'
+export const submitForm = createAction('[Dynamic Form] Submit');
+
+export const setFormValidators = createAction(
+  '[Dynamic Form] Set Validators',
+  props<{ validators: ValidatorFn[] }>()
 );
 
-export const submitForm = createAction('[Dynamic Form] Submit');
+export const resetFormValidators = createAction(
+  '[Dynamic Form] Reset Validators'
+);

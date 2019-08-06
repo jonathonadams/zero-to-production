@@ -1,8 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DynamicFormFacade } from '../+state/dynamic-form.facade';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
+import { IFormErrors } from '../form.models';
 
 @Component({
   selector: 'app-form-errors',
@@ -11,16 +9,12 @@ import { ValidationErrors } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormErrorsComponent {
-  errors$: Observable<{ [key: string]: ValidationErrors }[]>;
+  errorObject: { [key: string]: ValidationErrors }[] | undefined;
 
-  constructor(private facade: DynamicFormFacade) {
-    // The form errors is an object, map to an array of key:value objects
-    this.errors$ = this.facade.errors$.pipe(
-      map(errors =>
-        Object.keys(errors).map(key => {
-          return { [key]: errors[key] };
-        })
-      )
-    );
+  @Input()
+  set errors(errors: IFormErrors) {
+    this.errorObject = Object.keys(errors).map(key => {
+      return { [key]: errors[key] };
+    });
   }
 }

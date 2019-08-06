@@ -1,20 +1,20 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as FormActions from './dynamic-form.actions';
 import { IFormErrors, TFormGroups } from '../form.models';
+import { ValidatorFn } from '@angular/forms';
 
 export interface DynamicFormState {
   config: IDynamicFormConfig;
   index: number;
   data: any;
   structure: TFormGroups;
-  valid: boolean;
-  errors: IFormErrors;
-  touched: boolean;
+  formValidators: ValidatorFn[];
+  errors: IFormErrors | null;
 }
 
 export interface IDynamicFormConfig {
-  animations: boolean;
-  paginateSections: boolean;
+  animations?: boolean;
+  paginateSections?: boolean;
 }
 
 export const initialFormConfig: IDynamicFormConfig = {
@@ -27,9 +27,8 @@ export const initialFormState: DynamicFormState = {
   index: 0,
   data: {},
   structure: [],
-  valid: true,
-  errors: {},
-  touched: false
+  formValidators: [],
+  errors: null
 };
 
 export const formReducer = createReducer(
@@ -47,37 +46,35 @@ export const formReducer = createReducer(
     return { ...state, errors };
   }),
   on(FormActions.clearFormErrors, state => {
-    return { ...state, errors: {} };
-  }),
-  on(FormActions.initializeForm, state => {
-    return initialFormState;
+    return { ...state, errors: null };
   }),
   on(FormActions.resetForm, state => {
-    return { ...state, touched: true };
+    return initialFormState;
   }),
-  on(FormActions.resetIdx, state => {
+  on(FormActions.resetFormValidators, state => {
+    return { ...state, formValidators: [] };
+  }),
+  on(FormActions.setFormValidators, (state, { validators }) => {
+    return { ...state, formValidators: validators };
+  }),
+  on(FormActions.resetIndex, state => {
     return { ...state, index: 0 };
   }),
-  on(FormActions.gotToIdx, (state, { idx }) => {
-    return { ...state, index: idx };
+  on(FormActions.gotToIndex, (state, { index }) => {
+    return { ...state, index };
   }),
-  on(FormActions.nextIdx, state => {
+  // TODO -> Make sure the index's can not go out of range
+  on(FormActions.nextIndex, state => {
     return { ...state, index: state.index + 1 };
   }),
-  on(FormActions.backIdx, state => {
+  on(FormActions.backIndex, state => {
     return { ...state, index: state.index - 1 };
   }),
-  on(FormActions.setFormConfig, (state, config) => {
-    return { ...state, config };
+  on(FormActions.setFormConfig, (state, { config }) => {
+    return { ...state, config: { ...state.config, ...config } };
   }),
   on(FormActions.resetFormConfig, state => {
     return { ...state, config: initialFormConfig };
-  }),
-  on(FormActions.enableAnimations, state => {
-    return { ...state, config: { ...state.config, animations: true } };
-  }),
-  on(FormActions.disableAnimations, state => {
-    return { ...state, config: { ...state.config, animations: false } };
   })
 );
 

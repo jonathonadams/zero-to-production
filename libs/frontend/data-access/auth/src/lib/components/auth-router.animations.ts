@@ -1,13 +1,13 @@
 import { trigger, transition, useAnimation } from '@angular/animations';
-import { createCardFlipAnimation } from '@ngw/frontend/common/animations';
+import { routerCardFlipAnimation } from '@ngw/frontend/common/animations';
 
 export const authRouterAnimations = trigger('authRouterAnimations', [
   transition(
     'LoginPage => RegisterPage',
-    useAnimation(createCardFlipAnimation())
+    useAnimation(routerCardFlipAnimation())
   ),
   transition(
     'RegisterPage => LoginPage',
-    useAnimation(createCardFlipAnimation({ flipLeft: true }))
+    useAnimation(routerCardFlipAnimation({ flipLeft: true }))
   )
 ]);
