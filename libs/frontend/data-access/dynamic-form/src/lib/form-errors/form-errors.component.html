@@ -1,5 +1,7 @@
-<ul class="error-messages">
-  <li *ngFor="let error of errorObject">
-    {{ error | formError }}
-  </li>
-</ul>
+<div (click)="dismiss()" class="overlay">
+  <ngw-ui-form-errors
+    class="errors"
+    @formErrorsAnimations
+    [errors]="errorObject"
+  ></ngw-ui-form-errors>
+</div>

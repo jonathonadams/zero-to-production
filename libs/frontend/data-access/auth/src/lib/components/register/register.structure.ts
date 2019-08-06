@@ -4,9 +4,9 @@ import {
   TFormGroups,
   IFormGroup
 } from '@ngw/frontend/data-access/dynamic-form';
-import { UsernameAvailableValidator } from '../../services/username-available.validator';
+import { UsernameAvailableValidator } from '../../validators/username-available.validator';
 import { CustomUsernameComponent } from '../custom-username/custom-username.components';
-import { passwordValidator } from '../../services/auth.validators';
+import { passwordValidator } from '../../validators/auth.validators';
 
 const PASSWORD_GROUP: IFormGroup = {
   name: 'password',

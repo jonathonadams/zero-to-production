@@ -6,7 +6,7 @@ import {
 } from '@angular/forms';
 import { Observable, of, timer } from 'rxjs';
 import { map, catchError, tap, switchMap, take } from 'rxjs/operators';
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service';
 import { AuthFacade } from '../+state/auth.facade';
 
 @Injectable()

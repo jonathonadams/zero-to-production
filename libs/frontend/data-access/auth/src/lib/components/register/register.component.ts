@@ -11,7 +11,7 @@ import { AuthFacade } from '../../+state/auth.facade';
 import { REGISTER_STRUCTURE } from './register.structure';
 import { Observable, Subscription } from 'rxjs';
 import { AvailableStatus } from '../../+state/auth.reducer';
-import { passwordMatchValidator } from '../../services/auth.validators';
+import { passwordMatchValidator } from '../../validators/auth.validators';
 
 interface IRegistrationFormStructure {
   details: {

@@ -16,6 +16,7 @@ import { FormErrorPipe } from './form-errors/form-error.pipe';
 import { ToggleComponent } from './fields/toggle/toggle.components';
 import { DynamicFormService } from './form.service';
 import { FormErrorsDirective } from './form-errors/form-errors.directive';
+import { UiFormErrorsComponent } from './form-errors/ui/ui-form-errors.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { FormErrorsDirective } from './form-errors/form-errors.directive';
     DynamicFormComponent,
     FormErrorsComponent,
     FormErrorsComponent,
-    FormErrorPipe
+    FormErrorPipe,
+    UiFormErrorsComponent
   ],
   entryComponents: [
     FormErrorsComponent,

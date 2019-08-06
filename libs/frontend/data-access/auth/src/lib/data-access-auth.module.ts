@@ -16,7 +16,7 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { JWTAuthService } from './services/jwt-auth.service';
 import { RegisterComponent } from './components/register/register.component';
 import { UiRegisterComponent } from './components/register/ui/ui-register.component';
-import { UsernameAvailableValidator } from './services/username-available.validator';
+import { UsernameAvailableValidator } from './validators/username-available.validator';
 import { StoreModule } from '@ngrx/store';
 import { reducer, AuthState, initialState } from './+state/auth.reducer';
 import { AuthComponent } from './components/auth.component';

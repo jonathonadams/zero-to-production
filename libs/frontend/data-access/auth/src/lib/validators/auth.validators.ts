@@ -9,7 +9,7 @@ import { isPasswordAllowed } from '@ngw/shared/utils/auth';
 // A wrapper around the isPasswordAllowed method to create a form validator
 export function passwordValidator(control: AbstractControl) {
   const allowed = isPasswordAllowed(control.value);
-  return allowed ? null : { notAllowed: true };
+  return allowed ? null : { doesNotMeetRequirements: true };
 }
 
 // A form level validator to confirm the two form fields for creating a new password match
