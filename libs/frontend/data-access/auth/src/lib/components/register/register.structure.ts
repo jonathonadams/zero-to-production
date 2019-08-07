@@ -47,7 +47,7 @@ export const THEME_GROUP: IFormGroup = {
       componentType: FormFieldTypes.Toggle,
       name: 'darkMode',
       label: 'Dark Mode',
-      initialValue: true,
+      initialValue: false,
       validators: [Validators.required]
     },
     {
@@ -55,7 +55,7 @@ export const THEME_GROUP: IFormGroup = {
       type: 'color',
       name: 'lightPrimary',
       label: 'Light Mode - Primary Colour',
-      initialValue: '#000',
+      initialValue: '#ff5722',
       validators: [Validators.required]
     },
     {
@@ -63,7 +63,7 @@ export const THEME_GROUP: IFormGroup = {
       type: 'color',
       name: 'lightAccent',
       label: 'Light Mode - Accent Colour',
-      initialValue: '#000',
+      initialValue: '#009688',
       validators: [Validators.required]
     },
     {
@@ -71,7 +71,7 @@ export const THEME_GROUP: IFormGroup = {
       type: 'color',
       name: 'darkPrimary',
       label: 'Dark Mode - Primary Colour',
-      initialValue: '#000',
+      initialValue: '#d53ccf',
       validators: [Validators.required]
     },
     {
@@ -79,7 +79,7 @@ export const THEME_GROUP: IFormGroup = {
       type: 'color',
       name: 'darkAccent',
       label: 'Dark Mode - Primary Colour',
-      initialValue: '#000',
+      initialValue: '#6059bd',
       validators: [Validators.required]
     }
   ]

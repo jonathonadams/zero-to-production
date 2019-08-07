@@ -1,8 +1,8 @@
-<div class="login-page mat-elevation-z3">
+<div class="login-page-input mat-elevation-z3">
   <app-dynamic-form class="login-page-form">
     <button mat-raised-button color="accent" type="submit">
       Login
     </button>
   </app-dynamic-form>
-  <a class="register-link" (click)="registerUser.emit()">Register Account</a>
+  <a routerLink="/register">Register Account</a>
 </div>

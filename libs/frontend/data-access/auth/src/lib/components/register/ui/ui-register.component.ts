@@ -1,8 +1,6 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  Output,
-  EventEmitter,
   ViewEncapsulation,
   Input
 } from '@angular/core';
@@ -17,5 +15,4 @@ import { AvailableStatus } from '../../../+state/auth.reducer';
 })
 export class UiRegisterComponent {
   @Input() available!: AvailableStatus | null;
-  @Output() cancel = new EventEmitter();
 }

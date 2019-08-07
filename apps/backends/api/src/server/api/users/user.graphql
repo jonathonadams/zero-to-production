@@ -28,7 +28,7 @@ type User {
   surname: String!
   username: String!
   email: String!
-  dateOfBirth: Date!
+  dateOfBirth: String!
   settings: UserSettings
 }
 
@@ -37,7 +37,7 @@ input NewUserInput {
   surname: String!
   username: String!
   email: String!
-  dateOfBirth: Date!
+  dateOfBirth: String!
   password: String!
   settings: UserSettingsInput
 }
@@ -48,7 +48,7 @@ input UpdatedUserInput {
   surname: String
   username: String
   email: String
-  dateOfBirth: Date
+  dateOfBirth: String
   settings: UserSettingsInput
 }
 

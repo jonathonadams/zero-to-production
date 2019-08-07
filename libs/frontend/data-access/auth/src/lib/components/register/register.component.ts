@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { IRegistrationDetails } from '@ngw/shared/interfaces';
 import { DynamicFormFacade } from '@ngw/frontend/data-access/dynamic-form';
-import { RouterFacade } from '@ngw/frontend/data-access/router';
 import { AuthFacade } from '../../+state/auth.facade';
 import { REGISTER_STRUCTURE } from './register.structure';
 import { Observable, Subscription } from 'rxjs';
@@ -46,8 +45,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   constructor(
     private facade: AuthFacade,
-    private formFacade: DynamicFormFacade,
-    private router: RouterFacade
+    private formFacade: DynamicFormFacade
   ) {
     this.availability$ = this.facade.usernameAvailability$;
 
@@ -85,11 +83,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     };
 
     this.facade.register(settings);
-  }
-
-  cancel() {
-    this.formFacade.setData({ data: {} });
-    this.router.go({ path: ['login'] });
   }
 
   ngOnDestroy() {

@@ -1,9 +1,20 @@
+@import 'libs/frontend/common/theme/styles/theme.scss';
+@import 'auth.theme';
+
+// Light theme
+@include auth-theme($app-theme);
+
+// Dark theme
+.dark-theme {
+  @include auth-theme($dark-theme);
+}
+
 :host {
   display: block;
   height: 100%;
 }
 
-.auth-page-content {
+.page-content {
   overflow-x: hidden;
   height: 100%;
   display: flex;
@@ -11,7 +22,7 @@
   align-items: center;
   justify-content: center;
 
-  .auth-page-input {
+  .page-input {
     border-radius: 0.5em;
   }
 }

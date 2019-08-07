@@ -2,7 +2,8 @@ import {
   Component,
   ChangeDetectionStrategy,
   OnInit,
-  OnDestroy
+  OnDestroy,
+  ViewEncapsulation
 } from '@angular/core';
 import { ILoginCredentials } from '@ngw/shared/interfaces';
 import { Validators } from '@angular/forms';
@@ -11,9 +12,8 @@ import {
   FormFieldTypes,
   TFormGroups
 } from '@ngw/frontend/data-access/dynamic-form';
-import { RouterFacade } from '@ngw/frontend/data-access/router';
 import { AuthFacade } from '../../+state/auth.facade';
-import { Subscription } from 'apollo-client/util/Observable';
+import { Subscription } from 'rxjs';
 
 const STRUCTURE: TFormGroups = [
   {
@@ -43,14 +43,14 @@ const STRUCTURE: TFormGroups = [
   selector: 'ngw-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  // encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   constructor(
     private formFacade: DynamicFormFacade,
-    private facade: AuthFacade,
-    private router: RouterFacade
+    private facade: AuthFacade
   ) {
     this.subscription = this.formFacade.submit$.subscribe(
       ({ credentials }: { credentials: ILoginCredentials }) => {
@@ -64,11 +64,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.formFacade.setFormConfig({ animations: false });
     this.formFacade.setStructure({ structure: STRUCTURE });
   }
-
-  registerUser() {
-    this.router.go({ path: ['register'] });
-  }
-
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
