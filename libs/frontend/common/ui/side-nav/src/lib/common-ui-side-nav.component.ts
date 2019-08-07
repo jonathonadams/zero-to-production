@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  ChangeDetectionStrategy,
-  ElementRef,
-  ViewChild
-} from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ISideNaveLink } from '@ngw/shared/interfaces';
 import { SideNavService } from './common-ui-side-nav.service';
@@ -21,14 +15,8 @@ import { slideInAnimation } from '@ngw/frontend/common/animations';
 })
 export class CommonUiSideNavComponent {
   @Input() navLinks: ISideNaveLink[] | undefined;
-  private lastScrollPosition = 0;
-  private lastScrollDown = false;
 
   public opened$: Observable<boolean>;
-
-  @ViewChild('appContent', { static: true }) private content!: ElementRef<
-    HTMLElement
-  >;
 
   constructor(private sideNavService: SideNavService) {
     this.opened$ = sideNavService.opened$;
@@ -36,21 +24,6 @@ export class CommonUiSideNavComponent {
 
   setValue(value: boolean) {
     this.sideNavService.openedValue = value;
-  }
-
-  scroll() {
-    if (this.content.nativeElement.scrollTop > this.lastScrollPosition) {
-      if (!this.lastScrollDown) {
-        this.lastScrollDown = true;
-        this.sideNavService.lastScrollDown = true;
-      }
-    } else {
-      if (this.lastScrollDown) {
-        this.lastScrollDown = false;
-        this.sideNavService.lastScrollDown = false;
-      }
-    }
-    this.lastScrollPosition = this.content.nativeElement.scrollTop;
   }
 
   prepareRoute(outlet: RouterOutlet) {

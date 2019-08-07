@@ -12,10 +12,10 @@ import { Observable } from 'rxjs';
   animations: [authRouterAnimations]
 })
 export class AuthComponent {
-  // public darkTheme$: Observable<boolean>;
-  // constructor(private theme: ThemeService) {
-  //   this.darkTheme$ = this.theme.darkTheme$;
-  // }
+  public darkTheme$: Observable<boolean>;
+  constructor(private theme: ThemeService) {
+    this.darkTheme$ = this.theme.darkTheme$;
+  }
 
   prepareRoute(outlet: RouterOutlet) {
     return (

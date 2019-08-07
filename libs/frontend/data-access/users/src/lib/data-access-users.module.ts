@@ -4,7 +4,7 @@ import { reducer } from './+state/users.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UsersEffects } from './+state/users.effects';
 import { UsersFacade } from './+state/users.facade';
-import { UsersService } from './users.service';
+import { UsersService } from './services/users.service';
 import { AuthUsersResolver } from './auth-user.resolver';
 
 @NgModule({

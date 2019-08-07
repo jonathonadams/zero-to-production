@@ -25,7 +25,7 @@
 
 #### App
 
-- [ ] Finish user registration. NOTE -> For the demo, allow not unique emails
+- [x] Finish user registration. NOTE -> For the demo, allow not unique emails
 
 #### Dynamic Form
 

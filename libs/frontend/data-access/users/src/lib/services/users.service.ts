@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ApiService } from '@ngw/frontend/data-access/api';
 import { IUser } from '@ngw/shared/interfaces';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UsersService {
   private resourceUrl = 'users';
 

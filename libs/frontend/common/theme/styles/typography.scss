@@ -1,0 +1,14 @@
+@import '~@angular/material/theming';
+
+// @font-face {
+//   font-family: 'Lato';
+//   src: url('/assets/fonts/Lato-Regular.ttf') format('truetype');
+//   font-weight: 400;
+//   font-style: normal;
+// }
+
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+$app-typography: mat-typography-config(
+  $font-family: 'Lato'
+);

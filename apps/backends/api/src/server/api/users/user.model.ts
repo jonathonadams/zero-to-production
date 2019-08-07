@@ -8,7 +8,8 @@ export const userSchema = new mongoose.Schema<IUser>(
     username: {
       type: String,
       required: true,
-      text: true
+      text: true,
+      unique: true
     },
     givenName: {
       type: String,
@@ -21,7 +22,7 @@ export const userSchema = new mongoose.Schema<IUser>(
     email: {
       type: String,
       required: true,
-      unique: true
+      unique: false // TODO -> Change this in the real world.
     },
     dateOfBirth: {
       type: String,

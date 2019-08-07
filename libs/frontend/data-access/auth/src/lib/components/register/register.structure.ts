@@ -40,6 +40,7 @@ const PASSWORD_GROUP: IFormGroup = {
   ]
 };
 
+// TODO -> Tie in the user registration settings to the theme service.
 export const THEME_GROUP: IFormGroup = {
   name: 'themeSettings',
   fields: [

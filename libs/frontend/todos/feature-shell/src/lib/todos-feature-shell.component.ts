@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SideNavService } from '@ngw/frontend/common/ui/side-nav';
 import { ISideNaveLink } from '@ngw/shared/interfaces';
 import { ToolbarService } from '@ngw/frontend/common/ui/toolbar';
-import { UserThemeService } from '@ngw/frontend/common/theme';
+import { UserThemeService } from '@ngw/frontend/data-access/users';
 
 @Component({
   selector: 'todo-feature-shell',

@@ -1,9 +1,5 @@
 <mat-sidenav-container hasBackdrop="true">
-  <mat-sidenav
-    [opened]="opened$ | async"
-    (openedChange)="setValue($event)"
-    class="mat-elevation-z6"
-  >
+  <mat-sidenav [opened]="opened$ | async" (openedChange)="setValue($event)">
     <mat-nav-list>
       <mat-list-item
         *ngFor="let link of navLinks"
@@ -19,12 +15,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div
-      (scroll)="scroll()"
-      #appContent
-      class="app-content"
-      [@routeAnimations]="prepareRoute(sideNav)"
-    >
+    <div class="app-content" [@routeAnimations]="prepareRoute(sideNav)">
       <router-outlet #sideNav="outlet"></router-outlet>
     </div>
   </mat-sidenav-content>

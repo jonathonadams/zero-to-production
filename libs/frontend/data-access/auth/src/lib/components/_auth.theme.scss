@@ -3,7 +3,7 @@
 @mixin auth-theme($theme) {
   $background: map-get($theme, background);
 
-  .page-content {
+  & {
     background-color: mat-color($background, background);
   }
 }

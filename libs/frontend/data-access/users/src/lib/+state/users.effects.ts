@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 import { catchError, map, switchMap, mergeMap } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as UserActions from './users.actions';
-import { UsersService } from '../users.service';
+import { UsersService } from '../services/users.service';
 import {
   JWTAuthService,
   loginSuccess,

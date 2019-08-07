@@ -1,14 +1,6 @@
 @import 'libs/frontend/common/theme/styles/theme.scss';
 @import 'auth.theme';
 
-// Light theme
-@include auth-theme($app-theme);
-
-// Dark theme
-.dark-theme {
-  @include auth-theme($dark-theme);
-}
-
 :host {
   display: block;
   height: 100%;
@@ -21,6 +13,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  // Light theme
+  @include auth-theme($app-theme);
+
+  // Dark theme
+  &.dark-theme {
+    @include auth-theme($dark-theme);
+  }
 
   .page-input {
     border-radius: 0.5em;
