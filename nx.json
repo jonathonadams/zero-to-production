@@ -1,5 +1,5 @@
 {
-  "npmScope": "workspace",
+  "npmScope": "ngw",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
