@@ -1,7 +1,12 @@
 import { ValidatorFn, ValidationErrors, AsyncValidator } from '@angular/forms';
 import { Type } from '@angular/core';
 
-export type TField = IInputField | ISelectField | IToggleField;
+export type TField =
+  | IInputField
+  | ISelectField
+  | IToggleField
+  | IDatePickerField;
+
 export type TFormGroups = IFormGroup[];
 
 export interface IFormGroup {
@@ -34,6 +39,10 @@ export interface ISelectField extends IBaseField {
 
 export interface IToggleField extends IBaseField {
   componentType: FormFieldTypes.Toggle;
+}
+
+export interface IDatePickerField extends IBaseField {
+  componentType: FormFieldTypes.DatePicker;
 }
 
 export interface ISelectOption {
@@ -83,5 +92,6 @@ export interface IFormErrors {
 export enum FormFieldTypes {
   Input = 'INPUT',
   Select = 'SELECT',
-  Toggle = 'TOGGLE'
+  Toggle = 'TOGGLE',
+  DatePicker = 'DATE_PICKER'
 }

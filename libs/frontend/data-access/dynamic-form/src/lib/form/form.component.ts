@@ -57,11 +57,11 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
         // Add the form validators
         withLatestFrom(this.facade.validators$),
         tap(([form, validators]) => form.setValidators(validators)),
-        map(([form, validators]) => form),
+        map(([form]) => form),
         // Set the internal form property with the new form
         tap(form => (this.form = form)),
         // Update the store with default values
-        tap(form => this.facade.updateData({ data: form.value })),
+        tap(({ value: data }) => this.facade.updateData({ data })),
         // Switch to the observable of the change in form values
         switchMap(form =>
           form.valueChanges.pipe(

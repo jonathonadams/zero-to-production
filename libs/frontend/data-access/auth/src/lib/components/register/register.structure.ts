@@ -110,11 +110,10 @@ export const DETAILS_GROUP: IFormGroup = {
       name: 'email',
       label: 'Email',
       autocomplete: 'email',
-      validators: [Validators.required]
+      validators: [Validators.required, Validators.email]
     },
     {
-      componentType: FormFieldTypes.Input,
-      type: 'date',
+      componentType: FormFieldTypes.DatePicker,
       name: 'dateOfBirth',
       label: 'Date Of Birth',
       autocomplete: 'bday',

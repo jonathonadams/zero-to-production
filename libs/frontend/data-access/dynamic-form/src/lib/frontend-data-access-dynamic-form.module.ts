@@ -17,6 +17,23 @@ import { ToggleComponent } from './fields/toggle/toggle.components';
 import { DynamicFormService } from './form.service';
 import { FormErrorsDirective } from './form-errors/form-errors.directive';
 import { UiFormErrorsComponent } from './form-errors/ui/ui-form-errors.component';
+import { DatePickerComponent } from './fields/date-picker/date-picker.component';
+
+const ENTRY_COMPONENTS = [
+  InputComponent,
+  SelectComponent,
+  ToggleComponent,
+  DatePickerComponent
+];
+
+const COMPONENTS = [
+  ...ENTRY_COMPONENTS,
+  DynamicFormComponent,
+  FormErrorsComponent,
+  FormErrorsComponent,
+  FormErrorPipe,
+  UiFormErrorsComponent
+];
 
 @NgModule({
   imports: [
@@ -29,24 +46,8 @@ import { UiFormErrorsComponent } from './form-errors/ui/ui-form-errors.component
     EffectsModule.forFeature([DynamicFormsEffects])
   ],
   providers: [DynamicFormService, DynamicFormFacade],
-  declarations: [
-    DynamicFormFieldDirective,
-    FormErrorsDirective,
-    InputComponent,
-    SelectComponent,
-    ToggleComponent,
-    DynamicFormComponent,
-    FormErrorsComponent,
-    FormErrorsComponent,
-    FormErrorPipe,
-    UiFormErrorsComponent
-  ],
-  entryComponents: [
-    FormErrorsComponent,
-    InputComponent,
-    SelectComponent,
-    ToggleComponent
-  ],
+  declarations: [DynamicFormFieldDirective, FormErrorsDirective, COMPONENTS],
+  entryComponents: [FormErrorsComponent, ...ENTRY_COMPONENTS],
   exports: [DynamicFormComponent, FormErrorsComponent]
 })
 export class DataAccessDynamicFormModule {}

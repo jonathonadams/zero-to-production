@@ -15,6 +15,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -34,6 +36,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatMenuModule,
     MatSlideToggleModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     LayoutModule
   ],
   declarations: [],
@@ -54,6 +58,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatMenuModule,
     MatSlideToggleModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     LayoutModule
   ]
 })

@@ -43,12 +43,9 @@ export class DynamicFormService {
       });
     }
 
-    // const initialValue =
-    //   field.initialValue !== undefined ? field.initialValue : '';
     const validators = Validators.compose(
       field.validators ? field.validators : []
     );
-    // console.log(initialValue);
 
     return this.fb.control(field.initialValue, validators, asyncValidators);
   }

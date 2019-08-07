@@ -29,9 +29,9 @@
 
 #### Dynamic Form
 
-- [ ] Dynamic Form to accept validators
-- [ ] Dynamic Form global errors (with animations)
-- [ ] Make the form errors pipe accept form level errors.
+- [x] Dynamic Form to accept validators
+- [x] Dynamic Form global errors (with animations)
+- [x] Make the form errors pipe accept form level errors.
 - [ ] Write tests for dynamic form
 
 #### Tests

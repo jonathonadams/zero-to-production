@@ -1,0 +1,16 @@
+<mat-form-field
+  class="form-field"
+  [formGroup]="group"
+  [appearance]="field?.appearance ? field.appearance : 'standard'"
+  [color]="field?.color"
+>
+  <mat-label>{{ field.label }}</mat-label>
+  <input
+    matInput
+    [matDatepicker]="datePicker"
+    [autocomplete]="field?.autocomplete ? field.autocomplete : 'off'"
+    [formControlName]="field?.name"
+  />
+  <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+  <mat-datepicker #datePicker></mat-datepicker>
+</mat-form-field>
