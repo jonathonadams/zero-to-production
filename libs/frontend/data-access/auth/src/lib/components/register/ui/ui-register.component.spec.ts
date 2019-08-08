@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiRegisterComponent } from './ui-register.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+
+// TODO - TESTS
 
 describe('UiRegisterComponent', () => {
   let component: UiRegisterComponent;
@@ -8,14 +11,14 @@ describe('UiRegisterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [UiRegisterComponent]
+      declarations: [UiRegisterComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UiRegisterComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

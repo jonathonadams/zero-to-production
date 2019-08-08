@@ -54,6 +54,7 @@ export class AuthService {
     });
   }
 
+  // TODO -> Graphql?
   public isUsernameAvailable(
     username: string
   ): Observable<{ isAvailable: boolean }> {

@@ -1,57 +1,59 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Actions } from '@ngrx/effects';
-import { provideMockActions } from '@ngrx/effects/testing';
+import { GraphQLError } from 'graphql';
 import { cold, hot, Scheduler } from 'jest-marbles';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { DynamicFormFacade } from '@ngw/frontend/data-access/dynamic-form';
+import { NotificationService } from '@ngw/frontend/utils/notifications';
+import { AuthenticationRoles } from '@ngw/shared/enums';
 import { createSpyObj } from '@app-testing/frontend/helpers';
+import {
+  ILoginCredentials,
+  IRegistrationDetails,
+  IUser
+} from '@ngw/shared/interfaces';
 import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
-import { ILoginCredentials } from '@ngw/shared/interfaces';
 import * as AuthActions from './auth.actions';
-import { GraphQLError } from 'graphql';
 import { JWTAuthService } from '../services/jwt-auth.service';
 
 describe('AuthEffects', () => {
   let effects: AuthEffects;
   let authService: AuthService;
+  let formFacade: DynamicFormFacade;
+  let ns: NotificationService;
   let actions$: Observable<any>;
-  let router: Router;
   let jwtService: JWTAuthService;
-  const authSpy = createSpyObj('AuthService', ['login']);
+  const authSpy = createSpyObj('AuthService', ['login', 'register']);
   const jwtServiceSpy = createSpyObj('JWTAuthService', [
     'setAuthorizationToken',
     'removeAuthorizationToken'
   ]);
+  const formFacadeSpy = createSpyObj('DynamicFormFacad', ['clearData']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         AuthEffects,
         { provide: JWTAuthService, useValue: jwtServiceSpy },
-        {
-          provide: AuthService,
-          useValue: authSpy
-        },
-        provideMockActions(() => actions$),
-        {
-          provide: Router,
-          useValue: { navigate: jest.fn() }
-        }
+        { provide: AuthService, useValue: authSpy },
+        { provide: DynamicFormFacade, useValue: formFacadeSpy },
+        { provide: NotificationService, useValue: { emit: jest.fn() } },
+        provideMockActions(() => actions$)
       ]
     });
 
     effects = TestBed.get<AuthEffects>(AuthEffects);
-    authService = TestBed.get<AuthService>(AuthService);
     actions$ = TestBed.get<Actions>(Actions);
-    router = TestBed.get<Router>(Router);
+    authService = TestBed.get<AuthService>(AuthService);
+    formFacade = TestBed.get<DynamicFormFacade>(DynamicFormFacade);
+    ns = TestBed.get<NotificationService>(NotificationService);
     jwtService = TestBed.get<JWTAuthService>(JWTAuthService);
-
-    spyOn(router, 'navigate').and.callThrough();
   });
 
   describe('login$', () => {
-    it('should return an LoginSuccess action, with user information if login succeeds', () => {
+    it('should return an LoginSuccess action with token', () => {
       const credentials: ILoginCredentials = { username: 'test', password: '' };
       const token = 'JWT.TOKEN';
       const action = AuthActions.login(credentials);
@@ -73,7 +75,7 @@ describe('AuthEffects', () => {
       };
       const action = AuthActions.login(credentials);
       const error = new GraphQLError('Invalid username or password');
-      const completion = AuthActions.loginFailure({ error });
+      const completion = AuthActions.loginFailure({ error: error.message });
 
       /**
        * Note that with a GraphQL error, the http request does not fail,
@@ -102,7 +104,7 @@ describe('AuthEffects', () => {
       expect(effects.loginSuccess$).toBeObservable(expected);
     });
 
-    it('should call the AuthService.setAuthorizationToken with the returned token', done => {
+    it('should invoke the AuthService.setAuthorizationToken with the access token', done => {
       const spy = jest.spyOn(jwtService, 'setAuthorizationToken');
       spy.mockReset();
       const token = 'JWT.TOKEN';
@@ -113,6 +115,146 @@ describe('AuthEffects', () => {
       effects.loginSuccess$.subscribe(someAction => {
         expect(spy).toHaveBeenCalled();
         expect(spy).toHaveBeenCalledWith(token);
+        done();
+      });
+
+      Scheduler.get().flush();
+
+      spy.mockReset();
+    });
+
+    it('should clear all data in the dynamic form', done => {
+      const spy = jest.spyOn(formFacade, 'clearData');
+      spy.mockReset();
+
+      const token = 'JWT.TOKEN';
+      const action = AuthActions.loginSuccess({ token });
+
+      actions$ = hot('-a---', { a: action });
+
+      effects.loginSuccess$.subscribe(someAction => {
+        expect(spy).toHaveBeenCalled();
+        done();
+      });
+
+      Scheduler.get().flush();
+
+      spy.mockReset();
+    });
+  });
+
+  describe('register$', () => {
+    it('should return an RegisterSuccess action with user information', () => {
+      const newUser: IRegistrationDetails = {
+        username: 'test user',
+        givenName: 'test',
+        surname: 'user',
+        email: 'test@domain.com',
+        dateOfBirth: '2019-01-01',
+        password: 'asF.s0f.s',
+        settings: {
+          darkMode: false,
+          colors: {
+            lightAccent: '',
+            lightPrimary: '',
+            darkAccent: '',
+            darkPrimary: ''
+          }
+        }
+      };
+
+      const registeredUser: IUser = {
+        id: 'some-id',
+        role: AuthenticationRoles.User,
+        active: true,
+        ...newUser
+      };
+
+      const action = AuthActions.register({ details: newUser });
+      const completion = AuthActions.registerSuccess({ user: registeredUser });
+
+      actions$ = hot('-a---', { a: action });
+      // Example graphql response below
+      const response = cold('-a|', {
+        a: { data: { register: registeredUser } }
+      });
+      const expected = cold('--b', { b: completion });
+      authService.register = jest.fn(() => response);
+
+      expect(effects.register$).toBeObservable(expected);
+    });
+
+    it('should return a new RegisterFail if the registration throws', () => {
+      const newUser = ({
+        username: 'test user',
+        givenName: 'test',
+        surname: 'user',
+        email: 'test@domain.com',
+        dateOfBirth: '2019-01-01',
+        settings: {
+          darkMode: false,
+          colors: {
+            lightAccent: '',
+            lightPrimary: '',
+            darkAccent: '',
+            darkPrimary: ''
+          }
+        }
+      } as any) as IRegistrationDetails;
+
+      const action = AuthActions.register({ details: newUser });
+
+      const error = new GraphQLError('Password not provided');
+      const completion = AuthActions.registerFailure({ error: error.message });
+
+      actions$ = hot('-a---', { a: action });
+      // Do not throw error, success with an errors property
+      const response = cold('-a|', { a: { errors: [error] } });
+      const expected = cold('--b', { b: completion });
+      authService.register = jest.fn(() => response);
+
+      expect(effects.register$).toBeObservable(expected);
+    });
+  });
+
+  describe('registerSuccess$', () => {
+    it('should dispatch a LogoutRedirect action', () => {
+      const action = AuthActions.registerSuccess({ user: {} as IUser });
+      const completion = AuthActions.logoutRedirect();
+
+      actions$ = hot('-a---', { a: action });
+      const expected = cold('-b', { b: completion });
+
+      expect(effects.registerSuccess$).toBeObservable(expected);
+    });
+
+    it('should invoke the NotificationService.emit() with a welcome message', done => {
+      const spy = jest.spyOn(ns, 'emit');
+      spy.mockReset();
+      const action = AuthActions.registerSuccess({ user: {} as IUser });
+
+      actions$ = hot('-a---', { a: action });
+
+      effects.registerSuccess$.subscribe(someAction => {
+        expect(spy).toHaveBeenCalled();
+        done();
+      });
+
+      Scheduler.get().flush();
+
+      spy.mockReset();
+    });
+
+    it('should clear all data in the dynamic form', done => {
+      const spy = jest.spyOn(formFacade, 'clearData');
+      spy.mockReset();
+
+      const action = AuthActions.registerSuccess({ user: {} as IUser });
+
+      actions$ = hot('-a---', { a: action });
+
+      effects.registerSuccess$.subscribe(someAction => {
+        expect(spy).toHaveBeenCalled();
         done();
       });
 

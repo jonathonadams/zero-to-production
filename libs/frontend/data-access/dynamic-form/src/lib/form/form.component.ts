@@ -74,8 +74,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
         // Update the store
         this.facade.updateData({ data });
       });
-
-    (this.form as FormGroup).setValidators;
   }
 
   onSubmit(form: FormGroup) {

@@ -32,7 +32,7 @@ export const register = createAction(
 
 export const registerSuccess = createAction(
   '[Auth/API] Register Success',
-  props<IUser>()
+  props<{ user: IUser }>()
 );
 
 export const registerFailure = createAction(

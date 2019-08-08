@@ -16,7 +16,7 @@ export interface IRegistrationDetails {
   givenName: string;
   surname: string;
   email: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   settings: IUserSettings;
 }
 

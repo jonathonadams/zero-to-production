@@ -1,7 +1,7 @@
-<div (click)="dismiss()" class="overlay">
-  <ngw-ui-form-errors
+<div class="overlay" appDismiss (dismiss)="dismiss()">
+  <app-ui-form-errors
     class="errors"
     @formErrorsAnimations
     [errors]="errorObject"
-  ></ngw-ui-form-errors>
+  ></app-ui-form-errors>
 </div>

@@ -9,11 +9,9 @@ export class FormErrorPipe implements PipeTransform {
     const field: string = Object.keys(error)[0];
     const errors: string[] = Object.keys(error[field]);
 
-    let accErrors = '';
-
-    errors.forEach(error => {
-      accErrors += `${this.splitAndLowerCaseCapital(error)}, `;
-    });
+    let accErrors = errors
+      .map(err => `${this.splitAndLowerCaseCapital(err)}, `)
+      .join('');
 
     accErrors = accErrors.substr(0, accErrors.length - 2);
 

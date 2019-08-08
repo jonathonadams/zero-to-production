@@ -4,6 +4,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AuthFacade } from '@ngw/frontend/data-access/auth';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DynamicFormFacade } from '@ngw/frontend/data-access/dynamic-form';
+import { of } from 'rxjs';
 
 // TODO  -> TESTS
 
@@ -18,10 +19,15 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
       providers: [
-        { provide: AuthFacade, useValue: authFacadeSpy },
-        { provide: DynamicFormFacade, useValue: {} }
+        {
+          provide: AuthFacade,
+          useValue: {}
+        },
+        {
+          provide: DynamicFormFacade,
+          useValue: { submit$: of(jest.fn()) }
+        }
       ],
       declarations: [LoginComponent],
       schemas: [NO_ERRORS_SCHEMA]

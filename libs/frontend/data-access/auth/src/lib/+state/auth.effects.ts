@@ -71,9 +71,9 @@ export class AuthEffects {
               error: result.errors[0].message
             });
           } else {
-            return AuthActions.registerSuccess(
-              (result.data as { register: IUser }).register
-            );
+            return AuthActions.registerSuccess({
+              user: (result.data as { register: IUser }).register
+            });
           }
         }),
         catchError((error: HttpErrorResponse) =>

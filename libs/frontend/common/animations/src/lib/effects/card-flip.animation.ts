@@ -19,8 +19,7 @@ export function routerCardFlipAnimation({
   timingEnter = '0.2s',
   easingEnter = 'ease-out',
   timingExit = '0.2s',
-  easingExit = 'ease-in',
-  perspective = '80em'
+  easingExit = 'ease-in'
 } = {}) {
   let enterFlip = 'rotateY(90deg)',
     exitFlip = 'rotateY(-90deg)';
@@ -37,15 +36,11 @@ export function routerCardFlipAnimation({
       // First set, the parent to be relative positioning
       // and set the transform style to 3d
       style({
-        position: 'relative',
-        transformStyle: 'preserve-3d',
-        fontSmoothing: 'antialiased',
-        perspective: '{{ perspective }}'
+        position: 'relative'
       }),
       query(':enter, :leave', [
         // Hide the background, although you never see it and set absolute positioning
         style({
-          backfaceVisibility: 'hidden',
           position: 'absolute'
         })
       ]),
@@ -91,8 +86,7 @@ export function routerCardFlipAnimation({
         enterTE,
         exitTE,
         enterFlip,
-        exitFlip,
-        perspective
+        exitFlip
       }
     }
   );

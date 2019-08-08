@@ -18,6 +18,7 @@ import { DynamicFormService } from './form.service';
 import { FormErrorsDirective } from './form-errors/form-errors.directive';
 import { UiFormErrorsComponent } from './form-errors/ui/ui-form-errors.component';
 import { DatePickerComponent } from './fields/date-picker/date-picker.component';
+import { DismissDirective } from './form-errors/dismiss.directive';
 
 const ENTRY_COMPONENTS = [
   InputComponent,
@@ -46,7 +47,12 @@ const COMPONENTS = [
     EffectsModule.forFeature([DynamicFormsEffects])
   ],
   providers: [DynamicFormService, DynamicFormFacade],
-  declarations: [DynamicFormFieldDirective, FormErrorsDirective, COMPONENTS],
+  declarations: [
+    DynamicFormFieldDirective,
+    FormErrorsDirective,
+    DismissDirective,
+    COMPONENTS
+  ],
   entryComponents: [FormErrorsComponent, ...ENTRY_COMPONENTS],
   exports: [DynamicFormComponent, FormErrorsComponent]
 })

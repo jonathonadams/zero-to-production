@@ -17,7 +17,7 @@ interface IRegistrationFormStructure {
     givenName: string;
     surname: string;
     email: string;
-    dateOfBirth: Date;
+    dateOfBirth: string;
   };
   themeSettings: {
     darkMode: boolean;

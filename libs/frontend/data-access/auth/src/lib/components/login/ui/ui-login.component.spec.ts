@@ -11,7 +11,6 @@ describe('UiLoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule],
       declarations: [UiLoginComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

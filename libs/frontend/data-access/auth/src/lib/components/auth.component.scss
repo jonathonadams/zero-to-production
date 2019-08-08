@@ -24,5 +24,10 @@
 
   .page-input {
     border-radius: 0.5em;
+    transform-style: preserve-3d;
+    perspective: 80em;
+    > * {
+      backface-visibility: hidden;
+    }
   }
 }

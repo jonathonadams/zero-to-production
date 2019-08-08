@@ -8,7 +8,7 @@ export interface IUser {
   givenName: string;
   surname: string;
   email: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   settings: IUserSettings;
   role: AuthenticationRoles;
   active: boolean;

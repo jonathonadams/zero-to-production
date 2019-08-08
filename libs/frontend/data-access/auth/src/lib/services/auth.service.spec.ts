@@ -2,14 +2,22 @@ import { TestBed } from '@angular/core/testing';
 import { GraphQLError } from 'graphql';
 import { createSpyObj } from '@app-testing/frontend/helpers';
 import { GraphQLStub } from '@app-testing/frontend/stubs/graphql.stubs';
-import { GraphQLService } from '@ngw/frontend/data-access/api';
-import { ILoginCredentials, ILoginResponse } from '@ngw/shared/interfaces';
+import { HttpStub } from '@app-testing/frontend/stubs/http.stubs';
+import { GraphQLService, ApiService } from '@ngw/frontend/data-access/api';
+import {
+  ILoginCredentials,
+  ILoginResponse,
+  IUser,
+  IRegistrationDetails
+} from '@ngw/shared/interfaces';
 import { AuthService } from './auth.service';
 import { JWTAuthService } from './jwt-auth.service';
+import { AuthenticationRoles } from '@ngw/shared/enums';
 
 describe('AuthService', () => {
   let authService: AuthService;
   let graphQLStub: GraphQLStub;
+  let apiStub: HttpStub;
   let jwtService: JWTAuthService;
   const jwtServiceSpy = createSpyObj('JWTAuthService', [
     'getAuthorizationToken',
@@ -21,11 +29,13 @@ describe('AuthService', () => {
       providers: [
         AuthService,
         { provide: JWTAuthService, useValue: jwtServiceSpy },
-        { provide: GraphQLService, useClass: GraphQLStub }
+        { provide: GraphQLService, useClass: GraphQLStub },
+        { provide: ApiService, useValue: HttpStub }
       ]
     });
     authService = TestBed.get<AuthService>(AuthService);
     graphQLStub = TestBed.get<GraphQLService>(GraphQLService);
+    apiStub = TestBed.get<ApiService>(ApiService);
     jwtService = TestBed.get<JWTAuthService>(JWTAuthService);
   });
 
@@ -106,6 +116,92 @@ describe('AuthService', () => {
           expect((response.errors as any[][0]).message).toEqual('Unauthorized');
           expect(graphQLStub.mutation).toHaveBeenCalled();
           expect(spy.mock.calls[0][1]).toEqual(loginCredentials);
+        },
+        error => console.log(error)
+      );
+    });
+  });
+
+  describe('register', () => {
+    // GraphQL login response check
+    it('should return a User if registration is successfully', () => {
+      const spy = jest.spyOn(graphQLStub, 'mutation');
+      const newUser: IRegistrationDetails = {
+        username: 'test user',
+        givenName: 'test',
+        surname: 'user',
+        email: 'test@domain.com',
+        dateOfBirth: '2019-01-01',
+        password: 'asF.s0f.s',
+        settings: {
+          darkMode: false,
+          colors: {
+            lightAccent: '',
+            lightPrimary: '',
+            darkAccent: '',
+            darkPrimary: ''
+          }
+        }
+      };
+
+      const expectedResponse: IUser = {
+        id: 'some-id',
+        role: AuthenticationRoles.User,
+        active: true,
+        ...newUser
+      };
+
+      // Set the response from the the stub
+      graphQLStub.setExpectedResponse<{ user: IUser }>({
+        user: expectedResponse
+      });
+
+      authService.register(newUser).subscribe(
+        response => {
+          expect(response.errors).toBeUndefined();
+          expect((response.data as any).login).toBeDefined();
+          expect((response.data as any).login).toEqual(expectedResponse);
+          expect(graphQLStub.mutation).toHaveBeenCalled();
+          expect(spy.mock.calls[0][1]).toEqual(newUser);
+        },
+        error => console.log(error)
+      );
+    });
+    it('should return an error if registration is invalid', () => {
+      const spy = jest.spyOn(graphQLStub, 'mutation');
+
+      const newUser = ({
+        username: 'test user',
+        givenName: 'test',
+        surname: 'user',
+        email: 'test@domain.com',
+        dateOfBirth: '2019-01-01',
+        settings: {
+          darkMode: false,
+          colors: {
+            lightAccent: '',
+            lightPrimary: '',
+            darkAccent: '',
+            darkPrimary: ''
+          }
+        }
+      } as any) as IRegistrationDetails;
+
+      const graphErrors = [
+        { name: 'Bad request', message: 'No password provided' }
+      ] as GraphQLError[];
+
+      // Set the response from the the stub
+      graphQLStub.setErrorResponse(graphErrors);
+      authService.register(newUser).subscribe(
+        response => {
+          expect(response.data).toEqual(null);
+          expect(response.errors).toBeDefined();
+          expect((response.errors as any[][0]).message).toEqual(
+            'No password provided'
+          );
+          expect(graphQLStub.mutation).toHaveBeenCalled();
+          expect(spy.mock.calls[0][1]).toEqual(newUser);
         },
         error => console.log(error)
       );

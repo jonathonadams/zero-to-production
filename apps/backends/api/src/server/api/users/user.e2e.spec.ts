@@ -13,7 +13,7 @@ const user = ({
   username: 'test user',
   firstName: 'test',
   lastName: 'user',
-  emailAddress: 'test@domain.com',
+  email: 'test@domain.com',
   dateOfBirth: '2019-01-01',
   password: 'asF.s0f.s',
   hashedPassword: 'asF.s0f.s',

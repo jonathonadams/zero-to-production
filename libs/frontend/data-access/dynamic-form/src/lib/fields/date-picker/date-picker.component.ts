@@ -57,7 +57,7 @@ export class MyDateAdapter extends NativeDateAdapter {
  * @class DatePickerComponent
  */
 @Component({
-  selector: 'ngw-date-picker',
+  selector: 'app-date-picker',
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
   providers: [

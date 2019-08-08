@@ -1,16 +1,26 @@
 import { TestBed } from '@angular/core/testing';
 import { sign } from 'jsonwebtoken';
 import { JWTAuthService } from './jwt-auth.service';
+import { LocalStorageService } from '@ngw/frontend/utils/storage';
 
 describe('JWTAuthService', () => {
   let jwtService: JWTAuthService;
+  let lsService: LocalStorageService;
   let JWT: string;
   const storageKey = 'access_token';
   const tokenSecret = 'this-is-a-test-secret';
+  const lsSpy = {
+    setItem: jest.fn(),
+    getItem: jest.fn(),
+    removeItem: jest.fn()
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [JWTAuthService]
+      providers: [
+        JWTAuthService,
+        { provide: LocalStorageService, useValue: lsSpy }
+      ]
     });
 
     // Create a JWT for each test that is valid and has not expired
@@ -26,10 +36,7 @@ describe('JWTAuthService', () => {
     );
 
     jwtService = TestBed.get<JWTAuthService>(JWTAuthService);
-  });
-
-  afterEach(() => {
-    localStorage.removeItem(storageKey);
+    lsService = TestBed.get<LocalStorageService>(LocalStorageService);
   });
 
   it('should be created', () => {
@@ -37,42 +44,37 @@ describe('JWTAuthService', () => {
   });
 
   describe('setAuthorizationToken', () => {
-    it('should set the access token', () => {
-      localStorage.removeItem(storageKey);
-      const tokenBeforeSetting = localStorage.getItem(storageKey);
-      expect(tokenBeforeSetting).toEqual(null);
+    it('should invoke localStorageService.setItem() with the storage key and token', () => {
+      const spy = jest.spyOn(lsService, 'setItem');
 
       jwtService.setAuthorizationToken(JWT);
-      const token = localStorage.getItem(storageKey);
 
-      expect(token).toBeTruthy();
-      expect(token).toEqual(JWT);
+      expect(spy).toHaveBeenCalled();
+      expect(spy.mock.calls[0][0]).toEqual(storageKey);
+      expect(spy.mock.calls[0][1]).toEqual(JWT);
     });
   });
 
   describe('getAuthorizationToken', () => {
-    it('should get the access token', () => {
-      localStorage.setItem(storageKey, JWT);
+    it('should invoke localStorageService.get() with the storage key', () => {
+      const spy = jest.spyOn(lsService, 'getItem').mockReturnValue(JWT);
+
       const token = jwtService.getAuthorizationToken();
 
-      expect(token).toBeDefined();
+      expect(spy).toHaveBeenCalled();
+      expect(spy.mock.calls[0][0]).toEqual(storageKey);
       expect(token).toEqual(JWT);
     });
   });
 
   describe('removeAuthorizationToken', () => {
-    it('should remove the access token', () => {
-      localStorage.setItem(storageKey, JWT);
-      const token = localStorage.getItem(storageKey);
+    it('should invoke localStorageService.removeItem() with the storage key', () => {
+      const spy = jest.spyOn(lsService, 'removeItem');
 
-      // First check the token is there
-      expect(token).toBeTruthy();
-
-      // Call the remove token function
       jwtService.removeAuthorizationToken();
 
-      const tokenAfterRemove = localStorage.getItem(storageKey);
-      expect(tokenAfterRemove).toEqual(null);
+      expect(spy).toHaveBeenCalled();
+      expect(spy.mock.calls[0][0]).toEqual(storageKey);
     });
   });
 

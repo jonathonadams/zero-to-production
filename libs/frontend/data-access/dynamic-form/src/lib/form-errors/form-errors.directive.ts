@@ -13,7 +13,7 @@ import { tap, filter } from 'rxjs/operators';
 import { FormErrorsComponent } from './form-errors.component';
 
 @Directive({
-  selector: '[formErrors]'
+  selector: '[appFormErrors]'
 })
 export class FormErrorsDirective implements OnDestroy {
   private subscription: Subscription;
