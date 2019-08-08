@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
-import { runQuery, setupTestDB } from '@app-testing/backend/helpers';
+import { runQuery, setupTestDB, newId } from '@app-testing/backend/helpers';
 import { IUserDocument, IUser } from '@ngw/shared/interfaces';
 import { AuthenticationRoles } from '@ngw/shared/enums';
 import { signTestAccessToken } from '@app-testing/backend/auth';
@@ -9,17 +9,21 @@ import { User } from './user.model';
 import { schema } from '../graphql';
 import config from '../../../environments';
 
-const user = ({
+const user: IUser = ({
   username: 'test user',
-  firstName: 'test',
-  lastName: 'user',
+  givenName: 'test',
+  surname: 'user',
   email: 'test@domain.com',
   dateOfBirth: '2019-01-01',
-  password: 'asF.s0f.s',
-  hashedPassword: 'asF.s0f.s',
-  role: 0,
+  hashedPassword: 'some-password-hash',
   settings: {
-    darkMode: false
+    darkMode: false,
+    colors: {
+      lightAccent: '',
+      lightPrimary: '',
+      darkAccent: '',
+      darkPrimary: ''
+    }
   }
 } as any) as IUser;
 
@@ -100,8 +104,9 @@ describe(`GraphQL / User`, () => {
     it(`should create a new User`, async () => {
       const differentUser = {
         ...user,
-        username: 'A different user',
-        emailAddress: 'someDifferent@email.com'
+        username: 'Adifferentuser',
+        email: 'someDifferent@email.com',
+        password: 'SomE$2jDA'
       };
       delete differentUser['role'];
       delete differentUser['hashedPassword'];
@@ -163,16 +168,6 @@ describe(`GraphQL / User`, () => {
 
   describe(`removeUser($id: ID!)`, () => {
     it(`should delete a User by id`, async () => {
-      const tempUser = {
-        ...createdUser.toJSON(),
-        role: AuthenticationRoles.Admin
-      };
-
-      const jwtToken = signTestAccessToken(
-        tempUser,
-        config.secrets.accessToken
-      );
-
       const queryName = `removeUser`;
       const result = await runQuery(schema)(
         `
@@ -182,7 +177,7 @@ describe(`GraphQL / User`, () => {
             }
           }`,
         { id: createdUser.id },
-        jwtToken
+        jwt
       );
 
       expect(result.errors).not.toBeDefined();

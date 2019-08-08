@@ -4,7 +4,7 @@ import { SideNavService } from '@ngw/frontend/common/ui/side-nav';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
 import { ToolbarService } from '@ngw/frontend/common/ui/toolbar';
 import { of } from 'rxjs';
-import { UserThemeService } from '@ngw/frontend/common/theme';
+import { UserThemeService } from '@ngw/frontend/data-access/users';
 
 // TODO -> TESTS
 describe('TodoFeatureShellComponent', () => {

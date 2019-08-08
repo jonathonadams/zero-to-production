@@ -3,8 +3,7 @@ import { sign } from 'jsonwebtoken';
 export function signTestAccessToken<T>(user: any, secret: string): string {
   return sign(
     {
-      // TODO
-      role: 0
+      role: user.role ? user.role : 0
     },
     secret,
     {

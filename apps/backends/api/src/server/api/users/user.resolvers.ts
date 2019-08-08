@@ -13,8 +13,6 @@ export const userResolvers = {
   },
   Mutation: {
     updateUser: verifyTokenGraphQL(resolvers.updateOne),
-    removeUser: verifyUserRoleGraphQL(AuthenticationRoles.Admin)(
-      resolvers.removeOne
-    )
+    removeUser: verifyTokenGraphQL(resolvers.removeOne)
   }
 };

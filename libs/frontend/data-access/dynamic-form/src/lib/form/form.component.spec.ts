@@ -4,7 +4,9 @@ import { DynamicFormComponent } from './form.component';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DynamicFormService } from '../form.service';
 
+// TODO -> TESTS
 describe('DynamicFormComponent', () => {
   let component: DynamicFormComponent;
   let fixture: ComponentFixture<DynamicFormComponent>;
@@ -13,14 +15,22 @@ describe('DynamicFormComponent', () => {
   const facadeSpy = {
     structure$: jest.fn(),
     data$: jest.fn(),
-    touched$: jest.fn()
+    formIdx$: jest.fn(),
+    errors$: jest.fn(),
+    config$: jest.fn()
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       declarations: [DynamicFormComponent],
-      providers: [{ provide: DynamicFormFacade, useValue: facadeSpy }],
+      providers: [
+        {
+          provide: DynamicFormFacade,
+          useValue: facadeSpy
+        },
+        { provide: DynamicFormService, useValue: {} }
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
