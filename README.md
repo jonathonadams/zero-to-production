@@ -1,6 +1,6 @@
 # PRE ALPHA - WORK IN PROGRESS
 
-## Release checklist
+## Checklist
 
 ### API
 
@@ -25,7 +25,7 @@
 
 #### App
 
-- [x] Finish user registration. NOTE -> For the demo, allow not unique emails
+- [x] Finish user registration. NOTE -> For the demo, don't require unique emails
 
 #### Dynamic Form
 
