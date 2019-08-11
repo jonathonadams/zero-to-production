@@ -23,10 +23,10 @@ describe('Authentication Utils', () => {
       const safeUser = {
         id: 'abd123',
         username: 'user1',
-        firstName: 'Some',
-        lastName: 'User',
-        emailAddress: 'user@user.com',
-        dateOfBirth: new Date()
+        givenName: 'Some',
+        surname: 'User',
+        email: 'user@user.com',
+        dateOfBirth: '2019-01-01'
       } as IUser;
 
       const user = {

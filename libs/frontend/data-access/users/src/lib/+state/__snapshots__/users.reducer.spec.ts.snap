@@ -14,7 +14,7 @@ Object {
   "authUserId": null,
   "entities": Object {
     "2": Object {
-      "emailAddress": "some@emailAddress.com",
+      "email": "some@email.com",
       "id": "2",
       "username": "someUser",
     },
@@ -31,7 +31,7 @@ Object {
   "authUserId": null,
   "entities": Object {
     "1": Object {
-      "emailAddress": "some@emailAddress.com",
+      "email": "some@email.com",
       "id": "1",
       "username": "updatedName",
     },

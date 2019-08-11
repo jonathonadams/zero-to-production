@@ -15,7 +15,7 @@ describe('UsersReducer', () => {
   describe('LoadSuccess action', () => {
     it('should add the user to the user state', () => {
       const users = [
-        { id: '2', username: 'someUser', emailAddress: 'some@emailAddress.com' }
+        { id: '2', username: 'someUser', email: 'some@email.com' }
       ] as IUser[];
       const action = UserActions.loadUsersSuccess({ users });
 
@@ -30,7 +30,7 @@ describe('UsersReducer', () => {
       const user = {
         id: '1',
         username: 'initialUser',
-        emailAddress: 'some@emailAddress.com'
+        email: 'some@email.com'
       } as IUser;
 
       const initialState: UsersEntityState = {
@@ -61,7 +61,7 @@ describe('UsersReducer', () => {
       const user = {
         id: '1',
         username: 'initialUser',
-        emailAddress: 'some@emailAddress.com'
+        email: 'some@email.com'
       } as IUser;
 
       const initialState: UsersEntityState = {
