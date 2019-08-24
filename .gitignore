@@ -41,5 +41,4 @@ Thumbs.db
 
 # Environment Config
 .env
-/**/*.env
-apps/backends/api/.env
+/**/.env
