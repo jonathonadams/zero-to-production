@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
 import jwtDecode from 'jwt-decode';
-import { LocalStorageService } from '@ngw/frontend/utils/storage';
 import { IJWTPayload } from '@ngw/shared/interfaces';
 
 @Injectable()
 export class JWTAuthService {
   readonly storageKey = 'access_token';
-  constructor(private ls: LocalStorageService) {}
+  constructor() {}
 
   setAuthorizationToken(token: string): void {
-    this.ls.setItem(this.storageKey, token);
+    localStorage.setItem(this.storageKey, token);
   }
 
   getAuthorizationToken(): string | null {
-    return this.ls.getItem<string>(this.storageKey);
+    return localStorage.getItem(this.storageKey);
   }
 
   removeAuthorizationToken(): void {
-    this.ls.removeItem(this.storageKey);
+    localStorage.removeItem(this.storageKey);
   }
 
   decodeToken(token: string): IJWTPayload {

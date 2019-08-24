@@ -14,6 +14,9 @@ const devConfig: EnvironnementConfig = {
     loggerLevel: 'warn'
   },
   expireTime: Number(process.env.JWT_EXPIRE_TIME) || 86400,
+  apiKeys: {
+    sendGrid: process.env.SENDGRID_API_KEY || ''
+  },
   secrets: {
     accessToken: process.env.ACCESS_TOKEN_SECRET || 'development-secret',
     refreshToken: process.env.REFRESH_TOKEN_SECRET || 'development-secret'

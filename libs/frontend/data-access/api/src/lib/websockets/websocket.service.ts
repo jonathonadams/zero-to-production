@@ -1,62 +1,79 @@
-// import { Injectable } from '@angular/core';
-// import { Observable, of, fromEvent } from 'rxjs';
-// import io, { Socket } from 'socket.io-client';
-// import { environment } from '@env/environment';
+import { Injectable } from '@angular/core';
+import { Observable, fromEvent, BehaviorSubject, Subject } from 'rxjs';
+import * as io from 'socket.io-client';
+import { environment } from '@env/environment';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class WebSocketService {
-//   private baseUrl = environment.serverUrl;
-//   private socket: Socket;
+@Injectable({
+  providedIn: 'root'
+})
+export class WebSocketService {
+  private baseUrl = environment.serverUrl;
+  private socket: SocketIOClient.Socket;
 
-//   initSocket(): void {
-//     try {
-//       if (!this.socket) {
-//         this.socket = io(this.baseUrl, {
-//           timeout: 10000,
-//           upgrade: true,
-//           transports: ['websocket']
-//         });
+  // Not all socket connections connecting the the API might be browsers
+  browserNamespaceUrl = '/company-client';
+  socketUrl = `${this.baseUrl}${this.browserNamespaceUrl}`;
 
-//         this.socket.on('connect', () => {
-//           console.log('socket connected');
-//         });
+  private connectedSubject = new BehaviorSubject<boolean>(false);
+  public connected$ = this.connectedSubject.asObservable();
 
-//         this.socket.on('disconnect', () => {
-//           console.log('socket connected');
-//         });
+  private messageSubject = new Subject<any>();
+  public socketMessage$ = this.messageSubject.asObservable();
 
-//         this.socket.on('connect_error', err => {
-//           console.log('connect error', err);
-//         });
-//       }
-//     } catch (err) {
-//       // Do something with the error
-//       // For some reasons the 'connect_error' does not catch the connect error
-//       // And still logs an error to the console. hence the try catch
-//     }
-//   }
+  constructor() {
+    const socketOptions: SocketIOClient.ConnectOpts = {
+      autoConnect: false,
+      transports: ['websocket'],
+      query: {
+        // Add custom query here
+      }
+    };
 
-//   disconnect(): void {
-//     this.socket.disconnect();
-//   }
+    this.socket = io(`${this.socketUrl}y`, socketOptions);
 
-//   emitMessage(nameSpace: string, message: any): void {
-//     if (this.socket && this.socket.connected) {
-//       this.socket.emit(nameSpace, message);
-//     }
-//   }
+    this.socket.on('connect', () => {
+      this.connectedSubject.next(true);
+    });
 
-//   // Returns an observable from the namespaced message
-//   onMessage<T>(nameSpace: string): Observable<T> {
-//     // Initialize the socket if someone subscribes to messages
-//     // And the socket has not been intialized
-//     if (!this.socket) {
-//       this.initSocket();
-//     }
+    this.socket.on('disconnect', () => {
+      this.connectedSubject.next(false);
+    });
 
-//     // Return a new observable that namespaces the message
-//     return fromEvent<T>(this.socket, nameSpace);
-//   }
-// }
+    this.socket.on('message', (message: any) => {
+      this.messageSubject.next(message);
+    });
+  }
+
+  // Check if the socket it already connected or not
+  openSocket(accessToken: string): void {
+    if (this.socket.disconnected) {
+      // Reset the access token to handle stale tokens
+      this.socket.io.opts.query = {
+        accessToken
+      };
+
+      this.socket.connect();
+    } else {
+      this.connectedSubject.next(true);
+    }
+  }
+
+  disconnect(): void {
+    if (this.socket) {
+      this.socket.removeAllListeners();
+      this.socket.disconnect();
+    }
+  }
+
+  emitMessage(message: any): void {
+    if (this.socket && this.socket.connected) {
+      this.socket.emit('message', message);
+    }
+  }
+
+  // Returns an observable from the namespaced message
+  onMessage(): Observable<any> {
+    // Return a new observable that namespaces the message
+    return fromEvent<any>(this.socket, 'message');
+  }
+}

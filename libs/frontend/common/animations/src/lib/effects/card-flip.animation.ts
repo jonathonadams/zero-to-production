@@ -2,9 +2,9 @@ import {
   animation,
   style,
   query,
-  sequence,
   animateChild,
-  animate
+  animate,
+  keyframes
 } from '@angular/animations';
 
 /**
@@ -17,14 +17,10 @@ import {
 export function routerCardFlipAnimation({
   flipLeft = false,
   timingEnter = '0.2s',
-  easingEnter = 'ease-out',
-  timingExit = '0.2s',
-  easingExit = 'ease-in'
+  timingExit = '0.2s'
 } = {}) {
   let enterFlip = 'rotateY(90deg)',
     exitFlip = 'rotateY(-90deg)';
-  const enterTE = `${timingEnter} ${easingEnter}`,
-    exitTE = `${timingExit} ${easingExit}`;
 
   if (flipLeft) {
     enterFlip = 'rotateY(-90deg)';
@@ -33,58 +29,54 @@ export function routerCardFlipAnimation({
 
   return animation(
     [
+      // With routing changes, the new route component is inserted as the first child
+      // and the leaving component is the second child element
+
       // First set, the parent to be relative positioning
-      // and set the transform style to 3d
-      style({
-        position: 'relative'
-      }),
-      query(':enter, :leave', [
-        // Hide the background, although you never see it and set absolute positioning
-        style({
-          position: 'absolute'
-        })
-      ]),
-      // Move the newly entered element off screen
-      query(':enter', [style({ left: '1000%' })]),
-      // because fo flex-box styling, to maintain the hight set the leaving to relative
+      style({ position: 'relative' }),
+
+      // because fo flex-box styling, to maintain the hight set the leaving to relative until it has animated away
       query(':leave', [style({ position: 'relative' })]),
+      query(':enter', [style({ position: 'absolute', left: '10000%' })]),
 
-      sequence([
-        // Allow the children of the leaving element to animate
-        query(':leave', animateChild()),
-
-        // for the leaving card, we want flip 90 deg from its starting position
-        query(':leave', [
-          style({ transform: 'none' }),
-          animate(
-            '{{ exitTE }}',
-            style({
-              transform: '{{ exitFlip }}'
-            })
-          )
-        ]),
+      // Allow the children of the leaving element to animate
+      query(':leave', animateChild()),
+      query(':leave', [
+        style({ transform: 'none' }),
+        animate(
+          '{{ timingExit }} ease-in',
+          style({ transform: '{{ exitFlip }}' })
+        ),
         // Once it has flipped, set to absolute positioning and move off screen
-        query(':leave', [style({ left: '1000%', position: 'absolute' })]),
-        // move the card entered, back to the center, relative positioning for flex-box height
-        // and start it 90 degrees flipped
-        query(':enter', [
-          style({
-            position: 'relative',
-            left: 0,
-            transform: '{{ enterFlip }}'
-          }),
-          // animate to normal positions
-          animate('{{ enterTE }}', style({ transform: 'none' })),
+        style({ position: 'absolute', left: '10000%' })
+      ]),
 
-          // Allow children to animate
-          query(':enter', animateChild(), { optional: true })
-        ])
-      ])
+      // Change the height of the parent component and set to absolute to stop any overflow
+      style({ position: 'absolute', height: '*' }),
+
+      // move the card entered, back to the center, relative positioning for flex-box height
+      // and start it 90 degrees flipped
+      query(':enter', [
+        // animate to normal positions
+        animate(
+          '{{ timingEnter }} ease-out',
+          keyframes([
+            style({
+              left: 0,
+              position: 'relative',
+              transform: '{{ enterFlip }}'
+            }),
+            style({ transform: 'none' })
+          ])
+        )
+      ]),
+      // Allow children to animate
+      query(':enter', animateChild())
     ],
     {
       params: {
-        enterTE,
-        exitTE,
+        timingEnter,
+        timingExit,
         enterFlip,
         exitFlip
       }

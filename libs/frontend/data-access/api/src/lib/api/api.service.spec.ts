@@ -62,10 +62,11 @@ describe('ApiService', () => {
     });
 
     it('should make a GET request to the API url /resources with query params', () => {
-      const params = new HttpParams().set('data', 'some data');
-      apiService.get<TestData>('test', params).subscribe(data => {
-        expect(data).toEqual(testData);
-      });
+      apiService
+        .get<TestData>('test', { data: 'some data' })
+        .subscribe(data => {
+          expect(data).toEqual(testData);
+        });
 
       const req = httpTestingController.expectOne(`api/test?data=some%20data`);
 

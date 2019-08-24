@@ -5,6 +5,7 @@ import { ConnectionOptions } from 'mongoose';
  */
 
 export interface GlobalConfig {
+  hostUrl: string;
   port: number;
   databaseOptions: ConnectionOptions;
 }
@@ -15,6 +16,9 @@ export interface EnvironnementConfig {
   docs: boolean;
   databaseOptions: ConnectionOptions;
   expireTime: number;
+  apiKeys: {
+    sendGrid: string;
+  };
   secrets: {
     accessToken: string;
     refreshToken: string;

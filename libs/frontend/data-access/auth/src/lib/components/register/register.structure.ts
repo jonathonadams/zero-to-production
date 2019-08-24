@@ -56,7 +56,7 @@ export const THEME_GROUP: IFormGroup = {
       type: 'color',
       name: 'lightPrimary',
       label: 'Light Mode - Primary Colour',
-      initialValue: '#ff5722',
+      initialValue: '#8236f6',
       validators: [Validators.required]
     },
     {
@@ -64,7 +64,7 @@ export const THEME_GROUP: IFormGroup = {
       type: 'color',
       name: 'lightAccent',
       label: 'Light Mode - Accent Colour',
-      initialValue: '#009688',
+      initialValue: '#f0820f',
       validators: [Validators.required]
     },
     {
@@ -72,15 +72,15 @@ export const THEME_GROUP: IFormGroup = {
       type: 'color',
       name: 'darkPrimary',
       label: 'Dark Mode - Primary Colour',
-      initialValue: '#d53ccf',
+      initialValue: '#20eff0',
       validators: [Validators.required]
     },
     {
       componentType: FormFieldTypes.Input,
       type: 'color',
       name: 'darkAccent',
-      label: 'Dark Mode - Primary Colour',
-      initialValue: '#6059bd',
+      label: 'Dark Mode - Accent Colour',
+      initialValue: '#d33685',
       validators: [Validators.required]
     }
   ]

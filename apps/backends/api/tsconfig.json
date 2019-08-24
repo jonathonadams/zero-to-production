@@ -6,6 +6,6 @@
     "module": "commonjs",
     "types": ["node", "jest"]
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "../../../libs/backend/auth/src/lib/send-email.ts"],
   "references": [{ "path": "../../../tsconfig.libs.json" }]
 }

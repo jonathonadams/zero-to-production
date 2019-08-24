@@ -1,12 +1,17 @@
 import Koa from 'koa';
 import { unauthorized } from '@hapi/boom';
-import { IUserModel, IRefreshTokenModel } from '@ngw/shared/interfaces';
+import {
+  IUserModel,
+  IRefreshTokenModel,
+  IVerificationTokenModel
+} from '@ngw/shared/interfaces';
 import {
   loginController,
   registerController,
   authorizeController,
   refreshAccessTokenController,
-  revokeRefreshTokenController
+  revokeRefreshTokenController,
+  verifyController
 } from './auth.controllers';
 
 /**
@@ -33,11 +38,31 @@ export function login(config: {
   };
 }
 
-export function register(User: IUserModel) {
-  const controller = registerController(User);
+export function register(
+  User: IUserModel,
+  VerificationToken: IVerificationTokenModel,
+  sendVerificationEmail: (to: string, token: string) => Promise<[any, {}]>
+) {
+  const controller = registerController(
+    User,
+    VerificationToken,
+    sendVerificationEmail
+  );
   return async function registerRt(ctx: Koa.ParameterizedContext) {
     const user = (ctx.request as any).body;
     ctx.body = await controller(user);
+  };
+}
+
+export function verify(
+  User: IUserModel,
+  VerificationToken: IVerificationTokenModel
+) {
+  const controller = verifyController(User, VerificationToken);
+  return async function verifyRt(ctx: Koa.ParameterizedContext) {
+    const email = ctx.query.email;
+    const token = ctx.query.token;
+    ctx.body = await controller(email, token);
   };
 }
 
@@ -75,7 +100,9 @@ export function refreshAccessToken(config: {
     if (!username || !refreshToken)
       throw unauthorized('Not all parameters provided.');
 
-    ctx.body = await controller(username, refreshToken);
+    const success = await controller(username, refreshToken);
+    ctx.status = 403;
+    ctx.body = success;
   };
 }
 

@@ -2,7 +2,7 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import { setupMiddleware } from '@ngw/backend/middleware';
 import { applyApiEndpoints } from './api';
-import auth from './auth/auth';
+import { applyAuthorizationRoutes } from './auth/auth';
 import { dbConnection } from './db/db-connection';
 import config from '../environments';
 
@@ -44,7 +44,7 @@ export default class ApiServer {
     /**
      * apply all authorization routes
      */
-    auth.applyAuthorizationRoutes(app);
+    applyAuthorizationRoutes(app);
 
     /**
      * Apply the routes
@@ -65,10 +65,10 @@ export default class ApiServer {
     return app.callback();
   }
 
-  // /**
-  //  *
-  //  * @returns a request handler callback for node's native http/http2 server.
-  //  */
+  /**
+   *
+   * @returns a request handler callback for node's native http/http2 server.
+   */
   public start() {
     return this.app.callback();
   }

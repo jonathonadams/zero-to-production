@@ -1,4 +1,10 @@
-import { IUser, IUserModel, IRefreshTokenModel } from '@ngw/shared/interfaces';
+import {
+  IUser,
+  IUserModel,
+  IRefreshTokenModel,
+  IVerificationToken,
+  IVerificationTokenModel
+} from '@ngw/shared/interfaces';
 import { AuthenticationRoles } from '@ngw/shared/enums';
 import { newId } from '@app-testing/index';
 import {
@@ -6,13 +12,18 @@ import {
   loginController,
   authorizeController,
   refreshAccessTokenController,
-  revokeRefreshTokenController
+  revokeRefreshTokenController,
+  verifyController
 } from '../auth.controllers';
 import { MockUserModel } from './user.mock';
 
 import { hash } from 'bcryptjs';
 import { MockRefreshTokenModel } from './refresh-token.mock';
 import { signRefreshToken } from '../auth';
+import {
+  MockVerificationToken,
+  mockSendVerificationEmail
+} from './verification.mock';
 
 const userToRegister = ({
   username: 'uniqueUsername',
@@ -23,6 +34,7 @@ const userToRegister = ({
   hashedPassword: 'asF.s0f.s',
   role: AuthenticationRoles.User,
   active: true,
+  isValid: false,
   settings: {
     darkMode: false,
     colors: {
@@ -45,26 +57,50 @@ describe(`Authentication Controllers`, () => {
       MockUserModel.userToRespondWith = null;
 
       const createdUser = await registerController(
-        (MockUserModel as unknown) as IUserModel
+        (MockUserModel as unknown) as IUserModel,
+        (MockVerificationToken as unknown) as IVerificationTokenModel,
+        jest.fn()
       )({ ...userWithPassword });
 
       expect(createdUser).toBeTruthy();
       expect(createdUser.id).toBeDefined();
 
       MockUserModel.reset();
+      MockVerificationToken.reset();
+    });
+
+    it('should send a verification email the users email', async () => {
+      MockUserModel.userToRespondWith = null;
+
+      const spy = jest.fn();
+
+      const createdUser = await registerController(
+        (MockUserModel as unknown) as IUserModel,
+        (MockVerificationToken as unknown) as IVerificationTokenModel,
+        spy
+      )({ ...userWithPassword });
+
+      expect(spy).toHaveBeenCalled();
+      expect(spy.mock.calls[0][0]).toBe(createdUser.email);
+
+      MockUserModel.reset();
+      MockVerificationToken.reset();
     });
 
     it('should not return the password or hashed password if successful', async () => {
       MockUserModel.userToRespondWith = null;
 
       const createdUser = await registerController(
-        (MockUserModel as unknown) as IUserModel
+        (MockUserModel as unknown) as IUserModel,
+        (MockVerificationToken as unknown) as IVerificationTokenModel,
+        mockSendVerificationEmail
       )({ ...userWithPassword });
 
       expect((createdUser as any).password).not.toBeDefined();
       expect((createdUser as any).hashedPassword).not.toBeDefined();
 
       MockUserModel.reset();
+      MockVerificationToken.reset();
     });
 
     it('should not not allow a user to register if the username is taken', async () => {
@@ -74,32 +110,137 @@ describe(`Authentication Controllers`, () => {
         emailAddress: 'anotherUnique@email.com'
       } as any) as IUser;
 
-      const userWithDifferentUsername = ({
-        ...userWithUniqueDetails,
-        username: 'anotherUniqueUsername'
-      } as any) as IUser;
-
-      const userWithDifferentUsernameAndEmail = ({
-        ...userWithDifferentUsername,
-        emailAddress: 'secondUnique@email.com'
-      } as any) as IUser;
-
       MockUserModel.userToRespondWith = null;
 
       await expect(
-        registerController((MockUserModel as unknown) as IUserModel)(
-          userWithUniqueDetails
-        )
+        registerController(
+          (MockUserModel as unknown) as IUserModel,
+          (MockVerificationToken as unknown) as IVerificationTokenModel,
+          mockSendVerificationEmail
+        )(userWithUniqueDetails)
       ).resolves.not.toThrowError();
 
       MockUserModel.userToRespondWith = userWithUniqueDetails;
 
       await expect(
-        registerController((MockUserModel as unknown) as IUserModel)(
-          userWithUniqueDetails
-        )
+        registerController(
+          (MockUserModel as unknown) as IUserModel,
+          (MockVerificationToken as unknown) as IVerificationTokenModel,
+          mockSendVerificationEmail
+        )(userWithUniqueDetails)
       ).rejects.toThrowError('Username is not available');
 
+      MockUserModel.reset();
+      MockVerificationToken.reset();
+    });
+  });
+
+  describe('verify', () => {
+    it('should verify a users email', async () => {
+      const userId = '1';
+      const token = 'SOME-TOKEN';
+
+      const setMock = jest.fn();
+      const removeMock = jest.fn();
+      MockUserModel.userToRespondWith = {
+        id: userId,
+        ...userToRegister,
+        ...{ set: setMock, save: jest.fn() }
+      };
+      MockVerificationToken.tokenToRespondWith = {
+        token,
+        userId,
+        ...{ remove: removeMock }
+      };
+
+      expect((MockUserModel._user as IUser).isValid).toBe(false);
+
+      const message = await verifyController(
+        (MockUserModel as unknown) as IUserModel,
+        (MockVerificationToken as unknown) as IVerificationTokenModel
+      )(userToRegister.email, token);
+
+      expect(setMock).toHaveBeenCalled();
+      expect(setMock.mock.calls[0][0]).toEqual({ isValid: true });
+      expect(removeMock).toHaveBeenCalled();
+
+      MockVerificationToken.reset();
+      MockUserModel.reset();
+    });
+
+    it('should throw if a user cannot be found', async () => {
+      const token = 'SOME-TOKEN';
+      MockUserModel.userToRespondWith = null;
+
+      await expect(
+        verifyController(
+          (MockUserModel as unknown) as IUserModel,
+          (MockVerificationToken as unknown) as IVerificationTokenModel
+        )(userToRegister.email, token)
+      ).rejects.toThrowError('Email address is not available');
+
+      MockVerificationToken.reset();
+      MockUserModel.reset();
+    });
+
+    it('should throw if the user is already valid', async () => {
+      const token = 'SOME-TOKEN';
+
+      MockUserModel.userToRespondWith = {
+        ...userToRegister,
+        isValid: true
+      };
+
+      await expect(
+        verifyController(
+          (MockUserModel as unknown) as IUserModel,
+          (MockVerificationToken as unknown) as IVerificationTokenModel
+        )(userToRegister.email, token)
+      ).rejects.toThrowError('User is already registered');
+
+      MockVerificationToken.reset();
+      MockUserModel.reset();
+    });
+
+    it('should throw if the token is not valid', async () => {
+      const token = 'SOME-TOKEN';
+
+      MockUserModel.userToRespondWith = { ...userToRegister };
+      MockVerificationToken.tokenToRespondWith = null;
+
+      await expect(
+        verifyController(
+          (MockUserModel as unknown) as IUserModel,
+          (MockVerificationToken as unknown) as IVerificationTokenModel
+        )(userToRegister.email, token)
+      ).rejects.toThrowError('Token is not valid');
+
+      MockVerificationToken.reset();
+      MockUserModel.reset();
+    });
+
+    it('should throw if the token does not belong to the user', async () => {
+      const token = 'SOME-TOKEN';
+
+      const setMock = jest.fn();
+      const removeMock = jest.fn();
+      MockUserModel.userToRespondWith = {
+        id: '1',
+        ...userToRegister
+      };
+      MockVerificationToken.tokenToRespondWith = {
+        token,
+        userId: '2'
+      };
+
+      await expect(
+        verifyController(
+          (MockUserModel as unknown) as IUserModel,
+          (MockVerificationToken as unknown) as IVerificationTokenModel
+        )(userToRegister.email, token)
+      ).rejects.toThrowError('Token does not match email address');
+
+      MockVerificationToken.reset();
       MockUserModel.reset();
     });
   });

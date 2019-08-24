@@ -14,6 +14,9 @@ const prodConfig: EnvironnementConfig = {
     loggerLevel: 'error'
   },
   expireTime: Number(process.env.JWT_EXPIRE_TIME) || 86400,
+  apiKeys: {
+    sendGrid: process.env.SENDGRID_API_KEY || ''
+  },
   secrets: {
     accessToken:
       process.env.ACCESS_TOKEN_SECRET || randomBytes(16).toString('hex'),

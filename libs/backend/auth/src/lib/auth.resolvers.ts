@@ -1,6 +1,10 @@
 import { GraphQLFieldResolver } from 'graphql';
 import { loginController, registerController } from './auth.controllers';
-import { IUserModel, IUser } from '@ngw/shared/interfaces';
+import {
+  IUserModel,
+  IUser,
+  IVerificationTokenModel
+} from '@ngw/shared/interfaces';
 
 /**
  *  A function that handles logging a user in
@@ -28,9 +32,15 @@ export function loginResolver(config: {
 }
 
 export function registerResolver(
-  userModel: IUserModel
+  userModel: IUserModel,
+  verificationModel: IVerificationTokenModel,
+  sendVerificationEmail: (to: string, token: string) => Promise<[any, {}]>
 ): GraphQLFieldResolver<any, { input: IUser }, any> {
-  const controller = registerController(userModel);
+  const controller = registerController(
+    userModel,
+    verificationModel,
+    sendVerificationEmail
+  );
   return async function register(root, args, context, info) {
     return controller(args.input);
   };

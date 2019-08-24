@@ -33,6 +33,11 @@ export const userSchema = new mongoose.Schema<IUser>(
       required: true,
       default: true
     },
+    isVerified: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
     settings: {
       darkMode: {
         type: Boolean,

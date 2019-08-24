@@ -1,13 +1,22 @@
 import { verify } from 'jsonwebtoken';
+import { randomBytes } from 'crypto';
 import { unauthorized, badRequest } from '@hapi/boom';
 import { compare, hash } from 'bcryptjs';
 import { isPasswordAllowed, userToJSON } from '@ngw/shared/utils/auth';
-import { IUser, IUserModel, IRefreshTokenModel } from '@ngw/shared/interfaces';
+import {
+  IUser,
+  IUserModel,
+  IRefreshTokenModel,
+  IVerificationTokenModel
+} from '@ngw/shared/interfaces';
 import { signAccessToken, signRefreshToken } from './auth';
-
 // TODO -> Refresh Token Model/Storage
 
-export function registerController(User: IUserModel) {
+export function registerController(
+  User: IUserModel,
+  VerificationToken: IVerificationTokenModel,
+  sendVerificationEmail: (to: string, token: string) => Promise<[any, {}]>
+) {
   return async function registerCtr(user: IUser): Promise<IUser> {
     const password: string = (user as any).password;
     if (!password) badRequest('No password provided');
@@ -20,17 +29,79 @@ export function registerController(User: IUserModel) {
 
     user.hashedPassword = await hash(password, 10);
 
-    const newUser = new User({ ...user });
+    const newUser = new User({ ...user, isValid: false, active: true });
     await newUser.save();
+
+    const verificationToken = new VerificationToken({
+      userId: newUser.id,
+      token: randomBytes(16).toString('hex')
+    });
+
+    await await verificationToken.save();
+    await sendVerificationEmail(user.email, verificationToken.token);
 
     return userToJSON(newUser.toJSON());
   };
 }
 
 /**
+ *
+ *
+ * @export
+ * @param {IUserModel} User
+ * @param {IVerificationTokenModel} VerificationToken
+ * @returns Verification Controller
+ */
+export function verifyController(
+  User: IUserModel,
+  VerificationToken: IVerificationTokenModel
+) {
+  return async function verifyCtr(
+    email: string,
+    token: string
+  ): Promise<{ message: string }> {
+    /**
+     * Check the user exists and is not already registered
+     */
+    const user = await User.findOne({ email }).exec();
+    if (!user) throw badRequest('Email address is not available');
+    if (user.isValid) throw badRequest('User is already registered');
+
+    /**
+     * Check the provided Token is valid
+     */
+    const verificationToken = await VerificationToken.findOne({ token }).exec();
+    if (!verificationToken) throw badRequest('Token is not valid');
+
+    /**
+     * Is the provided token and email a match
+     */
+    if (verificationToken.userId.toString() !== user.id.toString())
+      throw badRequest('Token does not match email address');
+
+    user.set({ isValid: true });
+    /**
+     * Update the user status to valid, and remove the token from the db.
+     */
+    await Promise.all([user.save(), verificationToken.remove()]);
+
+    return { message: `User with ${user.email} has been verified` };
+  };
+}
+
+/**
  *  A function that handles logging a user in
  *
- * @returns { Object } A User and signed JWT.
+ * @export
+ * @param {{
+ *   userModel: IUserModel;
+ *   secret: string;
+ *   expireTime: number;
+ * }} {
+ *   userModel,
+ *   secret,
+ *   expireTime
+ * }
  */
 export function loginController({
   userModel,

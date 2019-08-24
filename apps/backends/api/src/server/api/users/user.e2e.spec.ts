@@ -100,43 +100,44 @@ describe(`GraphQL / User`, () => {
     });
   });
 
-  describe(`register($input: NewUserInput!)`, () => {
-    it(`should create a new User`, async () => {
-      const differentUser = {
-        ...user,
-        username: 'Adifferentuser',
-        email: 'someDifferent@email.com',
-        password: 'SomE$2jDA'
-      };
-      delete differentUser['role'];
-      delete differentUser['hashedPassword'];
+  // TODO - move ot auth lib
+  // describe(`register($input: NewUserInput!)`, () => {
+  //   it(`should create a new User`, async () => {
+  //     const differentUser = {
+  //       ...user,
+  //       username: 'Adifferentuser',
+  //       email: 'someDifferent@email.com',
+  //       password: 'SomE$2jDA'
+  //     };
+  //     delete differentUser['role'];
+  //     delete differentUser['hashedPassword'];
 
-      const queryName = `register`;
-      const result = await runQuery(schema)(
-        `
-      mutation Register($input: NewUserInput!) {
-        ${queryName}(input: $input) {
-          id
-          username
-        }
-      }
-    `,
-        { input: differentUser },
-        jwt
-      );
+  //     const queryName = `register`;
+  //     const result = await runQuery(schema)(
+  //       `
+  //     mutation Register($input: NewUserInput!) {
+  //       ${queryName}(input: $input) {
+  //         id
+  //         username
+  //       }
+  //     }
+  //   `,
+  //       { input: differentUser },
+  //       jwt
+  //     );
 
-      expect(result.errors).not.toBeDefined();
-      expect(
-        (result.data as ExecutionResultDataDefault)[queryName]
-      ).toBeObject();
-      expect(
-        (result.data as ExecutionResultDataDefault)[queryName].id
-      ).toBeString();
-      expect(
-        (result.data as ExecutionResultDataDefault)[queryName].username
-      ).toEqual(differentUser.username);
-    });
-  });
+  //     expect(result.errors).not.toBeDefined();
+  //     expect(
+  //       (result.data as ExecutionResultDataDefault)[queryName]
+  //     ).toBeObject();
+  //     expect(
+  //       (result.data as ExecutionResultDataDefault)[queryName].id
+  //     ).toBeString();
+  //     expect(
+  //       (result.data as ExecutionResultDataDefault)[queryName].username
+  //     ).toEqual(differentUser.username);
+  //   });
+  // });
 
   describe(`updateUser($input: UpdatedUserInput!)`, () => {
     it(`should update an User`, async () => {

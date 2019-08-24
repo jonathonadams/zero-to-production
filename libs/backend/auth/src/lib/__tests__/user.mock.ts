@@ -1,6 +1,9 @@
 import { IUser } from '@ngw/shared/interfaces';
 import { newId } from '@app-testing/index';
 
+/**
+ * A mock user to test the auth routes
+ */
 export class MockUserModel {
   static _user: IUser | null | undefined;
   _user: IUser;
@@ -33,12 +36,25 @@ export class MockUserModel {
     }
   }
 
+  static findOne(details: any) {
+    const user = this._user;
+    return {
+      exec: async () => {
+        return user;
+      }
+    };
+  }
+
   static reset() {
     this._user = undefined;
   }
 
   toJSON() {
     return this._user;
+  }
+
+  set(details: any) {
+    this._user = { ...this._user, ...details };
   }
 
   async save() {

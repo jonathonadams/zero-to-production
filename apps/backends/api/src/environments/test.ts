@@ -13,6 +13,9 @@ const testConfig: EnvironnementConfig = {
     loggerLevel: 'warn'
   },
   expireTime: 1200,
+  apiKeys: {
+    sendGrid: process.env.SENDGRID_API_KEY || ''
+  },
   secrets: {
     accessToken: process.env.ACCESS_TOKEN_SECRET || 'test-secret',
     refreshToken: process.env.REFRESH_TOKEN_SECRET || 'test-secret'

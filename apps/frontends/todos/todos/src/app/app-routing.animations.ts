@@ -4,7 +4,8 @@ import {
   style,
   animate,
   trigger,
-  sequence
+  sequence,
+  keyframes
 } from '@angular/animations';
 
 export const appRouterAnimations = trigger('appRouterAnimations', [
@@ -20,8 +21,28 @@ export const appRouterAnimations = trigger('appRouterAnimations', [
     sequence([
       // need to query the nested element
       query(':leave ngw-login', [
-        style({ opacity: 1 }),
-        animate(`200ms ease-in`, style({ opacity: 0 }))
+        style({ opacity: 1, transform: 'none' }),
+        animate(
+          `200ms ease-in`,
+          keyframes([
+            style({
+              opacity: 0.75,
+              transform: 'translate3d(0, 20%, -10em) scale3d(1, 1, 1)'
+            }),
+            style({
+              opacity: 0.5,
+              transform: 'translate3d(0, 60%, -16em) scale3d(0.8, 0.8, 0.8)'
+            }),
+            style({
+              opacity: 0.25,
+              transform: 'translate3d(0, 120%, -18em) scale3d(0.5, 0.5, 0.5)'
+            }),
+            style({
+              opacity: 0,
+              transform: 'translate3d(0, 200%, -20em) scale3d(0.2, 0.2, 0.2)'
+            })
+          ])
+        )
       ]),
       query(':leave', [style({ left: '100%', position: 'absolute' })]),
       query(':enter', [

@@ -9,7 +9,8 @@
 
 ### Path Re-writer
 
-- [ ] Make the path rewriter rewrite all library paths, not just main tsconfig paths.
+- [x] Make the path rewriter rewrite all library paths, not just main tsconfig paths.
+- [x] Add an example project structure
 - [ ] User read/write streams not promises.
 - [ ] Look to plugin into ts compiler?
 - [ ] Tests
@@ -26,6 +27,7 @@
 #### App
 
 - [x] Finish user registration. NOTE -> For the demo, don't require unique emails
+- [ ] Add preloader spinner
 
 #### Dynamic Form
 
@@ -42,6 +44,10 @@
 ### Mobile App
 
 - [ ] Add Nativescript support
+
+## To document
+
+- Web Animation support in Safari
 
 ## Issues to track / tidy up before release.
 

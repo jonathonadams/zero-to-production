@@ -1,22 +1,8 @@
-import { AuthModule, AuthConfig } from '@ngw/backend/auth';
+import Koa from 'koa';
+import { AuthModule } from '@ngw/backend/auth';
 import { RefreshToken } from './tokens.model';
 import config from '../../environments';
-import { User } from '../api/users';
-
-const authConfig: AuthConfig = {
-  userModel: User,
-  accessTokenSecret: config.secrets.accessToken,
-  accessTokenExpireTime: config.expireTime,
-  refreshTokenSecret: config.secrets.refreshToken,
-  refreshTokenModel: RefreshToken
-};
-
-const auth = new AuthModule(authConfig);
-
-/**
- * Auth Resolvers
- */
-export const { authResolvers } = auth.authResolvers;
+import { User, VerificationToken } from '../api/users';
 
 /**
  * Guards for use in Routes
@@ -24,7 +10,7 @@ export const { authResolvers } = auth.authResolvers;
 export const {
   verifyToken: verifyTokenRest,
   verifyUserIsActive: verifyUserIsActiveRest
-} = auth.restGuards;
+} = AuthModule.getRestGuards(User, config.secrets.accessToken);
 
 /**
  * Guards to user with GraphQL
@@ -33,6 +19,27 @@ export const {
   verifyToken: verifyTokenGraphQL,
   verifyUserIsActive: verifyUserIsActiveGraphQL,
   verifyUserRole: verifyUserRoleGraphQL
-} = auth.graphQlGuards;
+} = AuthModule.getGraphQlGuards(User, config.secrets.accessToken);
 
-export default auth;
+/**
+ * Auth Resolvers
+ */
+export const { authResolvers } = AuthModule.getAuthResolvers(
+  User,
+  VerificationToken
+)(
+  config.secrets.accessToken,
+  config.expireTime,
+  config.apiKeys.sendGrid,
+  config.hostUrl
+);
+
+export function applyAuthorizationRoutes(app: Koa) {
+  AuthModule.applyAuthorizationRoutes(User, VerificationToken, RefreshToken)(
+    config.secrets.accessToken,
+    config.expireTime,
+    config.secrets.refreshToken,
+    config.apiKeys.sendGrid,
+    config.hostUrl
+  )(app);
+}

@@ -12,6 +12,7 @@ export interface IUser {
   settings: IUserSettings;
   role: AuthenticationRoles;
   active: boolean;
+  isValid: boolean;
   hashedPassword?: string;
 }
 
@@ -32,3 +33,17 @@ export interface IUserDocument extends IUser, mongoose.Document {
 export interface IUserModel
   extends mongoose.Model<IUserDocument>,
     IFindByUsername<IUserDocument> {}
+
+export interface IVerificationToken {
+  userId: string;
+  token: string;
+}
+
+export interface IVerificationTokenDocument
+  extends IVerificationToken,
+    mongoose.Document {
+  id: string;
+}
+
+export interface IVerificationTokenModel
+  extends mongoose.Model<IVerificationTokenDocument> {}
