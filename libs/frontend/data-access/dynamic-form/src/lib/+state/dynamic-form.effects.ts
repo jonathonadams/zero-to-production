@@ -4,21 +4,21 @@ import { map, tap, exhaustMap, take } from 'rxjs/operators';
 import * as fromActions from './dynamic-form.actions';
 import { DynamicFormFacade } from './dynamic-form.facade';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DynamicFormsEffects {
   submit$ = createEffect(
     () =>
       this.actions.pipe(
         ofType(fromActions.submitForm),
         exhaustMap(() => this.facade.data$.pipe(take(1))),
-        tap(data => this.facade.formSubmits(data))
+        tap(data => this.facade.submit(data))
       ),
     { dispatch: false }
   );
 
-  setData$ = createEffect(() =>
+  clearErrors$ = createEffect(() =>
     this.actions.pipe(
-      ofType(fromActions.setFormData, fromActions.updateFormData),
+      ofType(fromActions.updateFormData),
       map(() => fromActions.clearFormErrors())
     )
   );

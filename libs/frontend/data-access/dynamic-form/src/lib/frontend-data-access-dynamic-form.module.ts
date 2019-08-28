@@ -46,7 +46,6 @@ const COMPONENTS = [
     }),
     EffectsModule.forFeature([DynamicFormsEffects])
   ],
-  providers: [DynamicFormService, DynamicFormFacade],
   declarations: [
     DynamicFormFieldDirective,
     FormErrorsDirective,

@@ -1,24 +1,29 @@
 <mat-card>
-  <form [formGroup]="todoForm" (ngSubmit)="formSubmit.emit(todoForm)">
+  <mat-card-header>
     <mat-card-title>{{ selectedTodo ? 'Edit' : 'Create' }} Todo</mat-card-title>
-    <mat-card-subtitle>
-      <mat-form-field appearance="standard">
+  </mat-card-header>
+  <mat-card-content>
+    <app-dynamic-form>
+      <!-- <button mat-stroked-button type="submit" (click)="formSubmit.emit()">
+        Save
+      </button> -->
+    </app-dynamic-form>
+
+    <!-- <mat-form-field appearance="standard">
         <mat-label>Title</mat-label>
         <input type="text" matInput formControlName="title" />
       </mat-form-field>
-    </mat-card-subtitle>
-    <mat-card-content fxLayout="column">
-      <mat-form-field>
+      <mat-form-field class="todos-fields">
         <mat-label>Description</mat-label>
         <input type="text" matInput formControlName="description" />
-      </mat-form-field>
-      <mat-slide-toggle formControlName="completed">Completed</mat-slide-toggle>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-stroked-button type="submit">Save</button>
-      <button mat-button type="button" (click)="cancelled.emit()">
-        Cancel
-      </button>
-    </mat-card-actions>
-  </form>
+      </mat-form-field> -->
+  </mat-card-content>
+  <mat-card-actions class="todos-fields">
+    <button mat-stroked-button type="submit" (click)="formSubmit.emit()">
+      Save
+    </button>
+    <button mat-button type="button" (click)="cancelled.emit()">
+      Cancel
+    </button>
+  </mat-card-actions>
 </mat-card>

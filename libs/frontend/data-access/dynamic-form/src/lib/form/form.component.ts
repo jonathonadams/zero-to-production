@@ -14,7 +14,7 @@ import {
   withLatestFrom
 } from 'rxjs/operators';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
-import { TFormGroups, IFormErrors } from '../form.models';
+import { TFormGroups } from '../form.models';
 import { expandFromCenter } from '@ngw/frontend/common/animations';
 import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
 import { DynamicFormService } from '../form.service';
@@ -33,8 +33,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   config$: Observable<IDynamicFormConfig>;
   formIdx$: Observable<number>;
   structure$: Observable<TFormGroups>;
-  data$: Observable<any>;
-  errors$: Observable<IFormErrors | null>;
 
   constructor(
     private service: DynamicFormService,
@@ -43,8 +41,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     this.config$ = this.facade.config$;
     this.formIdx$ = this.facade.idx$;
     this.structure$ = this.facade.structure$;
-    this.data$ = this.facade.data$;
-    this.errors$ = this.facade.errors$;
   }
 
   ngOnInit() {
@@ -74,12 +70,24 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
         // Update the store
         this.facade.updateData({ data });
       });
+
+    /**
+     * The set data method does not update the store, it resets the form with the data
+     *
+     * When the form resets, it will emit a value changed event and subsequently will update the store
+     * @param data
+     */
+    this.subscription.add(
+      this.facade.setData$.subscribe(data => {
+        (this.form as FormGroup).reset(data);
+      })
+    );
   }
 
   onSubmit(form: FormGroup) {
     const { valid } = form;
     if (valid) {
-      this.facade.submit();
+      this.facade.submitForm();
       // this.formSubmit.emit(value);
       this.facade.clearErrors();
     } else {

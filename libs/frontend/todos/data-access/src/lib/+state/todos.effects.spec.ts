@@ -81,7 +81,7 @@ describe('TodoEffects', () => {
     it('should return a LoadTodosFail action if the service throws', () => {
       const error = new GraphQLError('An error occurred');
       const action = TodoActions.loadTodos();
-      const completion = TodoActions.loadTodosFail({ error });
+      const completion = TodoActions.loadTodosFail({ error: error.message });
 
       action$ = hot('-a--', { a: action });
       const response = cold('-a|', { a: { errors: [error] } });
@@ -110,7 +110,7 @@ describe('TodoEffects', () => {
     it('should return a CreateTodoFail action if the service throws', () => {
       const error = new GraphQLError('An error occurred');
       const action = TodoActions.createTodo({ todo: mockTodo });
-      const completion = TodoActions.createTodoFail({ error });
+      const completion = TodoActions.createTodoFail({ error: error.message });
 
       action$ = hot('-a--', { a: action });
       const response = cold('-a|', { a: { errors: [error] } });
@@ -141,7 +141,7 @@ describe('TodoEffects', () => {
     it('should return a UpdateTodoFail action if the service throws', () => {
       const error = new GraphQLError('An error occurred');
       const action = TodoActions.updateTodo({ todo: mockTodo });
-      const completion = TodoActions.updateTodoFail({ error });
+      const completion = TodoActions.updateTodoFail({ error: error.message });
 
       action$ = hot('-a--', { a: action });
       const response = cold('-a|', { a: { errors: [error] } });
@@ -170,7 +170,7 @@ describe('TodoEffects', () => {
     it('should return a DeleteTodoFail action if the service throws', () => {
       const error = new GraphQLError('An error occurred');
       const action = TodoActions.deleteTodo({ todo: mockTodo });
-      const completion = TodoActions.deleteTodoFail({ error });
+      const completion = TodoActions.deleteTodoFail({ error: error.message });
 
       action$ = hot('-a--', { a: action });
       const response = cold('-a|', { a: { errors: [error] } });

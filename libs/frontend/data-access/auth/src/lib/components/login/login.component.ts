@@ -2,8 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   OnInit,
-  OnDestroy,
-  ViewEncapsulation
+  OnDestroy
 } from '@angular/core';
 import { ILoginCredentials } from '@ngw/shared/interfaces';
 import { Validators } from '@angular/forms';
@@ -43,7 +42,6 @@ const STRUCTURE: TFormGroups = [
   selector: 'ngw-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  // encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit, OnDestroy {
@@ -57,6 +55,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.facade.login(credentials);
       }
     );
+  }
+
+  submit() {
+    this.formFacade.submitForm();
   }
 
   ngOnInit() {

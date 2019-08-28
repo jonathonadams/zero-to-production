@@ -56,7 +56,7 @@ export const THEME_GROUP: IFormGroup = {
       type: 'color',
       name: 'lightPrimary',
       label: 'Light Mode - Primary Colour',
-      initialValue: '#8236f6',
+      initialValue: '#7b1fa2',
       validators: [Validators.required]
     },
     {

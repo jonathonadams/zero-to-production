@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 import { IFormErrors, TField, TFormGroups } from './form.models';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DynamicFormService {
   //
   constructor(private injector: Injector, private fb: FormBuilder) {}

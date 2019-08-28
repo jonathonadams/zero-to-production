@@ -12,8 +12,6 @@ import { TodoFilterStatus } from '@ngw/shared/enums';
 import { TodosFacade } from '@ngw/frontend/todos/data-access';
 import { UiFilterTodosComponent } from './ui/filter-todos/ui-filter-todos.component';
 
-// TODO  -> overflow scrolling of the list of todos
-
 @Component({
   selector: 'todo-all-todos',
   templateUrl: './all-todos.component.html',

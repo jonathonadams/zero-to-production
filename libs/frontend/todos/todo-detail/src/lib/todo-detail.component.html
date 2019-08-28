@@ -1,6 +1,5 @@
 <todo-ui-todo-detail
   [selectedTodo]="selectedTodo$ | async"
-  [todoForm]="todoForm"
-  (formSubmit)="onSubmit($event)"
+  (formSubmit)="submit()"
   (cancelled)="clearTodo()"
 ></todo-ui-todo-detail>

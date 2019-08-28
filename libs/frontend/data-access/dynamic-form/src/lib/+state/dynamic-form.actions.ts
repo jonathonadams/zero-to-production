@@ -3,11 +3,6 @@ import { IFormErrors, TFormGroups } from '../form.models';
 import { IDynamicFormConfig } from './dynamic-form.reducer';
 import { ValidatorFn } from '@angular/forms';
 
-export const setFormData = createAction(
-  '[Dynamic Form] Set Data',
-  props<{ data: any }>()
-);
-
 export const updateFormData = createAction(
   '[Dynamic Form] Update Data',
   props<{ data: any }>()

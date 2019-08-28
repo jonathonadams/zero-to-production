@@ -33,9 +33,6 @@ export const initialFormState: DynamicFormState = {
 
 export const formReducer = createReducer(
   initialFormState,
-  on(FormActions.setFormData, (state, { data }) => {
-    return { ...state, data };
-  }),
   on(FormActions.updateFormData, (state, { data }) => {
     return { ...state, data };
   }),

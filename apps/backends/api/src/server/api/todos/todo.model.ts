@@ -13,7 +13,8 @@ export const todoSchema = new mongoose.Schema<ITodo>(
     description: String,
     completed: {
       type: Boolean,
-      required: true
+      required: true,
+      default: false
     }
   },
   {

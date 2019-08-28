@@ -32,40 +32,42 @@ export const selectTodoSearchFilter = createSelector(
 export const selectCurrentTodo = createSelector(
   selectTodoEntities,
   selectCurrentTodoId,
-  (todoEntities, todoId) => todoEntities[`${todoId}`] // TODO  -> Coercion because TS strict => true
+  (todoEntities, todoId) => todoEntities[String(todoId)]
 );
+
+// TODO -> Refactor the filtering
 
 export const selectFilteredTodos = createSelector(
   selectAllTodos,
   selectTodoFilterStatus,
   selectTodoSearchFilter,
-  (
-    todos: ITodo[],
-    selection: TodoFilterStatus,
-    searchString: string | null
-  ) => {
-    if (selection === TodoFilterStatus.All) {
-      if (searchString === null || searchString === '') {
+  (todos: ITodo[], status: TodoFilterStatus, searchString: string | null) => {
+    if (statusCheck(TodoFilterStatus.All)(status)) {
+      if (isEmptySearchString(searchString)) {
         return todos;
       } else {
-        return todos.filter(todo => isTodoInSearchString(todo, searchString));
-      }
-    } else if (selection === TodoFilterStatus.Completed) {
-      if (searchString === null || searchString === '') {
-        return todos.filter(todo => todo.completed === true);
-      } else {
-        return todos.filter(
-          todo =>
-            todo.completed === true && isTodoInSearchString(todo, searchString)
+        return todos.filter(todo =>
+          isTodoInSearchString(todo, searchString as string)
         );
       }
-    } else if (selection === TodoFilterStatus.InCompleted) {
-      if (searchString === null || searchString === '') {
-        return todos.filter(todo => todo.completed === false);
+    } else if (statusCheck(TodoFilterStatus.Completed)(status)) {
+      if (isEmptySearchString(searchString)) {
+        return todos.filter(isTodoComplete);
       } else {
         return todos.filter(
           todo =>
-            todo.completed === false && isTodoInSearchString(todo, searchString)
+            isTodoComplete(todo) &&
+            isTodoInSearchString(todo, searchString as string)
+        );
+      }
+    } else if (statusCheck(TodoFilterStatus.InCompleted)(status)) {
+      if (isEmptySearchString(searchString)) {
+        return todos.filter(isTodoIncomplete);
+      } else {
+        return todos.filter(
+          todo =>
+            isTodoIncomplete(todo) &&
+            isTodoInSearchString(todo, searchString as string)
         );
       }
     } else {
@@ -73,6 +75,24 @@ export const selectFilteredTodos = createSelector(
     }
   }
 );
+
+function isTodoComplete(todo: ITodo) {
+  return todo.completed === true;
+}
+
+function isTodoIncomplete(todo: ITodo) {
+  return !isTodoComplete(todo);
+}
+
+function statusCheck(status: TodoFilterStatus) {
+  return function(currentStatus: TodoFilterStatus) {
+    return status === currentStatus;
+  };
+}
+
+function isEmptySearchString(text: string | null): boolean {
+  return text === null || text === '';
+}
 
 function isTodoInSearchString(todo: ITodo, searchString: string): boolean {
   if (

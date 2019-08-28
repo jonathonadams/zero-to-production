@@ -6,6 +6,7 @@ import { DataAccessFloatingMenuModule } from '@ngw/frontend/data-access/floating
 import { CommonUiToolbarModule } from '@ngw/frontend/common/ui/toolbar';
 import { CommonUiSideNavModule } from '@ngw/frontend/common/ui/side-nav';
 import { CommonUiLayoutsModule } from '@ngw/frontend/common/ui/layouts';
+import { DataAccessDynamicFormModule } from '@ngw/frontend/data-access/dynamic-form';
 import { TodosFeatureShellRoutingModule } from './todos-feature-shell-routing.module';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
 import { TodoLayoutComponent } from './ui/todos-layout.component';
@@ -16,6 +17,7 @@ import { TodoLayoutComponent } from './ui/todos-layout.component';
     TodosDataAccessModule,
     AllTodosModule,
     TodosDetailModule,
+    DataAccessDynamicFormModule,
     CommonUiSideNavModule,
     CommonUiToolbarModule,
     TodosFeatureShellRoutingModule,

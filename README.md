@@ -28,12 +28,16 @@
 
 - [x] Finish user registration. NOTE -> For the demo, don't require unique emails
 - [ ] Add preloader spinner
+- [ ] Feature Flag Service
 
 #### Dynamic Form
 
 - [x] Dynamic Form to accept validators
 - [x] Dynamic Form global errors (with animations)
 - [x] Make the form errors pipe accept form level errors.
+- [ ] Collect form errors from side effects submit
+- [ ] Restyle errors animations
+- [ ] Submit button not using content projection does not have auto focus
 - [ ] Write tests for dynamic form
 
 #### Tests

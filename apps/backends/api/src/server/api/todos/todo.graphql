@@ -10,7 +10,6 @@ input NewTodoInput {
   user: ID!
   title: String!
   description: String!
-  completed: Boolean!
 }
 
 input UpdatedTodoInput {

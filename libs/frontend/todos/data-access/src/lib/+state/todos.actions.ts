@@ -1,8 +1,7 @@
 import { createAction, props } from '@ngrx/store';
+import { Update } from '@ngrx/entity';
 import { ITodo } from '@ngw/shared/interfaces';
 import { TodoFilterStatus } from '@ngw/shared/enums';
-import { Update } from '@ngrx/entity';
-import { GraphQLError } from 'graphql';
 
 export const selectTodo = createAction(
   '[Todo/UI] Select',
@@ -30,7 +29,7 @@ export const loadTodosSuccess = createAction(
 
 export const loadTodosFail = createAction(
   '[Todo/API] Load Fail',
-  props<{ error: GraphQLError }>()
+  props<{ error: string }>()
 );
 
 export const createTodo = createAction(
@@ -44,7 +43,7 @@ export const createTodoSuccess = createAction(
 
 export const createTodoFail = createAction(
   '[Todo/API] Create Fail',
-  props<{ error: GraphQLError }>()
+  props<{ error: string }>()
 );
 
 export const updateTodo = createAction(
@@ -58,7 +57,7 @@ export const updateTodoSuccess = createAction(
 
 export const updateTodoFail = createAction(
   '[Todo/API] Update Fail',
-  props<{ error: GraphQLError }>()
+  props<{ error: string }>()
 );
 
 export const deleteTodo = createAction(
@@ -73,5 +72,5 @@ export const deleteTodoSuccess = createAction(
 
 export const deleteTodoFail = createAction(
   '[Todo/API] Delete Fail',
-  props<{ error: GraphQLError }>()
+  props<{ error: string }>()
 );

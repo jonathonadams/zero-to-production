@@ -7,7 +7,6 @@ import config from '../../../environments';
 const todo = {
   title: 'Some Todo',
   description: 'A todo that needs to be done',
-  completed: false,
   user: newId()
 };
 

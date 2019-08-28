@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '@app-testing/frontend/stubs/activated-router.stubs';
+import { DynamicFormFacade } from '@ngw/frontend/data-access/dynamic-form';
 
 // TODO -> TESTS -> Get from old
 describe('TodoDetailComponent', () => {
@@ -16,6 +17,14 @@ describe('TodoDetailComponent', () => {
   let todoFacade: TodosFacade;
   let activatedRoute: ActivatedRoute;
   let location: Location;
+  let formsFacade: DynamicFormFacade;
+
+  const formsFacadSpy = {
+    submit$: of(jest.fn()),
+    setFormConfig: jest.fn(),
+    setStructure: jest.fn()
+  };
+
   const todoFacadeSpy = {
     selectedTodo$: of(jest.fn()),
     todoIds$: of(jest.fn())
@@ -27,7 +36,8 @@ describe('TodoDetailComponent', () => {
       providers: [
         { provide: TodosFacade, useValue: todoFacadeSpy },
         { provide: ActivatedRoute, useClass: ActivatedRouteStub },
-        { provide: Location, userValue: {} }
+        { provide: Location, userValue: {} },
+        { provide: DynamicFormFacade, useValue: formsFacadSpy }
       ],
       declarations: [TodoDetailComponent],
       schemas: [NO_ERRORS_SCHEMA]
@@ -36,6 +46,7 @@ describe('TodoDetailComponent', () => {
     todoFacade = TestBed.get<TodosFacade>(TodosFacade);
     activatedRoute = TestBed.get<ActivatedRoute>(ActivatedRoute);
     location = TestBed.get<Location>(Location);
+    formsFacade = TestBed.get<DynamicFormFacade>(DynamicFormFacade);
   }));
 
   beforeEach(() => {

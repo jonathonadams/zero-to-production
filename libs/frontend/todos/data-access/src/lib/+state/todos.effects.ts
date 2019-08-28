@@ -4,6 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as TodoActions from './todos.actions';
 import { TodosService } from '../todos.service';
 import { of } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 // Note: when merging observable from multiple sources there are 4x operators tha can be uses
 // exhaustMap, mergeMap, switchMap and concatMap
@@ -31,14 +32,18 @@ export class TodoEffects {
       this.todoService.getAllTodos().pipe(
         map(result => {
           if (result.errors) {
-            return TodoActions.loadTodosFail({ error: result.errors[0] });
+            return TodoActions.loadTodosFail({
+              error: result.errors[0].message
+            });
           } else if (result.data) {
             return TodoActions.loadTodosSuccess({
               todos: result.data.allTodos
             });
           }
         }),
-        catchError(error => of(TodoActions.loadTodosFail(error)))
+        catchError((error: HttpErrorResponse) =>
+          of(TodoActions.loadTodosFail({ error: error.message }))
+        )
       )
     )
   );
@@ -50,14 +55,18 @@ export class TodoEffects {
       this.todoService.createTodo(todo).pipe(
         map(result => {
           if (result.errors) {
-            return TodoActions.createTodoFail({ error: result.errors[0] });
+            return TodoActions.createTodoFail({
+              error: result.errors[0].message
+            });
           } else if (result.data) {
             return TodoActions.createTodoSuccess({
               todo: result.data.newTodo
             });
           }
         }),
-        catchError(error => of(TodoActions.createTodoFail(error)))
+        catchError((error: HttpErrorResponse) =>
+          of(TodoActions.createTodoFail({ error: error.message }))
+        )
       )
     )
   );
@@ -69,14 +78,19 @@ export class TodoEffects {
       this.todoService.updateTodo(todo).pipe(
         map(result => {
           if (result.errors) {
-            return TodoActions.updateTodoFail({ error: result.errors[0] });
+            return TodoActions.updateTodoFail({
+              error: result.errors[0].message
+            });
           } else if (result.data) {
             return TodoActions.updateTodoSuccess({
               todo: { id: todo.id, changes: result.data.updateTodo }
             });
           }
         }),
-        catchError(error => of(TodoActions.updateTodoFail(error)))
+
+        catchError((error: HttpErrorResponse) =>
+          of(TodoActions.updateTodoFail({ error: error.message }))
+        )
       )
     )
   );
@@ -88,12 +102,16 @@ export class TodoEffects {
       this.todoService.deleteTodo(todo.id).pipe(
         map(result => {
           if (result.errors) {
-            return TodoActions.deleteTodoFail({ error: result.errors[0] });
+            return TodoActions.deleteTodoFail({
+              error: result.errors[0].message
+            });
           } else if (result.data) {
             return TodoActions.deleteTodoSuccess({ id: todo.id });
           }
         }),
-        catchError(error => of(TodoActions.deleteTodoFail(error)))
+        catchError((error: HttpErrorResponse) =>
+          of(TodoActions.deleteTodoFail({ error: error.message }))
+        )
       )
     )
   );

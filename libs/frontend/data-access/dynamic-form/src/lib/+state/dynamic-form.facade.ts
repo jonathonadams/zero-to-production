@@ -7,7 +7,7 @@ import { IFormErrors, TFormGroups } from '../form.models';
 import { IDynamicFormConfig } from './dynamic-form.reducer';
 import { ValidatorFn } from '@angular/forms';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DynamicFormFacade {
   config$: Observable<IDynamicFormConfig>;
   idx$: Observable<number>;
@@ -16,6 +16,7 @@ export class DynamicFormFacade {
   errors$: Observable<IFormErrors | null>;
   validators$: Observable<ValidatorFn[]>;
   submit$: Subject<any> = new Subject();
+  setData$ = new Subject<any>();
 
   constructor(private store: Store<any>) {
     this.config$ = this.store.pipe(select(fromSelectors.selectFormConfig));
@@ -32,16 +33,22 @@ export class DynamicFormFacade {
     this.store.dispatch(fromActions.setFormStructure(data));
   }
 
-  setData(data: { data: any }) {
-    this.store.dispatch(fromActions.setFormData(data));
-  }
-
-  updateData(data: { data: any }) {
-    this.store.dispatch(fromActions.updateFormData(data));
+  /**
+   * The set data method does not update the store, it resets the form with the data
+   *
+   * When the form resets, it will emit a value changed event and subsequently will update the store
+   * @param data
+   */
+  setData(data: any) {
+    this.setData$.next(data);
   }
 
   clearData(): void {
     this.setData({ data: {} });
+  }
+
+  updateData(data: { data: any }) {
+    this.store.dispatch(fromActions.updateFormData(data));
   }
 
   setErrors({ errors }: { errors: IFormErrors }) {
@@ -88,15 +95,17 @@ export class DynamicFormFacade {
     this.store.dispatch(fromActions.resetFormConfig());
   }
 
-  submit() {
+  submitForm() {
     this.store.dispatch(fromActions.submitForm());
   }
 
-  formSubmits(data: any): void {
+  submit(data: any): void {
+    console.log('outside side effect');
     this.submit$.next(data);
   }
 
   onDestroy() {
+    this.setData$.complete();
     this.submit$.complete();
   }
 }

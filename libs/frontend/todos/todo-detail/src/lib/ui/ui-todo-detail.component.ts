@@ -12,15 +12,10 @@ import { ITodo } from '@ngw/shared/interfaces';
 @Component({
   selector: 'todo-ui-todo-detail',
   templateUrl: './ui-todo-detail.component.html',
+  styleUrls: ['./ui-todo-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiTodoDetailComponent {
-  /**
-   * Expose the FormGroupDirective as Material Validators are not removed otherwise
-   */
-  @ViewChild(FormGroupDirective, { static: false })
-  formDirective!: FormGroupDirective;
-  @Input() todoForm!: FormGroup;
   @Input() selectedTodo: ITodo | undefined;
   @Output()
   formSubmit = new EventEmitter<FormGroup>();

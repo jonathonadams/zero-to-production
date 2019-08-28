@@ -148,6 +148,7 @@ describe('AuthService', () => {
         id: 'some-id',
         role: AuthenticationRoles.User,
         active: true,
+        isValid: true,
         ...newUser
       };
 

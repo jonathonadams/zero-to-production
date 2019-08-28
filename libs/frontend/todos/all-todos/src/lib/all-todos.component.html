@@ -4,11 +4,10 @@
   (selectFilterChanged)="selectFilterChanged($event)"
   (searchStringChanged)="searchStringChanged($event)"
 ></todo-ui-filter-todos>
-<todo-ui-todo-item
+<todo-ui-todo-list
   class="list-items"
-  *ngFor="let todo of filteredTodo$ | async"
-  [todo]="todo"
+  [todos]="filteredTodo$ | async"
   (selected)="selectTodo($event)"
   (delete)="deleteTodo($event)"
   (update)="update($event)"
-></todo-ui-todo-item>
+></todo-ui-todo-list>
