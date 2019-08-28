@@ -16,7 +16,17 @@ export const TODOS_ROUTES: Routes = [
       },
       {
         path: 'todos',
-        component: TodoLayoutComponent,
+        children: [
+          {
+            path: '',
+            component: TodoLayoutComponent
+          },
+          {
+            path: ':id',
+            component: TodoLayoutComponent
+          }
+        ],
+
         data: { animation: 'TodosPage' }
       },
       {

@@ -61,8 +61,11 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
         // Switch to the observable of the change in form values
         switchMap(form =>
           form.valueChanges.pipe(
-            // Wait 200ms before updating the store
-            debounceTime(200)
+            // Wait 100ms before updating the store
+            // NOTE: This needs to be relatively fast
+            // Think of pushing enter after entering a well know password, store may have not
+            // updated in time
+            debounceTime(80)
           )
         )
       )

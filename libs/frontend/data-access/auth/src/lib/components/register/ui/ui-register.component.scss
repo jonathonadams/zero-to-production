@@ -20,6 +20,10 @@
   border-radius: 0.5em;
   text-align: center;
 
+  @media (max-width: 599px) {
+    width: 16em;
+  }
+
   .register-page-form {
     display: flex;
     flex-direction: column;
