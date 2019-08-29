@@ -39,6 +39,11 @@
       select='button[type="submit"]'
     ></ng-content>
 
+    <ng-content
+      class="select-button"
+      select='button[type="reset"]'
+    ></ng-content>
+
     <button
       *ngIf="(structure$ | async).length > 1"
       type="button"

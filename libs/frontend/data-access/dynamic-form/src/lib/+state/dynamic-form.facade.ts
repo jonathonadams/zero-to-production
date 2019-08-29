@@ -100,7 +100,6 @@ export class DynamicFormFacade {
   }
 
   submit(data: any): void {
-    console.log('outside side effect');
     this.submit$.next(data);
   }
 

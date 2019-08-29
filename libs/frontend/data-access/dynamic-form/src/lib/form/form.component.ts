@@ -65,7 +65,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
             // NOTE: This needs to be relatively fast
             // Think of pushing enter after entering a well know password, store may have not
             // updated in time
-            debounceTime(80)
+            debounceTime(100)
           )
         )
       )
@@ -91,8 +91,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     const { valid } = form;
     if (valid) {
       this.facade.submitForm();
-      // this.formSubmit.emit(value);
-      this.facade.clearErrors();
+      // this.facade.clearErrors();
     } else {
       // collect all form errors
       const errors = this.service.getAllFormErrors(form);
