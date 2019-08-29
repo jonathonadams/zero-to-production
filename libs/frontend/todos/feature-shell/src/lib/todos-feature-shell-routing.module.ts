@@ -22,7 +22,7 @@ export const TODOS_ROUTES: Routes = [
             component: TodoLayoutComponent
           },
           {
-            path: ':id',
+            path: ':todoId',
             component: TodoLayoutComponent
           }
         ],

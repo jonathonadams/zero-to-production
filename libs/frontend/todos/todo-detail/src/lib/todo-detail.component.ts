@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, combineLatest } from 'rxjs';
-import { filter, withLatestFrom } from 'rxjs/operators';
+import { filter, withLatestFrom, map } from 'rxjs/operators';
 import { ITodo } from '@ngw/shared/interfaces';
 import { TodosFacade } from '@ngw/frontend/todos/data-access';
 import {
@@ -72,19 +72,19 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
         this.clearTodo();
       });
 
-    // this.subscription.add(
-    //   combineLatest([
-    //     this.route.paramMap.pipe(map(paramMap => paramMap.get('id'))),
-    //     this.facade.todoIds$
-    //   ]).subscribe(([id, ids]) => {
-    //     if (id !== null && (ids as string[]).indexOf(id) !== -1) {
-    //       this.facade.selectTodo(id);
-    //     } else {
-    //       this.facade.clearSelected();
-    //       this.updateTodoUrl();
-    //     }
-    //   })
-    // );
+    this.subscription.add(
+      combineLatest([
+        this.route.paramMap.pipe(map(paramMap => paramMap.get('todoId'))),
+        this.facade.todoIds$
+      ]).subscribe(([id, ids]) => {
+        if (id !== null && (ids as string[]).indexOf(id) !== -1) {
+          this.facade.selectTodo(id);
+        } else {
+          this.facade.clearSelected();
+          this.updateTodoUrl();
+        }
+      })
+    );
   }
 
   ngOnInit() {
