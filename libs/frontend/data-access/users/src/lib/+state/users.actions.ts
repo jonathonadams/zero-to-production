@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { IUser } from '@ngw/shared/interfaces';
-import { GraphQLError } from 'graphql';
 import { Update } from '@ngrx/entity';
 
 export const selectUser = createAction(
@@ -26,7 +25,7 @@ export const loadAuthUserSuccess = createAction(
 
 export const loadAuthUserFail = createAction(
   '[User/API] Load Auth Fail',
-  props<{ error: GraphQLError | Error }>()
+  props<{ error: string }>()
 );
 
 export const loadUser = createAction(
@@ -41,7 +40,7 @@ export const loadUserSuccess = createAction(
 
 export const loadUserFail = createAction(
   '[User/API] Load User Fail',
-  props<{ error: GraphQLError | Error }>()
+  props<{ error: string }>()
 );
 
 export const loadUsers = createAction('[User/API] Load Users');
@@ -53,7 +52,7 @@ export const loadUsersSuccess = createAction(
 
 export const loadUsersFail = createAction(
   '[User/API] Load Fail',
-  props<{ error: GraphQLError | Error }>()
+  props<{ error: string }>()
 );
 
 export const createUser = createAction(
@@ -67,7 +66,7 @@ export const createUserSuccess = createAction(
 
 export const createUserFail = createAction(
   '[User/API] Create Fail',
-  props<{ error: GraphQLError }>()
+  props<{ error: string }>()
 );
 
 export const updateUser = createAction(
@@ -81,7 +80,7 @@ export const updateUserSuccess = createAction(
 
 export const updateUserFail = createAction(
   '[User/API] Update Fail',
-  props<{ error: GraphQLError }>()
+  props<{ error: string }>()
 );
 
 export const deleteUser = createAction(
@@ -96,5 +95,5 @@ export const deleteUserSuccess = createAction(
 
 export const deleteUserFail = createAction(
   '[User/API] Delete Fail',
-  props<{ error: GraphQLError }>()
+  props<{ error: string }>()
 );

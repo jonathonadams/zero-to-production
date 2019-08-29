@@ -10,6 +10,7 @@ import {
   logout
 } from '@ngw/frontend/data-access/auth';
 import { IJWTPayload } from '@ngw/shared/interfaces';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class UsersEffects {
@@ -31,7 +32,9 @@ export class UsersEffects {
     switchMap(token =>
       this.usersService.getOneUser(token.sub).pipe(
         map(user => UserActions.loadAuthUserSuccess({ user })),
-        catchError(error => of(UserActions.loadAuthUserFail({ error })))
+        catchError((error: HttpErrorResponse) =>
+          of(UserActions.loadAuthUserFail({ error: error.message }))
+        )
       )
     )
   );
@@ -60,7 +63,9 @@ export class UsersEffects {
     switchMap(({ id }) =>
       this.usersService.getOneUser(id).pipe(
         map(user => UserActions.loadUserSuccess({ user })),
-        catchError(error => of(UserActions.loadUserFail({ error })))
+        catchError((error: HttpErrorResponse) =>
+          of(UserActions.loadUserFail({ error: error.message }))
+        )
       )
     )
   );
@@ -78,7 +83,9 @@ export class UsersEffects {
             }
           })
         ),
-        catchError(error => of(UserActions.updateUserFail(error)))
+        catchError((error: HttpErrorResponse) =>
+          of(UserActions.updateUserFail({ error: error.message }))
+        )
       )
     )
   );

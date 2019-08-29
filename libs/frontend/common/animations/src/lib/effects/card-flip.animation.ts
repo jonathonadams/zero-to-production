@@ -37,7 +37,9 @@ export function routerCardFlipAnimation({
 
       // because fo flex-box styling, to maintain the hight set the leaving to relative until it has animated away
       query(':leave', [style({ position: 'relative' })]),
-      query(':enter', [style({ position: 'absolute', left: '10000%' })]),
+      query(':enter', [
+        style({ position: 'absolute', left: '10000%', height: '0px' })
+      ]),
 
       // Allow the children of the leaving element to animate
       query(':leave', animateChild()),
@@ -52,23 +54,19 @@ export function routerCardFlipAnimation({
       ]),
 
       // Change the height of the parent component and set to absolute to stop any overflow
-      style({ position: 'absolute', height: '*' }),
+      style({ position: 'relative', height: '*' }),
 
       // move the card entered, back to the center, relative positioning for flex-box height
       // and start it 90 degrees flipped
       query(':enter', [
+        style({
+          left: 0,
+          position: 'relative',
+          transform: '{{ enterFlip }}'
+        }),
+
         // animate to normal positions
-        animate(
-          '{{ timingEnter }} ease-out',
-          keyframes([
-            style({
-              left: 0,
-              position: 'relative',
-              transform: '{{ enterFlip }}'
-            }),
-            style({ transform: 'none' })
-          ])
-        )
+        animate('{{ timingEnter }} ease-out', style({ transform: 'none' }))
       ]),
       // Allow children to animate
       query(':enter', animateChild())
