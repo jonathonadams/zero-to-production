@@ -8,10 +8,10 @@
     "nx.json": "*"
   },
   "projects": {
-    "frontends-todos-todos-e2e": {
+    "frontends-todos-e2e": {
       "tags": []
     },
-    "frontends-todos-todos": {
+    "frontends-todos": {
       "tags": ["scope:web", "type:app"]
     },
     "frontend-common-ui-side-nav": {
