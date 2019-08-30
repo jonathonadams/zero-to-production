@@ -33,7 +33,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-staged && npm run validate-packages && npm run affected:lint && npm run affected:test"
+      "pre-commit": "npm run validate-packages && npm run lint-staged"
     }
   },
   "lint-staged": {
