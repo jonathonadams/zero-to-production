@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
 import { CommonUiToolbarComponent } from './toolbar.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { ToolbarService } from './toolbar.service';
 
 @NgModule({
   declarations: [CommonUiToolbarComponent],
-  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule],
-  providers: [ToolbarService],
+  imports: [CommonModule, CustomMaterialModule],
   exports: [CommonUiToolbarComponent]
 })
 export class CommonUiToolbarModule {}

@@ -1,8 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { SideNavService } from '@ngw/frontend/common/ui/side-nav';
-import { ISideNaveLink } from '@ngw/shared/interfaces';
-import { ToolbarService } from '@ngw/frontend/common/ui/toolbar';
-import { UserThemeService } from '@ngw/frontend/data-access/users';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { SideNavFacade } from '@ngw/frontend/common/ui/side-nav';
+import { ISideNaveRoute } from '@ngw/shared/interfaces';
 
 @Component({
   selector: 'todo-feature-shell',
@@ -10,23 +8,19 @@ import { UserThemeService } from '@ngw/frontend/data-access/users';
   styleUrls: ['./todos-feature-shell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoFeatureShellComponent {
-  constructor(
-    private theme: UserThemeService,
-    private sideNavService: SideNavService,
-    private toolbarService: ToolbarService
-  ) {
-    this.sideNavService.lastScrollDown$.subscribe(down => {
-      this.toolbarService.show = !down;
-    });
-  }
+export class TodoFeatureShellComponent implements OnInit {
+  constructor(private facade: SideNavFacade) {}
 
-  navLinks: ISideNaveLink[] = [
+  routes: ISideNaveRoute[] = [
     { path: '/home', icon: 'home', label: 'Home' },
     { path: '/todos', icon: 'list', label: 'Todos' }
   ];
 
+  ngOnInit() {
+    this.facade.setNavRoutes(this.routes);
+  }
+
   navToggle() {
-    this.sideNavService.toggle();
+    this.facade.toggle();
   }
 }

@@ -1,14 +1,14 @@
 <mat-sidenav-container hasBackdrop="true">
-  <mat-sidenav [opened]="opened$ | async" (openedChange)="setValue($event)">
+  <mat-sidenav [opened]="opened" (openedChange)="setValue.emit($event)">
     <mat-nav-list>
       <mat-list-item
-        *ngFor="let link of navLinks"
-        [routerLink]="link.path"
+        *ngFor="let route of routes"
+        [routerLink]="route.path"
         routerLinkActive="active"
       >
-        <a matLine>{{ link.label }}</a>
+        <a matLine>{{ route.label }}</a>
         <button mat-icon-button>
-          <mat-icon>{{ link.icon }}</mat-icon>
+          <mat-icon>{{ route.icon }}</mat-icon>
         </button>
       </mat-list-item>
     </mat-nav-list>

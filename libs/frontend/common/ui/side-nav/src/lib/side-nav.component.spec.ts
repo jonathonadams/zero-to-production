@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CommonUiSideNavComponent } from './common-ui-side-nav.component';
-import { SideNavService } from './common-ui-side-nav.service';
+
+import { CommonUiSideNavComponent } from './side-nav.component';
+import { SideNavFacade } from './+state/side-nav.facade';
 
 // TODO -> TESTS
 
@@ -15,10 +14,12 @@ describe('CommonUiSideNavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, RouterTestingModule],
       declarations: [CommonUiSideNavComponent],
       providers: [
-        { provide: SideNavService, useValue: { opened$: jest.fn() } }
+        {
+          provide: SideNavFacade,
+          useValue: { opened$: jest.fn(), route$: jest.fn() }
+        }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

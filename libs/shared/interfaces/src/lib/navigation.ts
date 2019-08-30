@@ -1,4 +1,4 @@
-export interface ISideNaveLink {
+export interface ISideNaveRoute {
   path: string;
   icon: string;
   label: string;

@@ -1,3 +1,3 @@
-export { CommonUiSideNavModule } from './lib/common-ui-side-nav.module';
-export { CommonUiSideNavComponent } from './lib/common-ui-side-nav.component';
-export { SideNavService } from './lib/common-ui-side-nav.service';
+export { CommonUiSideNavModule } from './lib/side-nav.module';
+export { CommonUiSideNavComponent } from './lib/side-nav.component';
+export { SideNavFacade } from './lib/+state/side-nav.facade';
