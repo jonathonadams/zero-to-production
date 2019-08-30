@@ -9,7 +9,7 @@ import {
   IRefreshTokenModel,
   IVerificationTokenModel
 } from '@ngw/shared/interfaces';
-import { signAccessToken, signRefreshToken } from './auth';
+import { signAccessToken, signRefreshToken } from './auth.utils';
 // TODO -> Refresh Token Model/Storage
 
 export function registerController(

@@ -1,1 +1,6 @@
-export { AuthModule } from './lib/auth.module';
+export {
+  applyAuthorizationRoutes,
+  getAuthResolvers,
+  getGraphQlGuards,
+  getRestGuards
+} from './lib/auth';

@@ -7,7 +7,7 @@ import {
   checkUserIsActive,
   checkUserRole
 } from '../graphql.guards';
-import { signAccessToken } from '../auth';
+import { signAccessToken } from '../auth.utils';
 import { MockUserModel } from './user.mock';
 
 describe('GraphQL Auth Guards', () => {

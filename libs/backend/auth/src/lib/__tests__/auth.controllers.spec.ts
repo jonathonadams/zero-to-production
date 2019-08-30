@@ -19,7 +19,7 @@ import { MockUserModel } from './user.mock';
 
 import { hash } from 'bcryptjs';
 import { MockRefreshTokenModel } from './refresh-token.mock';
-import { signRefreshToken } from '../auth';
+import { signRefreshToken } from '../auth.utils';
 import {
   MockVerificationToken,
   mockSendVerificationEmail
