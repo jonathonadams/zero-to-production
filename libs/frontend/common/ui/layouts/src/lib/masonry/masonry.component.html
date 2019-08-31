@@ -1,0 +1,17 @@
+<section class="container" [columns]="columns" masonryLayout>
+  <ng-template
+    ngFor
+    let-item
+    [ngForOf]="items"
+    let-i="index"
+    let-odd="odd"
+    [ngForTrackBy]="trackBy"
+  >
+    <div class="block" #blocks>
+      <ng-template
+        [ngTemplateOutlet]="templateRef"
+        [ngTemplateOutletContext]="{ $implicit: item }"
+      ></ng-template>
+    </div>
+  </ng-template>
+</section>

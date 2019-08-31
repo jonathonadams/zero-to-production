@@ -27,8 +27,6 @@
 #### App
 
 - [x] Finish user registration. NOTE -> For the demo, don't require unique emails
-- [ ] Add preloader spinner
-- [ ] Feature Flag Service
 
 #### Dynamic Form
 
@@ -37,21 +35,36 @@
 - [x] Make the form errors pipe accept form level errors.
 - [ ] Collect form errors from side effects submit
 - [ ] Restyle errors animations
-- [ ] Submit button not using content projection does not have auto focus
+- [x] Submit button not using content projection does not have auto focus
 - [ ] Write tests for dynamic form
+
+#### Accessability
+
+- [ ] Audit for a11y
+
+### Deployment
+
+- [ ] Create a demo site & cloud functions
 
 #### Tests
 
 - [ ] Complete Unit tests
 - [ ] Complete e2e tests
 
+## Post Alpha Checklist
+
+### App
+
+- [ ] Add preloader spinner
+- [ ] Feature Flag Service
+- [ ] Add an example sections outline functionality
+  - Content Projection with layouts modules
+  - Users to create components and dynamically add routing to them
+  - Dynamic Animation Timing
+
 ### Mobile App
 
 - [ ] Add Nativescript support
-
-## To document
-
-- Web Animation support in Safari
 
 ## Issues to track / tidy up before release.
 
