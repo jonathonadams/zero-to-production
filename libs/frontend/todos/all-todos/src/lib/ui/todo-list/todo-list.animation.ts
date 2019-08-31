@@ -28,7 +28,7 @@ export const LIST_ANIMATION = trigger('listAnimation', [
       query(
         ':leave',
         [
-          stagger('50ms', [
+          stagger('-50ms', [
             animate(
               '500ms cubic-bezier(.35,0,.25,1)',
               style({

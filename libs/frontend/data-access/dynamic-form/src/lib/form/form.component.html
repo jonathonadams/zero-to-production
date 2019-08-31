@@ -34,16 +34,6 @@
       <mat-icon>navigate_before</mat-icon>
     </button>
 
-    <ng-content
-      class="select-button"
-      select='button[type="submit"]'
-    ></ng-content>
-
-    <ng-content
-      class="select-button"
-      select='button[type="reset"]'
-    ></ng-content>
-
     <button
       *ngIf="(structure$ | async).length > 1"
       type="button"
@@ -55,6 +45,9 @@
       <mat-icon>navigate_next</mat-icon>
     </button>
   </div>
+
+  <ng-content class="select-button" select='button[type="submit"]'></ng-content>
+  <ng-content class="select-button" select='button[type="reset"]'></ng-content>
 </form>
 
 <ng-container appFormErrors> </ng-container>
