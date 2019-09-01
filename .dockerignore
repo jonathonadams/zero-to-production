@@ -2,9 +2,13 @@
 **
 
 # Exclude what is required for the build container to run
+!angular.json
 !package.json
 !package-lock.json
 !tsconfig.json
-!gulpfile.js
-!global.d.ts
-!src/
+!tsconfig.libs.json
+!apps/
+!libs/
+## TODO -> Remove these
+!tools/
+!testing/

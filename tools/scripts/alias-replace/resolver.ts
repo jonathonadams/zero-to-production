@@ -86,6 +86,12 @@ export async function resolvePaths(
 
     // Create the respective relative import (from root) by using the outDir of the main project
     // and the outDir of the referenced project
+    console.log('$$$$$$$$$$$$$$$$$$$');
+    console.log('outDir');
+    console.log(outDir);
+    console.log(referenceObject.outDir);
+    console.log(referenceObject.relativeToSrc);
+
     const resolvedDir = path.relative(
       outDir,
       path.resolve(referenceObject.outDir, referenceObject.relativeToSrc)

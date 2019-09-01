@@ -5,6 +5,7 @@
 ### API
 
 - [ ] Reconfigure Dockerfile to account for libs.
+      https://medium.com/@pro_ibenjell/how-to-create-a-full-stack-chat-application-using-nx-workspace-and-run-it-in-docker-65afcfe879d0
 - [ ] Add all Kubernetes deployment specs.
 
 ### Path Re-writer
@@ -57,6 +58,8 @@
 
 - [ ] Add preloader spinner
 - [ ] Feature Flag Service
+- [ ] Add a settings section
+  - Re style user drop down to only have username, avatar and link to settings
 - [ ] Add an example sections outline functionality
   - Content Projection with layouts modules
   - Users to create components and dynamically add routing to them

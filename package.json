@@ -28,6 +28,8 @@
     "lint-staged": "lint-staged",
     "build:builders": "tsc -p tools/builders",
     "build:libs": "tsc -b tsconfig.libs.json",
+    "build:tests": "tsc -p testing/tsconfig.tests.json",
+    "build:scripts": "tsc -p tools/scripts/tsconfig.json",
     "validate-packages": "node ./tools/scripts/validate-packages.js",
     "nx": "nx"
   },
