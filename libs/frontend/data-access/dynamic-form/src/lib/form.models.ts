@@ -5,7 +5,8 @@ export type TField =
   | IInputField
   | ISelectField
   | IToggleField
-  | IDatePickerField;
+  | IDatePickerField
+  | ITextArea;
 
 export type TFormGroups = IFormGroup[];
 
@@ -30,6 +31,10 @@ export interface IBaseField {
 export interface IInputField extends IBaseField {
   componentType: FormFieldTypes.Input;
   type: TInputType;
+}
+
+export interface ITextArea extends IBaseField {
+  componentType: FormFieldTypes.TextArea;
 }
 
 export interface ISelectField extends IBaseField {
@@ -91,6 +96,7 @@ export interface IFormErrors {
 
 export enum FormFieldTypes {
   Input = 'INPUT',
+  TextArea = 'TEXT_AREA',
   Select = 'SELECT',
   Toggle = 'TOGGLE',
   DatePicker = 'DATE_PICKER'

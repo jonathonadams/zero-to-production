@@ -4,7 +4,6 @@ import { DynamicFormComponent } from './form/form.component';
 import { InputComponent } from './fields/input/input.component';
 import { SelectComponent } from './fields/select/select.component';
 import { DynamicFormFieldDirective } from './fields/form-field.directive';
-import { DynamicFormFacade } from './+state/dynamic-form.facade';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -14,17 +13,19 @@ import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
 import { FormErrorsComponent } from './form-errors/form-errors.component';
 import { FormErrorPipe } from './form-errors/form-error.pipe';
 import { ToggleComponent } from './fields/toggle/toggle.components';
-import { DynamicFormService } from './form.service';
 import { FormErrorsDirective } from './form-errors/form-errors.directive';
 import { UiFormErrorsComponent } from './form-errors/ui/ui-form-errors.component';
 import { DatePickerComponent } from './fields/date-picker/date-picker.component';
 import { DismissDirective } from './form-errors/dismiss.directive';
+import { TextareaComponent } from './fields/textarea/textarea.component';
 
 const ENTRY_COMPONENTS = [
   InputComponent,
   SelectComponent,
   ToggleComponent,
-  DatePickerComponent
+  DatePickerComponent,
+  TextareaComponent,
+  FormErrorsComponent
 ];
 
 const COMPONENTS = [
@@ -52,7 +53,7 @@ const COMPONENTS = [
     DismissDirective,
     COMPONENTS
   ],
-  entryComponents: [FormErrorsComponent, ...ENTRY_COMPONENTS],
-  exports: [DynamicFormComponent, FormErrorsComponent]
+  entryComponents: [...ENTRY_COMPONENTS],
+  exports: [DynamicFormComponent]
 })
 export class DataAccessDynamicFormModule {}
