@@ -92,6 +92,18 @@
       ],
       "@ngw/frontend/utils/storage": [
         "libs/frontend/utils/storage/src/index.ts"
+      ],
+      "@ngw/frontend/shared/form-builder/data-access": [
+        "libs/frontend/shared/form-builder/data-access/src/index.ts"
+      ],
+      "@ngw/frontend/shared/form-builder/create": [
+        "libs/frontend/shared/form-builder/create/src/index.ts"
+      ],
+      "@ngw/frontend/shared/examples": [
+        "libs/frontend/shared/examples/feature-shell/src/index.ts"
+      ],
+      "@ngw/frontend/shared/examples/data-access": [
+        "libs/frontend/shared/examples/data-access/src/index.ts"
       ]
     }
   },

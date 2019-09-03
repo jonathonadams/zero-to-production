@@ -30,6 +30,14 @@ export const TODOS_ROUTES: Routes = [
         data: { animation: 'TodosPage' }
       },
       {
+        path: 'examples',
+        loadChildren: () =>
+          import('@ngw/frontend/shared/examples').then(
+            m => m.ExamplesFeatureShellModule
+          ),
+        data: { animation: 'ExamplesPage' }
+      },
+      {
         path: 'profile',
         loadChildren: () =>
           import('@ngw/frontend/shared/profile').then(

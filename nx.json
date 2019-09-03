@@ -106,6 +106,18 @@
     },
     "frontend-utils-storage": {
       "tags": []
+    },
+    "frontend-shared-form-builder-data-access": {
+      "tags": []
+    },
+    "frontend-shared-form-builder-create": {
+      "tags": []
+    },
+    "frontend-shared-examples-feature-shell": {
+      "tags": []
+    },
+    "frontend-shared-examples-data-access": {
+      "tags": []
     }
   }
 }
