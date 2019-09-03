@@ -71,7 +71,7 @@
     "frontend-common-ui-layouts": {
       "tags": []
     },
-    "frontend-data-access-floating-menu": {
+    "frontend-shared-floating-menu": {
       "tags": []
     },
     "backends-api": {

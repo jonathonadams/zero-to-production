@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TodosDataAccessModule } from '@ngw/frontend/todos/data-access';
 import { AllTodosModule } from '@ngw/frontend/todos/all-todos';
 import { TodosDetailModule } from '@ngw/frontend/todos/todo-detail';
-import { DataAccessFloatingMenuModule } from '@ngw/frontend/data-access/floating-menu';
+import { SharedFloatingMenuModule } from '@ngw/frontend/shared/floating-menu';
 import { CommonUiToolbarModule } from '@ngw/frontend/common/ui/toolbar';
 import { CommonUiSideNavModule } from '@ngw/frontend/common/ui/side-nav';
 import { CommonUiLayoutsModule } from '@ngw/frontend/common/ui/layouts';
@@ -21,7 +21,7 @@ import { TodoLayoutComponent } from './ui/todos-layout.component';
     CommonUiSideNavModule,
     CommonUiToolbarModule,
     TodosFeatureShellRoutingModule,
-    DataAccessFloatingMenuModule,
+    SharedFloatingMenuModule,
     CommonUiLayoutsModule
   ]
 })

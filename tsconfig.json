@@ -66,8 +66,8 @@
       "@ngw/frontend/common/ui/layouts": [
         "libs/frontend/common/ui/layouts/src/index.ts"
       ],
-      "@ngw/frontend/data-access/floating-menu": [
-        "libs/frontend/data-access/floating-menu/src/index.ts"
+      "@ngw/frontend/shared/floating-menu": [
+        "libs/frontend/shared/floating-menu/src/index.ts"
       ],
       "@ngw/backend/auth": ["libs/backend/auth/src/index.ts"],
       "@ngw/frontend/shared/profile": [

@@ -1,8 +1,7 @@
 module.exports = {
-  name: 'frontend-data-access-floating-menu',
+  name: 'frontend-shared-floating-menu',
   preset: '../../../../jest.config.js',
-  coverageDirectory:
-    '../../../../coverage/libs/frontend/data-access/floating-menu',
+  coverageDirectory: '../../../../coverage/libs/frontend/shared/floating-menu',
   snapshotSerializers: [
     'jest-preset-angular/AngularSnapshotSerializer.js',
     'jest-preset-angular/HTMLCommentSerializer.js'

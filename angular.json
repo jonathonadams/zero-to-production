@@ -703,31 +703,31 @@
         }
       }
     },
-    "frontend-data-access-floating-menu": {
+    "frontend-shared-floating-menu": {
       "projectType": "library",
-      "root": "libs/frontend/data-access/floating-menu",
-      "sourceRoot": "libs/frontend/data-access/floating-menu/src",
+      "root": "libs/frontend/shared/floating-menu",
+      "sourceRoot": "libs/frontend/shared/floating-menu/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/data-access/floating-menu/tsconfig.lib.json",
-              "libs/frontend/data-access/floating-menu/tsconfig.spec.json"
+              "libs/frontend/shared/floating-menu/tsconfig.lib.json",
+              "libs/frontend/shared/floating-menu/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/frontend/data-access/floating-menu/**"
+              "!libs/frontend/shared/floating-menu/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/data-access/floating-menu/jest.config.js",
-            "tsConfig": "libs/frontend/data-access/floating-menu/tsconfig.spec.json",
-            "setupFile": "libs/frontend/data-access/floating-menu/src/test-setup.ts"
+            "jestConfig": "libs/frontend/shared/floating-menu/jest.config.js",
+            "tsConfig": "libs/frontend/shared/floating-menu/tsconfig.spec.json",
+            "setupFile": "libs/frontend/shared/floating-menu/src/test-setup.ts"
           }
         }
       },
