@@ -104,6 +104,9 @@
       ],
       "@ngw/frontend/shared/examples/data-access": [
         "libs/frontend/shared/examples/data-access/src/index.ts"
+      ],
+      "@ngw/frontend/shared/examples/form-builder": [
+        "libs/frontend/shared/examples/form-builder/src/index.ts"
       ]
     }
   },

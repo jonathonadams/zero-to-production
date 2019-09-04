@@ -118,6 +118,9 @@
     },
     "frontend-shared-examples-data-access": {
       "tags": []
+    },
+    "frontend-shared-examples-form-builder": {
+      "tags": []
     }
   }
 }

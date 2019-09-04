@@ -11,22 +11,22 @@ import {
 } from './router.selector';
 import { RouterNavigate } from './router.actions';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RouterFacade {
-  queryParams: Observable<Params>;
-  routerParams: Observable<Params>;
-  routerData: Observable<any>;
-  url: Observable<string>;
+  queryParams$: Observable<Params>;
+  routerParams$: Observable<Params>;
+  routerData$: Observable<any>;
+  url$: Observable<string>;
 
   constructor(private store: Store<any>) {
-    this.queryParams = this.store.pipe(select(selectQueryParams));
-    this.routerParams = this.store.pipe(select(selectRouteParams));
-    this.routerData = this.store.pipe(select(selectRouteData));
-    this.url = this.store.pipe(select(selectUrl));
+    this.queryParams$ = this.store.pipe(select(selectQueryParams));
+    this.routerParams$ = this.store.pipe(select(selectRouteParams));
+    this.routerData$ = this.store.pipe(select(selectRouteData));
+    this.url$ = this.store.pipe(select(selectUrl));
   }
 
   go(go: RouterNavigate) {
-    this.store.dispatch(RouterActions.navigate(go));
+    this.store.dispatch(RouterActions.navigate({ nav: go }));
   }
 
   navigateForward() {

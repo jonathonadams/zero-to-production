@@ -15,20 +15,20 @@ import { DataAccessAuthModule } from '@ngw/frontend/data-access/auth';
 import { DataAccessUsersModule } from '@ngw/frontend/data-access/users';
 import {
   AppState,
-  debug,
-  appReducer,
+  appReducerMap,
   AppEffects
 } from '@ngw/frontend/data-access/app-state';
 import { DataAccessRouterModule } from '@ngw/frontend/data-access/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot<AppState>(appReducer, {
-      // metaReducers: !environment.production ? [] : [],
+    StoreModule.forRoot<AppState>(appReducerMap, {
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
@@ -37,7 +37,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       }
     }),
     EffectsModule.forRoot([AppEffects]),
-    // !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreRouterConnectingModule.forRoot({
+      routerState: RouterState.Minimal
+    }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
     DataAccessApiModule.forRoot(environment),
     DataAccessAuthModule.forRoot(),
     DataAccessUsersModule.forRoot(),
@@ -47,7 +50,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       enabled: environment.production
     })
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

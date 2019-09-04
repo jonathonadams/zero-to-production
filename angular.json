@@ -1248,6 +1248,40 @@
           "styleext": "scss"
         }
       }
+    },
+    "frontend-shared-examples-form-builder": {
+      "projectType": "library",
+      "root": "libs/frontend/shared/examples/form-builder",
+      "sourceRoot": "libs/frontend/shared/examples/form-builder/src",
+      "prefix": "ngw",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/shared/examples/form-builder/tsconfig.lib.json",
+              "libs/frontend/shared/examples/form-builder/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/shared/examples/form-builder/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/shared/examples/form-builder/jest.config.js",
+            "tsConfig": "libs/frontend/shared/examples/form-builder/tsconfig.spec.json",
+            "setupFile": "libs/frontend/shared/examples/form-builder/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {
