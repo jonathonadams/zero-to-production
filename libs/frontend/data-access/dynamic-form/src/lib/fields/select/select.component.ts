@@ -1,13 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { TField, FormGroupTypes } from '../../form.models';
 
 @Component({
-  selector: 'app-select',
+  selector: 'app-form-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
+export class FormSelectComponent {
+  @Input() idx: number | undefined;
+  @Input() type!: FormGroupTypes;
+  @Input() field!: TField;
+  @Input() group!: FormGroup;
 }

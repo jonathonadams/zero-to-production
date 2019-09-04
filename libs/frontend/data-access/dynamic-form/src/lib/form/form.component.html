@@ -7,19 +7,39 @@
   [@.disabled]="!(config$ | async).animations"
 >
   <ng-container *ngFor="let group of structure; let idx = index">
-    <section
-      *ngIf="(formIdx$ | async) === idx"
-      [formGroupName]="group.name"
-      @centerExpand
-    >
-      <ng-container
-        *ngFor="let field of group.fields"
-        appDynamicFormField
-        [field]="field"
-        [group]="getFormGroup(group.name)"
+    <ng-container *ngIf="(formIdx$ | async) === idx">
+      <section
+        *ngIf="group.type === 'GROUP'; else arrayGroup"
+        [formGroupName]="group.name"
+        @centerExpand
       >
-      </ng-container>
-    </section>
+        <ng-container
+          *ngFor="let field of group.fields"
+          dynamicFormField
+          [field]="field"
+          [type]="group.type"
+          [group]="getFormGroup(group.name)"
+        >
+        </ng-container>
+      </section>
+
+      <ng-template #arrayGroup>
+        <section [formArrayName]="group.name" @centerExpand>
+          <ng-container
+            *ngFor="
+              let field of getArrayGroup(group.name).controls;
+              let i = index
+            "
+            dynamicFormField
+            [idx]="i"
+            [type]="group.type"
+            [field]="group.field"
+            [group]="getArrayGroup(group.name)"
+          >
+          </ng-container>
+        </section>
+      </ng-template>
+    </ng-container>
   </ng-container>
 
   <div class="action-buttons">

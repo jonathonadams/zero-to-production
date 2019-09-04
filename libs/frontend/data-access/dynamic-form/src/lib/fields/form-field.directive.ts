@@ -9,13 +9,15 @@ import {
   ComponentFactory
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { TField } from '../form.models';
-import { componentMap } from './component-map';
+import { TField, FormGroupTypes } from '../form.models';
+import { COMPONENT_MAP } from './component-map';
 
 @Directive({
-  selector: '[appDynamicFormField]'
+  selector: '[dynamicFormField]'
 })
 export class DynamicFormFieldDirective implements OnInit, OnChanges {
+  @Input() idx: number | undefined;
+  @Input() type!: FormGroupTypes;
   @Input() field!: TField;
   @Input() group!: FormGroup;
   component!: ComponentRef<any>;
@@ -34,7 +36,7 @@ export class DynamicFormFieldDirective implements OnInit, OnChanges {
       );
     } else {
       component = this.resolver.resolveComponentFactory<any>(
-        componentMap[this.field.componentType]
+        COMPONENT_MAP[this.field.componentType]
       );
     }
 
@@ -51,7 +53,9 @@ export class DynamicFormFieldDirective implements OnInit, OnChanges {
   }
 
   setInstanceProperties() {
+    this.component.instance.type = this.type;
     this.component.instance.field = this.field;
     this.component.instance.group = this.group;
+    this.component.instance.idx = this.idx;
   }
 }

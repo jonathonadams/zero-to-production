@@ -22,25 +22,21 @@ export class RouterEffects {
 
   @Effect({ dispatch: false })
   relativeNavigate$ = this.action$.pipe(
-    ofType(RouterActions.navigate),
+    ofType(RouterActions.relativeNavigate),
     withLatestFrom(this.facade.url$),
     tap(([{ nav: { path, query: queryParams } }, url]) => {
+      // add the current route to the front the supplied path
       const newPath = path.slice();
       newPath.unshift(url);
-      console.log('234234234324');
-      console.log(url);
-      console.log(path);
-      console.log(newPath);
       this.router.navigate(newPath, { queryParams });
     })
   );
 
   @Effect({ dispatch: false })
   absoluteNavigate$ = this.action$.pipe(
-    ofType(RouterActions.navigate),
-    tap(
-      ({ nav: { path, query: queryParams } }) => {}
-      // this.router.navigate(path, { queryParams })
+    ofType(RouterActions.absoluteNavigate),
+    tap(({ nav: { path, query: queryParams } }) =>
+      this.router.navigate(path, { queryParams })
     )
   );
 

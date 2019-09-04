@@ -14,12 +14,14 @@ import { TodosFacade } from '@ngw/frontend/todos/data-access';
 import {
   TFormGroups,
   FormFieldTypes,
-  DynamicFormFacade
+  DynamicFormFacade,
+  FormGroupTypes
 } from '@ngw/frontend/data-access/dynamic-form';
 
 const STRUCTURE: TFormGroups = [
   {
     name: 'todo',
+    type: FormGroupTypes.Group,
     fields: [
       {
         componentType: FormFieldTypes.Input,

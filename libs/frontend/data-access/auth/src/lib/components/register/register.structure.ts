@@ -2,7 +2,8 @@ import { Validators } from '@angular/forms';
 import {
   FormFieldTypes,
   TFormGroups,
-  IFormGroup
+  IFormGroup,
+  FormGroupTypes
 } from '@ngw/frontend/data-access/dynamic-form';
 import { UsernameAvailableValidator } from '../../validators/username-available.validator';
 import { CustomUsernameComponent } from '../custom-username/custom-username.components';
@@ -10,6 +11,7 @@ import { passwordValidator } from '../../validators/auth.validators';
 
 const PASSWORD_GROUP: IFormGroup = {
   name: 'password',
+  type: FormGroupTypes.Group,
   fields: [
     {
       componentType: FormFieldTypes.Input,
@@ -43,6 +45,7 @@ const PASSWORD_GROUP: IFormGroup = {
 // TODO -> Tie in the user registration settings to the theme service.
 export const THEME_GROUP: IFormGroup = {
   name: 'themeSettings',
+  type: FormGroupTypes.Group,
   fields: [
     {
       componentType: FormFieldTypes.Toggle,
@@ -88,6 +91,7 @@ export const THEME_GROUP: IFormGroup = {
 
 export const DETAILS_GROUP: IFormGroup = {
   name: 'details',
+  type: FormGroupTypes.Group,
   fields: [
     {
       componentType: FormFieldTypes.Input,

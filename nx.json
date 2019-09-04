@@ -107,12 +107,6 @@
     "frontend-utils-storage": {
       "tags": []
     },
-    "frontend-shared-form-builder-data-access": {
-      "tags": []
-    },
-    "frontend-shared-form-builder-create": {
-      "tags": []
-    },
     "frontend-shared-examples-feature-shell": {
       "tags": []
     },
@@ -120,6 +114,9 @@
       "tags": []
     },
     "frontend-shared-examples-form-builder": {
+      "tags": []
+    },
+    "frontend-data-access-form-builder": {
       "tags": []
     }
   }

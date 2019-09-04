@@ -8,7 +8,7 @@ const ROUTES: Routes = [
     path: 'form-builder',
     pathMatch: 'full',
     loadChildren: () =>
-      import('@ngw/frontend/shared/examples/form-builder').then(
+      import('@ngw/shared/examples/form-builder').then(
         m => m.SharedExamplesFormBuilderModule
       )
   }

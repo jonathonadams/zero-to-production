@@ -8,11 +8,19 @@ export type TField =
   | IDatePickerField
   | ITextArea;
 
-export type TFormGroups = IFormGroup[];
+export type TFormGroups = (IFormGroup | IFormArray)[];
 
 export interface IFormGroup {
   name: string;
+  type: FormGroupTypes.Group;
   fields: TField[];
+}
+
+export interface IFormArray {
+  name: string;
+  type: FormGroupTypes.Array;
+  initialNumber: number;
+  field: TField;
 }
 
 export interface IBaseField {
@@ -51,6 +59,7 @@ export interface IDatePickerField extends IBaseField {
 }
 
 export interface ISelectOption {
+  display: string;
   value: any;
 }
 
@@ -92,6 +101,11 @@ export type TFormFieldAppearance = 'standard' | 'fill' | 'outline';
 
 export interface IFormErrors {
   [key: string]: ValidationErrors;
+}
+
+export enum FormGroupTypes {
+  Group = 'GROUP',
+  Array = 'ARRAY'
 }
 
 export enum FormFieldTypes {

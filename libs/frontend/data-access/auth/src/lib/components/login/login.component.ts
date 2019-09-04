@@ -9,7 +9,8 @@ import { Validators } from '@angular/forms';
 import {
   DynamicFormFacade,
   FormFieldTypes,
-  TFormGroups
+  TFormGroups,
+  FormGroupTypes
 } from '@ngw/frontend/data-access/dynamic-form';
 import { AuthFacade } from '../../+state/auth.facade';
 import { Subscription } from 'rxjs';
@@ -17,6 +18,7 @@ import { Subscription } from 'rxjs';
 const STRUCTURE: TFormGroups = [
   {
     name: 'credentials',
+    type: FormGroupTypes.Group,
     fields: [
       {
         componentType: FormFieldTypes.Input,

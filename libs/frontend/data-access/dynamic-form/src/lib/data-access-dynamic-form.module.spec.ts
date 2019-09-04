@@ -1,5 +1,5 @@
 import { async, TestBed } from '@angular/core/testing';
-import { DataAccessDynamicFormModule } from './frontend-data-access-dynamic-form.module';
+import { DataAccessDynamicFormModule } from './data-access-dynamic-form.module';
 
 describe('DataAccessDynamicFormModule', () => {
   beforeEach(async(() => {

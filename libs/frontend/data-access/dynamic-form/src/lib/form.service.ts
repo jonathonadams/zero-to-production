@@ -9,7 +9,12 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-import { IFormErrors, TField, TFormGroups } from './form.models';
+import {
+  IFormErrors,
+  TField,
+  TFormGroups,
+  FormGroupTypes
+} from './form.models';
 
 @Injectable({ providedIn: 'root' })
 export class DynamicFormService {
@@ -22,14 +27,28 @@ export class DynamicFormService {
 
     // For each top level group
     structure.forEach(group => {
-      // Create a form group,
-      const fg = this.fb.group({});
-      // and add all nested groups to the form
-      group.fields.forEach(field => {
-        fg.addControl(field.name, this.createControl(field));
-      });
-      // then add the nested form group to the top level group
-      form.addControl(group.name, fg);
+      if (group.type === FormGroupTypes.Group) {
+        // Create a form group,
+        const fg = this.fb.group({});
+        // and add all nested groups to the form
+        group.fields.forEach(field => {
+          const control = this.createControl(field);
+          fg.addControl(field.name, control);
+        });
+        // then add the nested form group to the top level group
+        form.addControl(group.name, fg);
+      } else if (group.type === FormGroupTypes.Array) {
+        const fa = this.fb.array([]);
+
+        for (let i = 0; i < group.initialNumber; i++) {
+          // and add all nested groups to the form
+          const control = this.createControl(group.field);
+          fa.push(control);
+        }
+
+        // then add the nested form group to the top level group
+        form.addControl(group.name, fa);
+      }
     });
     return form;
   }

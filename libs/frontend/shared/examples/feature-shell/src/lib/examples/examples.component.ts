@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ExamplesFacade } from '@ngw/frontend/shared/examples/data-access';
+import { ExamplesFacade } from '@ngw/shared/examples/data-access';
 import { IExample } from '@ngw/shared/interfaces';
 import { RouterFacade } from '@ngw/frontend/data-access/router';
 

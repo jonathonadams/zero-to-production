@@ -4,7 +4,7 @@ import {
   Input,
   OnDestroy
 } from '@angular/core';
-import { TField } from '../../form.models';
+import { TField, FormGroupTypes } from '../../form.models';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { DynamicFormService } from '../../form.service';
 import { Subscription } from 'rxjs';
@@ -57,7 +57,7 @@ export class MyDateAdapter extends NativeDateAdapter {
  * @class DatePickerComponent
  */
 @Component({
-  selector: 'app-date-picker',
+  selector: 'form-date-picker',
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
   providers: [
@@ -66,12 +66,15 @@ export class MyDateAdapter extends NativeDateAdapter {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DatePickerComponent implements OnDestroy {
+export class FormDatePickerComponent implements OnDestroy {
   private subscription: Subscription | undefined;
 
   dateField: TField | undefined;
   dateGroup: FormGroup;
   dateControl: FormControl | undefined;
+
+  @Input() idx: number | undefined;
+  @Input() type!: FormGroupTypes;
 
   @Input()
   set field(f: TField) {

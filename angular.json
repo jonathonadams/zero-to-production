@@ -1113,74 +1113,6 @@
         }
       }
     },
-    "frontend-shared-form-builder-data-access": {
-      "projectType": "library",
-      "root": "libs/frontend/shared/form-builder/data-access",
-      "sourceRoot": "libs/frontend/shared/form-builder/data-access/src",
-      "prefix": "ngw",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/frontend/shared/form-builder/data-access/tsconfig.lib.json",
-              "libs/frontend/shared/form-builder/data-access/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/shared/form-builder/data-access/**"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/frontend/shared/form-builder/data-access/jest.config.js",
-            "tsConfig": "libs/frontend/shared/form-builder/data-access/tsconfig.spec.json",
-            "setupFile": "libs/frontend/shared/form-builder/data-access/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
-    "frontend-shared-form-builder-create": {
-      "projectType": "library",
-      "root": "libs/frontend/shared/form-builder/create",
-      "sourceRoot": "libs/frontend/shared/form-builder/create/src",
-      "prefix": "ngw",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/frontend/shared/form-builder/create/tsconfig.lib.json",
-              "libs/frontend/shared/form-builder/create/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/shared/form-builder/create/**"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/frontend/shared/form-builder/create/jest.config.js",
-            "tsConfig": "libs/frontend/shared/form-builder/create/tsconfig.spec.json",
-            "setupFile": "libs/frontend/shared/form-builder/create/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
     "frontend-shared-examples-feature-shell": {
       "projectType": "library",
       "root": "libs/frontend/shared/examples/feature-shell",
@@ -1274,6 +1206,40 @@
             "jestConfig": "libs/frontend/shared/examples/form-builder/jest.config.js",
             "tsConfig": "libs/frontend/shared/examples/form-builder/tsconfig.spec.json",
             "setupFile": "libs/frontend/shared/examples/form-builder/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "frontend-data-access-form-builder": {
+      "projectType": "library",
+      "root": "libs/frontend/data-access/form-builder",
+      "sourceRoot": "libs/frontend/data-access/form-builder/src",
+      "prefix": "ngw",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/data-access/form-builder/tsconfig.lib.json",
+              "libs/frontend/data-access/form-builder/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/data-access/form-builder/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/data-access/form-builder/jest.config.js",
+            "tsConfig": "libs/frontend/data-access/form-builder/tsconfig.spec.json",
+            "setupFile": "libs/frontend/data-access/form-builder/src/test-setup.ts"
           }
         }
       },
