@@ -9,5 +9,6 @@ export {
   TFormGroups,
   FormFieldTypes,
   IFormGroup,
-  FormGroupTypes
+  FormGroupTypes,
+  FormArrayTypes
 } from './lib/form.models';

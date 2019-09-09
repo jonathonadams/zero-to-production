@@ -9,35 +9,63 @@
   <ng-container *ngFor="let group of structure; let idx = index">
     <ng-container *ngIf="(formIdx$ | async) === idx">
       <section
-        *ngIf="group.type === 'GROUP'; else arrayGroup"
-        [formGroupName]="group.name"
+        *ngIf="group.groupType === 'GROUP'; else arrayGroup"
+        [formGroupName]="group.formGroup"
         @centerExpand
       >
         <ng-container
           *ngFor="let field of group.fields"
           dynamicFormField
           [field]="field"
-          [type]="group.type"
-          [group]="getFormGroup(group.name)"
+          [type]="group.groupType"
+          [group]="getFormGroup(group.formGroup)"
         >
         </ng-container>
       </section>
 
+      <!-- The below section deals with if a fromGroup is an arrayGroup -->
       <ng-template #arrayGroup>
-        <section [formArrayName]="group.name" @centerExpand>
-          <ng-container
-            *ngFor="
-              let field of getArrayGroup(group.name).controls;
-              let i = index
-            "
-            dynamicFormField
-            [idx]="i"
-            [type]="group.type"
-            [field]="group.field"
-            [group]="getArrayGroup(group.name)"
-          >
-          </ng-container>
-        </section>
+        <!-- The array group can either be a group of fields, or a group of form groups -->
+        <ng-container *ngIf="group.arrayType === 'FIELD'; else arrayGroupType">
+          <!-- The array group is a collection of fields -->
+          <section [formArrayName]="group.formGroup" @centerExpand>
+            <ng-container
+              *ngFor="
+                let field of getArrayGroup(group.formGroup).controls;
+                let i = index
+              "
+              dynamicFormField
+              [idx]="i"
+              [type]="group.groupType"
+              [field]="group.field"
+              [group]="getArrayGroup(group.formGroup)"
+            >
+            </ng-container>
+          </section>
+        </ng-container>
+
+        <!-- The arrayGroup is a collection of groups -->
+        <ng-template #arrayGroupType>
+          <section [formArrayName]="group.formGroup" @centerExpand>
+            <ng-container
+              *ngFor="
+                let arrayGroup of getArrayGroup(group.formGroup).controls;
+                let i = index
+              "
+            >
+              <div [formGroupName]="i" class="form-array-group">
+                <ng-container
+                  *ngFor="let field of group.fields"
+                  dynamicFormField
+                  [field]="field"
+                  [type]="group.arrayType"
+                  [group]="arrayGroup"
+                >
+                </ng-container>
+              </div>
+            </ng-container>
+          </section>
+        </ng-template>
       </ng-template>
     </ng-container>
   </ng-container>

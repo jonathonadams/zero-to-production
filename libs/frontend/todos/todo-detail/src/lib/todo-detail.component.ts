@@ -20,8 +20,8 @@ import {
 
 const STRUCTURE: TFormGroups = [
   {
-    name: 'todo',
-    type: FormGroupTypes.Group,
+    formGroup: 'todo',
+    groupType: FormGroupTypes.Group,
     fields: [
       {
         componentType: FormFieldTypes.Input,

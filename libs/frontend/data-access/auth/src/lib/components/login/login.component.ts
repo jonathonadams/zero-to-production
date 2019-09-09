@@ -17,8 +17,8 @@ import { Subscription } from 'rxjs';
 
 const STRUCTURE: TFormGroups = [
   {
-    name: 'credentials',
-    type: FormGroupTypes.Group,
+    formGroup: 'credentials',
+    groupType: FormGroupTypes.Group,
     fields: [
       {
         componentType: FormFieldTypes.Input,

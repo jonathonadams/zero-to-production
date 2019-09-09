@@ -3,70 +3,51 @@ import {
   DynamicFormFacade,
   TFormGroups,
   FormFieldTypes,
-  FormGroupTypes
+  FormGroupTypes,
+  FormArrayTypes
 } from '@ngw/frontend/data-access/dynamic-form';
 import { Validators } from '@angular/forms';
 
-// export type TField =
-//   | IInputField
-//   | ISelectField
-//   | IToggleField
-//   | IDatePickerField
-//   | ITextArea;
-
-// export interface IBaseField {
-//   name: string;
-//   label: string;
-//   initialValue?: any;
-//   validators?: ValidatorFn[];
-//   asyncValidators?: Type<AsyncValidator>[];
-//   autocomplete?: TAutoComplete;
-//   appearance?: TFormFieldAppearance;
-//   color?: string;
-//   attrs?: any;
-//   customComponent?: Type<any>;
-// }
-
 const STRUCTURE: TFormGroups = [
   {
-    name: 'sections',
-    type: FormGroupTypes.Array,
+    formGroup: 'sections',
+    groupType: FormGroupTypes.Array,
+    arrayType: FormArrayTypes.Field,
     initialNumber: 2,
-    field:
-      // {
-      //   componentType: FormFieldTypes.Select,
-      //   name: 'fieldType',
-      //   label: 'Field Type',
-      //   validators: [Validators.required],
-      //   selectOptions: [
-      //     {
-      //       display: 'Input',
-      //       value: FormFieldTypes.Input
-      //     },
-      //     {
-      //       display: 'Select',
-      //       value: FormFieldTypes.Select
-      //     }
-      //   ]
-      // },
+    field: {
+      componentType: FormFieldTypes.Input,
+      type: 'text',
+      name: 'label',
+      label: 'Field Label',
+      validators: [Validators.required]
+    }
+  },
+  {
+    formGroup: 'credentialsArray',
+    groupType: FormGroupTypes.Array,
+    arrayType: FormArrayTypes.Group,
+    fields: [
       {
         componentType: FormFieldTypes.Input,
         type: 'text',
-        name: 'label',
-        label: 'Field Label',
+        name: 'username',
+        label: 'Username',
+        autocomplete: 'username',
+        validators: [Validators.required]
+      },
+      {
+        componentType: FormFieldTypes.Input,
+        type: 'password',
+        name: 'password',
+        label: 'Password',
+        autocomplete: 'current-password',
         validators: [Validators.required]
       }
-    // {
-    //   componentType: FormFieldTypes.Input,
-    //   type: 'text',
-    //   name: 'fieldName',
-    //   label: 'Field Name',
-    //   validators: [Validators.required]
-    // }
+    ]
   },
   {
-    name: 'credentials',
-    type: FormGroupTypes.Group,
+    formGroup: 'credentials',
+    groupType: FormGroupTypes.Group,
     fields: [
       {
         componentType: FormFieldTypes.Input,
