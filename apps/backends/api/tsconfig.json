@@ -7,5 +7,12 @@
     "types": ["node", "jest"]
   },
   "include": ["**/*.ts"],
-  "references": [{ "path": "../../../tsconfig.libs.json" }]
+  "references": [
+    { "path": "../../../libs/shared/interfaces/tsconfig.lib.json" },
+    { "path": "../../../libs/shared/enums/tsconfig.lib.json" },
+    { "path": "../../../libs/shared/utils/auth/tsconfig.lib.json" },
+    { "path": "../../../libs/backend/auth/tsconfig.lib.json" },
+    { "path": "../../../libs/backend/utils/tsconfig.lib.json" },
+    { "path": "../../../libs/backend/middleware/tsconfig.lib.json" }
+  ]
 }
