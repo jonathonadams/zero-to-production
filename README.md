@@ -13,13 +13,13 @@
 - [x] Make the path rewriter rewrite all library paths, not just main tsconfig paths.
 - [x] Add an example project structure
 - [ ] User read/write streams not promises.
-- [ ] Look to plugin into ts compiler?
+- [x] Add directory watching
 - [ ] Tests
-- [ ] Move to own package
+- [x] Move to own package
 
 ### Builders
 
-- [ ] remove the aliases from the API server.
+- [x] remove the aliases from the API server.
 - [ ] Tests
 - [ ] Move to own packages
 

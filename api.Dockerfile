@@ -75,7 +75,7 @@ RUN npm install --only=prod --unsafe-perm || \
 # Back to builder container
 FROM builder-setup as builder
 
-ENV NODE_ENV developmentp
+ENV NODE_ENV development
 
 # COPS all src files
 COPY apps/backends/api/ /tmp/apps/backends/api
@@ -103,7 +103,7 @@ RUN npm run build:tests
 
 COPY apps/backends/api/package.json  /tmp
 
-# Run the production build task
+# Run the production build task (from app specifig package.json)
 RUN npm run build
 
 # -----------------------------------------
@@ -127,13 +127,6 @@ RUN cd /app/api
 # This port must match the port for the K8's continer health probe
 # It must be exposed else the probe will fail
 EXPOSE 3000
-
-RUN ["pwd"]
-RUN ["ls", "-ls"]
-RUN ["ls", "-la","dist"]
-RUN ["ls", "-la","dist/backends"]
-RUN ["ls", "-la","dist/api"]
-
 
 # Run the start command
 CMD node dist/api/main.js

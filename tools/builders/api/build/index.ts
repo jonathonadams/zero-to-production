@@ -43,6 +43,7 @@ async function _buildApiBuilder(
     });
   });
 
+  // TODO -> not just graphql, maybe all non ts files?
   const srcFiles: string[] = await new Promise((resolve, reject) => {
     glob(`${options.src}/**/*.graphql`, (err, matches) => {
       resolve(matches);
@@ -65,13 +66,13 @@ async function _buildApiBuilder(
   // TODO  -> Move this to own npm package
   await new Promise((resolve, reject) => {
     exec(
-      `node tools/scripts/alias-replace/replace-aliases.js --tsConfig ${options.tsConfig as string}`,
+      `npx tspr --tsConfig ${options.tsConfig as string}`,
       (error, stdout, stderr) => {
         if (error) {
           reject(error);
         }
         if (stderr) {
-          console.log(stderr);
+          console.error(stderr);
         }
         resolve(stdout);
       }
@@ -79,7 +80,7 @@ async function _buildApiBuilder(
   });
 
   return new Promise<BuilderOutput>(resolve => {
-    context.reportStatus(`Done with .`);
+    context.reportStatus(`Done with building project.`);
     resolve({ success: true });
   });
 }

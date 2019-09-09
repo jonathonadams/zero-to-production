@@ -32,6 +32,7 @@ function _buildApiBuilder(options, context) {
         resolve({ success: code === 0 });
       });
     });
+    // TODO -> not just graphql, maybe all non ts files?
     const srcFiles = yield new Promise((resolve, reject) => {
       glob_1.default(`${options.src}/**/*.graphql`, (err, matches) => {
         resolve(matches);
@@ -51,20 +52,20 @@ function _buildApiBuilder(options, context) {
     // TODO  -> Move this to own npm package
     yield new Promise((resolve, reject) => {
       child_process_1.exec(
-        `node tools/scripts/alias-replace/replace-aliases.js --tsConfig ${options.tsConfig}`,
+        `npx tspr --tsConfig ${options.tsConfig}`,
         (error, stdout, stderr) => {
           if (error) {
             reject(error);
           }
           if (stderr) {
-            console.log(stderr);
+            console.error(stderr);
           }
           resolve(stdout);
         }
       );
     });
     return new Promise(resolve => {
-      context.reportStatus(`Done with .`);
+      context.reportStatus(`Done with building project.`);
       resolve({ success: true });
     });
   });

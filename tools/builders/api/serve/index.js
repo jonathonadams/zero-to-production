@@ -2,16 +2,15 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 const tslib_1 = require('tslib');
 const architect_1 = require('@angular-devkit/architect');
-const child_process_1 = tslib_1.__importDefault(require('child_process'));
+const child_process_1 = require('child_process');
 const glob_1 = tslib_1.__importDefault(require('glob'));
 const cp_file_1 = tslib_1.__importDefault(require('cp-file'));
-const replace_in_file_1 = tslib_1.__importDefault(require('replace-in-file'));
 exports.default = architect_1.createBuilder(_serveApiBuilder);
 function _serveApiBuilder(options, context) {
   return tslib_1.__awaiter(this, void 0, void 0, function*() {
     const uniNpx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
     context.reportStatus(`Executing custom builder...`);
-    const tsChild = child_process_1.default.spawn(
+    const tsChild = child_process_1.spawn(
       uniNpx,
       ['tsc', '--build', options.tsConfig, '--watch'],
       {
@@ -58,14 +57,14 @@ function _serveApiBuilder(options, context) {
      * an entry point to serve that imports the aliases and use the 'module-alias'
      * packages for rewrites. In production, this is not used and the paths are rewritten.
      */
-    const pathFiles = yield new Promise((resolve, reject) => {
-      glob_1.default(`${__dirname}/paths/*.js`, (err, matches) => {
-        resolve(matches);
-      });
-    });
-    const pathFileNames = pathFiles.map(name =>
-      name.substr(`${__dirname}/paths`.length, name.length)
-    );
+    // const pathFiles: string[] = await new Promise((resolve, reject) => {
+    //   glob(`${__dirname}/paths/*.js`, (err, matches) => {
+    //     resolve(matches);
+    //   });
+    // });
+    // const pathFileNames = pathFiles.map(name =>
+    //   name.substr(`${__dirname}/paths`.length, name.length)
+    // );
     /**
      * Copy all the files across. This includes the GraphQL Files,
      * The temporary index.dev.js and paths.js to use when serving
@@ -74,25 +73,43 @@ function _serveApiBuilder(options, context) {
     yield Promise.all([
       graphQLFiles.map((value, i) =>
         cp_file_1.default(value, destinationFiles[i])
-      ),
-      pathFiles.map((value, i) =>
-        cp_file_1.default(
-          value,
-          `${process.cwd()}/${options.outputPath}${pathFileNames[i]}`
-        )
-      ),
-      cp_file_1.default(options.pathAliases, `${options.outputPath}/paths.json`)
+      )
+      // pathFiles.map((value, i) =>
+      //   cpFile(
+      //     value,
+      //     `${process.cwd()}/${options.outputPath as string}${pathFileNames[i]}`
+      //   )
+      // ),
+      // cpFile(options.pathAliases as string, `${options.outputPath}/paths.json`)
     ]);
-    // Find the entry point file (from the options that is passed in)
-    // And subtract the '.js' from the end
-    const entryFile = options.main.substring(0, options.main.length - 3);
-    // Replace the "<<entry-point-to-override>>" with the main entry point file
-    yield replace_in_file_1.default({
-      files: `${options.outputPath}/index.dev.js`,
-      from: '<<entry-point-to-override>>',
-      to: entryFile
+    // TODO  -> Move this to own npm package
+    const tsprChild = child_process_1.spawn(
+      uniNpx,
+      ['tspr', '--tsConfig', options.tsConfig, '--watch', 'true'],
+      {
+        stdio: 'pipe'
+      }
+    );
+
+    tsprChild.stdout.on('data', data => {
+      context.logger.info(data.toString());
     });
-    const nodeMonChild = child_process_1.default.spawn(
+    tsprChild.stderr.on('data', data => {
+      context.logger.error(data.toString());
+    });
+    // // Find the entry point file (from the options that is passed in)
+    // // And subtract the '.js' from the end
+    // const entryFile = (options.main as string).substring(
+    //   0,
+    //   (options.main as string).length - 3
+    // );
+    // // Replace the "<<entry-point-to-override>>" with the main entry point file
+    // await replaceInFIle({
+    //   files: `${options.outputPath}/index.dev.js`,
+    //   from: '<<entry-point-to-override>>',
+    //   to: entryFile
+    // });
+    const nodeMonChild = child_process_1.spawn(
       uniNpx,
       [
         'cross-env',
@@ -100,7 +117,7 @@ function _serveApiBuilder(options, context) {
         'nodemon',
         '-r',
         'dotenv/config',
-        `${options.outputPath}/index.dev.js`,
+        `${options.outputPath}/${options.main}`,
         `dotenv_config_path=${options.envPath}`
       ],
       {
@@ -116,13 +133,13 @@ function _serveApiBuilder(options, context) {
     nodeMonChild.stderr.on('data', data => {
       context.logger.error(data.toString());
     });
-    // // Handle messages sent from the Parent
-    // nodeMonChild.on('message', msg => {
-    //   if (msg.action === 'STOP') {
-    //     // Execute Graceful Termination code
-    //     nodeMonChild.exit(0); // Exit Process with no Errors
-    //   }
-    // });
+    // Handle messages sent from the Parent
+    nodeMonChild.on('message', msg => {
+      if (msg.action === 'STOP') {
+        // Execute Graceful Termination code
+        nodeMonChild.exit(0); // Exit Process with no Errors
+      }
+    });
     return new Promise(resolve => {
       context.reportStatus(`Done with TypeScript Compilation.`);
       tsChild.on('close', code => {

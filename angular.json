@@ -772,7 +772,6 @@
             "src": "apps/backends/api/src",
             "tsConfig": "apps/backends/api/tsconfig.app.json",
             "main": "main.js",
-            "pathAliases": "apps/backends/api/src/environments/paths.json",
             "envPath": "apps/backends/api/.env"
           }
         },
