@@ -7,11 +7,17 @@ import { StoreModule } from '@ngrx/store';
 import { FormsEntityState, reducer } from './+state/form-builder.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { FormEffects } from './+state/form-builder.effects';
+import { CreateFormComponent } from './create-form/create-form.component';
+import { UiFormBuilderComponent } from './ui-form-builder/ui-form-builder.component';
 
-const COMPONENTS = [FormBuilderComponent];
+const COMPONENTS = [
+  FormBuilderComponent,
+  CreateFormComponent,
+  UiFormBuilderComponent
+];
 
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: COMPONENTS,
   imports: [
     CommonModule,
     DataAccessDynamicFormModule,
@@ -19,6 +25,6 @@ const COMPONENTS = [FormBuilderComponent];
     StoreModule.forFeature<FormsEntityState>('formsState', reducer),
     EffectsModule.forFeature([FormEffects])
   ],
-  exports: [FormBuilderComponent]
+  exports: COMPONENTS
 })
 export class DataAccessFormBuilderModule {}

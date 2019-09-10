@@ -1,15 +1,23 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
 import { DataAccessFormBuilderModule } from '@ngw/data-access/form-builder';
 
 import { SharedExamplesFormBuilderRouterModule } from './shared-examples-form-builder-router.module';
-import { BuilderComponent } from './builder/builder.component';
+import { ExampleCreateFormComponent } from './create/create.component';
+import { BuildComponent } from './build/build.component';
+import { DisplayComponent } from './display/display.component';
 
-const COMPONENTS = [BuilderComponent];
+const COMPONENTS = [
+  ExampleCreateFormComponent,
+  BuildComponent,
+  DisplayComponent
+];
 
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: COMPONENTS,
   imports: [
+    CommonModule,
     CustomMaterialModule,
     DataAccessFormBuilderModule,
     SharedExamplesFormBuilderRouterModule

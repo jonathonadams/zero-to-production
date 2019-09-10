@@ -6,7 +6,6 @@ const ROUTES: Routes = [
   { path: '', component: ExamplesComponent },
   {
     path: 'form-builder',
-    pathMatch: 'full',
     loadChildren: () =>
       import('@ngw/shared/examples/form-builder').then(
         m => m.SharedExamplesFormBuilderModule

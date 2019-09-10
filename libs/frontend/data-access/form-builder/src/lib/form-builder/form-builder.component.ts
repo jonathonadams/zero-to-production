@@ -1,91 +1,75 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Validators } from '@angular/forms';
 import {
   DynamicFormFacade,
   TFormGroups,
   FormFieldTypes,
-  FormGroupTypes,
-  FormArrayTypes
+  FormGroupTypes
 } from '@ngw/frontend/data-access/dynamic-form';
-import { Validators } from '@angular/forms';
 import { FormsFacade } from '../+state/form-builder.facade';
 import { IForm } from '../form-builder.model';
 import { Observable } from 'rxjs';
 
-// const STRUCTURE: TFormGroups = [
-//   {
-//     formGroup: 'sections',
-//     groupType: FormGroupTypes.Array,
-//     arrayType: FormArrayTypes.Field,
-//     initialNumber: 2,
-//     field: {
-//       componentType: FormFieldTypes.Input,
-//       type: 'text',
-//       name: 'label',
-//       label: 'Field Label',
-//       validators: [Validators.required]
-//     }
-//   },
-//   {
-//     formGroup: 'credentialsArray',
-//     groupType: FormGroupTypes.Array,
-//     arrayType: FormArrayTypes.Group,
-//     fields: [
-//       {
-//         componentType: FormFieldTypes.Input,
-//         type: 'text',
-//         name: 'username',
-//         label: 'Username',
-//         autocomplete: 'username',
-//         validators: [Validators.required]
-//       },
-//       {
-//         componentType: FormFieldTypes.Input,
-//         type: 'password',
-//         name: 'password',
-//         label: 'Password',
-//         autocomplete: 'current-password',
-//         validators: [Validators.required]
-//       }
-//     ]
-//   },
-//   {
-//     formGroup: 'credentials',
-//     groupType: FormGroupTypes.Group,
-//     fields: [
-//       {
-//         componentType: FormFieldTypes.Input,
-//         type: 'text',
-//         name: 'username',
-//         label: 'Username',
-//         autocomplete: 'username',
-//         validators: [Validators.required]
-//       },
-//       {
-//         componentType: FormFieldTypes.Input,
-//         type: 'password',
-//         name: 'password',
-//         label: 'Password',
-//         autocomplete: 'current-password',
-//         validators: [Validators.required]
-//       }
-//     ]
-//   }
-// ];
-
 const STRUCTURE: TFormGroups = [
   {
-    formGroup: 'newForm',
+    formGroup: 'config',
     groupType: FormGroupTypes.Group,
     fields: [
       {
         componentType: FormFieldTypes.Input,
         type: 'text',
-        name: 'formName',
-        label: 'FormName',
+        name: 'username',
+        label: 'Username',
+        autocomplete: 'username',
+        validators: [Validators.required]
+      },
+      {
+        componentType: FormFieldTypes.Input,
+        type: 'password',
+        name: 'password',
+        label: 'Password',
+        autocomplete: 'current-password',
         validators: [Validators.required]
       }
     ]
   }
+
+  // {
+  //   formGroup: 'for',
+  //   groupType: FormGroupTypes.Array,
+  //   arrayType: FormArrayTypes.Field,
+  //   initialNumber: 2,
+  //   field: {
+  //     componentType: FormFieldTypes.Input,
+  //     type: 'text',
+  //     name: 'label',
+  //     label: 'Field Label',
+  //     validators: [Validators.required]
+  //   }
+  // },
+  // {
+  //   formGroup: 'credentialsArray',
+  //   groupType: FormGroupTypes.Array,
+  //   arrayType: FormArrayTypes.Group,
+  //   fields: [
+  //     {
+  //       componentType: FormFieldTypes.Input,
+  //       type: 'text',
+  //       name: 'username',
+  //       label: 'Username',
+  //       autocomplete: 'username',
+  //       validators: [Validators.required]
+  //     },
+  //     {
+  //       componentType: FormFieldTypes.Input,
+  //       type: 'password',
+  //       name: 'password',
+  //       label: 'Password',
+  //       autocomplete: 'current-password',
+  //       validators: [Validators.required]
+  //     }
+  //   ]
+  // }
 ];
 
 @Component({
@@ -94,25 +78,13 @@ const STRUCTURE: TFormGroups = [
   styleUrls: ['./form-builder.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FormBuilderComponent implements OnInit {
-  form$: Observable<IForm[]>;
+export class FormBuilderComponent {
+  selectedForm$: Observable<IForm | undefined>;
 
   constructor(
     private facade: FormsFacade,
     private dynamicFormFacade: DynamicFormFacade
   ) {
-    this.form$ = facade.form$;
-    this.dynamicFormFacade.submit$.subscribe(
-      ({ newForm }: { newForm: IForm }) => {
-        this.facade.createForm(newForm);
-        console.log(newForm);
-      }
-    );
+    this.selectedForm$ = this.facade.selectedForm$;
   }
-
-  ngOnInit() {
-    this.dynamicFormFacade.setStructure({ structure: STRUCTURE });
-  }
-
-  addFormSection() {}
 }
