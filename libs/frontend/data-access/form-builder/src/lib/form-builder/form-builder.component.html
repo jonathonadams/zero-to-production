@@ -1,0 +1,64 @@
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="builderForm" (ngSubmit)="onSubmit(builderForm)">
+      <div formGroupName="config">
+        <mat-form-field class="form-field">
+          <mat-label>Form Name</mat-label>
+          <input matInput type="text" formControlName="formName" />
+        </mat-form-field>
+      </div>
+      <h3>Groups</h3>
+      <button mat-flat-button (click)="addFormGroup()">Add Form Group</button>
+      <div formArrayName="formGroups">
+        <mat-card *ngFor="let group of formGroups.controls; let i = index">
+          <mat-card>
+            <div [formGroupName]="i">
+              <mat-form-field class="form-field">
+                <mat-label>Form Group Name</mat-label>
+                <input matInput type="text" formControlName="groupName" />
+              </mat-form-field>
+
+              <button
+                mat-raised-button
+                type="button"
+                (click)="addGroupField(i)"
+              >
+                Add Group Field
+              </button>
+              <div formArrayName="fields">
+                <div
+                  *ngFor="
+                    let field of getGroupFields(i).controls;
+                    let idx = index
+                  "
+                >
+                  <div [formGroupName]="idx">
+                    <mat-form-field class="form-field">
+                      <mat-label>Form Field Name</mat-label>
+                      <input matInput type="text" formControlName="fieldName" />
+                    </mat-form-field>
+
+                    <mat-form-field class="form-field">
+                      <mat-label>Form Field Label</mat-label>
+                      <input
+                        matInput
+                        type="text"
+                        formControlName="fieldLabel"
+                      />
+                    </mat-form-field>
+
+                    <mat-form-field class="form-field">
+                      <mat-label>Form Field Type</mat-label>
+                      <input matInput type="text" formControlName="fieldType" />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </mat-card>
+      </div>
+      <button mat-button type="submit">Submit Me</button>
+    </form>
+  </mat-card-content>
+</mat-card>

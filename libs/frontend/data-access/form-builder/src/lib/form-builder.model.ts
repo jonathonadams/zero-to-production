@@ -1,7 +1,21 @@
-import { TFormGroups } from '@ngw/frontend/data-access/dynamic-form';
+import { FormFieldTypes } from '@ngw/frontend/data-access/dynamic-form';
 
-export interface IForm {
+export interface IFormBuilderStructure {
   id: string;
-  formName: string;
-  form: TFormGroups;
+  config: {
+    formName: string;
+    animations?: boolean;
+  };
+  formGroups: IFormBuilderGroup[];
+}
+
+export interface IFormBuilderGroup {
+  groupName: string;
+  fields: IFormBuilderField[];
+}
+
+export interface IFormBuilderField {
+  fieldName: string;
+  fieldLabel: string;
+  fieldType: FormFieldTypes;
 }

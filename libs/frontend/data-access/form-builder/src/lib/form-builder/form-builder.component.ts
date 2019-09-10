@@ -1,76 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Validators } from '@angular/forms';
-import {
-  DynamicFormFacade,
-  TFormGroups,
-  FormFieldTypes,
-  FormGroupTypes
-} from '@ngw/frontend/data-access/dynamic-form';
-import { FormsFacade } from '../+state/form-builder.facade';
-import { IForm } from '../form-builder.model';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Observable } from 'rxjs';
-
-const STRUCTURE: TFormGroups = [
-  {
-    formGroup: 'config',
-    groupType: FormGroupTypes.Group,
-    fields: [
-      {
-        componentType: FormFieldTypes.Input,
-        type: 'text',
-        name: 'username',
-        label: 'Username',
-        autocomplete: 'username',
-        validators: [Validators.required]
-      },
-      {
-        componentType: FormFieldTypes.Input,
-        type: 'password',
-        name: 'password',
-        label: 'Password',
-        autocomplete: 'current-password',
-        validators: [Validators.required]
-      }
-    ]
-  }
-
-  // {
-  //   formGroup: 'for',
-  //   groupType: FormGroupTypes.Array,
-  //   arrayType: FormArrayTypes.Field,
-  //   initialNumber: 2,
-  //   field: {
-  //     componentType: FormFieldTypes.Input,
-  //     type: 'text',
-  //     name: 'label',
-  //     label: 'Field Label',
-  //     validators: [Validators.required]
-  //   }
-  // },
-  // {
-  //   formGroup: 'credentialsArray',
-  //   groupType: FormGroupTypes.Array,
-  //   arrayType: FormArrayTypes.Group,
-  //   fields: [
-  //     {
-  //       componentType: FormFieldTypes.Input,
-  //       type: 'text',
-  //       name: 'username',
-  //       label: 'Username',
-  //       autocomplete: 'username',
-  //       validators: [Validators.required]
-  //     },
-  //     {
-  //       componentType: FormFieldTypes.Input,
-  //       type: 'password',
-  //       name: 'password',
-  //       label: 'Password',
-  //       autocomplete: 'current-password',
-  //       validators: [Validators.required]
-  //     }
-  //   ]
-  // }
-];
+import { filter, take } from 'rxjs/operators';
+import { FormsFacade } from '../+state/form-builder.facade';
+import { IFormBuilderStructure } from '../form-builder.model';
 
 @Component({
   selector: 'ngw-form-builder',
@@ -79,12 +12,75 @@ const STRUCTURE: TFormGroups = [
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormBuilderComponent {
-  selectedForm$: Observable<IForm | undefined>;
+  builderForm: FormGroup;
+  selectedForm$: Observable<IFormBuilderStructure | undefined>;
 
-  constructor(
-    private facade: FormsFacade,
-    private dynamicFormFacade: DynamicFormFacade
-  ) {
-    this.selectedForm$ = this.facade.selectedForm$;
+  constructor(private fb: FormBuilder, private formsFacade: FormsFacade) {
+    this.selectedForm$ = this.formsFacade.selectedForm$;
+
+    this.builderForm = this.fb.group({
+      config: this.fb.group({
+        formName: []
+      }),
+      formGroups: this.fb.array([])
+    });
+
+    (this.selectedForm$ as Observable<IFormBuilderStructure>)
+      .pipe(
+        filter(config => config !== undefined),
+        take(1)
+      )
+      .subscribe(config => {
+        this.createFormFromStructure(config);
+        this.builderForm.reset(config);
+      });
+  }
+
+  createFormFromStructure(structure: IFormBuilderStructure) {
+    structure.formGroups.forEach((group, i) => {
+      this.addFormGroup();
+      group.fields.forEach(field => {
+        this.addGroupField(i);
+      });
+    });
+  }
+
+  get formGroups() {
+    return this.builderForm.get('formGroups') as FormArray;
+  }
+
+  getGroupFields(index: number) {
+    return (this.formGroups.get(`${index}`) as FormGroup).get(
+      'fields'
+    ) as FormArray;
+  }
+
+  addFormGroup() {
+    this.formGroups.push(
+      this.fb.group({
+        groupName: [],
+        fields: this.fb.array([])
+      })
+    );
+  }
+
+  addGroupField(groupIndex: number) {
+    this.getGroupFields(groupIndex).push(this.createFieldGroup());
+  }
+
+  createFieldGroup() {
+    return this.fb.group({
+      fieldName: [],
+      fieldType: [],
+      fieldLabel: []
+    });
+  }
+
+  onSubmit({ valid, value }: FormGroup) {
+    if (valid) {
+      this.selectedForm$.pipe(take(1)).subscribe(form => {
+        this.formsFacade.updateForm({ ...form, ...value });
+      });
+    }
   }
 }

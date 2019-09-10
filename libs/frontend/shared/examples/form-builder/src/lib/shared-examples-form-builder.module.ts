@@ -5,13 +5,14 @@ import { DataAccessFormBuilderModule } from '@ngw/data-access/form-builder';
 
 import { SharedExamplesFormBuilderRouterModule } from './shared-examples-form-builder-router.module';
 import { ExampleCreateFormComponent } from './create/create.component';
-import { BuildComponent } from './build/build.component';
-import { DisplayComponent } from './display/display.component';
+import { ExampleBuildFormComponent } from './build/build.component';
+import { ExampleDisplayFormComponent } from './display/display.component';
+import { DataAccessDynamicFormModule } from '@ngw/frontend/data-access/dynamic-form';
 
 const COMPONENTS = [
   ExampleCreateFormComponent,
-  BuildComponent,
-  DisplayComponent
+  ExampleBuildFormComponent,
+  ExampleDisplayFormComponent
 ];
 
 @NgModule({
@@ -19,6 +20,7 @@ const COMPONENTS = [
   imports: [
     CommonModule,
     CustomMaterialModule,
+    DataAccessDynamicFormModule,
     DataAccessFormBuilderModule,
     SharedExamplesFormBuilderRouterModule
   ]

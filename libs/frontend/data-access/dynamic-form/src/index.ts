@@ -7,6 +7,7 @@ export { DynamicFormFacade } from './lib/+state/dynamic-form.facade';
 export {
   TField,
   TFormGroups,
+  TFormGroup,
   FormFieldTypes,
   IFormGroup,
   FormGroupTypes,

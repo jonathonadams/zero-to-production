@@ -4,10 +4,24 @@
   <mat-list>
     <mat-list-item
       *ngFor="let form of form$ | async; trackBy: trackForms; last as last"
-      (click)="selected(form)"
       class="record"
     >
-      <h3>{{ form.formName }}</h3>
+      <h3 matLine>{{ form.config.formName }}</h3>
+
+      <button
+        mat-button
+        (click)="display(form); $event.stopImmediatePropagation()"
+      >
+        Display
+      </button>
+
+      <button
+        mat-button
+        (click)="build(form); $event.stopImmediatePropagation()"
+      >
+        Build
+      </button>
+
       <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
     </mat-list-item>
   </mat-list>

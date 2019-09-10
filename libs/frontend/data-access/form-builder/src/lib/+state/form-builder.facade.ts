@@ -2,44 +2,52 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { selectAllForms, selectCurrentForm } from './form-builder.selectors';
-import * as FormActions from './form-builder.actions';
-import { IForm } from '../form-builder.model';
+import * as FromActions from './form-builder.actions';
+import { IFormBuilderStructure } from '../form-builder.model';
 
 @Injectable({ providedIn: 'root' })
 export class FormsFacade {
-  form$: Observable<IForm[]>;
-  selectedForm$: Observable<IForm | undefined>;
+  form$: Observable<IFormBuilderStructure[]>;
+  selectedForm$: Observable<IFormBuilderStructure | undefined>;
 
   constructor(private store: Store<any>) {
     this.form$ = this.store.pipe(select(selectAllForms));
     this.selectedForm$ = this.store.pipe(select(selectCurrentForm));
   }
 
-  public loadForms(): void {
-    this.store.dispatch(FormActions.loadForms());
+  loadForms(): void {
+    this.store.dispatch(FromActions.loadForms());
   }
 
-  public selectForm(id: string): void {
-    this.store.dispatch(FormActions.selectForm({ id }));
+  selectForm(id: string): void {
+    this.store.dispatch(FromActions.selectForm({ id }));
   }
 
-  public clearSelected(): void {
-    this.store.dispatch(FormActions.clearSelected());
+  clearSelected(): void {
+    this.store.dispatch(FromActions.clearSelected());
   }
 
-  public saveForm(form: IForm): void {
+  saveForm(form: IFormBuilderStructure): void {
     form.id ? this.updateForm(form) : this.createForm(form);
   }
 
-  public createForm(form: IForm): void {
-    this.store.dispatch(FormActions.createForm({ form }));
+  createForm(form: IFormBuilderStructure): void {
+    this.store.dispatch(FromActions.createForm({ form }));
   }
 
-  public updateForm(form: IForm): void {
-    this.store.dispatch(FormActions.updateForm({ form }));
+  updateForm(form: IFormBuilderStructure): void {
+    this.store.dispatch(FromActions.updateForm({ form }));
   }
 
-  public deleteForm(form: IForm): void {
-    this.store.dispatch(FormActions.deleteForm({ form }));
+  deleteForm(form: IFormBuilderStructure): void {
+    this.store.dispatch(FromActions.deleteForm({ form }));
+  }
+
+  createFormFromConfig(config: IFormBuilderStructure) {
+    this.store.dispatch(FromActions.createFormFromBuilderConfig({ config }));
+  }
+
+  addFormGroup() {
+    this.store.dispatch(FromActions.addFormGroup());
   }
 }

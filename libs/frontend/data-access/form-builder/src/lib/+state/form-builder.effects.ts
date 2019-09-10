@@ -1,14 +1,32 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, exhaustMap, mergeMap } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { of, Observable } from 'rxjs';
+import {
+  catchError,
+  map,
+  exhaustMap,
+  mergeMap,
+  tap,
+  switchMap,
+  filter
+} from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { DynamicFormFacade } from '@ngw/frontend/data-access/dynamic-form';
 import * as FormActions from './form-builder.actions';
 import { FormsService } from '../form-builder.service';
-import { of } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { FormsConstructorService } from '../form-constructor.service';
+import { FormsFacade } from './form-builder.facade';
+import { IFormBuilderStructure } from '../form-builder.model';
 
 @Injectable()
 export class FormEffects {
-  constructor(private actions$: Actions, private formService: FormsService) {}
+  constructor(
+    private actions$: Actions,
+    private facade: FormsFacade,
+    private formService: FormsService,
+    private formConstructor: FormsConstructorService,
+    private dynamicFormFacade: DynamicFormFacade
+  ) {}
 
   @Effect()
   loadForms$ = this.actions$.pipe(
@@ -99,5 +117,18 @@ export class FormEffects {
         )
       )
     )
+  );
+
+  @Effect({ dispatch: false })
+  createFormFromConfig$ = this.actions$.pipe(
+    ofType(FormActions.createFormFromBuilderConfig),
+    switchMap(
+      () => this.facade.selectedForm$ as Observable<IFormBuilderStructure>
+    ),
+    filter(config => config !== undefined),
+    map(config =>
+      this.formConstructor.creteDyanmicFormStructureFromBuilderConfig(config)
+    ),
+    tap(structure => this.dynamicFormFacade.setStructure({ structure }))
   );
 }

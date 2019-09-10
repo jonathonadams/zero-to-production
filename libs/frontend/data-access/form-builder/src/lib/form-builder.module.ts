@@ -9,6 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { FormEffects } from './+state/form-builder.effects';
 import { CreateFormComponent } from './create-form/create-form.component';
 import { UiFormBuilderComponent } from './ui-form-builder/ui-form-builder.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const COMPONENTS = [
   FormBuilderComponent,
@@ -20,6 +21,7 @@ const COMPONENTS = [
   declarations: COMPONENTS,
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     DataAccessDynamicFormModule,
     CustomMaterialModule,
     StoreModule.forFeature<FormsEntityState>('formsState', reducer),

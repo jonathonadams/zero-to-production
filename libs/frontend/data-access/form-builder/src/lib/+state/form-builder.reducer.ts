@@ -1,13 +1,15 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as FormActions from './form-builder.actions';
 import { createReducer, on, Action } from '@ngrx/store';
-import { IForm } from '../form-builder.model';
+import { IFormBuilderStructure } from '../form-builder.model';
 
-export interface FormsEntityState extends EntityState<IForm> {
+export interface FormsEntityState extends EntityState<IFormBuilderStructure> {
   selectedFormId: string | null;
 }
 
-export const adapter: EntityAdapter<IForm> = createEntityAdapter<IForm>();
+export const adapter: EntityAdapter<
+  IFormBuilderStructure
+> = createEntityAdapter<IFormBuilderStructure>();
 
 // 3. Define the initial state
 export const initialState: FormsEntityState = adapter.getInitialState({

@@ -7,11 +7,11 @@ import {
   FormGroupTypes
 } from '@ngw/frontend/data-access/dynamic-form';
 import { FormsFacade } from '../+state/form-builder.facade';
-import { IForm } from '../form-builder.model';
+import { IFormBuilderStructure } from '../form-builder.model';
 
 const STRUCTURE: TFormGroups = [
   {
-    formGroup: 'newForm',
+    formGroup: 'config',
     groupType: FormGroupTypes.Group,
     fields: [
       {
@@ -36,11 +36,9 @@ export class CreateFormComponent implements OnInit {
     private facade: FormsFacade,
     private dynamicFormFacade: DynamicFormFacade
   ) {
-    this.dynamicFormFacade.submit$.subscribe(
-      ({ newForm }: { newForm: IForm }) => {
-        this.facade.createForm(newForm);
-      }
-    );
+    this.dynamicFormFacade.submit$.subscribe((form: IFormBuilderStructure) => {
+      this.facade.createForm({ ...form, formGroups: [] });
+    });
   }
 
   ngOnInit() {
