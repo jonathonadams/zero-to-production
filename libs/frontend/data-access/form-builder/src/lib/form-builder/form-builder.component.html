@@ -1,0 +1,12 @@
+<button (click)="addFormSection()">Add Form Section</button>
+<mat-card>
+  <app-dynamic-form>
+    <button type="submit">
+      Submit
+    </button></app-dynamic-form
+  >
+</mat-card>
+
+<mat-card>
+  <pre>{{ form$ | async | json }}</pre>
+</mat-card>

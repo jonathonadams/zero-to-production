@@ -66,8 +66,8 @@
       "@ngw/frontend/common/ui/layouts": [
         "libs/frontend/common/ui/layouts/src/index.ts"
       ],
-      "@ngw/frontend/data-access/floating-menu": [
-        "libs/frontend/data-access/floating-menu/src/index.ts"
+      "@ngw/frontend/shared/floating-menu": [
+        "libs/frontend/shared/floating-menu/src/index.ts"
       ],
       "@ngw/backend/auth": ["libs/backend/auth/src/index.ts"],
       "@ngw/frontend/shared/profile": [
@@ -92,6 +92,18 @@
       ],
       "@ngw/frontend/utils/storage": [
         "libs/frontend/utils/storage/src/index.ts"
+      ],
+      "@ngw/shared/examples": [
+        "libs/frontend/shared/examples/feature-shell/src/index.ts"
+      ],
+      "@ngw/shared/examples/data-access": [
+        "libs/frontend/shared/examples/data-access/src/index.ts"
+      ],
+      "@ngw/shared/examples/form-builder": [
+        "libs/frontend/shared/examples/form-builder/src/index.ts"
+      ],
+      "@ngw/data-access/form-builder": [
+        "libs/frontend/data-access/form-builder/src/index.ts"
       ]
     }
   },

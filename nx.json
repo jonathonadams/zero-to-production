@@ -71,7 +71,7 @@
     "frontend-common-ui-layouts": {
       "tags": []
     },
-    "frontend-data-access-floating-menu": {
+    "frontend-shared-floating-menu": {
       "tags": []
     },
     "backends-api": {
@@ -105,6 +105,18 @@
       "tags": []
     },
     "frontend-utils-storage": {
+      "tags": []
+    },
+    "frontend-shared-examples-feature-shell": {
+      "tags": []
+    },
+    "frontend-shared-examples-data-access": {
+      "tags": []
+    },
+    "frontend-shared-examples-form-builder": {
+      "tags": []
+    },
+    "frontend-data-access-form-builder": {
       "tags": []
     }
   }

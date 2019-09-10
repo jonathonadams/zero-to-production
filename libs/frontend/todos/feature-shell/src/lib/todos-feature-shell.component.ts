@@ -13,7 +13,8 @@ export class TodoFeatureShellComponent implements OnInit {
 
   routes: ISideNaveRoute[] = [
     { path: '/home', icon: 'home', label: 'Home' },
-    { path: '/todos', icon: 'list', label: 'Todos' }
+    { path: '/todos', icon: 'list', label: 'Todos' },
+    { path: '/examples', icon: 'list', label: 'Examples' }
   ];
 
   ngOnInit() {

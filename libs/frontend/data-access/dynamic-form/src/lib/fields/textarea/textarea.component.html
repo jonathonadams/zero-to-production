@@ -1,0 +1,13 @@
+<mat-form-field
+  class="form-field"
+  [formGroup]="group"
+  [appearance]="field?.appearance ? field.appearance : 'standard'"
+  [color]="field?.color"
+>
+  <mat-label>{{ field.label }}</mat-label>
+  <textarea
+    matInput
+    cdkTextareaAutosize
+    [formControlName]="field?.name"
+  ></textarea>
+</mat-form-field>

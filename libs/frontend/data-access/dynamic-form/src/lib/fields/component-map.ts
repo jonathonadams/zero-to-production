@@ -1,13 +1,15 @@
 import { Type } from '@angular/core';
 import { FormFieldTypes } from '../form.models';
-import { InputComponent } from './input/input.component';
-import { SelectComponent } from './select/select.component';
-import { ToggleComponent } from './toggle/toggle.components';
-import { DatePickerComponent } from './date-picker/date-picker.component';
+import { FormInputComponent } from './input/input.component';
+import { FormSelectComponent } from './select/select.component';
+import { FormToggleComponent } from './toggle/toggle.components';
+import { FormDatePickerComponent } from './date-picker/date-picker.component';
+import { FormTextareaComponent } from './textarea/textarea.component';
 
-export const componentMap: { [key: string]: Type<any> } = {
-  [FormFieldTypes.Input]: InputComponent,
-  [FormFieldTypes.Select]: SelectComponent,
-  [FormFieldTypes.Toggle]: ToggleComponent,
-  [FormFieldTypes.DatePicker]: DatePickerComponent
+export const COMPONENT_MAP: { [key: string]: Type<any> } = {
+  [FormFieldTypes.Input]: FormInputComponent,
+  [FormFieldTypes.TextArea]: FormTextareaComponent,
+  [FormFieldTypes.Select]: FormSelectComponent,
+  [FormFieldTypes.Toggle]: FormToggleComponent,
+  [FormFieldTypes.DatePicker]: FormDatePickerComponent
 };

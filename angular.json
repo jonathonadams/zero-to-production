@@ -703,31 +703,31 @@
         }
       }
     },
-    "frontend-data-access-floating-menu": {
+    "frontend-shared-floating-menu": {
       "projectType": "library",
-      "root": "libs/frontend/data-access/floating-menu",
-      "sourceRoot": "libs/frontend/data-access/floating-menu/src",
+      "root": "libs/frontend/shared/floating-menu",
+      "sourceRoot": "libs/frontend/shared/floating-menu/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/data-access/floating-menu/tsconfig.lib.json",
-              "libs/frontend/data-access/floating-menu/tsconfig.spec.json"
+              "libs/frontend/shared/floating-menu/tsconfig.lib.json",
+              "libs/frontend/shared/floating-menu/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/frontend/data-access/floating-menu/**"
+              "!libs/frontend/shared/floating-menu/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/data-access/floating-menu/jest.config.js",
-            "tsConfig": "libs/frontend/data-access/floating-menu/tsconfig.spec.json",
-            "setupFile": "libs/frontend/data-access/floating-menu/src/test-setup.ts"
+            "jestConfig": "libs/frontend/shared/floating-menu/jest.config.js",
+            "tsConfig": "libs/frontend/shared/floating-menu/tsconfig.spec.json",
+            "setupFile": "libs/frontend/shared/floating-menu/src/test-setup.ts"
           }
         }
       },
@@ -1103,6 +1103,142 @@
             "jestConfig": "libs/frontend/utils/storage/jest.config.js",
             "tsConfig": "libs/frontend/utils/storage/tsconfig.spec.json",
             "setupFile": "libs/frontend/utils/storage/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "frontend-shared-examples-feature-shell": {
+      "projectType": "library",
+      "root": "libs/frontend/shared/examples/feature-shell",
+      "sourceRoot": "libs/frontend/shared/examples/feature-shell/src",
+      "prefix": "ngw",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/shared/examples/feature-shell/tsconfig.lib.json",
+              "libs/frontend/shared/examples/feature-shell/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/shared/examples/feature-shell/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/shared/examples/feature-shell/jest.config.js",
+            "tsConfig": "libs/frontend/shared/examples/feature-shell/tsconfig.spec.json",
+            "setupFile": "libs/frontend/shared/examples/feature-shell/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "frontend-shared-examples-data-access": {
+      "projectType": "library",
+      "root": "libs/frontend/shared/examples/data-access",
+      "sourceRoot": "libs/frontend/shared/examples/data-access/src",
+      "prefix": "ngw",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/shared/examples/data-access/tsconfig.lib.json",
+              "libs/frontend/shared/examples/data-access/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/shared/examples/data-access/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/shared/examples/data-access/jest.config.js",
+            "tsConfig": "libs/frontend/shared/examples/data-access/tsconfig.spec.json",
+            "setupFile": "libs/frontend/shared/examples/data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "frontend-shared-examples-form-builder": {
+      "projectType": "library",
+      "root": "libs/frontend/shared/examples/form-builder",
+      "sourceRoot": "libs/frontend/shared/examples/form-builder/src",
+      "prefix": "ngw",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/shared/examples/form-builder/tsconfig.lib.json",
+              "libs/frontend/shared/examples/form-builder/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/shared/examples/form-builder/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/shared/examples/form-builder/jest.config.js",
+            "tsConfig": "libs/frontend/shared/examples/form-builder/tsconfig.spec.json",
+            "setupFile": "libs/frontend/shared/examples/form-builder/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "frontend-data-access-form-builder": {
+      "projectType": "library",
+      "root": "libs/frontend/data-access/form-builder",
+      "sourceRoot": "libs/frontend/data-access/form-builder/src",
+      "prefix": "ngw",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/data-access/form-builder/tsconfig.lib.json",
+              "libs/frontend/data-access/form-builder/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/frontend/data-access/form-builder/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/data-access/form-builder/jest.config.js",
+            "tsConfig": "libs/frontend/data-access/form-builder/tsconfig.spec.json",
+            "setupFile": "libs/frontend/data-access/form-builder/src/test-setup.ts"
           }
         }
       },

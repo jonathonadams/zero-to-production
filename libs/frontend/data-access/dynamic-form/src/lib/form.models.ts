@@ -5,13 +5,33 @@ export type TField =
   | IInputField
   | ISelectField
   | IToggleField
-  | IDatePickerField;
+  | IDatePickerField
+  | ITextArea;
 
-export type TFormGroups = IFormGroup[];
+export type TFormGroups = (IFormGroup | TFormArray)[];
 
 export interface IFormGroup {
-  name: string;
+  formGroup: string;
+  groupType: FormGroupTypes.Group;
   fields: TField[];
+}
+
+export type TFormArray = IFormGroupArray | IFormFieldArray;
+
+export interface IBaseFormArray {
+  formGroup: string;
+  groupType: FormGroupTypes.Array;
+  initialNumber?: number;
+}
+
+export interface IFormGroupArray extends IBaseFormArray {
+  arrayType: FormArrayTypes.Group;
+  fields: TField[];
+}
+
+export interface IFormFieldArray extends IBaseFormArray {
+  arrayType: FormArrayTypes.Field;
+  field: TField;
 }
 
 export interface IBaseField {
@@ -32,6 +52,10 @@ export interface IInputField extends IBaseField {
   type: TInputType;
 }
 
+export interface ITextArea extends IBaseField {
+  componentType: FormFieldTypes.TextArea;
+}
+
 export interface ISelectField extends IBaseField {
   componentType: FormFieldTypes.Select;
   selectOptions: ISelectOption[];
@@ -46,6 +70,7 @@ export interface IDatePickerField extends IBaseField {
 }
 
 export interface ISelectOption {
+  display: string;
   value: any;
 }
 
@@ -89,8 +114,19 @@ export interface IFormErrors {
   [key: string]: ValidationErrors;
 }
 
+export enum FormGroupTypes {
+  Group = 'GROUP',
+  Array = 'ARRAY'
+}
+
+export enum FormArrayTypes {
+  Group = 'GROUP',
+  Field = 'FIELD'
+}
+
 export enum FormFieldTypes {
   Input = 'INPUT',
+  TextArea = 'TEXT_AREA',
   Select = 'SELECT',
   Toggle = 'TOGGLE',
   DatePicker = 'DATE_PICKER'

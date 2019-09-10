@@ -4,7 +4,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { RouterEffects } from './+state/router.effects';
 
 @NgModule({
-  imports: [EffectsModule.forFeature([RouterEffects])],
-  providers: [RouterFacade]
+  imports: [EffectsModule.forFeature([RouterEffects])]
 })
 export class DataAccessRouterModule {}

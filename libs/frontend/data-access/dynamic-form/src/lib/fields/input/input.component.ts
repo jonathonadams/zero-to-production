@@ -1,14 +1,16 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { TField } from '../../form.models';
+import { TField, FormGroupTypes } from '../../form.models';
 
 @Component({
-  selector: 'app-input',
+  selector: 'app-form-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputComponent {
+export class FormInputComponent {
+  @Input() idx: number | undefined;
+  @Input() type!: FormGroupTypes;
   @Input() field!: TField;
   @Input() group!: FormGroup;
 }

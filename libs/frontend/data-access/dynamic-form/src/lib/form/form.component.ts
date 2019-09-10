@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormArray } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import {
   map,
@@ -101,6 +101,10 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   getFormGroup(name: string): FormGroup {
     return (this.form as FormGroup).get(name) as FormGroup;
+  }
+
+  getArrayGroup(name: string): FormArray {
+    return (this.form as FormGroup).get(name) as FormArray;
   }
 
   nextSection() {
