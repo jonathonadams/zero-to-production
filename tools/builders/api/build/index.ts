@@ -66,13 +66,13 @@ async function _buildApiBuilder(
   // TODO  -> Move this to own npm package
   await new Promise((resolve, reject) => {
     exec(
-      `npx tspr --tsConfig ${options.tsConfig as string}`,
+      `tspr --tsConfig ${options.tsConfig as string}`,
       (error, stdout, stderr) => {
         if (error) {
           reject(error);
         }
         if (stderr) {
-          console.error(stderr);
+          context.logger.error(stderr.toString());
         }
         resolve(stdout);
       }
