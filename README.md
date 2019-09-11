@@ -12,7 +12,6 @@
 
 - [x] Make the path rewriter rewrite all library paths, not just main tsconfig paths.
 - [x] Add an example project structure
-- [ ] User read/write streams not promises.
 - [x] Add directory watching
 - [ ] Tests
 - [x] Move to own package
@@ -28,6 +27,8 @@
 #### App
 
 - [x] Finish user registration. NOTE -> For the demo, don't require unique emails
+- [ ] Examples sections
+  - Form Builder
 
 #### Dynamic Form
 
@@ -38,6 +39,12 @@
 - [ ] Restyle errors animations
 - [x] Submit button not using content projection does not have auto focus
 - [ ] Write tests for dynamic form
+
+#### Form Builder
+
+- [ ] Document
+- [ ] Add field types, select fields etc
+- [ ] Tests
 
 #### Accessability
 
@@ -84,21 +91,6 @@ TS does not correctly infer the types when using filters, current typescript iss
 
 https://github.com/Microsoft/TypeScript/issues/10734
 https://github.com/Microsoft/TypeScript/issues/16069
-
-### TypeScript Path Remapping
-
-TS does not rewrite path aliases, once ES modules are no longer experimental they will as per below github link
-https://github.com/Microsoft/TypeScript/issues/10866
-
-https://github.com/Microsoft/TypeScript/issues/15479
-
-https://www.npmjs.com/package/tspath
-
-https://github.com/cevek/ttypescript
-
-https://github.com/LeDDGroup/typescript-transform-paths
-
-https://github.com/dividab/tsconfig-paths
 
 ### Angular IVY and Strict Mode
 
