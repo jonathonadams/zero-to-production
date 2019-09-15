@@ -1,5 +1,5 @@
-// css reset
-@import '~reset-css/reset.css';
+// Normalize css
+@import '~normalize.css';
 // Angular Material Themeing Mixins
 @import '~@angular/material/theming';
 
@@ -34,16 +34,3 @@ body {
 // ------------------------------------------------
 // Insert additional styles here
 // ------------------------------------------------
-
-a {
-  display: inline-block;
-  margin-top: 0.5em;
-  text-decoration: underline;
-  color: #3665f3;
-  cursor: pointer;
-
-  &:visited {
-    color: #6a29b9;
-    text-decoration: none;
-  }
-}
