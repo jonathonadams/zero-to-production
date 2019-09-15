@@ -15,7 +15,7 @@
       >
         <ng-container
           *ngFor="let field of group.fields"
-          dynamicFormField
+          appDynamicFormField
           [field]="field"
           [type]="group.groupType"
           [group]="getFormGroup(group.formGroup)"
@@ -34,7 +34,7 @@
                 let field of getArrayGroup(group.formGroup).controls;
                 let i = index
               "
-              dynamicFormField
+              appDynamicFormField
               [idx]="i"
               [type]="group.groupType"
               [field]="group.field"
@@ -56,7 +56,7 @@
               <div [formGroupName]="i" class="form-array-group">
                 <ng-container
                   *ngFor="let field of group.fields"
-                  dynamicFormField
+                  appDynamicFormField
                   [field]="field"
                   [type]="group.arrayType"
                   [group]="arrayGroup"

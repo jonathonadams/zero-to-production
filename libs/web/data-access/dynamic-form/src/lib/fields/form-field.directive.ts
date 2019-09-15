@@ -14,7 +14,7 @@ import { FormGroupTypes } from '@ngw/enums';
 import { TField } from '@ngw/types';
 
 @Directive({
-  selector: '[dynamicFormField]'
+  selector: '[appDynamicFormField]'
 })
 export class DynamicFormFieldDirective implements OnInit, OnChanges {
   @Input() idx: number | undefined;

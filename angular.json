@@ -124,7 +124,7 @@
         }
       }
     },
-    "frontend-common-ui-side-nav": {
+    "web-common-ui-side-nav": {
       "projectType": "library",
       "root": "libs/web/common/ui/side-nav",
       "sourceRoot": "libs/web/common/ui/side-nav/src",
@@ -155,7 +155,7 @@
         }
       }
     },
-    "frontend-data-access-api": {
+    "web-data-access-api": {
       "projectType": "library",
       "root": "libs/web/data-access/api",
       "sourceRoot": "libs/web/data-access/api/src",
@@ -186,7 +186,7 @@
         }
       }
     },
-    "frontend-data-access-auth": {
+    "web-data-access-auth": {
       "projectType": "library",
       "root": "libs/web/data-access/auth",
       "sourceRoot": "libs/web/data-access/auth/src",
@@ -217,7 +217,7 @@
         }
       }
     },
-    "frontend-common-ui-custom-material": {
+    "web-common-ui-custom-material": {
       "projectType": "library",
       "root": "libs/web/common/ui/custom-material",
       "sourceRoot": "libs/web/common/ui/custom-material/src",
@@ -239,7 +239,7 @@
       },
       "schematics": {}
     },
-    "frontend-common-ui-toolbar": {
+    "web-common-ui-toolbar": {
       "projectType": "library",
       "root": "libs/web/common/ui/toolbar",
       "sourceRoot": "libs/web/common/ui/toolbar/src",
@@ -266,7 +266,7 @@
       },
       "schematics": {}
     },
-    "frontend-utils-overlay": {
+    "web-utils-overlay": {
       "projectType": "library",
       "root": "libs/web/utils/overlay",
       "sourceRoot": "libs/web/utils/overlay/src",
@@ -297,7 +297,7 @@
         }
       }
     },
-    "frontend-utils-notifications": {
+    "web-utils-notifications": {
       "projectType": "library",
       "root": "libs/web/utils/notifications",
       "sourceRoot": "libs/web/utils/notifications/src",
@@ -331,7 +331,7 @@
         }
       }
     },
-    "frontend-utils-errors": {
+    "web-utils-errors": {
       "projectType": "library",
       "root": "libs/web/utils/errors",
       "sourceRoot": "libs/web/utils/errors/src",
@@ -431,7 +431,7 @@
         }
       }
     },
-    "frontend-data-access-users": {
+    "web-data-access-users": {
       "projectType": "library",
       "root": "libs/web/data-access/users",
       "sourceRoot": "libs/web/data-access/users/src",
@@ -458,7 +458,7 @@
       },
       "schematics": {}
     },
-    "frontend-common-theme": {
+    "web-common-theme": {
       "projectType": "library",
       "root": "libs/web/common/theme",
       "sourceRoot": "libs/web/common/theme/src",
@@ -485,7 +485,7 @@
       },
       "schematics": {}
     },
-    "frontend-shared-dashboard": {
+    "web-shared-dashboard": {
       "projectType": "library",
       "root": "libs/web/shared/dashboard",
       "sourceRoot": "libs/web/shared/dashboard/src",
@@ -516,7 +516,7 @@
         }
       }
     },
-    "frontend-todos-feature-shell": {
+    "web-todos-feature-shell": {
       "projectType": "library",
       "root": "libs/web/todos/feature-shell",
       "sourceRoot": "libs/web/todos/feature-shell/src",
@@ -550,7 +550,7 @@
         }
       }
     },
-    "frontend-todos-data-access": {
+    "web-todos-data-access": {
       "projectType": "library",
       "root": "libs/web/todos/data-access",
       "sourceRoot": "libs/web/todos/data-access/src",
@@ -577,7 +577,7 @@
       },
       "schematics": {}
     },
-    "frontend-todos-todo-detail": {
+    "web-todos-todo-detail": {
       "projectType": "library",
       "root": "libs/web/todos/todo-detail",
       "sourceRoot": "libs/web/todos/todo-detail/src",
@@ -608,7 +608,7 @@
         }
       }
     },
-    "frontend-todos-all-todos": {
+    "web-todos-all-todos": {
       "projectType": "library",
       "root": "libs/web/todos/all-todos",
       "sourceRoot": "libs/web/todos/all-todos/src",
@@ -639,7 +639,7 @@
         }
       }
     },
-    "frontend-common-ui-layouts": {
+    "web-common-ui-layouts": {
       "projectType": "library",
       "root": "libs/web/common/ui/layouts",
       "sourceRoot": "libs/web/common/ui/layouts/src",
@@ -670,7 +670,7 @@
         }
       }
     },
-    "frontend-shared-floating-menu": {
+    "web-shared-floating-menu": {
       "projectType": "library",
       "root": "libs/web/shared/floating-menu",
       "sourceRoot": "libs/web/shared/floating-menu/src",
@@ -794,7 +794,7 @@
         }
       }
     },
-    "frontend-shared-profile": {
+    "web-shared-profile": {
       "projectType": "library",
       "root": "libs/web/shared/profile",
       "sourceRoot": "libs/web/shared/profile/src",
@@ -825,7 +825,7 @@
         }
       }
     },
-    "frontend-data-access-app-state": {
+    "web-data-access-app-state": {
       "projectType": "library",
       "root": "libs/web/data-access/app-state",
       "sourceRoot": "libs/web/data-access/app-state/src",
@@ -859,7 +859,7 @@
         }
       }
     },
-    "frontend-data-access-router": {
+    "web-data-access-router": {
       "projectType": "library",
       "root": "libs/web/data-access/router",
       "sourceRoot": "libs/web/data-access/router/src",
@@ -890,7 +890,7 @@
         }
       }
     },
-    "frontend-data-access-dynamic-form": {
+    "web-data-access-dynamic-form": {
       "projectType": "library",
       "root": "libs/web/data-access/dynamic-form",
       "sourceRoot": "libs/web/data-access/dynamic-form/src",
@@ -924,7 +924,7 @@
         }
       }
     },
-    "frontend-data-access-service-worker": {
+    "web-data-access-service-worker": {
       "projectType": "library",
       "root": "libs/web/data-access/service-worker",
       "sourceRoot": "libs/web/data-access/service-worker/src",
@@ -1008,7 +1008,7 @@
         }
       }
     },
-    "frontend-common-animations": {
+    "web-common-animations": {
       "projectType": "library",
       "root": "libs/web/common/animations",
       "sourceRoot": "libs/web/common/animations/src",
@@ -1039,7 +1039,7 @@
         }
       }
     },
-    "frontend-utils-storage": {
+    "web-utils-storage": {
       "projectType": "library",
       "root": "libs/web/utils/storage",
       "sourceRoot": "libs/web/utils/storage/src",
@@ -1070,7 +1070,7 @@
         }
       }
     },
-    "frontend-shared-examples-feature-shell": {
+    "web-shared-examples-feature-shell": {
       "projectType": "library",
       "root": "libs/web/shared/examples/feature-shell",
       "sourceRoot": "libs/web/shared/examples/feature-shell/src",
@@ -1104,7 +1104,7 @@
         }
       }
     },
-    "frontend-shared-examples-data-access": {
+    "web-shared-examples-data-access": {
       "projectType": "library",
       "root": "libs/web/shared/examples/data-access",
       "sourceRoot": "libs/web/shared/examples/data-access/src",
@@ -1138,7 +1138,7 @@
         }
       }
     },
-    "frontend-shared-examples-form-builder": {
+    "web-shared-examples-form-builder": {
       "projectType": "library",
       "root": "libs/web/shared/examples/form-builder",
       "sourceRoot": "libs/web/shared/examples/form-builder/src",
@@ -1172,7 +1172,7 @@
         }
       }
     },
-    "frontend-data-access-form-builder": {
+    "web-data-access-form-builder": {
       "projectType": "library",
       "root": "libs/web/data-access/form-builder",
       "sourceRoot": "libs/web/data-access/form-builder/src",

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[masonryLayout]'
+  selector: '[layoutMasonry]'
 })
 export class MasonryLayoutDirective implements AfterContentChecked {
   @Input() columns!: number;
@@ -21,7 +21,7 @@ export class MasonryLayoutDirective implements AfterContentChecked {
       const colHeights = Array(this.blocks.length).fill(0);
 
       this.blocks.forEach((block, idx) => {
-        var order = (idx + 1) % this.columns || this.columns;
+        const order = (idx + 1) % this.columns || this.columns;
 
         block.nativeElement.style.order = order as any;
         colHeights[order] += parseFloat(block.nativeElement

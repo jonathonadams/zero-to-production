@@ -9,7 +9,7 @@ export type TField =
   | IDatePickerField
   | ITextArea;
 
-export type TFormGroups = (TFormGroup | TFormArray)[];
+export type TFormGroups = (IFormGroup | TFormArray)[];
 
 export interface IFormGroup {
   formGroup: string;
@@ -17,11 +17,6 @@ export interface IFormGroup {
   fields: TField[];
 }
 
-export type TFormGroup = {
-  formGroup: string;
-  groupType: FormGroupTypes.Group;
-  fields: TField[];
-};
 export type TFormArray = IFormGroupArray | IFormFieldArray;
 
 export interface IBaseFormArray {
