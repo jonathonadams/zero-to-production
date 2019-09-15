@@ -19,91 +19,55 @@
     "baseUrl": ".",
     "paths": {
       "@app-testing/*": ["testing/src/*"],
-      "@ngw/frontend/common/ui/side-nav": [
-        "libs/frontend/common/ui/side-nav/src/index.ts"
-      ],
-      "@ngw/frontend/data-access/api": [
-        "libs/frontend/data-access/api/src/index.ts"
-      ],
-      "@ngw/frontend/data-access/auth": [
-        "libs/frontend/data-access/auth/src/index.ts"
-      ],
+      "@ngw/common/ui/side-nav": ["libs/web/common/ui/side-nav/src/index.ts"],
+      "@ngw/data-access/api": ["libs/web/data-access/api/src/index.ts"],
+      "@ngw/data-access/auth": ["libs/web/data-access/auth/src/index.ts"],
       "@ngw/common/ui/custom-material": [
-        "libs/frontend/common/ui/custom-material/src/index.ts"
+        "libs/web/common/ui/custom-material/src/index.ts"
       ],
-      "@ngw/frontend/common/ui/toolbar": [
-        "libs/frontend/common/ui/toolbar/src/index.ts"
+      "@ngw/common/ui/toolbar": ["libs/web/common/ui/toolbar/src/index.ts"],
+      "@ngw/utils/overlay": ["libs/web/utils/overlay/src/index.ts"],
+      "@ngw/utils/notifications": ["libs/web/utils/notifications/src/index.ts"],
+      "@ngw/utils/errors": ["libs/web/utils/errors/src/index.ts"],
+      "@ngw/types": ["libs/shared/types/src/index.ts"],
+      "@ngw/enums": ["libs/shared/enums/src/index.ts"],
+      "@ngw/utils/auth": ["libs/shared/utils/auth/src/index.ts"],
+      "@ngw/data-access/users": ["libs/web/data-access/users/src/index.ts"],
+      "@ngw/common/theme": ["libs/web/common/theme/src/index.ts"],
+      "@ngw/dashboard": ["libs/web/shared/dashboard/src/index.ts"],
+      "@ngw/todos/feature-shell": ["libs/web/todos/feature-shell/src/index.ts"],
+      "@ngw/todos/data-access": ["libs/web/todos/data-access/src/index.ts"],
+      "@ngw/todos/todo-detail": ["libs/web/todos/todo-detail/src/index.ts"],
+      "@ngw/todos/all-todos": ["libs/web/todos/all-todos/src/index.ts"],
+      "@ngw/common/ui/layouts": ["libs/web/common/ui/layouts/src/index.ts"],
+      "@ngw/shared/floating-menu": [
+        "libs/web/shared/floating-menu/src/index.ts"
       ],
-      "@ngw/frontend/utils/overlay": [
-        "libs/frontend/utils/overlay/src/index.ts"
+      "@ngw/api/auth": ["libs/api/auth/src/index.ts"],
+      "@ngw/shared/profile": ["libs/web/shared/profile/src/index.ts"],
+      "@ngw/data-access/app-state": [
+        "libs/web/data-access/app-state/src/index.ts"
       ],
-      "@ngw/frontend/utils/notifications": [
-        "libs/frontend/utils/notifications/src/index.ts"
+      "@ngw/data-access/router": ["libs/web/data-access/router/src/index.ts"],
+      "@ngw/data-access/dynamic-form": [
+        "libs/web/data-access/dynamic-form/src/index.ts"
       ],
-      "@ngw/frontend/utils/errors": ["libs/frontend/utils/errors/src/index.ts"],
-      "@ngw/shared/interfaces": ["libs/shared/interfaces/src/index.ts"],
-      "@ngw/shared/enums": ["libs/shared/enums/src/index.ts"],
-      "@ngw/shared/utils/auth": ["libs/shared/utils/auth/src/index.ts"],
-      "@ngw/frontend/data-access/users": [
-        "libs/frontend/data-access/users/src/index.ts"
+      "@ngw/data-access/service-worker": [
+        "libs/web/data-access/service-worker/src/index.ts"
       ],
-      "@ngw/frontend/common/theme": ["libs/frontend/common/theme/src/index.ts"],
-      "@ngw/frontend/dashboard": [
-        "libs/frontend/shared/dashboard/src/index.ts"
+      "@ngw/api/middleware": ["libs/api/middleware/src/index.ts"],
+      "@ngw/api/utils": ["libs/api/utils/src/index.ts"],
+      "@ngw/common/animations": ["libs/web/common/animations/src/index.ts"],
+      "@ngw/utils/storage": ["libs/web/utils/storage/src/index.ts"],
+      "@ngw/examples": ["libs/web/shared/examples/feature-shell/src/index.ts"],
+      "@ngw/examples/data-access": [
+        "libs/web/shared/examples/data-access/src/index.ts"
       ],
-      "@ngw/frontend/todos/feature-shell": [
-        "libs/frontend/todos/feature-shell/src/index.ts"
-      ],
-      "@ngw/frontend/todos/data-access": [
-        "libs/frontend/todos/data-access/src/index.ts"
-      ],
-      "@ngw/frontend/todos/todo-detail": [
-        "libs/frontend/todos/todo-detail/src/index.ts"
-      ],
-      "@ngw/frontend/todos/all-todos": [
-        "libs/frontend/todos/all-todos/src/index.ts"
-      ],
-      "@ngw/frontend/common/ui/layouts": [
-        "libs/frontend/common/ui/layouts/src/index.ts"
-      ],
-      "@ngw/frontend/shared/floating-menu": [
-        "libs/frontend/shared/floating-menu/src/index.ts"
-      ],
-      "@ngw/backend/auth": ["libs/backend/auth/src/index.ts"],
-      "@ngw/frontend/shared/profile": [
-        "libs/frontend/shared/profile/src/index.ts"
-      ],
-      "@ngw/frontend/data-access/app-state": [
-        "libs/frontend/data-access/app-state/src/index.ts"
-      ],
-      "@ngw/frontend/data-access/router": [
-        "libs/frontend/data-access/router/src/index.ts"
-      ],
-      "@ngw/frontend/data-access/dynamic-form": [
-        "libs/frontend/data-access/dynamic-form/src/index.ts"
-      ],
-      "@ngw/frontend/data-access/service-worker": [
-        "libs/frontend/data-access/service-worker/src/index.ts"
-      ],
-      "@ngw/backend/middleware": ["libs/backend/middleware/src/index.ts"],
-      "@ngw/backend/utils": ["libs/backend/utils/src/index.ts"],
-      "@ngw/frontend/common/animations": [
-        "libs/frontend/common/animations/src/index.ts"
-      ],
-      "@ngw/frontend/utils/storage": [
-        "libs/frontend/utils/storage/src/index.ts"
-      ],
-      "@ngw/shared/examples": [
-        "libs/frontend/shared/examples/feature-shell/src/index.ts"
-      ],
-      "@ngw/shared/examples/data-access": [
-        "libs/frontend/shared/examples/data-access/src/index.ts"
-      ],
-      "@ngw/shared/examples/form-builder": [
-        "libs/frontend/shared/examples/form-builder/src/index.ts"
+      "@ngw/examples/form-builder": [
+        "libs/web/shared/examples/form-builder/src/index.ts"
       ],
       "@ngw/data-access/form-builder": [
-        "libs/frontend/data-access/form-builder/src/index.ts"
+        "libs/web/data-access/form-builder/src/index.ts"
       ]
     }
   },

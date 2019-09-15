@@ -7,5 +7,5 @@
   },
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"],
-  "references": [{ "path": "../../interfaces/tsconfig.lib.json" }]
+  "references": [{ "path": "../../types/tsconfig.lib.json" }]
 }

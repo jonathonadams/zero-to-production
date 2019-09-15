@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
-    "e2e:chrome": "testcafe -c 3 chrome apps/frontends/todos/todos-e2e/",
+    "e2e:chrome": "testcafe -c 3 chrome apps/web/todos/todos-e2e/",
     "snapshot:update": "jest --updateSnapshot --testPathPattern",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",

@@ -3,31 +3,31 @@
   "version": 1,
   "newProjectRoot": "",
   "projects": {
-    "frontends-todos": {
+    "web-todos": {
       "projectType": "application",
       "schematics": {
         "@nrwl/workspace:component": {
           "style": "scss"
         }
       },
-      "root": "apps/frontends/todos",
-      "sourceRoot": "apps/frontends/todos/src",
+      "root": "apps/web/todos",
+      "sourceRoot": "apps/web/todos/src",
       "prefix": "todo",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/frontends/todos",
-            "index": "apps/frontends/todos/src/index.html",
-            "main": "apps/frontends/todos/src/main.ts",
-            "polyfills": "apps/frontends/todos/src/polyfills.ts",
-            "tsConfig": "apps/frontends/todos/tsconfig.app.json",
+            "outputPath": "dist/apps/web/todos",
+            "index": "apps/web/todos/src/index.html",
+            "main": "apps/web/todos/src/main.ts",
+            "polyfills": "apps/web/todos/src/polyfills.ts",
+            "tsConfig": "apps/web/todos/tsconfig.app.json",
             "assets": [
-              "apps/frontends/todos/src/favicon.ico",
-              "apps/frontends/todos/src/assets",
-              "apps/frontends/todos/src/manifest.webmanifest"
+              "apps/web/todos/src/favicon.ico",
+              "apps/web/todos/src/assets",
+              "apps/web/todos/src/manifest.webmanifest"
             ],
-            "styles": ["apps/frontends/todos/src/styles.scss"],
+            "styles": ["apps/web/todos/src/styles.scss"],
             "scripts": [],
             "aot": false
           },
@@ -35,8 +35,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/frontends/todos/src/environments/environment.ts",
-                  "with": "apps/frontends/todos/src/environments/environment.prod.ts"
+                  "replace": "apps/web/todos/src/environments/environment.ts",
+                  "with": "apps/web/todos/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -56,99 +56,96 @@
                 }
               ],
               "serviceWorker": true,
-              "ngswConfigPath": "apps/frontends/todos/ngsw-config.json"
+              "ngswConfigPath": "apps/web/todos/ngsw-config.json"
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "frontends-todos:build"
+            "browserTarget": "web-todos:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "frontends-todos:build:production"
+              "browserTarget": "web-todos:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "frontends-todos:build"
+            "browserTarget": "web-todos:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/frontends/todos/tsconfig.app.json",
-              "apps/frontends/todos/tsconfig.spec.json"
+              "apps/web/todos/tsconfig.app.json",
+              "apps/web/todos/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/frontends/todos/**"]
+            "exclude": ["**/node_modules/**", "!apps/web/todos/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/frontends/todos/jest.config.js",
-            "tsConfig": "apps/frontends/todos/tsconfig.spec.json",
-            "setupFile": "apps/frontends/todos/src/test-setup.ts"
+            "jestConfig": "apps/web/todos/jest.config.js",
+            "tsConfig": "apps/web/todos/tsconfig.spec.json",
+            "setupFile": "apps/web/todos/src/test-setup.ts"
           }
         }
       }
     },
-    "frontends-todos-e2e": {
-      "root": "apps/frontends/todos-e2e",
-      "sourceRoot": "apps/frontends/todos-e2e/src",
+    "web-todos-e2e": {
+      "root": "apps/web/todos-e2e",
+      "sourceRoot": "apps/web/todos-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/frontends/todos-e2e/cypress.json",
-            "tsConfig": "apps/frontends/todos-e2e/tsconfig.e2e.json",
-            "devServerTarget": "frontends-todos:serve"
+            "cypressConfig": "apps/web/todos-e2e/cypress.json",
+            "tsConfig": "apps/web/todos-e2e/tsconfig.e2e.json",
+            "devServerTarget": "web-todos:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "frontends-todos:serve:production"
+              "devServerTarget": "web-todos:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "apps/frontends/todos-e2e/tsconfig.e2e.json",
-            "exclude": ["!apps/frontends/todos-e2e/**"]
+            "tsConfig": "apps/web/todos-e2e/tsconfig.e2e.json",
+            "exclude": ["!apps/web/todos-e2e/**"]
           }
         }
       }
     },
     "frontend-common-ui-side-nav": {
       "projectType": "library",
-      "root": "libs/frontend/common/ui/side-nav",
-      "sourceRoot": "libs/frontend/common/ui/side-nav/src",
+      "root": "libs/web/common/ui/side-nav",
+      "sourceRoot": "libs/web/common/ui/side-nav/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/common/ui/side-nav/tsconfig.lib.json",
-              "libs/frontend/common/ui/side-nav/tsconfig.spec.json"
+              "libs/web/common/ui/side-nav/tsconfig.lib.json",
+              "libs/web/common/ui/side-nav/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/common/ui/side-nav/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/common/ui/side-nav/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/common/ui/side-nav/jest.config.js",
-            "tsConfig": "libs/frontend/common/ui/side-nav/tsconfig.spec.json",
-            "setupFile": "libs/frontend/common/ui/side-nav/src/test-setup.ts"
+            "jestConfig": "libs/web/common/ui/side-nav/jest.config.js",
+            "tsConfig": "libs/web/common/ui/side-nav/tsconfig.spec.json",
+            "setupFile": "libs/web/common/ui/side-nav/src/test-setup.ts"
           }
         }
       },
@@ -160,29 +157,26 @@
     },
     "frontend-data-access-api": {
       "projectType": "library",
-      "root": "libs/frontend/data-access/api",
-      "sourceRoot": "libs/frontend/data-access/api/src",
+      "root": "libs/web/data-access/api",
+      "sourceRoot": "libs/web/data-access/api/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/data-access/api/tsconfig.lib.json",
-              "libs/frontend/data-access/api/tsconfig.spec.json"
+              "libs/web/data-access/api/tsconfig.lib.json",
+              "libs/web/data-access/api/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/data-access/api/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/data-access/api/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/data-access/api/jest.config.js",
-            "tsConfig": "libs/frontend/data-access/api/tsconfig.spec.json",
-            "setupFile": "libs/frontend/data-access/api/src/test-setup.ts"
+            "jestConfig": "libs/web/data-access/api/jest.config.js",
+            "tsConfig": "libs/web/data-access/api/tsconfig.spec.json",
+            "setupFile": "libs/web/data-access/api/src/test-setup.ts"
           }
         }
       },
@@ -194,29 +188,26 @@
     },
     "frontend-data-access-auth": {
       "projectType": "library",
-      "root": "libs/frontend/data-access/auth",
-      "sourceRoot": "libs/frontend/data-access/auth/src",
+      "root": "libs/web/data-access/auth",
+      "sourceRoot": "libs/web/data-access/auth/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/data-access/auth/tsconfig.lib.json",
-              "libs/frontend/data-access/auth/tsconfig.spec.json"
+              "libs/web/data-access/auth/tsconfig.lib.json",
+              "libs/web/data-access/auth/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/data-access/auth/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/data-access/auth/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/data-access/auth/jest.config.js",
-            "tsConfig": "libs/frontend/data-access/auth/tsconfig.spec.json",
-            "setupFile": "libs/frontend/data-access/auth/src/test-setup.ts"
+            "jestConfig": "libs/web/data-access/auth/jest.config.js",
+            "tsConfig": "libs/web/data-access/auth/tsconfig.spec.json",
+            "setupFile": "libs/web/data-access/auth/src/test-setup.ts"
           }
         }
       },
@@ -228,20 +219,20 @@
     },
     "frontend-common-ui-custom-material": {
       "projectType": "library",
-      "root": "libs/frontend/common/ui/custom-material",
-      "sourceRoot": "libs/frontend/common/ui/custom-material/src",
+      "root": "libs/web/common/ui/custom-material",
+      "sourceRoot": "libs/web/common/ui/custom-material/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/common/ui/custom-material/tsconfig.lib.json",
-              "libs/frontend/common/ui/custom-material/tsconfig.spec.json"
+              "libs/web/common/ui/custom-material/tsconfig.lib.json",
+              "libs/web/common/ui/custom-material/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/frontend/common/ui/custom-material/**"
+              "!libs/web/common/ui/custom-material/**"
             ]
           }
         }
@@ -250,29 +241,26 @@
     },
     "frontend-common-ui-toolbar": {
       "projectType": "library",
-      "root": "libs/frontend/common/ui/toolbar",
-      "sourceRoot": "libs/frontend/common/ui/toolbar/src",
+      "root": "libs/web/common/ui/toolbar",
+      "sourceRoot": "libs/web/common/ui/toolbar/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/common/ui/toolbar/tsconfig.lib.json",
-              "libs/frontend/common/ui/toolbar/tsconfig.spec.json"
+              "libs/web/common/ui/toolbar/tsconfig.lib.json",
+              "libs/web/common/ui/toolbar/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/common/ui/toolbar/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/common/ui/toolbar/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/common/ui/toolbar/jest.config.js",
-            "tsConfig": "libs/frontend/common/ui/toolbar/tsconfig.spec.json",
-            "setupFile": "libs/frontend/common/ui/toolbar/src/test-setup.ts"
+            "jestConfig": "libs/web/common/ui/toolbar/jest.config.js",
+            "tsConfig": "libs/web/common/ui/toolbar/tsconfig.spec.json",
+            "setupFile": "libs/web/common/ui/toolbar/src/test-setup.ts"
           }
         }
       },
@@ -280,26 +268,26 @@
     },
     "frontend-utils-overlay": {
       "projectType": "library",
-      "root": "libs/frontend/utils/overlay",
-      "sourceRoot": "libs/frontend/utils/overlay/src",
+      "root": "libs/web/utils/overlay",
+      "sourceRoot": "libs/web/utils/overlay/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/utils/overlay/tsconfig.lib.json",
-              "libs/frontend/utils/overlay/tsconfig.spec.json"
+              "libs/web/utils/overlay/tsconfig.lib.json",
+              "libs/web/utils/overlay/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/frontend/utils/overlay/**"]
+            "exclude": ["**/node_modules/**", "!libs/web/utils/overlay/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/utils/overlay/jest.config.js",
-            "tsConfig": "libs/frontend/utils/overlay/tsconfig.spec.json",
-            "setupFile": "libs/frontend/utils/overlay/src/test-setup.ts"
+            "jestConfig": "libs/web/utils/overlay/jest.config.js",
+            "tsConfig": "libs/web/utils/overlay/tsconfig.spec.json",
+            "setupFile": "libs/web/utils/overlay/src/test-setup.ts"
           }
         }
       },
@@ -311,29 +299,29 @@
     },
     "frontend-utils-notifications": {
       "projectType": "library",
-      "root": "libs/frontend/utils/notifications",
-      "sourceRoot": "libs/frontend/utils/notifications/src",
+      "root": "libs/web/utils/notifications",
+      "sourceRoot": "libs/web/utils/notifications/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/utils/notifications/tsconfig.lib.json",
-              "libs/frontend/utils/notifications/tsconfig.spec.json"
+              "libs/web/utils/notifications/tsconfig.lib.json",
+              "libs/web/utils/notifications/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/frontend/utils/notifications/**"
+              "!libs/web/utils/notifications/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/utils/notifications/jest.config.js",
-            "tsConfig": "libs/frontend/utils/notifications/tsconfig.spec.json",
-            "setupFile": "libs/frontend/utils/notifications/src/test-setup.ts"
+            "jestConfig": "libs/web/utils/notifications/jest.config.js",
+            "tsConfig": "libs/web/utils/notifications/tsconfig.spec.json",
+            "setupFile": "libs/web/utils/notifications/src/test-setup.ts"
           }
         }
       },
@@ -345,26 +333,26 @@
     },
     "frontend-utils-errors": {
       "projectType": "library",
-      "root": "libs/frontend/utils/errors",
-      "sourceRoot": "libs/frontend/utils/errors/src",
+      "root": "libs/web/utils/errors",
+      "sourceRoot": "libs/web/utils/errors/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/utils/errors/tsconfig.lib.json",
-              "libs/frontend/utils/errors/tsconfig.spec.json"
+              "libs/web/utils/errors/tsconfig.lib.json",
+              "libs/web/utils/errors/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/frontend/utils/errors/**"]
+            "exclude": ["**/node_modules/**", "!libs/web/utils/errors/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/utils/errors/jest.config.js",
-            "tsConfig": "libs/frontend/utils/errors/tsconfig.spec.json",
-            "setupFile": "libs/frontend/utils/errors/src/test-setup.ts"
+            "jestConfig": "libs/web/utils/errors/jest.config.js",
+            "tsConfig": "libs/web/utils/errors/tsconfig.spec.json",
+            "setupFile": "libs/web/utils/errors/src/test-setup.ts"
           }
         }
       },
@@ -374,28 +362,28 @@
         }
       }
     },
-    "shared-interfaces": {
-      "root": "libs/shared/interfaces",
-      "sourceRoot": "libs/shared/interfaces/src",
+    "shared-types": {
+      "root": "libs/shared/types",
+      "sourceRoot": "libs/shared/types/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "./tools/builders/api:build",
           "options": {
-            "outputPath": "dist/libs/shared/interfaces",
-            "main": "libs/shared/interfaces/src/index.ts",
-            "tsConfig": "libs/shared/interfaces/tsconfig.json"
+            "outputPath": "dist/libs/shared/types",
+            "main": "libs/shared/types/src/index.ts",
+            "tsConfig": "libs/shared/types/tsconfig.json"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/shared/interfaces/tsconfig.lib.json",
-              "libs/shared/interfaces/tsconfig.spec.json"
+              "libs/shared/types/tsconfig.lib.json",
+              "libs/shared/types/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/interfaces/**"]
+            "exclude": ["**/node_modules/**", "!libs/shared/types/**"]
           }
         }
       }
@@ -445,29 +433,26 @@
     },
     "frontend-data-access-users": {
       "projectType": "library",
-      "root": "libs/frontend/data-access/users",
-      "sourceRoot": "libs/frontend/data-access/users/src",
+      "root": "libs/web/data-access/users",
+      "sourceRoot": "libs/web/data-access/users/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/data-access/users/tsconfig.lib.json",
-              "libs/frontend/data-access/users/tsconfig.spec.json"
+              "libs/web/data-access/users/tsconfig.lib.json",
+              "libs/web/data-access/users/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/data-access/users/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/data-access/users/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/data-access/users/jest.config.js",
-            "tsConfig": "libs/frontend/data-access/users/tsconfig.spec.json",
-            "setupFile": "libs/frontend/data-access/users/src/test-setup.ts"
+            "jestConfig": "libs/web/data-access/users/jest.config.js",
+            "tsConfig": "libs/web/data-access/users/tsconfig.spec.json",
+            "setupFile": "libs/web/data-access/users/src/test-setup.ts"
           }
         }
       },
@@ -475,26 +460,26 @@
     },
     "frontend-common-theme": {
       "projectType": "library",
-      "root": "libs/frontend/common/theme",
-      "sourceRoot": "libs/frontend/common/theme/src",
+      "root": "libs/web/common/theme",
+      "sourceRoot": "libs/web/common/theme/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/common/theme/tsconfig.lib.json",
-              "libs/frontend/common/theme/tsconfig.spec.json"
+              "libs/web/common/theme/tsconfig.lib.json",
+              "libs/web/common/theme/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/frontend/common/theme/**"]
+            "exclude": ["**/node_modules/**", "!libs/web/common/theme/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/common/theme/jest.config.js",
-            "tsConfig": "libs/frontend/common/theme/tsconfig.spec.json",
-            "setupFile": "libs/frontend/common/theme/src/test-setup.ts"
+            "jestConfig": "libs/web/common/theme/jest.config.js",
+            "tsConfig": "libs/web/common/theme/tsconfig.spec.json",
+            "setupFile": "libs/web/common/theme/src/test-setup.ts"
           }
         }
       },
@@ -502,29 +487,26 @@
     },
     "frontend-shared-dashboard": {
       "projectType": "library",
-      "root": "libs/frontend/shared/dashboard",
-      "sourceRoot": "libs/frontend/shared/dashboard/src",
+      "root": "libs/web/shared/dashboard",
+      "sourceRoot": "libs/web/shared/dashboard/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/shared/dashboard/tsconfig.lib.json",
-              "libs/frontend/shared/dashboard/tsconfig.spec.json"
+              "libs/web/shared/dashboard/tsconfig.lib.json",
+              "libs/web/shared/dashboard/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/shared/dashboard/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/shared/dashboard/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/shared/dashboard/jest.config.js",
-            "tsConfig": "libs/frontend/shared/dashboard/tsconfig.spec.json",
-            "setupFile": "libs/frontend/shared/dashboard/src/test-setup.ts"
+            "jestConfig": "libs/web/shared/dashboard/jest.config.js",
+            "tsConfig": "libs/web/shared/dashboard/tsconfig.spec.json",
+            "setupFile": "libs/web/shared/dashboard/src/test-setup.ts"
           }
         }
       },
@@ -536,29 +518,29 @@
     },
     "frontend-todos-feature-shell": {
       "projectType": "library",
-      "root": "libs/frontend/todos/feature-shell",
-      "sourceRoot": "libs/frontend/todos/feature-shell/src",
+      "root": "libs/web/todos/feature-shell",
+      "sourceRoot": "libs/web/todos/feature-shell/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/todos/feature-shell/tsconfig.lib.json",
-              "libs/frontend/todos/feature-shell/tsconfig.spec.json"
+              "libs/web/todos/feature-shell/tsconfig.lib.json",
+              "libs/web/todos/feature-shell/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/frontend/todos/feature-shell/**"
+              "!libs/web/todos/feature-shell/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/todos/feature-shell/jest.config.js",
-            "tsConfig": "libs/frontend/todos/feature-shell/tsconfig.spec.json",
-            "setupFile": "libs/frontend/todos/feature-shell/src/test-setup.ts"
+            "jestConfig": "libs/web/todos/feature-shell/jest.config.js",
+            "tsConfig": "libs/web/todos/feature-shell/tsconfig.spec.json",
+            "setupFile": "libs/web/todos/feature-shell/src/test-setup.ts"
           }
         }
       },
@@ -570,29 +552,26 @@
     },
     "frontend-todos-data-access": {
       "projectType": "library",
-      "root": "libs/frontend/todos/data-access",
-      "sourceRoot": "libs/frontend/todos/data-access/src",
+      "root": "libs/web/todos/data-access",
+      "sourceRoot": "libs/web/todos/data-access/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/todos/data-access/tsconfig.lib.json",
-              "libs/frontend/todos/data-access/tsconfig.spec.json"
+              "libs/web/todos/data-access/tsconfig.lib.json",
+              "libs/web/todos/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/todos/data-access/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/todos/data-access/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/todos/data-access/jest.config.js",
-            "tsConfig": "libs/frontend/todos/data-access/tsconfig.spec.json",
-            "setupFile": "libs/frontend/todos/data-access/src/test-setup.ts"
+            "jestConfig": "libs/web/todos/data-access/jest.config.js",
+            "tsConfig": "libs/web/todos/data-access/tsconfig.spec.json",
+            "setupFile": "libs/web/todos/data-access/src/test-setup.ts"
           }
         }
       },
@@ -600,29 +579,26 @@
     },
     "frontend-todos-todo-detail": {
       "projectType": "library",
-      "root": "libs/frontend/todos/todo-detail",
-      "sourceRoot": "libs/frontend/todos/todo-detail/src",
+      "root": "libs/web/todos/todo-detail",
+      "sourceRoot": "libs/web/todos/todo-detail/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/todos/todo-detail/tsconfig.lib.json",
-              "libs/frontend/todos/todo-detail/tsconfig.spec.json"
+              "libs/web/todos/todo-detail/tsconfig.lib.json",
+              "libs/web/todos/todo-detail/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/todos/todo-detail/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/todos/todo-detail/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/todos/todo-detail/jest.config.js",
-            "tsConfig": "libs/frontend/todos/todo-detail/tsconfig.spec.json",
-            "setupFile": "libs/frontend/todos/todo-detail/src/test-setup.ts"
+            "jestConfig": "libs/web/todos/todo-detail/jest.config.js",
+            "tsConfig": "libs/web/todos/todo-detail/tsconfig.spec.json",
+            "setupFile": "libs/web/todos/todo-detail/src/test-setup.ts"
           }
         }
       },
@@ -634,29 +610,26 @@
     },
     "frontend-todos-all-todos": {
       "projectType": "library",
-      "root": "libs/frontend/todos/all-todos",
-      "sourceRoot": "libs/frontend/todos/all-todos/src",
+      "root": "libs/web/todos/all-todos",
+      "sourceRoot": "libs/web/todos/all-todos/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/todos/all-todos/tsconfig.lib.json",
-              "libs/frontend/todos/all-todos/tsconfig.spec.json"
+              "libs/web/todos/all-todos/tsconfig.lib.json",
+              "libs/web/todos/all-todos/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/todos/all-todos/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/todos/all-todos/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/todos/all-todos/jest.config.js",
-            "tsConfig": "libs/frontend/todos/all-todos/tsconfig.spec.json",
-            "setupFile": "libs/frontend/todos/all-todos/src/test-setup.ts"
+            "jestConfig": "libs/web/todos/all-todos/jest.config.js",
+            "tsConfig": "libs/web/todos/all-todos/tsconfig.spec.json",
+            "setupFile": "libs/web/todos/all-todos/src/test-setup.ts"
           }
         }
       },
@@ -668,29 +641,26 @@
     },
     "frontend-common-ui-layouts": {
       "projectType": "library",
-      "root": "libs/frontend/common/ui/layouts",
-      "sourceRoot": "libs/frontend/common/ui/layouts/src",
+      "root": "libs/web/common/ui/layouts",
+      "sourceRoot": "libs/web/common/ui/layouts/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/common/ui/layouts/tsconfig.lib.json",
-              "libs/frontend/common/ui/layouts/tsconfig.spec.json"
+              "libs/web/common/ui/layouts/tsconfig.lib.json",
+              "libs/web/common/ui/layouts/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/common/ui/layouts/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/common/ui/layouts/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/common/ui/layouts/jest.config.js",
-            "tsConfig": "libs/frontend/common/ui/layouts/tsconfig.spec.json",
-            "setupFile": "libs/frontend/common/ui/layouts/src/test-setup.ts"
+            "jestConfig": "libs/web/common/ui/layouts/jest.config.js",
+            "tsConfig": "libs/web/common/ui/layouts/tsconfig.spec.json",
+            "setupFile": "libs/web/common/ui/layouts/src/test-setup.ts"
           }
         }
       },
@@ -702,29 +672,29 @@
     },
     "frontend-shared-floating-menu": {
       "projectType": "library",
-      "root": "libs/frontend/shared/floating-menu",
-      "sourceRoot": "libs/frontend/shared/floating-menu/src",
+      "root": "libs/web/shared/floating-menu",
+      "sourceRoot": "libs/web/shared/floating-menu/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/shared/floating-menu/tsconfig.lib.json",
-              "libs/frontend/shared/floating-menu/tsconfig.spec.json"
+              "libs/web/shared/floating-menu/tsconfig.lib.json",
+              "libs/web/shared/floating-menu/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/frontend/shared/floating-menu/**"
+              "!libs/web/shared/floating-menu/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/shared/floating-menu/jest.config.js",
-            "tsConfig": "libs/frontend/shared/floating-menu/tsconfig.spec.json",
-            "setupFile": "libs/frontend/shared/floating-menu/src/test-setup.ts"
+            "jestConfig": "libs/web/shared/floating-menu/jest.config.js",
+            "tsConfig": "libs/web/shared/floating-menu/tsconfig.spec.json",
+            "setupFile": "libs/web/shared/floating-menu/src/test-setup.ts"
           }
         }
       },
@@ -734,19 +704,19 @@
         }
       }
     },
-    "backends-api": {
-      "root": "apps/backends/api",
-      "sourceRoot": "apps/backends/api/src",
+    "servers-api": {
+      "root": "apps/servers/api",
+      "sourceRoot": "apps/servers/api/src",
       "projectType": "application",
-      "prefix": "backends-api",
+      "prefix": "servers-api",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "./tools/builders/api:build",
           "options": {
-            "outputPath": "dist/backends/api",
-            "src": "apps/backends/api/src",
-            "tsConfig": "apps/backends/api/tsconfig.app.json"
+            "outputPath": "dist/servers/api",
+            "src": "apps/servers/api/src",
+            "tsConfig": "apps/servers/api/tsconfig.app.json"
           },
           "configurations": {
             "production": {
@@ -755,8 +725,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/backends/api/src/environments/environment.ts",
-                  "with": "apps/backends/api/src/environments/environment.prod.ts"
+                  "replace": "apps/servers/api/src/environments/environment.ts",
+                  "with": "apps/servers/api/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -766,89 +736,86 @@
           "builder": "./tools/builders/api:serve",
           "options": {
             "outputPath": "dist/api",
-            "src": "apps/backends/api/src",
-            "tsConfig": "apps/backends/api/tsconfig.app.json",
+            "src": "apps/servers/api/src",
+            "tsConfig": "apps/servers/api/tsconfig.app.json",
             "main": "main.js",
-            "envPath": "apps/backends/api/.env"
+            "envPath": "apps/servers/api/.env"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/backends/api/tsconfig.app.json",
-              "apps/backends/api/tsconfig.spec.json"
+              "apps/servers/api/tsconfig.app.json",
+              "apps/servers/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/backends/api/**"]
+            "exclude": ["**/node_modules/**", "!apps/servers/api/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/backends/api/jest.config.js",
-            "tsConfig": "apps/backends/api/tsconfig.spec.json"
+            "jestConfig": "apps/servers/api/jest.config.js",
+            "tsConfig": "apps/servers/api/tsconfig.spec.json"
           }
         }
       }
     },
-    "backend-auth": {
-      "root": "libs/backend/auth",
-      "sourceRoot": "libs/backend/auth/src",
+    "api-auth": {
+      "root": "libs/api/auth",
+      "sourceRoot": "libs/api/auth/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "./tools/builders/api:build",
           "options": {
-            "outputPath": "dist/libs/backend/auth",
-            "main": "libs/backend/auth/src/index.ts",
-            "tsConfig": "libs/backend/auth/tsconfig.json"
+            "outputPath": "dist/libs/api/auth",
+            "main": "libs/api/auth/src/index.ts",
+            "tsConfig": "libs/api/auth/tsconfig.json"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/backend/auth/tsconfig.lib.json",
-              "libs/backend/auth/tsconfig.spec.json"
+              "libs/api/auth/tsconfig.lib.json",
+              "libs/api/auth/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/backend/auth/**"]
+            "exclude": ["**/node_modules/**", "!libs/api/auth/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/backend/auth/jest.config.js",
-            "tsConfig": "libs/backend/auth/tsconfig.spec.json"
+            "jestConfig": "libs/api/auth/jest.config.js",
+            "tsConfig": "libs/api/auth/tsconfig.spec.json"
           }
         }
       }
     },
     "frontend-shared-profile": {
       "projectType": "library",
-      "root": "libs/frontend/shared/profile",
-      "sourceRoot": "libs/frontend/shared/profile/src",
+      "root": "libs/web/shared/profile",
+      "sourceRoot": "libs/web/shared/profile/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/shared/profile/tsconfig.lib.json",
-              "libs/frontend/shared/profile/tsconfig.spec.json"
+              "libs/web/shared/profile/tsconfig.lib.json",
+              "libs/web/shared/profile/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/shared/profile/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/shared/profile/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/shared/profile/jest.config.js",
-            "tsConfig": "libs/frontend/shared/profile/tsconfig.spec.json",
-            "setupFile": "libs/frontend/shared/profile/src/test-setup.ts"
+            "jestConfig": "libs/web/shared/profile/jest.config.js",
+            "tsConfig": "libs/web/shared/profile/tsconfig.spec.json",
+            "setupFile": "libs/web/shared/profile/src/test-setup.ts"
           }
         }
       },
@@ -860,29 +827,29 @@
     },
     "frontend-data-access-app-state": {
       "projectType": "library",
-      "root": "libs/frontend/data-access/app-state",
-      "sourceRoot": "libs/frontend/data-access/app-state/src",
+      "root": "libs/web/data-access/app-state",
+      "sourceRoot": "libs/web/data-access/app-state/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/data-access/app-state/tsconfig.lib.json",
-              "libs/frontend/data-access/app-state/tsconfig.spec.json"
+              "libs/web/data-access/app-state/tsconfig.lib.json",
+              "libs/web/data-access/app-state/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/frontend/data-access/app-state/**"
+              "!libs/web/data-access/app-state/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/data-access/app-state/jest.config.js",
-            "tsConfig": "libs/frontend/data-access/app-state/tsconfig.spec.json",
-            "setupFile": "libs/frontend/data-access/app-state/src/test-setup.ts"
+            "jestConfig": "libs/web/data-access/app-state/jest.config.js",
+            "tsConfig": "libs/web/data-access/app-state/tsconfig.spec.json",
+            "setupFile": "libs/web/data-access/app-state/src/test-setup.ts"
           }
         }
       },
@@ -894,29 +861,26 @@
     },
     "frontend-data-access-router": {
       "projectType": "library",
-      "root": "libs/frontend/data-access/router",
-      "sourceRoot": "libs/frontend/data-access/router/src",
+      "root": "libs/web/data-access/router",
+      "sourceRoot": "libs/web/data-access/router/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/data-access/router/tsconfig.lib.json",
-              "libs/frontend/data-access/router/tsconfig.spec.json"
+              "libs/web/data-access/router/tsconfig.lib.json",
+              "libs/web/data-access/router/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/data-access/router/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/data-access/router/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/data-access/router/jest.config.js",
-            "tsConfig": "libs/frontend/data-access/router/tsconfig.spec.json",
-            "setupFile": "libs/frontend/data-access/router/src/test-setup.ts"
+            "jestConfig": "libs/web/data-access/router/jest.config.js",
+            "tsConfig": "libs/web/data-access/router/tsconfig.spec.json",
+            "setupFile": "libs/web/data-access/router/src/test-setup.ts"
           }
         }
       },
@@ -928,29 +892,29 @@
     },
     "frontend-data-access-dynamic-form": {
       "projectType": "library",
-      "root": "libs/frontend/data-access/dynamic-form",
-      "sourceRoot": "libs/frontend/data-access/dynamic-form/src",
+      "root": "libs/web/data-access/dynamic-form",
+      "sourceRoot": "libs/web/data-access/dynamic-form/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/data-access/dynamic-form/tsconfig.lib.json",
-              "libs/frontend/data-access/dynamic-form/tsconfig.spec.json"
+              "libs/web/data-access/dynamic-form/tsconfig.lib.json",
+              "libs/web/data-access/dynamic-form/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/frontend/data-access/dynamic-form/**"
+              "!libs/web/data-access/dynamic-form/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/data-access/dynamic-form/jest.config.js",
-            "tsConfig": "libs/frontend/data-access/dynamic-form/tsconfig.spec.json",
-            "setupFile": "libs/frontend/data-access/dynamic-form/src/test-setup.ts"
+            "jestConfig": "libs/web/data-access/dynamic-form/jest.config.js",
+            "tsConfig": "libs/web/data-access/dynamic-form/tsconfig.spec.json",
+            "setupFile": "libs/web/data-access/dynamic-form/src/test-setup.ts"
           }
         }
       },
@@ -962,29 +926,29 @@
     },
     "frontend-data-access-service-worker": {
       "projectType": "library",
-      "root": "libs/frontend/data-access/service-worker",
-      "sourceRoot": "libs/frontend/data-access/service-worker/src",
+      "root": "libs/web/data-access/service-worker",
+      "sourceRoot": "libs/web/data-access/service-worker/src",
       "prefix": "ngw",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/data-access/service-worker/tsconfig.lib.json",
-              "libs/frontend/data-access/service-worker/tsconfig.spec.json"
+              "libs/web/data-access/service-worker/tsconfig.lib.json",
+              "libs/web/data-access/service-worker/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/frontend/data-access/service-worker/**"
+              "!libs/web/data-access/service-worker/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/data-access/service-worker/jest.config.js",
-            "tsConfig": "libs/frontend/data-access/service-worker/tsconfig.spec.json",
-            "setupFile": "libs/frontend/data-access/service-worker/src/test-setup.ts"
+            "jestConfig": "libs/web/data-access/service-worker/jest.config.js",
+            "tsConfig": "libs/web/data-access/service-worker/tsconfig.spec.json",
+            "setupFile": "libs/web/data-access/service-worker/src/test-setup.ts"
           }
         }
       },
@@ -994,9 +958,9 @@
         }
       }
     },
-    "backend-middleware": {
-      "root": "libs/backend/middleware",
-      "sourceRoot": "libs/backend/middleware/src",
+    "api-middleware": {
+      "root": "libs/api/middleware",
+      "sourceRoot": "libs/api/middleware/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -1004,24 +968,24 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/backend/middleware/tsconfig.lib.json",
-              "libs/backend/middleware/tsconfig.spec.json"
+              "libs/api/middleware/tsconfig.lib.json",
+              "libs/api/middleware/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/backend/middleware/**"]
+            "exclude": ["**/node_modules/**", "!libs/api/middleware/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/backend/middleware/jest.config.js",
-            "tsConfig": "libs/backend/middleware/tsconfig.spec.json"
+            "jestConfig": "libs/api/middleware/jest.config.js",
+            "tsConfig": "libs/api/middleware/tsconfig.spec.json"
           }
         }
       }
     },
-    "backend-utils": {
-      "root": "libs/backend/utils",
-      "sourceRoot": "libs/backend/utils/src",
+    "api-utils": {
+      "root": "libs/api/utils",
+      "sourceRoot": "libs/api/utils/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -1029,46 +993,43 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/backend/utils/tsconfig.lib.json",
-              "libs/backend/utils/tsconfig.spec.json"
+              "libs/api/utils/tsconfig.lib.json",
+              "libs/api/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/backend/utils/**"]
+            "exclude": ["**/node_modules/**", "!libs/api/utils/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/backend/utils/jest.config.js",
-            "tsConfig": "libs/backend/utils/tsconfig.spec.json"
+            "jestConfig": "libs/api/utils/jest.config.js",
+            "tsConfig": "libs/api/utils/tsconfig.spec.json"
           }
         }
       }
     },
     "frontend-common-animations": {
       "projectType": "library",
-      "root": "libs/frontend/common/animations",
-      "sourceRoot": "libs/frontend/common/animations/src",
+      "root": "libs/web/common/animations",
+      "sourceRoot": "libs/web/common/animations/src",
       "prefix": "ngw",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/common/animations/tsconfig.lib.json",
-              "libs/frontend/common/animations/tsconfig.spec.json"
+              "libs/web/common/animations/tsconfig.lib.json",
+              "libs/web/common/animations/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/frontend/common/animations/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/common/animations/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/common/animations/jest.config.js",
-            "tsConfig": "libs/frontend/common/animations/tsconfig.spec.json",
-            "setupFile": "libs/frontend/common/animations/src/test-setup.ts"
+            "jestConfig": "libs/web/common/animations/jest.config.js",
+            "tsConfig": "libs/web/common/animations/tsconfig.spec.json",
+            "setupFile": "libs/web/common/animations/src/test-setup.ts"
           }
         }
       },
@@ -1080,26 +1041,26 @@
     },
     "frontend-utils-storage": {
       "projectType": "library",
-      "root": "libs/frontend/utils/storage",
-      "sourceRoot": "libs/frontend/utils/storage/src",
+      "root": "libs/web/utils/storage",
+      "sourceRoot": "libs/web/utils/storage/src",
       "prefix": "ngw",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/utils/storage/tsconfig.lib.json",
-              "libs/frontend/utils/storage/tsconfig.spec.json"
+              "libs/web/utils/storage/tsconfig.lib.json",
+              "libs/web/utils/storage/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/frontend/utils/storage/**"]
+            "exclude": ["**/node_modules/**", "!libs/web/utils/storage/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/utils/storage/jest.config.js",
-            "tsConfig": "libs/frontend/utils/storage/tsconfig.spec.json",
-            "setupFile": "libs/frontend/utils/storage/src/test-setup.ts"
+            "jestConfig": "libs/web/utils/storage/jest.config.js",
+            "tsConfig": "libs/web/utils/storage/tsconfig.spec.json",
+            "setupFile": "libs/web/utils/storage/src/test-setup.ts"
           }
         }
       },
@@ -1111,29 +1072,29 @@
     },
     "frontend-shared-examples-feature-shell": {
       "projectType": "library",
-      "root": "libs/frontend/shared/examples/feature-shell",
-      "sourceRoot": "libs/frontend/shared/examples/feature-shell/src",
+      "root": "libs/web/shared/examples/feature-shell",
+      "sourceRoot": "libs/web/shared/examples/feature-shell/src",
       "prefix": "ngw",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/shared/examples/feature-shell/tsconfig.lib.json",
-              "libs/frontend/shared/examples/feature-shell/tsconfig.spec.json"
+              "libs/web/shared/examples/feature-shell/tsconfig.lib.json",
+              "libs/web/shared/examples/feature-shell/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/frontend/shared/examples/feature-shell/**"
+              "!libs/web/shared/examples/feature-shell/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/shared/examples/feature-shell/jest.config.js",
-            "tsConfig": "libs/frontend/shared/examples/feature-shell/tsconfig.spec.json",
-            "setupFile": "libs/frontend/shared/examples/feature-shell/src/test-setup.ts"
+            "jestConfig": "libs/web/shared/examples/feature-shell/jest.config.js",
+            "tsConfig": "libs/web/shared/examples/feature-shell/tsconfig.spec.json",
+            "setupFile": "libs/web/shared/examples/feature-shell/src/test-setup.ts"
           }
         }
       },
@@ -1145,29 +1106,29 @@
     },
     "frontend-shared-examples-data-access": {
       "projectType": "library",
-      "root": "libs/frontend/shared/examples/data-access",
-      "sourceRoot": "libs/frontend/shared/examples/data-access/src",
+      "root": "libs/web/shared/examples/data-access",
+      "sourceRoot": "libs/web/shared/examples/data-access/src",
       "prefix": "ngw",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/shared/examples/data-access/tsconfig.lib.json",
-              "libs/frontend/shared/examples/data-access/tsconfig.spec.json"
+              "libs/web/shared/examples/data-access/tsconfig.lib.json",
+              "libs/web/shared/examples/data-access/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/frontend/shared/examples/data-access/**"
+              "!libs/web/shared/examples/data-access/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/shared/examples/data-access/jest.config.js",
-            "tsConfig": "libs/frontend/shared/examples/data-access/tsconfig.spec.json",
-            "setupFile": "libs/frontend/shared/examples/data-access/src/test-setup.ts"
+            "jestConfig": "libs/web/shared/examples/data-access/jest.config.js",
+            "tsConfig": "libs/web/shared/examples/data-access/tsconfig.spec.json",
+            "setupFile": "libs/web/shared/examples/data-access/src/test-setup.ts"
           }
         }
       },
@@ -1179,29 +1140,29 @@
     },
     "frontend-shared-examples-form-builder": {
       "projectType": "library",
-      "root": "libs/frontend/shared/examples/form-builder",
-      "sourceRoot": "libs/frontend/shared/examples/form-builder/src",
+      "root": "libs/web/shared/examples/form-builder",
+      "sourceRoot": "libs/web/shared/examples/form-builder/src",
       "prefix": "ngw",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/shared/examples/form-builder/tsconfig.lib.json",
-              "libs/frontend/shared/examples/form-builder/tsconfig.spec.json"
+              "libs/web/shared/examples/form-builder/tsconfig.lib.json",
+              "libs/web/shared/examples/form-builder/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/frontend/shared/examples/form-builder/**"
+              "!libs/web/shared/examples/form-builder/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/shared/examples/form-builder/jest.config.js",
-            "tsConfig": "libs/frontend/shared/examples/form-builder/tsconfig.spec.json",
-            "setupFile": "libs/frontend/shared/examples/form-builder/src/test-setup.ts"
+            "jestConfig": "libs/web/shared/examples/form-builder/jest.config.js",
+            "tsConfig": "libs/web/shared/examples/form-builder/tsconfig.spec.json",
+            "setupFile": "libs/web/shared/examples/form-builder/src/test-setup.ts"
           }
         }
       },
@@ -1213,29 +1174,29 @@
     },
     "frontend-data-access-form-builder": {
       "projectType": "library",
-      "root": "libs/frontend/data-access/form-builder",
-      "sourceRoot": "libs/frontend/data-access/form-builder/src",
+      "root": "libs/web/data-access/form-builder",
+      "sourceRoot": "libs/web/data-access/form-builder/src",
       "prefix": "ngw",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/frontend/data-access/form-builder/tsconfig.lib.json",
-              "libs/frontend/data-access/form-builder/tsconfig.spec.json"
+              "libs/web/data-access/form-builder/tsconfig.lib.json",
+              "libs/web/data-access/form-builder/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/frontend/data-access/form-builder/**"
+              "!libs/web/data-access/form-builder/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/frontend/data-access/form-builder/jest.config.js",
-            "tsConfig": "libs/frontend/data-access/form-builder/tsconfig.spec.json",
-            "setupFile": "libs/frontend/data-access/form-builder/src/test-setup.ts"
+            "jestConfig": "libs/web/data-access/form-builder/jest.config.js",
+            "tsConfig": "libs/web/data-access/form-builder/tsconfig.spec.json",
+            "setupFile": "libs/web/data-access/form-builder/src/test-setup.ts"
           }
         }
       },
@@ -1262,5 +1223,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "frontends-todos"
+  "defaultProject": "web-todos"
 }

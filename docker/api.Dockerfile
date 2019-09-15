@@ -58,7 +58,7 @@ ENV NODE_ENV production
 
 # Copy the distribution folder from the builder file
 COPY package-lock.json /app/api/
-COPY apps/backends/api/package.json  /app/api/
+COPY apps/servers/api/package.json  /app/api/
 
 RUN cd /app/api
 
@@ -78,7 +78,7 @@ FROM builder-setup as builder
 ENV NODE_ENV development
 
 # COPS all src files
-COPY apps/backends/api/ /tmp/apps/backends/api
+COPY apps/servers/api/ /tmp/apps/servers/api
 
 # Make the API src directory, libs directory and distribution director 
 RUN mkdir -p /tmp/dist
@@ -101,7 +101,7 @@ RUN npm run build:libs
 RUN npm run build:tests
 
 
-COPY apps/backends/api/package.json  /tmp
+COPY apps/servers/api/package.json  /tmp
 
 # Run the production build task (from app specifig package.json)
 RUN npm run build

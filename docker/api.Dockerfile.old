@@ -24,20 +24,20 @@ ENV NODE_ENV development
 COPY angular.json package-lock.json tsconfig.json tsconfig.libs.json /tmp/
 
 # COPY the local package.json
-COPY apps/backends/api/package.json  /tmp/
+COPY apps/servers/api/package.json  /tmp/
 
 # TODO -> Remove once own packages
 # COPY the tools accross that include the builders
 COPY tools/  /tmp/tools
 
 # COPS all src files
-COPY apps/backends/api/ /tmp/apps/backends/api
+COPY apps/servers/api/ /tmp/apps/servers/api
 
 # Make the API src directory, libs directory and distribution director 
 RUN mkdir -p /tmp/dist
 
 RUN cd /tmp 
-# RUN mkdir -p /tmp/apps/backends/api && mkdir -p /tmp/dist
+# RUN mkdir -p /tmp/apps/servers/api && mkdir -p /tmp/dist
 
 
 # COPY package.json package-lock.json tsconfig.json /tmp/
@@ -120,5 +120,5 @@ RUN npm install --only=prod --unsafe-perm || \
 EXPOSE 3000
 
 # Run the start command
-# CMD node dist/backends/api/main.js
-CMD ls -la dist/backends/api
+# CMD node dist/servers/api/main.js
+CMD ls -la dist/servers/api

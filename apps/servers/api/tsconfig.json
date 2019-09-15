@@ -1,0 +1,18 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "strictPropertyInitialization": false,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "types": ["node", "jest"]
+  },
+  "include": ["**/*.ts"],
+  "references": [
+    { "path": "../../../libs/shared/types/tsconfig.lib.json" },
+    { "path": "../../../libs/shared/enums/tsconfig.lib.json" },
+    { "path": "../../../libs/shared/utils/auth/tsconfig.lib.json" },
+    { "path": "../../../libs/api/auth/tsconfig.lib.json" },
+    { "path": "../../../libs/api/utils/tsconfig.lib.json" },
+    { "path": "../../../libs/api/middleware/tsconfig.lib.json" }
+  ]
+}

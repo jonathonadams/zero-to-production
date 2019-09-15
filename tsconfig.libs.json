@@ -8,11 +8,11 @@
   "files": [],
   "include": [],
   "references": [
-    { "path": "./libs/shared/interfaces/tsconfig.lib.json" },
+    { "path": "./libs/shared/types/tsconfig.lib.json" },
     { "path": "./libs/shared/enums/tsconfig.lib.json" },
     { "path": "./libs/shared/utils/auth/tsconfig.lib.json" },
-    { "path": "./libs/backend/auth/tsconfig.lib.json" },
-    { "path": "./libs/backend/utils/tsconfig.lib.json" },
-    { "path": "./libs/backend/middleware/tsconfig.lib.json" }
+    { "path": "./libs/api/auth/tsconfig.lib.json" },
+    { "path": "./libs/api/utils/tsconfig.lib.json" },
+    { "path": "./libs/api/middleware/tsconfig.lib.json" }
   ]
 }

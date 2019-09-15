@@ -1,0 +1,17 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "composite": true,
+    "rootDir": "./src",
+    "types": ["node", "jest"]
+  },
+  "include": ["**/*.ts"],
+  "references": [
+    { "path": "../../shared/types/tsconfig.lib.json" },
+    { "path": "../../shared/enums/tsconfig.lib.json" },
+    { "path": "../../shared/utils/auth/tsconfig.lib.json" },
+    { "path": "../../../testing/tsconfig.tests.json" }
+  ]
+}

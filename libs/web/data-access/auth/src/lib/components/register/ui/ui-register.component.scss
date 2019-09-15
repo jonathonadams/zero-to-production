@@ -1,0 +1,36 @@
+@import 'libs/web/common/theme/styles/theme.scss';
+@import 'ui-register.theme';
+
+// Light theme
+@include ui-register-theme($app-theme);
+
+// Dark theme
+.dark-theme {
+  @include ui-register-theme($dark-theme);
+}
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.register-page-input {
+  padding: 1em;
+  width: 20em;
+  border-radius: 0.5em;
+  text-align: center;
+
+  @media (max-width: 599px) {
+    width: 16em;
+  }
+
+  .register-page-form {
+    display: flex;
+    flex-direction: column;
+
+    .register-button {
+      width: 40%;
+      margin: auto;
+    }
+  }
+}

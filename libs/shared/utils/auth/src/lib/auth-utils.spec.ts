@@ -1,4 +1,4 @@
-import { IUser } from '@ngw/shared/interfaces';
+import { IUser } from '@ngw/types';
 import { isPasswordAllowed, userToJSON } from './auth-utils';
 
 describe('Authentication Utils', () => {

@@ -8,37 +8,37 @@
     "nx.json": "*"
   },
   "projects": {
-    "frontends-todos-e2e": {
+    "web-todos-e2e": {
       "tags": []
     },
-    "frontends-todos": {
+    "web-todos": {
       "tags": ["scope:web", "type:app"]
     },
-    "frontend-common-ui-side-nav": {
+    "web-common-ui-side-nav": {
       "tags": []
     },
-    "frontend-data-access-api": {
+    "web-data-access-api": {
       "tags": []
     },
-    "frontend-data-access-auth": {
+    "web-data-access-auth": {
       "tags": []
     },
-    "frontend-common-ui-custom-material": {
+    "web-common-ui-custom-material": {
       "tags": []
     },
-    "frontend-common-ui-toolbar": {
+    "web-common-ui-toolbar": {
       "tags": []
     },
-    "frontend-utils-overlay": {
+    "web-utils-overlay": {
       "tags": []
     },
-    "frontend-utils-notifications": {
+    "web-utils-notifications": {
       "tags": []
     },
-    "frontend-utils-errors": {
+    "web-utils-errors": {
       "tags": []
     },
-    "shared-interfaces": {
+    "shared-types": {
       "tags": []
     },
     "shared-enums": {
@@ -47,76 +47,76 @@
     "shared-utils-auth": {
       "tags": []
     },
-    "frontend-data-access-users": {
+    "web-data-access-users": {
       "tags": []
     },
-    "frontend-common-theme": {
+    "web-common-theme": {
       "tags": []
     },
-    "frontend-shared-dashboard": {
+    "web-shared-dashboard": {
       "tags": []
     },
-    "frontend-todos-feature-shell": {
+    "web-todos-feature-shell": {
       "tags": []
     },
-    "frontend-todos-data-access": {
+    "web-todos-data-access": {
       "tags": []
     },
-    "frontend-todos-todo-detail": {
+    "web-todos-todo-detail": {
       "tags": []
     },
-    "frontend-todos-all-todos": {
+    "web-todos-all-todos": {
       "tags": []
     },
-    "frontend-common-ui-layouts": {
+    "web-common-ui-layouts": {
       "tags": []
     },
-    "frontend-shared-floating-menu": {
+    "web-shared-floating-menu": {
       "tags": []
     },
-    "backends-api": {
+    "servers-api": {
       "tags": []
     },
-    "backend-auth": {
+    "api-auth": {
       "tags": []
     },
-    "frontend-shared-profile": {
+    "web-shared-profile": {
       "tags": []
     },
-    "frontend-data-access-app-state": {
+    "web-data-access-app-state": {
       "tags": []
     },
-    "frontend-data-access-router": {
+    "web-data-access-router": {
       "tags": []
     },
-    "frontend-data-access-dynamic-form": {
+    "web-data-access-dynamic-form": {
       "tags": []
     },
-    "frontend-data-access-service-worker": {
+    "web-data-access-service-worker": {
       "tags": []
     },
-    "backend-middleware": {
+    "api-middleware": {
       "tags": []
     },
-    "backend-utils": {
+    "api-utils": {
       "tags": []
     },
-    "frontend-common-animations": {
+    "web-common-animations": {
       "tags": []
     },
-    "frontend-utils-storage": {
+    "web-utils-storage": {
       "tags": []
     },
-    "frontend-shared-examples-feature-shell": {
+    "web-shared-examples-feature-shell": {
       "tags": []
     },
-    "frontend-shared-examples-data-access": {
+    "web-shared-examples-data-access": {
       "tags": []
     },
-    "frontend-shared-examples-form-builder": {
+    "web-shared-examples-form-builder": {
       "tags": []
     },
-    "frontend-data-access-form-builder": {
+    "web-data-access-form-builder": {
       "tags": []
     }
   }
