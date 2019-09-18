@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   IFormBuilderGroup,
-  TFormGroup,
+  IFormGroup,
   IFormBuilderField,
   TField,
   IFormBuilderStructure,
@@ -11,7 +11,7 @@ import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
 
 @Injectable({ providedIn: 'root' })
 export class FormsConstructorService {
-  createFormGroupStructure(group: IFormBuilderGroup): TFormGroup {
+  createFormGroupStructure(group: IFormBuilderGroup): IFormGroup {
     return {
       formGroup: group.groupName,
       groupType: FormGroupTypes.Group,
