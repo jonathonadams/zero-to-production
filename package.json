@@ -64,6 +64,7 @@
     "@ngrx/store": "^8.3.0",
     "@ngrx/store-devtools": "^8.3.0",
     "@nrwl/angular": "^8.4.8",
+    "@nrwl/web": "^8.5.0",
     "@sendgrid/mail": "^6.4.0",
     "apollo-angular": "^1.6.0",
     "apollo-angular-link-http": "^1.6.0",
