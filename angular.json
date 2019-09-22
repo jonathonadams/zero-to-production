@@ -369,7 +369,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "./tools/builders/api:build",
+          "builder": "@uqt/ng-node:build",
           "options": {
             "outputPath": "dist/libs/shared/types",
             "main": "libs/shared/types/src/index.ts",
@@ -712,7 +712,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "./tools/builders/api:build",
+          "builder": "@uqt/ng-node:build",
           "options": {
             "outputPath": "dist/servers/api",
             "src": "apps/servers/api/src",
@@ -733,7 +733,7 @@
           }
         },
         "serve": {
-          "builder": "./tools/builders/api:serve",
+          "builder": "@uqt/ng-node:execute",
           "options": {
             "outputPath": "dist/api",
             "src": "apps/servers/api/src",
@@ -768,7 +768,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "./tools/builders/api:build",
+          "builder": "@uqt/ng-node:build",
           "options": {
             "outputPath": "dist/libs/api/auth",
             "main": "libs/api/auth/src/index.ts",

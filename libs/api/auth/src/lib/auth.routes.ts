@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import { unauthorized } from '@hapi/boom';
+import Boom from '@hapi/boom';
 import {
   IUserModel,
   IRefreshTokenModel,
@@ -32,7 +32,7 @@ export function login(config: {
     const password: string = (ctx.request as any).body.password;
 
     if (!username || !password)
-      throw unauthorized('A username and password must be provided');
+      throw Boom.unauthorized('A username and password must be provided');
 
     ctx.body = await controller(username, password);
   };
@@ -79,7 +79,7 @@ export function authorize(config: {
     const password = (ctx.request as any).body.password;
 
     if (!username || !password)
-      throw unauthorized('Not all parameters provided.');
+      throw Boom.unauthorized('Not all parameters provided.');
 
     ctx.body = await controller(username, password);
   };
@@ -98,7 +98,7 @@ export function refreshAccessToken(config: {
     const refreshToken = (ctx.request as any).body.refreshToken;
 
     if (!username || !refreshToken)
-      throw unauthorized('Not all parameters provided.');
+      throw Boom.unauthorized('Not all parameters provided.');
 
     const success = await controller(username, refreshToken);
     ctx.status = 403;

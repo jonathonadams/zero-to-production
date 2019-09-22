@@ -1,8 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "rootDir": "./",
-    "moduleResolution": "node",
-    "module": "commonjs"
-  }
-}

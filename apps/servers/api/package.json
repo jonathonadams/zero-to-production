@@ -9,7 +9,7 @@
   "author": "Jonathon Adams",
   "license": "ISC",
   "dependencies": {
-    "@hapi/boom": "^7.4.2",
+    "@hapi/boom": "^7.4.9",
     "@sendgrid/mail": "^6.4.0",
     "apollo-server-koa": "^2.8.0",
     "bcryptjs": "^2.4.3",

@@ -1,9 +1,0 @@
-{
-  "name": "@jadams/api-builder",
-  "version": "0.0.1",
-  "description": "Composite TS builder with GraphQL file copy",
-  "builders": "builders.json",
-  "devDependencies": {
-    "@angular-devkit/architect": "^1.0.0"
-  }
-}

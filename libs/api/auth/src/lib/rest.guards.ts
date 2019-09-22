@@ -1,5 +1,5 @@
 import koa from 'koa';
-import { unauthorized } from '@hapi/boom';
+import Boom from '@hapi/boom';
 import { verify } from 'jsonwebtoken';
 import { IUserModel } from '@ngw/types';
 
@@ -21,7 +21,7 @@ export function verifyToken(secret: string) {
       try {
         ctx.state.token = verify(ctx.request.token, secret);
       } catch (err) {
-        throw unauthorized();
+        throw Boom.unauthorized();
       }
       return next();
     } catch (err) {
@@ -45,7 +45,7 @@ export function verifyUserIsActive(User: IUserModel) {
   ) {
     try {
       const user = await User.findById(ctx.state.token.sub);
-      if (!user || !user.active) throw unauthorized('Unauthorized');
+      if (!user || !user.active) throw Boom.unauthorized('Unauthorized');
 
       // Set the user on the ctx.state.user property
       ctx.state.user = user;

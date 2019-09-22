@@ -1,7 +1,7 @@
-import { verify } from 'jsonwebtoken';
 import { randomBytes } from 'crypto';
-import { unauthorized, badRequest } from '@hapi/boom';
+import { verify } from 'jsonwebtoken';
 import { compare, hash } from 'bcryptjs';
+import Boom from '@hapi/boom';
 import { isPasswordAllowed, userToJSON } from '@ngw/utils/auth';
 import {
   IUser,
@@ -19,13 +19,14 @@ export function registerController(
 ) {
   return async function registerCtr(user: IUser): Promise<IUser> {
     const password: string = (user as any).password;
-    if (!password) badRequest('No password provided');
+    if (!password) Boom.badRequest('No password provided');
 
     if (!isPasswordAllowed(password))
-      throw badRequest('Password does not meet requirements');
+      throw Boom.badRequest('Password does not meet requirements');
 
     const currentUser = await User.findByUsername(user.username);
-    if (currentUser !== null) throw badRequest('Username is not available');
+    if (currentUser !== null)
+      throw Boom.badRequest('Username is not available');
 
     user.hashedPassword = await hash(password, 10);
 
@@ -64,20 +65,20 @@ export function verifyController(
      * Check the user exists and is not already registered
      */
     const user = await User.findOne({ email }).exec();
-    if (!user) throw badRequest('Email address is not available');
-    if (user.isValid) throw badRequest('User is already registered');
+    if (!user) throw Boom.badRequest('Email address is not available');
+    if (user.isValid) throw Boom.badRequest('User is already registered');
 
     /**
      * Check the provided Token is valid
      */
     const verificationToken = await VerificationToken.findOne({ token }).exec();
-    if (!verificationToken) throw badRequest('Token is not valid');
+    if (!verificationToken) throw Boom.badRequest('Token is not valid');
 
     /**
      * Is the provided token and email a match
      */
     if (verificationToken.userId.toString() !== user.id.toString())
-      throw badRequest('Token does not match email address');
+      throw Boom.badRequest('Token does not match email address');
 
     user.set({ isValid: true });
     /**
@@ -123,11 +124,11 @@ export function loginController({
   ): Promise<{ token: string }> {
     const user = await userModel.findByUsername(username);
 
-    if (!user || !user.active) throw unauthorized('Unauthorized');
+    if (!user || !user.active) throw Boom.unauthorized('Unauthorized');
 
     const valid = await compare(password, user.hashedPassword as string);
 
-    if (!valid) throw unauthorized('Unauthorized');
+    if (!valid) throw Boom.unauthorized('Unauthorized');
 
     const token = accessToken(user);
 
@@ -156,11 +157,11 @@ export function authorizeController({
   ): Promise<{ token: string; refreshToken: string }> {
     const user = await userModel.findByUsername(username);
 
-    if (!user || user.active === false) throw unauthorized('Unauthorized');
+    if (!user || user.active === false) throw Boom.unauthorized('Unauthorized');
 
     const valid = await compare(password, user.hashedPassword as string);
 
-    if (!valid) throw unauthorized('Unauthorized');
+    if (!valid) throw Boom.unauthorized('Unauthorized');
 
     const accessToken = signAccessToken({
       secret: accessTokenSecret,
@@ -201,21 +202,21 @@ export function refreshAccessTokenController({
   ): Promise<{ token: string }> {
     const token = await refreshTokenModel.findByTokenWithUser(refreshToken);
     // No token found
-    if (token === null) throw unauthorized();
+    if (token === null) throw Boom.unauthorized();
 
     // No user found or matched with given parameters
     if (token.user === null || token.user.username !== username)
-      throw unauthorized();
+      throw Boom.unauthorized();
 
     // revoke refreshToken if user is inactive
     if (token.user.active === false) {
       await token.remove();
-      throw unauthorized();
+      throw Boom.unauthorized();
     }
 
     // The provided token is valid
     const valid = await verify(refreshToken, refreshTokenSecret);
-    if (!valid) throw unauthorized();
+    if (!valid) throw Boom.unauthorized();
 
     const accessToken = signAccessToken({
       secret: accessTokenSecret,
@@ -237,7 +238,7 @@ export function revokeRefreshTokenController(
   ): Promise<{ success: true }> {
     const refreshToken = await refreshTokenMode.findOne({ token }).exec();
 
-    if (refreshToken === null) throw badRequest();
+    if (refreshToken === null) throw Boom.badRequest();
 
     await refreshToken.remove();
 

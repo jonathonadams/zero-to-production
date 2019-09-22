@@ -8,20 +8,6 @@
       https://medium.com/@pro_ibenjell/how-to-create-a-full-stack-chat-application-using-nx-workspace-and-run-it-in-docker-65afcfe879d0
 - [ ] Add all Kubernetes deployment specs.
 
-### Path Re-writer
-
-- [x] Make the path rewriter rewrite all library paths, not just main tsconfig paths.
-- [x] Add an example project structure
-- [x] Add directory watching
-- [ ] Tests
-- [x] Move to own package
-
-### Builders
-
-- [x] remove the aliases from the API server.
-- [ ] Tests
-- [ ] Move to own packages
-
 ### Web App
 
 #### App
@@ -71,6 +57,7 @@
   - Content Projection with layouts modules
   - Users to create components and dynamically add routing to them
   - Dynamic Animation Timing
+  - Using Web Components
 
 ### Mobile App
 

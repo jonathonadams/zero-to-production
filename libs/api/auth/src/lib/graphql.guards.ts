@@ -1,5 +1,5 @@
 import { verify } from 'jsonwebtoken';
-import { unauthorized } from '@hapi/boom';
+import Boom from '@hapi/boom';
 import { IUserModel, IUser } from '@ngw/types';
 import { AuthenticationRoles } from '@ngw/enums';
 import { AuthMiddleware } from './auth.graphql';
@@ -15,7 +15,7 @@ export function checkToken(secret: string): AuthMiddleware {
     try {
       context.state.token = verify(context.token, secret);
     } catch (err) {
-      throw unauthorized('Unauthorized.');
+      throw Boom.unauthorized('Unauthorized.');
     }
   };
 }
@@ -30,7 +30,7 @@ export function checkUserIsActive(User: IUserModel): AuthMiddleware {
   return async function checkActiveUser(parent, args, context, info) {
     const id = context.state.token.sub;
     const user = await User.findById(id);
-    if (!user || !user.active) throw unauthorized();
+    if (!user || !user.active) throw Boom.unauthorized();
     context.state.user = user;
   };
 }
@@ -41,6 +41,6 @@ export function checkUserIsActive(User: IUserModel): AuthMiddleware {
  */
 export function checkUserRole(role: AuthenticationRoles): AuthMiddleware {
   return async function checkRole(parent, args, context, info) {
-    if ((context.state.user as IUser).role !== role) throw unauthorized();
+    if ((context.state.user as IUser).role !== role) throw Boom.unauthorized();
   };
 }
