@@ -70,12 +70,20 @@ export class FormBuilderComponent {
     this.getGroupFields(groupIndex).push(this.createFieldGroup());
   }
 
+  removeGroupField(groupIndex: number, fieldIndex: number) {
+    this.getGroupFields(groupIndex).removeAt(fieldIndex);
+  }
+
   createFieldGroup() {
     return this.fb.group({
       fieldName: [],
       fieldType: [],
       fieldLabel: []
     });
+  }
+
+  deleteFormGroup(i: number): void {
+    this.formGroups.removeAt(i);
   }
 
   onSubmit({ valid, value }: FormGroup) {

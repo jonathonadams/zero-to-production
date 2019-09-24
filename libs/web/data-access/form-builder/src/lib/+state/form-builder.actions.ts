@@ -22,7 +22,7 @@ export const loadFormsFail = createAction(
 );
 
 export const createForm = createAction(
-  '[Form/Builder] Create ',
+  '[Form/Builder] Create',
   props<{ form: IFormBuilderStructure }>()
 );
 export const createFormSuccess = createAction(

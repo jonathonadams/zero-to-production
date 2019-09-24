@@ -20,15 +20,11 @@ export class ExampleCreateFormComponent {
     this.form$ = this.formsFacade.form$;
   }
 
-  selected(form: IFormBuilderStructure, route: string) {
+  edit(form: IFormBuilderStructure) {
     this.formsFacade.selectForm(form.id);
     this.routerFacade.go({
-      path: ['examples', 'form-builder', form.id, route]
+      path: ['examples', 'form-builder', form.id, 'edit']
     });
-  }
-
-  edit(form: IFormBuilderStructure) {
-    this.selected(form, 'edit');
   }
 
   delete(form: IFormBuilderStructure) {
@@ -36,7 +32,10 @@ export class ExampleCreateFormComponent {
   }
 
   display(form: IFormBuilderStructure) {
-    this.selected(form, 'display');
+    this.formsFacade.selectForm(form.id);
+    this.routerFacade.go({
+      path: ['examples', 'form-builder', form.id, 'display']
+    });
   }
 
   trackForms(i: number, f: IFormBuilderStructure) {

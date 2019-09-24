@@ -1,1 +1,24 @@
-<app-dynamic-form></app-dynamic-form>
+<div class="container">
+  <div class="links">
+    <button
+      mat-stroked-button
+      *ngFor="let form of form$ | async"
+      (click)="navigateTo(form.id)"
+      [disabled]="(selectedForm$ | async)?.id === form.id"
+    >
+      {{ form.config.formName }}
+    </button>
+
+    <mat-divider class="divider"></mat-divider>
+  </div>
+
+  <app-dynamic-form
+    ><button type="submit" mat-raised-button class="submit-button">
+      Submit Form
+    </button>
+  </app-dynamic-form>
+
+  <div class="output">
+    <pre>{{ submit$ | async | json }}</pre>
+  </div>
+</div>

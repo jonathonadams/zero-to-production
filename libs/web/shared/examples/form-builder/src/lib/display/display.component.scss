@@ -1,0 +1,24 @@
+.container {
+  max-width: 800px;
+  margin: 1em auto;
+
+  .links button {
+    margin-right: 1em;
+    :last-child {
+      margin-right: 0em;
+    }
+  }
+
+  .divider {
+    margin: 1em 0;
+  }
+
+  .submit-button {
+    width: 10em;
+    margin: 0 auto;
+  }
+
+  //   .output {
+  //     background: white;
+  //   }
+}
