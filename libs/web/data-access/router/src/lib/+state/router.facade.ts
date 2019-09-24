@@ -46,4 +46,8 @@ export class RouterFacade {
   selectQueryParam(param: string) {
     return this.store.pipe(select(selectQueryParam(param)));
   }
+
+  updateUrl(url: string) {
+    this.store.dispatch(RouterActions.updateUrl({ url }));
+  }
 }

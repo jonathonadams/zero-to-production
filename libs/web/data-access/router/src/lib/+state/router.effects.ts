@@ -52,6 +52,12 @@ export class RouterEffects {
     tap(() => this.location.forward())
   );
 
+  @Effect({ dispatch: false })
+  updateUrl$ = this.action$.pipe(
+    ofType(RouterActions.updateUrl),
+    tap(({ url }) => this.location.go(url))
+  );
+
   constructor(
     private action$: Actions,
     private router: Router,

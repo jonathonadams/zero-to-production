@@ -8,7 +8,7 @@ import { Validators } from '@angular/forms';
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { filter, withLatestFrom, takeUntil, first, skip } from 'rxjs/operators';
 import { ITodo, TFormGroups } from '@ngw/types';
-import { TodosFacade, TodosService } from '@ngw/todos/data-access';
+import { TodosFacade } from '@ngw/todos/data-access';
 import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
 import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
 import { RouterFacade } from '@ngw/data-access/router';
@@ -47,7 +47,6 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private facade: TodosFacade,
-    private service: TodosService,
     private formFacade: DynamicFormFacade,
     private routerFacade: RouterFacade
   ) {
@@ -60,7 +59,7 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
       )
       .subscribe(todo => {
         this.formFacade.setData({ todo });
-        this.service.updateTodoUrl(todo.id);
+        this.updateTodoUrl(todo.id);
       });
 
     this.formFacade.submit$
@@ -81,7 +80,7 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
       this.facade.todoIds$.pipe(skip(1)) // Skip first because ngrx initial state is an empty array
     ])
       .pipe(
-        first(), // After the first emit, unsubscribe
+        first(), // After the first emit, complete
         filter(([id, todo]) => id !== undefined || !todo || id !== todo.id)
       )
       .subscribe(([id, todo, ids]) => {
@@ -89,7 +88,7 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
           this.facade.selectTodo(id);
         } else {
           this.facade.clearSelected();
-          this.service.updateTodoUrl();
+          this.updateTodoUrl();
         }
       });
   }
@@ -105,7 +104,12 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
 
   clearTodo() {
     this.facade.clearSelected();
-    this.service.updateTodoUrl();
+    this.updateTodoUrl();
+  }
+
+  updateTodoUrl(id?: string) {
+    const url = id ? `/todos/${id}` : '/todos';
+    this.routerFacade.updateUrl(url);
   }
 
   ngOnDestroy() {

@@ -7,7 +7,7 @@ import { ExampleDisplayFormComponent } from './display/display.component';
 const ROUTES: Routes = [
   { path: 'create', pathMatch: 'full', component: ExampleCreateFormComponent },
   {
-    path: ':formId/build',
+    path: ':formId/edit',
     pathMatch: 'full',
     component: ExampleBuildFormComponent
   },

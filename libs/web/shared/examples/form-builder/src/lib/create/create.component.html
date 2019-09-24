@@ -1,28 +1,24 @@
-<ngw-form-builder-create></ngw-form-builder-create>
+<div class="container">
+  <ngw-form-builder-create></ngw-form-builder-create>
 
-<mat-card>
-  <mat-list>
-    <mat-list-item
-      *ngFor="let form of form$ | async; trackBy: trackForms; last as last"
-      class="record"
-    >
-      <h3 matLine>{{ form.config.formName }}</h3>
-
-      <button
-        mat-button
-        (click)="display(form); $event.stopImmediatePropagation()"
+  <mat-card class="list">
+    <mat-card-header>
+      Forms
+    </mat-card-header>
+    <mat-list>
+      <mat-list-item
+        *ngFor="let form of form$ | async; trackBy: trackForms; last as last"
+        class="record"
       >
-        Display
-      </button>
-
-      <button
-        mat-button
-        (click)="build(form); $event.stopImmediatePropagation()"
-      >
-        Build
-      </button>
-
-      <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
-    </mat-list-item>
-  </mat-list>
-</mat-card>
+        <h3 matLine>{{ form.config.formName }}</h3>
+        <button mat-icon-button (click)="delete(form)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="edit(form)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>

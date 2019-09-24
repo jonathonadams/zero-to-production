@@ -4,6 +4,7 @@ import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
 import { FormsFacade } from '../+state/form-builder.facade';
 import { TFormGroups, IFormBuilderStructure } from '@ngw/types';
 import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
+import { Subscription } from 'rxjs';
 
 const STRUCTURE: TFormGroups = [
   {
@@ -28,16 +29,26 @@ const STRUCTURE: TFormGroups = [
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateFormComponent implements OnInit {
+  sub: Subscription;
+
   constructor(
     private facade: FormsFacade,
     private dynamicFormFacade: DynamicFormFacade
   ) {
-    this.dynamicFormFacade.submit$.subscribe((form: IFormBuilderStructure) => {
-      this.facade.createForm({ ...form, formGroups: [] });
-    });
+    this.sub = this.dynamicFormFacade.submit$.subscribe(
+      (form: IFormBuilderStructure) => {
+        this.facade.createForm({ ...form, formGroups: [] });
+      }
+    );
   }
 
   ngOnInit() {
     this.dynamicFormFacade.setStructure({ structure: STRUCTURE });
+    this.facade.clearSelected();
+    this.facade.loadForms();
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

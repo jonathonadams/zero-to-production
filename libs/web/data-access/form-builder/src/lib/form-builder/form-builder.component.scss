@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  padding: 1em;
+}
+
+.heading {
+  margin: 0.5em 0;
+}
+
+.group-section {
+  margin-bottom: 1em;
+  .group-settings {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .group-form-field {
+      width: 25em;
+    }
+  }
+  .group-fields {
+    margin-top: 1em;
+    .builder-field {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}
+
+.action-buttons {
+  margin-top: 1em;
+  .add {
+    margin-right: 0.5em;
+  }
+}

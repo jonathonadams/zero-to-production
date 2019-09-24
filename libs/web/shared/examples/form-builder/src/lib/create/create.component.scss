@@ -1,3 +1,9 @@
-.mat-card {
-  margin-top: 1em;
+.container {
+  max-width: 1000px;
+  margin: 1em auto;
+  padding: 0 1em;
+
+  .list {
+    margin-top: 1em;
+  }
 }

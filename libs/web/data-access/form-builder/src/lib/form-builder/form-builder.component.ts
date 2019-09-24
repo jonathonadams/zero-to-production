@@ -20,7 +20,9 @@ export class FormBuilderComponent {
 
     this.builderForm = this.fb.group({
       config: this.fb.group({
-        formName: []
+        formName: [],
+        animations: [],
+        showSections: []
       }),
       formGroups: this.fb.array([])
     });

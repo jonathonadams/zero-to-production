@@ -24,3 +24,8 @@ export const absoluteNavigate = createAction(
 export const navigateForward = createAction('[Router] Forward');
 
 export const navigateBack = createAction('[Router] Back');
+
+export const updateUrl = createAction(
+  '[Router] Update Url',
+  props<{ url: string }>()
+);

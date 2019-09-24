@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { GraphQLService } from '@ngw/data-access/api';
 import { JWTAuthService } from '@ngw/data-access/auth';
@@ -15,11 +14,7 @@ import { FetchResult } from 'apollo-link';
 
 @Injectable()
 export class TodosService {
-  constructor(
-    private graphQl: GraphQLService,
-    private auth: JWTAuthService,
-    private location: Location
-  ) {}
+  constructor(private graphQl: GraphQLService, private auth: JWTAuthService) {}
 
   public getAllTodos(): Observable<FetchResult<{ allTodos: ITodo[] }>> {
     return this.graphQl.query<{ allTodos: ITodo[] }>(ALL_TODOS_QUERY);
@@ -91,8 +86,4 @@ export class TodosService {
   // public deleteTodo(todo: Todo): Observable<Todo> {
   //   return this.api.delete<Todo>('todos', todo.id);
   // }
-
-  updateTodoUrl(id?: string) {
-    id ? this.location.go(`/todos/${id}`) : this.location.go('/todos');
-  }
 }

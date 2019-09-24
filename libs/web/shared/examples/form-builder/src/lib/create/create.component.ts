@@ -27,9 +27,14 @@ export class ExampleCreateFormComponent {
     });
   }
 
-  build(form: IFormBuilderStructure) {
-    this.selected(form, 'build');
+  edit(form: IFormBuilderStructure) {
+    this.selected(form, 'edit');
   }
+
+  delete(form: IFormBuilderStructure) {
+    this.formsFacade.deleteForm(form);
+  }
+
   display(form: IFormBuilderStructure) {
     this.selected(form, 'display');
   }
