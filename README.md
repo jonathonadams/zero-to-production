@@ -2,10 +2,6 @@
 
 ## Checklist
 
-### API
-
-- [x] Reconfigure Dockerfile to account for libs.
-
 ### Web App
 
 #### App

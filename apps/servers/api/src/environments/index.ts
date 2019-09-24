@@ -5,6 +5,7 @@ import { GlobalConfig, EnvironnementConfig, ServerConfig } from '@ngw/types';
 import devConfig from './development';
 import prodConfig from './production';
 import testConfig from './test';
+import { envToNumber } from './util';
 
 /**
  * Config values common across all environments environments
@@ -23,18 +24,18 @@ const config: GlobalConfig = {
   /**
    * The port the server will listen on
    */
-  port:
-    process.env.PORT && !Number.isNaN(parseInt(process.env.PORT, 10))
-      ? parseInt(process.env.PORT, 10)
-      : 3000,
+  port: envToNumber(process.env.PORT, 3000),
 
   /**
-   * Global database options for sequelize
+   * Global database options for Mongoose
    */
   databaseOptions: {
     autoIndex: false,
     useNewUrlParser: true,
-    promiseLibrary: Promise
+    promiseLibrary: Promise,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
   }
 };
 
