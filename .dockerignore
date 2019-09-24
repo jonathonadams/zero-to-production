@@ -1,5 +1,6 @@
 # Ignore all files and directories in the root directory by default
 **
+**/*.spec.ts
 
 # Exclude what is required for the build container to run
 !angular.json
@@ -9,6 +10,3 @@
 !tsconfig.libs.json
 !apps/
 !libs/
-## TODO -> Remove these
-!tools/
-!testing/

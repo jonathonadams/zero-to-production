@@ -1,0 +1,10 @@
+version: '3'
+services:
+  example-api:
+    image: <name-of-api-image>
+    ports:
+      - 3000:3000
+  example-web:
+    image: <name-of-web-image>
+    ports:
+      - 80:80

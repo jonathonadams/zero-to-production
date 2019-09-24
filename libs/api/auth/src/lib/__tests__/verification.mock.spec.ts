@@ -1,5 +1,8 @@
-import { IUser } from '@ngw/types';
-import { newId } from '@app-testing/index';
+import mongoose from 'mongoose';
+
+export function newId() {
+  return mongoose.Types.ObjectId().toHexString();
+}
 
 /**
  * A mock VerificationToken to test the auth routes

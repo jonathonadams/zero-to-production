@@ -1,9 +1,13 @@
 import { ParameterizedContext } from 'koa';
-import { newId } from '@app-testing/index';
+import mongoose from 'mongoose';
 import { IUserDocument, IUserModel } from '@ngw/types';
 import { verifyToken, verifyUserIsActive } from '../rest.guards';
 import { signAccessToken } from '../auth.utils';
-import { MockUserModel } from './user.mock';
+import { MockUserModel } from './user.mock.spec';
+
+export function newId() {
+  return mongoose.Types.ObjectId().toHexString();
+}
 
 describe('Rest Auth Guards', () => {
   const validSecret = 'valid-secret';

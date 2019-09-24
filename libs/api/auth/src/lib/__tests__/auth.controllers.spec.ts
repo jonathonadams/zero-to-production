@@ -6,7 +6,8 @@ import {
   IVerificationTokenModel
 } from '@ngw/types';
 import { AuthenticationRoles } from '@ngw/enums';
-import { newId } from '@app-testing/index';
+import mongoose from 'mongoose';
+
 import {
   registerController,
   loginController,
@@ -15,15 +16,19 @@ import {
   revokeRefreshTokenController,
   verifyController
 } from '../auth.controllers';
-import { MockUserModel } from './user.mock';
+import { MockUserModel } from './user.mock.spec';
 
 import { hash } from 'bcryptjs';
-import { MockRefreshTokenModel } from './refresh-token.mock';
+import { MockRefreshTokenModel } from './refresh-token.mock.spec';
 import { signRefreshToken } from '../auth.utils';
 import {
   MockVerificationToken,
   mockSendVerificationEmail
-} from './verification.mock';
+} from './verification.mock.spec';
+
+export function newId() {
+  return mongoose.Types.ObjectId().toHexString();
+}
 
 const userToRegister = ({
   username: 'uniqueUsername',

@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { newId } from '@app-testing/index';
+import mongoose from 'mongoose';
 import { IUserDocument, IUserModel } from '@ngw/types';
 import { AuthenticationRoles } from '@ngw/enums';
 import {
@@ -8,7 +8,11 @@ import {
   checkUserRole
 } from '../graphql.guards';
 import { signAccessToken } from '../auth.utils';
-import { MockUserModel } from './user.mock';
+import { MockUserModel } from './user.mock.spec';
+
+export function newId() {
+  return mongoose.Types.ObjectId().toHexString();
+}
 
 describe('GraphQL Auth Guards', () => {
   const validSecret = 'valid-secret';
