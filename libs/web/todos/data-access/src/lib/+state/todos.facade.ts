@@ -16,13 +16,15 @@ export class TodosFacade {
   filteredTodo$: Observable<ITodo[]>;
   selectedTodo$: Observable<ITodo | undefined>;
   allTodoFilter$: Observable<TodoFilterStatus>;
-  todoIds$: Observable<string[] | number[]>;
+  todoIds$: Observable<string[]>;
 
   constructor(private store: Store<any>) {
     this.filteredTodo$ = this.store.pipe(select(selectFilteredTodos));
     this.selectedTodo$ = this.store.pipe(select(selectCurrentTodo));
     this.allTodoFilter$ = this.store.pipe(select(selectTodoFilterStatus));
-    this.todoIds$ = this.store.pipe(select(selectTodoIds));
+    this.todoIds$ = this.store.pipe(select(selectTodoIds)) as Observable<
+      string[]
+    >;
   }
 
   public loadTodos(): void {

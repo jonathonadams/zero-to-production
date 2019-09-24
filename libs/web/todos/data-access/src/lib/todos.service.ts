@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { GraphQLService } from '@ngw/data-access/api';
 import { JWTAuthService } from '@ngw/data-access/auth';
 import {
@@ -18,7 +18,7 @@ export class TodosService {
   constructor(
     private graphQl: GraphQLService,
     private auth: JWTAuthService,
-    private router: Router
+    private location: Location
   ) {}
 
   public getAllTodos(): Observable<FetchResult<{ allTodos: ITodo[] }>> {
@@ -92,7 +92,7 @@ export class TodosService {
   //   return this.api.delete<Todo>('todos', todo.id);
   // }
 
-  // public navigateTo(id: string = ''): void {
-  //   this.router.navigate([`/todos/${id}`]);
-  // }
+  updateTodoUrl(id?: string) {
+    id ? this.location.go(`/todos/${id}`) : this.location.go('/todos');
+  }
 }

@@ -7,7 +7,12 @@
       <button mat-stroked-button type="submit" class="submit-button">
         Save
       </button>
-      <button mat-button type="reset" (click)="cancelled.emit()">
+      <button
+        mat-button
+        type="reset"
+        (click)="cancelled.emit()"
+        class="reset-button"
+      >
         Cancel
       </button>
     </app-dynamic-form>

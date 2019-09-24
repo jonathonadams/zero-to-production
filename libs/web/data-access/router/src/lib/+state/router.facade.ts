@@ -6,6 +6,8 @@ import { Store, select } from '@ngrx/store';
 import {
   selectQueryParams,
   selectRouteParams,
+  selectRouteParam,
+  selectQueryParam,
   selectRouteData,
   selectUrl
 } from './router.selector';
@@ -35,5 +37,13 @@ export class RouterFacade {
 
   navigateBackward() {
     this.store.dispatch(RouterActions.navigateBack());
+  }
+
+  selectParam(param: string) {
+    return this.store.pipe(select(selectRouteParam(param)));
+  }
+
+  selectQueryParam(param: string) {
+    return this.store.pipe(select(selectQueryParam(param)));
   }
 }

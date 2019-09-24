@@ -116,6 +116,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    (this.subscription as Subscription).unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }

@@ -4,15 +4,14 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import { Location } from '@angular/common';
 import { Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription, combineLatest } from 'rxjs';
-import { filter, withLatestFrom, map } from 'rxjs/operators';
+import { Observable, Subject, combineLatest } from 'rxjs';
+import { filter, withLatestFrom, takeUntil, first, skip } from 'rxjs/operators';
 import { ITodo, TFormGroups } from '@ngw/types';
-import { TodosFacade } from '@ngw/todos/data-access';
+import { TodosFacade, TodosService } from '@ngw/todos/data-access';
 import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
 import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
+import { RouterFacade } from '@ngw/data-access/router';
 
 const STRUCTURE: TFormGroups = [
   {
@@ -44,45 +43,55 @@ const STRUCTURE: TFormGroups = [
 })
 export class TodoDetailComponent implements OnInit, OnDestroy {
   public selectedTodo$: Observable<ITodo | undefined>;
-  private subscription: Subscription;
-  private submitSubscription: Subscription;
+  private unsubscribe = new Subject();
 
   constructor(
-    private route: ActivatedRoute,
     private facade: TodosFacade,
-    private location: Location,
-    private formFacade: DynamicFormFacade
+    private service: TodosService,
+    private formFacade: DynamicFormFacade,
+    private routerFacade: RouterFacade
   ) {
     this.selectedTodo$ = this.facade.selectedTodo$;
 
-    this.subscription = (this.selectedTodo$ as Observable<ITodo>)
-      .pipe(filter(todo => todo !== undefined))
+    (this.selectedTodo$ as Observable<ITodo>)
+      .pipe(
+        filter(todo => todo !== undefined),
+        takeUntil(this.unsubscribe)
+      )
       .subscribe(todo => {
         this.formFacade.setData({ todo });
-        this.updateTodoUrl(todo.id);
+        this.service.updateTodoUrl(todo.id);
       });
 
-    this.submitSubscription = this.formFacade.submit$
-      .pipe(withLatestFrom(this.selectedTodo$))
+    this.formFacade.submit$
+      .pipe(
+        withLatestFrom(this.selectedTodo$),
+        takeUntil(this.unsubscribe)
+      )
       .subscribe(([{ todo }, selectedTodo]) => {
         const todoToSave = { ...selectedTodo, ...todo };
         this.facade.saveTodo(todoToSave);
         this.clearTodo();
       });
 
-    this.subscription.add(
-      combineLatest([
-        this.route.paramMap.pipe(map(paramMap => paramMap.get('todoId'))),
-        this.facade.todoIds$
-      ]).subscribe(([id, ids]) => {
-        if (id !== null && (ids as string[]).indexOf(id) !== -1) {
+    // TODO -> move this to a resolver?
+    combineLatest([
+      this.routerFacade.selectParam('todoId') as Observable<string>,
+      this.selectedTodo$,
+      this.facade.todoIds$.pipe(skip(1)) // Skip first because ngrx initial state is an empty array
+    ])
+      .pipe(
+        first(), // After the first emit, unsubscribe
+        filter(([id, todo]) => id !== undefined || !todo || id !== todo.id)
+      )
+      .subscribe(([id, todo, ids]) => {
+        if (ids.indexOf(id) !== -1) {
           this.facade.selectTodo(id);
         } else {
           this.facade.clearSelected();
-          this.updateTodoUrl();
+          this.service.updateTodoUrl();
         }
-      })
-    );
+      });
   }
 
   ngOnInit() {
@@ -95,26 +104,12 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
   }
 
   clearTodo() {
-    /**
-     * Need to call resetForm() on the FormGroupDirective, not reset() on the formGroup.
-     * Otherwise the validators do not get reset
-     */
-    // this.formDirective.formDirective.resetForm();
-    this.formFacade.clearData();
     this.facade.clearSelected();
-    this.updateTodoUrl();
-  }
-
-  updateTodoUrl(id?: string) {
-    if (id) {
-      this.location.go(`/todos/${id}`);
-    } else {
-      this.location.go('/todos');
-    }
+    this.service.updateTodoUrl();
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
-    this.submitSubscription.unsubscribe();
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 }

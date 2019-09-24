@@ -21,7 +21,7 @@ import { TodoFilterStatus } from '@ngw/enums';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiFilterTodosComponent implements OnInit, OnDestroy {
-  subscription!: Subscription;
+  subscription: Subscription | undefined;
   @Input()
   todoFilter: TodoFilterStatus | undefined;
   @Input()
@@ -51,6 +51,6 @@ export class UiFilterTodosComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }

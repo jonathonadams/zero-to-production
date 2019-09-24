@@ -65,6 +65,8 @@
 
 ## Issues to track / tidy up before release.
 
+- Mongo DB - Sanitization [Warning](https://github.com/mongodb-js/mongodb-core/issues/453)
+
 ### Jest & ES6 Modules
 
 Currently Jest does not support es6 Modules, so modules can not be used in testing

@@ -65,6 +65,7 @@ export function verifyController(
      * Check the user exists and is not already registered
      */
     const user = await User.findOne({ email }).exec();
+
     if (!user) throw Boom.badRequest('Email address is not available');
     if (user.isValid) throw Boom.badRequest('User is already registered');
 
