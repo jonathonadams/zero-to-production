@@ -48,6 +48,7 @@
   - Users to create components and dynamically add routing to them
   - Dynamic Animation Timing
   - Using Web Components
+  - Charting and report generating (jsPdf)
 
 ### Deployment
 

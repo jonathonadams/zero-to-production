@@ -714,22 +714,9 @@
         "build": {
           "builder": "@uqt/ng-node:build",
           "options": {
-            "outputPath": "dist/servers/api",
+            "outputPath": "dist/api",
             "src": "apps/servers/api/src",
             "tsConfig": "apps/servers/api/tsconfig.app.json"
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/servers/api/src/environments/environment.ts",
-                  "with": "apps/servers/api/src/environments/environment.prod.ts"
-                }
-              ]
-            }
           }
         },
         "serve": {
