@@ -130,6 +130,9 @@
     },
     "web-examples-data-access": {
       "tags": []
+    },
+    "web-shared-auth-routes": {
+      "tags": []
     }
   }
 }

@@ -4,7 +4,7 @@ import {
   ViewEncapsulation,
   Input
 } from '@angular/core';
-import { AvailableStatus } from '../../../+state/auth.reducer';
+import { AvailableStatus } from '@ngw/enums';
 
 @Component({
   selector: 'ngw-ui-register',

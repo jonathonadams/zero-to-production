@@ -6,8 +6,7 @@ import {
 } from '@angular/forms';
 import { Observable, of, timer } from 'rxjs';
 import { map, catchError, tap, switchMap, take } from 'rxjs/operators';
-import { AuthService } from '../services/auth.service';
-import { AuthFacade } from '../+state/auth.facade';
+import { AuthService, AuthFacade } from '@ngw/data-access/auth';
 
 @Injectable()
 export class UsernameAvailableValidator implements AsyncValidator {

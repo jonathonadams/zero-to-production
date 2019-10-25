@@ -7,9 +7,9 @@ import {
 import { ILoginCredentials, TFormGroups } from '@ngw/types';
 import { Validators } from '@angular/forms';
 import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
-import { AuthFacade } from '../../+state/auth.facade';
 import { Subscription } from 'rxjs';
 import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
+import { AuthFacade } from '@ngw/data-access/auth';
 
 const STRUCTURE: TFormGroups = [
   {

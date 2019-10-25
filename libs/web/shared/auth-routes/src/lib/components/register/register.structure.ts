@@ -1,9 +1,9 @@
 import { Validators } from '@angular/forms';
-import { UsernameAvailableValidator } from '../../validators/username-available.validator';
 import { CustomUsernameComponent } from '../custom-username/custom-username.components';
-import { passwordValidator } from '../../validators/auth.validators';
 import { IFormGroup, TFormGroups } from '@ngw/types';
 import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
+import { UsernameAvailableValidator } from '../../validators/username-available.validator';
+import { passwordValidator } from '../../validators/auth.validators';
 
 const PASSWORD_GROUP: IFormGroup = {
   formGroup: 'password',

@@ -1383,6 +1383,37 @@
           "styleext": "scss"
         }
       }
+    },
+    "web-shared-auth-routes": {
+      "projectType": "library",
+      "root": "libs/web/shared/auth-routes",
+      "sourceRoot": "libs/web/shared/auth-routes/src",
+      "prefix": "ngw",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/shared/auth-routes/tsconfig.lib.json",
+              "libs/web/shared/auth-routes/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/web/shared/auth-routes/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/shared/auth-routes/jest.config.js",
+            "tsConfig": "libs/web/shared/auth-routes/tsconfig.spec.json",
+            "setupFile": "libs/web/shared/auth-routes/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

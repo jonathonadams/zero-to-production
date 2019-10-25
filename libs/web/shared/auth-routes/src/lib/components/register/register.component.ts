@@ -6,11 +6,11 @@ import {
 } from '@angular/core';
 import { IRegistrationDetails } from '@ngw/types';
 import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
-import { AuthFacade } from '../../+state/auth.facade';
 import { REGISTER_STRUCTURE } from './register.structure';
 import { Observable, Subscription } from 'rxjs';
-import { AvailableStatus } from '../../+state/auth.reducer';
 import { passwordMatchValidator } from '../../validators/auth.validators';
+import { AvailableStatus } from '@ngw/enums';
+import { AuthFacade } from '@ngw/data-access/auth';
 
 interface IRegistrationFormStructure {
   details: {

@@ -1,22 +1,22 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard, AUTH_ROUTES } from '@ngw/data-access/auth';
-import { AuthUsersResolver } from '@ngw/data-access/users';
+// import { AuthGuard, AUTH_ROUTES } from '@ngw/data-access/auth';
+// import { AuthUsersResolver } from '@ngw/data-access/users';
 
 const ROUTES: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('@ngw/todos/feature-shell').then(m => m.TodosFeatureShellModule),
-    canActivate: [AuthGuard],
-    resolve: {
-      user: AuthUsersResolver
-    },
-    data: {
-      animation: 'AppPages'
-    }
-  },
-  ...AUTH_ROUTES
+      import('@ngw/todos/feature-shell').then(m => m.TodosFeatureShellModule)
+    // canActivate: [AuthGuard],
+    // resolve: {
+    //   user: AuthUsersResolver
+    // },
+    // data: {
+    //   animation: 'AppPages'
+    // }
+  }
+  // ...AUTH_ROUTES
 ];
 
 @NgModule({
