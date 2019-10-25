@@ -4,10 +4,10 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
-import { ILoginCredentials, TFormGroups } from '@ngw/types';
 import { Validators } from '@angular/forms';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
 import { Subscription } from 'rxjs';
+import { ILoginCredentials, TFormGroups } from '@ngw/types';
+import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
 import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
 import { AuthFacade } from '@ngw/data-access/auth';
 
@@ -55,15 +55,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     );
   }
 
-  submit() {
-    this.formFacade.submitForm();
-  }
-
   ngOnInit() {
     // We do not want form group animations for the login page.
     this.formFacade.setFormConfig({ animations: false });
     this.formFacade.setStructure({ structure: STRUCTURE });
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

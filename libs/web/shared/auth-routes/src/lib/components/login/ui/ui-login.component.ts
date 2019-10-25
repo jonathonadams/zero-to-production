@@ -1,8 +1,6 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  Output,
-  EventEmitter,
   ViewEncapsulation
 } from '@angular/core';
 
@@ -18,7 +16,4 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class UiLoginComponent {
-  @Output() public formSubmit = new EventEmitter<void>();
-  @Output() public registerUser = new EventEmitter<void>();
-}
+export class UiLoginComponent {}

@@ -1,10 +1,8 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Input
+  ViewEncapsulation
 } from '@angular/core';
-import { AvailableStatus } from '@ngw/enums';
 
 @Component({
   selector: 'ngw-ui-register',
@@ -13,6 +11,4 @@ import { AvailableStatus } from '@ngw/enums';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class UiRegisterComponent {
-  @Input() available!: AvailableStatus | null;
-}
+export class UiRegisterComponent {}

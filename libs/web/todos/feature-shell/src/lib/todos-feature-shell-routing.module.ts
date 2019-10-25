@@ -33,16 +33,15 @@ export const TODOS_ROUTES: Routes = [
         data: { animation: 'TodosPage' }
       },
       {
-        path: 'examples',
-        loadChildren: () =>
-          import('@ngw/examples').then(m => m.ExamplesFeatureShellModule),
-        data: { animation: 'ExamplesPage' }
-      },
-      {
         path: 'profile',
         loadChildren: () =>
           import('@ngw/shared/profile').then(m => m.FrontendProfileModule),
         data: { animation: 'ProfilePage' }
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'home'
       }
     ],
     canActivate: [AuthGuard],

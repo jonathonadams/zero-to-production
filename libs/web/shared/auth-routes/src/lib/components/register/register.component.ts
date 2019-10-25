@@ -7,9 +7,8 @@ import {
 import { IRegistrationDetails } from '@ngw/types';
 import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
 import { REGISTER_STRUCTURE } from './register.structure';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { passwordMatchValidator } from '../../validators/auth.validators';
-import { AvailableStatus } from '@ngw/enums';
 import { AuthFacade } from '@ngw/data-access/auth';
 
 interface IRegistrationFormStructure {
@@ -40,15 +39,12 @@ interface IRegistrationFormStructure {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent implements OnInit, OnDestroy {
-  availability$: Observable<AvailableStatus | null>;
   private subscription: Subscription;
 
   constructor(
     private facade: AuthFacade,
     private formFacade: DynamicFormFacade
   ) {
-    this.availability$ = this.facade.usernameAvailability$;
-
     this.subscription = this.formFacade.submit$.subscribe(
       (details: IRegistrationFormStructure) => {
         this.register(details);
