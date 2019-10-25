@@ -118,6 +118,15 @@
     },
     "web-data-access-form-builder": {
       "tags": []
+    },
+    "web-examples-feature-shell": {
+      "tags": []
+    },
+    "web-examples-e2e": {
+      "tags": []
+    },
+    "web-examples": {
+      "tags": []
     }
   }
 }

@@ -68,6 +68,9 @@
       ],
       "@ngw/data-access/form-builder": [
         "libs/web/data-access/form-builder/src/index.ts"
+      ],
+      "@ngw/examples/feature-shell": [
+        "libs/web/examples/feature-shell/src/index.ts"
       ]
     }
   },

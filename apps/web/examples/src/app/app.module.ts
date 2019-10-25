@@ -19,7 +19,6 @@ import {
   AppEffects
 } from '@ngw/data-access/app-state';
 import { DataAccessRouterModule } from '@ngw/data-access/router';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -45,10 +44,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     DataAccessAuthModule.forRoot(),
     DataAccessUsersModule.forRoot(),
     DataAccessRouterModule.forRoot(),
-    AppRoutingModule.forRoot(),
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production
-    })
+    AppRoutingModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })
