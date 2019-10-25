@@ -1,13 +1,8 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
-import { DataAccessDynamicFormModule } from '@ngw/data-access/dynamic-form';
 import { FrontendUtilsStorageModule } from '@ngw/utils/storage';
 import { CommonNotificationModule } from '@ngw/utils/notifications';
 

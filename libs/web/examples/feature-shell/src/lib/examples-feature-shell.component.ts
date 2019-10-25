@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'ngw-examples-feature-shell',
@@ -6,8 +6,4 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./examples-feature-shell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExamplesFeatureShellComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
-}
+export class ExamplesFeatureShellComponent {}

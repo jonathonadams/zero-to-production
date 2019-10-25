@@ -1,7 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ExamplesFacade } from './+state/examples.facade';
+import { StoreModule } from '@ngrx/store';
+import {
+  reducer,
+  ExamplesEntityState,
+  initialExampleState
+} from './+state/examples.reducer';
 
 @NgModule({
-  imports: [CommonModule]
+  providers: [ExamplesFacade],
+  imports: [
+    StoreModule.forFeature<ExamplesEntityState>('examplesState', reducer, {
+      initialState: initialExampleState
+    })
+  ]
 })
 export class ExamplesDataAccessModule {}

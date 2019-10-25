@@ -45,9 +45,6 @@
       ],
       "@ngw/api/auth": ["libs/api/auth/src/index.ts"],
       "@ngw/shared/profile": ["libs/web/shared/profile/src/index.ts"],
-      "@ngw/data-access/app-state": [
-        "libs/web/data-access/app-state/src/index.ts"
-      ],
       "@ngw/data-access/router": ["libs/web/data-access/router/src/index.ts"],
       "@ngw/data-access/dynamic-form": [
         "libs/web/data-access/dynamic-form/src/index.ts"

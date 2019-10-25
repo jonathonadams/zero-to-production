@@ -4,8 +4,22 @@ import { ExamplesFeatureShellComponent } from './examples-feature-shell.componen
 
 export const EXAMPLES_ROUTES: Routes = [
   {
-    path: '',
+    path: 'examples',
     component: ExamplesFeatureShellComponent
+  },
+  {
+    path: 'secure',
+    loadChildren: () =>
+      import('@ngw/todos/feature-shell').then(m => m.TodosFeatureShellModule)
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'examples'
+  },
+  {
+    path: '**',
+    redirectTo: 'examples'
   }
 ];
 
