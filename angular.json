@@ -1349,6 +1349,40 @@
           }
         }
       }
+    },
+    "web-examples-data-access": {
+      "projectType": "library",
+      "root": "libs/web/examples/data-access",
+      "sourceRoot": "libs/web/examples/data-access/src",
+      "prefix": "ngw",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/examples/data-access/tsconfig.lib.json",
+              "libs/web/examples/data-access/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/web/examples/data-access/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/examples/data-access/jest.config.js",
+            "tsConfig": "libs/web/examples/data-access/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

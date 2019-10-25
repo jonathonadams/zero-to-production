@@ -1,0 +1,8 @@
+<section class="examples">
+  <ngw-ui-example
+    class="example"
+    *ngFor="let example of example$ | async"
+    [example]="example"
+    (selected)="navigateToExample(example)"
+  ></ngw-ui-example>
+</section>

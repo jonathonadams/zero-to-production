@@ -71,6 +71,9 @@
       ],
       "@ngw/examples/feature-shell": [
         "libs/web/examples/feature-shell/src/index.ts"
+      ],
+      "@ngw/web/examples/data-access": [
+        "libs/web/examples/data-access/src/index.ts"
       ]
     }
   },

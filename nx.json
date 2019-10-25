@@ -127,6 +127,9 @@
     },
     "web-examples": {
       "tags": []
+    },
+    "web-examples-data-access": {
+      "tags": []
     }
   }
 }
