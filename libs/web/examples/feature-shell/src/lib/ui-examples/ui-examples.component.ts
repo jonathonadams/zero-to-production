@@ -15,5 +15,5 @@ import { IExample } from '@ngw/types';
 })
 export class UiExampleComponent {
   @Input() example: IExample | undefined;
-  @Output() selected = new EventEmitter();
+  @Output() selected = new EventEmitter<IExample>();
 }

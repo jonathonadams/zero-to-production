@@ -1023,108 +1023,6 @@
         }
       }
     },
-    "web-shared-examples-feature-shell": {
-      "projectType": "library",
-      "root": "libs/web/shared/examples/feature-shell",
-      "sourceRoot": "libs/web/shared/examples/feature-shell/src",
-      "prefix": "ngw",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/web/shared/examples/feature-shell/tsconfig.lib.json",
-              "libs/web/shared/examples/feature-shell/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/web/shared/examples/feature-shell/**"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/web/shared/examples/feature-shell/jest.config.js",
-            "tsConfig": "libs/web/shared/examples/feature-shell/tsconfig.spec.json",
-            "setupFile": "libs/web/shared/examples/feature-shell/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
-    "web-shared-examples-data-access": {
-      "projectType": "library",
-      "root": "libs/web/shared/examples/data-access",
-      "sourceRoot": "libs/web/shared/examples/data-access/src",
-      "prefix": "ngw",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/web/shared/examples/data-access/tsconfig.lib.json",
-              "libs/web/shared/examples/data-access/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/web/shared/examples/data-access/**"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/web/shared/examples/data-access/jest.config.js",
-            "tsConfig": "libs/web/shared/examples/data-access/tsconfig.spec.json",
-            "setupFile": "libs/web/shared/examples/data-access/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
-    "web-shared-examples-form-builder": {
-      "projectType": "library",
-      "root": "libs/web/shared/examples/form-builder",
-      "sourceRoot": "libs/web/shared/examples/form-builder/src",
-      "prefix": "ngw",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/web/shared/examples/form-builder/tsconfig.lib.json",
-              "libs/web/shared/examples/form-builder/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/web/shared/examples/form-builder/**"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/web/shared/examples/form-builder/jest.config.js",
-            "tsConfig": "libs/web/shared/examples/form-builder/tsconfig.spec.json",
-            "setupFile": "libs/web/shared/examples/form-builder/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
     "web-data-access-form-builder": {
       "projectType": "library",
       "root": "libs/web/data-access/form-builder",
@@ -1372,6 +1270,136 @@
             "jestConfig": "libs/web/shared/auth-routes/jest.config.js",
             "tsConfig": "libs/web/shared/auth-routes/tsconfig.spec.json",
             "setupFile": "libs/web/shared/auth-routes/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "web-examples-form-builder": {
+      "projectType": "library",
+      "root": "libs/web/examples/form-builder",
+      "sourceRoot": "libs/web/examples/form-builder/src",
+      "prefix": "ex",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/examples/form-builder/tsconfig.lib.json",
+              "libs/web/examples/form-builder/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/web/examples/form-builder/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/examples/form-builder/jest.config.js",
+            "tsConfig": "libs/web/examples/form-builder/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/form-builder/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "web-examples-dynamic-form": {
+      "projectType": "library",
+      "root": "libs/web/examples/dynamic-form",
+      "sourceRoot": "libs/web/examples/dynamic-form/src",
+      "prefix": "ex",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/examples/dynamic-form/tsconfig.lib.json",
+              "libs/web/examples/dynamic-form/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/web/examples/dynamic-form/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/examples/dynamic-form/jest.config.js",
+            "tsConfig": "libs/web/examples/dynamic-form/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/dynamic-form/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "web-examples-themeing": {
+      "projectType": "library",
+      "root": "libs/web/examples/themeing",
+      "sourceRoot": "libs/web/examples/themeing/src",
+      "prefix": "ex",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/examples/themeing/tsconfig.lib.json",
+              "libs/web/examples/themeing/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/web/examples/themeing/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/examples/themeing/jest.config.js",
+            "tsConfig": "libs/web/examples/themeing/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/themeing/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "web-examples-todos": {
+      "projectType": "library",
+      "root": "libs/web/examples/todos",
+      "sourceRoot": "libs/web/examples/todos/src",
+      "prefix": "ex",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/examples/todos/tsconfig.lib.json",
+              "libs/web/examples/todos/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/web/examples/todos/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/examples/todos/jest.config.js",
+            "tsConfig": "libs/web/examples/todos/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/todos/src/test-setup.ts"
           }
         }
       },

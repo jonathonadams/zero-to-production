@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { ExamplesFeatureShellRoutingModule } from './examples-feature-shell-routing.module';
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
 import { CommonUiToolbarModule } from '@ngw/common/ui/toolbar';
@@ -17,6 +18,7 @@ const COMPONENTS = [
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
     CustomMaterialModule,
     CommonUiToolbarModule,
     ExamplesDataAccessModule,

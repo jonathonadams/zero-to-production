@@ -56,20 +56,22 @@
       "@ngw/api/utils": ["libs/api/utils/src/index.ts"],
       "@ngw/common/animations": ["libs/web/common/animations/src/index.ts"],
       "@ngw/utils/storage": ["libs/web/utils/storage/src/index.ts"],
-      "@ngw/examples": ["libs/web/shared/examples/feature-shell/src/index.ts"],
-      "@ngw/examples/form-builder": [
-        "libs/web/shared/examples/form-builder/src/index.ts"
-      ],
       "@ngw/data-access/form-builder": [
         "libs/web/data-access/form-builder/src/index.ts"
       ],
-      "@ngw/examples/feature-shell": [
-        "libs/web/examples/feature-shell/src/index.ts"
-      ],
+      "@ngw/examples": ["libs/web/examples/feature-shell/src/index.ts"],
       "@ngw/examples/data-access": [
         "libs/web/examples/data-access/src/index.ts"
       ],
-      "@ngw/shared/auth-routes": ["libs/web/shared/auth-routes/src/index.ts"]
+      "@ngw/shared/auth-routes": ["libs/web/shared/auth-routes/src/index.ts"],
+      "@ngw/examples/form-builder": [
+        "libs/web/examples/form-builder/src/index.ts"
+      ],
+      "@ngw/examples/dynamic-form": [
+        "libs/web/examples/dynamic-form/src/index.ts"
+      ],
+      "@ngw/examples/themeing": ["libs/web/examples/themeing/src/index.ts"],
+      "@ngw/examples/todos": ["libs/web/examples/todos/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

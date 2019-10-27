@@ -5,9 +5,7 @@ const ROUTES: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('@ngw/examples/feature-shell').then(
-        m => m.ExamplesFeatureShellModule
-      )
+      import('@ngw/examples').then(m => m.ExamplesFeatureShellModule)
   }
 ];
 

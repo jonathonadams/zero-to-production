@@ -104,15 +104,6 @@
     "web-utils-storage": {
       "tags": []
     },
-    "web-shared-examples-feature-shell": {
-      "tags": []
-    },
-    "web-shared-examples-data-access": {
-      "tags": []
-    },
-    "web-shared-examples-form-builder": {
-      "tags": []
-    },
     "web-data-access-form-builder": {
       "tags": []
     },
@@ -129,6 +120,18 @@
       "tags": []
     },
     "web-shared-auth-routes": {
+      "tags": []
+    },
+    "web-examples-form-builder": {
+      "tags": []
+    },
+    "web-examples-dynamic-form": {
+      "tags": []
+    },
+    "web-examples-themeing": {
+      "tags": []
+    },
+    "web-examples-todos": {
       "tags": []
     }
   }

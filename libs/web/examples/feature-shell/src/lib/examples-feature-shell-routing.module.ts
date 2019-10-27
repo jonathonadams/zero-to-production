@@ -1,11 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
+import { ExamplesComponent } from './examples/examples.component';
 
 export const EXAMPLES_ROUTES: Routes = [
   {
     path: 'examples',
-    component: ExamplesFeatureShellComponent
+    component: ExamplesFeatureShellComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: ExamplesComponent
+      },
+      {
+        path: 'form-builder',
+        loadChildren: () =>
+          import('@ngw/examples/form-builder').then(
+            m => m.ExamplesFormBuilderModule
+          )
+      }
+    ]
   },
   {
     path: 'secure',
