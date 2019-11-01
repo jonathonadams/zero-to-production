@@ -1,1 +1,1 @@
-export * from './lib/web-examples-todos.module';
+export { ExamplesTodosModule } from './lib/examples-todos.module';

@@ -20,7 +20,7 @@ export const EXAMPLES: IExample[] = [
   },
   {
     id: '3',
-    title: 'Form Builder',
+    title: '',
     description:
       'A demonstration of using dynamic forms and user created forms',
     url: 'form-builder',
@@ -28,10 +28,10 @@ export const EXAMPLES: IExample[] = [
   },
   {
     id: '4',
-    title: 'Form Builder',
+    title: 'Todo app with authentication',
     description:
       'A demonstration of using dynamic forms and user created forms',
-    url: 'form-builder',
+    url: 'secure',
     gitHubLink: 'some-github-link'
   }
 ];

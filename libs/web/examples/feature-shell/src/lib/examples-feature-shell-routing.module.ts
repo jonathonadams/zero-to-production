@@ -19,14 +19,15 @@ export const EXAMPLES_ROUTES: Routes = [
           import('@ngw/examples/form-builder').then(
             m => m.ExamplesFormBuilderModule
           )
+      },
+      {
+        path: 'secure',
+        loadChildren: () =>
+          import('@ngw/examples/todos').then(m => m.ExamplesTodosModule)
       }
     ]
   },
-  {
-    path: 'secure',
-    loadChildren: () =>
-      import('@ngw/todos/feature-shell').then(m => m.TodosFeatureShellModule)
-  },
+
   {
     path: '',
     pathMatch: 'full',

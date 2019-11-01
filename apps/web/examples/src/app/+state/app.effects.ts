@@ -15,9 +15,9 @@ export class AppEffects {
   @Effect({ dispatch: false })
   loginRedirects$ = this.action$.pipe(
     ofType(loginRedirect),
-    tap(action =>
+    tap(() =>
       this.routerFacade.go({
-        path: ['secure', 'home']
+        path: ['examples', 'secure', 'home']
       })
     )
   );
@@ -25,9 +25,9 @@ export class AppEffects {
   @Effect({ dispatch: false })
   registerRedirect$ = this.action$.pipe(
     ofType(registerRedirect),
-    tap(action =>
+    tap(() =>
       this.routerFacade.go({
-        path: ['secure', 'register']
+        path: ['examples', 'secure', 'register']
       })
     )
   );
@@ -35,9 +35,9 @@ export class AppEffects {
   @Effect({ dispatch: false })
   logoutRedirect$ = this.action$.pipe(
     ofType(logoutRedirect),
-    tap(action =>
+    tap(() =>
       this.routerFacade.go({
-        path: ['secure', 'login']
+        path: ['examples', 'secure', 'login']
       })
     )
   );
