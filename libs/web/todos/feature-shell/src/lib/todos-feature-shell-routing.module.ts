@@ -22,7 +22,8 @@ export const TODOS_ROUTES: Routes = [
         children: [
           {
             path: '',
-            component: TodoLayoutComponent
+            component: TodoLayoutComponent,
+            pathMatch: 'full'
           },
           {
             path: ':todoId',

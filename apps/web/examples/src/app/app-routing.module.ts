@@ -10,7 +10,12 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(ROUTES, { initialNavigation: 'enabled' })],
+  imports: [
+    RouterModule.forRoot(ROUTES, {
+      initialNavigation: 'enabled',
+      relativeLinkResolution: 'corrected'
+    })
+  ],
   exports: [RouterModule]
 })
 export class RootAppRoutingModule {}

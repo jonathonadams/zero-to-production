@@ -11,6 +11,7 @@
   - Form Builder
 - [ ] Add a settings section
   - Re style user drop down to only have username, avatar and link to settings
+- [ ] Move Todo detail to own component
 
 #### Dynamic Form
 
@@ -92,6 +93,10 @@ https://github.com/angular/angular/issues/30235
 Once merged, remove references from the tsconfig.lib.json's
 
 https://github.com/Microsoft/TypeScript/issues/27098
+
+### RouterLink directive is broken for relative paths with empty strings
+
+https://github.com/angular/angular/issues/13011
 
 ### Nativescript does not currently support the monorepo design
 
