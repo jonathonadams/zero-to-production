@@ -27,6 +27,7 @@ export const selectCurrentExample = createSelector(
   (exampleEntities, exampleId) => exampleEntities[String(exampleId)]
 );
 
+// TODO
 // EXAMPLE -> Refactor the filtering
 
 export const selectFilteredExamples = createSelector(

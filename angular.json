@@ -1378,28 +1378,28 @@
         }
       }
     },
-    "web-examples-todos": {
+    "common-ui-card": {
       "projectType": "library",
-      "root": "libs/web/examples/todos",
-      "sourceRoot": "libs/web/examples/todos/src",
-      "prefix": "ex",
+      "root": "libs/web/common/ui/card",
+      "sourceRoot": "libs/web/common/ui/card/src",
+      "prefix": "uqt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/web/examples/todos/tsconfig.lib.json",
-              "libs/web/examples/todos/tsconfig.spec.json"
+              "libs/web/common/ui/card/tsconfig.lib.json",
+              "libs/web/common/ui/card/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/web/examples/todos/**"]
+            "exclude": ["**/node_modules/**", "!libs/web/common/ui/card/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/web/examples/todos/jest.config.js",
-            "tsConfig": "libs/web/examples/todos/tsconfig.spec.json",
-            "setupFile": "libs/web/examples/todos/src/test-setup.ts"
+            "jestConfig": "libs/web/common/ui/card/jest.config.js",
+            "tsConfig": "libs/web/common/ui/card/tsconfig.spec.json",
+            "setupFile": "libs/web/common/ui/card/src/test-setup.ts"
           }
         }
       },

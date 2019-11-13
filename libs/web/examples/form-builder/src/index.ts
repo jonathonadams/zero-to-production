@@ -1,1 +1,1 @@
-export { ExamplesFormBuilderModule } from './lib/examples-form-builder.module';
+export { WebExamplesFormBuilderModule } from './lib/examples-form-builder.module';

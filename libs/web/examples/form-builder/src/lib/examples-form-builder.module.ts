@@ -24,4 +24,4 @@ const COMPONENTS = [
     ExamplesFormBuilderRouterModule
   ]
 })
-export class ExamplesFormBuilderModule {}
+export class WebExamplesFormBuilderModule {}

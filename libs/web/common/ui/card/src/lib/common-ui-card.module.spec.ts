@@ -1,14 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
-import { ExamplesTodosModule } from './examples-todos.module';
+import { CommonUiCardModule } from './common-ui-card.module';
 
-describe('ExamplesTodosModule', () => {
+describe('CommonUiCardModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ExamplesTodosModule]
+      imports: [CommonUiCardModule]
     }).compileComponents();
   }));
 
   it('should create', () => {
-    expect(ExamplesTodosModule).toBeDefined();
+    expect(CommonUiCardModule).toBeDefined();
   });
 });

@@ -1,14 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
-import { ExamplesFormBuilderModule } from './examples-form-builder.module';
+import { WebExamplesFormBuilderModule } from './examples-form-builder.module';
 
-describe('ExamplesFormBuilderModule', () => {
+describe('WebExamplesFormBuilderModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ExamplesFormBuilderModule]
+      imports: [WebExamplesFormBuilderModule]
     }).compileComponents();
   }));
 
   it('should create', () => {
-    expect(ExamplesFormBuilderModule).toBeDefined();
+    expect(WebExamplesFormBuilderModule).toBeDefined();
   });
 });

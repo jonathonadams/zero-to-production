@@ -55,7 +55,7 @@
         "libs/web/examples/dynamic-form/src/index.ts"
       ],
       "@ngw/examples/themeing": ["libs/web/examples/themeing/src/index.ts"],
-      "@ngw/examples/todos": ["libs/web/examples/todos/src/index.ts"]
+      "@ngw/common/ui/card": ["libs/web/common/ui/card/src/index.ts"]
     }
   }
 }

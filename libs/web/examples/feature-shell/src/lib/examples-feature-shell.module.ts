@@ -8,11 +8,13 @@ import { ExamplesComponent } from './examples/examples.component';
 import { UiExampleComponent } from './ui-examples/ui-examples.component';
 import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
 import { ExamplesDataAccessModule } from '@ngw/examples/data-access';
+import { ExampleDetailComponent } from './example-detail/example-detail.component';
 
 const COMPONENTS = [
   ExamplesFeatureShellComponent,
   ExamplesComponent,
-  UiExampleComponent
+  UiExampleComponent,
+  ExampleDetailComponent
 ];
 
 @NgModule({

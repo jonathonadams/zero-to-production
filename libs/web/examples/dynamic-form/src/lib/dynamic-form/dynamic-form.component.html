@@ -1,0 +1,11 @@
+<button (click)="toggleFormStructure()">Toggle Form Structure</button>
+<section>
+  <app-dynamic-form>
+    <button type="submit">Submit</button>
+  </app-dynamic-form>
+</section>
+<aside>
+  <pre *ngIf="submit$ | async as submit">
+      {{ submit | json }}
+  </pre>
+</aside>

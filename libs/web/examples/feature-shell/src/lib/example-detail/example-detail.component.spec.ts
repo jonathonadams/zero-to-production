@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TodosOutlineComponent } from './todos-outline.component';
+import { ExampleDetailComponent } from './example-detail.component';
 
-describe('TodosOutlineComponent', () => {
-  let component: TodosOutlineComponent;
-  let fixture: ComponentFixture<TodosOutlineComponent>;
+describe('ExampleDetailComponent', () => {
+  let component: ExampleDetailComponent;
+  let fixture: ComponentFixture<ExampleDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TodosOutlineComponent]
+      declarations: [ExampleDetailComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TodosOutlineComponent);
+    fixture = TestBed.createComponent(ExampleDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
