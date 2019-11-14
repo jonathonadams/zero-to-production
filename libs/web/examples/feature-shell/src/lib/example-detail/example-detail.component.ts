@@ -1,7 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ExamplesFacade } from '@ngw/examples/data-access';
 import { Observable } from 'rxjs';
 import { IExample } from '@ngw/types';
+import { RouterFacade } from '@ngw/data-access/router';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'ngw-example-detail',
@@ -11,7 +13,20 @@ import { IExample } from '@ngw/types';
 })
 export class ExampleDetailComponent {
   selectedExample$: Observable<IExample | undefined>;
-  constructor(private facade: ExamplesFacade) {
+
+  constructor(
+    private facade: ExamplesFacade,
+    private routerFacade: RouterFacade
+  ) {
     this.selectedExample$ = this.facade.selectedExample$;
+
+    this.routerFacade.url$
+      .pipe(take(1), map(this.getExampleUrl))
+      .subscribe(url => this.facade.selectExample(url));
+  }
+
+  getExampleUrl(url: string) {
+    const [_, __, exampleUrl] = url.split('/');
+    return exampleUrl;
   }
 }

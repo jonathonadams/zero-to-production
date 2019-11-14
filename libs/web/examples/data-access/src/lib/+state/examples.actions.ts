@@ -3,7 +3,7 @@ import { IExample } from '@ngw/types';
 
 export const selectExample = createAction(
   '[Example/UI] Select',
-  props<{ id: string }>()
+  props<{ url: string }>()
 );
 
 export const clearSelected = createAction('[Example/UI] Clear');

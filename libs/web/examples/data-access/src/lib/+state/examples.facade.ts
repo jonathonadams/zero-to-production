@@ -2,19 +2,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { IExample } from '@ngw/types';
-import {
-  selectCurrentExample,
-  selectFilteredExamples
-} from './examples.selectors';
+import { selectCurrentExample, selectAllExamples } from './examples.selectors';
 import * as ExampleActions from './examples.actions';
 
 @Injectable()
 export class ExamplesFacade {
-  filteredExample$: Observable<IExample[]>;
+  example$: Observable<IExample[]>;
   selectedExample$: Observable<IExample | undefined>;
 
   constructor(private store: Store<any>) {
-    this.filteredExample$ = this.store.pipe(select(selectFilteredExamples));
+    this.example$ = this.store.pipe(select(selectAllExamples));
     this.selectedExample$ = this.store.pipe(select(selectCurrentExample));
   }
 
@@ -22,8 +19,8 @@ export class ExamplesFacade {
     this.store.dispatch(ExampleActions.addExamples({ examples }));
   }
 
-  public selectExample(id: string): void {
-    this.store.dispatch(ExampleActions.selectExample({ id }));
+  public selectExample(url: string): void {
+    this.store.dispatch(ExampleActions.selectExample({ url }));
   }
 
   public clearSelected(): void {

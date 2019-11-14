@@ -3,27 +3,30 @@ import * as ExampleActions from './examples.actions';
 import { IExample } from '@ngw/types';
 import { createReducer, on, Action } from '@ngrx/store';
 
-// 1. define the entity state
 export interface ExamplesEntityState extends EntityState<IExample> {
-  selectedExampleId: string | null;
+  selectedExampleUrl: string | null;
   searchFilter: string | null;
 }
 
-// 2. Create entity adapter
-export const adapter: EntityAdapter<IExample> = createEntityAdapter<IExample>();
+export function selectExampleUrl(example: IExample) {
+  return example.url;
+}
 
-// 3. Define the initial state
+export const adapter: EntityAdapter<IExample> = createEntityAdapter<IExample>({
+  selectId: selectExampleUrl
+});
+
 export const initialExampleState: ExamplesEntityState = adapter.getInitialState(
   {
-    selectedExampleId: null,
+    selectedExampleUrl: null,
     searchFilter: null
   }
 );
 
 export const examplesReducer = createReducer(
   initialExampleState,
-  on(ExampleActions.selectExample, (state, { id }) => {
-    return { ...state, selectedExampleId: id };
+  on(ExampleActions.selectExample, (state, { url }) => {
+    return { ...state, selectedExampleUrl: url };
   }),
   on(ExampleActions.clearSelected, state => {
     return { ...state, selectedExampleId: null };

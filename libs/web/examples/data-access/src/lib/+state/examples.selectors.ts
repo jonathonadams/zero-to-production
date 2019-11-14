@@ -11,9 +11,9 @@ export const {
   selectAll: selectAllExamples
 } = adapter.getSelectors(selectExampleState);
 
-export const selectCurrentExampleId = createSelector(
+export const selectCurrentExampleUrl = createSelector(
   selectExampleState,
-  (state: ExamplesEntityState) => state.selectedExampleId
+  (state: ExamplesEntityState) => state.selectedExampleUrl
 );
 
 export const selectExampleSearchFilter = createSelector(
@@ -23,41 +23,6 @@ export const selectExampleSearchFilter = createSelector(
 
 export const selectCurrentExample = createSelector(
   selectExampleEntities,
-  selectCurrentExampleId,
-  (exampleEntities, exampleId) => exampleEntities[String(exampleId)]
+  selectCurrentExampleUrl,
+  (exampleEntities, url) => exampleEntities[String(url)]
 );
-
-// TODO
-// EXAMPLE -> Refactor the filtering
-
-export const selectFilteredExamples = createSelector(
-  selectAllExamples,
-  selectExampleSearchFilter,
-  (examples: IExample[], searchString: string | null) => {
-    if (isEmptySearchString(searchString)) {
-      return examples;
-    } else {
-      return examples.filter(example =>
-        isExampleInSearchString(example, searchString as string)
-      );
-    }
-  }
-);
-
-function isEmptySearchString(text: string | null): boolean {
-  return text === null || text === '';
-}
-
-function isExampleInSearchString(
-  example: IExample,
-  searchString: string
-): boolean {
-  if (
-    example.title.toLowerCase().includes(searchString) ||
-    example.description.toLowerCase().includes(searchString)
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}

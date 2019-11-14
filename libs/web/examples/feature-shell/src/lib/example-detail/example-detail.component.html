@@ -1,2 +1,5 @@
-<p>example-detail works!</p>
-<router-outlet></router-outlet>
+<section class="example">
+  <h3>{{ (selectedExample$ | async)?.title }}</h3>
+  <p>{{ (selectedExample$ | async)?.description }}</p>
+  <router-outlet></router-outlet>
+</section>

@@ -3,6 +3,6 @@
     class="example"
     *ngFor="let example of example$ | async"
     [example]="example"
-    (selected)="navigateToExample(example)"
+    (selected)="selectExample(example)"
   ></ngw-ui-example>
 </section>

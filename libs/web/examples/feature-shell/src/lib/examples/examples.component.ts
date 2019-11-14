@@ -1,9 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ExamplesFacade } from '@ngw/examples/data-access';
 import { IExample } from '@ngw/types';
 import { RouterFacade } from '@ngw/data-access/router';
-import { EXAMPLES } from '../examples';
 
 @Component({
   selector: 'ngw-examples',
@@ -11,21 +10,18 @@ import { EXAMPLES } from '../examples';
   styleUrls: ['./examples.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExamplesComponent implements OnInit {
+export class ExamplesComponent {
   example$: Observable<IExample[]>;
 
   constructor(
     private facade: ExamplesFacade,
     private routerFacade: RouterFacade
   ) {
-    this.example$ = this.facade.filteredExample$;
+    this.example$ = this.facade.example$;
   }
 
-  ngOnInit() {
-    this.facade.addExamples(EXAMPLES);
-  }
-
-  navigateToExample(example: IExample) {
+  selectExample(example: IExample) {
+    this.facade.selectExample(example.url);
     this.routerFacade.go({ path: [example.url], relative: true });
   }
 }

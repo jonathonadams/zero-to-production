@@ -5,8 +5,7 @@ export const EXAMPLES: IExample[] = [
     id: '1',
     title: 'Dynamic Form',
     description:
-      'With the amount of builder plate required for forms in Angular, they can become tedious quickly.\
-         A dynamic form that can be used application wide can significantly simplify creating forms and standardize styling and animations.',
+      'With the amount of boiler plate required for forms in Angular, they can become tedious quickly. A dynamic form that can be used application wide can significantly simplify creating forms and standardize styling and animations.',
     url: 'dynamic-form',
     gitHubLink: 'some-github-link'
   },
