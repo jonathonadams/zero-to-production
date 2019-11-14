@@ -11,13 +11,13 @@ import { RouterFacade } from '@ngw/data-access/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplesComponent {
-  example$: Observable<IExample[]>;
+  examples$: Observable<IExample[]>;
 
   constructor(
     private facade: ExamplesFacade,
     private routerFacade: RouterFacade
   ) {
-    this.example$ = this.facade.example$;
+    this.examples$ = this.facade.examples$;
   }
 
   selectExample(example: IExample) {

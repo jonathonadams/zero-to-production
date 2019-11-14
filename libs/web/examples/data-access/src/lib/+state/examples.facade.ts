@@ -7,11 +7,11 @@ import * as ExampleActions from './examples.actions';
 
 @Injectable()
 export class ExamplesFacade {
-  example$: Observable<IExample[]>;
+  examples$: Observable<IExample[]>;
   selectedExample$: Observable<IExample | undefined>;
 
   constructor(private store: Store<any>) {
-    this.example$ = this.store.pipe(select(selectAllExamples));
+    this.examples$ = this.store.pipe(select(selectAllExamples));
     this.selectedExample$ = this.store.pipe(select(selectCurrentExample));
   }
 
