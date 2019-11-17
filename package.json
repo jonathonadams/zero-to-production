@@ -105,7 +105,6 @@
     "@angular/compiler-cli": "^8.2.13",
     "@angular/language-service": "^8.2.13",
     "@nrwl/angular": "^8.4.8",
-    "@nrwl/cypress": "8.7.0",
     "@nrwl/jest": "8.7.0",
     "@nrwl/web": "^8.5.0",
     "@nrwl/workspace": "^8.5.0",

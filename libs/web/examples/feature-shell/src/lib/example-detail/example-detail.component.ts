@@ -25,7 +25,8 @@ export class ExampleDetailComponent {
       .subscribe(url => this.facade.selectExample(url));
   }
 
-  getExampleUrl(url: string) {
+  getExampleUrl(url: string): string {
+    // /examples/form-builder => ["", "examples", "form-builder"]
     const [_, __, exampleUrl] = url.split('/');
     return exampleUrl;
   }

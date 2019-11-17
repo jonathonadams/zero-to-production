@@ -1,0 +1,13 @@
+.config {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.output {
+  div {
+    min-height: 50px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding: 1em;
+  }
+}

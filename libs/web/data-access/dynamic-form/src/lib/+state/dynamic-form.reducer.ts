@@ -60,12 +60,15 @@ export const formReducer = createReducer(
   on(FormActions.gotToIndex, (state, { index }) => {
     return { ...state, index };
   }),
-  // TODO -> Make sure the index's can not go out of range
   on(FormActions.nextIndex, state => {
-    return { ...state, index: state.index + 1 };
+    return {
+      ...state,
+      index:
+        state.index < state.structure.length - 1 ? state.index + 1 : state.index
+    };
   }),
   on(FormActions.backIndex, state => {
-    return { ...state, index: state.index - 1 };
+    return { ...state, index: state.index <= 1 ? 0 : state.index - 1 };
   }),
   on(FormActions.setFormConfig, (state, { config }) => {
     return { ...state, config: { ...state.config, ...config } };

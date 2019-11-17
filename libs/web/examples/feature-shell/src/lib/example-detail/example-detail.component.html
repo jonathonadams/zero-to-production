@@ -1,5 +1,10 @@
 <section class="example">
-  <h3>{{ (selectedExample$ | async)?.title }}</h3>
-  <p>{{ (selectedExample$ | async)?.descriptionFull }}</p>
-  <router-outlet></router-outlet>
+  <header class="example-description">
+    <h3>{{ (selectedExample$ | async)?.title }}</h3>
+    <p>{{ (selectedExample$ | async)?.descriptionFull }}</p>
+  </header>
+  <mat-divider indeterminate="true"></mat-divider>
+  <article class="example-demonstration">
+    <router-outlet></router-outlet>
+  </article>
 </section>

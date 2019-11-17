@@ -1,11 +1,27 @@
-<button (click)="toggleFormStructure()">Toggle Form Structure</button>
-<section>
+<p>TODO -> README.md link</p>
+<p>
+  To use the dynamic form, all you need to do is to set the structure of the
+  form and include the form component in your markup
+</p>
+<img alt="set structure" />
+<img alt="app-dynamic-form" />
+<h4>Try it below</h4>
+<section class="dynamic-form">
+  <div class="config">
+    <p>Change the form structure</p>
+    <button (click)="toggleFormStructure()">Toggle Form Structure</button>
+    <p>Enable/Disable Animations</p>
+    <button (click)="toggleAnimations()">Toggle Animations</button>
+    <p>Enable/Disable Section Pagination</p>
+    <button (click)="togglePagination()">Toggle Form Pagination</button>
+  </div>
   <app-dynamic-form>
     <button type="submit">Submit</button>
   </app-dynamic-form>
 </section>
-<aside>
-  <pre *ngIf="submit$ | async as submit">
-      {{ submit | json }}
-  </pre>
+<aside class="output">
+  <p>Output</p>
+  <div>
+    <pre *ngIf="submit$ | async as submit">{{ submit | json }}</pre>
+  </div>
 </aside>

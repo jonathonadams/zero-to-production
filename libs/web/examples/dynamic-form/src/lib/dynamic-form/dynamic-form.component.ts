@@ -74,6 +74,7 @@ const STRUCTURE: TFormGroups = [
 export class ExampleDynamicFormComponent implements OnInit {
   toggleStructure = true;
   animations = true;
+  pagination = true;
   submit$: Observable<any>;
 
   constructor(private formFacade: DynamicFormFacade) {
@@ -91,8 +92,13 @@ export class ExampleDynamicFormComponent implements OnInit {
     });
   }
 
-  toggleAnimation() {
+  toggleAnimations() {
     this.animations = !this.animations;
     this.formFacade.setFormConfig({ animations: this.animations });
+  }
+
+  togglePagination() {
+    this.pagination = !this.pagination;
+    this.formFacade.setFormConfig({ paginateSections: this.pagination });
   }
 }
