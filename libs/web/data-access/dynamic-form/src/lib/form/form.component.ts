@@ -18,6 +18,7 @@ import { expandFromCenter } from '@ngw/common/animations';
 import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
 import { DynamicFormService } from '../form.service';
 import { TFormGroups } from '@ngw/types';
+import { FormGroupTypes } from '@ngw/enums';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -99,12 +100,12 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  getFormGroup(name: string): FormGroup {
-    return (this.form as FormGroup).get(name) as FormGroup;
+  getFormGroup(formGroup: FormGroup, name: string): FormGroup | FormArray {
+    return formGroup.get(name) as FormGroup | FormArray;
   }
 
-  getArrayGroup(name: string): FormArray {
-    return (this.form as FormGroup).get(name) as FormArray;
+  isGroupFields(type: FormGroupTypes): boolean {
+    return Boolean(type === FormGroupTypes.Group);
   }
 
   nextSection() {
