@@ -13,10 +13,7 @@ import { reducer, initialFormState } from './+state/dynamic-form.reducer';
 import { FormErrorsComponent } from './form-errors/form-errors.component';
 import { FormErrorPipe } from './form-errors/form-error.pipe';
 import { FormToggleComponent } from './fields/toggle/toggle.components';
-import { FormErrorsDirective } from './form-errors/form-errors.directive';
-import { UiFormErrorsComponent } from './form-errors/ui/ui-form-errors.component';
 import { FormDatePickerComponent } from './fields/date-picker/date-picker.component';
-import { DismissDirective } from './form-errors/dismiss.directive';
 import { FormTextareaComponent } from './fields/textarea/textarea.component';
 import { DynamicFormService } from './form.service';
 import { FormErrorsService } from './form-errors/form-errors.service';
@@ -35,8 +32,7 @@ const COMPONENTS = [
   DynamicFormComponent,
   FormErrorsComponent,
   FormErrorsComponent,
-  FormErrorPipe,
-  UiFormErrorsComponent
+  FormErrorPipe
 ];
 
 @NgModule({
@@ -49,12 +45,7 @@ const COMPONENTS = [
     }),
     EffectsModule.forFeature([DynamicFormsEffects])
   ],
-  declarations: [
-    DynamicFormFieldDirective,
-    FormErrorsDirective,
-    DismissDirective,
-    ...COMPONENTS
-  ],
+  declarations: [DynamicFormFieldDirective, ...COMPONENTS],
   providers: [DynamicFormService, FormErrorsService],
   entryComponents: [...ENTRY_COMPONENTS],
   exports: [DynamicFormComponent]

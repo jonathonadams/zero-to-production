@@ -1,14 +1,18 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  Input,
-  OnDestroy
+  OnDestroy,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
-import { Subscription, timer } from 'rxjs';
+import { timer, Observable, Subject } from 'rxjs';
 import { formErrorsAnimations } from './form-errors.animations';
 import { IFormErrors } from '@ngw/types';
+import { takeUntil } from 'rxjs/operators';
+
+// TODO a11y Announcer
 
 @Component({
   selector: 'app-form-errors',
@@ -19,32 +23,38 @@ import { IFormErrors } from '@ngw/types';
 })
 export class FormErrorsComponent implements OnDestroy {
   private autoClose = 5000; // ms until close
-  private subscription: Subscription;
+  private unsubscribe = new Subject();
+
+  @Output() dismiss = new EventEmitter<void>();
 
   totalErrors: number | undefined;
-  errorObject: { [key: string]: ValidationErrors }[] | undefined;
+  errorsObject: { [key: string]: ValidationErrors }[] | undefined;
 
-  @Input()
-  set errors(errors: IFormErrors) {
+  constructor(private facade: DynamicFormFacade) {
+    timer(this.autoClose)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(() => {
+        this.dismiss.emit();
+      });
+
+    (this.facade.errors$ as Observable<IFormErrors>)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(errors => {
+        this.createErrorObject(errors);
+      });
+  }
+
+  createErrorObject(errors: IFormErrors) {
     const errorKeys = Object.keys(errors);
     this.totalErrors = errorKeys.length;
 
-    this.errorObject = errorKeys.map(key => {
+    this.errorsObject = errorKeys.map(key => {
       return { [key]: errors[key] };
     });
   }
 
-  constructor(private facade: DynamicFormFacade) {
-    this.subscription = timer(this.autoClose).subscribe(() => {
-      this.facade.clearErrors();
-    });
-  }
-
-  dismiss() {
-    this.facade.clearErrors();
-  }
-
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 }

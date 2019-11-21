@@ -1,9 +1,5 @@
-<!-- <div class="overlay" appDismiss (dismiss)="dismiss()">
-  <app-ui-form-errors
-    class="errors"
-    @formErrorsAnimations
-    [errors]="errorObject"
-  ></app-ui-form-errors>
-</div> -->
-
-<p>HERERERE</p>
+<ul class="error-messages" @formErrorsAnimations>
+  <li class="error-text" *ngFor="let error of errorsObject">
+    {{ error | formError }}
+  </li>
+</ul>
