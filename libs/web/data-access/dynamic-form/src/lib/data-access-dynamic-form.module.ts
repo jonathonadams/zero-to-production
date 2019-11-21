@@ -19,6 +19,7 @@ import { FormDatePickerComponent } from './fields/date-picker/date-picker.compon
 import { DismissDirective } from './form-errors/dismiss.directive';
 import { FormTextareaComponent } from './fields/textarea/textarea.component';
 import { DynamicFormService } from './form.service';
+import { FormErrorsService } from './form-errors/form-errors.service';
 
 const ENTRY_COMPONENTS = [
   FormInputComponent,
@@ -54,7 +55,7 @@ const COMPONENTS = [
     DismissDirective,
     ...COMPONENTS
   ],
-  providers: [DynamicFormService],
+  providers: [DynamicFormService, FormErrorsService],
   entryComponents: [...ENTRY_COMPONENTS],
   exports: [DynamicFormComponent]
 })

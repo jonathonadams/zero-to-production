@@ -19,6 +19,8 @@ import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
 import { DynamicFormService } from '../form.service';
 import { TFormGroups } from '@ngw/types';
 import { FormGroupTypes } from '@ngw/enums';
+import { FormErrorsService } from '../form-errors/form-errors.service';
+import { FormErrorsComponent } from '../form-errors/form-errors.component';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -37,6 +39,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: DynamicFormService,
+    private formErrors: FormErrorsService,
     private facade: DynamicFormFacade
   ) {
     this.config$ = this.facade.config$;
@@ -91,12 +94,13 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   onSubmit(form: FormGroup) {
     const { valid } = form;
     if (valid) {
+      this.facade.clearErrors();
       this.facade.submitForm();
-      // this.facade.clearErrors();
     } else {
       // collect all form errors
       const errors = this.service.getAllFormErrors(form);
       this.facade.setErrors({ errors });
+      this.createFormErrors();
     }
   }
 
@@ -118,5 +122,12 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.subscription) this.subscription.unsubscribe();
+  }
+
+  createFormErrors() {
+    console.log('EERERE');
+    const { overlayRef, componentRef } = this.formErrors.createOverlay(
+      FormErrorsComponent
+    );
   }
 }

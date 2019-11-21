@@ -21,6 +21,7 @@
 - [ ] Collect form errors from side effects submit
 - [ ] Restyle errors animations
 - [x] Submit button not using content projection does not have auto focus
+- [ ] Make dynamic form use recursive field types (array/group)
 - [ ] Write tests for dynamic form
 
 #### Form Builder
