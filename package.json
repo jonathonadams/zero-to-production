@@ -94,6 +94,7 @@
     "lodash.omit": "^4.5.0",
     "mongoose": "^5.7.9",
     "normalize.css": "^8.0.1",
+    "prismjs": "^1.17.1",
     "ramda": "^0.26.1",
     "rxjs": "~6.5.3",
     "uninstall": "0.0.0",

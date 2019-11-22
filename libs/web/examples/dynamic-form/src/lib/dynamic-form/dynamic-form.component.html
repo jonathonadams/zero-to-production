@@ -1,26 +1,56 @@
-<p>TODO -> README.md link</p>
 <p>
   To use the dynamic form, all you need to do is to set the structure of the
-  form and include the form component in your markup
+  form (via NgRx Store) and include the form component in your markup
 </p>
-<img alt="set structure" />
+
+<pre language="language-html" [wm-prism]="appForm">
+  <code>{{ source }}</code>
+</pre>
+
+<!-- <pre>
+  <code class="language-html">
+    &lt;app-form&gt;
+      &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;/app-form&gt;
+  </code>
+</pre>
+
+<pre>
+  <code class="language-css">p {{ '{' }} background; 2em; {{ '}' }}</code>
+</pre> -->
+<!-- <pre>
+  <code class="language-html">
+    <span class="hljs-tag">&lt;<span class="hljs-name">app-form</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mat-option</span> *<span class="hljs-attr">ngFor</span>=<span class="hljs-string">"let option of options"</span> [<span class="hljs-attr">value</span>]=<span class="hljs-string">"option"</span>&gt;</span>
+    {{ option }}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">mat-option</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">mat-autocomplete</span>&gt;</span>
+  </code>
+</pre> -->
 <img alt="app-dynamic-form" />
+<p>View the README for further details</p>
 <h4>Try it below</h4>
 <section class="dynamic-form">
   <div class="config">
-    <p>Change the form structure</p>
-    <button (click)="toggleFormStructure()">Toggle Form Structure</button>
-    <p>Enable/Disable Animations</p>
-    <button (click)="toggleAnimations()">Toggle Animations</button>
-    <p>Enable/Disable Section Pagination</p>
-    <button (click)="togglePagination()">Toggle Form Pagination</button>
+    <p>Change Form</p>
+    <button mat-button (click)="toggleFormStructure()">
+      Toggle Structure
+    </button>
+    <mat-slide-toggle [checked]="animations" (change)="toggleAnimations()"
+      >Animations</mat-slide-toggle
+    >
+    <mat-slide-toggle [checked]="pagination" (change)="togglePagination()"
+      >Section Pagination</mat-slide-toggle
+    >
   </div>
-  <app-dynamic-form>
-    <button type="submit">Submit</button>
-  </app-dynamic-form>
+  <uqt-card>
+    <app-dynamic-form>
+      <button type="submit">Submit</button>
+    </app-dynamic-form>
+  </uqt-card>
 </section>
 <aside class="output">
-  <p>Output</p>
+  <p>Submit Output</p>
   <div>
     <pre *ngIf="submit$ | async as submit">{{ submit | json }}</pre>
   </div>

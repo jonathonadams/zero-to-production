@@ -77,6 +77,14 @@ export class ExampleDynamicFormComponent implements OnInit {
   pagination = true;
   submit$: Observable<any>;
 
+  // appForm = `
+  // <app-form>
+  //   <button type="submit">Submit</button>
+  // </app-form>
+  // `;
+
+  appForm = `<app-form><button type="submit">Submit</button></app-form>`;
+
   constructor(private formFacade: DynamicFormFacade) {
     this.submit$ = formFacade.submit$;
   }

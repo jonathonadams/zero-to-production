@@ -40,7 +40,7 @@ const COMPONENTS = [
     CommonModule,
     ReactiveFormsModule,
     CustomMaterialModule,
-    StoreModule.forFeature('dynoForm', reducer, {
+    StoreModule.forFeature('dynamicForm', reducer, {
       initialState: initialFormState
     }),
     EffectsModule.forFeature([DynamicFormsEffects])
