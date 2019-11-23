@@ -1,57 +1,44 @@
 <p>
   To use the dynamic form, all you need to do is to set the structure of the
-  form (via NgRx Store) and include the form component in your markup
+  form (via NgRx Store) in the component and include the form selector in your
+  markup.
 </p>
-
-<pre language="language-html" [wm-prism]="appForm">
-  <code>{{ source }}</code>
-</pre>
-
-<!-- <pre>
-  <code class="language-html">
-    &lt;app-form&gt;
-      &lt;button type="submit"&gt;Submit&lt;/button&gt;
-    &lt;/app-form&gt;
-  </code>
-</pre>
-
+<!-- TODO -->
+<p>For the full API see the README here</p>
 <pre>
-  <code class="language-css">p {{ '{' }} background; 2em; {{ '}' }}</code>
-</pre> -->
-<!-- <pre>
-  <code class="language-html">
-    <span class="hljs-tag">&lt;<span class="hljs-name">app-form</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">mat-option</span> *<span class="hljs-attr">ngFor</span>=<span class="hljs-string">"let option of options"</span> [<span class="hljs-attr">value</span>]=<span class="hljs-string">"option"</span>&gt;</span>
-    {{ option }}
-  <span class="hljs-tag">&lt;/<span class="hljs-name">mat-option</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">mat-autocomplete</span>&gt;</span>
-  </code>
-</pre> -->
-<img alt="app-dynamic-form" />
-<p>View the README for further details</p>
-<h4>Try it below</h4>
-<section class="dynamic-form">
-  <div class="config">
-    <p>Change Form</p>
-    <button mat-button (click)="toggleFormStructure()">
-      Toggle Structure
+  <code class="language-ts">{{ component }}</code>
+</pre>
+<pre>
+  <code class="language-html">{{ markup }}</code>
+</pre>
+<p>
+  The output of submitting the form is provided via an observable from the
+  <span><code class="language-ts">DynamicFormsFacade</code></span>
+</p>
+<pre>
+  <code class="language-ts">{{ submitSyntax }}</code>
+</pre>
+<section class="form-config">
+  <h4>Form Config</h4>
+  <aside class="config">
+    <button mat-raised-button (click)="setStructure(!simpleStructure)">
+      {{ simpleStructure ? 'Form with Sections' : 'Simple Form' }}
     </button>
-    <mat-slide-toggle [checked]="animations" (change)="toggleAnimations()"
+    <mat-slide-toggle checked="true" (change)="toggleAnimations($event)"
       >Animations</mat-slide-toggle
     >
-    <mat-slide-toggle [checked]="pagination" (change)="togglePagination()"
+    <mat-slide-toggle checked="true" (change)="togglePagination($event)"
       >Section Pagination</mat-slide-toggle
     >
-  </div>
+  </aside>
+  <h4>Rendered Form</h4>
   <uqt-card>
     <app-dynamic-form>
-      <button type="submit">Submit</button>
+      <button mat-stroked-button type="submit">Submit</button>
     </app-dynamic-form>
   </uqt-card>
 </section>
-<aside class="output">
-  <p>Submit Output</p>
-  <div>
-    <pre *ngIf="submit$ | async as submit">{{ submit | json }}</pre>
-  </div>
-</aside>
+<h4>Submit Output</h4>
+<uqt-card class="output">
+  <pre><code>{{ submit$ | async | json }}</code></pre>
+</uqt-card>

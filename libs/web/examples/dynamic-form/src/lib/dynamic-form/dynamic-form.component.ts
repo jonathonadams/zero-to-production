@@ -1,11 +1,19 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 import { Validators } from '@angular/forms';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
+import { Observable } from 'rxjs';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { TFormGroups } from '@ngw/types';
 import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
-import { Observable } from 'rxjs';
+import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
+import { HighlightService } from '../highlight.service';
 
-const CONTACT_DETAILS: TFormGroups = [
+const SIMPLE_FORM: TFormGroups = [
   {
     formGroup: 'contactDetails',
     groupType: FormGroupTypes.Group,
@@ -28,7 +36,7 @@ const CONTACT_DETAILS: TFormGroups = [
   }
 ];
 
-const STRUCTURE: TFormGroups = [
+const COMPLEX_FORM: TFormGroups = [
   {
     formGroup: 'userDetails',
     groupType: FormGroupTypes.Group,
@@ -72,41 +80,70 @@ const STRUCTURE: TFormGroups = [
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDynamicFormComponent implements OnInit {
-  toggleStructure = true;
-  animations = true;
-  pagination = true;
+  simpleStructure = true;
   submit$: Observable<any>;
 
-  // appForm = `
-  // <app-form>
-  //   <button type="submit">Submit</button>
-  // </app-form>
-  // `;
+  @ViewChild('output', { static: false }) output!: ElementRef<HTMLElement>;
 
-  appForm = `<app-form><button type="submit">Submit</button></app-form>`;
+  component = `// example.component.ts
+  const CONTACT_DETAILS: TFormGroups = [
+    {
+      formGroup: 'contactDetails',
+      groupType: FormGroupTypes.Group,
+      fields: [
+        ...
+      ]
+    }
+  ];
+  
+  ngOnInit() {
+    this.formFacade.setStructure({ structure: STRUCTURE });
+  }`;
 
-  constructor(private formFacade: DynamicFormFacade) {
-    this.submit$ = formFacade.submit$;
+  markup = `<!-- example.component.html -->
+  <app-form>
+    <button type="submit">Submit</button>
+  </app-form>`;
+
+  submitSyntax = `// example.component.ts
+    constructor(private formFacade: DynamicFormFacade) {
+      this.formFacade.submit$.subscribe(formOutput => {
+         // do something with the output
+      });
+    }`;
+
+  constructor(
+    private formFacade: DynamicFormFacade,
+    private highlight: HighlightService
+  ) {
+    this.submit$ = this.formFacade.submit$;
   }
 
   ngOnInit() {
-    this.formFacade.setStructure({ structure: STRUCTURE });
+    this.formFacade.setStructure({ structure: SIMPLE_FORM });
   }
 
-  toggleFormStructure() {
-    this.toggleStructure = !this.toggleStructure;
-    this.formFacade.setStructure({
-      structure: this.toggleStructure ? STRUCTURE : CONTACT_DETAILS
-    });
+  ngAfterViewChecked() {
+    this.highlight.highlightAll();
   }
 
-  toggleAnimations() {
-    this.animations = !this.animations;
-    this.formFacade.setFormConfig({ animations: this.animations });
+  setStructure(simpleForm: boolean) {
+    if (simpleForm) {
+      this.formFacade.resetIndex();
+      this.formFacade.setStructure({ structure: SIMPLE_FORM });
+    } else {
+      this.formFacade.setStructure({ structure: COMPLEX_FORM });
+    }
+    this.simpleStructure = simpleForm;
   }
 
-  togglePagination() {
-    this.pagination = !this.pagination;
-    this.formFacade.setFormConfig({ paginateSections: this.pagination });
+  setSimpleForm() {}
+
+  toggleAnimations(change: MatSlideToggleChange) {
+    this.formFacade.setFormConfig({ animations: change.checked });
+  }
+
+  togglePagination(change: MatSlideToggleChange) {
+    this.formFacade.setFormConfig({ paginateSections: change.checked });
   }
 }

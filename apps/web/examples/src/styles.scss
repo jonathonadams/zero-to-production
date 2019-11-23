@@ -3,6 +3,10 @@
 // Angular Material Themeing Mixins
 @import '~@angular/material/theming';
 
+// Themes for Prism.js syntax highlighting
+@import '~prismjs/themes/prism.css';
+// @import '~prismjs/themes/prism-tomorrow.css';
+
 // import the theming file
 @import 'libs/web/common/theme/styles/theme.scss';
 @import 'libs/web/common/theme/styles/typography.scss';
@@ -34,6 +38,3 @@ body {
 // ------------------------------------------------
 // Insert additional styles here
 // ------------------------------------------------
-@import '~prismjs/themes/prism.css';
-@import '~prismjs/plugins/toolbar/prism-toolbar.css';
-@import '~prismjs/themes/prism-okaidia';

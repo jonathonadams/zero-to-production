@@ -6,15 +6,9 @@ import { ExampleUiDynamicFormComponent } from './ui-dynamic-form/ui-dynamic-form
 import { DataAccessDynamicFormModule } from '@ngw/data-access/dynamic-form';
 import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
 import { CommonUiCardModule } from '@ngw/common/ui/card';
-import { PrismTokenizer } from './prism/tokenizer/tokenizer.component';
-import { PrismHighlighter } from './prism/highlighter/highlighter.component';
+import { HighlightService } from './highlight.service';
 
-const COMPONENTS = [
-  ExampleDynamicFormComponent,
-  ExampleUiDynamicFormComponent,
-  PrismTokenizer,
-  PrismHighlighter
-];
+const COMPONENTS = [ExampleDynamicFormComponent, ExampleUiDynamicFormComponent];
 
 @NgModule({
   imports: [
@@ -24,6 +18,7 @@ const COMPONENTS = [
     ExamplesDynamicFormRouterModule,
     DataAccessDynamicFormModule
   ],
+  providers: [HighlightService],
   declarations: COMPONENTS
 })
 export class WebExamplesDynamicFormModule {}

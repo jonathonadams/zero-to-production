@@ -1,13 +1,13 @@
-.config {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.output {
-  div {
-    min-height: 50px;
-    border-radius: 5px;
-    border: 1px solid grey;
-    padding: 1em;
+.form-config {
+  .config {
+    margin: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
+}
+
+.output {
+  min-height: 50px;
 }
