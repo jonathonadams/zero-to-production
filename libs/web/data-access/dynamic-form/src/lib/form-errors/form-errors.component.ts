@@ -6,13 +6,25 @@ import {
   EventEmitter
 } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
-import { DynamicFormFacade } from '../+state/dynamic-form.facade';
+import mapR from 'ramda/es/map';
 import { timer, Observable, Subject } from 'rxjs';
+import { takeUntil, map } from 'rxjs/operators';
 import { formErrorsAnimations } from './form-errors.animations';
-import { IFormErrors } from '@ngw/types';
-import { takeUntil } from 'rxjs/operators';
+import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 
 // TODO a11y Announcer
+
+// TODO All form errors
+
+export enum ErrorMessages {
+  required = 'is required',
+  email = 'is not a valid email'
+}
+
+export interface FieldErrors {
+  field: string;
+  errorMessage: ErrorMessages;
+}
 
 @Component({
   selector: 'app-form-errors',
@@ -27,8 +39,7 @@ export class FormErrorsComponent implements OnDestroy {
 
   @Output() dismiss = new EventEmitter<void>();
 
-  totalErrors: number | undefined;
-  errorsObject: { [key: string]: ValidationErrors }[] | undefined;
+  errors$: Observable<FieldErrors[]>;
 
   constructor(private facade: DynamicFormFacade) {
     timer(this.autoClose)
@@ -37,24 +48,40 @@ export class FormErrorsComponent implements OnDestroy {
         this.dismiss.emit();
       });
 
-    (this.facade.errors$ as Observable<IFormErrors>)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(errors => {
-        this.createErrorObject(errors);
-      });
+    this.errors$ = (this.facade.errors$ as Observable<ValidationErrors>).pipe(
+      map(errors => this.createFieldErrors(errors)),
+      takeUntil(this.unsubscribe)
+    );
   }
 
-  createErrorObject(errors: IFormErrors) {
-    const errorKeys = Object.keys(errors);
-    this.totalErrors = errorKeys.length;
+  createFieldErrors(errors: ValidationErrors) {
+    const keys = Object.keys(errors);
+    const fieldErrors: FieldErrors[] = [];
 
-    this.errorsObject = errorKeys.map(key => {
-      return { [key]: errors[key] };
-    });
+    for (let i = 0; i < keys.length; i++) {
+      const errorsKeys = Object.keys(errors[keys[i]]);
+      const nestedErrors = reduceErrorKeysToMessages(keys[i], errorsKeys);
+      fieldErrors.push(...nestedErrors);
+    }
+
+    return fieldErrors;
   }
 
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
+}
+
+function reduceErrorKeysToMessages(
+  field: string,
+  keys: string[]
+): FieldErrors[] {
+  return mapR(
+    key => ({
+      field,
+      errorMessage: ErrorMessages[key as keyof typeof ErrorMessages]
+    }),
+    keys
+  );
 }

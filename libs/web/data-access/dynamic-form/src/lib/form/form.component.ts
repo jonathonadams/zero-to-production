@@ -121,10 +121,12 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   createFormErrors() {
-    const { componentRef } = this.formErrors.createOverlay(FormErrorsComponent);
+    const { overlayRef, componentRef } = this.formErrors.createOverlay(
+      FormErrorsComponent
+    );
 
     componentRef.instance.dismiss.subscribe(() => {
-      componentRef.destroy();
+      overlayRef.dispose();
     });
   }
 

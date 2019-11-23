@@ -9,7 +9,6 @@ export class FormErrorsService {
   private createOverlayConfig(): OverlayConfig {
     return {
       hasBackdrop: true,
-      backdropClass: 'cdk-overlay-transparent-backdrop',
       positionStrategy: this.overlay
         .position()
         .global()

@@ -19,7 +19,7 @@
 - [x] Dynamic Form global errors (with animations)
 - [x] Make the form errors pipe accept form level errors.
 - [ ] Collect form errors from side effects submit
-- [ ] Restyle errors animations
+- [x] Restyle errors animations
 - [x] Submit button not using content projection does not have auto focus
 - [ ] Make dynamic form use recursive field types (array/group)
 - [ ] Write tests for dynamic form
