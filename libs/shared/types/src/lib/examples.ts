@@ -4,5 +4,5 @@ export interface IExample {
   descriptionShort: string;
   descriptionFull: string;
   url: string;
-  gitHubLink: string;
+  link: string;
 }

@@ -83,21 +83,34 @@ export class ExampleDynamicFormComponent implements OnInit {
   simpleStructure = true;
   submit$: Observable<any>;
 
-  @ViewChild('output', { static: false }) output!: ElementRef<HTMLElement>;
-
   component = `// example.component.ts
   const CONTACT_DETAILS: TFormGroups = [
     {
       formGroup: 'contactDetails',
       groupType: FormGroupTypes.Group,
       fields: [
-        ...
+        {
+          componentType: FormFieldTypes.Input,
+          type: 'text',
+          name: 'contactNumber',
+          label: 'Contact Number',
+          validators: [Validators.required]
+        },
+        {
+          componentType: FormFieldTypes.Input,
+          type: 'email',
+          name: 'emailAddress',
+          label: 'Email Address',
+          validators: [Validators.required, Validators.email]
+        }
       ]
     }
   ];
+
+  ...
   
   ngOnInit() {
-    this.formFacade.setStructure({ structure: STRUCTURE });
+    this.formFacade.setStructure({ structure: CONTACT_DETAILS });
   }`;
 
   markup = `<!-- example.component.html -->
@@ -106,11 +119,11 @@ export class ExampleDynamicFormComponent implements OnInit {
   </app-form>`;
 
   submitSyntax = `// example.component.ts
-    constructor(private formFacade: DynamicFormFacade) {
-      this.formFacade.submit$.subscribe(formOutput => {
-         // do something with the output
-      });
-    }`;
+  constructor(private formFacade: DynamicFormFacade) {
+    this.formFacade.submit$.subscribe(formOutput => {
+        // do something with the output
+    });
+  }`;
 
   constructor(
     private formFacade: DynamicFormFacade,
@@ -136,8 +149,6 @@ export class ExampleDynamicFormComponent implements OnInit {
     }
     this.simpleStructure = simpleForm;
   }
-
-  setSimpleForm() {}
 
   toggleAnimations(change: MatSlideToggleChange) {
     this.formFacade.setFormConfig({ animations: change.checked });

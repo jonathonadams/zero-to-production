@@ -1,7 +1,8 @@
 <section class="example">
   <header class="example-description">
-    <h3>{{ (selectedExample$ | async)?.title }}</h3>
-    <p>{{ (selectedExample$ | async)?.descriptionFull }}</p>
+    <h2>{{ selectedExample?.title }}</h2>
+    <p>{{ selectedExample?.descriptionFull }}</p>
+    <a [href]="selectedExample.link">See here for full details</a>
   </header>
   <mat-divider indeterminate="true"></mat-divider>
   <article class="example-demonstration">

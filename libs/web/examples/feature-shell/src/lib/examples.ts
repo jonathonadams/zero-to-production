@@ -11,7 +11,7 @@ export const EXAMPLES: IExample[] = [
     descriptionFull:
       'With the amount of boiler plate required to use forms in Angular, they can become tedious quickly. A dynamic form that can be used application wide can significantly simplify using forms and standardize styling, validation reporting and animations.',
     url: 'dynamic-form',
-    gitHubLink: 'some-github-link'
+    link: 'some-github-link'
   },
   {
     id: '2',
@@ -21,7 +21,7 @@ export const EXAMPLES: IExample[] = [
     descriptionFull:
       'A demonstration of using dynamic forms and user created forms',
     url: 'form-builder',
-    gitHubLink: 'some-github-link'
+    link: 'some-github-link'
   },
   {
     id: '3',
@@ -31,7 +31,7 @@ export const EXAMPLES: IExample[] = [
     descriptionFull:
       'A demonstration of using dynamic forms and user created forms',
     url: 'theming',
-    gitHubLink: 'some-github-link'
+    link: 'some-github-link'
   },
   {
     id: '4',
@@ -41,6 +41,6 @@ export const EXAMPLES: IExample[] = [
     descriptionFull:
       'A demonstration of using dynamic forms and user created forms',
     url: 'secure',
-    gitHubLink: 'some-github-link'
+    link: 'some-github-link'
   }
 ];

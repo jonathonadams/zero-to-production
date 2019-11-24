@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ExamplesFacade } from '@ngw/examples/data-access';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { IExample } from '@ngw/types';
 import { RouterFacade } from '@ngw/data-access/router';
 import { map, take } from 'rxjs/operators';
@@ -11,14 +11,18 @@ import { map, take } from 'rxjs/operators';
   styleUrls: ['./example-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleDetailComponent {
-  selectedExample$: Observable<IExample | undefined>;
+export class ExampleDetailComponent implements OnDestroy {
+  selectedExample: IExample | undefined;
+
+  private sub: Subscription;
 
   constructor(
     private facade: ExamplesFacade,
     private routerFacade: RouterFacade
   ) {
-    this.selectedExample$ = this.facade.selectedExample$;
+    this.sub = this.facade.selectedExample$.subscribe(
+      example => (this.selectedExample = example)
+    );
 
     this.routerFacade.url$
       .pipe(take(1), map(this.getExampleUrl))
@@ -29,5 +33,9 @@ export class ExampleDetailComponent {
     // /examples/form-builder => ["", "examples", "form-builder"]
     const [_, __, exampleUrl] = url.split('/');
     return exampleUrl;
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }
