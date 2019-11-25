@@ -62,7 +62,6 @@
     "@ngrx/entity": "^8.5.0",
     "@ngrx/router-store": "^8.5.0",
     "@ngrx/store": "^8.5.0",
-    "@ngrx/store-devtools": "^8.5.0",
     "@sendgrid/mail": "^6.4.0",
     "apollo-angular": "^1.6.0",
     "apollo-angular-link-http": "^1.6.0",

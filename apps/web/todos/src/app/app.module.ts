@@ -16,7 +16,6 @@ import { DataAccessUsersModule } from '@ngw/data-access/users';
 import { DataAccessRouterModule } from '@ngw/data-access/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppEffects } from './+state/app.effects';
 import { AppState, appReducerMap } from './+state/app.state';
 
@@ -37,7 +36,6 @@ import { AppState, appReducerMap } from './+state/app.state';
     StoreRouterConnectingModule.forRoot({
       routerState: RouterState.Minimal
     }),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
     DataAccessApiModule.forRoot(environment),
     DataAccessAuthModule.forRoot(),
     DataAccessUsersModule.forRoot(),
