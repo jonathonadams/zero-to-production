@@ -15,14 +15,14 @@ import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
 import * as FormActions from './form-builder.actions';
 import { FormsService } from '../form-builder.service';
 import { FormsConstructorService } from '../form-constructor.service';
-import { FormsFacade } from './form-builder.facade';
+import { FormBuilderFacade } from './form-builder.facade';
 import { IFormBuilderStructure } from '@ngw/types';
 
 @Injectable()
 export class FormEffects {
   constructor(
     private actions$: Actions,
-    private facade: FormsFacade,
+    private facade: FormBuilderFacade,
     private formService: FormsService,
     private formConstructor: FormsConstructorService,
     private dynamicFormFacade: DynamicFormFacade

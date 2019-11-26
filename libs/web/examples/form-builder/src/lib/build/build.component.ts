@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
 import { RouterFacade } from '@ngw/data-access/router';
 import { IFormBuilderStructure } from '@ngw/types';
-import { FormsFacade } from '@ngw/data-access/form-builder';
+import { FormBuilderFacade } from '@ngw/data-access/form-builder';
 
 @Component({
   selector: 'ngw-example-form-build',
@@ -14,7 +14,7 @@ import { FormsFacade } from '@ngw/data-access/form-builder';
 export class ExampleBuildFormComponent {
   selectedForm$: Observable<IFormBuilderStructure | undefined>;
 
-  constructor(private facade: FormsFacade, private router: RouterFacade) {
+  constructor(private facade: FormBuilderFacade, private router: RouterFacade) {
     this.selectedForm$ = this.facade.selectedForm$;
   }
 

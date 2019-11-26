@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
-import { FormsFacade } from '../+state/form-builder.facade';
+import { FormBuilderFacade } from '../+state/form-builder.facade';
 import { TFormGroups, IFormBuilderStructure } from '@ngw/types';
 import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
-import { Subscription } from 'rxjs';
 
 const STRUCTURE: TFormGroups = [
   {
@@ -15,7 +15,7 @@ const STRUCTURE: TFormGroups = [
         componentType: FormFieldTypes.Input,
         type: 'text',
         name: 'formName',
-        label: 'FormName',
+        label: 'Form Name',
         validators: [Validators.required]
       }
     ]
@@ -32,7 +32,7 @@ export class CreateFormComponent implements OnInit {
   sub: Subscription;
 
   constructor(
-    private facade: FormsFacade,
+    private facade: FormBuilderFacade,
     private dynamicFormFacade: DynamicFormFacade
   ) {
     this.sub = this.dynamicFormFacade.submit$.subscribe(

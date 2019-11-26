@@ -119,6 +119,7 @@ export interface IFormBuilderStructure {
   config: {
     formName: string;
     animations?: boolean;
+    pagination?: boolean;
   };
   formGroups: IFormBuilderGroup[];
 }

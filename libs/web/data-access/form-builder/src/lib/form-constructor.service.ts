@@ -9,17 +9,11 @@ import {
 } from '@ngw/types';
 import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
 
+import map from 'ramda/es/map';
+
 @Injectable({ providedIn: 'root' })
 export class FormsConstructorService {
-  createFormGroupStructure(group: IFormBuilderGroup): IFormGroup {
-    return {
-      formGroup: group.groupName,
-      groupType: FormGroupTypes.Group,
-      fields: group.fields.map(field => this.createFormField(field))
-    };
-  }
-
-  createFormField(field: IFormBuilderField): TField {
+  mapToFormField(field: IFormBuilderField): TField {
     return {
       componentType: FormFieldTypes.Input, // TODO -> Dynamic
       name: field.fieldName,
@@ -28,13 +22,17 @@ export class FormsConstructorService {
     };
   }
 
+  mapToFormGroup(group: IFormBuilderGroup): IFormGroup {
+    return {
+      formGroup: group.groupName,
+      groupType: FormGroupTypes.Group,
+      fields: map(this.mapToFormField, group.fields)
+    };
+  }
+
   creteDyanmicFormStructureFromBuilderConfig(
     structure: IFormBuilderStructure
   ): TFormGroups {
-    const STRUCTURE = structure.formGroups.map(group =>
-      this.createFormGroupStructure(group)
-    );
-
-    return STRUCTURE;
+    return map(this.mapToFormGroup, structure.formGroups);
   }
 }

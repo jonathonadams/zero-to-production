@@ -6,7 +6,7 @@ import * as FromActions from './form-builder.actions';
 import { IFormBuilderStructure } from '@ngw/types';
 
 @Injectable({ providedIn: 'root' })
-export class FormsFacade {
+export class FormBuilderFacade {
   form$: Observable<IFormBuilderStructure[]>;
   selectedForm$: Observable<IFormBuilderStructure | undefined>;
 

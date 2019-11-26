@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FormsFacade } from '@ngw/data-access/form-builder';
+import { FormBuilderFacade } from '@ngw/data-access/form-builder';
 import { RouterFacade } from '@ngw/data-access/router';
 import { IFormBuilderStructure } from '@ngw/types';
 
@@ -14,7 +14,7 @@ export class ExampleCreateFormComponent {
   form$: Observable<IFormBuilderStructure[]>;
 
   constructor(
-    private formsFacade: FormsFacade,
+    private formsFacade: FormBuilderFacade,
     private routerFacade: RouterFacade
   ) {
     this.form$ = this.formsFacade.form$;
