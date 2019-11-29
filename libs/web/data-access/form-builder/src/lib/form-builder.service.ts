@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { FetchResult } from 'apollo-link';
-import { IFormBuilderStructure } from '@ngw/types';
+import { IFormBuilderStructure } from './form-builder.models';
 
 @Injectable({ providedIn: 'root' })
 export class FormsService {

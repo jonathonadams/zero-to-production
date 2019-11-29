@@ -1,10 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
+import {
+  DynamicFormFacade,
+  TFormGroups,
+  FormGroupTypes,
+  FormFieldTypes
+} from '@ngw/data-access/dynamic-form';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
-import { TFormGroups, IFormBuilderStructure } from '@ngw/types';
-import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
+import { IFormBuilderStructure } from '../form-builder.models';
 
 const STRUCTURE: TFormGroups = [
   {

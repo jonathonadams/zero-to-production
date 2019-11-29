@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
-import { IFormBuilderStructure } from '@ngw/types';
+import { IFormBuilderStructure } from '../form-builder.models';
 
 @Component({
   selector: 'ngw-form-builder',

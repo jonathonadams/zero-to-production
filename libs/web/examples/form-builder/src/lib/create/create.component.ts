@@ -1,8 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FormBuilderFacade } from '@ngw/data-access/form-builder';
+import {
+  FormBuilderFacade,
+  IFormBuilderStructure
+} from '@ngw/data-access/form-builder';
 import { RouterFacade } from '@ngw/data-access/router';
-import { IFormBuilderStructure } from '@ngw/types';
 
 @Component({
   selector: 'ngw-example-form-create',

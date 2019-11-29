@@ -1,17 +1,17 @@
-export enum FormGroupTypes {
-  Group = 'GROUP',
-  Array = 'ARRAY'
-}
+// export enum FormGroupTypes {
+//   Group,
+//   Array
+// }
 
-export enum FormArrayTypes {
-  Group = 'GROUP',
-  Field = 'FIELD'
-}
+// export enum FormArrayTypes {
+//   Group,
+//   Field
+// }
 
-export enum FormFieldTypes {
-  Input = 'INPUT',
-  TextArea = 'TEXT_AREA',
-  Select = 'SELECT',
-  Toggle = 'TOGGLE',
-  DatePicker = 'DATE_PICKER'
-}
+// export enum FormFieldTypes {
+//   Input,
+//   TextArea,
+//   Select,
+//   Toggle,
+//   DatePicker
+// }

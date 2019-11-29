@@ -14,14 +14,13 @@ import {
   withLatestFrom,
   takeUntil
 } from 'rxjs/operators';
-import { TFormGroups } from '@ngw/types';
-import { FormGroupTypes } from '@ngw/enums';
 import { expandFromCenter } from '@ngw/common/animations';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
-import { DynamicFormService } from '../form.service';
+import { DynamicFormService } from '../dynamic-form.service';
 import { FormErrorsService } from '../form-errors/form-errors.service';
 import { FormErrorsComponent } from '../form-errors/form-errors.component';
+import { FormGroupTypes, TFormGroups } from '../dynamic-form.models';
 
 @Component({
   selector: 'app-dynamic-form',

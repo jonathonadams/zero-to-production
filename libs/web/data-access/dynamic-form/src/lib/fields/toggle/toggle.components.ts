@@ -1,7 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormGroupTypes } from '@ngw/enums';
-import { TField } from '@ngw/types';
+import { FormGroupTypes, TField } from '../../dynamic-form.models';
 
 @Component({
   selector: 'app-toggle',

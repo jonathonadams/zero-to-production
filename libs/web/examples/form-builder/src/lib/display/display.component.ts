@@ -1,8 +1,10 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { FormBuilderFacade } from '@ngw/data-access/form-builder';
-import { IFormBuilderStructure } from '@ngw/types';
+import {
+  FormBuilderFacade,
+  IFormBuilderStructure
+} from '@ngw/data-access/form-builder';
 import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
 
 @Component({

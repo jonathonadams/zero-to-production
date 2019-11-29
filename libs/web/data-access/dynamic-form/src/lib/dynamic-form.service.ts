@@ -9,8 +9,12 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-import { TField, TFormGroups } from '@ngw/types';
-import { FormGroupTypes, FormArrayTypes } from '@ngw/enums';
+import {
+  TFormGroups,
+  FormGroupTypes,
+  FormArrayTypes,
+  TField
+} from './dynamic-form.models';
 
 @Injectable({ providedIn: 'root' })
 export class DynamicFormService {

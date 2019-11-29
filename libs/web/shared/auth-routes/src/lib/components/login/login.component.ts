@@ -6,9 +6,13 @@ import {
 } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { ILoginCredentials, TFormGroups } from '@ngw/types';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
-import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
+import { ILoginCredentials } from '@ngw/types';
+import {
+  DynamicFormFacade,
+  TFormGroups,
+  FormGroupTypes,
+  FormFieldTypes
+} from '@ngw/data-access/dynamic-form';
 import { AuthFacade } from '@ngw/data-access/auth';
 
 const STRUCTURE: TFormGroups = [

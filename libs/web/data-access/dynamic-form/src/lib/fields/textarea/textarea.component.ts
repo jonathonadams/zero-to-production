@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { TField } from '@ngw/types';
-import { FormGroupTypes } from '@ngw/enums';
+import { TField, FormGroupTypes } from '../../dynamic-form.models';
 
 @Component({
   selector: 'app-form-textarea',

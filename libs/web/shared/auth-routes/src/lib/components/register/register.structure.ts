@@ -1,7 +1,11 @@
 import { Validators } from '@angular/forms';
+import {
+  IFormGroup,
+  FormGroupTypes,
+  FormFieldTypes,
+  TFormGroups
+} from '@ngw/data-access/dynamic-form';
 import { CustomUsernameComponent } from '../custom-username/custom-username.components';
-import { IFormGroup, TFormGroups } from '@ngw/types';
-import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
 import { UsernameAvailableValidator } from '../../validators/username-available.validator';
 import { passwordValidator } from '../../validators/auth.validators';
 

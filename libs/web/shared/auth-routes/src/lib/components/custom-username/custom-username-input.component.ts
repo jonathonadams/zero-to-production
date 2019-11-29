@@ -12,9 +12,9 @@ import { Observable, Subject } from 'rxjs';
 
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { TField } from '@ngw/types';
 import { AvailableStatus } from '@ngw/enums';
 import { AuthFacade } from '@ngw/data-access/auth';
+import { TField } from '@ngw/data-access/dynamic-form';
 
 @Component({
   selector: 'ngw-custom-username-input',

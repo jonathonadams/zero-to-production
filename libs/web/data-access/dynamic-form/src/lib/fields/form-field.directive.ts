@@ -10,8 +10,7 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { COMPONENT_MAP } from './component-map';
-import { FormGroupTypes } from '@ngw/enums';
-import { TField } from '@ngw/types';
+import { FormGroupTypes, TField } from '../dynamic-form.models';
 
 @Directive({
   selector: '[appDynamicFormField]'

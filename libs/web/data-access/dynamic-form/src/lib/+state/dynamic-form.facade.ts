@@ -5,7 +5,7 @@ import * as fromActions from './dynamic-form.actions';
 import * as fromSelectors from './dynamic-form.selectors';
 import { IDynamicFormConfig } from './dynamic-form.reducer';
 import { ValidatorFn, ValidationErrors } from '@angular/forms';
-import { TFormGroups } from '@ngw/types';
+import { TFormGroups } from '../dynamic-form.models';
 
 @Injectable({ providedIn: 'root' })
 export class DynamicFormFacade {

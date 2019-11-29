@@ -2,8 +2,10 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
 import { RouterFacade } from '@ngw/data-access/router';
-import { IFormBuilderStructure } from '@ngw/types';
-import { FormBuilderFacade } from '@ngw/data-access/form-builder';
+import {
+  FormBuilderFacade,
+  IFormBuilderStructure
+} from '@ngw/data-access/form-builder';
 
 @Component({
   selector: 'ngw-example-form-build',

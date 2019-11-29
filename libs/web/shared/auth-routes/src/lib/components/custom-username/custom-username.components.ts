@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { TField } from '@ngw/types';
+import { TField } from '@ngw/data-access/dynamic-form';
 
 @Component({
   selector: 'ngw-custom-username',

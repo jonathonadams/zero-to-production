@@ -1,7 +1,7 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as FormActions from './dynamic-form.actions';
 import { ValidatorFn, ValidationErrors } from '@angular/forms';
-import { TFormGroups } from '@ngw/types';
+import { TFormGroups } from '../dynamic-form.models';
 
 export interface DynamicFormState {
   config: IDynamicFormConfig;

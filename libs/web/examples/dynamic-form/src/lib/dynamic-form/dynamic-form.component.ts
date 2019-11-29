@@ -8,9 +8,12 @@ import {
 import { Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { TFormGroups } from '@ngw/types';
-import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
+import {
+  DynamicFormFacade,
+  TFormGroups,
+  FormGroupTypes,
+  FormFieldTypes
+} from '@ngw/data-access/dynamic-form';
 import { HighlightService } from '../highlight.service';
 
 const SIMPLE_FORM: TFormGroups = [
