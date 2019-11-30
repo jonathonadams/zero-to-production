@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { AuthenticationRoles } from '@ngw/enums';
+import { AuthenticationRoles } from '@uqt/enums';
 import { IFindByUsername } from './auth';
 
 export interface IUser {

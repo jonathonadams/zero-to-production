@@ -1,4 +1,4 @@
-import { IRefreshToken, IUser } from '@ngw/types';
+import { IRefreshToken, IUser } from '@uqt/types';
 
 export class MockRefreshTokenModel {
   static _token: IRefreshToken | null | undefined;

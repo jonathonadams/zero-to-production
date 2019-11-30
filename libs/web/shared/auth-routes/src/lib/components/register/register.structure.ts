@@ -4,7 +4,7 @@ import {
   FormGroupTypes,
   FormFieldTypes,
   TFormGroups
-} from '@ngw/data-access/dynamic-form';
+} from '@uqt/data-access/dynamic-form';
 import { CustomUsernameComponent } from '../custom-username/custom-username.components';
 import { UsernameAvailableValidator } from '../../validators/username-available.validator';
 import { passwordValidator } from '../../validators/auth.validators';

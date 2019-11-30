@@ -3,59 +3,59 @@
   "compilerOptions": {
     "paths": {
       "@app-testing/*": ["testing/src/*"],
-      "@ngw/common/ui/side-nav": ["libs/web/common/ui/side-nav/src/index.ts"],
-      "@ngw/data-access/api": ["libs/web/data-access/api/src/index.ts"],
-      "@ngw/data-access/auth": ["libs/web/data-access/auth/src/index.ts"],
-      "@ngw/common/ui/custom-material": [
+      "@uqt/common/ui/side-nav": ["libs/web/common/ui/side-nav/src/index.ts"],
+      "@uqt/data-access/api": ["libs/web/data-access/api/src/index.ts"],
+      "@uqt/data-access/auth": ["libs/web/data-access/auth/src/index.ts"],
+      "@uqt/common/ui/custom-material": [
         "libs/web/common/ui/custom-material/src/index.ts"
       ],
-      "@ngw/common/ui/toolbar": ["libs/web/common/ui/toolbar/src/index.ts"],
-      "@ngw/utils/overlay": ["libs/web/utils/overlay/src/index.ts"],
-      "@ngw/utils/notifications": ["libs/web/utils/notifications/src/index.ts"],
-      "@ngw/utils/errors": ["libs/web/utils/errors/src/index.ts"],
-      "@ngw/types": ["libs/shared/types/src/index.ts"],
-      "@ngw/enums": ["libs/shared/enums/src/index.ts"],
-      "@ngw/utils/auth": ["libs/shared/utils/auth/src/index.ts"],
-      "@ngw/data-access/users": ["libs/web/data-access/users/src/index.ts"],
-      "@ngw/common/theme": ["libs/web/common/theme/src/index.ts"],
-      "@ngw/dashboard": ["libs/web/shared/dashboard/src/index.ts"],
-      "@ngw/todos/feature-shell": ["libs/web/todos/feature-shell/src/index.ts"],
-      "@ngw/todos/data-access": ["libs/web/todos/data-access/src/index.ts"],
-      "@ngw/todos/todo-detail": ["libs/web/todos/todo-detail/src/index.ts"],
-      "@ngw/todos/all-todos": ["libs/web/todos/all-todos/src/index.ts"],
-      "@ngw/common/ui/layouts": ["libs/web/common/ui/layouts/src/index.ts"],
-      "@ngw/shared/floating-menu": [
+      "@uqt/common/ui/toolbar": ["libs/web/common/ui/toolbar/src/index.ts"],
+      "@uqt/utils/overlay": ["libs/web/utils/overlay/src/index.ts"],
+      "@uqt/utils/notifications": ["libs/web/utils/notifications/src/index.ts"],
+      "@uqt/utils/errors": ["libs/web/utils/errors/src/index.ts"],
+      "@uqt/types": ["libs/shared/types/src/index.ts"],
+      "@uqt/enums": ["libs/shared/enums/src/index.ts"],
+      "@uqt/utils/auth": ["libs/shared/utils/auth/src/index.ts"],
+      "@uqt/data-access/users": ["libs/web/data-access/users/src/index.ts"],
+      "@uqt/common/theme": ["libs/web/common/theme/src/index.ts"],
+      "@uqt/dashboard": ["libs/web/shared/dashboard/src/index.ts"],
+      "@uqt/todos/feature-shell": ["libs/web/todos/feature-shell/src/index.ts"],
+      "@uqt/todos/data-access": ["libs/web/todos/data-access/src/index.ts"],
+      "@uqt/todos/todo-detail": ["libs/web/todos/todo-detail/src/index.ts"],
+      "@uqt/todos/all-todos": ["libs/web/todos/all-todos/src/index.ts"],
+      "@uqt/common/ui/layouts": ["libs/web/common/ui/layouts/src/index.ts"],
+      "@uqt/shared/floating-menu": [
         "libs/web/shared/floating-menu/src/index.ts"
       ],
-      "@ngw/api/auth": ["libs/api/auth/src/index.ts"],
-      "@ngw/shared/profile": ["libs/web/shared/profile/src/index.ts"],
-      "@ngw/data-access/router": ["libs/web/data-access/router/src/index.ts"],
-      "@ngw/data-access/dynamic-form": [
+      "@uqt/api/auth": ["libs/api/auth/src/index.ts"],
+      "@uqt/shared/profile": ["libs/web/shared/profile/src/index.ts"],
+      "@uqt/data-access/router": ["libs/web/data-access/router/src/index.ts"],
+      "@uqt/data-access/dynamic-form": [
         "libs/web/data-access/dynamic-form/src/index.ts"
       ],
-      "@ngw/data-access/service-worker": [
+      "@uqt/data-access/service-worker": [
         "libs/web/data-access/service-worker/src/index.ts"
       ],
-      "@ngw/api/middleware": ["libs/api/middleware/src/index.ts"],
-      "@ngw/api/utils": ["libs/api/utils/src/index.ts"],
-      "@ngw/common/animations": ["libs/web/common/animations/src/index.ts"],
-      "@ngw/utils/storage": ["libs/web/utils/storage/src/index.ts"],
-      "@ngw/data-access/form-builder": [
+      "@uqt/api/middleware": ["libs/api/middleware/src/index.ts"],
+      "@uqt/api/utils": ["libs/api/utils/src/index.ts"],
+      "@uqt/common/animations": ["libs/web/common/animations/src/index.ts"],
+      "@uqt/utils/storage": ["libs/web/utils/storage/src/index.ts"],
+      "@uqt/data-access/form-builder": [
         "libs/web/data-access/form-builder/src/index.ts"
       ],
-      "@ngw/examples": ["libs/web/examples/feature-shell/src/index.ts"],
-      "@ngw/examples/data-access": [
+      "@uqt/examples": ["libs/web/examples/feature-shell/src/index.ts"],
+      "@uqt/examples/data-access": [
         "libs/web/examples/data-access/src/index.ts"
       ],
-      "@ngw/shared/auth-routes": ["libs/web/shared/auth-routes/src/index.ts"],
-      "@ngw/examples/form-builder": [
+      "@uqt/shared/auth-routes": ["libs/web/shared/auth-routes/src/index.ts"],
+      "@uqt/examples/form-builder": [
         "libs/web/examples/form-builder/src/index.ts"
       ],
-      "@ngw/examples/dynamic-form": [
+      "@uqt/examples/dynamic-form": [
         "libs/web/examples/dynamic-form/src/index.ts"
       ],
-      "@ngw/examples/theming": ["libs/web/examples/theming/src/index.ts"],
-      "@ngw/common/ui/card": ["libs/web/common/ui/card/src/index.ts"]
+      "@uqt/examples/theming": ["libs/web/examples/theming/src/index.ts"],
+      "@uqt/common/ui/card": ["libs/web/common/ui/card/src/index.ts"]
     }
   }
 }

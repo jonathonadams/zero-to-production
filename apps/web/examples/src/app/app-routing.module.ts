@@ -5,7 +5,7 @@ const ROUTES: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('@ngw/examples').then(m => m.ExamplesFeatureShellModule)
+      import('@uqt/examples').then(m => m.ExamplesFeatureShellModule)
   }
 ];
 

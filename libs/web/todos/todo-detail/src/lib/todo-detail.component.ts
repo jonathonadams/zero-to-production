@@ -7,15 +7,15 @@ import {
 import { Validators } from '@angular/forms';
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { filter, withLatestFrom, takeUntil, first, skip } from 'rxjs/operators';
-import { ITodo } from '@ngw/types';
-import { TodosFacade } from '@ngw/todos/data-access';
+import { ITodo } from '@uqt/types';
+import { TodosFacade } from '@uqt/todos/data-access';
 import {
   DynamicFormFacade,
   TFormGroups,
   FormGroupTypes,
   FormFieldTypes
-} from '@ngw/data-access/dynamic-form';
-import { RouterFacade } from '@ngw/data-access/router';
+} from '@uqt/data-access/dynamic-form';
+import { RouterFacade } from '@uqt/data-access/router';
 
 const STRUCTURE: TFormGroups = [
   {

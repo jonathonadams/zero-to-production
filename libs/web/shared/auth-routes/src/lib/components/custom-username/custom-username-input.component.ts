@@ -12,12 +12,12 @@ import { Observable, Subject } from 'rxjs';
 
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { AvailableStatus } from '@ngw/enums';
-import { AuthFacade } from '@ngw/data-access/auth';
-import { TField } from '@ngw/data-access/dynamic-form';
+import { AvailableStatus } from '@uqt/enums';
+import { AuthFacade } from '@uqt/data-access/auth';
+import { TField } from '@uqt/data-access/dynamic-form';
 
 @Component({
-  selector: 'ngw-custom-username-input',
+  selector: 'uqt-custom-username-input',
   templateUrl: './custom-username-input.component.html',
   styleUrls: ['./custom-username-input.component.scss'],
   providers: [

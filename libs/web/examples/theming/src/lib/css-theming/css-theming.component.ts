@@ -4,9 +4,9 @@ import {
   TFormGroups,
   FormGroupTypes,
   FormFieldTypes
-} from '@ngw/data-access/dynamic-form';
-import { ThemeService } from '@ngw/common/theme';
-import { HighlightService } from '@ngw/examples';
+} from '@uqt/data-access/dynamic-form';
+import { ThemeService } from '@uqt/common/theme';
+import { HighlightService } from '@uqt/examples';
 
 export const THEME_GROUP: TFormGroups = [
   {

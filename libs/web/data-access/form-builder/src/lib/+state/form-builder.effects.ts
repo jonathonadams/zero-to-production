@@ -11,7 +11,7 @@ import {
   filter
 } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
+import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 import * as FormActions from './form-builder.actions';
 import { FormsService } from '../form-builder.service';
 import { FormsConstructorService } from '../form-constructor.service';

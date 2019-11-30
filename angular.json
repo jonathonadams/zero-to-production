@@ -881,7 +881,7 @@
       "projectType": "library",
       "root": "libs/web/data-access/service-worker",
       "sourceRoot": "libs/web/data-access/service-worker/src",
-      "prefix": "ngw",
+      "prefix": "uqt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -965,7 +965,7 @@
       "projectType": "library",
       "root": "libs/web/common/animations",
       "sourceRoot": "libs/web/common/animations/src",
-      "prefix": "ngw",
+      "prefix": "uqt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -996,7 +996,7 @@
       "projectType": "library",
       "root": "libs/web/utils/storage",
       "sourceRoot": "libs/web/utils/storage/src",
-      "prefix": "ngw",
+      "prefix": "uqt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -1027,7 +1027,7 @@
       "projectType": "library",
       "root": "libs/web/data-access/form-builder",
       "sourceRoot": "libs/web/data-access/form-builder/src",
-      "prefix": "ngw",
+      "prefix": "uqt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -1061,7 +1061,7 @@
       "projectType": "library",
       "root": "libs/web/examples/feature-shell",
       "sourceRoot": "libs/web/examples/feature-shell/src",
-      "prefix": "ngw",
+      "prefix": "uqt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -1100,7 +1100,7 @@
       },
       "root": "apps/web/examples",
       "sourceRoot": "apps/web/examples/src",
-      "prefix": "ngw",
+      "prefix": "uqt",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -1218,7 +1218,7 @@
       "projectType": "library",
       "root": "libs/web/examples/data-access",
       "sourceRoot": "libs/web/examples/data-access/src",
-      "prefix": "ngw",
+      "prefix": "uqt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -1252,7 +1252,7 @@
       "projectType": "library",
       "root": "libs/web/shared/auth-routes",
       "sourceRoot": "libs/web/shared/auth-routes/src",
-      "prefix": "ngw",
+      "prefix": "uqt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",

@@ -6,7 +6,7 @@ import { FormBuilderFacade } from '../+state/form-builder.facade';
 import { IFormBuilderStructure } from '../form-builder.models';
 
 @Component({
-  selector: 'ngw-form-builder',
+  selector: 'uqt-form-builder',
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -4,8 +4,8 @@ import {
   loginRedirect,
   logoutRedirect,
   registerRedirect
-} from '@ngw/data-access/auth';
-import { RouterFacade } from '@ngw/data-access/router';
+} from '@uqt/data-access/auth';
+import { RouterFacade } from '@uqt/data-access/router';
 import { tap } from 'rxjs/operators';
 
 @Injectable({

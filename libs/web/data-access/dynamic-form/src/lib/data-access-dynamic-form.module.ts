@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
+import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { DynamicFormComponent } from './form/form.component';
 import { FormInputComponent } from './fields/input/input.component';
 import { FormSelectComponent } from './fields/select/select.component';

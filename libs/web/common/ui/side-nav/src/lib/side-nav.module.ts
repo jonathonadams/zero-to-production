@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
+import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { CommonUiSideNavComponent } from './side-nav.component';
 import {
   reducer,

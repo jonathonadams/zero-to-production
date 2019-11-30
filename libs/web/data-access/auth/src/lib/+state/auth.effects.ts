@@ -3,12 +3,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { exhaustMap, map, tap, catchError } from 'rxjs/operators';
 import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
-import { NotificationService } from '@ngw/utils/notifications';
+import { NotificationService } from '@uqt/utils/notifications';
 import * as AuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
 import { JWTAuthService } from '../services/jwt-auth.service';
-import { IUser, ILoginResponse } from '@ngw/types';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
+import { IUser, ILoginResponse } from '@uqt/types';
+import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 
 @Injectable()
 export class AuthEffects {

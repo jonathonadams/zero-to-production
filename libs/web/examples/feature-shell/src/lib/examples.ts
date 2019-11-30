@@ -1,4 +1,4 @@
-import { IExample } from '@ngw/types';
+import { IExample } from '@uqt/types';
 
 // TODO -> link to the correct github repo
 

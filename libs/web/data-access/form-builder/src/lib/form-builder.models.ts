@@ -1,4 +1,4 @@
-import { FormFieldTypes } from '@ngw/data-access/dynamic-form';
+import { FormFieldTypes } from '@uqt/data-access/dynamic-form';
 
 /**
  * The below is for the form builder

@@ -5,7 +5,7 @@ import {
   TFormGroups,
   FormFieldTypes,
   FormGroupTypes
-} from '@ngw/data-access/dynamic-form';
+} from '@uqt/data-access/dynamic-form';
 
 import map from 'ramda/es/map';
 import {

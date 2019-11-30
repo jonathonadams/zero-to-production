@@ -14,7 +14,7 @@ import {
   withLatestFrom,
   takeUntil
 } from 'rxjs/operators';
-import { expandFromCenter } from '@ngw/common/animations';
+import { expandFromCenter } from '@uqt/common/animations';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
 import { DynamicFormService } from '../dynamic-form.service';

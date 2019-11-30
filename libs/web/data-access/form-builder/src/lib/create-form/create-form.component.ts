@@ -6,7 +6,7 @@ import {
   TFormGroups,
   FormGroupTypes,
   FormFieldTypes
-} from '@ngw/data-access/dynamic-form';
+} from '@uqt/data-access/dynamic-form';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
 import { IFormBuilderStructure } from '../form-builder.models';
 
@@ -27,7 +27,7 @@ const STRUCTURE: TFormGroups = [
 ];
 
 @Component({
-  selector: 'ngw-form-builder-create',
+  selector: 'uqt-form-builder-create',
   templateUrl: './create-form.component.html',
   styleUrls: ['./create-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

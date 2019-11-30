@@ -10,10 +10,10 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { DataAccessApiModule } from '@ngw/data-access/api';
-import { DataAccessAuthModule } from '@ngw/data-access/auth';
-import { DataAccessUsersModule } from '@ngw/data-access/users';
-import { DataAccessRouterModule } from '@ngw/data-access/router';
+import { DataAccessApiModule } from '@uqt/data-access/api';
+import { DataAccessAuthModule } from '@uqt/data-access/auth';
+import { DataAccessUsersModule } from '@uqt/data-access/users';
+import { DataAccessRouterModule } from '@uqt/data-access/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { AppEffects } from './+state/app.effects';

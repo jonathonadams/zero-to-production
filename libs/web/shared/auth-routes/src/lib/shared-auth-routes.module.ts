@@ -8,10 +8,10 @@ import { CustomUsernameComponent } from './components/custom-username/custom-use
 import { CustomUsernameInputComponent } from './components/custom-username/custom-username-input.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RouterModule } from '@angular/router';
-import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
+import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UsernameAvailableValidator } from './validators/username-available.validator';
-import { DataAccessDynamicFormModule } from '@ngw/data-access/dynamic-form';
+import { DataAccessDynamicFormModule } from '@uqt/data-access/dynamic-form';
 
 const COMPONENTS = [
   AuthComponent,

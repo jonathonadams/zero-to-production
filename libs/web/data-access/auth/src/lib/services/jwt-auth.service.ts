@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import jwtDecode from 'jwt-decode';
-import { IJWTPayload } from '@ngw/types';
+import { IJWTPayload } from '@uqt/types';
 
 @Injectable()
 export class JWTAuthService {

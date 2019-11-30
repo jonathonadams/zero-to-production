@@ -1,12 +1,12 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { ExamplesFacade } from '@ngw/examples/data-access';
+import { ExamplesFacade } from '@uqt/examples/data-access';
 import { Subscription } from 'rxjs';
-import { IExample } from '@ngw/types';
-import { RouterFacade } from '@ngw/data-access/router';
+import { IExample } from '@uqt/types';
+import { RouterFacade } from '@uqt/data-access/router';
 import { map, take } from 'rxjs/operators';
 
 @Component({
-  selector: 'ngw-example-detail',
+  selector: 'uqt-example-detail',
   templateUrl: './example-detail.component.html',
   styleUrls: ['./example-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

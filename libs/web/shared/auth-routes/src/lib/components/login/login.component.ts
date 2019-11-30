@@ -6,14 +6,14 @@ import {
 } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { ILoginCredentials } from '@ngw/types';
+import { ILoginCredentials } from '@uqt/types';
 import {
   DynamicFormFacade,
   TFormGroups,
   FormGroupTypes,
   FormFieldTypes
-} from '@ngw/data-access/dynamic-form';
-import { AuthFacade } from '@ngw/data-access/auth';
+} from '@uqt/data-access/dynamic-form';
+import { AuthFacade } from '@uqt/data-access/auth';
 
 const STRUCTURE: TFormGroups = [
   {
@@ -41,7 +41,7 @@ const STRUCTURE: TFormGroups = [
 ];
 
 @Component({
-  selector: 'ngw-login',
+  selector: 'uqt-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

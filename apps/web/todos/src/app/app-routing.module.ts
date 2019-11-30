@@ -5,7 +5,7 @@ const ROUTES: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('@ngw/todos/feature-shell').then(m => m.TodosFeatureShellModule)
+      import('@uqt/todos/feature-shell').then(m => m.TodosFeatureShellModule)
   }
 ];
 

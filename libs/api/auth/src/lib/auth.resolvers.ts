@@ -1,6 +1,6 @@
 import { GraphQLFieldResolver } from 'graphql';
 import { loginController, registerController } from './auth.controllers';
-import { IUserModel, IUser, IVerificationTokenModel } from '@ngw/types';
+import { IUserModel, IUser, IVerificationTokenModel } from '@uqt/types';
 
 /**
  *  A function that handles logging a user in

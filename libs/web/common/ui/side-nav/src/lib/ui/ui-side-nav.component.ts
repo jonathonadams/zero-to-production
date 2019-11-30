@@ -6,11 +6,11 @@ import {
   EventEmitter
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ISideNaveRoute } from '@ngw/types';
-import { slideInAnimation } from '@ngw/common/animations';
+import { ISideNaveRoute } from '@uqt/types';
+import { slideInAnimation } from '@uqt/common/animations';
 
 @Component({
-  selector: 'ngw-ui-side-nav',
+  selector: 'uqt-ui-side-nav',
   templateUrl: './ui-side-nav.component.html',
   styleUrls: ['./ui-side-nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

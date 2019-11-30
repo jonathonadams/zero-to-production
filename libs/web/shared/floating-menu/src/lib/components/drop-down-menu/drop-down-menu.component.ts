@@ -6,11 +6,11 @@ import {
 } from '@angular/core';
 import { take, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { IUser } from '@ngw/types';
-import { UsersFacade } from '@ngw/data-access/users';
+import { IUser } from '@uqt/types';
+import { UsersFacade } from '@uqt/data-access/users';
 
 @Component({
-  selector: 'ngw-drop-down-menu',
+  selector: 'uqt-drop-down-menu',
   templateUrl: './drop-down-menu.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

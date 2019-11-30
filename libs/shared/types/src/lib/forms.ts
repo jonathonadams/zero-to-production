@@ -1,6 +1,6 @@
 // import { ValidatorFn, AsyncValidator } from '@angular/forms';
 // import { Type } from '@angular/core';
-// import { FormGroupTypes, FormArrayTypes, FormFieldTypes } from '@ngw/enums';
+// import { FormGroupTypes, FormArrayTypes, FormFieldTypes } from '@uqt/enums';
 
 // export type TField =
 //   | IInputField

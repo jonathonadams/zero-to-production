@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataAccessDynamicFormModule } from '@ngw/data-access/dynamic-form';
+import { DataAccessDynamicFormModule } from '@uqt/data-access/dynamic-form';
 import { WebExamplesThemingRouterModule } from './web-examples-theming-routing.module';
 import { CssThemingComponent } from './css-theming/css-theming.component';
 

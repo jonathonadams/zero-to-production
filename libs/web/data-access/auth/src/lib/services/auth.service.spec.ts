@@ -3,16 +3,16 @@ import { GraphQLError } from 'graphql';
 import { createSpyObj } from '@app-testing/frontend/helpers';
 import { GraphQLStub } from '@app-testing/frontend/stubs/graphql.stubs';
 import { HttpStub } from '@app-testing/frontend/stubs/http.stubs';
-import { GraphQLService, ApiService } from '@ngw/data-access/api';
+import { GraphQLService, ApiService } from '@uqt/data-access/api';
 import {
   ILoginCredentials,
   ILoginResponse,
   IUser,
   IRegistrationDetails
-} from '@ngw/types';
+} from '@uqt/types';
 import { AuthService } from './auth.service';
 import { JWTAuthService } from './jwt-auth.service';
-import { AuthenticationRoles } from '@ngw/enums';
+import { AuthenticationRoles } from '@uqt/enums';
 
 describe('AuthService', () => {
   let authService: AuthService;

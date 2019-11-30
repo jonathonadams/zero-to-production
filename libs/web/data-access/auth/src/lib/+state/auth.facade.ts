@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
-import { ILoginCredentials, IRegistrationDetails } from '@ngw/types';
+import { ILoginCredentials, IRegistrationDetails } from '@uqt/types';
 import { Observable } from 'rxjs';
 import { selectLoggedInStatus, selectAvailability } from './auth.selectors';
-import { AvailableStatus } from '@ngw/enums';
+import { AvailableStatus } from '@uqt/enums';
 
 @Injectable()
 export class AuthFacade {

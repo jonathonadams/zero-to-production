@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ExampleCreateFormComponent } from './create/create.component';
 import { ExampleBuildFormComponent } from './build/build.component';
 import { ExampleDisplayFormComponent } from './display/display.component';
-import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
-import { DataAccessDynamicFormModule } from '@ngw/data-access/dynamic-form';
-import { DataAccessFormBuilderModule } from '@ngw/data-access/form-builder';
+import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
+import { DataAccessDynamicFormModule } from '@uqt/data-access/dynamic-form';
+import { DataAccessFormBuilderModule } from '@uqt/data-access/form-builder';
 import { ExamplesFormBuilderRouterModule } from './examples-form-builder-router.module';
 
 const COMPONENTS = [

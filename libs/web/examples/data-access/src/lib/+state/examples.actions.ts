@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IExample } from '@ngw/types';
+import { IExample } from '@uqt/types';
 
 export const selectExample = createAction(
   '[Example/UI] Select',

@@ -1,4 +1,4 @@
-import { IUser } from '@ngw/types';
+import { IUser } from '@uqt/types';
 import {
   createFeatureSelector,
   createSelector,

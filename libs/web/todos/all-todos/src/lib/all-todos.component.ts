@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatSelectChange } from '@angular/material/select';
-import { ITodo } from '@ngw/types';
-import { TodoFilterStatus } from '@ngw/enums';
-import { TodosFacade } from '@ngw/todos/data-access';
+import { ITodo } from '@uqt/types';
+import { TodoFilterStatus } from '@uqt/enums';
+import { TodosFacade } from '@uqt/todos/data-access';
 import { UiFilterTodosComponent } from './ui/filter-todos/ui-filter-todos.component';
 
 @Component({

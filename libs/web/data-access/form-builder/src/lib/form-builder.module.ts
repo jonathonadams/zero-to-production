@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataAccessDynamicFormModule } from '@ngw/data-access/dynamic-form';
+import { DataAccessDynamicFormModule } from '@uqt/data-access/dynamic-form';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
-import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
+import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { StoreModule } from '@ngrx/store';
 import { FormsEntityState, reducer } from './+state/form-builder.reducer';
 import { EffectsModule } from '@ngrx/effects';

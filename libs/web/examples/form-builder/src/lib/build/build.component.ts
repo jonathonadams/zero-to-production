@@ -1,14 +1,14 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
-import { RouterFacade } from '@ngw/data-access/router';
+import { RouterFacade } from '@uqt/data-access/router';
 import {
   FormBuilderFacade,
   IFormBuilderStructure
-} from '@ngw/data-access/form-builder';
+} from '@uqt/data-access/form-builder';
 
 @Component({
-  selector: 'ngw-example-form-build',
+  selector: 'uqt-example-form-build',
   templateUrl: './build.component.html',
   styleUrls: ['./build.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

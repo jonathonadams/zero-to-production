@@ -1,8 +1,8 @@
 import { ParameterizedContext } from 'koa';
 import Boom from '@hapi/boom';
-import { swapId } from '@ngw/api/utils';
+import { swapId } from '@uqt/api/utils';
 import { User } from './user.model';
-import { IUser } from '@ngw/types';
+import { IUser } from '@uqt/types';
 
 export async function params(
   id: string,

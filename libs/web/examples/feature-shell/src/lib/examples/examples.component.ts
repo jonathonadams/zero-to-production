@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ExamplesFacade } from '@ngw/examples/data-access';
-import { IExample } from '@ngw/types';
-import { RouterFacade } from '@ngw/data-access/router';
+import { ExamplesFacade } from '@uqt/examples/data-access';
+import { IExample } from '@uqt/types';
+import { RouterFacade } from '@uqt/data-access/router';
 
 @Component({
-  selector: 'ngw-examples',
+  selector: 'uqt-examples',
   templateUrl: './examples.component.html',
   styleUrls: ['./examples.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

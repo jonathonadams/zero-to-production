@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
 import { randomBytes } from 'crypto';
-import { EnvironnementConfig } from '@ngw/types';
+import { EnvironnementConfig } from '@uqt/types';
 import { envToNumber } from './util';
 
 /**

@@ -2,15 +2,15 @@ import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
-import { IUser } from '@ngw/types';
-import { UsersFacade } from '@ngw/data-access/users';
-import { ThemeService } from '@ngw/common/theme';
+import { IUser } from '@uqt/types';
+import { UsersFacade } from '@uqt/data-access/users';
+import { ThemeService } from '@uqt/common/theme';
 
 // TODO -> Can Deactivate Guard -> Reset User Settings
 // TODO -> Theme / Language settings to be stored in local storage
 
 @Component({
-  selector: 'ngw-user-profile',
+  selector: 'uqt-user-profile',
   templateUrl: './user-profile.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

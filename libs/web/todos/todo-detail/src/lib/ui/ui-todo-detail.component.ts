@@ -7,7 +7,7 @@ import {
   Input
 } from '@angular/core';
 import { FormGroupDirective, FormGroup } from '@angular/forms';
-import { ITodo } from '@ngw/types';
+import { ITodo } from '@uqt/types';
 
 @Component({
   selector: 'todo-ui-todo-detail',

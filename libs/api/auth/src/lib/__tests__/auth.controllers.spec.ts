@@ -4,8 +4,8 @@ import {
   IRefreshTokenModel,
   IVerificationToken,
   IVerificationTokenModel
-} from '@ngw/types';
-import { AuthenticationRoles } from '@ngw/enums';
+} from '@uqt/types';
+import { AuthenticationRoles } from '@uqt/enums';
 import mongoose from 'mongoose';
 
 import {

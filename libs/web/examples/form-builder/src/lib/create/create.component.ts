@@ -3,11 +3,11 @@ import { Observable } from 'rxjs';
 import {
   FormBuilderFacade,
   IFormBuilderStructure
-} from '@ngw/data-access/form-builder';
-import { RouterFacade } from '@ngw/data-access/router';
+} from '@uqt/data-access/form-builder';
+import { RouterFacade } from '@uqt/data-access/router';
 
 @Component({
-  selector: 'ngw-example-form-create',
+  selector: 'uqt-example-form-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

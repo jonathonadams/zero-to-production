@@ -7,8 +7,8 @@ import {
   TFormGroups,
   FormGroupTypes,
   FormFieldTypes
-} from '@ngw/data-access/dynamic-form';
-import { HighlightService } from '@ngw/examples';
+} from '@uqt/data-access/dynamic-form';
+import { HighlightService } from '@uqt/examples';
 
 const SIMPLE_FORM: TFormGroups = [
   {

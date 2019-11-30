@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { NotificationService } from '@ngw/utils/notifications';
+import { NotificationService } from '@uqt/utils/notifications';
 import * as ErrorActions from './error.actions';
 
 @Injectable()

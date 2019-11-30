@@ -2,13 +2,13 @@ import { randomBytes } from 'crypto';
 import { verify } from 'jsonwebtoken';
 import { compare, hash } from 'bcryptjs';
 import Boom from '@hapi/boom';
-import { isPasswordAllowed, userToJSON } from '@ngw/utils/auth';
+import { isPasswordAllowed, userToJSON } from '@uqt/utils/auth';
 import {
   IUser,
   IUserModel,
   IRefreshTokenModel,
   IVerificationTokenModel
-} from '@ngw/types';
+} from '@uqt/types';
 import { signAccessToken, signRefreshToken } from './auth.utils';
 // TODO -> Refresh Token Model/Storage
 

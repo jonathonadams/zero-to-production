@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
   Input
 } from '@angular/core';
-import { IUser } from '@ngw/types';
+import { IUser } from '@uqt/types';
 
 /**
  * For the purpose of themeing, view encapsulation has been set to none.
@@ -16,7 +16,7 @@ import { IUser } from '@ngw/types';
  * eg do not use generic selectors life "container" etc
  */
 @Component({
-  selector: 'ngw-ui-drop-down-menu',
+  selector: 'uqt-ui-drop-down-menu',
   templateUrl: './ui-drop-down-menu.component.html',
   styleUrls: ['./ui-drop-down-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

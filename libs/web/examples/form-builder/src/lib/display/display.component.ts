@@ -4,11 +4,11 @@ import { filter } from 'rxjs/operators';
 import {
   FormBuilderFacade,
   IFormBuilderStructure
-} from '@ngw/data-access/form-builder';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
+} from '@uqt/data-access/form-builder';
+import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 
 @Component({
-  selector: 'ngw-example-form-display',
+  selector: 'uqt-example-form-display',
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

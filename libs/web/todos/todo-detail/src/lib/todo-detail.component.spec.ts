@@ -3,12 +3,12 @@ import { TodoDetailComponent } from './todo-detail.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TodosFacade } from '@ngw/todos/data-access';
+import { TodosFacade } from '@uqt/todos/data-access';
 import { Location } from '@angular/common';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '@app-testing/frontend/stubs/activated-router.stubs';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
+import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 
 // TODO -> TESTS -> Get from old
 describe('TodoDetailComponent', () => {
