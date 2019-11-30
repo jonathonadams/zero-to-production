@@ -1,17 +1,9 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-const ROUTES: Routes = [
-  {
-    path: '',
-    loadChildren: () =>
-      import('@uqt/examples').then(m => m.ExamplesFeatureShellModule)
-  }
-];
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(ROUTES, {
+    RouterModule.forRoot([], {
       initialNavigation: 'enabled',
       relativeLinkResolution: 'corrected'
     })
