@@ -35,12 +35,13 @@ export class ThemeService implements OnDestroy {
   }
 
   setThemeColors({
-    lightPrimary = '',
-    lightAccent = '',
-    darkPrimary = '',
-    darkAccent = ''
-  } = {}): void {
+    lightPrimary = null,
+    lightAccent = null,
+    darkPrimary = null,
+    darkAccent = null
+  }): void {
     const rootElement = this.document.querySelector(':root') as HTMLElement;
+
     rootElement.style.setProperty('--light-primary-color', lightPrimary);
     rootElement.style.setProperty('--light-accent-color', lightAccent);
     rootElement.style.setProperty('--dark-primary-color', darkPrimary);

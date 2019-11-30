@@ -26,10 +26,9 @@ export const EXAMPLES: IExample[] = [
   {
     id: '3',
     title: 'Themeing with CSS Variables',
-    descriptionShort:
-      'A demonstration of using dynamic forms and user created forms',
+    descriptionShort: 'Using CSS Variables to create user configurable Theme',
     descriptionFull:
-      'A demonstration of using dynamic forms and user created forms',
+      'Combing CSS Variables along with a Theming Service allows for create user configurable color pallet',
     url: 'theming',
     link: 'some-github-link'
   },
