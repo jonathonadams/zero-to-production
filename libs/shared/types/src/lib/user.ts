@@ -9,21 +9,10 @@ export interface IUser {
   surname: string;
   email: string;
   dateOfBirth: string;
-  settings: IUserSettings;
   role: AuthenticationRoles;
   active: boolean;
   isValid: boolean;
   hashedPassword?: string;
-}
-
-export interface IUserSettings {
-  darkMode: boolean;
-  colors: {
-    lightPrimary: string;
-    lightAccent: string;
-    darkPrimary: string;
-    darkAccent: string;
-  };
 }
 
 export interface IUserDocument extends IUser, mongoose.Document {

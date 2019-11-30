@@ -38,18 +38,6 @@ export const userSchema = new mongoose.Schema<IUser>(
       required: true,
       default: false
     },
-    settings: {
-      darkMode: {
-        type: Boolean,
-        required: true
-      },
-      colors: {
-        lightPrimary: String,
-        lightAccent: String,
-        darkPrimary: String,
-        darkAccent: String
-      }
-    },
     role: {
       type: Number,
       required: true,

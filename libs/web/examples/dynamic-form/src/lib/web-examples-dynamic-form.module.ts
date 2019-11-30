@@ -5,7 +5,6 @@ import { ExampleDynamicFormComponent } from './dynamic-form/dynamic-form.compone
 import { DataAccessDynamicFormModule } from '@ngw/data-access/dynamic-form';
 import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
 import { CommonUiCardModule } from '@ngw/common/ui/card';
-import { HighlightService } from './highlight.service';
 
 const COMPONENTS = [ExampleDynamicFormComponent];
 
@@ -17,7 +16,6 @@ const COMPONENTS = [ExampleDynamicFormComponent];
     ExamplesDynamicFormRouterModule,
     DataAccessDynamicFormModule
   ],
-  providers: [HighlightService],
   declarations: COMPONENTS
 })
 export class WebExamplesDynamicFormModule {}

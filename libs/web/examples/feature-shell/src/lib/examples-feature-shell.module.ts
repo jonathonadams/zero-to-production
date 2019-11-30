@@ -10,6 +10,7 @@ import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
 import { ExamplesDataAccessModule } from '@ngw/examples/data-access';
 import { ExampleDetailComponent } from './example-detail/example-detail.component';
 import { CommonUiLayoutsModule } from '@ngw/common/ui/layouts';
+import { ThemeService } from '@ngw/common/theme';
 
 const COMPONENTS = [
   ExamplesFeatureShellComponent,
@@ -28,6 +29,7 @@ const COMPONENTS = [
     ExamplesDataAccessModule,
     ExamplesFeatureShellRoutingModule
   ],
+  providers: [ThemeService],
   declarations: COMPONENTS
 })
 export class ExamplesFeatureShellModule {}

@@ -15,8 +15,10 @@ import { FormErrorPipe } from './form-errors/form-error.pipe';
 import { FormToggleComponent } from './fields/toggle/toggle.components';
 import { FormDatePickerComponent } from './fields/date-picker/date-picker.component';
 import { FormTextareaComponent } from './fields/textarea/textarea.component';
-import { DynamicFormService } from './dynamic-form.service';
 import { FormErrorsService } from './form-errors/form-errors.service';
+import { DynamicFormService } from './dynamic-form.service';
+
+// TODO -> Make this a root level module
 
 const ENTRY_COMPONENTS = [
   FormInputComponent,

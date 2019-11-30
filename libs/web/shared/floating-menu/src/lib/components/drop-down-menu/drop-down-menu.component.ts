@@ -26,11 +26,5 @@ export class DropDownMenuComponent {
     );
   }
 
-  toggleDarkMode(darkMode: boolean) {
-    // the user is only undefined when not logged in, it is safe to type cast here
-    (this.user$ as Observable<IUser>).pipe(take(1)).subscribe(user => {
-      const userSettings = { darkMode, colors: user.settings.colors };
-      this.userFacade.updateUser({ ...user, settings: userSettings });
-    });
-  }
+  toggleDarkMode(darkMode: boolean) {}
 }

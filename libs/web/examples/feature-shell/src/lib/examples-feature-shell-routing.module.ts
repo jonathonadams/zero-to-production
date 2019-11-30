@@ -31,12 +31,10 @@ export const EXAMPLES_ROUTES: Routes = [
           )
       },
       {
-        path: 'themeing',
+        path: 'theming',
         component: ExampleDetailComponent,
         loadChildren: () =>
-          import('@ngw/examples/themeing').then(
-            m => m.WebExamplesThemeingModule
-          )
+          import('@ngw/examples/theming').then(m => m.WebExamplesThemingModule)
       },
       {
         path: 'secure',

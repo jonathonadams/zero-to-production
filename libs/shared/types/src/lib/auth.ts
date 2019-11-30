@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { IUserDocument, IUserSettings } from './user';
+import { IUserDocument } from './user';
 
 export interface ILoginCredentials {
   username: string;
@@ -17,7 +17,6 @@ export interface IRegistrationDetails {
   surname: string;
   email: string;
   dateOfBirth: string;
-  settings: IUserSettings;
 }
 
 export interface IJWTPayload {

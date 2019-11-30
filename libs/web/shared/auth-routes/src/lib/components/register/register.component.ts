@@ -18,13 +18,6 @@ interface IRegistrationFormStructure {
     email: string;
     dateOfBirth: string;
   };
-  themeSettings: {
-    darkMode: boolean;
-    lightPrimary: string;
-    lightAccent: string;
-    darkPrimary: string;
-    darkAccent: string;
-  };
   password: {
     username: string;
     password: string;
@@ -65,17 +58,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   register(details: IRegistrationFormStructure): void {
-    // pop the darkMode off from the collection
-    const { darkMode, ...colors } = details.themeSettings;
-
     const settings: IRegistrationDetails = {
       username: details.password.username,
-      ...details.details,
-      settings: {
-        darkMode,
-        colors
-      },
-      password: details.password.password
+      password: details.password.password,
+      ...details.details
     };
 
     this.facade.register(settings);
