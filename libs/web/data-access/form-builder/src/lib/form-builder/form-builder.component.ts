@@ -4,7 +4,11 @@ import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
 import { IFormBuilderStructure } from '../form-builder.models';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  copyArrayItem
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'uqt-form-builder',
@@ -82,16 +86,34 @@ export class FormBuilderComponent {
   onSubmit({ valid, value }: FormGroup) {
     if (valid) {
       this.selectedForm$.pipe(take(1)).subscribe(form => {
+        console.log(form);
         this.facade.updateForm({ ...form, ...value });
       });
     }
   }
 
   reOrderFormGroups(event: CdkDragDrop<FormGroup[]>) {
+    // if (event.previousContainer === event.container) {
+    //   console.log('$$$$$$$$$$$$$$$$');
     moveItemInArray(
       this.formGroups.controls,
       event.previousIndex,
       event.currentIndex
     );
+    // } else {
+    //   console.log('#######################');
+    //   copyArrayItem(
+    //     event.previousContainer.data,
+    //     event.container.data,
+    //     event.previousIndex,
+    //     event.currentIndex
+    //   );
+    // }
+  }
+
+  drop(event: CdkDragDrop<FormGroup[]>) {
+    // const formGroup = this.createFormGroup()
+    this.addFormGroup();
+    console.log(event);
   }
 }
