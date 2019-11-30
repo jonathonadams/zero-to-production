@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
 import { IFormBuilderStructure } from '../form-builder.models';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'uqt-form-builder',
@@ -20,32 +21,22 @@ export class FormBuilderComponent {
 
     this.builderForm = this.fb.group({
       config: this.fb.group({
-        formName: [],
-        animations: [],
-        pagination: []
+        formName: [''],
+        animations: [true],
+        pagination: [true]
       }),
       formGroups: this.fb.array([])
     });
-
-    (this.selectedForm$ as Observable<IFormBuilderStructure>)
-      .pipe(
-        filter(config => config !== undefined),
-        take(1)
-      )
-      .subscribe(config => {
-        this.createFormFromStructure(config);
-        this.builderForm.reset(config);
-      });
   }
 
-  createFormFromStructure(structure: IFormBuilderStructure) {
-    structure.formGroups.forEach((group, i) => {
-      this.addFormGroup();
-      group.fields.forEach(field => {
-        this.addGroupField(i);
-      });
-    });
-  }
+  // createFormFromStructure(structure: IFormBuilderStructure) {
+  //   structure.formGroups.forEach((group, i) => {
+  //     this.addFormGroup();
+  //     group.fields.forEach(field => {
+  //       this.addGroupField(i);
+  //     });
+  //   });
+  // }
 
   get formGroups() {
     return this.builderForm.get('formGroups') as FormArray;
@@ -58,12 +49,14 @@ export class FormBuilderComponent {
   }
 
   addFormGroup() {
-    this.formGroups.push(
-      this.fb.group({
-        groupName: [],
-        fields: this.fb.array([])
-      })
-    );
+    this.formGroups.push(this.createFormGroup());
+  }
+
+  createFormGroup(): FormGroup {
+    return this.fb.group({
+      groupName: [],
+      fields: this.fb.array([])
+    });
   }
 
   addGroupField(groupIndex: number) {
@@ -92,5 +85,13 @@ export class FormBuilderComponent {
         this.facade.updateForm({ ...form, ...value });
       });
     }
+  }
+
+  reOrderFormGroups(event: CdkDragDrop<FormGroup[]>) {
+    moveItemInArray(
+      this.formGroups.controls,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
 }

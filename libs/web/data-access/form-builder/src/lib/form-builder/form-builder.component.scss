@@ -55,3 +55,16 @@
     margin-right: 0.5em;
   }
 }
+
+.move-handle {
+  cursor: move;
+}
+
+.draggable {
+  background-color: red;
+}
+
+.drop-list {
+  height: 200px;
+  background-color: blue;
+}

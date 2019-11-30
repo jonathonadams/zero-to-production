@@ -1,102 +1,111 @@
 <mat-card>
-  <mat-card-content>
-    <form [formGroup]="builderForm" (ngSubmit)="onSubmit(builderForm)">
-      <div class="config" formGroupName="config">
-        <mat-form-field class="form-field">
-          <mat-label>Form Name</mat-label>
-          <input matInput type="text" formControlName="formName" />
-        </mat-form-field>
+  <form [formGroup]="builderForm" (ngSubmit)="onSubmit(builderForm)">
+    <div class="config" formGroupName="config">
+      <mat-form-field class="form-field">
+        <mat-label>Form Name</mat-label>
+        <input matInput type="text" formControlName="formName" />
+      </mat-form-field>
 
-        <mat-slide-toggle formControlName="animations"
-          >Animations</mat-slide-toggle
-        >
+      <mat-slide-toggle formControlName="animations"
+        >Animations</mat-slide-toggle
+      >
 
-        <mat-slide-toggle formControlName="pagination"
-          >Section Pagination</mat-slide-toggle
-        >
-      </div>
-      <h3 class="heading">Form Groups</h3>
-      <div formArrayName="formGroups">
-        <mat-card
-          class="group-section mat-elevation-z2"
-          *ngFor="let group of formGroups.controls; let i = index"
-        >
-          <div [formGroupName]="i">
-            <div class="group-settings">
-              <mat-form-field>
-                <mat-label>Group Name</mat-label>
-                <input matInput type="text" formControlName="groupName" />
-              </mat-form-field>
+      <mat-slide-toggle formControlName="pagination"
+        >Section Pagination</mat-slide-toggle
+      >
+    </div>
+    <h3 class="heading">Form Sections</h3>
+    <div
+      formArrayName="formGroups"
+      cdkDropList
+      (cdkDropListDropped)="reOrderFormGroups($event)"
+    >
+      <mat-card
+        cdkDrag
+        class="group-section mat-elevation-z2"
+        *ngFor="let group of formGroups.controls; let i = index"
+      >
+        <div [formGroupName]="i">
+          <div class="group-settings">
+            <mat-form-field>
+              <mat-label>Group Name</mat-label>
+              <input matInput type="text" formControlName="groupName" />
+            </mat-form-field>
 
-              <button
-                mat-icon-button
-                type="button"
-                (click)="deleteFormGroup(i)"
-              >
-                <mat-icon>delete</mat-icon>
-              </button>
+            <button mat-icon-button type="button" (click)="deleteFormGroup(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <div class="move-handle" cdkDragHandle>
+              <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                ></path>
+                <path d="M0 0h24v24H0z" fill="none"></path>
+              </svg>
             </div>
-            <mat-divider [inset]="true"></mat-divider>
+          </div>
+          <mat-divider [inset]="true"></mat-divider>
 
-            <div class="group-fields" formArrayName="fields">
-              <h3 class="heading">Group Fields</h3>
-              <div
-                *ngFor="
-                  let field of getGroupFields(i).controls;
-                  let idx = index
-                "
-              >
-                <div [formGroupName]="idx" class="builder-field">
-                  <mat-form-field
-                    appearance="outline"
-                    class="form-field no-padding"
-                  >
-                    <mat-label>Field Name</mat-label>
-                    <input matInput type="text" formControlName="fieldName" />
-                  </mat-form-field>
+          <div class="group-fields" formArrayName="fields">
+            <h3 class="heading">Group Fields</h3>
+            <div
+              *ngFor="let field of getGroupFields(i).controls; let idx = index"
+            >
+              <div [formGroupName]="idx" class="builder-field">
+                <mat-form-field
+                  appearance="outline"
+                  class="form-field no-padding"
+                >
+                  <mat-label>Field Name</mat-label>
+                  <input matInput type="text" formControlName="fieldName" />
+                </mat-form-field>
 
-                  <mat-form-field
-                    appearance="outline"
-                    class="form-field no-padding"
-                  >
-                    <mat-label>Field Label (display)</mat-label>
-                    <input matInput type="text" formControlName="fieldLabel" />
-                  </mat-form-field>
+                <mat-form-field
+                  appearance="outline"
+                  class="form-field no-padding"
+                >
+                  <mat-label>Field Label (display)</mat-label>
+                  <input matInput type="text" formControlName="fieldLabel" />
+                </mat-form-field>
 
-                  <mat-form-field
-                    appearance="outline"
-                    class="form-field no-padding"
-                  >
-                    <mat-label>Field Type</mat-label>
-                    <mat-select formControlName="fieldType">
-                      <mat-option [value]="0">Text Field</mat-option>
-                      <mat-option [value]="1">Number Field</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <button
-                    mat-icon-button
-                    type="button"
-                    (click)="removeGroupField(i, idx)"
-                  >
-                    <mat-icon>clear</mat-icon>
-                  </button>
-                </div>
+                <mat-form-field
+                  appearance="outline"
+                  class="form-field no-padding"
+                >
+                  <mat-label>Field Type</mat-label>
+                  <mat-select formControlName="fieldType">
+                    <mat-option [value]="0">Text Field</mat-option>
+                    <mat-option [value]="1">Number Field</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <button
+                  mat-icon-button
+                  type="button"
+                  (click)="removeGroupField(i, idx)"
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
               </div>
             </div>
-            <button mat-icon-button type="button" (click)="addGroupField(i)">
-              <mat-icon>add</mat-icon>
-            </button>
           </div>
-        </mat-card>
-      </div>
-      <div class="action-buttons">
-        <button mat-stroked-button class="add" (click)="addFormGroup()">
-          Add Section
-        </button>
-        <button mat-raised-button color="primary" type="submit">
-          Save Properties
-        </button>
-      </div>
-    </form>
-  </mat-card-content>
+          <button mat-icon-button type="button" (click)="addGroupField(i)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+    </div>
+    <div class="action-buttons">
+      <button mat-stroked-button class="add" (click)="addFormGroup()">
+        Add Section
+      </button>
+      <button mat-raised-button color="primary" type="submit">
+        Save Properties
+      </button>
+    </div>
+  </form>
 </mat-card>
+
+<div>
+  <div cdkDrag class="draggable">Form Group</div>
+  <div cdkDrag class="draggable">Form Field</div>
+</div>

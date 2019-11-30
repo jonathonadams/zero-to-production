@@ -29,6 +29,16 @@ const STRUCTURE: TFormGroups = [
         name: 'formName',
         label: 'Form Name',
         validators: [Validators.required]
+      },
+      {
+        componentType: FormFieldTypes.Toggle,
+        name: 'animations',
+        label: 'Animations'
+      },
+      {
+        componentType: FormFieldTypes.Toggle,
+        name: 'pagination',
+        label: 'Section Pagination'
       }
     ]
   }
