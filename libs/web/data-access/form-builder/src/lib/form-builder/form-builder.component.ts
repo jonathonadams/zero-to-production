@@ -85,21 +85,26 @@ export class FormBuilderComponent {
 
   onSubmit({ valid, value }: FormGroup) {
     if (valid) {
-      this.selectedForm$.pipe(take(1)).subscribe(form => {
-        console.log(form);
-        this.facade.updateForm({ ...form, ...value });
-      });
+      console.log(value);
+      this.selectedForm$
+        .pipe(
+          take(1),
+          filter(val => val !== undefined)
+        )
+        .subscribe(form => {
+          this.facade.updateForm({ ...form, ...value });
+        });
     }
   }
 
   reOrderFormGroups(event: CdkDragDrop<FormGroup[]>) {
     // if (event.previousContainer === event.container) {
     //   console.log('$$$$$$$$$$$$$$$$');
-    moveItemInArray(
-      this.formGroups.controls,
-      event.previousIndex,
-      event.currentIndex
-    );
+    // moveItemInArray(
+    //   this.formGroups.controls,
+    //   event.previousIndex,
+    //   event.currentIndex
+    // );
     // } else {
     //   console.log('#######################');
     //   copyArrayItem(
@@ -109,6 +114,29 @@ export class FormBuilderComponent {
     //     event.currentIndex
     //   );
     // }
+    this.moveFormArrayGroup(
+      this.formGroups,
+      event.previousIndex,
+      event.currentIndex
+    );
+  }
+
+  /**
+   * Removes the FormGroup from it's current index and inserts it
+   * at the new index value
+   *
+   * @param arrayGroup
+   * @param currentIndex
+   * @param newIndex
+   */
+  moveFormArrayGroup(
+    arrayGroup: FormArray,
+    currentIndex: number,
+    newIndex: number
+  ): void {
+    const controlBeingRemoved = arrayGroup.at(currentIndex);
+    arrayGroup.removeAt(currentIndex);
+    arrayGroup.insert(newIndex, controlBeingRemoved);
   }
 
   drop(event: CdkDragDrop<FormGroup[]>) {
