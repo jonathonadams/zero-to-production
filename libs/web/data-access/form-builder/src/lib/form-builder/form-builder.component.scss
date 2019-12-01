@@ -17,35 +17,20 @@
 .form-builder {
   margin-left: 1em;
   flex: 5;
-}
 
-.sections {
-  min-height: 500px;
+  .form-sections {
+    min-height: 500px;
 
-  &.cdk-drop-list-dragging {
-    border-radius: 4px;
-    border: 1px dashed grey;
-  }
-}
-
-.heading {
-  margin: 0.5em 0;
-}
-
-.group-section {
-  margin-bottom: 1em;
-  .group-settings {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    .group-form-field {
-      width: 25em;
+    &.cdk-drop-list-dragging {
+      border-radius: 4px;
+      border: 1px dashed grey;
     }
   }
-  .group-fields {
-    margin-top: 1em;
-    .builder-field {
+
+  .group-section {
+    margin-bottom: 1em;
+
+    .group-settings {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -58,7 +43,6 @@
     .group-fields {
       margin-top: 1em;
       min-height: 5em;
-      background: blue;
 
       &.cdk-drop-list-dragging {
         border-radius: 4px;
@@ -72,22 +56,6 @@
       }
     }
   }
-}
-
-.action-buttons {
-  margin-top: 1em;
-  .add {
-    margin-right: 0.5em;
-  }
-}
-
-.move-handle {
-  cursor: move;
-}
-
-.drop-list {
-  height: 200px;
-  background-color: blue;
 }
 
 // Styling for the dragging preview

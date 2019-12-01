@@ -1,8 +1,12 @@
 <!-- TODO -> Section / Field preview and icons -->
 
-<aside class="toolbox" cdkDropList [cdkDropListConnectedTo]="['form-sections']">
-  <div cdkDrag class="toolbox-element">Form Group</div>
-  <div cdkDrag class="toolbox-element">Form Field</div>
+<aside class="toolbox">
+  <div cdkDropList [cdkDropListConnectedTo]="[formSections]">
+    <div cdkDrag class="toolbox-element">Form Group</div>
+  </div>
+  <div cdkDropList [cdkDropListConnectedTo]="[groupFields]">
+    <div cdkDrag class="toolbox-element">Form Field</div>
+  </div>
 </aside>
 
 <mat-divider [vertical]="true"></mat-divider>
@@ -27,11 +31,11 @@
       </button>
     </div>
     <div
-      id="form-sections"
-      class="sections"
+      class="form-sections"
       formArrayName="formGroups"
       cdkDropList
-      (cdkDropListDropped)="reOrderFormGroups($event)"
+      #formSections="cdkDropList"
+      (cdkDropListDropped)="formGroupDropped($event)"
     >
       <mat-card
         cdkDrag
@@ -59,32 +63,28 @@
           </div>
           <mat-divider [inset]="true"></mat-divider>
 
-          <div class="group-fields" formArrayName="fields">
-            <h3 class="heading">Group Fields</h3>
+          <div
+            class="group-fields"
+            formArrayName="fields"
+            cdkDropList
+            #groupFields="cdkDropList"
+            (cdkDropListDropped)="formFieldDropped(i)($event)"
+          >
             <div
               *ngFor="let field of getGroupFields(i).controls; let idx = index"
             >
               <div [formGroupName]="idx" class="builder-field">
-                <mat-form-field
-                  appearance="outline"
-                  class="form-field no-padding"
-                >
+                <mat-form-field appearance="outline">
                   <mat-label>Field Name</mat-label>
                   <input matInput type="text" formControlName="fieldName" />
                 </mat-form-field>
 
-                <mat-form-field
-                  appearance="outline"
-                  class="form-field no-padding"
-                >
+                <mat-form-field appearance="outline">
                   <mat-label>Field Label (display)</mat-label>
                   <input matInput type="text" formControlName="fieldLabel" />
                 </mat-form-field>
 
-                <mat-form-field
-                  appearance="outline"
-                  class="form-field no-padding"
-                >
+                <mat-form-field appearance="outline">
                   <mat-label>Field Type</mat-label>
                   <mat-select formControlName="fieldType">
                     <mat-option [value]="0">Text Field</mat-option>

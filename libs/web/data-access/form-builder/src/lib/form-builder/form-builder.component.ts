@@ -92,7 +92,24 @@ export class FormBuilderComponent {
     }
   }
 
-  reOrderFormGroups(event: CdkDragDrop<FormGroup[]>) {
+  formFieldDropped(groupIndex: number) {
+    return function(event: CdkDragDrop<FormGroup[]>) {
+      console.log(groupIndex);
+      console.log('dropped');
+      // if (event.previousContainer === event.container) {
+      //   this.moveFormArrayGroup(
+      //     this.formGroups,
+      //     event.previousIndex,
+      //     event.currentIndex
+      //   );
+      // } else {
+      //   const formGroup = this.createFormGroup();
+      //   this.formGroups.insert(event.currentIndex, formGroup);
+      // }
+    };
+  }
+
+  formGroupDropped(event: CdkDragDrop<FormGroup[]>) {
     if (event.previousContainer === event.container) {
       this.moveFormArrayGroup(
         this.formGroups,
