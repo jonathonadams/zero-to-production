@@ -1,14 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
 import { IFormBuilderStructure } from '../form-builder.models';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  copyArrayItem
-} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'uqt-form-builder',
@@ -29,7 +25,7 @@ export class FormBuilderComponent {
         animations: [true],
         pagination: [true]
       }),
-      formGroups: this.fb.array([this.createFormGroup()])
+      formGroups: this.fb.array([])
     });
   }
 
@@ -85,7 +81,6 @@ export class FormBuilderComponent {
 
   onSubmit({ valid, value }: FormGroup) {
     if (valid) {
-      console.log(value);
       this.selectedForm$
         .pipe(
           take(1),
@@ -98,8 +93,6 @@ export class FormBuilderComponent {
   }
 
   reOrderFormGroups(event: CdkDragDrop<FormGroup[]>) {
-    console.log('DROP');
-
     if (event.previousContainer === event.container) {
       this.moveFormArrayGroup(
         this.formGroups,
@@ -107,7 +100,6 @@ export class FormBuilderComponent {
         event.currentIndex
       );
     } else {
-      console.log(event);
       const formGroup = this.createFormGroup();
       this.formGroups.insert(event.currentIndex, formGroup);
     }
@@ -129,11 +121,5 @@ export class FormBuilderComponent {
     const controlBeingRemoved = arrayGroup.at(currentIndex);
     arrayGroup.removeAt(currentIndex);
     arrayGroup.insert(newIndex, controlBeingRemoved);
-  }
-
-  drop(event: CdkDragDrop<FormGroup[]>) {
-    // const formGroup = this.createFormGroup()
-    // this.addFormGroup();
-    console.log(event);
   }
 }

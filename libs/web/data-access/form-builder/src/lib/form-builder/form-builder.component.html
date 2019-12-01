@@ -9,21 +9,24 @@
       <mat-slide-toggle formControlName="animations"
         >Animations</mat-slide-toggle
       >
-
       <mat-slide-toggle formControlName="pagination"
         >Section Pagination</mat-slide-toggle
       >
+
+      <button mat-raised-button color="primary" type="submit">
+        Save Properties
+      </button>
     </div>
-    <h3 class="heading">Form Sections</h3>
     <div
+      id="form-sections"
+      class="sections"
       formArrayName="formGroups"
       cdkDropList
-      id="form-sections"
       (cdkDropListDropped)="reOrderFormGroups($event)"
     >
       <mat-card
         cdkDrag
-        class="group-section mat-elevation-z2"
+        class="group-section"
         *ngFor="let group of formGroups.controls; let i = index"
       >
         <div [formGroupName]="i">
@@ -95,27 +98,11 @@
         </div>
       </mat-card>
     </div>
-    <div class="action-buttons">
-      <button
-        type="button"
-        mat-stroked-button
-        class="add"
-        (click)="addFormGroup()"
-      >
-        Add Section
-      </button>
-      <button mat-raised-button color="primary" type="submit">
-        Save Properties
-      </button>
-    </div>
   </form>
 </mat-card>
 
-<div
-  cdkDropList
-  (cdkDropListDropped)="drop($event)"
-  [cdkDropListConnectedTo]="['form-sections']"
->
+<!-- TODO -> Section / Field preview and icons -->
+<div cdkDropList [cdkDropListConnectedTo]="['form-sections']">
   <div cdkDrag class="draggable">Form Group</div>
   <div cdkDrag class="draggable">Form Field</div>
 </div>
