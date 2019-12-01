@@ -1,4 +1,14 @@
-<mat-card>
+<!-- TODO -> Section / Field preview and icons -->
+
+<aside class="toolbox" cdkDropList [cdkDropListConnectedTo]="['form-sections']">
+  <div cdkDrag class="toolbox-element">Form Group</div>
+  <div cdkDrag class="toolbox-element">Form Field</div>
+</aside>
+
+<mat-divider [vertical]="true"></mat-divider>
+
+<section class="form-builder">
+  <!-- <mat-card> -->
   <form [formGroup]="builderForm" (ngSubmit)="onSubmit(builderForm)">
     <div class="config" formGroupName="config">
       <mat-form-field class="form-field">
@@ -12,9 +22,8 @@
       <mat-slide-toggle formControlName="pagination"
         >Section Pagination</mat-slide-toggle
       >
-
-      <button mat-raised-button color="primary" type="submit">
-        Save Properties
+      <button mat-icon-button type="submit">
+        <mat-icon>save</mat-icon>
       </button>
     </div>
     <div
@@ -99,10 +108,4 @@
       </mat-card>
     </div>
   </form>
-</mat-card>
-
-<!-- TODO -> Section / Field preview and icons -->
-<div cdkDropList [cdkDropListConnectedTo]="['form-sections']">
-  <div cdkDrag class="draggable">Form Group</div>
-  <div cdkDrag class="draggable">Form Field</div>
-</div>
+</section>
