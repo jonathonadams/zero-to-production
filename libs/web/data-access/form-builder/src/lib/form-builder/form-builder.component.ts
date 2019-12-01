@@ -29,7 +29,7 @@ export class FormBuilderComponent {
         animations: [true],
         pagination: [true]
       }),
-      formGroups: this.fb.array([])
+      formGroups: this.fb.array([this.createFormGroup()])
     });
   }
 
@@ -98,27 +98,19 @@ export class FormBuilderComponent {
   }
 
   reOrderFormGroups(event: CdkDragDrop<FormGroup[]>) {
-    // if (event.previousContainer === event.container) {
-    //   console.log('$$$$$$$$$$$$$$$$');
-    // moveItemInArray(
-    //   this.formGroups.controls,
-    //   event.previousIndex,
-    //   event.currentIndex
-    // );
-    // } else {
-    //   console.log('#######################');
-    //   copyArrayItem(
-    //     event.previousContainer.data,
-    //     event.container.data,
-    //     event.previousIndex,
-    //     event.currentIndex
-    //   );
-    // }
-    this.moveFormArrayGroup(
-      this.formGroups,
-      event.previousIndex,
-      event.currentIndex
-    );
+    console.log('DROP');
+
+    if (event.previousContainer === event.container) {
+      this.moveFormArrayGroup(
+        this.formGroups,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      console.log(event);
+      const formGroup = this.createFormGroup();
+      this.formGroups.insert(event.currentIndex, formGroup);
+    }
   }
 
   /**
@@ -141,7 +133,7 @@ export class FormBuilderComponent {
 
   drop(event: CdkDragDrop<FormGroup[]>) {
     // const formGroup = this.createFormGroup()
-    this.addFormGroup();
+    // this.addFormGroup();
     console.log(event);
   }
 }

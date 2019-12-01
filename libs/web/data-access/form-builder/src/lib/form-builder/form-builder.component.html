@@ -18,6 +18,7 @@
     <div
       formArrayName="formGroups"
       cdkDropList
+      id="form-sections"
       (cdkDropListDropped)="reOrderFormGroups($event)"
     >
       <mat-card
@@ -110,7 +111,11 @@
   </form>
 </mat-card>
 
-<div cdkDropList (cdkDropListDropped)="drop($event)">
+<div
+  cdkDropList
+  (cdkDropListDropped)="drop($event)"
+  [cdkDropListConnectedTo]="['form-sections']"
+>
   <div cdkDrag class="draggable">Form Group</div>
   <div cdkDrag class="draggable">Form Field</div>
 </div>
