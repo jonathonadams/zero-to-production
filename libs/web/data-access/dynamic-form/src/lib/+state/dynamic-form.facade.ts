@@ -5,7 +5,7 @@ import * as fromActions from './dynamic-form.actions';
 import * as fromSelectors from './dynamic-form.selectors';
 import { IDynamicFormConfig } from './dynamic-form.reducer';
 import { ValidatorFn, ValidationErrors } from '@angular/forms';
-import { TFormGroups } from '@ngw/types';
+import { TFormGroups } from '../dynamic-form.models';
 
 @Injectable({ providedIn: 'root' })
 export class DynamicFormFacade {
@@ -13,7 +13,7 @@ export class DynamicFormFacade {
   idx$: Observable<number>;
   data$: Observable<any>;
   structure$: Observable<TFormGroups>;
-  errors$: Observable<ValidationErrors | null>;
+  errors$: Observable<string[]>;
   validators$: Observable<ValidatorFn[]>;
   submit$: Subject<any> = new Subject();
   setData$ = new Subject<any>();

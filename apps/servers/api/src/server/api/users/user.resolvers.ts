@@ -1,6 +1,6 @@
-import { IUserDocument } from '@ngw/types';
-import { generateResolvers } from '@ngw/api/utils';
-import { AuthenticationRoles } from '@ngw/enums';
+import { IUserDocument } from '@uqt/types';
+import { generateResolvers } from '@uqt/api/utils';
+import { AuthenticationRoles } from '@uqt/enums';
 import { User } from './user.model';
 import { verifyTokenGraphQL, verifyUserRoleGraphQL } from '../../auth/auth';
 

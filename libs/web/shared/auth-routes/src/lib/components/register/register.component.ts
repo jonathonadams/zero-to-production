@@ -4,12 +4,12 @@ import {
   ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
-import { IRegistrationDetails } from '@ngw/types';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
+import { IRegistrationDetails } from '@uqt/types';
+import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 import { REGISTER_STRUCTURE } from './register.structure';
 import { Subscription } from 'rxjs';
 import { passwordMatchValidator } from '../../validators/auth.validators';
-import { AuthFacade } from '@ngw/data-access/auth';
+import { AuthFacade } from '@uqt/data-access/auth';
 
 interface IRegistrationFormStructure {
   details: {
@@ -17,13 +17,6 @@ interface IRegistrationFormStructure {
     surname: string;
     email: string;
     dateOfBirth: string;
-  };
-  themeSettings: {
-    darkMode: boolean;
-    lightPrimary: string;
-    lightAccent: string;
-    darkPrimary: string;
-    darkAccent: string;
   };
   password: {
     username: string;
@@ -33,7 +26,7 @@ interface IRegistrationFormStructure {
 }
 
 @Component({
-  selector: 'ngw-register',
+  selector: 'uqt-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -65,17 +58,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   register(details: IRegistrationFormStructure): void {
-    // pop the darkMode off from the collection
-    const { darkMode, ...colors } = details.themeSettings;
-
     const settings: IRegistrationDetails = {
       username: details.password.username,
-      ...details.details,
-      settings: {
-        darkMode,
-        colors
-      },
-      password: details.password.password
+      password: details.password.password,
+      ...details.details
     };
 
     this.facade.register(settings);

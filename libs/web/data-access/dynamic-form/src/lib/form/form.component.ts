@@ -14,14 +14,12 @@ import {
   withLatestFrom,
   takeUntil
 } from 'rxjs/operators';
-import { TFormGroups } from '@ngw/types';
-import { FormGroupTypes } from '@ngw/enums';
-import { expandFromCenter } from '@ngw/common/animations';
+import { expandFromCenter } from '@uqt/common/animations';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
-import { DynamicFormService } from '../form.service';
-import { FormErrorsService } from '../form-errors/form-errors.service';
-import { FormErrorsComponent } from '../form-errors/form-errors.component';
+import { DynamicFormService } from '../dynamic-form.service';
+import { DynamicFormErrorsService } from '../form-errors/form-errors.service';
+import { FormGroupTypes, TFormGroups } from '../dynamic-form.models';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -40,7 +38,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: DynamicFormService,
-    private formErrors: FormErrorsService,
+    private errorsService: DynamicFormErrorsService,
     private facade: DynamicFormFacade
   ) {
     this.config$ = this.facade.config$;
@@ -50,6 +48,8 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.facade.resetIndex();
+
+    // TODO -> do we want default values, or reset the form with what is in the store?
 
     this.structure$
       .pipe(
@@ -100,7 +100,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
       // collect all form errors
       const errors = this.service.getAllFormErrors(form);
       this.facade.setErrors({ errors });
-      this.createFormErrors();
+      this.errorsService.createFormErrors();
     }
   }
 
@@ -118,16 +118,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   backASection() {
     this.facade.backASection();
-  }
-
-  createFormErrors() {
-    const { overlayRef, componentRef } = this.formErrors.createOverlay(
-      FormErrorsComponent
-    );
-
-    componentRef.instance.dismiss.subscribe(() => {
-      overlayRef.dispose();
-    });
   }
 
   ngOnDestroy() {

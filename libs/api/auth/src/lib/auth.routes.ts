@@ -4,7 +4,7 @@ import {
   IUserModel,
   IRefreshTokenModel,
   IVerificationTokenModel
-} from '@ngw/types';
+} from '@uqt/types';
 import {
   loginController,
   registerController,

@@ -1,53 +1,61 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
 import { DynamicFormComponent } from './form/form.component';
-import { FormInputComponent } from './fields/input/input.component';
-import { FormSelectComponent } from './fields/select/select.component';
-import { DynamicFormFieldDirective } from './fields/form-field.directive';
+import { DynamicFormFieldDirective } from './form/form-field.directive';
 import { DynamicFormsEffects } from './+state/dynamic-form.effects';
 import { reducer, initialFormState } from './+state/dynamic-form.reducer';
 import { FormErrorsComponent } from './form-errors/form-errors.component';
-import { FormErrorPipe } from './form-errors/form-error.pipe';
-import { FormToggleComponent } from './fields/toggle/toggle.components';
-import { FormDatePickerComponent } from './fields/date-picker/date-picker.component';
-import { FormTextareaComponent } from './fields/textarea/textarea.component';
-import { DynamicFormService } from './form.service';
-import { FormErrorsService } from './form-errors/form-errors.service';
+import { DynamicFormConfig } from './dynamic-form.models';
+import { DefaultErrorMessages } from './form-errors/form-errors';
 
-const ENTRY_COMPONENTS = [
-  FormInputComponent,
-  FormSelectComponent,
-  FormToggleComponent,
-  FormDatePickerComponent,
-  FormTextareaComponent,
-  FormErrorsComponent
-];
+@NgModule({
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatButtonModule],
+  declarations: [DynamicFormComponent, DynamicFormFieldDirective],
+  exports: [DynamicFormComponent]
+})
+export class DynamicFormModule {
+  static forRoot({
+    componentMap,
+    errors
+  }: DynamicFormConfig): ModuleWithProviders<RootDataAccessDynamicFormModule> {
+    return {
+      ngModule: RootDataAccessDynamicFormModule,
+      providers: [
+        {
+          provide: 'DYNAMIC_FORM_COMPONENT_MAP',
+          useValue: componentMap
+        },
+        // If no errors are provided, supply the default error messages
+        {
+          provide: 'DYNAMIC_FORM_ERRORS',
+          useValue: errors ? errors : DefaultErrorMessages
+        }
+      ]
+    };
+  }
 
-const COMPONENTS = [
-  ...ENTRY_COMPONENTS,
-  DynamicFormComponent,
-  FormErrorsComponent,
-  FormErrorsComponent,
-  FormErrorPipe
-];
+  static forChild(): ModuleWithProviders<DynamicFormModule> {
+    return {
+      ngModule: DynamicFormModule
+    };
+  }
+}
 
 @NgModule({
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    CustomMaterialModule,
     StoreModule.forFeature('dynamicForm', reducer, {
       initialState: initialFormState
     }),
     EffectsModule.forFeature([DynamicFormsEffects])
   ],
-  declarations: [DynamicFormFieldDirective, ...COMPONENTS],
-  providers: [DynamicFormService, FormErrorsService],
-  entryComponents: [...ENTRY_COMPONENTS],
-  exports: [DynamicFormComponent]
+  declarations: [FormErrorsComponent],
+  entryComponents: [FormErrorsComponent],
+  exports: [DynamicFormModule]
 })
-export class DataAccessDynamicFormModule {}
+export class RootDataAccessDynamicFormModule {}

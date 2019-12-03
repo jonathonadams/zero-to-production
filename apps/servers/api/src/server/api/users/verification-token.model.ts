@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import { defaultSchemaOptions } from '@ngw/api/utils';
+import { defaultSchemaOptions } from '@uqt/api/utils';
 import {
   IVerificationToken,
   IVerificationTokenDocument,
   IVerificationTokenModel
-} from '@ngw/types';
+} from '@uqt/types';
 
 export const verificationTokenSchema = new mongoose.Schema<IVerificationToken>(
   {

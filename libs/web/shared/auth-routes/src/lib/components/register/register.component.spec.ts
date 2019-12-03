@@ -4,7 +4,7 @@ import { RegisterComponent } from './register.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AuthFacade } from '../../+state/auth.facade';
 import { of } from 'rxjs';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
+import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 
 // TODO -> TESTS
 describe('RegisterComponent', () => {

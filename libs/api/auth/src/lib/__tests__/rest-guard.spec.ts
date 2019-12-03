@@ -1,6 +1,6 @@
 import { ParameterizedContext } from 'koa';
 import mongoose from 'mongoose';
-import { IUserDocument, IUserModel } from '@ngw/types';
+import { IUserDocument, IUserModel } from '@uqt/types';
 import { verifyToken, verifyUserIsActive } from '../rest.guards';
 import { signAccessToken } from '../auth.utils';
 import { MockUserModel } from './user.mock.spec';

@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { SideNavFacade } from '@ngw/common/ui/side-nav';
-import { ISideNaveRoute } from '@ngw/types';
+import { SideNavFacade } from '@uqt/common/ui/side-nav';
+import { ISideNaveRoute } from '@uqt/types';
 
 @Component({
   selector: 'todo-feature-shell',

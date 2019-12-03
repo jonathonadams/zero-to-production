@@ -4,7 +4,7 @@ import { DynamicFormComponent } from './form.component';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DynamicFormService } from '../form.service';
+import { DynamicFormService } from '../dynamic-form.service';
 
 // TODO -> TESTS
 describe('DynamicFormComponent', () => {

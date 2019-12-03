@@ -4,8 +4,8 @@ import {
   IUserModel,
   IRefreshTokenModel,
   IVerificationTokenModel
-} from '@ngw/types';
-import { AuthenticationRoles } from '@ngw/enums';
+} from '@uqt/types';
+import { AuthenticationRoles } from '@uqt/enums';
 import {
   login,
   register,
@@ -149,7 +149,10 @@ export function applyAuthorizationRoutes({
           applyRegistrationRoutes(
             models.userModel,
             models.verificationModel as IVerificationTokenModel
-          )(config.SENDGRID_API_KEY as string, config.hostUrl as string)(app);
+          )(
+            config.SENDGRID_API_KEY as string,
+            config.hostUrl as string
+          )(app);
         }
         if (refreshTokens) {
           applyRefreshTokenRoutes(

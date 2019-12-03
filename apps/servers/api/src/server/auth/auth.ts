@@ -3,7 +3,7 @@ import {
   getAuthResolvers,
   getGraphQlGuards,
   getRestGuards
-} from '@ngw/api/auth';
+} from '@uqt/api/auth';
 import { RefreshToken } from './tokens.model';
 import config from '../../environments';
 import { User, VerificationToken } from '../api/users';

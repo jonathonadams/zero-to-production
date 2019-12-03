@@ -7,15 +7,13 @@
           <input matInput type="text" formControlName="formName" />
         </mat-form-field>
 
-        <mat-form-field class="form-field">
-          <mat-label>Animations</mat-label>
-          <input matInput type="text" formControlName="animations" />
-        </mat-form-field>
+        <mat-slide-toggle formControlName="animations"
+          >Animations</mat-slide-toggle
+        >
 
-        <mat-form-field class="form-field">
-          <mat-label>Show Sections</mat-label>
-          <input matInput type="text" formControlName="showSections" />
-        </mat-form-field>
+        <mat-slide-toggle formControlName="pagination"
+          >Section Pagination</mat-slide-toggle
+        >
       </div>
       <h3 class="heading">Form Groups</h3>
       <div formArrayName="formGroups">

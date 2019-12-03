@@ -1,6 +1,6 @@
 import { examplesReducer } from './examples.reducer';
 import * as ExampleActions from './examples.actions';
-import { IExample } from '@ngw/types';
+import { IExample } from '@uqt/types';
 
 describe('ExampleReducer', () => {
   describe('undefined action', () => {

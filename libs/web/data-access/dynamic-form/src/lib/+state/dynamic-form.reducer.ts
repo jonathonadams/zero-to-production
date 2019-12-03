@@ -1,7 +1,7 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as FormActions from './dynamic-form.actions';
 import { ValidatorFn, ValidationErrors } from '@angular/forms';
-import { TFormGroups } from '@ngw/types';
+import { TFormGroups } from '../dynamic-form.models';
 
 export interface DynamicFormState {
   config: IDynamicFormConfig;
@@ -9,7 +9,7 @@ export interface DynamicFormState {
   data: any;
   structure: TFormGroups;
   formValidators: ValidatorFn[];
-  errors: ValidationErrors | null;
+  errors: string[];
 }
 
 export interface IDynamicFormConfig {
@@ -28,7 +28,7 @@ export const initialFormState: DynamicFormState = {
   data: {},
   structure: [],
   formValidators: [],
-  errors: null
+  errors: []
 };
 
 export const formReducer = createReducer(
@@ -39,11 +39,11 @@ export const formReducer = createReducer(
   on(FormActions.setFormStructure, (state, { structure }) => {
     return { ...state, structure: [...structure] };
   }),
-  on(FormActions.setFormErrors, (state, { errors }) => {
+  on(FormActions.setFormErrorsComplete, (state, { errors }) => {
     return { ...state, errors };
   }),
   on(FormActions.clearFormErrors, state => {
-    return { ...state, errors: null };
+    return { ...state, errors: [] };
   }),
   on(FormActions.resetForm, state => {
     return initialFormState;

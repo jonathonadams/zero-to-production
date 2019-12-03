@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import { AuthenticationRoles } from '@ngw/enums';
-import { IUser, IUserDocument, IUserModel } from '@ngw/types';
-import { defaultSchemaOptions } from '@ngw/api/utils';
+import { AuthenticationRoles } from '@uqt/enums';
+import { IUser, IUserDocument, IUserModel } from '@uqt/types';
+import { defaultSchemaOptions } from '@uqt/api/utils';
 
 export const userSchema = new mongoose.Schema<IUser>(
   {
@@ -37,18 +37,6 @@ export const userSchema = new mongoose.Schema<IUser>(
       type: Boolean,
       required: true,
       default: false
-    },
-    settings: {
-      darkMode: {
-        type: Boolean,
-        required: true
-      },
-      colors: {
-        lightPrimary: String,
-        lightAccent: String,
-        darkPrimary: String,
-        darkAccent: String
-      }
     },
     role: {
       type: Number,

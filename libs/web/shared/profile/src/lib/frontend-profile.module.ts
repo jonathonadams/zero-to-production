@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UiUserProfileComponent } from './ui-user-profile/ui-user-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CustomMaterialModule } from '@ngw/common/ui/custom-material';
+import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { FrontendProfileRouterModule } from './frontend-profile-routing.module';
 
 @NgModule({

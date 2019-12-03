@@ -1,7 +1,7 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as TodoActions from './todos.actions';
-import { ITodo } from '@ngw/types';
-import { TodoFilterStatus } from '@ngw/enums';
+import { ITodo } from '@uqt/types';
+import { TodoFilterStatus } from '@uqt/enums';
 import { createReducer, on, Action } from '@ngrx/store';
 
 // 1. define the entity state

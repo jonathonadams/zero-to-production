@@ -2,8 +2,8 @@ import curryN from 'ramda/es/curryN';
 import equals from 'ramda/es/equals';
 import or from 'ramda/es/or';
 import toLower from 'ramda/es/toLower';
-import { ITodo } from '@ngw/types';
-import { TodoFilterStatus } from '@ngw/enums';
+import { ITodo } from '@uqt/types';
+import { TodoFilterStatus } from '@uqt/enums';
 
 function checkTodoCompleteStatus(completeStatus: boolean, todo: ITodo) {
   return equals(completeStatus, todo.completed);

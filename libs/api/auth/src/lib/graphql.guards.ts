@@ -1,7 +1,7 @@
 import { verify } from 'jsonwebtoken';
 import Boom from '@hapi/boom';
-import { IUserModel, IUser } from '@ngw/types';
-import { AuthenticationRoles } from '@ngw/enums';
+import { IUserModel, IUser } from '@uqt/types';
+import { AuthenticationRoles } from '@uqt/enums';
 import { AuthMiddleware } from './auth.graphql';
 
 /**

@@ -4,7 +4,7 @@ import {
   ValidationErrors,
   FormGroup
 } from '@angular/forms';
-import { isPasswordAllowed } from '@ngw/utils/auth';
+import { isPasswordAllowed } from '@uqt/utils/auth';
 
 // A wrapper around the isPasswordAllowed method to create a form validator
 export function passwordValidator(control: AbstractControl) {

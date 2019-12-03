@@ -10,7 +10,7 @@ import {
  * is at the router level
  */
 @Component({
-  selector: 'ngw-ui-login',
+  selector: 'uqt-ui-login',
   templateUrl: './ui-login.component.html',
   styleUrls: ['./ui-login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ExamplesEntityState, adapter } from './examples.reducer';
-import { IExample } from '@ngw/types';
+import { IExample } from '@uqt/types';
 
 export const selectExampleState = createFeatureSelector<ExamplesEntityState>(
   'examplesState'

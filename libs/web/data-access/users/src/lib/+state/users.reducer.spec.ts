@@ -1,4 +1,4 @@
-import { IUser } from '@ngw/types';
+import { IUser } from '@uqt/types';
 import { usersReducer, UsersEntityState } from './users.reducer';
 import * as UserActions from './users.actions';
 

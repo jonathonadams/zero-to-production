@@ -6,11 +6,11 @@ import {
 } from '@angular/core';
 import { take, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { IUser } from '@ngw/types';
-import { UsersFacade } from '@ngw/data-access/users';
+import { IUser } from '@uqt/types';
+import { UsersFacade } from '@uqt/data-access/users';
 
 @Component({
-  selector: 'ngw-drop-down-menu',
+  selector: 'uqt-drop-down-menu',
   templateUrl: './drop-down-menu.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -26,11 +26,5 @@ export class DropDownMenuComponent {
     );
   }
 
-  toggleDarkMode(darkMode: boolean) {
-    // the user is only undefined when not logged in, it is safe to type cast here
-    (this.user$ as Observable<IUser>).pipe(take(1)).subscribe(user => {
-      const userSettings = { darkMode, colors: user.settings.colors };
-      this.userFacade.updateUser({ ...user, settings: userSettings });
-    });
-  }
+  toggleDarkMode(darkMode: boolean) {}
 }

@@ -10,14 +10,19 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { DataAccessApiModule } from '@ngw/data-access/api';
-import { DataAccessAuthModule } from '@ngw/data-access/auth';
-import { DataAccessUsersModule } from '@ngw/data-access/users';
-import { DataAccessRouterModule } from '@ngw/data-access/router';
+import { DataAccessApiModule } from '@uqt/data-access/api';
+import { DataAccessAuthModule } from '@uqt/data-access/auth';
+import { DataAccessUsersModule } from '@uqt/data-access/users';
+import { DataAccessRouterModule } from '@uqt/data-access/router';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppEffects } from './+state/app.effects';
 import { AppState, appReducerMap } from './+state/app.state';
+import { ExamplesFeatureShellModule } from '@uqt/examples';
+import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
+import {
+  DynamicFormMaterialComponentsModule,
+  MATERIAL_COMPONENT_MAP
+} from '@uqt/data-access/dynamic-form-material-components';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,12 +41,14 @@ import { AppState, appReducerMap } from './+state/app.state';
     StoreRouterConnectingModule.forRoot({
       routerState: RouterState.Minimal
     }),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
     DataAccessApiModule.forRoot(environment),
     DataAccessAuthModule.forRoot(),
     DataAccessUsersModule.forRoot(),
     DataAccessRouterModule.forRoot(),
-    AppRoutingModule.forRoot()
+    DynamicFormMaterialComponentsModule,
+    DynamicFormModule.forRoot({ componentMap: MATERIAL_COMPONENT_MAP }),
+    AppRoutingModule.forRoot(),
+    ExamplesFeatureShellModule
   ],
   bootstrap: [AppComponent]
 })

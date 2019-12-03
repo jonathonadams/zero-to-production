@@ -1,10 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
-import { FormsFacade } from '../+state/form-builder.facade';
-import { TFormGroups, IFormBuilderStructure } from '@ngw/types';
-import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
 import { Subscription } from 'rxjs';
+import {
+  DynamicFormFacade,
+  TFormGroups,
+  FormGroupTypes,
+  FormFieldTypes
+} from '@uqt/data-access/dynamic-form';
+import { FormBuilderFacade } from '../+state/form-builder.facade';
+import { IFormBuilderStructure } from '../form-builder.models';
 
 const STRUCTURE: TFormGroups = [
   {
@@ -15,7 +19,7 @@ const STRUCTURE: TFormGroups = [
         componentType: FormFieldTypes.Input,
         type: 'text',
         name: 'formName',
-        label: 'FormName',
+        label: 'Form Name',
         validators: [Validators.required]
       }
     ]
@@ -23,7 +27,7 @@ const STRUCTURE: TFormGroups = [
 ];
 
 @Component({
-  selector: 'ngw-form-builder-create',
+  selector: 'uqt-form-builder-create',
   templateUrl: './create-form.component.html',
   styleUrls: ['./create-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -32,7 +36,7 @@ export class CreateFormComponent implements OnInit {
   sub: Subscription;
 
   constructor(
-    private facade: FormsFacade,
+    private facade: FormBuilderFacade,
     private dynamicFormFacade: DynamicFormFacade
   ) {
     this.sub = this.dynamicFormFacade.submit$.subscribe(

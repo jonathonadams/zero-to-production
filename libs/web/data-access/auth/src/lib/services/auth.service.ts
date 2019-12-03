@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GraphQLService, ApiService } from '@ngw/data-access/api';
+import { GraphQLService, ApiService } from '@uqt/data-access/api';
 import {
   ILoginCredentials,
   ILoginResponse,
   IRegistrationDetails,
   IUser
-} from '@ngw/types';
+} from '@uqt/types';
 import { JWTAuthService } from './jwt-auth.service';
 
 @Injectable()

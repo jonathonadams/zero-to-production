@@ -1,17 +1,14 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ViewChild,
-  ElementRef
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { TFormGroups } from '@ngw/types';
-import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
-import { HighlightService } from '../highlight.service';
+import {
+  DynamicFormFacade,
+  TFormGroups,
+  FormGroupTypes,
+  FormFieldTypes
+} from '@uqt/data-access/dynamic-form';
+import { HighlightService } from '@uqt/examples';
 
 const SIMPLE_FORM: TFormGroups = [
   {
@@ -114,9 +111,9 @@ export class ExampleDynamicFormComponent implements OnInit {
   }`;
 
   markup = `<!-- example.component.html -->
-  <app-form>
+  <app-dynamic-form>
     <button type="submit">Submit</button>
-  </app-form>`;
+  </app-dynamic-form>`;
 
   submitSyntax = `// example.component.ts
   constructor(private formFacade: DynamicFormFacade) {

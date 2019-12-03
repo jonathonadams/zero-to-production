@@ -1,4 +1,4 @@
-import { ISideNaveRoute } from '@ngw/types';
+import { ISideNaveRoute } from '@uqt/types';
 import { createReducer, on, Action } from '@ngrx/store';
 import * as fromActions from './side-nav.actions';
 

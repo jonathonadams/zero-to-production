@@ -1,23 +1,67 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
-import { FormsFacade } from '@ngw/data-access/form-builder';
-import { RouterFacade } from '@ngw/data-access/router';
-import { IFormBuilderStructure } from '@ngw/types';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import {
+  FormBuilderFacade,
+  IFormBuilderStructure
+} from '@uqt/data-access/form-builder';
+import { RouterFacade } from '@uqt/data-access/router';
+import {
+  TFormGroups,
+  FormGroupTypes,
+  FormFieldTypes,
+  DynamicFormFacade
+} from '@uqt/data-access/dynamic-form';
+import { Validators } from '@angular/forms';
+
+const STRUCTURE: TFormGroups = [
+  {
+    formGroup: 'config',
+    groupType: FormGroupTypes.Group,
+    fields: [
+      {
+        componentType: FormFieldTypes.Input,
+        type: 'text',
+        name: 'formName',
+        label: 'Form Name',
+        validators: [Validators.required]
+      }
+    ]
+  }
+];
 
 @Component({
-  selector: 'ngw-example-form-create',
+  selector: 'uqt-example-form-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleCreateFormComponent {
+export class ExampleCreateFormComponent implements OnInit, OnDestroy {
   form$: Observable<IFormBuilderStructure[]>;
+  sub: Subscription;
 
   constructor(
-    private formsFacade: FormsFacade,
+    private dynamicFormFacade: DynamicFormFacade,
+    private formsFacade: FormBuilderFacade,
     private routerFacade: RouterFacade
   ) {
     this.form$ = this.formsFacade.form$;
+
+    this.sub = this.dynamicFormFacade.submit$.subscribe(
+      (form: IFormBuilderStructure) => {
+        this.formsFacade.createForm({ ...form, formGroups: [] });
+      }
+    );
+  }
+
+  ngOnInit() {
+    this.dynamicFormFacade.setStructure({ structure: STRUCTURE });
+    this.formsFacade.clearSelected();
+    this.formsFacade.loadForms();
   }
 
   edit(form: IFormBuilderStructure) {
@@ -40,5 +84,9 @@ export class ExampleCreateFormComponent {
 
   trackForms(i: number, f: IFormBuilderStructure) {
     return f.id;
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

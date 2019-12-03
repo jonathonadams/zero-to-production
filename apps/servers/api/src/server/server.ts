@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import { setupMiddleware } from '@ngw/api/middleware';
+import { setupMiddleware } from '@uqt/api/middleware';
 import { applyApiEndpoints } from './api';
 import { applyAuthRoutes } from './auth/auth';
 import { dbConnection } from './db/db-connection';

@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
 import { TodoLayoutComponent } from './ui/todos-layout.component';
-import { AuthGuard } from '@ngw/data-access/auth';
-import { AuthUsersResolver } from '@ngw/data-access/users';
-import { AUTH_ROUTES } from '@ngw/shared/auth-routes';
+import { AuthGuard } from '@uqt/data-access/auth';
+import { AuthUsersResolver } from '@uqt/data-access/users';
+import { AUTH_ROUTES } from '@uqt/shared/auth-routes';
 
 export const TODOS_ROUTES: Routes = [
   {
@@ -14,7 +14,7 @@ export const TODOS_ROUTES: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('@ngw/dashboard').then(m => m.DashboardModule),
+          import('@uqt/dashboard').then(m => m.DashboardModule),
         data: { animation: 'DashBoardPage' }
       },
       {
@@ -36,7 +36,7 @@ export const TODOS_ROUTES: Routes = [
       {
         path: 'profile',
         loadChildren: () =>
-          import('@ngw/shared/profile').then(m => m.FrontendProfileModule),
+          import('@uqt/shared/profile').then(m => m.FrontendProfileModule),
         data: { animation: 'ProfilePage' }
       },
       {

@@ -7,11 +7,15 @@ import {
 import { Validators } from '@angular/forms';
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { filter, withLatestFrom, takeUntil, first, skip } from 'rxjs/operators';
-import { ITodo, TFormGroups } from '@ngw/types';
-import { TodosFacade } from '@ngw/todos/data-access';
-import { DynamicFormFacade } from '@ngw/data-access/dynamic-form';
-import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
-import { RouterFacade } from '@ngw/data-access/router';
+import { ITodo } from '@uqt/types';
+import { TodosFacade } from '@uqt/todos/data-access';
+import {
+  DynamicFormFacade,
+  TFormGroups,
+  FormGroupTypes,
+  FormFieldTypes
+} from '@uqt/data-access/dynamic-form';
+import { RouterFacade } from '@uqt/data-access/router';
 
 const STRUCTURE: TFormGroups = [
   {
@@ -63,10 +67,7 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
       });
 
     this.formFacade.submit$
-      .pipe(
-        withLatestFrom(this.selectedTodo$),
-        takeUntil(this.unsubscribe)
-      )
+      .pipe(withLatestFrom(this.selectedTodo$), takeUntil(this.unsubscribe))
       .subscribe(([{ todo }, selectedTodo]) => {
         const todoToSave = { ...selectedTodo, ...todo };
         this.facade.saveTodo(todoToSave);

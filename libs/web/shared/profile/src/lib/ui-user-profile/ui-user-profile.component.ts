@@ -6,10 +6,10 @@ import {
   EventEmitter
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IUser } from '@ngw/types';
+import { IUser } from '@uqt/types';
 
 @Component({
-  selector: 'ngw-ui-user-profile',
+  selector: 'uqt-ui-user-profile',
   templateUrl: './ui-user-profile.component.html',
   styleUrls: ['./ui-user-profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

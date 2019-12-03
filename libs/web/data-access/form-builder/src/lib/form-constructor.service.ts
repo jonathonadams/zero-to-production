@@ -1,40 +1,41 @@
 import { Injectable } from '@angular/core';
 import {
-  IFormBuilderGroup,
   IFormGroup,
-  IFormBuilderField,
   TField,
-  IFormBuilderStructure,
-  TFormGroups
-} from '@ngw/types';
-import { FormGroupTypes, FormFieldTypes } from '@ngw/enums';
+  TFormGroups,
+  FormFieldTypes,
+  FormGroupTypes
+} from '@uqt/data-access/dynamic-form';
+
+import map from 'ramda/es/map';
+import {
+  IFormBuilderField,
+  IFormBuilderGroup,
+  IFormBuilderStructure
+} from './form-builder.models';
 
 @Injectable({ providedIn: 'root' })
 export class FormsConstructorService {
-  createFormGroupStructure(group: IFormBuilderGroup): IFormGroup {
-    return {
-      formGroup: group.groupName,
-      groupType: FormGroupTypes.Group,
-      fields: group.fields.map(field => this.createFormField(field))
-    };
-  }
-
-  createFormField(field: IFormBuilderField): TField {
-    return {
-      componentType: FormFieldTypes.Input, // TODO -> Dynamic
-      name: field.fieldName,
-      type: 'text',
-      label: field.fieldLabel
-    };
-  }
-
   creteDyanmicFormStructureFromBuilderConfig(
     structure: IFormBuilderStructure
   ): TFormGroups {
-    const STRUCTURE = structure.formGroups.map(group =>
-      this.createFormGroupStructure(group)
-    );
-
-    return STRUCTURE;
+    return map(mapToFormGroup, structure.formGroups);
   }
+}
+
+function mapToFormField(field: IFormBuilderField): TField {
+  return {
+    componentType: FormFieldTypes.Input, // TODO -> Dynamic
+    name: field.fieldName,
+    type: 'text',
+    label: field.fieldLabel
+  };
+}
+
+function mapToFormGroup(group: IFormBuilderGroup): IFormGroup {
+  return {
+    formGroup: group.groupName,
+    groupType: FormGroupTypes.Group,
+    fields: map(mapToFormField, group.fields)
+  };
 }

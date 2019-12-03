@@ -5,26 +5,11 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
-import mapR from 'ramda/es/map';
-import { timer, Observable, Subject } from 'rxjs';
-import { takeUntil, map } from 'rxjs/operators';
+import { timer, Observable, Subscription } from 'rxjs';
 import { formErrorsAnimations } from './form-errors.animations';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 
 // TODO a11y Announcer
-
-// TODO All form errors
-
-export enum ErrorMessages {
-  required = 'is required',
-  email = 'is not a valid email'
-}
-
-export interface FieldErrors {
-  field: string;
-  errorMessage: ErrorMessages;
-}
 
 @Component({
   selector: 'app-form-errors',
@@ -35,53 +20,20 @@ export interface FieldErrors {
 })
 export class FormErrorsComponent implements OnDestroy {
   private autoClose = 5000; // ms until close
-  private unsubscribe = new Subject();
-
   @Output() dismiss = new EventEmitter<void>();
 
-  errors$: Observable<FieldErrors[]>;
+  errors$: Observable<string[]>;
+  private sub: Subscription;
 
   constructor(private facade: DynamicFormFacade) {
-    timer(this.autoClose)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(() => {
-        this.dismiss.emit();
-      });
+    this.errors$ = this.facade.errors$;
 
-    this.errors$ = (this.facade.errors$ as Observable<ValidationErrors>).pipe(
-      map(errors => this.createFieldErrors(errors)),
-      takeUntil(this.unsubscribe)
-    );
-  }
-
-  createFieldErrors(errors: ValidationErrors) {
-    const keys = Object.keys(errors);
-    const fieldErrors: FieldErrors[] = [];
-
-    for (let i = 0; i < keys.length; i++) {
-      const errorsKeys = Object.keys(errors[keys[i]]);
-      const nestedErrors = reduceErrorKeysToMessages(keys[i], errorsKeys);
-      fieldErrors.push(...nestedErrors);
-    }
-
-    return fieldErrors;
+    this.sub = timer(this.autoClose).subscribe(() => {
+      this.dismiss.emit();
+    });
   }
 
   ngOnDestroy() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
+    this.sub.unsubscribe();
   }
-}
-
-function reduceErrorKeysToMessages(
-  field: string,
-  keys: string[]
-): FieldErrors[] {
-  return mapR(
-    key => ({
-      field,
-      errorMessage: ErrorMessages[key as keyof typeof ErrorMessages]
-    }),
-    keys
-  );
 }

@@ -3,10 +3,10 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { selectAllForms, selectCurrentForm } from './form-builder.selectors';
 import * as FromActions from './form-builder.actions';
-import { IFormBuilderStructure } from '@ngw/types';
+import { IFormBuilderStructure } from '../form-builder.models';
 
 @Injectable({ providedIn: 'root' })
-export class FormsFacade {
+export class FormBuilderFacade {
   form$: Observable<IFormBuilderStructure[]>;
   selectedForm$: Observable<IFormBuilderStructure | undefined>;
 

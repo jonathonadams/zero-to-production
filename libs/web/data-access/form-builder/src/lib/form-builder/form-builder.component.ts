@@ -2,11 +2,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import { FormsFacade } from '../+state/form-builder.facade';
-import { IFormBuilderStructure } from '@ngw/types';
+import { FormBuilderFacade } from '../+state/form-builder.facade';
+import { IFormBuilderStructure } from '../form-builder.models';
 
 @Component({
-  selector: 'ngw-form-builder',
+  selector: 'uqt-form-builder',
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -15,14 +15,14 @@ export class FormBuilderComponent {
   builderForm: FormGroup;
   selectedForm$: Observable<IFormBuilderStructure | undefined>;
 
-  constructor(private fb: FormBuilder, private formsFacade: FormsFacade) {
-    this.selectedForm$ = this.formsFacade.selectedForm$;
+  constructor(private fb: FormBuilder, private facade: FormBuilderFacade) {
+    this.selectedForm$ = this.facade.selectedForm$;
 
     this.builderForm = this.fb.group({
       config: this.fb.group({
         formName: [],
         animations: [],
-        showSections: []
+        pagination: []
       }),
       formGroups: this.fb.array([])
     });
@@ -52,7 +52,7 @@ export class FormBuilderComponent {
   }
 
   getGroupFields(index: number) {
-    return (this.formGroups.get(`${index}`) as FormGroup).get(
+    return (this.formGroups.get(String(index)) as FormGroup).get(
       'fields'
     ) as FormArray;
   }
@@ -89,7 +89,7 @@ export class FormBuilderComponent {
   onSubmit({ valid, value }: FormGroup) {
     if (valid) {
       this.selectedForm$.pipe(take(1)).subscribe(form => {
-        this.formsFacade.updateForm({ ...form, ...value });
+        this.facade.updateForm({ ...form, ...value });
       });
     }
   }

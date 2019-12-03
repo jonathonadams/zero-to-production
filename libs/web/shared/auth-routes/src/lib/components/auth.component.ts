@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { authRouterAnimations } from './auth-router.animations';
 import { RouterOutlet } from '@angular/router';
-import { ThemeService } from '@ngw/common/theme';
+import { ThemeService } from '@uqt/common/theme';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'ngw-auth',
+  selector: 'uqt-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

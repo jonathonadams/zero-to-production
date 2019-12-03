@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { IExample } from '@ngw/types';
+import { IExample } from '@uqt/types';
 import { selectCurrentExample, selectAllExamples } from './examples.selectors';
 import * as ExampleActions from './examples.actions';
 

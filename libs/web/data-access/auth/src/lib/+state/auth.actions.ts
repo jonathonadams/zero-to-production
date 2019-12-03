@@ -4,7 +4,7 @@ import {
   ILoginResponse,
   IRegistrationDetails,
   IUser
-} from '@ngw/types';
+} from '@uqt/types';
 
 export const loginRedirect = createAction('[Auth] Login Redirect');
 

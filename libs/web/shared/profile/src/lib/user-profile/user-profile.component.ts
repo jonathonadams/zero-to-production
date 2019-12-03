@@ -2,14 +2,15 @@ import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
-import { IUser } from '@ngw/types';
-import { UsersFacade } from '@ngw/data-access/users';
-import { ThemeService } from '@ngw/common/theme';
+import { IUser } from '@uqt/types';
+import { UsersFacade } from '@uqt/data-access/users';
+import { ThemeService } from '@uqt/common/theme';
 
 // TODO -> Can Deactivate Guard -> Reset User Settings
+// TODO -> Theme / Language settings to be stored in local storage
 
 @Component({
-  selector: 'ngw-user-profile',
+  selector: 'uqt-user-profile',
   templateUrl: './user-profile.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -46,10 +47,7 @@ export class UserProfileComponent implements OnDestroy {
         take(1)
       )
       .subscribe(user => {
-        this.profileForm.reset({
-          ...user,
-          settings: user.settings.colors
-        });
+        this.profileForm.reset(user);
       });
 
     /**
@@ -63,11 +61,9 @@ export class UserProfileComponent implements OnDestroy {
   onSubmit({ valid, value }: FormGroup) {
     if (valid) {
       (this.user$ as Observable<IUser>).pipe(take(1)).subscribe(user => {
-        const userSettings = { ...user.settings, colors: value.settings };
         const userToSave = {
           ...user,
-          ...value,
-          settings: userSettings
+          ...value
         } as IUser;
         this.userFacade.updateUser(userToSave);
       });

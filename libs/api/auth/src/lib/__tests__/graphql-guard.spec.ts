@@ -1,7 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql';
 import mongoose from 'mongoose';
-import { IUserDocument, IUserModel } from '@ngw/types';
-import { AuthenticationRoles } from '@ngw/enums';
+import { IUserDocument, IUserModel } from '@uqt/types';
+import { AuthenticationRoles } from '@uqt/enums';
 import {
   checkToken,
   checkUserIsActive,

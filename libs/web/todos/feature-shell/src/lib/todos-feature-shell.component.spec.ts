@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
-import { SideNavFacade } from '@ngw/common/ui/side-nav';
+import { SideNavFacade } from '@uqt/common/ui/side-nav';
 
 // TODO -> TESTS
 describe('TodoFeatureShellComponent', () => {

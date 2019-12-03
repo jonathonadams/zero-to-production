@@ -18,7 +18,7 @@ export const EXAMPLES_ROUTES: Routes = [
         path: 'dynamic-form',
         component: ExampleDetailComponent,
         loadChildren: () =>
-          import('@ngw/examples/dynamic-form').then(
+          import('@uqt/examples/dynamic-form').then(
             m => m.WebExamplesDynamicFormModule
           )
       },
@@ -26,23 +26,21 @@ export const EXAMPLES_ROUTES: Routes = [
         path: 'form-builder',
         component: ExampleDetailComponent,
         loadChildren: () =>
-          import('@ngw/examples/form-builder').then(
+          import('@uqt/examples/form-builder').then(
             m => m.WebExamplesFormBuilderModule
           )
       },
       {
-        path: 'themeing',
+        path: 'theming',
         component: ExampleDetailComponent,
         loadChildren: () =>
-          import('@ngw/examples/themeing').then(
-            m => m.WebExamplesThemeingModule
-          )
+          import('@uqt/examples/theming').then(m => m.WebExamplesThemingModule)
       },
       {
         path: 'secure',
         component: ExampleDetailComponent,
         loadChildren: () =>
-          import('@ngw/todos/feature-shell').then(
+          import('@uqt/todos/feature-shell').then(
             m => m.TodosFeatureShellModule
           )
       }

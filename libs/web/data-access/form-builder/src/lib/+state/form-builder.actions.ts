@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { IFormBuilderStructure } from '@ngw/types';
+import { IFormBuilderStructure } from '../form-builder.models';
 
 export const selectForm = createAction(
   '[Form/Builder] Select',

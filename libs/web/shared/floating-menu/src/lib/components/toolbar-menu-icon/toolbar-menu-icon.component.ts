@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy, ElementRef } from '@angular/core';
-import { OverlayService } from '@ngw/utils/overlay';
+import { OverlayService } from '@uqt/utils/overlay';
 import { Router } from '@angular/router';
-import { AuthFacade } from '@ngw/data-access/auth';
+import { AuthFacade } from '@uqt/data-access/auth';
 import { DropDownMenuComponent } from '../drop-down-menu/drop-down-menu.component';
 
 @Component({
-  selector: 'ngw-toolbar-menu-icon',
+  selector: 'uqt-toolbar-menu-icon',
   templateUrl: './toolbar-menu-icon.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

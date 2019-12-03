@@ -5,7 +5,7 @@ import DataLoader from 'dataloader';
 import keyBy from 'lodash.keyby';
 import { User } from './users';
 import { Todo } from './todos';
-import { IUserDocument, ITodoDocument } from '@ngw/types';
+import { IUserDocument, ITodoDocument } from '@uqt/types';
 
 const createUsersLoader = () => {
   return new DataLoader<string, IUserDocument>(async usersIds => {
