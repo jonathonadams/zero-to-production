@@ -9,6 +9,7 @@ import { EXAMPLES } from './examples';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplesFeatureShellComponent implements OnInit {
+  routes = ['/examples', '/examples/all'];
   constructor(private facade: ExamplesFacade) {}
 
   ngOnInit() {

@@ -1,2 +1,4 @@
-<uqt-ui-toolbar (navToggle)="navToggle()" class="header"> </uqt-ui-toolbar>
-<router-outlet></router-outlet>
+<uqt-ui-toolbar (navToggle)="navToggle()"> </uqt-ui-toolbar>
+<main scrollNavigation [routes]="routes">
+  <router-outlet></router-outlet>
+</main>

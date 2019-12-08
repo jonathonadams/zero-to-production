@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
 import { ExamplesComponent } from './examples/examples.component';
 import { ExampleDetailComponent } from './example-detail/example-detail.component';
+import { ExamplesAboutComponent } from './about/examples-about.component';
 
 export const EXAMPLES_ROUTES: Routes = [
   {
@@ -11,6 +12,11 @@ export const EXAMPLES_ROUTES: Routes = [
     children: [
       {
         path: '',
+        pathMatch: 'full',
+        component: ExamplesAboutComponent
+      },
+      {
+        path: 'all',
         pathMatch: 'full',
         component: ExamplesComponent
       },
@@ -46,7 +52,6 @@ export const EXAMPLES_ROUTES: Routes = [
       }
     ]
   },
-
   {
     path: '',
     pathMatch: 'full',

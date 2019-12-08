@@ -10,12 +10,15 @@ import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { ExamplesDataAccessModule } from '@uqt/examples/data-access';
 import { ExampleDetailComponent } from './example-detail/example-detail.component';
 import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
-import { ThemeService } from '@uqt/common/theme';
+import { ExamplesAboutComponent } from './about/examples-about.component';
+import { ScrollNavigationDirective } from './scroll-router.directive';
 
 const COMPONENTS = [
   ExamplesFeatureShellComponent,
+  ExamplesAboutComponent,
   ExamplesComponent,
-  ExampleDetailComponent
+  ExampleDetailComponent,
+  ScrollNavigationDirective
 ];
 
 @NgModule({
@@ -29,7 +32,6 @@ const COMPONENTS = [
     ExamplesDataAccessModule,
     ExamplesFeatureShellRoutingModule
   ],
-  providers: [ThemeService],
   declarations: COMPONENTS
 })
 export class ExamplesFeatureShellModule {}

@@ -3,7 +3,7 @@ import { SwUpdate } from '@angular/service-worker';
 import { interval, concat } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ServiceWorkerService {
   constructor(appRef: ApplicationRef, updates: SwUpdate) {
     // Allow the app to stabilize first, before starting polling for updates with `interval()`.
