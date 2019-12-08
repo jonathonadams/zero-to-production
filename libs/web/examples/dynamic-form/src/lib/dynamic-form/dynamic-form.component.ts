@@ -71,7 +71,7 @@ const COMPLEX_FORM: TFormGroups = [
 ];
 
 @Component({
-  selector: 'ex-dynamic-form',
+  selector: 'example-dynamic-form',
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
