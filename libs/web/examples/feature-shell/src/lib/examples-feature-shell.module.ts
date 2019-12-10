@@ -12,13 +12,16 @@ import { ExampleDetailComponent } from './example-detail/example-detail.componen
 import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
 import { ExamplesAboutComponent } from './about/examples-about.component';
 import { ScrollNavigationDirective } from './scroll-router.directive';
+import { FactoryRenderedDirective } from './about/factory-renderer.directive';
+import { ExampleDynamicFormComponent } from '@uqt/examples/dynamic-form';
 
 const COMPONENTS = [
   ExamplesFeatureShellComponent,
   ExamplesAboutComponent,
   ExamplesComponent,
   ExampleDetailComponent,
-  ScrollNavigationDirective
+  ScrollNavigationDirective,
+  FactoryRenderedDirective
 ];
 
 @NgModule({

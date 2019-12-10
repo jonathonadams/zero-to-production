@@ -8,7 +8,7 @@ import {
   FormGroupTypes,
   FormFieldTypes
 } from '@uqt/data-access/dynamic-form';
-import { HighlightService } from '@uqt/examples';
+// import { HighlightService } from '@uqt/examples';
 
 const SIMPLE_FORM: TFormGroups = [
   {
@@ -123,8 +123,7 @@ export class ExampleDynamicFormComponent implements OnInit {
   }`;
 
   constructor(
-    private formFacade: DynamicFormFacade,
-    private highlight: HighlightService
+    private formFacade: DynamicFormFacade // private highlight: HighlightService
   ) {
     this.submit$ = this.formFacade.submit$;
   }
@@ -134,7 +133,7 @@ export class ExampleDynamicFormComponent implements OnInit {
   }
 
   ngAfterViewChecked() {
-    this.highlight.highlightAll();
+    // this.highlight.highlightAll();
   }
 
   setStructure(simpleForm: boolean) {

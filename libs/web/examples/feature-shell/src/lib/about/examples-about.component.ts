@@ -6,6 +6,7 @@ import {
   ElementRef
 } from '@angular/core';
 import { ComponentLoaderService } from '../component-loader.service';
+import { ExampleDynamicFormComponent } from '@uqt/examples/dynamic-form';
 
 @Component({
   selector: 'uqt-examples-about',
@@ -15,14 +16,23 @@ import { ComponentLoaderService } from '../component-loader.service';
 })
 export class ExamplesAboutComponent implements OnInit {
   @ViewChild('testOutlet', { static: true }) outlet!: ElementRef<HTMLElement>;
+
+  componentTags = ['example-dynamic-form'];
   constructor(private compLoader: ComponentLoaderService) {}
 
-  ngOnInit() {}
-
-  loadModule() {
-    this.compLoader.loadComponent('example-dynamic-form').then(component => {
-      this.outlet.nativeElement.appendChild(component);
+  ngOnInit() {
+    this.compLoader.registerModule('example-dynamic-form', {
+      modulePath: () =>
+        import('@uqt/examples/dynamic-form').then(
+          m => m.WebExamplesDynamicFormModule
+        ),
+      moduleRef: null,
+      entryComponent: ExampleDynamicFormComponent
     });
+  }
+
+  loadModule(tag: string) {
+    return this.compLoader.loadComponent(tag);
   }
 }
 

@@ -17,7 +17,8 @@ const COMPONENTS = [ExampleDynamicFormComponent];
     DynamicFormModule.forChild(),
     ExamplesDynamicFormRouterModule
   ],
-  declarations: COMPONENTS
+  declarations: COMPONENTS,
+  entryComponents: [ExampleDynamicFormComponent]
 })
 export class WebExamplesDynamicFormModule {
   constructor(injector: Injector) {
