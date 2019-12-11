@@ -6,6 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { FormInputComponent } from './fields/input/input.component';
 import { FormSelectComponent } from './fields/select/select.component';
 import { FormToggleComponent } from './fields/toggle/toggle.components';
@@ -30,7 +31,8 @@ const ENTRY_COMPONENTS = [
     MatSelectModule,
     MatSlideToggleModule,
     MatDatepickerModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    TextFieldModule
   ],
   declarations: ENTRY_COMPONENTS,
   exports: ENTRY_COMPONENTS,

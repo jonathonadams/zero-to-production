@@ -2,32 +2,20 @@
   *ngIf="type === 'GROUP'; else arrayBlock"
   class="form-field"
   [formGroup]="group"
-  [appearance]="field?.appearance ? field.appearance : 'standard'"
-  [color]="field?.color"
 >
   <mat-label>{{ field.label }}</mat-label>
   <input
     matInput
-    [type]="field?.type"
-    [autocomplete]="field?.autocomplete ? field.autocomplete : 'off'"
-    [formControlName]="field?.name"
+    [type]="field.type"
+    [autocomplete]="field.autocomplete ? field.autocomplete : 'off'"
+    [formControlName]="field.name"
   />
 </mat-form-field>
 
 <!-- If the form group is an array -->
 <ng-template #arrayBlock>
-  <mat-form-field
-    class="form-field"
-    [formGroup]="group"
-    [appearance]="field?.appearance ? group.field.appearance : 'standard'"
-    [color]="field?.color"
-  >
+  <mat-form-field class="form-field" [formGroup]="group">
     <mat-label>{{ field?.label }}</mat-label>
-    <input
-      matInput
-      [type]="field?.type"
-      [autocomplete]="field?.autocomplete ? field.autocomplete : 'off'"
-      [formControlName]="idx"
-    />
+    <input matInput [type]="field.type" [formControlName]="idx" />
   </mat-form-field>
 </ng-template>

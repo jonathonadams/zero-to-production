@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormGroupTypes, TField } from '@uqt/data-access/dynamic-form';
+import { FormGroupTypes, IInputField } from '@uqt/data-access/dynamic-form';
 
 @Component({
   selector: 'app-form-input',
@@ -9,8 +9,8 @@ import { FormGroupTypes, TField } from '@uqt/data-access/dynamic-form';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormInputComponent {
-  @Input() idx: number | undefined;
-  @Input() type!: FormGroupTypes;
-  @Input() field!: TField;
-  @Input() group!: FormGroup;
+  @Input() idx: number; // Only accessed if a FormGroup
+  @Input() type: FormGroupTypes;
+  @Input() field: IInputField;
+  @Input() group: FormGroup;
 }

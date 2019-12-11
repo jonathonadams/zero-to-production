@@ -40,7 +40,7 @@ export const resetForm = createAction('[Dynamic Form] Reset ');
 
 export const setFormConfig = createAction(
   '[Dynamic Form] Set Config',
-  props<{ config: IDynamicFormConfig }>()
+  props<{ config: Partial<IDynamicFormConfig> }>()
 );
 
 export const resetFormConfig = createAction('[Dynamic Form] Reset Config');

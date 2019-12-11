@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { TField } from '@uqt/data-access/dynamic-form';
+import { IInputField } from '@uqt/data-access/dynamic-form';
 
 @Component({
   selector: 'uqt-custom-username',
@@ -9,6 +9,6 @@ import { TField } from '@uqt/data-access/dynamic-form';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomUsernameComponent {
-  @Input() field!: TField;
+  @Input() field!: IInputField;
   @Input() group!: FormGroup;
 }

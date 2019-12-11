@@ -1,6 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as FormActions from './dynamic-form.actions';
-import { ValidatorFn, ValidationErrors } from '@angular/forms';
+import { ValidatorFn } from '@angular/forms';
 import { TFormGroups } from '../dynamic-form.models';
 
 export interface DynamicFormState {
@@ -13,8 +13,8 @@ export interface DynamicFormState {
 }
 
 export interface IDynamicFormConfig {
-  animations?: boolean;
-  paginateSections?: boolean;
+  animations: boolean;
+  paginateSections: boolean;
 }
 
 export const initialFormConfig: IDynamicFormConfig = {

@@ -14,8 +14,8 @@ import { Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 import {
   FormGroupTypes,
-  TField,
-  DynamicFormService
+  DynamicFormService,
+  IDatePickerField
 } from '@uqt/data-access/dynamic-form';
 
 const APP_DATE_FORMATS = {
@@ -72,28 +72,26 @@ export class MyDateAdapter extends NativeDateAdapter {
 export class FormDatePickerComponent implements OnDestroy {
   private subscription: Subscription | undefined;
 
-  dateField: TField | undefined;
+  dateField: IDatePickerField;
   dateGroup: FormGroup;
-  dateControl: FormControl | undefined;
+  dateControl: FormControl;
 
-  @Input() idx: number | undefined;
-  @Input() type!: FormGroupTypes;
-
+  @Input() idx: number; // Only accessed if it is a FormArrayGroup
+  @Input() type: FormGroupTypes;
+  @Input() group: FormGroup | undefined;
   @Input()
-  set field(f: TField) {
+  set field(f: IDatePickerField) {
     const ctrl = this.addControlToGroup(f);
     this.dateGroup.addControl(f.name, ctrl);
     this.dateField = f;
     this.listenToControlChange(ctrl);
   }
 
-  @Input() group: FormGroup | undefined;
-
   constructor(private fb: FormBuilder, private service: DynamicFormService) {
     this.dateGroup = this.fb.group({});
   }
 
-  addControlToGroup(f: TField) {
+  addControlToGroup(f: IDatePickerField) {
     return this.service.createControl(f);
   }
 
@@ -113,9 +111,7 @@ export class FormDatePickerComponent implements OnDestroy {
         // There would be no chance for the group to no be set by the time
         // it is rendered on the DOM, but just in case.
         if (this.group !== undefined) {
-          const groupCtrl = this.group.controls[
-            (this.dateField as TField).name
-          ];
+          const groupCtrl = this.group.controls[this.dateField.name];
           groupCtrl.setValue(this.formatDateToString(date));
           groupCtrl.markAsDirty();
         }

@@ -33,12 +33,12 @@ export const TODOS_ROUTES: Routes = [
 
         data: { animation: 'TodosPage' }
       },
-      {
-        path: 'profile',
-        loadChildren: () =>
-          import('@uqt/shared/profile').then(m => m.FrontendProfileModule),
-        data: { animation: 'ProfilePage' }
-      },
+      // {
+      //   path: 'profile',
+      //   loadChildren: () =>
+      //     import('@uqt/shared/profile').then(m => m.FrontendProfileModule),
+      //   data: { animation: 'ProfilePage' }
+      // },
       {
         path: '',
         pathMatch: 'full',

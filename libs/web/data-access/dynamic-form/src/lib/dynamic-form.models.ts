@@ -38,12 +38,10 @@ export interface IFormFieldArray extends IBaseFormArray {
 export interface IBaseField {
   name: string;
   label: string;
-  initialValue?: any;
+  initialValue?: any; // TODO -> Initial Value
   validators?: ValidatorFn[];
   asyncValidators?: Type<AsyncValidator>[];
   autocomplete?: TAutoComplete;
-  appearance?: TFormFieldAppearance;
-  color?: string;
   attrs?: any;
   customComponent?: Type<any>;
 }
@@ -108,8 +106,6 @@ export type TInputType =
   | 'time'
   | 'url'
   | 'week';
-
-export type TFormFieldAppearance = 'standard' | 'fill' | 'outline';
 
 // Muse be strings
 export enum FormGroupTypes {

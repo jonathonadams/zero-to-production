@@ -17,8 +17,8 @@ import { slideInAnimation } from '@uqt/common/animations';
   animations: [slideInAnimation]
 })
 export class UiSideNavComponent {
-  @Input() opened: boolean | undefined;
-  @Input() routes: ISideNaveRoute[] | undefined;
+  @Input() opened: boolean | null;
+  @Input() routes: ISideNaveRoute[] | null;
   @Output() setValue = new EventEmitter<boolean>();
 
   prepareRoute(outlet: RouterOutlet) {

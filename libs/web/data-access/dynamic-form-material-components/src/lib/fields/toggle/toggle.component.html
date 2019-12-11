@@ -1,8 +1,5 @@
-<div [formGroup]="group" class="form-field">
-  <mat-slide-toggle
-    class="form-field"
-    [color]="field?.color"
-    [formControlName]="field?.name"
-    >{{ field.label }}</mat-slide-toggle
-  >
+<div [formGroup]="group" class="form-group">
+  <mat-slide-toggle class="form-field" [formControlName]="field.name">{{
+    field.label
+  }}</mat-slide-toggle>
 </div>

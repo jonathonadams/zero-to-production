@@ -14,7 +14,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { AvailableStatus } from '@uqt/enums';
 import { AuthFacade } from '@uqt/data-access/auth';
-import { TField } from '@uqt/data-access/dynamic-form';
+import { IInputField } from '@uqt/data-access/dynamic-form';
 
 @Component({
   selector: 'uqt-custom-username-input',
@@ -29,7 +29,7 @@ export class CustomUsernameInputComponent implements OnDestroy {
   usernameAvailability$: Observable<AvailableStatus | null>;
 
   @Input() group!: FormGroup;
-  @Input() field!: TField;
+  @Input() field!: IInputField;
 
   stateChanges = new Subject<void>();
   focused = false;

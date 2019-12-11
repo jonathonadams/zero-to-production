@@ -1,11 +1,8 @@
-<mat-form-field
-  [appearance]="field?.appearance ? field.appearance : 'standard'"
-  [color]="field?.color"
->
+<mat-form-field>
   <mat-label>{{ field.label }}</mat-label>
   <uqt-custom-username-input
     [field]="field"
     [group]="group"
-    required
+    [required]="true"
   ></uqt-custom-username-input>
 </mat-form-field>

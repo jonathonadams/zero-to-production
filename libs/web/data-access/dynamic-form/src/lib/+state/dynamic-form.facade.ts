@@ -87,7 +87,7 @@ export class DynamicFormFacade {
     this.store.dispatch(fromActions.resetIndex());
   }
 
-  setFormConfig(config: IDynamicFormConfig) {
+  setFormConfig(config: Partial<IDynamicFormConfig>) {
     this.store.dispatch(fromActions.setFormConfig({ config }));
   }
 
