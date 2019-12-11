@@ -15,7 +15,7 @@ import {
 } from './form-builder.models';
 
 @Injectable({ providedIn: 'root' })
-export class FormsConstructorService {
+export class FormConstructorService {
   creteDyanmicFormStructureFromBuilderConfig(
     structure: IFormBuilderStructure
   ): TFormGroups {

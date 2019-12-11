@@ -4,7 +4,7 @@ import { FetchResult } from 'apollo-link';
 import { IFormBuilderStructure } from './form-builder.models';
 
 @Injectable({ providedIn: 'root' })
-export class FormsService {
+export class FormBuilderService {
   public getAllForms(): Observable<
     FetchResult<{ allForms: IFormBuilderStructure[] }>
   > {

@@ -16,6 +16,13 @@ export class FormBuilderComponent {
   builderForm: FormGroup;
   selectedForm$: Observable<IFormBuilderStructure | undefined>;
 
+  showFormConfig = false;
+
+  fieldVisible: { groupIndex: null | number; fieldIndex: null | number } = {
+    groupIndex: null,
+    fieldIndex: null
+  };
+
   constructor(private fb: FormBuilder, private facade: FormBuilderFacade) {
     this.selectedForm$ = this.facade.selectedForm$;
 
@@ -29,15 +36,6 @@ export class FormBuilderComponent {
     });
   }
 
-  // createFormFromStructure(structure: IFormBuilderStructure) {
-  //   structure.formGroups.forEach((group, i) => {
-  //     this.addFormGroup();
-  //     group.fields.forEach(field => {
-  //       this.addGroupField(i);
-  //     });
-  //   });
-  // }
-
   get formGroups() {
     return this.builderForm.get('formGroups') as FormArray;
   }
@@ -48,23 +46,11 @@ export class FormBuilderComponent {
     ) as FormArray;
   }
 
-  addFormGroup() {
-    this.formGroups.push(this.createFormGroup());
-  }
-
   createFormGroup(): FormGroup {
     return this.fb.group({
       groupName: [],
       fields: this.fb.array([])
     });
-  }
-
-  addGroupField(groupIndex: number) {
-    this.getGroupFields(groupIndex).push(this.createFieldGroup());
-  }
-
-  removeGroupField(groupIndex: number, fieldIndex: number) {
-    this.getGroupFields(groupIndex).removeAt(fieldIndex);
   }
 
   createFieldGroup() {
@@ -74,9 +60,39 @@ export class FormBuilderComponent {
       fieldLabel: []
     });
   }
+  // addGroupField(groupIndex: number) {
+  //   this.getGroupFields(groupIndex).push(this.createFieldGroup());
+  // }
+
+  toggleFormConfig() {
+    this.showFormConfig = !this.showFormConfig;
+  }
+
+  showFormField(groupIndex: number, fieldIndex: number) {
+    let selected = this.fieldVisible;
+    console.log('before');
+    console.log(selected);
+    if (
+      groupIndex === selected.groupIndex &&
+      fieldIndex === selected.fieldIndex
+    ) {
+      selected.fieldIndex = selected.groupIndex = null;
+    } else {
+      this.fieldVisible = {
+        groupIndex,
+        fieldIndex
+      };
+    }
+    console.log('after');
+    console.log(this.fieldVisible);
+  }
 
   deleteFormGroup(i: number): void {
     this.formGroups.removeAt(i);
+  }
+
+  removeGroupField(groupIndex: number, fieldIndex: number) {
+    this.getGroupFields(groupIndex).removeAt(fieldIndex);
   }
 
   onSubmit({ valid, value }: FormGroup) {
@@ -92,33 +108,32 @@ export class FormBuilderComponent {
     }
   }
 
-  formFieldDropped(groupIndex: number) {
-    return function(event: CdkDragDrop<FormGroup[]>) {
-      console.log(groupIndex);
-      console.log('dropped');
-      // if (event.previousContainer === event.container) {
-      //   this.moveFormArrayGroup(
-      //     this.formGroups,
-      //     event.previousIndex,
-      //     event.currentIndex
-      //   );
-      // } else {
-      //   const formGroup = this.createFormGroup();
-      //   this.formGroups.insert(event.currentIndex, formGroup);
-      // }
-    };
-  }
-
   formGroupDropped(event: CdkDragDrop<FormGroup[]>) {
+    const formGroups = this.formGroups;
     if (event.previousContainer === event.container) {
       this.moveFormArrayGroup(
-        this.formGroups,
+        formGroups,
         event.previousIndex,
         event.currentIndex
       );
     } else {
       const formGroup = this.createFormGroup();
-      this.formGroups.insert(event.currentIndex, formGroup);
+      formGroups.insert(event.currentIndex, formGroup);
+    }
+  }
+
+  formFieldDropped(groupIndex: number, event: CdkDragDrop<FormGroup[]>) {
+    const currentGroup = this.getGroupFields(groupIndex);
+
+    if (event.previousContainer === event.container) {
+      this.moveFormArrayGroup(
+        currentGroup,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      const groupField = this.createFieldGroup();
+      currentGroup.insert(event.currentIndex, groupField);
     }
   }
 

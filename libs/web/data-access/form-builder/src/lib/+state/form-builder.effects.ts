@@ -13,8 +13,8 @@ import {
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 import * as FormActions from './form-builder.actions';
-import { FormsService } from '../form-builder.service';
-import { FormsConstructorService } from '../form-constructor.service';
+import { FormBuilderService } from '../form-builder.service';
+import { FormConstructorService } from '../form-constructor.service';
 import { FormBuilderFacade } from './form-builder.facade';
 import { IFormBuilderStructure } from '../form-builder.models';
 
@@ -23,8 +23,8 @@ export class FormEffects {
   constructor(
     private actions$: Actions,
     private facade: FormBuilderFacade,
-    private formService: FormsService,
-    private formConstructor: FormsConstructorService,
+    private formService: FormBuilderService,
+    private formConstructor: FormConstructorService,
     private dynamicFormFacade: DynamicFormFacade
   ) {}
 
