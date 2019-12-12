@@ -23,7 +23,7 @@ import { TodoFilterStatus } from '@uqt/enums';
 export class UiFilterTodosComponent implements OnInit, OnDestroy {
   subscription: Subscription | undefined;
   @Input()
-  todoFilter: TodoFilterStatus | undefined;
+  todoFilter: TodoFilterStatus | null | undefined;
   @Input()
   filterOptions: { display: string; value: TodoFilterStatus }[] | undefined;
   @Output()

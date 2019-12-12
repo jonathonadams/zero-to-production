@@ -21,10 +21,10 @@ import {
 })
 export class DynamicFormFieldDirective implements OnInit, OnChanges {
   @Input() idx: number | undefined;
-  @Input() type!: FormGroupTypes;
-  @Input() field!: TField;
-  @Input() group!: FormGroup;
-  component!: ComponentRef<any>;
+  @Input() type: FormGroupTypes;
+  @Input() field: TField;
+  @Input() group: FormGroup;
+  component: ComponentRef<any>;
 
   constructor(
     @Inject('DYNAMIC_FORM_COMPONENT_MAP')

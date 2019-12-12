@@ -9,6 +9,6 @@ import { IInputField } from '@uqt/data-access/dynamic-form';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomUsernameComponent {
-  @Input() field!: IInputField;
-  @Input() group!: FormGroup;
+  @Input() field: IInputField;
+  @Input() group: FormGroup;
 }

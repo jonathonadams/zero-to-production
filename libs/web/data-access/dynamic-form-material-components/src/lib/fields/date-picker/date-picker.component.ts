@@ -2,7 +2,8 @@ import {
   Component,
   ChangeDetectionStrategy,
   Input,
-  OnDestroy
+  OnDestroy,
+  Injectable
 } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import {
@@ -30,6 +31,7 @@ const APP_DATE_FORMATS = {
   }
 };
 
+@Injectable()
 export class MyDateAdapter extends NativeDateAdapter {
   format(date: Date, displayFormat: Object): string {
     if (displayFormat === 'input') {

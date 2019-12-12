@@ -4,9 +4,16 @@ import {
   Input,
   HostBinding,
   ElementRef,
-  OnDestroy
+  OnDestroy,
+  Optional,
+  Self
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {
+  FormGroup,
+  ControlValueAccessor,
+  AbstractControl,
+  NgControl
+} from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable, Subject } from 'rxjs';
 
@@ -23,23 +30,36 @@ import { IInputField } from '@uqt/data-access/dynamic-form';
   providers: [
     { provide: MatFormFieldControl, useExisting: CustomUsernameInputComponent }
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class.floating]': 'shouldLabelFloat',
+    '[id]': 'id',
+    '[attr.aria-describedby]': 'describedBy'
+  }
 })
-export class CustomUsernameInputComponent implements OnDestroy {
+export class CustomUsernameInputComponent
+  implements ControlValueAccessor, MatFormFieldControl<string>, OnDestroy {
+  static nextId = 0;
   usernameAvailability$: Observable<AvailableStatus | null>;
 
-  @Input() group!: FormGroup;
-  @Input() field!: IInputField;
+  @Input() group: FormGroup;
+  @Input() field: IInputField;
 
   stateChanges = new Subject<void>();
   focused = false;
-  private _required = false;
-  // private _disabled = false;
+  errorState = false;
   controlType = 'register-username-input';
+  id = `register-username-input-${CustomUsernameInputComponent.nextId}`;
+
+  onChange = (_: any) => {};
+  onTouched = () => {};
+
+  // private _disabled = false;
   @HostBinding('attr.aria-describedby') describedBy = '';
 
   get empty() {
     if (this.group) {
+      // Aligns with the form field in the template
       const { username } = this.group.value;
       return !username;
     } else {
@@ -53,63 +73,118 @@ export class CustomUsernameInputComponent implements OnDestroy {
   }
 
   @Input()
-  get required() {
+  get placeholder(): string {
+    return this._placeholder;
+  }
+  set placeholder(value: string) {
+    this._placeholder = value;
+    this.stateChanges.next();
+  }
+  private _placeholder: string;
+
+  @Input()
+  get required(): boolean {
     return this._required;
   }
-  set required(req) {
-    this._required = coerceBooleanProperty(req);
+  set required(value: boolean) {
+    this._required = coerceBooleanProperty(value);
+    this.stateChanges.next();
+  }
+  private _required = false;
+
+  @Input()
+  get disabled(): boolean {
+    return this._disabled;
+  }
+  set disabled(value: boolean) {
+    this._disabled = coerceBooleanProperty(value);
+
+    if (this.group && this.field) {
+      const control = this.group.get(this.field.name);
+
+      if (control) {
+        this._disabled ? control.disable() : control.enable();
+      }
+    }
+    this.stateChanges.next();
+  }
+  private _disabled = false;
+
+  @Input()
+  get value(): string | null {
+    if (this.group && this.field) {
+      const control = this.group.get(this.field.name) as AbstractControl;
+      return control.value as string;
+    }
+    return null;
+  }
+  set value(username: string | null) {
+    if (this.group && this.field) {
+      const control = this.group.get(this.field.name) as AbstractControl;
+      control.setValue(username);
+    }
     this.stateChanges.next();
   }
 
-  // @Input()
-  // get disabled(): boolean {
-  //   return this._disabled;
-  // }
+  constructor(
+    private facade: AuthFacade,
+    private _focusMonitor: FocusMonitor,
+    private _elRef: ElementRef<HTMLElement>,
+    @Optional() @Self() public ngControl: NgControl
+  ) {
+    this.usernameAvailability$ = this.facade.usernameAvailability$;
 
-  // set disabled(value: boolean) {
-  //   this._disabled = coerceBooleanProperty(value);
-  //   this._disabled ? this.group.disable() : this.group.enable();
-  //   this.stateChanges.next();
-  // }
+    _focusMonitor.monitor(_elRef, true).subscribe(origin => {
+      if (this.focused && !origin) {
+        this.onTouched();
+      }
+      this.focused = !!origin;
+      this.stateChanges.next();
+    });
+
+    if (this.ngControl != null) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  ngOnDestroy() {
+    this.stateChanges.complete();
+    this._focusMonitor.stopMonitoring(this._elRef);
+  }
 
   setDescribedByIds(ids: string[]) {
     this.describedBy = ids.join(' ');
   }
 
   onContainerClick(event: MouseEvent) {
-    if ((event.target as Element).tagName.toLowerCase() !== 'input') {
-      (this.elRef.nativeElement.querySelector(
-        'input'
-      ) as HTMLInputElement).focus();
+    if ((event.target as Element).tagName.toLowerCase() != 'input') {
+      this._elRef.nativeElement.querySelector('input')!.focus();
     }
   }
 
-  constructor(
-    private facade: AuthFacade,
-    private fm: FocusMonitor,
-    private elRef: ElementRef<HTMLElement>
-  ) {
-    this.usernameAvailability$ = this.facade.usernameAvailability$;
-
-    fm.monitor(elRef.nativeElement, true).subscribe(origin => {
-      this.focused = !!origin;
-      this.stateChanges.next();
-    });
+  writeValue(username: string | null): void {
+    this.value = username;
   }
 
-  // writeValue(obj: any): void {
-  //   this.group.controls.username.patchValue(obj);
-  // }
-
-  // registerOnChange(fn: any): void {}
-  // registerOnTouched(fn: any): void {}
-
-  // setDisabledState(isDisabled: boolean) {
-  //   // this._disabled = isDisabled;
-  // }
-
-  ngOnDestroy() {
-    this.stateChanges.complete();
-    this.fm.stopMonitoring(this.elRef.nativeElement);
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
   }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  _handleInput(): void {
+    if (this.group && this.field) {
+      const control = this.group.get(this.field.name) as AbstractControl;
+      this.onChange(control.value);
+    }
+  }
+
+  static ngAcceptInputType_disabled: boolean | string | null | undefined;
+  static ngAcceptInputType_required: boolean | string | null | undefined;
 }

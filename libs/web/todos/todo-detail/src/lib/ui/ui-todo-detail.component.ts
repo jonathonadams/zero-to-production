@@ -16,7 +16,7 @@ import { ITodo } from '@uqt/types';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiTodoDetailComponent {
-  @Input() selectedTodo: ITodo | undefined;
+  @Input() selectedTodo: ITodo | null | undefined;
   @Output()
   formSubmit = new EventEmitter<FormGroup>();
   @Output()

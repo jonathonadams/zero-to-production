@@ -23,7 +23,7 @@ import { IUser } from '@uqt/types';
   encapsulation: ViewEncapsulation.None
 })
 export class UiDropDownMenuComponent {
-  @Input() user: IUser | undefined;
+  @Input() user: IUser | null | undefined;
   @Output() toggleDarkMode = new EventEmitter<boolean>();
   @Output() logout = new EventEmitter<void>();
   @Output() navigateToProfile = new EventEmitter();

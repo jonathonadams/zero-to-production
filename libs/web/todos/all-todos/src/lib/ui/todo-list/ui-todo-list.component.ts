@@ -17,7 +17,7 @@ import { LIST_ANIMATION } from './todo-list.animation';
 })
 export class UiTodoListComponent {
   @Input()
-  todos: ITodo[] | undefined;
+  todos: ITodo[] | null | undefined;
   @Output()
   selected = new EventEmitter<ITodo>();
   @Output()

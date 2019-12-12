@@ -18,7 +18,6 @@ const PASSWORD_GROUP: IFormGroup = {
       type: 'text',
       name: 'username',
       label: 'Username',
-      autocomplete: 'username',
       validators: [Validators.required],
       asyncValidators: [UsernameAvailableValidator],
       customComponent: CustomUsernameComponent

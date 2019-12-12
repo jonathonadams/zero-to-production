@@ -11,14 +11,12 @@ is currently configured.
   [formGroup]="form"
   autocomplete="off"
   (ngSubmit)="onSubmit(form)"
-  [@.disabled]="!(config$ | async).animations"
+  [@.disabled]="!config.animations"
 >
   <!-- Pagination is the main top level config.  -->
   <ng-container
     *ngTemplateOutlet="
-      (config$ | async).paginateSections
-        ? formWithPagination
-        : formWithoutPagination;
+      config.paginateSections ? formWithPagination : formWithoutPagination;
       context: {
         formGroup: form
       }
@@ -45,7 +43,7 @@ is currently configured.
   <ng-container [formGroup]="formGroup">
     <ng-container *ngFor="let structure of structure$ | async; let idx = index">
       <!-- only show the section with the current idx selected -->
-      <ng-container *ngIf="(formIdx$ | async) === idx">
+      <ng-container *ngIf="formIdx === idx">
         <ng-container
           [ngTemplateOutlet]="
             isGroupFields(structure.groupType) ? formFields : arrayGroup
@@ -60,27 +58,29 @@ is currently configured.
   </ng-container>
 
   <!-- selection buttons -->
-  <div class="action-buttons" *ngIf="(structure$ | async).length > 1">
-    <button
-      type="button"
-      class="nav-button"
-      mat-icon-button
-      [disabled]="(formIdx$ | async) <= 0"
-      (click)="backASection()"
-    >
-      <mat-icon>navigate_before</mat-icon>
-    </button>
+  <ng-container *ngIf="structure$ | async as str">
+    <div class="action-buttons" *ngIf="str && str.length > 1">
+      <button
+        type="button"
+        class="nav-button"
+        mat-icon-button
+        [disabled]="formIdx <= 0"
+        (click)="backASection()"
+      >
+        <mat-icon>navigate_before</mat-icon>
+      </button>
 
-    <button
-      type="button"
-      class="nav-button"
-      mat-icon-button
-      [disabled]="(formIdx$ | async) >= (structure$ | async).length - 1"
-      (click)="nextSection()"
-    >
-      <mat-icon>navigate_next</mat-icon>
-    </button>
-  </div>
+      <button
+        type="button"
+        class="nav-button"
+        mat-icon-button
+        [disabled]="formIdx >= str.length - 1"
+        (click)="nextSection()"
+      >
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+    </div>
+  </ng-container>
 </ng-template>
 
 <!-- ######################################################### -->
@@ -128,13 +128,10 @@ is currently configured.
     <ng-container
       *ngIf="isGroupFields(structure.arrayType); else arrayGroupType"
     >
-      <!-- The array group is a collection of fields -->
+      <!-- The array group is a collection of form controls -->
       <section [formArrayName]="structure.formGroup" @centerExpand>
         <ng-container
-          *ngFor="
-            let field of getFormGroup(formGroup, structure.formGroup).controls;
-            let i = index
-          "
+          *ngFor="let field of getArrayGroupControls(formGroup); let i = index"
           appDynamicFormField
           [idx]="i"
           [type]="structure.groupType"
@@ -156,8 +153,10 @@ is currently configured.
       <section [formArrayName]="structure.formGroup" @centerExpand>
         <ng-container
           *ngFor="
-            let arrayGroup of getFormGroup(formGroup, structure.formGroup)
-              .controls;
+            let arrayGroup of getFormArrayFormGroups(
+              formGroup,
+              structure.formGroup
+            );
             let i = index
           "
         >

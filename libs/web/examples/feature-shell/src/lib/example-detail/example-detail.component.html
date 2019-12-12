@@ -1,8 +1,8 @@
-<section class="example">
+<section class="example" *ngFor="selectedExample$ | async as example">
   <header class="example-description">
-    <h2>{{ selectedExample?.title }}</h2>
-    <p>{{ selectedExample?.descriptionFull }}</p>
-    <a [href]="selectedExample.link">See here for full details</a>
+    <h2>{{ example.title }}</h2>
+    <p>{{ example.descriptionFull }}</p>
+    <a [href]="example.link">See here for full details</a>
   </header>
   <mat-divider indeterminate="true"></mat-divider>
   <article class="example-demonstration">

@@ -32,8 +32,8 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   public form: FormGroup | undefined;
   private unsubscribe = new Subject<void>();
 
-  config$: Observable<IDynamicFormConfig>;
-  formIdx$: Observable<number>;
+  config: IDynamicFormConfig;
+  formIdx: number;
   structure$: Observable<TFormGroups>;
 
   constructor(
@@ -41,8 +41,14 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     private errorsService: DynamicFormErrorsService,
     private facade: DynamicFormFacade
   ) {
-    this.config$ = this.facade.config$;
-    this.formIdx$ = this.facade.idx$;
+    this.facade.config$
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(config => (this.config = config));
+
+    this.facade.idx$
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(idx => (this.formIdx = idx));
+
     this.structure$ = this.facade.structure$;
   }
 
@@ -55,6 +61,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
       .pipe(
         // Build the form
         map(str => this.service.formBuilder(str)),
+
         // Add the form validators
         withLatestFrom(this.facade.validators$),
         tap(([form, validators]) => form.setValidators(validators)),
@@ -91,21 +98,34 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit(form: FormGroup) {
-    const { valid } = form;
-    if (valid) {
-      this.facade.clearErrors();
-      this.facade.submitForm();
-    } else {
-      // collect all form errors
-      const errors = this.service.getAllFormErrors(form);
-      this.facade.setErrors({ errors });
-      this.errorsService.createFormErrors();
+  onSubmit(form: FormGroup | undefined) {
+    if (form) {
+      if (form.valid) {
+        this.facade.clearErrors();
+        this.facade.submitForm();
+      } else {
+        // collect all form errors
+        const errors = this.service.getAllFormErrors(form);
+        this.facade.setErrors({ errors });
+        this.errorsService.createFormErrors();
+      }
     }
   }
 
-  getFormGroup(formGroup: FormGroup, name: string): FormGroup | FormArray {
-    return formGroup.get(name) as FormGroup | FormArray;
+  getFormGroup(formGroup: FormGroup, name: string): FormGroup {
+    return formGroup.get(name) as FormGroup;
+  }
+
+  // getFormGroupControls(formGroup: FormGroup, name: string) {
+  //   return (formGroup.get(name) as FormGroup).controls;
+  // }
+
+  getArrayGroupControls(arrayGroup: FormArray) {
+    return arrayGroup.controls;
+  }
+
+  getFormArrayFormGroups(formGroup: FormGroup, name: string): FormGroup[] {
+    return (formGroup.get(name) as FormArray).controls as FormGroup[];
   }
 
   isGroupFields(type: FormGroupTypes): boolean {
