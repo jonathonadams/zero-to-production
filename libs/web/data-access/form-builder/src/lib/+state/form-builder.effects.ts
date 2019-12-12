@@ -16,7 +16,7 @@ import * as FormActions from './form-builder.actions';
 import { FormBuilderService } from '../form-builder.service';
 import { FormConstructorService } from '../form-constructor.service';
 import { FormBuilderFacade } from './form-builder.facade';
-import { IFormBuilderStructure } from '../form-builder.models';
+import { IFormBuilderStructure } from './form-builder.reducer';
 
 @Injectable()
 export class FormEffects {

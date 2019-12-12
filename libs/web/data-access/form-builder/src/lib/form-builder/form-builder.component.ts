@@ -4,7 +4,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
-import { IFormBuilderStructure } from '../form-builder.models';
+import { IFormBuilderStructure } from '../+state/form-builder.reducer';
 
 @Component({
   selector: 'uqt-form-builder',
@@ -60,18 +60,13 @@ export class FormBuilderComponent {
       fieldLabel: []
     });
   }
-  // addGroupField(groupIndex: number) {
-  //   this.getGroupFields(groupIndex).push(this.createFieldGroup());
-  // }
 
   toggleFormConfig() {
     this.showFormConfig = !this.showFormConfig;
   }
 
   showFormField(groupIndex: number, fieldIndex: number) {
-    let selected = this.fieldVisible;
-    console.log('before');
-    console.log(selected);
+    const selected = this.fieldVisible;
     if (
       groupIndex === selected.groupIndex &&
       fieldIndex === selected.fieldIndex
@@ -83,8 +78,6 @@ export class FormBuilderComponent {
         fieldIndex
       };
     }
-    console.log('after');
-    console.log(this.fieldVisible);
   }
 
   deleteFormGroup(i: number): void {

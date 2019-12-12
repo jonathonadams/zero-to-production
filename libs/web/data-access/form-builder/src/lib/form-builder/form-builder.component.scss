@@ -18,41 +18,54 @@
   margin-left: 1em;
   flex: 5;
 
+  .form-config {
+    margin-bottom: 0.5em;
+  }
+
   .form-sections {
     min-height: 500px;
 
     &.cdk-drop-list-dragging {
-      border-radius: 4px;
+      border-radius: 3px;
       border: 1px dashed grey;
     }
   }
 
   .group-section {
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     .group-settings {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-
-      .move-handle {
-        cursor: move;
-      }
+      align-items: center;
     }
 
     .group-fields {
-      margin-top: 1em;
-      min-height: 5em;
+      min-height: 5em; // For the drop space
 
       &.cdk-drop-list-dragging {
-        border-radius: 4px;
+        border-radius: 3px;
         border: 1px dashed grey;
       }
 
-      .builder-field {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+      .group-form-field {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+
+        border-radius: 3px;
+        margin-bottom: 0.2em;
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .group-form-field-header {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
       }
     }
   }
@@ -74,14 +87,6 @@
 .cdk-drag-animating {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
-
-// .group-section:last-child {
-//   border: none;
-// }
-
-// .sections.cdk-drop-list-dragging .group-section:not(.cdk-drag-placeholder) {
-//   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-// }
 
 .cdk-drop-list-dragging :not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import map from 'ramda/es/map';
 import {
   IFormGroup,
   TField,
@@ -6,13 +7,11 @@ import {
   FormFieldTypes,
   FormGroupTypes
 } from '@uqt/data-access/dynamic-form';
-
-import map from 'ramda/es/map';
 import {
+  IFormBuilderStructure,
   IFormBuilderField,
-  IFormBuilderGroup,
-  IFormBuilderStructure
-} from './form-builder.models';
+  IFormBuilderGroup
+} from './+state/form-builder.reducer';
 
 @Injectable({ providedIn: 'root' })
 export class FormConstructorService {
