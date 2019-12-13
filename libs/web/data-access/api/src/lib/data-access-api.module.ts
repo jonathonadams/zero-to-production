@@ -1,10 +1,14 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders, InjectionToken } from '@angular/core';
 import { GraphQLService } from './graphql/graphql.service';
 import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
-import { createApollo } from './graphql/createApollo';
+import { createApollo, GRAPHQL_URL } from './graphql/createApollo';
 import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
-import { ApiService } from './api/api.service';
+import { ApiService, API_BASE_URL } from './api/api.service';
 import { HttpClientModule } from '@angular/common/http';
+// import {
+//   WEBSOCKET_URL,
+//   SOCKET_IO_NAMESPACE
+// } from './websockets/websocket.service';
 
 @NgModule({
   imports: [HttpClientModule, ApolloModule, HttpLinkModule],
@@ -13,8 +17,10 @@ import { HttpClientModule } from '@angular/common/http';
 export class DataAccessApiModule {
   static forRoot({
     graphQLUrl = 'graphql',
-    apiBaseUrl = 'api'
-  } = {}): ModuleWithProviders {
+    apiBaseUrl = 'api',
+    webSocketUrl = '',
+    socketIONamespace = ''
+  } = {}): ModuleWithProviders<DataAccessApiModule> {
     return {
       ngModule: DataAccessApiModule,
       providers: [
@@ -23,16 +29,24 @@ export class DataAccessApiModule {
         {
           provide: APOLLO_OPTIONS,
           useFactory: createApollo,
-          deps: [HttpLink, 'graphQLUrl']
+          deps: [HttpLink, GRAPHQL_URL]
         },
         {
-          provide: 'graphQLUrl',
+          provide: GRAPHQL_URL,
           useValue: graphQLUrl
         },
         {
-          provide: 'apiBaseUrl',
+          provide: API_BASE_URL,
           useValue: apiBaseUrl
         }
+        // {
+        //   provide: WEBSOCKET_URL,
+        //   useValue: webSocketUrl
+        // },
+        // {
+        //   provide: SOCKET_IO_NAMESPACE,
+        //   useValue: socketIONamespace
+        // }
       ]
     };
   }

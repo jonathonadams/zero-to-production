@@ -1,6 +1,8 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+export const API_BASE_URL = new InjectionToken<string>('ApiBaseUrl');
 
 /**
  * Generic API service for all basic CRUD operations.
@@ -10,7 +12,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class ApiService {
   constructor(
-    @Inject('apiBaseUrl') private baseUrl: string,
+    @Inject(API_BASE_URL) private baseUrl: string,
     private http: HttpClient
   ) {}
 
