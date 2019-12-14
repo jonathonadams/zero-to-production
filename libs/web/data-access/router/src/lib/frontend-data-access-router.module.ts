@@ -9,7 +9,7 @@ export class RootDataAccessRouterModule {}
 
 @NgModule()
 export class DataAccessRouterModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<RootDataAccessRouterModule> {
     return {
       ngModule: RootDataAccessRouterModule
     };

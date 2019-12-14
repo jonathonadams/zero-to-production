@@ -14,7 +14,7 @@ export class RootAppRoutingModule {}
 
 @NgModule()
 export class AppRoutingModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<RootAppRoutingModule> {
     return {
       ngModule: RootAppRoutingModule
     };
