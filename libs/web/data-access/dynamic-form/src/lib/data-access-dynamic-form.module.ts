@@ -60,7 +60,6 @@ export class DynamicFormModule {
     EffectsModule.forFeature([DynamicFormsEffects])
   ],
   declarations: [FormErrorsComponent],
-  entryComponents: [FormErrorsComponent],
   exports: [DynamicFormModule]
 })
 export class RootDataAccessDynamicFormModule {}
