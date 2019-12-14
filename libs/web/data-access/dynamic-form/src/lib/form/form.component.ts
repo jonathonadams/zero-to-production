@@ -55,8 +55,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.facade.resetIndex();
 
-    // TODO -> do we want default values, or reset the form with what is in the store?
-
     this.structure$
       .pipe(
         // Build the form
@@ -68,8 +66,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
         map(([form]) => form),
         // Set the internal form property with the new form
         tap(form => (this.form = form)),
-        // Update the store with default values
-        tap(({ value: data }) => this.facade.updateData({ data })),
         // Switch to the observable of the change in form values
         switchMap(form =>
           form.valueChanges.pipe(

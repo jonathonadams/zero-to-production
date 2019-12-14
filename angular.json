@@ -29,7 +29,7 @@
             ],
             "styles": ["apps/web/todos/src/styles.scss"],
             "scripts": [],
-            "aot": false
+            "aot": true
           },
           "configurations": {
             "production": {
@@ -44,7 +44,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -53,6 +52,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ],
               "serviceWorker": true,
@@ -1110,7 +1113,7 @@
             "main": "apps/web/examples/src/main.ts",
             "polyfills": "apps/web/examples/src/polyfills.ts",
             "tsConfig": "apps/web/examples/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "apps/web/examples/src/favicon.ico",
               "apps/web/examples/src/assets"
@@ -1131,7 +1134,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -1239,37 +1241,6 @@
             "jestConfig": "libs/web/examples/data-access/jest.config.js",
             "tsConfig": "libs/web/examples/data-access/tsconfig.spec.json",
             "setupFile": "libs/web/examples/data-access/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
-    "web-shared-auth-routes": {
-      "projectType": "library",
-      "root": "libs/web/shared/auth-routes",
-      "sourceRoot": "libs/web/shared/auth-routes/src",
-      "prefix": "uqt",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/web/shared/auth-routes/tsconfig.lib.json",
-              "libs/web/shared/auth-routes/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/web/shared/auth-routes/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/web/shared/auth-routes/jest.config.js",
-            "tsConfig": "libs/web/shared/auth-routes/tsconfig.spec.json",
-            "setupFile": "libs/web/shared/auth-routes/src/test-setup.ts"
           }
         }
       },
@@ -1409,31 +1380,62 @@
         }
       }
     },
-    "web-data-access-dynamic-form-material-components": {
+    "web-common-dynamic-form-material-components": {
       "projectType": "library",
-      "root": "libs/web/data-access/dynamic-form-material-components",
-      "sourceRoot": "libs/web/data-access/dynamic-form-material-components/src",
+      "root": "libs/web/common/dynamic-form-material-components",
+      "sourceRoot": "libs/web/common/dynamic-form-material-components/src",
       "prefix": "uqt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/web/data-access/dynamic-form-material-components/tsconfig.lib.json",
-              "libs/web/data-access/dynamic-form-material-components/tsconfig.spec.json"
+              "libs/web/common/dynamic-form-material-components/tsconfig.lib.json",
+              "libs/web/common/dynamic-form-material-components/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/web/data-access/dynamic-form-material-components/**"
+              "!libs/web/common/dynamic-form-material-components/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/web/data-access/dynamic-form-material-components/jest.config.js",
-            "tsConfig": "libs/web/data-access/dynamic-form-material-components/tsconfig.spec.json",
-            "setupFile": "libs/web/data-access/dynamic-form-material-components/src/test-setup.ts"
+            "jestConfig": "libs/web/common/dynamic-form-material-components/jest.config.js",
+            "tsConfig": "libs/web/common/dynamic-form-material-components/tsconfig.spec.json",
+            "setupFile": "libs/web/common/dynamic-form-material-components/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "web-common-ui-auth": {
+      "projectType": "library",
+      "root": "libs/web/common/ui/auth",
+      "sourceRoot": "libs/web/common/ui/auth/src",
+      "prefix": "uqt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/common/ui/auth/tsconfig.lib.json",
+              "libs/web/common/ui/auth/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/web/common/ui/auth/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/common/ui/auth/jest.config.js",
+            "tsConfig": "libs/web/common/ui/auth/tsconfig.spec.json",
+            "setupFile": "libs/web/common/ui/auth/src/test-setup.ts"
           }
         }
       },

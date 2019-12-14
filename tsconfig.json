@@ -47,7 +47,6 @@
       "@uqt/examples/data-access": [
         "libs/web/examples/data-access/src/index.ts"
       ],
-      "@uqt/shared/auth-routes": ["libs/web/shared/auth-routes/src/index.ts"],
       "@uqt/examples/form-builder": [
         "libs/web/examples/form-builder/src/index.ts"
       ],
@@ -56,9 +55,10 @@
       ],
       "@uqt/examples/theming": ["libs/web/examples/theming/src/index.ts"],
       "@uqt/common/ui/card": ["libs/web/common/ui/card/src/index.ts"],
-      "@uqt/data-access/dynamic-form-material-components": [
-        "libs/web/data-access/dynamic-form-material-components/src/index.ts"
-      ]
+      "@uqt/common/dynamic-form-material-components": [
+        "libs/web/common/dynamic-form-material-components/src/index.ts"
+      ],
+      "@uqt/web/common/ui/auth": ["libs/web/common/ui/auth/src/index.ts"]
     }
   }
 }

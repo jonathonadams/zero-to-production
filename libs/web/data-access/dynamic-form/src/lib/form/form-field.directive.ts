@@ -6,8 +6,8 @@ import {
   OnChanges,
   OnInit,
   ViewContainerRef,
-  ComponentFactory,
-  Inject
+  Inject,
+  InjectionToken
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
@@ -15,6 +15,10 @@ import {
   TField,
   DynamicFormComponentMap
 } from '../dynamic-form.models';
+
+export const DYNAMIC_FORM_COMPONENTS = new InjectionToken<
+  DynamicFormComponentMap
+>('DYNAMIC_FORM_COMPONENTS');
 
 @Directive({
   selector: '[appDynamicFormField]'
@@ -27,24 +31,16 @@ export class DynamicFormFieldDirective implements OnInit, OnChanges {
   component: ComponentRef<any>;
 
   constructor(
-    @Inject('DYNAMIC_FORM_COMPONENT_MAP')
+    @Inject(DYNAMIC_FORM_COMPONENTS)
     private componentMap: DynamicFormComponentMap,
     private resolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef
   ) {}
 
   ngOnInit() {
-    let component: ComponentFactory<any>;
-
-    if (this.field.customComponent) {
-      component = this.resolver.resolveComponentFactory<any>(
-        this.field.customComponent
-      );
-    } else {
-      component = this.resolver.resolveComponentFactory<any>(
-        this.componentMap[this.field.componentType]
-      );
-    }
+    const component = this.resolver.resolveComponentFactory<any>(
+      this.componentMap[this.field.componentType]
+    );
 
     this.viewContainerRef.clear();
     this.component = this.viewContainerRef.createComponent(component);

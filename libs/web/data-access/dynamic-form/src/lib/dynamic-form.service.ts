@@ -84,7 +84,7 @@ export class DynamicFormService {
       field.validators ? field.validators : []
     );
 
-    return this.fb.control(field.initialValue, validators, asyncValidators);
+    return this.fb.control('', validators, asyncValidators);
   }
 
   getAllFormErrors(form: FormGroup): ValidationErrors {
@@ -92,7 +92,7 @@ export class DynamicFormService {
     if (form.errors) {
       errors['form'] = form.errors;
     }
-    return { ...errors, ...this.getControlErrors(form) };
+    return { ...this.getControlErrors(form), ...errors };
   }
 
   getControlErrors(form: FormGroup): ValidationErrors {

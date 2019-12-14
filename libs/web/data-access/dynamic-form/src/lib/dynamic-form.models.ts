@@ -7,7 +7,8 @@ export type TField =
   | ISelectField
   | IToggleField
   | IDatePickerField
-  | ITextArea;
+  | ITextArea
+  | ICustomInput;
 
 export type TFormGroups = (IFormGroup | TFormArray)[];
 
@@ -38,12 +39,10 @@ export interface IFormFieldArray extends IBaseFormArray {
 export interface IBaseField {
   name: string;
   label: string;
-  initialValue?: any; // TODO -> Initial Value
   validators?: ValidatorFn[];
   asyncValidators?: Type<AsyncValidator>[];
   autocomplete?: TAutoComplete;
   attrs?: any;
-  customComponent?: Type<any>;
 }
 
 export interface IInputField extends IBaseField {
@@ -71,6 +70,10 @@ export interface IDatePickerField extends IBaseField {
 export interface ISelectOption {
   display: string;
   value: any;
+}
+
+export interface ICustomInput extends IBaseField {
+  componentType: string;
 }
 
 // There are more to complete here
@@ -127,10 +130,18 @@ export enum FormFieldTypes {
 }
 
 export interface DynamicFormConfig {
-  componentMap: DynamicFormComponentMap;
+  components: BaseComponentMap;
   errors?: DynamicFormErrorsMap;
 }
 
-export type DynamicFormComponentMap = {
+export type BaseComponentMap = {
   [key in FormFieldTypes]: Type<any>;
 };
+
+export type CustomComponentMap = {
+  [key: string]: Type<any>;
+};
+
+export interface DynamicFormComponentMap
+  extends BaseComponentMap,
+    CustomComponentMap {}
