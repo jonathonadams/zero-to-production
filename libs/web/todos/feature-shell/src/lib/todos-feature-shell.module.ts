@@ -10,12 +10,12 @@ import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
 import { TodosFeatureShellRoutingModule } from './todos-feature-shell-routing.module';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
 import { TodoLayoutComponent } from './ui/todos-layout.component';
-import { SharedAuthRoutesModule } from '@uqt/shared/auth-routes';
+import { WebCommonUiAuthModule } from '@uqt/web/common/ui/auth';
 
 @NgModule({
   declarations: [TodoFeatureShellComponent, TodoLayoutComponent],
   imports: [
-    SharedAuthRoutesModule,
+    WebCommonUiAuthModule,
     TodosDataAccessModule,
     AllTodosModule,
     TodosDetailModule,

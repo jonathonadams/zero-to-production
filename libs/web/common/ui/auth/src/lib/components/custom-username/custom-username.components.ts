@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IInputField } from '@uqt/data-access/dynamic-form';
+import { IInputField, FormGroupTypes } from '@uqt/data-access/dynamic-form';
 
 @Component({
   selector: 'uqt-custom-username',
@@ -9,6 +9,8 @@ import { IInputField } from '@uqt/data-access/dynamic-form';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomUsernameComponent {
+  @Input() idx: number; // Only accessed if a FormGroup
+  @Input() type: FormGroupTypes;
   @Input() field: IInputField;
   @Input() group: FormGroup;
 }

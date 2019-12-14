@@ -24,6 +24,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
+  declarations: COMPONENTS,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -31,9 +32,7 @@ const COMPONENTS = [
     CustomMaterialModule,
     DynamicFormModule.forChild()
   ],
-  declarations: COMPONENTS,
   providers: [UsernameAvailableValidator],
-  exports: COMPONENTS,
-  entryComponents: [CustomUsernameComponent]
+  exports: COMPONENTS
 })
-export class SharedAuthRoutesModule {}
+export class WebCommonUiAuthModule {}

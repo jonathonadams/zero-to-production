@@ -5,7 +5,6 @@ import {
   FormFieldTypes,
   TFormGroups
 } from '@uqt/data-access/dynamic-form';
-import { CustomUsernameComponent } from '../custom-username/custom-username.components';
 import { UsernameAvailableValidator } from '../../validators/username-available.validator';
 import { passwordValidator } from '../../validators/auth.validators';
 
@@ -14,13 +13,12 @@ const PASSWORD_GROUP: IFormGroup = {
   groupType: FormGroupTypes.Group,
   fields: [
     {
-      componentType: FormFieldTypes.Input,
+      componentType: 'USERNAME',
       type: 'text',
       name: 'username',
       label: 'Username',
       validators: [Validators.required],
-      asyncValidators: [UsernameAvailableValidator],
-      customComponent: CustomUsernameComponent
+      asyncValidators: [UsernameAvailableValidator]
     },
     {
       componentType: FormFieldTypes.Input,

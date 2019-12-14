@@ -13,9 +13,7 @@ import { FormToggleComponent } from './fields/toggle/toggle.components';
 import { FormDatePickerComponent } from './fields/date-picker/date-picker.component';
 import { FormTextAreaComponent } from './fields/textarea/textarea.component';
 
-// TODO -> Make the material components their own library
-
-const ENTRY_COMPONENTS = [
+const COMPONENTS = [
   FormInputComponent,
   FormSelectComponent,
   FormToggleComponent,
@@ -24,6 +22,7 @@ const ENTRY_COMPONENTS = [
 ];
 
 @NgModule({
+  declarations: COMPONENTS,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -34,8 +33,6 @@ const ENTRY_COMPONENTS = [
     MatFormFieldModule,
     TextFieldModule
   ],
-  declarations: ENTRY_COMPONENTS,
-  exports: ENTRY_COMPONENTS,
-  entryComponents: ENTRY_COMPONENTS
+  exports: COMPONENTS
 })
 export class DynamicFormMaterialComponentsModule {}

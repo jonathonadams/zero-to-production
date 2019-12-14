@@ -5,7 +5,7 @@ import { ThemeService } from '@uqt/common/theme';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'uqt-auth',
+  selector: 'uqt-common-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -40,14 +40,14 @@ export function passwordMatchValidator(
       if (confirmPassword.value && confirmPassword.value === password.value) {
         return null;
       } else {
-        return { passwordsDoNotMatch: { value: true } };
+        return { missMatchPasswords: true };
       }
     } else {
       // Disable the confirm password if it is currently enabled
       if (!confirmPassword.disabled) {
         confirmPassword.disable();
       }
-      return { passwordsDoNotMatch: { value: true } };
+      return { missMatchPasswords: true };
     }
   };
 }
