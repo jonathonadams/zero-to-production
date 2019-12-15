@@ -10,7 +10,6 @@ import { ExamplesDataAccessModule } from '@uqt/examples/data-access';
 import { ExampleDetailComponent } from './example-detail/example-detail.component';
 import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
 import { ExamplesAboutComponent } from './about/examples-about.component';
-import { FactoryRenderedDirective } from './about/factory-renderer.directive';
 import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
 import { DataAccessDynamicModuleLoadingModule } from '@uqt/data-access/dynamic-module-loading';
 
@@ -18,8 +17,7 @@ const COMPONENTS = [
   ExamplesFeatureShellComponent,
   ExamplesAboutComponent,
   ExamplesComponent,
-  ExampleDetailComponent,
-  FactoryRenderedDirective
+  ExampleDetailComponent
 ];
 
 @NgModule({
