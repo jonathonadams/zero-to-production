@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ExamplesFeatureShellRoutingModule } from './examples-feature-shell-routing.module';
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
 import { CommonUiToolbarModule } from '@uqt/common/ui/toolbar';
@@ -24,6 +25,7 @@ const COMPONENTS = [
   imports: [
     CommonModule,
     CommonUiLayoutsModule,
+    ScrollingModule,
     CustomMaterialModule,
     CommonUiToolbarModule,
     CommonUiCardModule,

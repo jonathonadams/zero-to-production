@@ -13,20 +13,30 @@ import { ModuleLoaderService } from '@uqt/data-access/dynamic-module-loading';
   styleUrls: ['./examples-about.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExamplesAboutComponent implements OnInit {
-  componentTags = ['dynamic-form', 'theming'];
+export class ExamplesAboutComponent {
+  examples = ['dynamic-form', 'form-builder', 'theming', 'secure'];
+
   constructor(private moduleLoader: ModuleLoaderService) {
     this.moduleLoader.registerModule('dynamic-form', () =>
       import('@uqt/examples/dynamic-form').then(
         m => m.WebExamplesDynamicFormModule
       )
-    ),
-      this.moduleLoader.registerModule('theming', () =>
-        import('@uqt/examples/theming').then(m => m.WebExamplesThemingModule)
-      );
-  }
+    );
 
-  ngOnInit() {}
+    this.moduleLoader.registerModule('form-builder', () =>
+      import('@uqt/examples/form-builder').then(
+        m => m.WebExamplesFormBuilderModule
+      )
+    );
+
+    this.moduleLoader.registerModule('theming', () =>
+      import('@uqt/examples/theming').then(m => m.WebExamplesThemingModule)
+    );
+
+    this.moduleLoader.registerModule('secure', () =>
+      import('@uqt/todos/feature-shell').then(m => m.TodosFeatureShellModule)
+    );
+  }
 
   selectFactory(tag: string): Observable<ComponentFactory<any> | undefined> {
     return this.moduleLoader.selectFactory(tag);

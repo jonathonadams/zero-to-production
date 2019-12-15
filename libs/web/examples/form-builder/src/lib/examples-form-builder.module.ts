@@ -6,7 +6,7 @@ import { ExampleDisplayFormComponent } from './display/display.component';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
 import { DataAccessFormBuilderModule } from '@uqt/data-access/form-builder';
-import { ExamplesFormBuilderRouterModule } from './examples-form-builder-router.module';
+// import { ExamplesFormBuilderRouterModule } from './examples-form-builder-router.module';
 
 const COMPONENTS = [
   ExampleCreateFormComponent,
@@ -20,8 +20,8 @@ const COMPONENTS = [
     CommonModule,
     CustomMaterialModule,
     DynamicFormModule,
-    DataAccessFormBuilderModule,
-    ExamplesFormBuilderRouterModule
+    DataAccessFormBuilderModule
+    // ExamplesFormBuilderRouterModule
   ]
 })
 export class WebExamplesFormBuilderModule {}

@@ -85,7 +85,9 @@ export class ModuleLoaderService {
             }
           })
           .then(moduleWithComponentFactory => {
-            // const moduleRef = moduleWithComponentFactory.ngModuleFactory.create(this.injector)
+            const moduleRef = moduleWithComponentFactory.ngModuleFactory.create(
+              this.injector
+            );
 
             const factory = moduleWithComponentFactory.componentFactories[0];
 
