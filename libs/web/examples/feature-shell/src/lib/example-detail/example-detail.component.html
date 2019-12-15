@@ -1,4 +1,5 @@
-<section class="example" *ngFor="selectedExample$ | async as example">
+<!-- TODO -> Remove the $any() once the Ivy type checker does not error here -->
+<section class="example" *ngIf="$any(selectedExample$ | async) as example">
   <header class="example-description">
     <h2>{{ example.title }}</h2>
     <p>{{ example.descriptionFull }}</p>

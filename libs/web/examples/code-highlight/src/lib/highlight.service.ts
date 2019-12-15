@@ -7,7 +7,7 @@ import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-css';
 
 @Injectable({ providedIn: 'root' })
-export class HighlightService {
+export class CodeHighlightService {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   highlightAll() {

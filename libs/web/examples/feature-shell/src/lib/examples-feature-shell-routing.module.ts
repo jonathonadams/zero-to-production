@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
-// import { ExamplesComponent } from './examples/examples.component';
+import { ExamplesComponent } from './examples/examples.component';
 // import { ExampleDetailComponent } from './example-detail/example-detail.component';
 import { ExamplesAboutComponent } from './about/examples-about.component';
 
 export const EXAMPLES_ROUTES: Routes = [
   {
-    path: 'examples',
+    path: 'about',
     component: ExamplesFeatureShellComponent,
     children: [
       {
@@ -15,11 +15,17 @@ export const EXAMPLES_ROUTES: Routes = [
         pathMatch: 'full',
         component: ExamplesAboutComponent
       }
-      // {
-      //   path: 'all',
-      //   pathMatch: 'full',
-      //   component: ExamplesComponent
-      // },
+    ]
+  },
+  {
+    path: 'examples',
+    component: ExamplesFeatureShellComponent,
+    children: [
+      {
+        path: 'all',
+        pathMatch: 'full',
+        component: ExamplesComponent
+      },
       // {
       //   path: 'dynamic-form',
       //   component: ExampleDetailComponent,
@@ -50,6 +56,11 @@ export const EXAMPLES_ROUTES: Routes = [
       //       m => m.TodosFeatureShellModule
       //     )
       // }
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'all'
+      }
     ]
   },
   {
@@ -64,6 +75,7 @@ export const EXAMPLES_ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(EXAMPLES_ROUTES)]
+  imports: [RouterModule.forChild(EXAMPLES_ROUTES)],
+  exports: [RouterModule]
 })
 export class ExamplesFeatureShellRoutingModule {}

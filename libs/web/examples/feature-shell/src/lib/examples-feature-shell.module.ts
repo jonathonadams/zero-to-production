@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { ExamplesFeatureShellRoutingModule } from './examples-feature-shell-routing.module';
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
 import { CommonUiToolbarModule } from '@uqt/common/ui/toolbar';
@@ -11,29 +10,29 @@ import { ExamplesDataAccessModule } from '@uqt/examples/data-access';
 import { ExampleDetailComponent } from './example-detail/example-detail.component';
 import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
 import { ExamplesAboutComponent } from './about/examples-about.component';
-import { ScrollNavigationDirective } from './scroll-router.directive';
 import { FactoryRenderedDirective } from './about/factory-renderer.directive';
-import { ExampleDynamicFormComponent } from '@uqt/examples/dynamic-form';
+import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
+import { DataAccessDynamicModuleLoadingModule } from '@uqt/data-access/dynamic-module-loading';
 
 const COMPONENTS = [
   ExamplesFeatureShellComponent,
   ExamplesAboutComponent,
   ExamplesComponent,
   ExampleDetailComponent,
-  ScrollNavigationDirective,
   FactoryRenderedDirective
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule,
     CommonUiLayoutsModule,
     CustomMaterialModule,
     CommonUiToolbarModule,
     CommonUiCardModule,
     ExamplesDataAccessModule,
-    ExamplesFeatureShellRoutingModule
+    ExamplesFeatureShellRoutingModule,
+    DynamicFormModule.forChild(),
+    DataAccessDynamicModuleLoadingModule
   ],
   declarations: COMPONENTS
 })

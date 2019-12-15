@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  AfterViewInit
+} from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -8,7 +13,7 @@ import {
   FormGroupTypes,
   FormFieldTypes
 } from '@uqt/data-access/dynamic-form';
-// import { HighlightService } from '@uqt/examples';
+import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
 
 const SIMPLE_FORM: TFormGroups = [
   {
@@ -76,7 +81,7 @@ const COMPLEX_FORM: TFormGroups = [
   styleUrls: ['./dynamic-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleDynamicFormComponent implements OnInit {
+export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
   simpleStructure = true;
   submit$: Observable<any>;
 
@@ -123,7 +128,8 @@ export class ExampleDynamicFormComponent implements OnInit {
   }`;
 
   constructor(
-    private formFacade: DynamicFormFacade // private highlight: HighlightService
+    private formFacade: DynamicFormFacade,
+    private highlight: CodeHighlightService
   ) {
     this.submit$ = this.formFacade.submit$;
   }
@@ -132,8 +138,8 @@ export class ExampleDynamicFormComponent implements OnInit {
     this.formFacade.setStructure({ structure: SIMPLE_FORM });
   }
 
-  ngAfterViewChecked() {
-    // this.highlight.highlightAll();
+  ngAfterViewInit() {
+    this.highlight.highlightAll();
   }
 
   setStructure(simpleForm: boolean) {

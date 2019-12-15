@@ -2,11 +2,10 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  ViewChild,
-  ElementRef
+  ComponentFactory
 } from '@angular/core';
-import { ComponentLoaderService } from '../component-loader.service';
-import { ExampleDynamicFormComponent } from '@uqt/examples/dynamic-form';
+import { Observable } from 'rxjs';
+import { ModuleLoaderService } from '@uqt/data-access/dynamic-module-loading';
 
 @Component({
   selector: 'uqt-examples-about',
@@ -15,24 +14,22 @@ import { ExampleDynamicFormComponent } from '@uqt/examples/dynamic-form';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplesAboutComponent implements OnInit {
-  @ViewChild('testOutlet', { static: true }) outlet!: ElementRef<HTMLElement>;
-
-  componentTags = ['example-dynamic-form'];
-  constructor(private compLoader: ComponentLoaderService) {}
-
-  ngOnInit() {
-    this.compLoader.registerModule('example-dynamic-form', {
-      modulePath: () =>
-        import('@uqt/examples/dynamic-form').then(
-          m => m.WebExamplesDynamicFormModule
-        ),
-      moduleRef: null,
-      entryComponent: ExampleDynamicFormComponent
-    });
+  componentTags = ['dynamic-form', 'theming'];
+  constructor(private moduleLoader: ModuleLoaderService) {
+    this.moduleLoader.registerModule('dynamic-form', () =>
+      import('@uqt/examples/dynamic-form').then(
+        m => m.WebExamplesDynamicFormModule
+      )
+    ),
+      this.moduleLoader.registerModule('theming', () =>
+        import('@uqt/examples/theming').then(m => m.WebExamplesThemingModule)
+      );
   }
 
-  loadModule(tag: string) {
-    return this.compLoader.loadComponent(tag);
+  ngOnInit() {}
+
+  selectFactory(tag: string): Observable<ComponentFactory<any> | undefined> {
+    return this.moduleLoader.selectFactory(tag);
   }
 }
 

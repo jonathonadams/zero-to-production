@@ -1217,7 +1217,6 @@
         }
       }
     },
-
     "web-examples-data-access": {
       "projectType": "library",
       "root": "libs/web/examples/data-access",
@@ -1438,6 +1437,74 @@
             "jestConfig": "libs/web/common/ui/auth/jest.config.js",
             "tsConfig": "libs/web/common/ui/auth/tsconfig.spec.json",
             "setupFile": "libs/web/common/ui/auth/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "web-examples-code-highlight": {
+      "projectType": "library",
+      "root": "libs/web/examples/code-highlight",
+      "sourceRoot": "libs/web/examples/code-highlight/src",
+      "prefix": "uqt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/examples/code-highlight/tsconfig.lib.json",
+              "libs/web/examples/code-highlight/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/web/examples/code-highlight/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/examples/code-highlight/jest.config.js",
+            "tsConfig": "libs/web/examples/code-highlight/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/code-highlight/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "web-data-access-dynamic-module-loading": {
+      "projectType": "library",
+      "root": "libs/web/data-access/dynamic-module-loading",
+      "sourceRoot": "libs/web/data-access/dynamic-module-loading/src",
+      "prefix": "uqt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/data-access/dynamic-module-loading/tsconfig.lib.json",
+              "libs/web/data-access/dynamic-module-loading/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/web/data-access/dynamic-module-loading/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/data-access/dynamic-module-loading/jest.config.js",
+            "tsConfig": "libs/web/data-access/dynamic-module-loading/tsconfig.spec.json",
+            "setupFile": "libs/web/data-access/dynamic-module-loading/src/test-setup.ts"
           }
         }
       },

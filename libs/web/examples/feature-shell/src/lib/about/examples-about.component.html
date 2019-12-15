@@ -1,8 +1,6 @@
 <p>about works!</p>
-
-<button (click)="loadModule()">Insert Component</button>
 <ng-container
   *ngFor="let tag of componentTags"
-  appFactoryRender
-  [componentFactory]="loadModule(tag) | async"
+  componentFactoryRenderer
+  [componentFactory]="selectFactory(tag) | async"
 ></ng-container>

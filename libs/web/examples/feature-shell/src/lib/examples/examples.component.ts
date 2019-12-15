@@ -22,6 +22,6 @@ export class ExamplesComponent {
 
   selectExample(example: IExample) {
     this.facade.selectExample(example.url);
-    this.routerFacade.go({ path: [example.url], relative: true });
+    this.routerFacade.go({ path: ['examples', example.url] });
   }
 }

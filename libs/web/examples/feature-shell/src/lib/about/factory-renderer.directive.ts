@@ -1,31 +1,25 @@
-import {
-  Directive,
-  ViewContainerRef,
-  Input,
-  ComponentFactoryResolver,
-  ComponentFactory,
-  ComponentRef
-} from '@angular/core';
+// import {
+//   Directive,
+//   ViewContainerRef,
+//   Input,
+//   ComponentFactory,
+//   ComponentRef
+// } from '@angular/core';
 
-@Directive({
-  selector: '[appFactoryRender]'
-})
-export class FactoryRenderedDirective {
-  private componentRef: ComponentRef<any> | undefined;
+// @Directive({
+//   selector: '[appFactoryRender]'
+// })
+// export class FactoryRenderedDirective {
+//   private componentRef: ComponentRef<any> | undefined;
 
-  constructor(
-    private viewContainerRef: ViewContainerRef,
-    private resolver: ComponentFactoryResolver
-  ) {}
+//   constructor(private viewContainerRef: ViewContainerRef) {}
 
-  @Input() componentFactory: ComponentFactory<any> | undefined;
-
-  // ngOnInit() {
-  //   const componentFactory = this.componentFactory;
-  //   if (componentFactory) {
-  //     this.componentRef = this.viewContainerRef.createComponent(
-  //       componentFactory
-  //     );
-  //   }
-  // }
-}
+//   @Input()
+//   set componentFactory(factory: ComponentFactory<any> | null | undefined) {
+//     if (factory) {
+//       this.viewContainerRef.clear();
+//       this.componentRef = this.viewContainerRef.createComponent(factory);
+//       this.componentRef.changeDetectorRef.detectChanges();
+//     }
+//   }
+// }

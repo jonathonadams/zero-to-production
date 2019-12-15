@@ -12,13 +12,13 @@ import { RouterFacade } from '@uqt/data-access/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDetailComponent {
-  selectedExample: Observable<IExample | undefined>;
+  selectedExample$: Observable<IExample | undefined>;
 
   constructor(
     private facade: ExamplesFacade,
     private routerFacade: RouterFacade
   ) {
-    this.selectedExample = this.facade.selectedExample$;
+    this.selectedExample$ = this.facade.selectedExample$;
 
     this.routerFacade.url$
       .pipe(take(1), map(this.getExampleUrl))

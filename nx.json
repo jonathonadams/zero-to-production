@@ -136,6 +136,12 @@
     },
     "web-common-ui-auth": {
       "tags": []
+    },
+    "web-examples-code-highlight": {
+      "tags": []
+    },
+    "web-data-access-dynamic-module-loading": {
+      "tags": []
     }
   }
 }
