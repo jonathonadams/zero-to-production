@@ -99,6 +99,12 @@ export class ModuleLoaderService {
         const entryComponent = (<any>moduleFactory.moduleType)
           .lazyEntryComponent;
 
+        if (!entryComponent) {
+          throw new Error(
+            `No entry component defined. a 'lazyEntryComponent' must be defined on ${moduleFactory.moduleType}`
+          );
+        }
+
         const moduleRef = moduleFactory.create(this.injector);
 
         const factory = moduleRef.componentFactoryResolver.resolveComponentFactory(
