@@ -4,15 +4,17 @@ import {
   Type,
   Compiler,
   ComponentFactory,
-  NgModuleFactory
+  NgModuleFactory,
+  InjectionToken,
+  Inject
 } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap, distinctUntilChanged, take } from 'rxjs/operators';
+import { map, distinctUntilChanged, take } from 'rxjs/operators';
 
-export type TModuleImportPath = () => Promise<Type<any>>;
+export type TModuleImportPath = () => Promise<NgModuleFactory<any> | Type<any>>;
 
 interface IModuleRegistry {
-  importPath: () => Promise<Type<any>>;
+  importPath: TModuleImportPath;
   loadInitiated: boolean;
   loadComplete: boolean;
 }
@@ -20,6 +22,14 @@ interface IModuleRegistry {
 interface IFactoryRegistry {
   [key: string]: { factory: ComponentFactory<any> } | undefined;
 }
+
+export interface ILazyModuleRegistry {
+  [key: string]: TModuleImportPath;
+}
+
+export const LAZY_MODULE_REGISTRY = new InjectionToken<ILazyModuleRegistry>(
+  'LAZY_MODULE_REGISTRY'
+);
 
 @Injectable({
   providedIn: 'root'
@@ -30,35 +40,41 @@ export class ModuleLoaderService {
 
   private registry$ = this.registry.asObservable();
 
-  constructor(private compiler: Compiler, private injector: Injector) {}
+  constructor(
+    @Inject(LAZY_MODULE_REGISTRY)
+    private _lazyModuleRegistry: ILazyModuleRegistry,
+    private compiler: Compiler,
+    private injector: Injector
+  ) {
+    // Register the providers in the internal map
+    this._registerModule(_lazyModuleRegistry);
+  }
 
   selectFactory(tag: string): Observable<ComponentFactory<any> | undefined> {
     return this.registry$.pipe(
       map(registry => registry[tag]),
-      // Trigger load if it there is not once currently in the observable store
-      // Note that this might be triggerd multiple times, but the import will only be
-      // called once
-      tap(module => (!module ? this.loadComponent(tag) : undefined)),
       distinctUntilChanged(),
       map(module => (module && module.factory ? module.factory : undefined))
     );
   }
 
-  registerModule(key: string, moduleImportPath: TModuleImportPath): void {
-    const moduleRegister: IModuleRegistry = {
-      importPath: moduleImportPath,
-      loadComplete: false,
-      loadInitiated: false
-    };
-    this._registry.set(key, moduleRegister);
+  private _registerModule(modules: ILazyModuleRegistry): void {
+    Object.keys(modules).forEach(key => {
+      const moduleRegister: IModuleRegistry = {
+        importPath: modules[key],
+        loadComplete: false,
+        loadInitiated: false
+      };
+      this._registry.set(key, moduleRegister);
+    });
   }
 
-  private loadComponent(componentTag: string): Promise<boolean> | null {
-    const registeredModule = this._registry.get(componentTag);
+  public async initLoadModule(key: string): Promise<boolean> {
+    const registeredModule = this._registry.get(key);
 
     if (!registeredModule) {
       throw new Error(
-        `Unrecognized component "${componentTag}". Make sure it is registered in the component registry`
+        `Unrecognized component "${key}". Make sure it is registered in the component registry`
       );
     }
 
@@ -68,48 +84,43 @@ export class ModuleLoaderService {
 
       const path = registeredModule.importPath;
 
-      return new Promise((resolve, reject) => {
-        return (path() as Promise<NgModuleFactory<any> | Type<any>>)
-          .then(elementModule => {
-            if (elementModule instanceof NgModuleFactory) {
-              // TODO -> investigate this further
-              throw new Error('Must be run with AOT');
-            } else {
-              try {
-                return this.compiler.compileModuleAndAllComponentsAsync(
-                  elementModule
-                );
-              } catch (err) {
-                throw err;
-              }
-            }
-          })
-          .then(moduleWithComponentFactory => {
-            const moduleRef = moduleWithComponentFactory.ngModuleFactory.create(
-              this.injector
-            );
+      try {
+        const elementModule = await path();
+        let moduleFactory: NgModuleFactory<any>;
 
-            const factory = moduleWithComponentFactory.componentFactories[0];
+        if (elementModule instanceof NgModuleFactory) {
+          // AOT Compilation
+          moduleFactory = elementModule;
+        } else {
+          // JIT Compilation
+          moduleFactory = await this.compiler.compileModuleAsync(elementModule);
+        }
 
-            registeredModule.loadComplete = true;
-            this.registerFactory(componentTag, factory);
+        const entryComponent = (<any>moduleFactory.moduleType)
+          .lazyEntryComponent;
 
-            resolve(true);
-          })
-          .catch(err => {
-            console.error('error loading module', err);
-            reject(err);
-          });
-      });
+        const moduleRef = moduleFactory.create(this.injector);
+
+        const factory = moduleRef.componentFactoryResolver.resolveComponentFactory(
+          entryComponent
+        );
+
+        registeredModule.loadComplete = true;
+        this.registerFactory(key, factory);
+        return true;
+      } catch (err) {
+        console.error('error loading module', err);
+        return false;
+      }
     } else {
-      return null;
+      return true;
     }
   }
 
-  private registerFactory(tag: string, factory: ComponentFactory<any>) {
+  private registerFactory(key: string, factory: ComponentFactory<any>) {
     this.registry$.pipe(take(1)).subscribe(registry => {
       const registryClone = { ...registry };
-      registryClone[tag] = { factory };
+      registryClone[key] = { factory };
       this.registry.next(registryClone);
     });
   }

@@ -3,13 +3,14 @@ import {
   ViewContainerRef,
   Input,
   ComponentFactory,
-  ComponentRef
+  ComponentRef,
+  OnDestroy
 } from '@angular/core';
 
 @Directive({
-  selector: '[componentFactoryRenderer]'
+  selector: '[factoryRenderer]'
 })
-export class ComponentFactorRendererDirective {
+export class ComponentFactorRendererDirective implements OnDestroy {
   private componentRef: ComponentRef<any> | undefined;
 
   constructor(private viewContainerRef: ViewContainerRef) {}
@@ -20,6 +21,12 @@ export class ComponentFactorRendererDirective {
       this.viewContainerRef.clear();
       this.componentRef = this.viewContainerRef.createComponent(factory);
       this.componentRef.changeDetectorRef.detectChanges();
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.componentRef) {
+      this.componentRef.destroy();
     }
   }
 }

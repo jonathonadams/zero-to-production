@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   ComponentFactory
 } from '@angular/core';
@@ -14,29 +13,9 @@ import { ModuleLoaderService } from '@uqt/data-access/dynamic-module-loading';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplesAboutComponent {
-  examples = ['dynamic-form', 'form-builder', 'theming', 'secure'];
+  examples = ['dynamic-form', 'form-builder', 'theming'];
 
-  constructor(private moduleLoader: ModuleLoaderService) {
-    this.moduleLoader.registerModule('dynamic-form', () =>
-      import('@uqt/examples/dynamic-form').then(
-        m => m.WebExamplesDynamicFormModule
-      )
-    );
-
-    this.moduleLoader.registerModule('form-builder', () =>
-      import('@uqt/examples/form-builder').then(
-        m => m.WebExamplesFormBuilderModule
-      )
-    );
-
-    this.moduleLoader.registerModule('theming', () =>
-      import('@uqt/examples/theming').then(m => m.WebExamplesThemingModule)
-    );
-
-    this.moduleLoader.registerModule('secure', () =>
-      import('@uqt/todos/feature-shell').then(m => m.TodosFeatureShellModule)
-    );
-  }
+  constructor(private moduleLoader: ModuleLoaderService) {}
 
   selectFactory(tag: string): Observable<ComponentFactory<any> | undefined> {
     return this.moduleLoader.selectFactory(tag);

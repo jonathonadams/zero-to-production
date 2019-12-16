@@ -6,7 +6,7 @@
   <ng-container
     class="example-item"
     *cdkVirtualFor="let example of examples; templateCacheSize: 0"
-    componentFactoryRenderer
+    factoryRenderer
     [componentFactory]="selectFactory(example) | async"
   ></ng-container>
 </cdk-virtual-scroll-viewport>

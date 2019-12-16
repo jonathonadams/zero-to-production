@@ -8,4 +8,8 @@ import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
   imports: [CommonModule, ReactiveFormsModule, CustomMaterialModule],
   declarations: [CssThemingComponent]
 })
-export class WebExamplesThemingModule {}
+export class WebExamplesThemingModule {
+  static get lazyEntryComponent() {
+    return CssThemingComponent;
+  }
+}

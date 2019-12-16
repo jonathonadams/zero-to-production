@@ -24,4 +24,8 @@ const COMPONENTS = [
     // ExamplesFormBuilderRouterModule
   ]
 })
-export class WebExamplesFormBuilderModule {}
+export class WebExamplesFormBuilderModule {
+  static get lazyEntryComponent() {
+    return ExampleCreateFormComponent;
+  }
+}

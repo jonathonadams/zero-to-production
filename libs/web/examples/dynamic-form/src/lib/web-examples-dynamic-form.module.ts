@@ -18,4 +18,8 @@ const COMPONENTS = [ExampleDynamicFormComponent];
   ],
   declarations: COMPONENTS
 })
-export class WebExamplesDynamicFormModule {}
+export class WebExamplesDynamicFormModule {
+  static get lazyEntryComponent() {
+    return ExampleDynamicFormComponent;
+  }
+}

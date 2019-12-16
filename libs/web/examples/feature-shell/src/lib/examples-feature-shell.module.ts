@@ -12,7 +12,26 @@ import { ExampleDetailComponent } from './example-detail/example-detail.componen
 import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
 import { ExamplesAboutComponent } from './about/examples-about.component';
 import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
-import { DataAccessDynamicModuleLoadingModule } from '@uqt/data-access/dynamic-module-loading';
+import {
+  DataAccessDynamicModuleLoadingModule,
+  LAZY_MODULE_REGISTRY,
+  ILazyModuleRegistry
+} from '@uqt/data-access/dynamic-module-loading';
+
+const LAZY_MODULES: ILazyModuleRegistry = {
+  'dynamic-form': () =>
+    import('@uqt/examples/dynamic-form').then(
+      m => m.WebExamplesDynamicFormModule
+    ),
+  'form-builder': () =>
+    import('@uqt/examples/form-builder').then(
+      m => m.WebExamplesFormBuilderModule
+    ),
+  theming: () =>
+    import('@uqt/examples/theming').then(m => m.WebExamplesThemingModule),
+  secure: () =>
+    import('@uqt/todos/feature-shell').then(m => m.TodosFeatureShellModule)
+};
 
 const COMPONENTS = [
   ExamplesFeatureShellComponent,
@@ -34,6 +53,12 @@ const COMPONENTS = [
     DynamicFormModule.forChild(),
     DataAccessDynamicModuleLoadingModule
   ],
-  declarations: COMPONENTS
+  declarations: COMPONENTS,
+  providers: [
+    {
+      provide: LAZY_MODULE_REGISTRY,
+      useValue: LAZY_MODULES
+    }
+  ]
 })
 export class ExamplesFeatureShellModule {}
