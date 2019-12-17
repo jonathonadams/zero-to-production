@@ -1,9 +1,12 @@
-.example-viewport {
-  height: 200px;
-  //   width: 200px;
-  border: 1px solid black;
+:host {
+  display: block;
+  height: 100%;
 }
 
-.example-item {
-  height: 50px;
+.viewport {
+  height: 500px;
+}
+
+.item {
+  height: 500px;
 }

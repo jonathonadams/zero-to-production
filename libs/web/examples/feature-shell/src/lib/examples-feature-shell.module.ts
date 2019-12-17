@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ExamplesFeatureShellRoutingModule } from './examples-feature-shell-routing.module';
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
 import { CommonUiToolbarModule } from '@uqt/common/ui/toolbar';
@@ -17,6 +16,8 @@ import {
   LAZY_MODULE_REGISTRY,
   ILazyModuleRegistry
 } from '@uqt/data-access/dynamic-module-loading';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule as AutoScrollingModule } from '@angular/cdk-experimental/scrolling';
 
 const LAZY_MODULES: ILazyModuleRegistry = {
   'dynamic-form': () =>
@@ -45,6 +46,7 @@ const COMPONENTS = [
     CommonModule,
     CommonUiLayoutsModule,
     ScrollingModule,
+    AutoScrollingModule,
     CustomMaterialModule,
     CommonUiToolbarModule,
     CommonUiCardModule,

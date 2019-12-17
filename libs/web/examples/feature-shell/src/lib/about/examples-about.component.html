@@ -1,10 +1,12 @@
 <p>about works!</p>
 <cdk-virtual-scroll-viewport
-  [itemSize]="examples.length"
-  class="example-viewport"
+  autosize
+  minBufferPx="50"
+  maxBufferPx="500"
+  class="viewport"
 >
   <ng-container
-    class="example-item"
+    class="item"
     *cdkVirtualFor="let example of examples; templateCacheSize: 0"
     factoryRenderer
     [componentFactory]="selectFactory(example) | async"
