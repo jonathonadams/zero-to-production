@@ -40,9 +40,14 @@ export class ModuleLoaderService {
 
   private registry$ = this.registry.asObservable();
 
+  /**
+   * TODO -> Investigate what the 'Compiler' is that is imported from '@angular/core'
+   * It is not the 'angular/compiler' however, in AOT compilation is not bundled unless we import it?
+   * It might be unnecessarily the Compiler... investigate further
+   */
   constructor(
     @Inject(LAZY_MODULE_REGISTRY)
-    private _lazyModuleRegistry: ILazyModuleRegistry,
+    _lazyModuleRegistry: ILazyModuleRegistry,
     private compiler: Compiler,
     private injector: Injector
   ) {
@@ -101,7 +106,7 @@ export class ModuleLoaderService {
 
         if (!entryComponent) {
           throw new Error(
-            `No entry component defined. a 'lazyEntryComponent' must be defined on ${moduleFactory.moduleType}`
+            `No entry component defined. a static 'lazyEntryComponent' must be defined on ${moduleFactory.moduleType}`
           );
         }
 
