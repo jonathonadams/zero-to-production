@@ -66,7 +66,7 @@ export const EXAMPLES_ROUTES: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'examples'
+    redirectTo: 'about'
   },
   {
     path: '**',

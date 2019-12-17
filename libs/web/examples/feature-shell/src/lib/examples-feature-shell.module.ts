@@ -17,7 +17,6 @@ import {
   ILazyModuleRegistry
 } from '@uqt/data-access/dynamic-module-loading';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { ScrollingModule as AutoScrollingModule } from '@angular/cdk-experimental/scrolling';
 
 const LAZY_MODULES: ILazyModuleRegistry = {
   'dynamic-form': () =>
@@ -46,7 +45,6 @@ const COMPONENTS = [
     CommonModule,
     CommonUiLayoutsModule,
     ScrollingModule,
-    AutoScrollingModule,
     CustomMaterialModule,
     CommonUiToolbarModule,
     CommonUiCardModule,
