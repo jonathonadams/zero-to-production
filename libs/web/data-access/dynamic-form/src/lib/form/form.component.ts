@@ -19,7 +19,7 @@ import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
 import { DynamicFormService } from '../dynamic-form.service';
 import { DynamicFormErrorsService } from '../form-errors/form-errors.service';
-import { FormGroupTypes, TFormGroups } from '../dynamic-form.models';
+import { FormGroupTypes, TFormGroups } from '../dynamic-form.interface';
 
 @Component({
   selector: 'app-dynamic-form',

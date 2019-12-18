@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ExamplesFacade } from '@uqt/examples/data-access';
-import { IExample } from '@uqt/types';
 import { RouterFacade } from '@uqt/data-access/router';
+import { IExample } from 'libs/web/examples/data-access/src/lib/example.interface';
 
 @Component({
   selector: 'uqt-examples',

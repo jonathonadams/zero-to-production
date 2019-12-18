@@ -1,4 +1,4 @@
-<section class="example" *ngFor="selectedExample$ | async as example">
+<section class="example" *ngIf="selectedExample$ | async as example">
   <header class="example-description">
     <h2>{{ example.title }}</h2>
     <p>{{ example.descriptionFull }}</p>

@@ -1,4 +1,4 @@
-import { IExample } from '@uqt/types';
+import { IExample } from '@uqt/examples/data-access';
 
 // TODO -> link to the correct github repo
 

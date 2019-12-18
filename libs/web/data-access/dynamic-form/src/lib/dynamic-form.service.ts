@@ -14,7 +14,7 @@ import {
   FormGroupTypes,
   FormArrayTypes,
   TField
-} from './dynamic-form.models';
+} from './dynamic-form.interface';
 
 @Injectable({ providedIn: 'root' })
 export class DynamicFormService {

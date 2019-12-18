@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { ISideNaveRoute } from '@uqt/types';
 import * as fromActions from './side-nav.actions';
 import * as fromSelectors from './side-nav.selectors';
+import { ISideNaveRoute } from '../navigation.interface';
 
 @Injectable()
 export class SideNavFacade {

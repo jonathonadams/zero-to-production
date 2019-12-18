@@ -14,7 +14,7 @@ import {
   FormGroupTypes,
   TField,
   DynamicFormComponentMap
-} from '../dynamic-form.models';
+} from '../dynamic-form.interface';
 
 export const DYNAMIC_FORM_COMPONENTS = new InjectionToken<
   DynamicFormComponentMap

@@ -13,7 +13,7 @@ import {
 import { DynamicFormsEffects } from './+state/dynamic-form.effects';
 import { reducer, initialFormState } from './+state/dynamic-form.reducer';
 import { FormErrorsComponent } from './form-errors/form-errors.component';
-import { DynamicFormConfig } from './dynamic-form.models';
+import { DynamicFormConfig } from './dynamic-form.interface';
 import {
   DYNAMIC_FORM_ERRORS,
   defaultErrorMessages
