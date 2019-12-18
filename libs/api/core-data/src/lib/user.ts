@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { AuthenticationRoles } from '@uqt/enums';
-import { IFindByUsername } from './auth';
 
 export interface IUser {
   id: string;
@@ -19,20 +18,10 @@ export interface IUserDocument extends IUser, mongoose.Document {
   id: string;
 }
 
+export interface IFindByUsername<T> {
+  findByUsername(name: string): Promise<T | null>;
+}
+
 export interface IUserModel
   extends mongoose.Model<IUserDocument>,
     IFindByUsername<IUserDocument> {}
-
-export interface IVerificationToken {
-  userId: string;
-  token: string;
-}
-
-export interface IVerificationTokenDocument
-  extends IVerificationToken,
-    mongoose.Document {
-  id: string;
-}
-
-export interface IVerificationTokenModel
-  extends mongoose.Model<IVerificationTokenDocument> {}

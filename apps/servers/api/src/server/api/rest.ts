@@ -3,7 +3,7 @@ import Router from 'koa-router';
 import { usersRouter } from './users';
 import { Todo } from './todos';
 import { verifyTokenRest } from '../auth/auth';
-import { ITodoDocument } from '@uqt/types';
+import { ITodoDocument } from '@uqt/api/core-data';
 import { generateRestEndpoints } from '@uqt/api/utils';
 import { usernameAvailable } from './users/user.controllers';
 

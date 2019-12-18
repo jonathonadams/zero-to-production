@@ -4,8 +4,12 @@ import { catchError, map, switchMap, mergeMap } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as UserActions from './users.actions';
 import { UsersService } from '../services/users.service';
-import { JWTAuthService, loginSuccess, logout } from '@uqt/data-access/auth';
-import { IJWTPayload } from '@uqt/types';
+import {
+  JWTAuthService,
+  loginSuccess,
+  logout,
+  IJWTPayload
+} from '@uqt/data-access/auth';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()

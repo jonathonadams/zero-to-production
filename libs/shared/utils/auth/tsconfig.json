@@ -7,6 +7,5 @@
     "rootDir": "./src",
     "types": ["node", "jest"]
   },
-  "include": ["**/*.ts"],
-  "references": [{ "path": "../../types/tsconfig.lib.json" }]
+  "include": ["**/*.ts"]
 }

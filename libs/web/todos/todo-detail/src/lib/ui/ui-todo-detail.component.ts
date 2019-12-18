@@ -1,13 +1,12 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewChild,
   Output,
   EventEmitter,
   Input
 } from '@angular/core';
-import { FormGroupDirective, FormGroup } from '@angular/forms';
-import { ITodo } from '@uqt/types';
+import { FormGroup } from '@angular/forms';
+import { ITodo } from '@uqt/api/core-data';
 
 @Component({
   selector: 'todo-ui-todo-detail',

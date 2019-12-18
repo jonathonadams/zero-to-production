@@ -8,7 +8,6 @@
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"],
   "references": [
-    { "path": "../../shared/types/tsconfig.lib.json" },
     { "path": "../../shared/enums/tsconfig.lib.json" },
     { "path": "../../shared/utils/auth/tsconfig.lib.json" }
   ]

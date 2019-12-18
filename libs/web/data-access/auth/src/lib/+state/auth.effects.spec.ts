@@ -8,11 +8,12 @@ import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 import { NotificationService } from '@uqt/utils/notifications';
 import { AuthenticationRoles } from '@uqt/enums';
 import { createSpyObj } from '@app-testing/frontend/helpers';
-import { ILoginCredentials, IRegistrationDetails, IUser } from '@uqt/types';
 import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
 import * as AuthActions from './auth.actions';
 import { JWTAuthService } from '../services/jwt-auth.service';
+import { ILoginCredentials, IRegistrationDetails } from '../auth.interface';
+import { IUser } from '@uqt/api/core-data';
 
 describe('AuthEffects', () => {
   let effects: AuthEffects;
@@ -147,16 +148,7 @@ describe('AuthEffects', () => {
         surname: 'user',
         email: 'test@domain.com',
         dateOfBirth: '2019-01-01',
-        password: 'asF.s0f.s',
-        settings: {
-          darkMode: false,
-          colors: {
-            lightAccent: '',
-            lightPrimary: '',
-            darkAccent: '',
-            darkPrimary: ''
-          }
-        }
+        password: 'asF.s0f.s'
       };
 
       const registeredUser: IUser = {

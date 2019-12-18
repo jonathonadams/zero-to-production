@@ -2,7 +2,7 @@ import curryN from 'ramda/es/curryN';
 import equals from 'ramda/es/equals';
 import or from 'ramda/es/or';
 import toLower from 'ramda/es/toLower';
-import { ITodo } from '@uqt/types';
+import { ITodo } from '@uqt/api/core-data';
 import { TodoFilterStatus } from '@uqt/enums';
 
 function checkTodoCompleteStatus(completeStatus: boolean, todo: ITodo) {

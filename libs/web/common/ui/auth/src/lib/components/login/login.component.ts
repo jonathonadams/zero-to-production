@@ -6,14 +6,13 @@ import {
 } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { ILoginCredentials } from '@uqt/types';
 import {
   DynamicFormFacade,
   TFormGroups,
   FormGroupTypes,
   FormFieldTypes
 } from '@uqt/data-access/dynamic-form';
-import { AuthFacade } from '@uqt/data-access/auth';
+import { AuthFacade, ILoginCredentials } from '@uqt/data-access/auth';
 
 const STRUCTURE: TFormGroups = [
   {

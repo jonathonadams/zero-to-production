@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
+import { IUser } from '@uqt/api/core-data';
 import {
   ILoginCredentials,
   ILoginResponse,
-  IRegistrationDetails,
-  IUser
-} from '@uqt/types';
+  IRegistrationDetails
+} from '../auth.interface';
 
 export const loginRedirect = createAction('[Auth] Login Redirect');
 

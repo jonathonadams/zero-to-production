@@ -9,7 +9,7 @@
 import { todosReducer, TodosEntityState } from './todos.reducer';
 import * as TodoActions from './todos.actions';
 import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { ITodo } from '@uqt/types';
+import { ITodo } from '@uqt/api/core-data';
 import { TodoFilterStatus } from '@uqt/enums';
 
 describe('TodoReducer', () => {

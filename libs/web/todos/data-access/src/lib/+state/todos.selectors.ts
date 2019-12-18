@@ -5,7 +5,7 @@ import and from 'ramda/es/and';
 import allPass from 'ramda/es/allPass';
 import filter from 'ramda/es/filter';
 import { TodosEntityState, adapter } from './todos.reducer';
-import { ITodo } from '@uqt/types';
+import { ITodo } from '@uqt/api/core-data';
 import { TodoFilterStatus } from '@uqt/enums';
 import {
   equalsC,

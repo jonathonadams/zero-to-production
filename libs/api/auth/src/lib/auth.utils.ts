@@ -1,5 +1,5 @@
 import { sign } from 'jsonwebtoken';
-import { IUser } from '@uqt/types';
+import { IUser } from '@uqt/api/core-data';
 
 // A function that returns a singed JWT
 export function signAccessToken({

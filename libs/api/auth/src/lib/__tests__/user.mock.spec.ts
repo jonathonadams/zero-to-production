@@ -1,4 +1,4 @@
-import { IUser } from '@uqt/types';
+import { IUser } from '@uqt/api/core-data';
 import mongoose from 'mongoose';
 
 export function newId() {

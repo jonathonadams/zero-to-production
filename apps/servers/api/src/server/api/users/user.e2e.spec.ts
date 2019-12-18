@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
 import { runQuery, setupTestDB, newId } from '@app-testing/api/helpers';
-import { IUserDocument, IUser } from '@uqt/types';
+import { IUserDocument, IUser } from '@uqt/api/core-data';
 import { AuthenticationRoles } from '@uqt/enums';
 import { signTestAccessToken } from '@app-testing/api/auth';
 import { User } from './user.model';

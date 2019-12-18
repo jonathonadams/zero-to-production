@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
-import { IUser } from '@uqt/types';
+import { IUser } from '@uqt/api/core-data';
 import { UsersFacade } from '@uqt/data-access/users';
 import { ThemeService } from '@uqt/common/theme';
 

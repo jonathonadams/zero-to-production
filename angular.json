@@ -488,32 +488,6 @@
         }
       }
     },
-    "shared-types": {
-      "root": "libs/shared/types",
-      "sourceRoot": "libs/shared/types/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@uqt/ng-node:build",
-          "options": {
-            "outputPath": "dist/libs/shared/types",
-            "main": "libs/shared/types/src/index.ts",
-            "tsConfig": "libs/shared/types/tsconfig.json"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/shared/types/tsconfig.lib.json",
-              "libs/shared/types/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/shared/types/**"]
-          }
-        }
-      }
-    },
     "shared-enums": {
       "root": "libs/shared/enums",
       "sourceRoot": "libs/shared/enums/src",
@@ -1217,7 +1191,6 @@
         }
       }
     },
-
     "web-examples-data-access": {
       "projectType": "library",
       "root": "libs/web/examples/data-access",
@@ -1444,6 +1417,31 @@
       "schematics": {
         "@nrwl/angular:component": {
           "styleext": "scss"
+        }
+      }
+    },
+    "api-core-data": {
+      "root": "libs/api/core-data",
+      "sourceRoot": "libs/api/core-data/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/api/core-data/tsconfig.lib.json",
+              "libs/api/core-data/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api/core-data/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/core-data/jest.config.js",
+            "tsConfig": "libs/api/core-data/tsconfig.spec.json"
+          }
         }
       }
     }

@@ -1,4 +1,3 @@
-import { IUser } from '@uqt/types';
 import { isPasswordAllowed, userToJSON } from './auth-utils';
 
 describe('Authentication Utils', () => {
@@ -27,12 +26,12 @@ describe('Authentication Utils', () => {
         surname: 'User',
         email: 'user@user.com',
         dateOfBirth: '2019-01-01'
-      } as IUser;
+      };
 
       const user = {
         ...safeUser,
         hashedPassword: 'some really long hash'
-      } as IUser;
+      };
 
       const filteredUser = userToJSON(user);
 

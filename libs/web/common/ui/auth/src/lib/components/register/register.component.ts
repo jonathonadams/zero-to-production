@@ -4,12 +4,12 @@ import {
   ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
-import { IRegistrationDetails } from '@uqt/types';
 import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 import { REGISTER_STRUCTURE } from './register.structure';
 import { Subscription } from 'rxjs';
 import { passwordMatchValidator } from '../../validators/auth.validators';
 import { AuthFacade } from '@uqt/data-access/auth';
+import { IRegistrationDetails } from 'libs/web/data-access/auth/src/lib/auth.interface';
 
 interface IRegistrationFormStructure {
   details: {

@@ -1,10 +1,6 @@
 // @ts-ignore
 import omit from 'lodash.omit';
-import { IUser } from '@uqt/types';
 
-/**
- * Move into a shared utils function
- */
 export function isPasswordAllowed(password: string): boolean {
   return (
     !!password &&
@@ -14,6 +10,6 @@ export function isPasswordAllowed(password: string): boolean {
   );
 }
 
-export function userToJSON(user: IUser): IUser {
+export function userToJSON<T>(user: T): T {
   return omit(user, ['hashedPassword', 'password']);
 }

@@ -38,9 +38,6 @@
     "web-utils-errors": {
       "tags": []
     },
-    "shared-types": {
-      "tags": []
-    },
     "shared-enums": {
       "tags": []
     },
@@ -135,6 +132,9 @@
       "tags": []
     },
     "web-common-ui-auth": {
+      "tags": []
+    },
+    "api-core-data": {
       "tags": []
     }
   }
