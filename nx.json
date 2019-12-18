@@ -92,7 +92,7 @@
     "web-data-access-service-worker": {
       "tags": []
     },
-    "api-middleware": {
+    "api-config": {
       "tags": []
     },
     "api-utils": {

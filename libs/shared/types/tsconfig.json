@@ -8,6 +8,6 @@
     "emitDeclarationOnly": true,
     "types": ["node", "jest"]
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "../../api/config/src/lib/server.config.ts"],
   "references": [{ "path": "../enums/tsconfig.lib.json" }]
 }

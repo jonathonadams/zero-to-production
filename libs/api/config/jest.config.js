@@ -1,9 +1,9 @@
 module.exports = {
-  name: 'api-middleware',
+  name: 'api-config',
   preset: '../../../jest.config.js',
   transform: {
     '^.+\\.[tj]sx?$': 'ts-jest'
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../../coverage/libs/api/middleware'
+  coverageDirectory: '../../../coverage/libs/api/config'
 };

@@ -36,7 +36,7 @@
       "@uqt/data-access/service-worker": [
         "libs/web/data-access/service-worker/src/index.ts"
       ],
-      "@uqt/api/middleware": ["libs/api/middleware/src/index.ts"],
+      "@uqt/api/config": ["libs/api/config/src/index.ts"],
       "@uqt/api/utils": ["libs/api/utils/src/index.ts"],
       "@uqt/common/animations": ["libs/web/common/animations/src/index.ts"],
       "@uqt/utils/storage": ["libs/web/utils/storage/src/index.ts"],

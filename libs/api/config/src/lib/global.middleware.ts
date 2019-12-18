@@ -11,7 +11,7 @@ import compress from 'koa-compress';
 import bodyParser from 'koa-bodyparser';
 // @ts-ignore - deceleration file
 import cors from 'kcors';
-import { errorHandler, errorLogger } from './err';
+import { errorHandler, errorLogger } from './err-handler';
 
 // Configure middleware to parse income requests
 export function setupMiddleware({

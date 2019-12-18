@@ -1037,9 +1037,9 @@
         }
       }
     },
-    "api-middleware": {
-      "root": "libs/api/middleware",
-      "sourceRoot": "libs/api/middleware/src",
+    "api-config": {
+      "root": "libs/api/config",
+      "sourceRoot": "libs/api/config/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -1047,17 +1047,17 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/api/middleware/tsconfig.lib.json",
-              "libs/api/middleware/tsconfig.spec.json"
+              "libs/api/config/tsconfig.lib.json",
+              "libs/api/config/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api/middleware/**"]
+            "exclude": ["**/node_modules/**", "!libs/api/config/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/api/middleware/jest.config.js",
-            "tsConfig": "libs/api/middleware/tsconfig.spec.json"
+            "jestConfig": "libs/api/config/jest.config.js",
+            "tsConfig": "libs/api/config/tsconfig.spec.json"
           }
         }
       }
