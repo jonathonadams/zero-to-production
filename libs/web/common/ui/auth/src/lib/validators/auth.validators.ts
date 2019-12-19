@@ -4,7 +4,17 @@ import {
   ValidationErrors,
   FormGroup
 } from '@angular/forms';
-import { isPasswordAllowed } from '@uqt/utils/auth';
+// import { isPasswordAllowed } from '@uqt/api/auth';
+
+// TODO -> Move to shared
+export function isPasswordAllowed(password: string): boolean {
+  return (
+    !!password &&
+    password.length > 6 &&
+    /\d/.test(password) &&
+    /\D/.test(password)
+  );
+}
 
 // A wrapper around the isPasswordAllowed method to create a form validator
 export function passwordValidator(control: AbstractControl) {

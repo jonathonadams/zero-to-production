@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IUser } from '@uqt/api/core-data';
+import { IUser } from '@uqt/interfaces';
 import {
   ILoginCredentials,
   ILoginResponse,

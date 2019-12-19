@@ -1,4 +1,5 @@
-import { IRefreshToken, IUser } from '@uqt/types';
+import { IRefreshToken } from '../auth.interface';
+import { IUser } from '@uqt/interfaces';
 
 export class MockRefreshTokenModel {
   static _token: IRefreshToken | null | undefined;

@@ -10,5 +10,6 @@ export { AuthFacade } from './lib/+state/auth.facade';
 export {
   ILoginCredentials,
   ILoginResponse,
-  IJWTPayload
+  IJWTPayload,
+  AvailableStatus
 } from './lib/auth.interface';

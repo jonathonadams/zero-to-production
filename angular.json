@@ -488,49 +488,6 @@
         }
       }
     },
-    "shared-enums": {
-      "root": "libs/shared/enums",
-      "sourceRoot": "libs/shared/enums/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/shared/enums/tsconfig.lib.json",
-              "libs/shared/enums/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/shared/enums/**"]
-          }
-        }
-      }
-    },
-    "shared-utils-auth": {
-      "root": "libs/shared/utils/auth",
-      "sourceRoot": "libs/shared/utils/auth/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/shared/utils/auth/tsconfig.lib.json",
-              "libs/shared/utils/auth/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/shared/utils/auth/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/utils/auth/jest.config.js",
-            "tsConfig": "libs/shared/utils/auth/tsconfig.spec.json"
-          }
-        }
-      }
-    },
     "web-data-access-users": {
       "projectType": "library",
       "root": "libs/web/data-access/users",
@@ -1441,6 +1398,31 @@
           "options": {
             "jestConfig": "libs/api/core-data/jest.config.js",
             "tsConfig": "libs/api/core-data/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "interfaces": {
+      "root": "libs/interfaces",
+      "sourceRoot": "libs/interfaces/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/interfaces/tsconfig.lib.json",
+              "libs/interfaces/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/interfaces/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/interfaces/jest.config.js",
+            "tsConfig": "libs/interfaces/tsconfig.spec.json"
           }
         }
       }

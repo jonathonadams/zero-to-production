@@ -1,8 +1,28 @@
 import mongoose from 'mongoose';
+import { IUserModel, IUserDocument } from '@uqt/api/core-data';
 
-// TODO -> userID not IUserDocument
+export interface AuthRouteOptions {
+  userLogin?: boolean;
+  userRegistration?: boolean;
+  refreshTokens?: boolean;
+}
+
+export interface AuthModels {
+  userModel: IUserModel;
+  verificationModel?: IVerificationTokenModel;
+  refreshTokenModel?: IRefreshTokenModel;
+}
+
+export interface AuthRoutesConfig {
+  accessTokenSecret: string;
+  accessTokenExpireTime: number;
+  refreshTokenSecret?: string;
+  SENDGRID_API_KEY?: string;
+  hostUrl?: string;
+}
+
 export interface IRefreshToken {
-  user: mongoose.Document; // IUserDocument
+  user: IUserDocument;
   token: string;
 }
 
@@ -30,3 +50,12 @@ export interface IVerificationTokenDocument
 
 export interface IVerificationTokenModel
   extends mongoose.Model<IVerificationTokenDocument> {}
+
+// /**
+//  * Non 0 indexed because *ngIf === 0" will be false
+//  */
+// export enum AvailableStatus {
+//   Available = 1,
+//   UnAvailable = 2,
+//   Pending = 3
+// }

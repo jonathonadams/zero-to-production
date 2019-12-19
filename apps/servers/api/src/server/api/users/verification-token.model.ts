@@ -4,7 +4,7 @@ import {
   IVerificationToken,
   IVerificationTokenDocument,
   IVerificationTokenModel
-} from '@uqt/api/core-data';
+} from '@uqt/api/auth';
 
 export const verificationTokenSchema = new mongoose.Schema<IVerificationToken>(
   {

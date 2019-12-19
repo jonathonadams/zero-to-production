@@ -1,12 +1,5 @@
 import mongoose from 'mongoose';
-
-export interface ITodo {
-  id: string;
-  user: string;
-  title: string;
-  description: string;
-  completed: boolean;
-}
+import { ITodo } from '@uqt/interfaces';
 
 export interface ITodoDocument extends ITodo, mongoose.Document {
   id: string;

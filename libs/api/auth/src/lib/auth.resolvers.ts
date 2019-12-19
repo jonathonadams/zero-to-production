@@ -1,6 +1,8 @@
 import { GraphQLFieldResolver } from 'graphql';
+import { IUserModel } from '@uqt/api/core-data';
 import { loginController, registerController } from './auth.controllers';
-import { IUserModel, IUser, IVerificationTokenModel } from '@uqt/types';
+import { IVerificationTokenModel } from './auth.interface';
+import { IUser } from '@uqt/interfaces';
 
 /**
  *  A function that handles logging a user in

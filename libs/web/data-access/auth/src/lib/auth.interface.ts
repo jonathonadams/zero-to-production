@@ -22,3 +22,9 @@ export interface IJWTPayload {
   iat: string; // issued at time
   role: number;
 }
+
+export enum AvailableStatus {
+  Available = 1,
+  UnAvailable = 2,
+  Pending = 3
+}

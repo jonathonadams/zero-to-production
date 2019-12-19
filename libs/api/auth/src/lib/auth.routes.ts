@@ -1,11 +1,6 @@
 import Koa from 'koa';
 import Boom from '@hapi/boom';
 import {
-  IUserModel,
-  IRefreshTokenModel,
-  IVerificationTokenModel
-} from '@uqt/types';
-import {
   loginController,
   registerController,
   authorizeController,
@@ -13,6 +8,8 @@ import {
   revokeRefreshTokenController,
   verifyController
 } from './auth.controllers';
+import { IUserModel } from '@uqt/api/core-data';
+import { IVerificationTokenModel, IRefreshTokenModel } from './auth.interface';
 
 /**
  *  A function that handles logging a user in

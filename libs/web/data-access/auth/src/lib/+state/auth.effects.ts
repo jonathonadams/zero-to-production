@@ -7,9 +7,9 @@ import { NotificationService } from '@uqt/utils/notifications';
 import * as AuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
 import { JWTAuthService } from '../services/jwt-auth.service';
-import { IUser } from '@uqt/api/core-data';
 import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 import { ILoginResponse } from '../auth.interface';
+import { IUser } from '@uqt/interfaces';
 
 @Injectable()
 export class AuthEffects {

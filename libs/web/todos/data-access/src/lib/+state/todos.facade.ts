@@ -8,8 +8,8 @@ import {
   selectTodoIds
 } from './todos.selectors';
 import * as TodoActions from './todos.actions';
-import { ITodo } from '@uqt/api/core-data';
-import { TodoFilterStatus } from '@uqt/enums';
+import { ITodo } from '@uqt/interfaces';
+import { TodoFilterStatus } from './todos.reducer';
 
 @Injectable()
 export class TodosFacade {

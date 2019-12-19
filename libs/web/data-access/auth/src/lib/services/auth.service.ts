@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GraphQLService, ApiService } from '@uqt/data-access/api';
-import { IUser } from '@uqt/api/core-data';
+import { IUser } from '@uqt/interfaces';
 import { JWTAuthService } from './jwt-auth.service';
 import {
   ILoginCredentials,

@@ -8,8 +8,6 @@
   "exclude": ["**/*.spec.ts", "**/*.e2e.ts"],
   "include": ["**/*.ts", "**/*.d.ts"],
   "references": [
-    { "path": "../../../libs/shared/enums/tsconfig.lib.json" },
-    { "path": "../../../libs/shared/utils/auth/tsconfig.lib.json" },
     { "path": "../../../libs/api/auth/tsconfig.lib.json" },
     { "path": "../../../libs/api/utils/tsconfig.lib.json" },
     { "path": "../../../libs/api/config/tsconfig.lib.json" }

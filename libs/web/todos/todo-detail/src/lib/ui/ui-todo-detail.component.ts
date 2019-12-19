@@ -6,7 +6,7 @@ import {
   Input
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ITodo } from '@uqt/api/core-data';
+import { ITodo } from '@uqt/interfaces';
 
 @Component({
   selector: 'todo-ui-todo-detail',

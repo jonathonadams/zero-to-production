@@ -1,5 +1,7 @@
 import { sign } from 'jsonwebtoken';
-import { IUser } from '@uqt/api/core-data';
+// @ts-ignore
+import omit from 'lodash.omit';
+import { IUser } from '@uqt/interfaces';
 
 // A function that returns a singed JWT
 export function signAccessToken({
@@ -38,4 +40,17 @@ export function signRefreshToken({ secret }: { secret: string }) {
       }
     );
   };
+}
+
+export function isPasswordAllowed(password: string): boolean {
+  return (
+    !!password &&
+    password.length > 6 &&
+    /\d/.test(password) &&
+    /\D/.test(password)
+  );
+}
+
+export function userToJSON<T>(user: T): T {
+  return omit(user, ['hashedPassword', 'password']);
 }

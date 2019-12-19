@@ -7,7 +7,7 @@ import {
 import { Validators } from '@angular/forms';
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { filter, withLatestFrom, takeUntil, first, skip } from 'rxjs/operators';
-import { ITodo } from '@uqt/api/core-data';
+import { ITodo } from '@uqt/interfaces';
 import { TodosFacade } from '@uqt/todos/data-access';
 import {
   DynamicFormFacade,

@@ -1,7 +1,12 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "composite": true,
+    "rootDir": "./src",
     "types": ["node", "jest"]
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts"],
+  "references": [{ "path": "../../interfaces/tsconfig.lib.json" }]
 }

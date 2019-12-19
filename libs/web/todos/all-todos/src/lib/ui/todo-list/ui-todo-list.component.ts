@@ -6,7 +6,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { ITodo } from '@uqt/api/core-data';
+import { ITodo } from '@uqt/interfaces';
 import { LIST_ANIMATION } from './todo-list.animation';
 
 @Component({

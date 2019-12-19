@@ -38,12 +38,6 @@
     "web-utils-errors": {
       "tags": []
     },
-    "shared-enums": {
-      "tags": []
-    },
-    "shared-utils-auth": {
-      "tags": []
-    },
     "web-data-access-users": {
       "tags": []
     },
@@ -135,6 +129,9 @@
       "tags": []
     },
     "api-core-data": {
+      "tags": []
+    },
+    "interfaces": {
       "tags": []
     }
   }
