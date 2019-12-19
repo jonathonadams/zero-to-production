@@ -14,6 +14,7 @@ import {
   FormFieldTypes
 } from '@uqt/data-access/dynamic-form';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
+import { IExample } from '@uqt/types';
 
 const SIMPLE_FORM: TFormGroups = [
   {
@@ -82,6 +83,7 @@ const COMPLEX_FORM: TFormGroups = [
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
+  example: IExample | undefined;
   simpleStructure = true;
   submit$: Observable<any>;
 

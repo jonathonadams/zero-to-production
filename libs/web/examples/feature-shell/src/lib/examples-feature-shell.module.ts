@@ -7,7 +7,7 @@ import { CommonUiCardModule } from '@uqt/common/ui/card';
 import { ExamplesComponent } from './examples/examples.component';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { ExamplesDataAccessModule } from '@uqt/examples/data-access';
-import { ExampleDetailComponent } from './example-detail/example-detail.component';
+// import { ExampleDetailComponent } from './example-detail/example-detail.component';
 import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
 import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
 import {
@@ -23,7 +23,7 @@ const COMPONENTS = [
   ExamplesFeatureShellComponent,
   ExamplesScrollComponent,
   ExamplesComponent,
-  ExampleDetailComponent,
+  // ExampleDetailComponent,
   AboutComponent
 ];
 

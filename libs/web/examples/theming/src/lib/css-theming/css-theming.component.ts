@@ -6,6 +6,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ThemeService } from '@uqt/common/theme';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
+import { IExample } from '@uqt/types';
 
 @Component({
   selector: 'example-css-theming',
@@ -14,7 +15,9 @@ import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CssThemingComponent implements AfterViewInit {
+  example: IExample | undefined;
   form: FormGroup;
+
   constructor(
     fb: FormBuilder,
     private themeService: ThemeService,

@@ -1,29 +1,38 @@
-<h3>Customize your theme</h3>
-<section class="variables">
-  <form [formGroup]="form">
-    <mat-form-field>
-      <mat-label>Light Primary</mat-label>
-      <input matInput type="color" formControlName="lightPrimary" />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Light Accent</mat-label>
-      <input matInput type="color" formControlName="lightAccent" />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Dark Primary</mat-label>
-      <input matInput type="color" formControlName="darkPrimary" />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Dark Accent</mat-label>
-      <input matInput type="color" formControlName="darkAccent" />
-    </mat-form-field>
-  </form>
+<section class="example">
+  <header class="example-description">
+    <h2>TITLE</h2>
+    <p>FULL DESCRIPTION</p>
+    <a [href]="example?.link">See here for full details</a>
+  </header>
+  <article class="example-demonstration">
+    <h3>Customize your theme</h3>
+    <section class="variables">
+      <form [formGroup]="form">
+        <mat-form-field>
+          <mat-label>Light Primary</mat-label>
+          <input matInput type="color" formControlName="lightPrimary" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Light Accent</mat-label>
+          <input matInput type="color" formControlName="lightAccent" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Dark Primary</mat-label>
+          <input matInput type="color" formControlName="darkPrimary" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Dark Accent</mat-label>
+          <input matInput type="color" formControlName="darkAccent" />
+        </mat-form-field>
+      </form>
+    </section>
+    <p>
+      Using CSS variables (specifically with a custom Material Theme) is pretty
+      straight forward. Define your CSS variables in your stylesheet and use
+      them in your them pallet.
+    </p>
+    <pre><code class="language-css">{{ css }}</code></pre>
+    <p>Create a ThemeService to set the CSS variables.</p>
+    <pre><code class="language-ts">{{ ts }}</code></pre>
+  </article>
 </section>
-<p>
-  Using CSS variables (specifically with a custom Material Theme) is pretty
-  straight forward. Define your CSS variables in your stylesheet and use them in
-  your them pallet.
-</p>
-<pre><code class="language-css">{{ css }}</code></pre>
-<p>Create a ThemeService to set the CSS variables.</p>
-<pre><code class="language-ts">{{ ts }}</code></pre>
