@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
 import { ModuleLoaderService } from '@uqt/data-access/dynamic-module-loading';
 
 @Component({
-  selector: 'uqt-examples-about',
-  templateUrl: './examples-about.component.html',
-  styleUrls: ['./examples-about.component.scss'],
+  selector: 'uqt-examples-scroll',
+  templateUrl: './examples-scroll.component.html',
+  styleUrls: ['./examples-scroll.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExamplesAboutComponent {
+export class ExamplesScrollComponent {
   examples = ['dynamic-form', 'form-builder', 'theming'];
 
   constructor(private moduleLoader: ModuleLoaderService) {}

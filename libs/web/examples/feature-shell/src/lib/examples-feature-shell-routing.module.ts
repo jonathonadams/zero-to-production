@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
 import { ExamplesComponent } from './examples/examples.component';
+import { ExamplesScrollComponent } from './example-scroll/examples-scroll.component';
 // import { ExampleDetailComponent } from './example-detail/example-detail.component';
-import { ExamplesAboutComponent } from './about/examples-about.component';
 
 export const EXAMPLES_ROUTES: Routes = [
   {
@@ -13,7 +13,7 @@ export const EXAMPLES_ROUTES: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        component: ExamplesAboutComponent
+        component: ExamplesScrollComponent
       }
     ]
   },
