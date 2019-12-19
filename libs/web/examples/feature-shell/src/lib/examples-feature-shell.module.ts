@@ -17,12 +17,14 @@ import {
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ExamplesScrollComponent } from './example-scroll/examples-scroll.component';
 import { LAZY_MODULES } from './lazy-modules';
+import { AboutComponent } from './about/about.component';
 
 const COMPONENTS = [
   ExamplesFeatureShellComponent,
   ExamplesScrollComponent,
   ExamplesComponent,
-  ExampleDetailComponent
+  ExampleDetailComponent,
+  AboutComponent
 ];
 
 @NgModule({

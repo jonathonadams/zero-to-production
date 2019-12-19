@@ -3,19 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
 import { ExamplesComponent } from './examples/examples.component';
 import { ExamplesScrollComponent } from './example-scroll/examples-scroll.component';
-// import { ExampleDetailComponent } from './example-detail/example-detail.component';
+import { AboutComponent } from './about/about.component';
 
 export const EXAMPLES_ROUTES: Routes = [
   {
     path: 'about',
-    component: ExamplesFeatureShellComponent,
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        component: ExamplesScrollComponent
-      }
-    ]
+    pathMatch: 'full',
+    component: AboutComponent
   },
   {
     path: 'examples',
@@ -26,6 +20,12 @@ export const EXAMPLES_ROUTES: Routes = [
         pathMatch: 'full',
         component: ExamplesComponent
       },
+      {
+        path: 'scroll',
+        pathMatch: 'full',
+        component: ExamplesScrollComponent
+      },
+
       // {
       //   path: 'dynamic-form',
       //   component: ExampleDetailComponent,

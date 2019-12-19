@@ -2,10 +2,11 @@
   itemSize="600"
   class="viewport"
   (scrolledIndexChange)="scrolledIndexChange($event)"
->
-  <ng-container
-    *cdkVirtualFor="let example of examples; templateCacheSize: 0"
-    factoryRenderer
-    [componentFactory]="selectFactory(example) | async"
-  ></ng-container>
+  ><div>
+    <ng-container
+      *cdkVirtualFor="let example of examples; templateCacheSize: 0"
+      factoryRenderer
+      [componentFactory]="selectFactory(example) | async"
+    ></ng-container>
+  </div>
 </cdk-virtual-scroll-viewport>
