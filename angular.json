@@ -1513,6 +1513,74 @@
           "styleext": "scss"
         }
       }
+    },
+    "web-examples-secure-todos": {
+      "projectType": "library",
+      "root": "libs/web/examples/secure-todos",
+      "sourceRoot": "libs/web/examples/secure-todos/src",
+      "prefix": "uqt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/examples/secure-todos/tsconfig.lib.json",
+              "libs/web/examples/secure-todos/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/web/examples/secure-todos/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/examples/secure-todos/jest.config.js",
+            "tsConfig": "libs/web/examples/secure-todos/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/secure-todos/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "web-examples-lazy-load-scrolling": {
+      "projectType": "library",
+      "root": "libs/web/examples/lazy-load-scrolling",
+      "sourceRoot": "libs/web/examples/lazy-load-scrolling/src",
+      "prefix": "uqt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/examples/lazy-load-scrolling/tsconfig.lib.json",
+              "libs/web/examples/lazy-load-scrolling/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/web/examples/lazy-load-scrolling/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/examples/lazy-load-scrolling/jest.config.js",
+            "tsConfig": "libs/web/examples/lazy-load-scrolling/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/lazy-load-scrolling/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

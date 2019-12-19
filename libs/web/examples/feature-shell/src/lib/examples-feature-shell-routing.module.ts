@@ -26,42 +26,6 @@ export const EXAMPLES_ROUTES: Routes = [
         component: ExamplesScrollComponent
       },
       {
-        path: 'scroll/:scrollRoute',
-        pathMatch: 'full',
-        component: ExamplesScrollComponent
-      },
-
-      // {
-      //   path: 'dynamic-form',
-      //   component: ExampleDetailComponent,
-      //   loadChildren: () =>
-      //     import('@uqt/examples/dynamic-form').then(
-      //       m => m.WebExamplesDynamicFormModule
-      //     )
-      // },
-      // {
-      //   path: 'form-builder',
-      //   component: ExampleDetailComponent,
-      //   loadChildren: () =>
-      //     import('@uqt/examples/form-builder').then(
-      //       m => m.WebExamplesFormBuilderModule
-      //     )
-      // },
-      // {
-      //   path: 'theming',
-      //   component: ExampleDetailComponent,
-      //   loadChildren: () =>
-      //     import('@uqt/examples/theming').then(m => m.WebExamplesThemingModule)
-      // },
-      // {
-      //   path: 'secure',
-      //   component: ExampleDetailComponent,
-      //   loadChildren: () =>
-      //     import('@uqt/todos/feature-shell').then(
-      //       m => m.TodosFeatureShellModule
-      //     )
-      // }
-      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'all'

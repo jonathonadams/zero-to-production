@@ -64,6 +64,12 @@
       ],
       "@uqt/data-access/dynamic-module-loading": [
         "libs/web/data-access/dynamic-module-loading/src/index.ts"
+      ],
+      "@uqt/web/examples/secure-todos": [
+        "libs/web/examples/secure-todos/src/index.ts"
+      ],
+      "@uqt/web/examples/lazy-load-scrolling": [
+        "libs/web/examples/lazy-load-scrolling/src/index.ts"
       ]
     }
   }

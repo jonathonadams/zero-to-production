@@ -11,6 +11,12 @@ export const LAZY_MODULES: ILazyModuleRegistry = {
     ),
   theming: () =>
     import('@uqt/examples/theming').then(m => m.WebExamplesThemingModule),
-  secure: () =>
-    import('@uqt/todos/feature-shell').then(m => m.TodosFeatureShellModule)
+  'lazy-load-scrolling': () =>
+    import('@uqt/web/examples/lazy-load-scrolling').then(
+      m => m.WebExamplesLazyLoadScrollingModule
+    ),
+  'secure-todos': () =>
+    import('@uqt/web/examples/secure-todos').then(
+      m => m.WebExamplesSecureTodosModule
+    )
 };

@@ -13,7 +13,13 @@ import { ModuleLoaderService } from '@uqt/data-access/dynamic-module-loading';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplesScrollComponent {
-  examples = ['dynamic-form', 'form-builder', 'theming'];
+  examples = [
+    'dynamic-form',
+    'form-builder',
+    'theming',
+    'lazy-load-scrolling',
+    'secure-todos'
+  ];
 
   constructor(private moduleLoader: ModuleLoaderService) {}
 
