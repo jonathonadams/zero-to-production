@@ -25,6 +25,11 @@ export const EXAMPLES_ROUTES: Routes = [
         pathMatch: 'full',
         component: ExamplesScrollComponent
       },
+      {
+        path: 'scroll/:scrollRoute',
+        pathMatch: 'full',
+        component: ExamplesScrollComponent
+      },
 
       // {
       //   path: 'dynamic-form',

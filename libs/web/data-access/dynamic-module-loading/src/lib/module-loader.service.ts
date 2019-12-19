@@ -9,7 +9,7 @@ import {
   Inject
 } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, distinctUntilChanged, take, tap } from 'rxjs/operators';
+import { map, distinctUntilChanged, take } from 'rxjs/operators';
 
 export type TModuleImportPath = () => Promise<NgModuleFactory<any> | Type<any>>;
 
@@ -111,7 +111,6 @@ export class ModuleLoaderService {
         }
 
         const moduleRef = moduleFactory.create(this.injector);
-
         const factory = moduleRef.componentFactoryResolver.resolveComponentFactory(
           entryComponent
         );
