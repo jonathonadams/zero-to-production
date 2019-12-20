@@ -6,6 +6,8 @@ import { filter, take } from 'rxjs/operators';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
 import { IFormBuilderStructure } from '../+state/form-builder.reducer';
 
+import compose from 'ramda/es/compose';
+
 @Component({
   selector: 'uqt-form-builder',
   templateUrl: './form-builder.component.html',
@@ -13,6 +15,8 @@ import { IFormBuilderStructure } from '../+state/form-builder.reducer';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormBuilderComponent {
+  toolBoxGroupId = 'tb-form-group';
+  toolBoxFieldId = 'tb-field-group';
   dropListIds: string[] = [];
 
   builderForm: FormGroup;
@@ -105,7 +109,7 @@ export class FormBuilderComponent {
 
   formGroupDropped(event: CdkDragDrop<FormGroup[]>) {
     const formGroups = this.formGroups;
-    if (event.previousContainer === event.container) {
+    if (event.previousContainer.id === event.container.id) {
       this.moveFormArrayGroup(
         formGroups,
         event.previousIndex,
@@ -127,18 +131,35 @@ export class FormBuilderComponent {
     this.dropListIds = ids;
   }
 
-  formFieldDropped(groupIndex: number, event: CdkDragDrop<FormGroup[]>) {
-    const currentGroup = this.getGroupFields(groupIndex);
+  formFieldDropped(event: CdkDragDrop<FormGroup[]>) {
+    const currentGroupIndex = getFormGroupIndex(event.container.id);
+    const currentGroup = this.getGroupFields(currentGroupIndex);
 
-    if (event.previousContainer === event.container) {
-      this.moveFormArrayGroup(
-        currentGroup,
-        event.previousIndex,
-        event.currentIndex
-      );
-    } else {
+    if (event.previousContainer.id === this.toolBoxFieldId) {
+      // It is a new field being dropped from the 'toolbox'
       const groupField = this.createFieldGroup();
       currentGroup.insert(event.currentIndex, groupField);
+    } else {
+      if (event.previousContainer.id === event.container.id) {
+        // The field is being re-ordered in the current form group
+        this.moveFormArrayGroup(
+          currentGroup,
+          event.previousIndex,
+          event.currentIndex
+        );
+      } else {
+        const previousGroupIndex = getFormGroupIndex(
+          event.previousContainer.id
+        );
+        const previousGroup = this.getGroupFields(previousGroupIndex);
+
+        this.moveBetweenArrayGroup(
+          currentGroup,
+          previousGroup,
+          event.currentIndex,
+          event.previousIndex
+        );
+      }
     }
   }
 
@@ -159,4 +180,29 @@ export class FormBuilderComponent {
     arrayGroup.removeAt(currentIndex);
     arrayGroup.insert(newIndex, controlBeingRemoved);
   }
+
+  /**
+   * Remove the group from the old section and add to the new
+   * @param newArrayGroup
+   * @param previousArrayGroup
+   * @param newIndex
+   * @param previousIndex
+   */
+  moveBetweenArrayGroup(
+    newArrayGroup: FormArray,
+    previousArrayGroup: FormArray,
+    newIndex: number,
+    previousIndex: number
+  ): void {
+    const controlBeingMoved = previousArrayGroup.at(previousIndex);
+    console.log(controlBeingMoved);
+    previousArrayGroup.removeAt(previousIndex);
+    newArrayGroup.insert(newIndex, controlBeingMoved);
+  }
+}
+
+const getFormGroupIndex = compose(Number, getStringLastCharacter);
+
+function getStringLastCharacter(string: string) {
+  return string.substring(string.length - 1);
 }
