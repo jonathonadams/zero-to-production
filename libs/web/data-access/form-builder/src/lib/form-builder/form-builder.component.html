@@ -4,7 +4,7 @@
   <div cdkDropList [cdkDropListConnectedTo]="[formSections]">
     <div cdkDrag class="toolbox-element">Form Group</div>
   </div>
-  <div cdkDropList [cdkDropListConnectedTo]="['groupFields']">
+  <div cdkDropList [cdkDropListConnectedTo]="dropListIds">
     <div cdkDrag class="toolbox-element">Form Field</div>
   </div>
 </aside>
@@ -55,11 +55,11 @@
           <mat-divider [inset]="true"></mat-divider>
 
           <div
-            id="groupFields"
+            [id]="'fields-' + i"
             class="group-fields"
             formArrayName="fields"
             cdkDropList
-            #groupFields="cdkDropList"
+            [cdkDropListConnectedTo]="dropListIds"
             (cdkDropListDropped)="formFieldDropped(i, $event)"
           >
             <div

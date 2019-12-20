@@ -13,6 +13,8 @@ import { IFormBuilderStructure } from '../+state/form-builder.reducer';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormBuilderComponent {
+  dropListIds: string[] = [];
+
   builderForm: FormGroup;
   selectedForm$: Observable<IFormBuilderStructure | undefined>;
 
@@ -113,6 +115,16 @@ export class FormBuilderComponent {
       const formGroup = this.createFormGroup();
       formGroups.insert(event.currentIndex, formGroup);
     }
+
+    this.setConnectedToId(formGroups.length);
+  }
+
+  setConnectedToId(groups: number) {
+    const ids: string[] = [];
+    for (let i = 0; i < groups; i++) {
+      ids.push(`fields-${i}`);
+    }
+    this.dropListIds = ids;
   }
 
   formFieldDropped(groupIndex: number, event: CdkDragDrop<FormGroup[]>) {
