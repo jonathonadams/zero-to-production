@@ -1,7 +1,7 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as ExampleActions from './examples.actions';
-import { IExample } from '@uqt/types';
 import { createReducer, on, Action } from '@ngrx/store';
+import { IExample } from '../example.interface';
 
 export interface ExamplesEntityState extends EntityState<IExample> {
   selectedExampleUrl: string | null;

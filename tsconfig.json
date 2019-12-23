@@ -13,9 +13,6 @@
       "@uqt/utils/overlay": ["libs/web/utils/overlay/src/index.ts"],
       "@uqt/utils/notifications": ["libs/web/utils/notifications/src/index.ts"],
       "@uqt/utils/errors": ["libs/web/utils/errors/src/index.ts"],
-      "@uqt/types": ["libs/shared/types/src/index.ts"],
-      "@uqt/enums": ["libs/shared/enums/src/index.ts"],
-      "@uqt/utils/auth": ["libs/shared/utils/auth/src/index.ts"],
       "@uqt/data-access/users": ["libs/web/data-access/users/src/index.ts"],
       "@uqt/common/theme": ["libs/web/common/theme/src/index.ts"],
       "@uqt/dashboard": ["libs/web/shared/dashboard/src/index.ts"],
@@ -36,7 +33,7 @@
       "@uqt/data-access/service-worker": [
         "libs/web/data-access/service-worker/src/index.ts"
       ],
-      "@uqt/api/middleware": ["libs/api/middleware/src/index.ts"],
+      "@uqt/api/config": ["libs/api/config/src/index.ts"],
       "@uqt/api/utils": ["libs/api/utils/src/index.ts"],
       "@uqt/common/animations": ["libs/web/common/animations/src/index.ts"],
       "@uqt/utils/storage": ["libs/web/utils/storage/src/index.ts"],
@@ -59,6 +56,8 @@
         "libs/web/common/dynamic-form-material-components/src/index.ts"
       ],
       "@uqt/web/common/ui/auth": ["libs/web/common/ui/auth/src/index.ts"],
+      "@uqt/api/core-data": ["libs/api/core-data/src/index.ts"],
+      "@uqt/interfaces": ["libs/interfaces/src/index.ts"],
       "@uqt/web/examples/code-highlight": [
         "libs/web/examples/code-highlight/src/index.ts"
       ],

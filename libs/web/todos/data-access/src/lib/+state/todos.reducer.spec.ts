@@ -6,11 +6,14 @@
  * testing to test the output of the function and not need to use
  * assertion testing
  */
-import { todosReducer, TodosEntityState } from './todos.reducer';
+import {
+  todosReducer,
+  TodosEntityState,
+  TodoFilterStatus
+} from './todos.reducer';
 import * as TodoActions from './todos.actions';
 import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { ITodo } from '@uqt/types';
-import { TodoFilterStatus } from '@uqt/enums';
+import { ITodo } from '@uqt/interfaces';
 
 describe('TodoReducer', () => {
   let adapter: EntityAdapter<ITodo>;
@@ -29,7 +32,7 @@ describe('TodoReducer', () => {
     },
     selectedTodoId: null,
     statusFilter: TodoFilterStatus.InCompleted,
-    searchFilter: null
+    searchFilter: ''
   };
 
   beforeEach(() => {
@@ -104,7 +107,7 @@ describe('TodoReducer', () => {
         },
         selectedTodoId: null,
         statusFilter: TodoFilterStatus.InCompleted,
-        searchFilter: null
+        searchFilter: ''
       };
 
       const updateTodo = {
@@ -139,7 +142,7 @@ describe('TodoReducer', () => {
         },
         selectedTodoId: null,
         statusFilter: TodoFilterStatus.InCompleted,
-        searchFilter: null
+        searchFilter: ''
       };
 
       const todoToDelete = {

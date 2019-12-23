@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
-import { EnvironnementConfig } from '@uqt/types';
+import { EnvironnementConfig } from '@uqt/api/config';
 import { envToNumber } from './util';
 
 /**

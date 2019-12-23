@@ -4,12 +4,12 @@ import {
   ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
-import { IRegistrationDetails } from '@uqt/types';
 import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 import { REGISTER_STRUCTURE } from './register.structure';
 import { Subscription } from 'rxjs';
 import { passwordMatchValidator } from '../../validators/auth.validators';
 import { AuthFacade } from '@uqt/data-access/auth';
+import { IRegistrationDetails } from 'libs/web/data-access/auth/src/lib/auth.interface';
 
 interface IRegistrationFormStructure {
   details: {
@@ -32,17 +32,21 @@ interface IRegistrationFormStructure {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent implements OnInit, OnDestroy {
+  readonly formName = 'register';
+
   private subscription: Subscription;
 
   constructor(
     private facade: AuthFacade,
     private formFacade: DynamicFormFacade
   ) {
-    this.subscription = this.formFacade.submit$.subscribe(
-      (details: IRegistrationFormStructure) => {
+    this.formFacade.createFormIfNotExist(this.formName);
+
+    this.subscription = this.formFacade
+      .formSubmits$(this.formName)
+      .subscribe((details: IRegistrationFormStructure) => {
         this.register(details);
-      }
-    );
+      });
   }
 
   ngOnInit() {
@@ -52,9 +56,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
       'passwordCheck'
     );
     // we do want animations for the register form
-    this.formFacade.setFormConfig({ animations: true });
-    this.formFacade.setFormValidators([passwordCheck]);
-    this.formFacade.setStructure({ structure: REGISTER_STRUCTURE });
+    this.formFacade.setFormConfig(this.formName, { animations: true });
+    this.formFacade.setValidators(this.formName, [passwordCheck]);
+    this.formFacade.setStructure(this.formName, REGISTER_STRUCTURE);
   }
 
   register(details: IRegistrationFormStructure): void {
@@ -70,6 +74,5 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.facade.clearAvailable();
-    this.formFacade.resetFormValidators();
   }
 }

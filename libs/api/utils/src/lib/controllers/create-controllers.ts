@@ -19,19 +19,19 @@ export function createControllers<T extends mongoose.Document>(
   return {
     // Get All
     getAll: async () => {
-      const resources = (await model
+      const resources: T[] = await model
         .find({})
-        .lean()
-        .exec()) as any[];
+        .lean<T>()
+        .exec();
 
-      return resources.map(swapId);
+      return resources.map<T>(swapId);
     },
 
     // Get an individual resource
     getOne: async (id: ObjectId) => {
       const resource = await model
         .findById(id)
-        .lean()
+        .lean<T | null>()
         .exec();
 
       if (!resource)
@@ -39,7 +39,7 @@ export function createControllers<T extends mongoose.Document>(
           'Cannot find a resource with the supplied parameters.'
         );
 
-      return swapId(resource);
+      return swapId<T>(resource);
     },
 
     // Create a Resource
@@ -57,7 +57,7 @@ export function createControllers<T extends mongoose.Document>(
         throw Boom.notFound(
           'Cannot find a resource with the supplied parameters.'
         );
-      return swapId(resource);
+      return swapId<T>(resource);
     },
 
     // Remove one
@@ -66,11 +66,12 @@ export function createControllers<T extends mongoose.Document>(
         .findByIdAndRemove(id)
         .lean()
         .exec();
+
       if (!resource)
         throw Boom.notFound(
           'Cannot find a resource with the supplied parameters.'
         );
-      return swapId(resource);
+      return swapId<T>(resource);
     }
   };
 }

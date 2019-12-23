@@ -1,7 +1,7 @@
 import koa from 'koa';
 import Boom from '@hapi/boom';
 import { verify } from 'jsonwebtoken';
-import { IUserModel } from '@uqt/types';
+import { IUserModel } from '@uqt/api/core-data';
 
 /**
  * npm module koa-bearer-token will get the bearer token from Authorize Header

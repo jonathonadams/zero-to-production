@@ -1,6 +1,6 @@
 import merge from 'lodash.merge';
 import { createTypeResolver } from '@uqt/api/utils';
-import { ITodoDocument } from '@uqt/types';
+import { ITodoDocument } from '@uqt/api/core-data';
 import { userResolvers } from './users/index';
 import { Todo } from './todos/index';
 import { verifyTokenGraphQL, authResolvers } from '../auth/auth';

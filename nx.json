@@ -38,15 +38,6 @@
     "web-utils-errors": {
       "tags": []
     },
-    "shared-types": {
-      "tags": []
-    },
-    "shared-enums": {
-      "tags": []
-    },
-    "shared-utils-auth": {
-      "tags": []
-    },
     "web-data-access-users": {
       "tags": []
     },
@@ -92,7 +83,7 @@
     "web-data-access-service-worker": {
       "tags": []
     },
-    "api-middleware": {
+    "api-config": {
       "tags": []
     },
     "api-utils": {
@@ -135,6 +126,12 @@
       "tags": []
     },
     "web-common-ui-auth": {
+      "tags": []
+    },
+    "api-core-data": {
+      "tags": []
+    },
+    "interfaces": {
       "tags": []
     },
     "web-examples-code-highlight": {

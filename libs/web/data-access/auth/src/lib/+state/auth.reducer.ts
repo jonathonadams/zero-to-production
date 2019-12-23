@@ -1,6 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as fromAuth from './auth.actions';
-import { AvailableStatus } from '@uqt/enums';
+import { AvailableStatus } from '../auth.interface';
 
 export interface AuthState {
   loggedIn: boolean;

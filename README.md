@@ -108,3 +108,9 @@ https://github.com/NativeScript/NativeScript/issues/7537
 TODO -> Create a TestCafe Builder
 
 ## uqt
+
+# Nrwl Repo
+
+https://github.com/nrwl/nx/issues/259
+
+https://github.com/nrwl/nx/issues/1515

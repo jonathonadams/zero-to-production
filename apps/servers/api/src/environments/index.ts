@@ -1,7 +1,11 @@
 /* istanbul ignore file */
 
 import merge from 'lodash.merge';
-import { GlobalConfig, EnvironnementConfig, ServerConfig } from '@uqt/types';
+import {
+  GlobalConfig,
+  EnvironnementConfig,
+  ServerConfig
+} from '@uqt/api/config';
 import devConfig from './development';
 import prodConfig from './production';
 import testConfig from './test';

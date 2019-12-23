@@ -1,8 +1,13 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as TodoActions from './todos.actions';
-import { ITodo } from '@uqt/types';
-import { TodoFilterStatus } from '@uqt/enums';
+import { ITodo } from '@uqt/interfaces';
 import { createReducer, on, Action } from '@ngrx/store';
+
+export enum TodoFilterStatus {
+  All,
+  Completed,
+  InCompleted
+}
 
 // 1. define the entity state
 export interface TodosEntityState extends EntityState<ITodo> {

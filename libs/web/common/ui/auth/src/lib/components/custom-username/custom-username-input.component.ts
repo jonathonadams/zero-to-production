@@ -16,11 +16,10 @@ import {
 } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable, Subject } from 'rxjs';
-
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { AvailableStatus } from '@uqt/enums';
-import { AuthFacade } from '@uqt/data-access/auth';
+// import { AvailableStatus } from '@uqt/api/auth';
+import { AuthFacade, AvailableStatus } from '@uqt/data-access/auth';
 import { IInputField } from '@uqt/data-access/dynamic-form';
 
 @Component({

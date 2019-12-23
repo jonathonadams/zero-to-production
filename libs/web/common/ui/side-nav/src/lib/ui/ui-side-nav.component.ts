@@ -6,8 +6,8 @@ import {
   EventEmitter
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ISideNaveRoute } from '@uqt/types';
 import { slideInAnimation } from '@uqt/common/animations';
+import { ISideNaveRoute } from '../navigation.interface';
 
 @Component({
   selector: 'uqt-ui-side-nav',

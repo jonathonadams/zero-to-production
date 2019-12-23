@@ -1,6 +1,6 @@
 import { examplesReducer } from './examples.reducer';
 import * as ExampleActions from './examples.actions';
-import { IExample } from '@uqt/types';
+import { IExample } from '../example.interface';
 
 describe('ExampleReducer', () => {
   describe('undefined action', () => {
@@ -17,16 +17,18 @@ describe('ExampleReducer', () => {
         {
           id: '1',
           title: 'some title',
-          description: 'some description',
+          descriptionShort: 'some description',
+          descriptionFull: 'some full description',
           url: 'example-1',
-          gitHubLink: ''
+          link: ''
         },
         {
           id: '2',
           title: 'another title',
-          description: 'another description',
+          descriptionShort: 'some other description',
+          descriptionFull: 'some other full description',
           url: 'example-2',
-          gitHubLink: ''
+          link: ''
         }
       ];
 

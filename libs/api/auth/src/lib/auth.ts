@@ -1,11 +1,6 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import {
-  IUserModel,
-  IRefreshTokenModel,
-  IVerificationTokenModel
-} from '@uqt/types';
-import { AuthenticationRoles } from '@uqt/enums';
+import { IUserModel } from '@uqt/api/core-data';
 import {
   login,
   register,
@@ -19,26 +14,14 @@ import { checkToken, checkUserIsActive, checkUserRole } from './graphql.guards';
 import { authenticateRequest } from './auth.graphql';
 import { loginResolver, registerResolver } from './auth.resolvers';
 import { verificationEmail } from './send-email';
-
-export interface AuthRouteOptions {
-  userLogin?: boolean;
-  userRegistration?: boolean;
-  refreshTokens?: boolean;
-}
-
-export interface AuthModels {
-  userModel: IUserModel;
-  verificationModel?: IVerificationTokenModel;
-  refreshTokenModel?: IRefreshTokenModel;
-}
-
-export interface AuthRoutesConfig {
-  accessTokenSecret: string;
-  accessTokenExpireTime: number;
-  refreshTokenSecret?: string;
-  SENDGRID_API_KEY?: string;
-  hostUrl?: string;
-}
+import {
+  IVerificationTokenModel,
+  IRefreshTokenModel,
+  AuthRouteOptions,
+  AuthModels,
+  AuthRoutesConfig
+} from './auth.interface';
+import { AuthenticationRoles } from '@uqt/interfaces';
 
 // TODO -> Best way to deal with Refresh Tokens this? attach to user?, Separate model?
 

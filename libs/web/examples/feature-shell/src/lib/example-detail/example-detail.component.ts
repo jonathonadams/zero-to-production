@@ -1,8 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { IExample } from '@uqt/types';
-import { ExamplesFacade } from '@uqt/examples/data-access';
+import { ExamplesFacade, IExample } from '@uqt/examples/data-access';
 import { RouterFacade } from '@uqt/data-access/router';
 
 @Component({

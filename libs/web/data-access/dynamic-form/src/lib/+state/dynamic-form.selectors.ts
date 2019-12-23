@@ -1,36 +1,53 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { DynamicFormEntityState, adapter } from './dynamic-form.reducer';
 
-import { DynamicFormState } from './dynamic-form.reducer';
-
-const selectDynamicFormState = createFeatureSelector<DynamicFormState>(
+const selectDynamicFormState = createFeatureSelector<DynamicFormEntityState>(
   'dynamicForm'
 );
 
-export const selectStructure = createSelector(
-  selectDynamicFormState,
-  (state: DynamicFormState) => state.structure
-);
-export const selectData = createSelector(
-  selectDynamicFormState,
-  (state: DynamicFormState) => state.data
-);
+export const {
+  selectIds: selectFormNames,
+  selectEntities: selectFormEntities,
+  selectAll: selectAllForms,
+  selectTotal
+} = adapter.getSelectors(selectDynamicFormState);
 
-export const selectErrors = createSelector(
-  selectDynamicFormState,
-  (state: DynamicFormState) => state.errors
-);
+export function selectForm(formName: string) {
+  return createSelector(selectFormEntities, forms => forms[formName]);
+}
 
-export const selectFormValidators = createSelector(
-  selectDynamicFormState,
-  state => state.formValidators
-);
+export function selectFormConfig(formName: string) {
+  return createSelector(selectForm(formName), form =>
+    form ? form.config : undefined
+  );
+}
 
-export const selectFormIndex = createSelector(
-  selectDynamicFormState,
-  state => state.index
-);
+export function selectFormStructure(formName: string) {
+  return createSelector(selectForm(formName), form =>
+    form ? form.structure : undefined
+  );
+}
 
-export const selectFormConfig = createSelector(
-  selectDynamicFormState,
-  state => state.config
-);
+export function selectFormData(formName: string) {
+  return createSelector(selectForm(formName), form =>
+    form ? form.data : undefined
+  );
+}
+
+export function selectFormErrors(formName: string) {
+  return createSelector(selectForm(formName), form =>
+    form ? form.errors : undefined
+  );
+}
+
+export function selectFormValidators(formName: string) {
+  return createSelector(selectForm(formName), form =>
+    form ? form.formValidators : undefined
+  );
+}
+
+export function selectFormIndex(formName: string) {
+  return createSelector(selectForm(formName), form =>
+    form ? form.index : undefined
+  );
+}

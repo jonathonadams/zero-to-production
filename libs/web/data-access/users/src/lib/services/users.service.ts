@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from '@uqt/data-access/api';
-import { IUser } from '@uqt/types';
+import { IUser } from '@uqt/interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {

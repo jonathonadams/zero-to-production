@@ -1,36 +1,51 @@
 import { Injectable } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import * as fromActions from './dynamic-form.actions';
-import * as fromSelectors from './dynamic-form.selectors';
+import { ValidatorFn } from '@angular/forms';
+import { TFormGroups } from '../dynamic-form.interface';
 import { IDynamicFormConfig } from './dynamic-form.reducer';
-import { ValidatorFn, ValidationErrors } from '@angular/forms';
-import { TFormGroups } from '../dynamic-form.models';
+import { filter, map } from 'rxjs/operators';
+import { PrivateDynamicFormFacade } from './private-dynamic-form.facade';
 
 @Injectable({ providedIn: 'root' })
 export class DynamicFormFacade {
-  config$: Observable<IDynamicFormConfig>;
-  idx$: Observable<number>;
-  data$: Observable<any>;
-  structure$: Observable<TFormGroups>;
-  errors$: Observable<string[]>;
-  validators$: Observable<ValidatorFn[]>;
-  submit$: Subject<any> = new Subject();
-  setData$ = new Subject<any>();
+  constructor(
+    private store: Store<any>,
+    private facade: PrivateDynamicFormFacade
+  ) {}
 
-  constructor(private store: Store<any>) {
-    this.config$ = this.store.pipe(select(fromSelectors.selectFormConfig));
-    this.idx$ = this.store.pipe(select(fromSelectors.selectFormIndex));
-    this.data$ = this.store.pipe(select(fromSelectors.selectData));
-    this.structure$ = this.store.pipe(select(fromSelectors.selectStructure));
-    this.validators$ = this.store.pipe(
-      select(fromSelectors.selectFormValidators)
+  formSubmits$(formName: string): Observable<any> {
+    return this.facade.submit$.pipe(
+      map(submits => submits[formName]),
+      filter(submit => submit !== undefined)
     );
-    this.errors$ = this.store.pipe(select(fromSelectors.selectErrors));
   }
 
-  setStructure(data: { structure: TFormGroups }) {
-    this.store.dispatch(fromActions.setFormStructure(data));
+  createFormIfNotExist(formName: string) {
+    this.store.dispatch(fromActions.createForm({ formName }));
+  }
+
+  setStructure(formName: string, structure: TFormGroups) {
+    this.store.dispatch(fromActions.setFormStructure({ formName, structure }));
+  }
+
+  setFormConfig(formName: string, config: Partial<IDynamicFormConfig>) {
+    this.store.dispatch(fromActions.setFormConfig({ formName, config }));
+  }
+
+  setValidators(formName: string, validators: ValidatorFn[]) {
+    this.store.dispatch(
+      fromActions.setFormValidators({ formName, validators })
+    );
+  }
+
+  updateData(formName: string, data: any) {
+    this.store.dispatch(fromActions.updateFormData({ formName, data }));
+  }
+
+  triggerSubmit(formName: string) {
+    this.facade.triggerSubmit(formName);
   }
 
   /**
@@ -40,71 +55,14 @@ export class DynamicFormFacade {
    * @param data
    */
   setData(data: any) {
-    this.setData$.next(data);
+    this.facade.setDataSubject.next(data);
   }
 
-  clearData(): void {
-    this.setData({ data: {} });
+  nextSection(formName: string) {
+    this.store.dispatch(fromActions.nextIndex({ formName }));
   }
 
-  updateData(data: { data: any }) {
-    this.store.dispatch(fromActions.updateFormData(data));
-  }
-
-  setErrors({ errors }: { errors: ValidationErrors }) {
-    this.store.dispatch(fromActions.setFormErrors({ errors }));
-  }
-
-  resetForm() {
-    this.store.dispatch(fromActions.resetForm());
-  }
-
-  clearErrors() {
-    this.store.dispatch(fromActions.clearFormErrors());
-  }
-
-  setFormValidators(validators: ValidatorFn[]) {
-    this.store.dispatch(fromActions.setFormValidators({ validators }));
-  }
-
-  resetFormValidators() {
-    this.store.dispatch(fromActions.resetFormValidators());
-  }
-
-  nextSection() {
-    this.store.dispatch(fromActions.nextIndex());
-  }
-
-  backASection() {
-    this.store.dispatch(fromActions.backIndex());
-  }
-
-  goToSection(index: number) {
-    this.store.dispatch(fromActions.gotToIndex({ index }));
-  }
-
-  resetIndex() {
-    this.store.dispatch(fromActions.resetIndex());
-  }
-
-  setFormConfig(config: Partial<IDynamicFormConfig>) {
-    this.store.dispatch(fromActions.setFormConfig({ config }));
-  }
-
-  resetFormConfig() {
-    this.store.dispatch(fromActions.resetFormConfig());
-  }
-
-  submitForm() {
-    this.store.dispatch(fromActions.submitForm());
-  }
-
-  submit(data: any): void {
-    this.submit$.next(data);
-  }
-
-  onDestroy() {
-    this.setData$.complete();
-    this.submit$.complete();
+  backASection(formName: string) {
+    this.store.dispatch(fromActions.backIndex({ formName }));
   }
 }

@@ -4,9 +4,8 @@ import isEmpty from 'ramda/es/isEmpty';
 import and from 'ramda/es/and';
 import allPass from 'ramda/es/allPass';
 import filter from 'ramda/es/filter';
-import { TodosEntityState, adapter } from './todos.reducer';
-import { ITodo } from '@uqt/types';
-import { TodoFilterStatus } from '@uqt/enums';
+import { TodosEntityState, adapter, TodoFilterStatus } from './todos.reducer';
+import { ITodo } from '@uqt/interfaces';
 import {
   equalsC,
   checkTodoCompleteStatusC,

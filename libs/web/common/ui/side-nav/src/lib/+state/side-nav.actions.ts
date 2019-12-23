@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ISideNaveRoute } from '@uqt/types';
+import { ISideNaveRoute } from '../navigation.interface';
 
 export const openSideNav = createAction('[UI/SideNav] Open');
 export const closeSideNav = createAction('[UI/SideNav] Close');

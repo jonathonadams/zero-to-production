@@ -1,5 +1,5 @@
 <todo-ui-todo-detail
+  [formName]="formName"
   [selectedTodo]="selectedTodo$ | async"
-  (formSubmit)="submit()"
   (cancelled)="clearTodo()"
 ></todo-ui-todo-detail>

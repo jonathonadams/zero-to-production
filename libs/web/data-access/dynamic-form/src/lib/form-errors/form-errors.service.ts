@@ -15,10 +15,13 @@ export class DynamicFormErrorsService {
     private overlay: Overlay
   ) {}
 
-  createFormErrors() {
+  createFormErrors(formName: string) {
     const { overlayRef, componentRef } = this.createOverlay(
       FormErrorsComponent
     );
+
+    // set the formName so the errors component can pick up the correct form
+    componentRef.instance.formName = formName;
 
     componentRef.instance.dismiss.subscribe(() => {
       overlayRef.dispose();
