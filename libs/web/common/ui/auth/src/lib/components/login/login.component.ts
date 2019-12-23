@@ -46,22 +46,26 @@ const STRUCTURE: TFormGroups = [
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  readonly formName = 'login';
+
   private subscription: Subscription;
   constructor(
     private formFacade: DynamicFormFacade,
     private facade: AuthFacade
   ) {
-    this.subscription = this.formFacade.submit$.subscribe(
-      ({ credentials }: { credentials: ILoginCredentials }) => {
+    this.formFacade.createFormIfNotExist(this.formName);
+
+    this.subscription = this.formFacade
+      .formSubmits$(this.formName)
+      .subscribe(({ credentials }: { credentials: ILoginCredentials }) => {
         this.facade.login(credentials);
-      }
-    );
+      });
   }
 
   ngOnInit() {
     // We do not want form group animations for the login page.
-    this.formFacade.setFormConfig({ animations: false });
-    this.formFacade.setStructure({ structure: STRUCTURE });
+    this.formFacade.setFormConfig(this.formName, { animations: false });
+    this.formFacade.setStructure(this.formName, STRUCTURE);
   }
 
   ngOnDestroy() {

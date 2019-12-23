@@ -44,7 +44,7 @@ export class AuthEffects {
   loginSuccess$ = this.actions$.pipe(
     ofType(AuthActions.loginSuccess),
     tap(({ token }) => this.jwtService.setAuthorizationToken(token)),
-    tap(() => this.formFacade.clearData()),
+    // tap(() => this.formFacade.clearData()),
     map(() => AuthActions.loginRedirect())
   );
 
@@ -87,7 +87,7 @@ export class AuthEffects {
   @Effect()
   registerSuccess$ = this.actions$.pipe(
     ofType(AuthActions.registerSuccess),
-    tap(() => this.formFacade.clearData()),
+    // tap(() => this.formFacade.clearData()),
     tap(() => this.ns.emit('Registration Successful. Please log in.')),
     map(() => AuthActions.logoutRedirect())
   );

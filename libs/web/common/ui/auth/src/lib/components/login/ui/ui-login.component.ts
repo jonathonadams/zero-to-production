@@ -1,7 +1,8 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Input
 } from '@angular/core';
 
 /**
@@ -16,4 +17,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class UiLoginComponent {}
+export class UiLoginComponent {
+  @Input() formName: string;
+}

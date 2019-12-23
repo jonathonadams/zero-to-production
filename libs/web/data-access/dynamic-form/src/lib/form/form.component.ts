@@ -2,9 +2,10 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  OnDestroy
+  OnDestroy,
+  Input
 } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
+import { FormGroup, FormArray, ValidatorFn } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import {
   map,
@@ -15,11 +16,12 @@ import {
   takeUntil
 } from 'rxjs/operators';
 import { expandFromCenter } from '@uqt/common/animations';
-import { DynamicFormFacade } from '../+state/dynamic-form.facade';
-import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
 import { DynamicFormService } from '../dynamic-form.service';
 import { DynamicFormErrorsService } from '../form-errors/form-errors.service';
 import { FormGroupTypes, TFormGroups } from '../dynamic-form.interface';
+import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
+import { DynamicFormFacade } from '../+state/dynamic-form.facade';
+import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -29,39 +31,55 @@ import { FormGroupTypes, TFormGroups } from '../dynamic-form.interface';
   animations: [expandFromCenter]
 })
 export class DynamicFormComponent implements OnInit, OnDestroy {
+  @Input() formName: string | undefined;
+
   public form: FormGroup | undefined;
   private unsubscribe = new Subject<void>();
 
   config: IDynamicFormConfig;
   formIdx: number;
   structure$: Observable<TFormGroups>;
+  validators$: Observable<ValidatorFn[]>;
 
   constructor(
     private service: DynamicFormService,
     private errorsService: DynamicFormErrorsService,
-    private facade: DynamicFormFacade
-  ) {
-    this.facade.config$
+    private facade: DynamicFormFacade,
+    private privateFacade: PrivateDynamicFormFacade
+  ) {}
+
+  ngOnInit() {
+    // Error Checks to ensure and ID has been set and initialized in the store
+    if (!this.formName) {
+      throw new Error('Form name must bes set');
+    }
+    this.privateFacade.checkExistsAndThrow(this.formName);
+
+    // From this point on we can guarantee the form is configured
+    this.structure$ = this.privateFacade.selectStructure(
+      this.formName
+    ) as Observable<TFormGroups>;
+
+    (this.privateFacade.selectConfig(this.formName) as Observable<
+      IDynamicFormConfig
+    >)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(config => (this.config = config));
 
-    this.facade.idx$
+    (this.privateFacade.selectIndex(this.formName) as Observable<number>)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(idx => (this.formIdx = idx));
 
-    this.structure$ = this.facade.structure$;
-  }
-
-  ngOnInit() {
-    this.facade.resetIndex();
+    this.validators$ = this.privateFacade.selectValidators(
+      this.formName
+    ) as Observable<ValidatorFn[]>;
 
     this.structure$
       .pipe(
         // Build the form
         map(str => this.service.formBuilder(str)),
-
         // Add the form validators
-        withLatestFrom(this.facade.validators$),
+        withLatestFrom(this.validators$),
         tap(([form, validators]) => form.setValidators(validators)),
         map(([form]) => form),
         // Set the internal form property with the new form
@@ -80,7 +98,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
       )
       .subscribe(data => {
         // Update the store
-        this.facade.updateData({ data });
+        this.facade.updateData(this.formName as string, data);
       });
 
     /**
@@ -89,21 +107,30 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
      * When the form resets, it will emit a value changed event and subsequently will update the store
      * @param data
      */
-    this.facade.setData$.pipe(takeUntil(this.unsubscribe)).subscribe(data => {
-      (this.form as FormGroup).reset(data);
-    });
+    this.privateFacade.setData$
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(data => {
+        (this.form as FormGroup).reset(data);
+      });
+
+    this.privateFacade
+      .submitTriggers(this.formName)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(() => {
+        this.onSubmit(this.form);
+      });
   }
 
   onSubmit(form: FormGroup | undefined) {
     if (form) {
       if (form.valid) {
-        this.facade.clearErrors();
-        this.facade.submitForm();
+        this.privateFacade.clearErrors(this.formName as string);
+        this.privateFacade.internalSubmit(this.formName as string, form.value);
       } else {
         // collect all form errors
         const errors = this.service.getAllFormErrors(form);
-        this.facade.setErrors({ errors });
-        this.errorsService.createFormErrors();
+        this.privateFacade.setErrors(this.formName as string, errors);
+        this.errorsService.createFormErrors(this.formName as string);
       }
     }
   }
@@ -111,10 +138,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   getFormGroup(formGroup: FormGroup, name: string): FormGroup {
     return formGroup.get(name) as FormGroup;
   }
-
-  // getFormGroupControls(formGroup: FormGroup, name: string) {
-  //   return (formGroup.get(name) as FormGroup).controls;
-  // }
 
   getArrayGroupControls(arrayGroup: FormArray) {
     return arrayGroup.controls;
@@ -129,11 +152,15 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   nextSection() {
-    this.facade.nextSection();
+    if (this.formName) {
+      this.facade.nextSection(this.formName);
+    }
   }
 
   backASection() {
-    this.facade.backASection();
+    if (this.formName) {
+      this.facade.backASection(this.formName);
+    }
   }
 
   ngOnDestroy() {

@@ -46,6 +46,7 @@ const STRUCTURE: TFormGroups = [
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoDetailComponent implements OnInit, OnDestroy {
+  readonly formName = 'todo-detail';
   public selectedTodo$: Observable<ITodo | undefined>;
   private unsubscribe = new Subject();
 
@@ -66,13 +67,7 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
         this.updateTodoUrl(todo.id);
       });
 
-    this.formFacade.submit$
-      .pipe(withLatestFrom(this.selectedTodo$), takeUntil(this.unsubscribe))
-      .subscribe(([{ todo }, selectedTodo]) => {
-        const todoToSave = { ...selectedTodo, ...todo };
-        this.facade.saveTodo(todoToSave);
-        this.clearTodo();
-      });
+    this.formFacade.createFormIfNotExist(this.formName);
 
     // TODO -> move this to a resolver?
     combineLatest([
@@ -95,12 +90,17 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.formFacade.setFormConfig({ animations: true });
-    this.formFacade.setStructure({ structure: STRUCTURE });
-  }
+    this.formFacade
+      .formSubmits$(this.formName)
+      .pipe(withLatestFrom(this.selectedTodo$), takeUntil(this.unsubscribe))
+      .subscribe(([{ todo }, selectedTodo]) => {
+        const todoToSave = { ...selectedTodo, ...todo };
+        this.facade.saveTodo(todoToSave);
+        this.clearTodo();
+      });
 
-  submit() {
-    this.formFacade.submitForm();
+    this.formFacade.setFormConfig(this.formName, { animations: true });
+    this.formFacade.setStructure(this.formName, STRUCTURE);
   }
 
   clearTodo() {

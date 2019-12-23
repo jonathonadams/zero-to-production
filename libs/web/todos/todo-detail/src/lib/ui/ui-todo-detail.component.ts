@@ -5,7 +5,6 @@ import {
   EventEmitter,
   Input
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { ITodo } from '@uqt/interfaces';
 
 @Component({
@@ -15,9 +14,8 @@ import { ITodo } from '@uqt/interfaces';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiTodoDetailComponent {
+  @Input() formName: string;
   @Input() selectedTodo: ITodo | null | undefined;
-  @Output()
-  formSubmit = new EventEmitter<FormGroup>();
   @Output()
   cancelled = new EventEmitter<void>();
 }
