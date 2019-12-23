@@ -114,3 +114,7 @@ TODO -> Create a TestCafe Builder
 https://github.com/nrwl/nx/issues/259
 
 https://github.com/nrwl/nx/issues/1515
+
+## After Angular v9 Migrations are complete
+
+uninstall @angular-devkit/schematics
