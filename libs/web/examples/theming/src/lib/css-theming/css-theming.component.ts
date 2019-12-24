@@ -6,7 +6,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ThemeService } from '@uqt/common/theme';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
-import { IExample } from '@uqt/types';
+import { IExample } from '@uqt/examples/data-access';
 
 @Component({
   selector: 'example-css-theming',

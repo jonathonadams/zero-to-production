@@ -1,31 +1,7 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as FormActions from './form-builder.actions';
 import { createReducer, on, Action } from '@ngrx/store';
-import { FormFieldTypes } from '@uqt/data-access/dynamic-form';
-
-/**
- * The below is for the form builder
- */
-export interface IFormBuilderStructure {
-  id: string;
-  config: {
-    formName: string;
-    animations?: boolean;
-    pagination?: boolean;
-  };
-  formGroups: IFormBuilderGroup[];
-}
-
-export interface IFormBuilderGroup {
-  groupName: string;
-  fields: IFormBuilderField[];
-}
-
-export interface IFormBuilderField {
-  fieldName: string;
-  fieldLabel: string;
-  fieldType: FormFieldTypes;
-}
+import { IFormBuilderStructure } from '../form-builder.interface';
 
 export interface FormsEntityState extends EntityState<IFormBuilderStructure> {
   selectedFormId: string | null;

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { IExample } from '@uqt/types';
+import { IExample } from '@uqt/examples/data-access';
 
 @Component({
   selector: 'ex-overview',

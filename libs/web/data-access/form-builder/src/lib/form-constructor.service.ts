@@ -11,7 +11,7 @@ import {
   IFormBuilderStructure,
   IFormBuilderField,
   IFormBuilderGroup
-} from './+state/form-builder.reducer';
+} from './form-builder.interface';
 
 @Injectable({ providedIn: 'root' })
 export class FormConstructorService {

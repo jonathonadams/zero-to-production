@@ -14,7 +14,7 @@ import {
   FormFieldTypes
 } from '@uqt/data-access/dynamic-form';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
-import { IExample } from '@uqt/types';
+import { IExample } from '@uqt/examples/data-access';
 
 const SIMPLE_FORM: TFormGroups = [
   {
@@ -83,6 +83,7 @@ const COMPLEX_FORM: TFormGroups = [
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
+  readonly formName = 'dynamic-form-example';
   example: IExample | undefined;
   simpleStructure = true;
   submit$: Observable<any>;
@@ -133,11 +134,12 @@ export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
     private formFacade: DynamicFormFacade,
     private highlight: CodeHighlightService
   ) {
-    this.submit$ = this.formFacade.submit$;
+    this.formFacade.createFormIfNotExist(this.formName);
+    this.submit$ = this.formFacade.formSubmits$(this.formName);
   }
 
   ngOnInit() {
-    this.formFacade.setStructure({ structure: SIMPLE_FORM });
+    this.formFacade.setStructure(this.formName, SIMPLE_FORM);
   }
 
   ngAfterViewInit() {
@@ -146,19 +148,23 @@ export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
 
   setStructure(simpleForm: boolean) {
     if (simpleForm) {
-      this.formFacade.resetIndex();
-      this.formFacade.setStructure({ structure: SIMPLE_FORM });
+      // this.formFacade.resetIndex();
+      this.formFacade.setStructure(this.formName, SIMPLE_FORM);
     } else {
-      this.formFacade.setStructure({ structure: COMPLEX_FORM });
+      this.formFacade.setStructure(this.formName, COMPLEX_FORM);
     }
     this.simpleStructure = simpleForm;
   }
 
   toggleAnimations(change: MatSlideToggleChange) {
-    this.formFacade.setFormConfig({ animations: change.checked });
+    this.formFacade.setFormConfig(this.formName, {
+      animations: change.checked
+    });
   }
 
   togglePagination(change: MatSlideToggleChange) {
-    this.formFacade.setFormConfig({ paginateSections: change.checked });
+    this.formFacade.setFormConfig(this.formName, {
+      paginateSections: change.checked
+    });
   }
 }

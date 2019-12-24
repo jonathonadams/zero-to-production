@@ -51,6 +51,7 @@ const STRUCTURE: TFormGroups = [
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleCreateFormComponent implements OnInit, OnDestroy {
+  readonly formName = 'form-builder-create';
   form$: Observable<IFormBuilderStructure[]>;
   sub: Subscription;
 
@@ -61,15 +62,17 @@ export class ExampleCreateFormComponent implements OnInit, OnDestroy {
   ) {
     this.form$ = this.formsFacade.form$;
 
-    this.sub = this.dynamicFormFacade.submit$.subscribe(
-      (form: IFormBuilderStructure) => {
+    this.dynamicFormFacade.createFormIfNotExist(this.formName);
+
+    this.sub = this.dynamicFormFacade
+      .formSubmits$(this.formName)
+      .subscribe((form: IFormBuilderStructure) => {
         this.formsFacade.createForm({ ...form, formGroups: [] });
-      }
-    );
+      });
   }
 
   ngOnInit() {
-    this.dynamicFormFacade.setStructure({ structure: STRUCTURE });
+    this.dynamicFormFacade.setStructure(this.formName, STRUCTURE);
     this.formsFacade.clearSelected();
     this.formsFacade.loadForms();
   }

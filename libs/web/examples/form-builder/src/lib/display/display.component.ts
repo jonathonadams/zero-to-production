@@ -14,6 +14,7 @@ import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDisplayFormComponent implements OnDestroy {
+  readonly formName = 'example-form-builder';
   form$: Observable<IFormBuilderStructure[]>;
   selectedForm$: Observable<IFormBuilderStructure | undefined>;
   subscription: Subscription;
@@ -26,7 +27,8 @@ export class ExampleDisplayFormComponent implements OnDestroy {
   ) {
     this.form$ = this.builderFacade.form$;
     this.selectedForm$ = this.builderFacade.selectedForm$;
-    this.submit$ = this.formsFacade.submit$;
+    this.formsFacade.createFormIfNotExist(this.formName);
+    this.submit$ = this.formsFacade.formSubmits$(this.formName);
 
     this.subscription = (this.selectedForm$ as Observable<
       IFormBuilderStructure

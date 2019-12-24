@@ -4,9 +4,9 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
-import { IFormBuilderStructure } from '../+state/form-builder.reducer';
 
 import compose from 'ramda/es/compose';
+import { IFormBuilderStructure } from '../form-builder.interface';
 
 @Component({
   selector: 'uqt-form-builder',
