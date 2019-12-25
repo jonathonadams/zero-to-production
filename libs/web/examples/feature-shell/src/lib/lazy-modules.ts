@@ -15,7 +15,7 @@ export const LAZY_MODULES: ILazyModuleRegistry = {
     import('@uqt/web/examples/lazy-load-scrolling').then(
       m => m.WebExamplesLazyLoadScrollingModule
     ),
-  'secure-todos': () =>
+  secure: () =>
     import('@uqt/web/examples/secure-todos').then(
       m => m.WebExamplesSecureTodosModule
     )

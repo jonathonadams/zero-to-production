@@ -16,6 +16,7 @@ import {
 import { ExamplesScrollComponent } from './example-scroll/examples-scroll.component';
 import { LAZY_MODULES } from './lazy-modules';
 import { AboutComponent } from './about/about.component';
+import { WebCommonUiAuthModule } from '@uqt/web/common/ui/auth';
 
 const COMPONENTS = [
   ExamplesFeatureShellComponent,
@@ -34,7 +35,8 @@ const COMPONENTS = [
     ExamplesDataAccessModule,
     ExamplesFeatureShellRoutingModule,
     DynamicFormModule.forChild(),
-    DataAccessDynamicModuleLoadingModule
+    DataAccessDynamicModuleLoadingModule,
+    WebCommonUiAuthModule
   ],
   declarations: COMPONENTS,
   providers: [

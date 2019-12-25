@@ -20,7 +20,7 @@ export class ExamplesScrollComponent {
     'form-builder',
     'theming',
     'lazy-load-scrolling',
-    'secure-todos'
+    'secure'
   ];
 
   constructor(private moduleLoader: ModuleLoaderService) {}
@@ -31,22 +31,10 @@ export class ExamplesScrollComponent {
 
   ngOnInit() {
     // Load the first example
-    // this.moduleLoader.initLoadModule(this.examples[0]);
     this.loadModule(0);
   }
 
   loadModule(index: number) {
     this.moduleLoader.initLoadModule(this.examples[index]);
-    // if (this.modulesLoaded < this.examples.length - 1) {
-    //   this.modulesLoaded++;
-    // }
-  }
-
-  scrolledIndexChange(index: number) {
-    // NOTE -> the itemSize property (pixels), defines when the next index
-    // has loaded
-    if (index < this.examples.length) {
-      this.moduleLoader.initLoadModule(this.examples[index]);
-    }
   }
 }

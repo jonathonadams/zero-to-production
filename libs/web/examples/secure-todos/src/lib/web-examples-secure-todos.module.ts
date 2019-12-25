@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { SecureTodosComponent } from './secure-todos/secure-todos.component';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [RouterModule],
   declarations: [SecureTodosComponent]
 })
 export class WebExamplesSecureTodosModule {

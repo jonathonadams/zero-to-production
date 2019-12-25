@@ -1,8 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ExamplesFacade } from '@uqt/examples/data-access';
-import { RouterFacade } from '@uqt/data-access/router';
-import { IExample } from 'libs/web/examples/data-access/src/lib/example.interface';
+import { ExamplesFacade, IExample } from '@uqt/examples/data-access';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uqt-examples',
@@ -13,15 +12,11 @@ import { IExample } from 'libs/web/examples/data-access/src/lib/example.interfac
 export class ExamplesComponent {
   examples$: Observable<IExample[]>;
 
-  constructor(
-    private facade: ExamplesFacade,
-    private routerFacade: RouterFacade
-  ) {
+  constructor(private facade: ExamplesFacade, private router: Router) {
     this.examples$ = this.facade.examples$;
   }
 
-  selectExample(example: IExample) {
-    this.facade.selectExample(example.url);
-    this.routerFacade.go({ path: ['examples', example.url] });
+  showExample() {
+    this.router.navigate(['examples', 'scroll']);
   }
 }

@@ -106,7 +106,8 @@ export class ModuleLoaderService {
 
         if (!entryComponent) {
           throw new Error(
-            `No entry component defined. a static 'lazyEntryComponent' must be defined on ${moduleFactory.moduleType}`
+            `No entry component defined. a static 'lazyEntryComponent' ` +
+              `must be defined on ${moduleFactory.moduleType}`
           );
         }
 

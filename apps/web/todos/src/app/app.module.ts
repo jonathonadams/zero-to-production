@@ -18,26 +18,9 @@ import { TodosFeatureShellModule } from '@uqt/todos/feature-shell';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { AppEffects } from './+state/app.effects';
 import { AppState, appReducerMap } from './+state/app.state';
-import {
-  DynamicFormModule,
-  defaultErrorMessages
-} from '@uqt/data-access/dynamic-form';
-import {
-  DynamicFormMaterialComponentsModule,
-  MATERIAL_COMPONENT_MAP
-} from '@uqt/common/dynamic-form-material-components';
-import { CustomUsernameComponent } from '@uqt/web/common/ui/auth';
-
-const components = {
-  ...MATERIAL_COMPONENT_MAP,
-  USERNAME: CustomUsernameComponent
-};
-
-const errors = {
-  ...defaultErrorMessages,
-  missMatchPasswords: 'Passwords do not match',
-  doesNotMeetRequirements: 'does note satisfy requirements'
-};
+import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
+import { DynamicFormMaterialComponentsModule } from '@uqt/common/dynamic-form-material-components';
+import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
 
 @NgModule({
   declarations: [AppComponent],
@@ -61,8 +44,8 @@ const errors = {
     DataAccessUsersModule.forRoot(),
     DataAccessRouterModule.forRoot(),
     DynamicFormModule.forRoot({
-      components,
-      errors
+      components: APP_COMPONENTS,
+      errors: APP_ERRORS
     }),
     DynamicFormMaterialComponentsModule,
     AppRoutingModule.forRoot(),

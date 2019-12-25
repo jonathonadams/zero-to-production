@@ -5,7 +5,9 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forRoot([], {
       initialNavigation: 'enabled',
-      relativeLinkResolution: 'corrected'
+      relativeLinkResolution: 'corrected',
+      scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled'
     })
   ],
   exports: [RouterModule]

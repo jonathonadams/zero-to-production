@@ -15,7 +15,6 @@ import { WebCommonUiAuthModule } from '@uqt/web/common/ui/auth';
 @NgModule({
   declarations: [TodoFeatureShellComponent, TodoLayoutComponent],
   imports: [
-    WebCommonUiAuthModule,
     TodosDataAccessModule,
     AllTodosModule,
     TodosDetailModule,
@@ -24,7 +23,8 @@ import { WebCommonUiAuthModule } from '@uqt/web/common/ui/auth';
     CommonUiToolbarModule,
     TodosFeatureShellRoutingModule,
     SharedFloatingMenuModule,
-    CommonUiLayoutsModule
+    CommonUiLayoutsModule,
+    WebCommonUiAuthModule
   ]
 })
 export class TodosFeatureShellModule {}

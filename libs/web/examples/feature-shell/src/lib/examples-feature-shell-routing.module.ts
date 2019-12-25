@@ -25,12 +25,18 @@ export const EXAMPLES_ROUTES: Routes = [
         pathMatch: 'full',
         component: ExamplesScrollComponent
       },
+
       {
         path: '',
         pathMatch: 'full',
         redirectTo: 'all'
       }
     ]
+  },
+  {
+    path: 'secure',
+    loadChildren: () =>
+      import('@uqt/todos/feature-shell').then(m => m.TodosFeatureShellModule)
   },
   {
     path: '',

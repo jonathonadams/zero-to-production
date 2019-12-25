@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uqt-secure-todos',
@@ -6,8 +7,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./secure-todos.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SecureTodosComponent implements OnInit {
-  constructor() {}
+export class SecureTodosComponent {
+  constructor(private router: Router) {}
 
-  ngOnInit() {}
+  showTodos() {
+    this.router.navigate(['secure']);
+  }
 }

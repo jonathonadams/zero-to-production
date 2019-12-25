@@ -17,7 +17,7 @@ export class AppEffects {
     ofType(loginRedirect),
     tap(() =>
       this.routerFacade.go({
-        path: ['examples', 'secure', 'home']
+        path: ['secure', 'home']
       })
     )
   );
@@ -27,7 +27,7 @@ export class AppEffects {
     ofType(registerRedirect),
     tap(() =>
       this.routerFacade.go({
-        path: ['examples', 'secure', 'register']
+        path: ['secure', 'register']
       })
     )
   );
@@ -37,7 +37,7 @@ export class AppEffects {
     ofType(logoutRedirect),
     tap(() =>
       this.routerFacade.go({
-        path: ['examples', 'secure', 'login']
+        path: ['secure', 'login']
       })
     )
   );
