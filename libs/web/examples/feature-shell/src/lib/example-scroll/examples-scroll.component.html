@@ -1,18 +1,14 @@
-<cdk-virtual-scroll-viewport
-  itemSize="600"
+<section
+  lazyLoadScroll
+  (loadIndex)="loadModule($event)"
+  [modules]="examples.length"
   class="viewport"
-  (scrolledIndexChange)="scrolledIndexChange($event)"
-  ><div
-    *cdkVirtualFor="
-      let example of examples;
-      templateCacheSize: 0;
-      let last = last
-    "
-  >
+>
+  <div *ngFor="let example of examples; let last = last">
     <ng-container
       factoryRenderer
       [componentFactory]="selectFactory(example) | async"
     ></ng-container>
     <mat-divider *ngIf="!last"></mat-divider>
   </div>
-</cdk-virtual-scroll-viewport>
+</section>

@@ -13,6 +13,8 @@ import { ModuleLoaderService } from '@uqt/data-access/dynamic-module-loading';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplesScrollComponent {
+  modulesLoaded = 0;
+
   examples = [
     'dynamic-form',
     'form-builder',
@@ -29,7 +31,15 @@ export class ExamplesScrollComponent {
 
   ngOnInit() {
     // Load the first example
-    this.moduleLoader.initLoadModule(this.examples[0]);
+    // this.moduleLoader.initLoadModule(this.examples[0]);
+    this.loadModule(0);
+  }
+
+  loadModule(index: number) {
+    this.moduleLoader.initLoadModule(this.examples[index]);
+    // if (this.modulesLoaded < this.examples.length - 1) {
+    //   this.modulesLoaded++;
+    // }
   }
 
   scrolledIndexChange(index: number) {

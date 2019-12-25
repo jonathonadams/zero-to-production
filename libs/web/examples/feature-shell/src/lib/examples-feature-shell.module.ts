@@ -7,14 +7,12 @@ import { CommonUiCardModule } from '@uqt/common/ui/card';
 import { ExamplesComponent } from './examples/examples.component';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { ExamplesDataAccessModule } from '@uqt/examples/data-access';
-// import { ExampleDetailComponent } from './example-detail/example-detail.component';
 import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
 import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
 import {
   DataAccessDynamicModuleLoadingModule,
   LAZY_MODULE_REGISTRY
 } from '@uqt/data-access/dynamic-module-loading';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ExamplesScrollComponent } from './example-scroll/examples-scroll.component';
 import { LAZY_MODULES } from './lazy-modules';
 import { AboutComponent } from './about/about.component';
@@ -23,7 +21,6 @@ const COMPONENTS = [
   ExamplesFeatureShellComponent,
   ExamplesScrollComponent,
   ExamplesComponent,
-  // ExampleDetailComponent,
   AboutComponent
 ];
 
@@ -31,7 +28,6 @@ const COMPONENTS = [
   imports: [
     CommonModule,
     CommonUiLayoutsModule,
-    ScrollingModule,
     CustomMaterialModule,
     CommonUiToolbarModule,
     CommonUiCardModule,

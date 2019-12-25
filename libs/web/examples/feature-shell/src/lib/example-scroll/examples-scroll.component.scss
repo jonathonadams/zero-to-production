@@ -5,6 +5,7 @@
 
 .viewport {
   height: 600px;
-  max-width: 1000px;
+  overflow-y: auto;
+  max-width: 600px;
   margin: 0 auto;
 }
