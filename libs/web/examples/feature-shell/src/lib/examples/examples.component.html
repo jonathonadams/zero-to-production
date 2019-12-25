@@ -2,8 +2,6 @@
   <uqt-card class="example" *ngFor="let example of examples$ | async">
     <h3 class="card-header">{{ example.title }}</h3>
     <p class="card-content">{{ example.descriptionShort }}</p>
-    <aside class="card-actions">
-      <button mat-button (click)="showExample()">Show Example</button>
-    </aside>
+    <a [href]="example.link">See here for README</a>
   </uqt-card>
 </section>

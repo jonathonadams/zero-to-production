@@ -34,6 +34,16 @@ export const EXAMPLES: IExample[] = [
   },
   {
     id: '4',
+    title: 'Lazy Load Scrolling',
+    descriptionShort:
+      'A demonstration of using dynamic forms and user created forms',
+    descriptionFull:
+      'A demonstration of using dynamic forms and user created forms',
+    url: 'lazy-scroll',
+    link: 'some-github-link'
+  },
+  {
+    id: '5',
     title: 'Todo app with authentication',
     descriptionShort:
       'A demonstration of using dynamic forms and user created forms',

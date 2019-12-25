@@ -17,6 +17,7 @@ import {
   DynamicFormFacade
 } from '@uqt/data-access/dynamic-form';
 import { Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 const STRUCTURE: TFormGroups = [
   {
@@ -58,7 +59,8 @@ export class ExampleCreateFormComponent implements OnInit, OnDestroy {
   constructor(
     private dynamicFormFacade: DynamicFormFacade,
     private formsFacade: FormBuilderFacade,
-    private routerFacade: RouterFacade
+    private routerFacade: RouterFacade,
+    private router: Router
   ) {
     this.form$ = this.formsFacade.form$;
 
@@ -79,9 +81,7 @@ export class ExampleCreateFormComponent implements OnInit, OnDestroy {
 
   edit(form: IFormBuilderStructure) {
     this.formsFacade.selectForm(form.id);
-    this.routerFacade.go({
-      path: ['examples', 'form-builder', form.id, 'edit']
-    });
+    this.router.navigate(['examples', 'form-builder', form.id, 'edit']);
   }
 
   delete(form: IFormBuilderStructure) {
@@ -90,9 +90,7 @@ export class ExampleCreateFormComponent implements OnInit, OnDestroy {
 
   display(form: IFormBuilderStructure) {
     this.formsFacade.selectForm(form.id);
-    this.routerFacade.go({
-      path: ['examples', 'form-builder', form.id, 'display']
-    });
+    this.router.navigate(['examples', 'form-builder', form.id, 'display']);
   }
 
   trackForms(i: number, f: IFormBuilderStructure) {

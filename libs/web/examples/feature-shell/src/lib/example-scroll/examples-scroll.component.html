@@ -1,13 +1,20 @@
 <section
   lazyLoadScroll
   (loadIndex)="loadModule($event)"
-  [modules]="examples.length"
+  [modules]="(examples$ | async)?.length"
   class="viewport"
 >
-  <div *ngFor="let example of examples; let last = last" [id]="example">
+  <div
+    *ngFor="
+      let example of examples$ | async;
+      trackBy: trackExamples;
+      let last = last
+    "
+    [id]="example"
+  >
     <ng-container
       factoryRenderer
-      [componentFactory]="selectFactory(example) | async"
+      [componentFactory]="selectFactory(example.url) | async"
     ></ng-container>
     <mat-divider *ngIf="!last"></mat-divider>
   </div>

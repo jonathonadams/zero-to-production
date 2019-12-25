@@ -11,7 +11,7 @@ export const LAZY_MODULES: ILazyModuleRegistry = {
     ),
   theming: () =>
     import('@uqt/examples/theming').then(m => m.WebExamplesThemingModule),
-  'lazy-load-scrolling': () =>
+  'lazy-scroll': () =>
     import('@uqt/web/examples/lazy-load-scrolling').then(
       m => m.WebExamplesLazyLoadScrollingModule
     ),

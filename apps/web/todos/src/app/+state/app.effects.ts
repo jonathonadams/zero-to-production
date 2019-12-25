@@ -5,8 +5,8 @@ import {
   logoutRedirect,
   registerRedirect
 } from '@uqt/data-access/auth';
-import { RouterFacade } from '@uqt/data-access/router';
 import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,31 +15,19 @@ export class AppEffects {
   @Effect({ dispatch: false })
   loginRedirects$ = this.action$.pipe(
     ofType(loginRedirect),
-    tap(action =>
-      this.routerFacade.go({
-        path: ['home']
-      })
-    )
+    tap(action => this.router.navigate(['home']))
   );
 
   @Effect({ dispatch: false })
   registerRedirect$ = this.action$.pipe(
     ofType(registerRedirect),
-    tap(action =>
-      this.routerFacade.go({
-        path: ['register']
-      })
-    )
+    tap(action => this.router.navigate(['register']))
   );
 
   @Effect({ dispatch: false })
   logoutRedirect$ = this.action$.pipe(
     ofType(logoutRedirect),
-    tap(action =>
-      this.routerFacade.go({
-        path: ['login']
-      })
-    )
+    tap(action => this.router.navigate(['login']))
   );
-  constructor(private action$: Actions, private routerFacade: RouterFacade) {}
+  constructor(private action$: Actions, private router: Router) {}
 }

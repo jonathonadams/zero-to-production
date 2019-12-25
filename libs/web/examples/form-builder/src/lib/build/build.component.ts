@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
-import { RouterFacade } from '@uqt/data-access/router';
 import {
   FormBuilderFacade,
   IFormBuilderStructure
 } from '@uqt/data-access/form-builder';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uqt-example-form-build',
@@ -16,7 +16,7 @@ import {
 export class ExampleBuildFormComponent {
   selectedForm$: Observable<IFormBuilderStructure | undefined>;
 
-  constructor(private facade: FormBuilderFacade, private router: RouterFacade) {
+  constructor(private facade: FormBuilderFacade, private router: Router) {
     this.selectedForm$ = this.facade.selectedForm$;
   }
 
@@ -27,9 +27,7 @@ export class ExampleBuildFormComponent {
         take(1)
       )
       .subscribe(form => {
-        this.router.go({
-          path: ['examples', 'form-builder', form.id, 'display']
-        });
+        this.router.navigate(['examples', 'form-builder', form.id, 'display']);
       });
   }
 }

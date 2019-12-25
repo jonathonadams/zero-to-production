@@ -5,6 +5,8 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ModuleLoaderService } from '@uqt/data-access/dynamic-module-loading';
+import { ExamplesFacade, IExample } from '@uqt/examples/data-access';
+import { take, map } from 'rxjs/operators';
 
 @Component({
   selector: 'uqt-examples-scroll',
@@ -13,17 +15,14 @@ import { ModuleLoaderService } from '@uqt/data-access/dynamic-module-loading';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplesScrollComponent {
-  modulesLoaded = 0;
+  examples$: Observable<IExample[]>;
 
-  examples = [
-    'dynamic-form',
-    'form-builder',
-    'theming',
-    'lazy-load-scrolling',
-    'secure'
-  ];
-
-  constructor(private moduleLoader: ModuleLoaderService) {}
+  constructor(
+    private facade: ExamplesFacade,
+    private moduleLoader: ModuleLoaderService
+  ) {
+    this.examples$ = this.facade.examples$;
+  }
 
   selectFactory(tag: string): Observable<ComponentFactory<any> | undefined> {
     return this.moduleLoader.selectFactory(tag);
@@ -35,6 +34,17 @@ export class ExamplesScrollComponent {
   }
 
   loadModule(index: number) {
-    this.moduleLoader.initLoadModule(this.examples[index]);
+    this.examples$
+      .pipe(
+        take(1),
+        map(exs => exs[index].url)
+      )
+      .subscribe(url => {
+        this.moduleLoader.initLoadModule(url);
+      });
+  }
+
+  trackExamples(i: number, t: IExample) {
+    return t.id;
   }
 }

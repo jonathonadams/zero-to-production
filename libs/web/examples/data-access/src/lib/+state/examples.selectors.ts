@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector } from '@ngrx/store';
 import { ExamplesEntityState, adapter } from './examples.reducer';
 
 export const selectExampleState = createFeatureSelector<ExamplesEntityState>(
@@ -9,19 +9,3 @@ export const {
   selectEntities: selectExampleEntities,
   selectAll: selectAllExamples
 } = adapter.getSelectors(selectExampleState);
-
-export const selectCurrentExampleUrl = createSelector(
-  selectExampleState,
-  (state: ExamplesEntityState) => state.selectedExampleUrl
-);
-
-export const selectExampleSearchFilter = createSelector(
-  selectExampleState,
-  (state: ExamplesEntityState) => state.searchFilter
-);
-
-export const selectCurrentExample = createSelector(
-  selectExampleEntities,
-  selectCurrentExampleUrl,
-  (exampleEntities, url) => exampleEntities[String(url)]
-);

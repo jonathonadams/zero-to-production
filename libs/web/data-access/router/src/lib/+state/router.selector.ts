@@ -1,6 +1,6 @@
 import { Params } from '@angular/router';
 import { createFeatureSelector } from '@ngrx/store';
-import * as fromRouter from '@ngrx/router-store';
+import { RouterReducerState, getSelectors } from '@ngrx/router-store';
 
 export interface RouterStateUrl {
   url: string;
@@ -9,10 +9,9 @@ export interface RouterStateUrl {
   data: any;
 }
 
-export const selectRouter = createFeatureSelector<
-  any,
-  fromRouter.RouterReducerState<any>
->('router');
+export const selectRouter = createFeatureSelector<any, RouterReducerState<any>>(
+  'router'
+);
 
 export const {
   selectQueryParams, // select the current route query params
@@ -21,7 +20,4 @@ export const {
   selectRouteParam, // factory function to select a route param
   selectRouteData, // select the current route data
   selectUrl // select the current url
-} = fromRouter.getSelectors(selectRouter);
-
-// export const selectRouteId = selectRouteParam('id');
-// export const selectStatus = selectQueryParam('status');
+} = getSelectors(selectRouter);
