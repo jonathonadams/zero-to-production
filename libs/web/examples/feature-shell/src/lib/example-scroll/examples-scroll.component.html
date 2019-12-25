@@ -10,12 +10,13 @@
       trackBy: trackExamples;
       let last = last
     "
-    [id]="example"
+    [id]="example.url"
   >
-    <ng-container
-      factoryRenderer
-      [componentFactory]="selectFactory(example.url) | async"
-    ></ng-container>
+    <uqt-example-detail
+      [example]="example"
+      [factory]="selectFactory(example.url) | async"
+    >
+    </uqt-example-detail>
     <mat-divider *ngIf="!last"></mat-divider>
   </div>
 </section>

@@ -17,11 +17,13 @@ import { ExamplesScrollComponent } from './example-scroll/examples-scroll.compon
 import { LAZY_MODULES } from './lazy-modules';
 import { AboutComponent } from './about/about.component';
 import { WebCommonUiAuthModule } from '@uqt/web/common/ui/auth';
+import { ExampleDetailComponent } from './example-detail/example-detail.component';
 
 const COMPONENTS = [
   ExamplesFeatureShellComponent,
   ExamplesScrollComponent,
   ExamplesComponent,
+  ExampleDetailComponent,
   AboutComponent
 ];
 

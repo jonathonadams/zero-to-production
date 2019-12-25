@@ -15,6 +15,7 @@ export class LazyLoadScrollDirective {
   initLoadNext: boolean;
 
   @Input() modules: number | undefined;
+  @Input() nextModuleLoad: number | undefined; // pixels until next load
   @Output() loadIndex = new EventEmitter<number>();
 
   @HostListener('scroll', ['$event'])
@@ -33,7 +34,7 @@ export class LazyLoadScrollDirective {
       if (totalHeight === this.currentSize) {
         if (
           !this.initLoadNext &&
-          pixelsFromBottom < 400 &&
+          pixelsFromBottom < (this.nextModuleLoad || 400) &&
           this.index <= this.modules - 1
         ) {
           this.loadIndex.emit(this.index);
