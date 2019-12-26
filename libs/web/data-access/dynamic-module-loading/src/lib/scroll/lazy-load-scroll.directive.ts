@@ -6,6 +6,8 @@ import {
   Input
 } from '@angular/core';
 
+// TODO -> use the ResizeObserver to know when a module has loaded
+
 @Directive({
   selector: '[lazyLoadScroll]'
 })
@@ -34,7 +36,7 @@ export class LazyLoadScrollDirective {
       if (totalHeight === this.currentSize) {
         if (
           !this.initLoadNext &&
-          pixelsFromBottom < (this.nextModuleLoad || 400) &&
+          pixelsFromBottom < (this.nextModuleLoad || 400) && // default 400 px
           this.index <= this.modules - 1
         ) {
           this.loadIndex.emit(this.index);

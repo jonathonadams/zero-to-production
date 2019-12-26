@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uqt-about',
@@ -6,8 +7,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./about.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AboutComponent implements OnInit {
-  constructor() {}
+export class AboutComponent {
+  constructor(private router: Router) {}
 
-  ngOnInit() {}
+  showExamples() {
+    this.router.navigate(['examples']);
+  }
 }

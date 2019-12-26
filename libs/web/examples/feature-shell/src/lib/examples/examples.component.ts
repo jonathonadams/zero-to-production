@@ -16,7 +16,7 @@ export class ExamplesComponent {
     this.examples$ = this.facade.examples$;
   }
 
-  showExample() {
-    this.router.navigate(['examples', 'scroll']);
+  showExamples() {
+    this.router.navigate(['examples', 'demos']);
   }
 }

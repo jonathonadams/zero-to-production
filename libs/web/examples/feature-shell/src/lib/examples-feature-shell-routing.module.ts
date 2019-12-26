@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
 import { ExamplesComponent } from './examples/examples.component';
-import { ExamplesScrollComponent } from './example-scroll/examples-scroll.component';
+import { ExamplesDemosComponent } from './example-demos/examples-demos.component';
 import { AboutComponent } from './about/about.component';
 
 export const EXAMPLES_ROUTES: Routes = [
@@ -16,14 +16,14 @@ export const EXAMPLES_ROUTES: Routes = [
     component: ExamplesFeatureShellComponent,
     children: [
       {
-        path: 'all',
+        path: '',
         pathMatch: 'full',
         component: ExamplesComponent
       },
       {
-        path: 'scroll',
+        path: 'demos',
         pathMatch: 'full',
-        component: ExamplesScrollComponent
+        component: ExamplesDemosComponent
       },
 
       {
@@ -45,7 +45,7 @@ export const EXAMPLES_ROUTES: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'examples'
+    redirectTo: 'about' // TODO -> 404 page
   }
 ];
 

@@ -13,7 +13,7 @@ import {
   DataAccessDynamicModuleLoadingModule,
   LAZY_MODULE_REGISTRY
 } from '@uqt/data-access/dynamic-module-loading';
-import { ExamplesScrollComponent } from './example-scroll/examples-scroll.component';
+import { ExamplesDemosComponent } from './example-demos/examples-demos.component';
 import { LAZY_MODULES } from './lazy-modules';
 import { AboutComponent } from './about/about.component';
 import { WebCommonUiAuthModule } from '@uqt/web/common/ui/auth';
@@ -21,7 +21,7 @@ import { ExampleDetailComponent } from './example-detail/example-detail.componen
 
 const COMPONENTS = [
   ExamplesFeatureShellComponent,
-  ExamplesScrollComponent,
+  ExamplesDemosComponent,
   ExamplesComponent,
   ExampleDetailComponent,
   AboutComponent

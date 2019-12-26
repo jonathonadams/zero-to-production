@@ -9,12 +9,12 @@ import { ExamplesFacade, IExample } from '@uqt/examples/data-access';
 import { take, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'uqt-examples-scroll',
-  templateUrl: './examples-scroll.component.html',
-  styleUrls: ['./examples-scroll.component.scss'],
+  selector: 'uqt-examples-demos',
+  templateUrl: './examples-demos.component.html',
+  styleUrls: ['./examples-demos.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExamplesScrollComponent {
+export class ExamplesDemosComponent {
   examples$: Observable<IExample[]>;
 
   constructor(
