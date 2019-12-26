@@ -9,7 +9,6 @@ import {
   FormBuilderFacade,
   IFormBuilderStructure
 } from '@uqt/data-access/form-builder';
-import { RouterFacade } from '@uqt/data-access/router';
 import {
   TFormGroups,
   FormGroupTypes,
@@ -59,7 +58,6 @@ export class ExampleCreateFormComponent implements OnInit, OnDestroy {
   constructor(
     private dynamicFormFacade: DynamicFormFacade,
     private formsFacade: FormBuilderFacade,
-    private routerFacade: RouterFacade,
     private router: Router
   ) {
     this.form$ = this.formsFacade.form$;

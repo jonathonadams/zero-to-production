@@ -1,4 +1,7 @@
 :host {
   height: 100%;
-  overflow: auto;
+}
+
+.app-content {
+  height: calc(100% - 4em);
 }
