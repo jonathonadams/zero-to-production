@@ -10,7 +10,11 @@ import { Router } from '@angular/router';
 export class SecureTodosComponent {
   constructor(private router: Router) {}
 
-  showTodos() {
-    this.router.navigate(['secure']);
+  navigateToDemos() {
+    this.router.navigate(['examples', 'demos']);
+  }
+
+  navigateToAbout() {
+    this.router.navigate(['about']);
   }
 }

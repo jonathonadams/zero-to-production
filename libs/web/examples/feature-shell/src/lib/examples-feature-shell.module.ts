@@ -18,6 +18,7 @@ import { LAZY_MODULES } from './lazy-modules';
 import { AboutComponent } from './about/about.component';
 import { WebCommonUiAuthModule } from '@uqt/web/common/ui/auth';
 import { ExampleDetailComponent } from './example-detail/example-detail.component';
+import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
 
 const COMPONENTS = [
   ExamplesFeatureShellComponent,
@@ -42,6 +43,7 @@ const COMPONENTS = [
   ],
   declarations: COMPONENTS,
   providers: [
+    CodeHighlightService,
     {
       provide: LAZY_MODULE_REGISTRY,
       useValue: LAZY_MODULES

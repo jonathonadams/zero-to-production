@@ -33,11 +33,13 @@ export const EXAMPLES_ROUTES: Routes = [
       }
     ]
   },
-  {
-    path: 'secure',
-    loadChildren: () =>
-      import('@uqt/todos/feature-shell').then(m => m.TodosFeatureShellModule)
-  },
+  // {
+  //   path: 'secure',
+  //   loadChildren: () =>
+  //     import('@uqt/web/examples/secure-todos').then(
+  //       m => m.WebExamplesSecureTodosModule
+  //     )
+  // },
   {
     path: '',
     pathMatch: 'full',

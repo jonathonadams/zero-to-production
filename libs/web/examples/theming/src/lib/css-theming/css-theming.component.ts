@@ -6,7 +6,6 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ThemeService } from '@uqt/common/theme';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
-import { IExample } from '@uqt/examples/data-access';
 
 @Component({
   selector: 'example-css-theming',
@@ -15,15 +14,14 @@ import { IExample } from '@uqt/examples/data-access';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CssThemingComponent implements AfterViewInit {
-  example: IExample | undefined;
   form: FormGroup;
 
   constructor(
-    fb: FormBuilder,
+    private fb: FormBuilder,
     private themeService: ThemeService,
     private highlightService: CodeHighlightService
   ) {
-    this.form = fb.group({
+    this.form = this.fb.group({
       lightPrimary: ['#7b1fa2'],
       lightAccent: ['#f0820f'],
       darkPrimary: ['#20eff0'],
