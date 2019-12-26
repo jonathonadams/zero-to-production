@@ -5,21 +5,24 @@ import { IExample } from '@uqt/examples/data-access';
 export const EXAMPLES: IExample[] = [
   {
     id: '1',
-    title: 'Dynamic Form',
+    title: 'Dynamic Form Component',
     descriptionShort:
-      'Create a dynamic forms to remove the pain from using angular form',
+      'Create a dynamic form component to remove the pain from using angular form',
     descriptionFull:
-      'With the amount of boiler plate required to use forms in Angular, they can become tedious quickly. A dynamic form that can be used application wide can significantly simplify using forms and standardize styling, validation reporting and animations.',
+      'With the amount of boiler plate required to use forms in Angular, they ' +
+      'can become tedious quickly. A dynamic form component that can be used ' +
+      'application wide can significantly simplify forms and standardize styling, ' +
+      'validation handling, animations etc.',
     url: 'dynamic-form',
     link: 'some-github-link'
   },
   {
     id: '2',
-    title: 'Form Builder',
-    descriptionShort:
-      'A demonstration of using dynamic forms and user created forms',
+    title: 'Drag & Drop Form Builder',
+    descriptionShort: 'A Drag & Drop form builder for user creatable forms',
     descriptionFull:
-      'A demonstration of using dynamic forms and user created forms',
+      'Building on the Dynamic Form Component, an example of a Drag & Drop Form ' +
+      'Builder to allow end users to build the form structure.',
     url: 'form-builder',
     link: 'some-github-link'
   },
