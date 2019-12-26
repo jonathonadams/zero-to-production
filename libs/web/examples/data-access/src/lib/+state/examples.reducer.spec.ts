@@ -17,16 +17,16 @@ describe('ExampleReducer', () => {
         {
           id: '1',
           title: 'some title',
-          descriptionShort: 'some description',
-          descriptionFull: 'some full description',
+          summary: 'some description',
+          description: 'some full description',
           url: 'example-1',
           link: ''
         },
         {
           id: '2',
           title: 'another title',
-          descriptionShort: 'some other description',
-          descriptionFull: 'some other full description',
+          summary: 'some other description',
+          description: 'some other full description',
           url: 'example-2',
           link: ''
         }

@@ -1,8 +1,8 @@
 export interface IExample {
   id: string;
   title: string;
-  descriptionShort: string;
-  descriptionFull: string;
+  summary: string;
+  description: string;
   url: string;
   link: string;
 }
