@@ -9,7 +9,14 @@ export const EXAMPLES_ROUTES: Routes = [
   {
     path: 'about',
     pathMatch: 'full',
-    component: AboutComponent
+    component: ExamplesFeatureShellComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: AboutComponent
+      }
+    ]
   },
   {
     path: 'examples',
