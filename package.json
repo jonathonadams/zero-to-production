@@ -126,6 +126,7 @@
     "@types/lodash.merge": "^4.6.6",
     "@types/mongoose": "^5.5.34",
     "@types/node": "^12.11.1",
+    "@types/node-fetch": "^2.5.4",
     "@types/ramda": "^0.26.38",
     "@uqt/ng-node": "^0.0.5",
     "codelyzer": "^5.1.2",
