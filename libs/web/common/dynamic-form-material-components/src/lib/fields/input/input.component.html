@@ -1,8 +1,4 @@
-<mat-form-field
-  *ngIf="type === 'GROUP'; else arrayBlock"
-  class="form-field"
-  [formGroup]="group"
->
+<mat-form-field *ngIf="type === 'GROUP'; else arrayBlock" [formGroup]="group">
   <mat-label>{{ field.label }}</mat-label>
   <input
     matInput
@@ -14,7 +10,7 @@
 
 <!-- If the form group is an array -->
 <ng-template #arrayBlock>
-  <mat-form-field class="form-field" [formGroup]="group">
+  <mat-form-field [formGroup]="group">
     <mat-label>{{ field?.label }}</mat-label>
     <input matInput [type]="field.type" [formControlName]="idx" />
   </mat-form-field>

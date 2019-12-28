@@ -38,3 +38,19 @@ body {
 // ------------------------------------------------
 // Insert additional styles here
 // ------------------------------------------------
+
+.uqt-dynamic-form {
+  .uqt-dynamic-form-section {
+    &.form-builder-create {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .uqt-navigation-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

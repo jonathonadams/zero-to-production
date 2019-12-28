@@ -16,6 +16,7 @@ export interface IFormGroup {
   formGroup: string;
   groupType: FormGroupTypes.Group;
   fields: TField[];
+  cssClasses?: string[];
 }
 
 export type TFormArray = IFormGroupArray | IFormFieldArray;

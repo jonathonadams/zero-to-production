@@ -5,7 +5,16 @@ import { FormGroupTypes, ITextArea } from '@uqt/data-access/dynamic-form';
 @Component({
   selector: 'app-form-textarea',
   templateUrl: './textarea.component.html',
-  styleUrls: ['./textarea.component.scss'],
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .mat-form-field {
+        width: 100%;
+      }
+    `
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormTextAreaComponent {

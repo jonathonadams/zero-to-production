@@ -7,9 +7,8 @@ import { FormGroupTypes, IToggleField } from '@uqt/data-access/dynamic-form';
   templateUrl: './toggle.component.html',
   styles: [
     `
-      .form-field {
+      :host {
         display: block;
-        width: 100%;
       }
     `
   ],

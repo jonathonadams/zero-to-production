@@ -5,7 +5,16 @@ import { FormGroupTypes, ISelectField } from '@uqt/data-access/dynamic-form';
 @Component({
   selector: 'app-form-select',
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .mat-form-field {
+        width: 100%;
+      }
+    `
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormSelectComponent {

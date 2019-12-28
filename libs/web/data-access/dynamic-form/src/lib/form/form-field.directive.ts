@@ -16,6 +16,13 @@ import {
   DynamicFormComponentMap
 } from '../dynamic-form.interface';
 
+export interface IDynamicFormField {
+  idx: number | undefined;
+  type: FormGroupTypes;
+  field: TField;
+  group: FormGroup;
+}
+
 export const DYNAMIC_FORM_COMPONENTS = new InjectionToken<
   DynamicFormComponentMap
 >('DYNAMIC_FORM_COMPONENTS');
@@ -28,7 +35,7 @@ export class DynamicFormFieldDirective implements OnInit, OnChanges {
   @Input() type: FormGroupTypes;
   @Input() field: TField;
   @Input() group: FormGroup;
-  component: ComponentRef<any>;
+  component: ComponentRef<IDynamicFormField>;
 
   constructor(
     @Inject(DYNAMIC_FORM_COMPONENTS)
@@ -38,7 +45,7 @@ export class DynamicFormFieldDirective implements OnInit, OnChanges {
   ) {}
 
   ngOnInit() {
-    const component = this.resolver.resolveComponentFactory<any>(
+    const component = this.resolver.resolveComponentFactory<IDynamicFormField>(
       this.componentMap[this.field.componentType]
     );
 

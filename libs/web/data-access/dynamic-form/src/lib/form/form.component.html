@@ -7,7 +7,7 @@ is currently configured.
  -->
 <form
   *ngIf="form"
-  class="dynamic-form"
+  class="uqt-dynamic-form"
   [formGroup]="form"
   autocomplete="off"
   (ngSubmit)="onSubmit(form)"
@@ -22,14 +22,8 @@ is currently configured.
       }
     "
   ></ng-container>
-  <ng-content
-    class="uqt-dyno-form-select-button"
-    select='button[type="submit"]'
-  ></ng-content>
-  <ng-content
-    class="uqt-dyno-form-reset-button"
-    select='button[type="reset"]'
-  ></ng-content>
+  <ng-content select='button[type="submit"]'></ng-content>
+  <ng-content select='button[type="reset"]'></ng-content>
 </form>
 
 <!-- 
@@ -59,10 +53,9 @@ is currently configured.
 
   <!-- selection buttons -->
   <ng-container *ngIf="structure$ | async as str">
-    <div class="action-buttons" *ngIf="str && str.length > 1">
+    <div class="uqt-navigation-buttons" *ngIf="str && str.length > 1">
       <button
         type="button"
-        class="nav-button"
         mat-icon-button
         [disabled]="formIdx <= 0"
         (click)="backASection()"
@@ -72,7 +65,6 @@ is currently configured.
 
       <button
         type="button"
-        class="nav-button"
         mat-icon-button
         [disabled]="formIdx >= str.length - 1"
         (click)="nextSection()"
@@ -107,7 +99,12 @@ is currently configured.
 <!-- Is the form group type is a 'group', then render all the fields in the group (via directive) -->
 <ng-template #formFields let-structure="structure" let-formGroup="formGroup">
   <ng-container [formGroup]="formGroup">
-    <section [formGroupName]="structure.formGroup" @centerExpand>
+    <section
+      class="uqt-dynamic-form-section"
+      [ngClass]="structure.cssClasses ? structure.cssClasses : []"
+      [formGroupName]="structure.formGroup"
+      @centerExpand
+    >
       <ng-container
         *ngFor="let field of structure.fields"
         appDynamicFormField
@@ -129,7 +126,12 @@ is currently configured.
       *ngIf="isGroupFields(structure.arrayType); else arrayGroupType"
     >
       <!-- The array group is a collection of form controls -->
-      <section [formArrayName]="structure.formGroup" @centerExpand>
+      <section
+        class="uqt-dynamic-form-section"
+        [ngClass]="structure.cssClasses ? structure.cssClasses : []"
+        [formArrayName]="structure.formGroup"
+        @centerExpand
+      >
         <ng-container
           *ngFor="let field of getArrayGroupControls(formGroup); let i = index"
           appDynamicFormField
@@ -150,7 +152,11 @@ is currently configured.
     let-formGroup="formGroup"
   >
     <ng-container [formGroup]="formGroup">
-      <section [formArrayName]="structure.formGroup" @centerExpand>
+      <section
+        [ngClass]="structure.cssClasses ? structure.cssClasses : []"
+        [formArrayName]="structure.formGroup"
+        @centerExpand
+      >
         <ng-container
           *ngFor="
             let arrayGroup of getFormArrayFormGroups(

@@ -3,7 +3,8 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   OnDestroy,
-  Input
+  Input,
+  ViewEncapsulation
 } from '@angular/core';
 import { FormGroup, FormArray, ValidatorFn } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
@@ -26,8 +27,8 @@ import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade'
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   animations: [expandFromCenter]
 })
 export class DynamicFormComponent implements OnInit, OnDestroy {

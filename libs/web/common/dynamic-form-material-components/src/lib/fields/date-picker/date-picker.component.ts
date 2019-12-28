@@ -64,7 +64,16 @@ export class MyDateAdapter extends NativeDateAdapter {
 @Component({
   selector: 'app-form-date-picker',
   templateUrl: './date-picker.component.html',
-  styleUrls: ['./date-picker.component.scss'],
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .mat-form-field {
+        width: 100%;
+      }
+    `
+  ],
   providers: [
     { provide: DateAdapter, useClass: MyDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }
