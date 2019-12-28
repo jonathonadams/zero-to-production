@@ -7,6 +7,7 @@ import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
 import { DataAccessFormBuilderModule } from '@uqt/data-access/form-builder';
 import { OverviewComponent } from './overview/overview.component';
+import { TempRoutingModule } from './temp-routing.module';
 
 const COMPONENTS = [
   ExampleCreateFormComponent,
@@ -21,7 +22,8 @@ const COMPONENTS = [
     CommonModule,
     CustomMaterialModule,
     DynamicFormModule,
-    DataAccessFormBuilderModule
+    DataAccessFormBuilderModule,
+    TempRoutingModule // TODO -> Delete
   ]
 })
 export class WebExamplesFormBuilderModule {

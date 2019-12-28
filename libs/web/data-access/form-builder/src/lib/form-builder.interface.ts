@@ -1,4 +1,4 @@
-import { FormFieldTypes } from '@uqt/data-access/dynamic-form';
+import { DynamicFormComponentMap } from '@uqt/data-access/dynamic-form';
 
 /**
  * The below is for the form builder
@@ -21,5 +21,5 @@ export interface IFormBuilderGroup {
 export interface IFormBuilderField {
   fieldName: string;
   fieldLabel: string;
-  fieldType: FormFieldTypes;
+  fieldType: DynamicFormComponentMap;
 }

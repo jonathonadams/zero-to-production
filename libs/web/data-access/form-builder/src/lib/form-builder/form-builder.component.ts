@@ -1,12 +1,16 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
+import { FormGroup, FormArray } from '@angular/forms';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Observable } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { Subscription, Observable } from 'rxjs';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
-
 import compose from 'ramda/es/compose';
 import { IFormBuilderStructure } from '../form-builder.interface';
+import { FormBuilderConstructorService } from '../form-constructor.service';
+import { map, filter, tap, first } from 'rxjs/operators';
 
 @Component({
   selector: 'uqt-form-builder',
@@ -29,17 +33,26 @@ export class FormBuilderComponent {
     fieldIndex: null
   };
 
-  constructor(private fb: FormBuilder, private facade: FormBuilderFacade) {
-    this.selectedForm$ = this.facade.selectedForm$;
+  private sub: Subscription;
 
-    this.builderForm = this.fb.group({
-      config: this.fb.group({
-        formName: [''],
-        animations: [true],
-        pagination: [true]
-      }),
-      formGroups: this.fb.array([])
-    });
+  constructor(
+    private facade: FormBuilderFacade,
+    private constructorService: FormBuilderConstructorService,
+    private cd: ChangeDetectorRef
+  ) {
+    this.selectedForm$ = this.facade.selectedForm$;
+  }
+
+  ngOnInit() {
+    (this.selectedForm$ as Observable<IFormBuilderStructure>)
+      .pipe(
+        filter(fb => fb !== undefined),
+        map(fb => this.constructorService.formBuilder(fb)),
+        tap(form => (this.builderForm = form))
+      )
+      .subscribe(f => {
+        this.cd.detectChanges();
+      });
   }
 
   get formGroups() {
@@ -50,21 +63,6 @@ export class FormBuilderComponent {
     return (this.formGroups.get(String(index)) as FormGroup).get(
       'fields'
     ) as FormArray;
-  }
-
-  createFormGroup(): FormGroup {
-    return this.fb.group({
-      groupName: [],
-      fields: this.fb.array([])
-    });
-  }
-
-  createFieldGroup() {
-    return this.fb.group({
-      fieldName: [],
-      fieldType: [],
-      fieldLabel: []
-    });
   }
 
   toggleFormConfig() {
@@ -96,39 +94,35 @@ export class FormBuilderComponent {
 
   onSubmit({ valid, value }: FormGroup) {
     if (valid) {
-      this.selectedForm$
-        .pipe(
-          take(1),
-          filter(val => val !== undefined)
-        )
-        .subscribe(form => {
-          this.facade.updateForm({ ...form, ...value });
-        });
+      this.selectedForm$.pipe(first()).subscribe(form => {
+        const newForm = { ...form, ...value };
+        this.facade.updateForm(newForm);
+      });
     }
   }
 
   formGroupDropped(event: CdkDragDrop<FormGroup[]>) {
     const formGroups = this.formGroups;
     if (event.previousContainer.id === event.container.id) {
-      this.moveFormArrayGroup(
+      this.constructorService.moveFormArrayGroup(
         formGroups,
         event.previousIndex,
         event.currentIndex
       );
     } else {
-      const formGroup = this.createFormGroup();
+      const formGroup = this.constructorService.createFormGroup();
       formGroups.insert(event.currentIndex, formGroup);
     }
 
-    this.setConnectedToId(formGroups.length);
+    this.dropListIds = this.createConnectedToId(formGroups.length);
   }
 
-  setConnectedToId(groups: number) {
+  createConnectedToId(groups: number) {
     const ids: string[] = [];
     for (let i = 0; i < groups; i++) {
       ids.push(`fields-${i}`);
     }
-    this.dropListIds = ids;
+    return ids;
   }
 
   formFieldDropped(event: CdkDragDrop<FormGroup[]>) {
@@ -137,12 +131,12 @@ export class FormBuilderComponent {
 
     if (event.previousContainer.id === this.toolBoxFieldId) {
       // It is a new field being dropped from the 'toolbox'
-      const groupField = this.createFieldGroup();
+      const groupField = this.constructorService.createFieldGroup();
       currentGroup.insert(event.currentIndex, groupField);
     } else {
       if (event.previousContainer.id === event.container.id) {
         // The field is being re-ordered in the current form group
-        this.moveFormArrayGroup(
+        this.constructorService.moveFormArrayGroup(
           currentGroup,
           event.previousIndex,
           event.currentIndex
@@ -153,7 +147,7 @@ export class FormBuilderComponent {
         );
         const previousGroup = this.getGroupFields(previousGroupIndex);
 
-        this.moveBetweenArrayGroup(
+        this.constructorService.moveBetweenArrayGroup(
           currentGroup,
           previousGroup,
           event.currentIndex,
@@ -163,41 +157,8 @@ export class FormBuilderComponent {
     }
   }
 
-  /**
-   * Removes the FormGroup from it's current index and inserts it
-   * at the new index value
-   *
-   * @param arrayGroup
-   * @param currentIndex
-   * @param newIndex
-   */
-  moveFormArrayGroup(
-    arrayGroup: FormArray,
-    currentIndex: number,
-    newIndex: number
-  ): void {
-    const controlBeingRemoved = arrayGroup.at(currentIndex);
-    arrayGroup.removeAt(currentIndex);
-    arrayGroup.insert(newIndex, controlBeingRemoved);
-  }
-
-  /**
-   * Remove the group from the old section and add to the new
-   * @param newArrayGroup
-   * @param previousArrayGroup
-   * @param newIndex
-   * @param previousIndex
-   */
-  moveBetweenArrayGroup(
-    newArrayGroup: FormArray,
-    previousArrayGroup: FormArray,
-    newIndex: number,
-    previousIndex: number
-  ): void {
-    const controlBeingMoved = previousArrayGroup.at(previousIndex);
-    console.log(controlBeingMoved);
-    previousArrayGroup.removeAt(previousIndex);
-    newArrayGroup.insert(newIndex, controlBeingMoved);
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }
 

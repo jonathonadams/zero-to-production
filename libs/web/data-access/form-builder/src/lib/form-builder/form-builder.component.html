@@ -1,121 +1,133 @@
 <!-- TODO -> Section / Field preview and icons -->
-
-<aside class="toolbox">
-  <div
-    [id]="toolBoxGroupId"
-    cdkDropList
-    [cdkDropListConnectedTo]="[formSections]"
-  >
-    <div cdkDrag class="toolbox-element">Form Group</div>
-  </div>
-  <div [id]="toolBoxFieldId" cdkDropList [cdkDropListConnectedTo]="dropListIds">
-    <div cdkDrag class="toolbox-element">Form Field</div>
-  </div>
-</aside>
-
-<mat-divider [vertical]="true"></mat-divider>
-
-<section class="form-builder">
-  <form [formGroup]="builderForm" (ngSubmit)="onSubmit(builderForm)">
-    <div class="form-config">
-      <uqt-form-builder-header
-        [name]="builderForm.value.config.formName"
-        (toggleConfig)="toggleFormConfig()"
-      ></uqt-form-builder-header>
-
-      <uqt-form-builder-config *ngIf="showFormConfig" [form]="builderForm">
-      </uqt-form-builder-config>
-
-      <mat-divider></mat-divider>
+<div *ngIf="builderForm" class="container">
+  <aside class="toolbox">
+    <div
+      [id]="toolBoxGroupId"
+      cdkDropList
+      [cdkDropListConnectedTo]="[formSections]"
+    >
+      <div cdkDrag class="toolbox-element">Form Group</div>
     </div>
     <div
-      class="form-sections"
-      formArrayName="formGroups"
+      [id]="toolBoxFieldId"
       cdkDropList
-      #formSections="cdkDropList"
-      (cdkDropListDropped)="formGroupDropped($event)"
+      [cdkDropListConnectedTo]="dropListIds"
     >
-      <mat-card
-        cdkDrag
-        class="group-section"
-        *ngFor="let group of formGroups.controls; let i = index"
+      <div cdkDrag class="toolbox-element">Form Field</div>
+    </div>
+  </aside>
+
+  <mat-divider [vertical]="true"></mat-divider>
+
+  <section class="form-builder">
+    <form [formGroup]="builderForm" (ngSubmit)="onSubmit(builderForm)">
+      <div class="form-config">
+        <uqt-form-builder-header
+          [name]="builderForm.value.config.formName"
+          (toggleConfig)="toggleFormConfig()"
+        ></uqt-form-builder-header>
+
+        <uqt-form-builder-config *ngIf="showFormConfig" [form]="builderForm">
+        </uqt-form-builder-config>
+
+        <mat-divider></mat-divider>
+      </div>
+      <div
+        class="form-sections"
+        formArrayName="formGroups"
+        cdkDropList
+        #formSections="cdkDropList"
+        (cdkDropListDropped)="formGroupDropped($event)"
       >
-        <div [formGroupName]="i">
-          <div class="group-settings">
-            <mat-form-field>
-              <mat-label>Section Name</mat-label>
-              <input matInput type="text" formControlName="groupName" />
-            </mat-form-field>
+        <mat-card
+          cdkDrag
+          class="group-section"
+          *ngFor="let group of formGroups.controls; let i = index"
+        >
+          <div [formGroupName]="i">
+            <div class="group-settings">
+              <mat-form-field>
+                <mat-label>Section Name</mat-label>
+                <input matInput type="text" formControlName="groupName" />
+              </mat-form-field>
 
-            <button mat-icon-button type="button" (click)="deleteFormGroup(i)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-          <mat-divider [inset]="true"></mat-divider>
-
-          <div
-            [id]="'fields-' + i"
-            class="group-fields"
-            formArrayName="fields"
-            cdkDropList
-            [cdkDropListConnectedTo]="dropListIds"
-            (cdkDropListDropped)="formFieldDropped($event)"
-          >
-            <div
-              class="group-form-field"
-              cdkDrag
-              *ngFor="let field of getGroupFields(i).controls; let idx = index"
-            >
-              <div class="group-form-field-header">
-                <p>Field: {{ field.value.fieldLabel }}</p>
-                <span>
-                  <button
-                    mat-icon-button
-                    type="button"
-                    (click)="showFormField(i, idx)"
-                  >
-                    <mat-icon>expand_more</mat-icon>
-                  </button>
-
-                  <button
-                    mat-icon-button
-                    type="button"
-                    (click)="removeGroupField(i, idx)"
-                  >
-                    <mat-icon>clear</mat-icon>
-                  </button>
-                </span>
-              </div>
-
-              <div
-                *ngIf="
-                  fieldVisible.groupIndex === i &&
-                  fieldVisible.fieldIndex === idx
-                "
-                [formGroupName]="idx"
+              <button
+                mat-icon-button
+                type="button"
+                (click)="deleteFormGroup(i)"
               >
-                <mat-form-field appearance="outline">
-                  <mat-label>Field Label (display)</mat-label>
-                  <input matInput type="text" formControlName="fieldLabel" />
-                </mat-form-field>
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <mat-divider [inset]="true"></mat-divider>
 
-                <mat-form-field appearance="outline">
-                  <mat-label>Field Name</mat-label>
-                  <input matInput type="text" formControlName="fieldName" />
-                </mat-form-field>
+            <div
+              [id]="'fields-' + i"
+              class="group-fields"
+              formArrayName="fields"
+              cdkDropList
+              [cdkDropListConnectedTo]="dropListIds"
+              (cdkDropListDropped)="formFieldDropped($event)"
+            >
+              <div
+                class="group-form-field"
+                cdkDrag
+                *ngFor="
+                  let field of getGroupFields(i).controls;
+                  let idx = index
+                "
+              >
+                <div class="group-form-field-header">
+                  <p>Field: {{ field.value.fieldLabel }}</p>
+                  <span>
+                    <button
+                      mat-icon-button
+                      type="button"
+                      (click)="showFormField(i, idx)"
+                    >
+                      <mat-icon>expand_more</mat-icon>
+                    </button>
 
-                <mat-form-field appearance="outline">
-                  <mat-label>Field Type</mat-label>
-                  <mat-select formControlName="fieldType">
-                    <mat-option [value]="0">Text Field</mat-option>
-                    <mat-option [value]="1">Number Field</mat-option>
-                  </mat-select>
-                </mat-form-field>
+                    <button
+                      mat-icon-button
+                      type="button"
+                      (click)="removeGroupField(i, idx)"
+                    >
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                  </span>
+                </div>
+
+                <div
+                  *ngIf="
+                    fieldVisible.groupIndex === i &&
+                    fieldVisible.fieldIndex === idx
+                  "
+                  [formGroupName]="idx"
+                >
+                  <mat-form-field appearance="outline">
+                    <mat-label>Field Label (display)</mat-label>
+                    <input matInput type="text" formControlName="fieldLabel" />
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Field Name</mat-label>
+                    <input matInput type="text" formControlName="fieldName" />
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Field Type</mat-label>
+                    <mat-select formControlName="fieldType">
+                      <mat-option [value]="0">Text Field</mat-option>
+                      <mat-option [value]="1">Number Field</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </mat-card>
-    </div>
-  </form>
-</section>
+        </mat-card>
+      </div>
+    </form>
+  </section>
+</div>

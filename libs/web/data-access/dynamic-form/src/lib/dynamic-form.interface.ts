@@ -127,7 +127,8 @@ export enum FormFieldTypes {
   TextArea = 'TEXT_AREA',
   Select = 'SELECT',
   Toggle = 'TOGGLE',
-  DatePicker = 'DATE_PICKER'
+  DatePicker = 'DATE_PICKER',
+  CheckBox = 'CHECK_BOX'
 }
 
 export interface DynamicFormConfig {

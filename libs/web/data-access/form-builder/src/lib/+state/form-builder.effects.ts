@@ -13,16 +13,14 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 import * as FormActions from './form-builder.actions';
 import { FormBuilderService } from '../form-builder.service';
-import { FormConstructorService } from '../form-constructor.service';
-// import { FormBuilderFacade } from './form-builder.facade';
+import { FormBuilderConstructorService } from '../form-constructor.service';
 
 @Injectable()
 export class FormEffects {
   constructor(
     private actions$: Actions,
-    // private facade: FormBuilderFacade,
     private formService: FormBuilderService,
-    private formConstructor: FormConstructorService,
+    private formConstructor: FormBuilderConstructorService,
     private dynamicFormFacade: DynamicFormFacade
   ) {}
 

@@ -16,12 +16,12 @@ import {
   DynamicFormFacade
 } from '@uqt/data-access/dynamic-form';
 import { Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 const STRUCTURE: TFormGroups = [
   {
     formGroup: 'config',
     groupType: FormGroupTypes.Group,
+    cssClasses: ['form-builder-create'],
     fields: [
       {
         componentType: FormFieldTypes.Input,
@@ -31,12 +31,12 @@ const STRUCTURE: TFormGroups = [
         validators: [Validators.required]
       },
       {
-        componentType: FormFieldTypes.Toggle,
+        componentType: FormFieldTypes.CheckBox,
         name: 'animations',
         label: 'Animations'
       },
       {
-        componentType: FormFieldTypes.Toggle,
+        componentType: FormFieldTypes.CheckBox,
         name: 'pagination',
         label: 'Section Pagination'
       }
@@ -57,8 +57,7 @@ export class ExampleCreateFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private dynamicFormFacade: DynamicFormFacade,
-    private formsFacade: FormBuilderFacade,
-    private router: Router
+    private formsFacade: FormBuilderFacade
   ) {
     this.form$ = this.formsFacade.form$;
 
@@ -73,22 +72,15 @@ export class ExampleCreateFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.dynamicFormFacade.setStructure(this.formName, STRUCTURE);
-    this.formsFacade.clearSelected();
     this.formsFacade.loadForms();
   }
 
   edit(form: IFormBuilderStructure) {
     this.formsFacade.selectForm(form.id);
-    this.router.navigate(['examples', 'form-builder', form.id, 'edit']);
   }
 
   delete(form: IFormBuilderStructure) {
     this.formsFacade.deleteForm(form);
-  }
-
-  display(form: IFormBuilderStructure) {
-    this.formsFacade.selectForm(form.id);
-    this.router.navigate(['examples', 'form-builder', form.id, 'display']);
   }
 
   trackForms(i: number, f: IFormBuilderStructure) {

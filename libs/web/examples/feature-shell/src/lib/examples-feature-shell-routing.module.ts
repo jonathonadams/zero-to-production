@@ -40,17 +40,26 @@ export const EXAMPLES_ROUTES: Routes = [
       }
     ]
   },
+  {
+    path: 'secure',
+    loadChildren: () =>
+      import('@uqt/web/examples/secure-todos').then(
+        m => m.WebExamplesSecureTodosModule
+      )
+  },
   // {
-  //   path: 'secure',
-  //   loadChildren: () =>
-  //     import('@uqt/web/examples/secure-todos').then(
-  //       m => m.WebExamplesSecureTodosModule
-  //     )
+  //   path: '',
+  //   pathMatch: 'full',
+  //   redirectTo: 'about'
   // },
   {
+    // TODO -> This is only for testing
     path: '',
     pathMatch: 'full',
-    redirectTo: 'about'
+    loadChildren: () =>
+      import('@uqt/examples/form-builder').then(
+        m => m.WebExamplesFormBuilderModule
+      )
   },
   {
     path: '**',
