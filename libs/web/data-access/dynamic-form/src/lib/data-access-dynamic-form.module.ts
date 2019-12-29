@@ -6,12 +6,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { DynamicFormComponent } from './form/form.component';
-import { DynamicFormFieldDirective } from './form/form-field.directive';
+import {
+  DynamicFormFieldDirective,
+  DYNAMIC_FORM_COMPONENTS
+} from './form/form-field.directive';
 import { DynamicFormsEffects } from './+state/dynamic-form.effects';
-import { reducer, initialFormState } from './+state/dynamic-form.reducer';
 import { FormErrorsComponent } from './form-errors/form-errors.component';
-import { DynamicFormConfig } from './dynamic-form.models';
-import { DefaultErrorMessages } from './form-errors/form-errors';
+import { DynamicFormConfig } from './dynamic-form.interface';
+import {
+  DYNAMIC_FORM_ERRORS,
+  defaultErrorMessages
+} from './form-errors/form-errors';
+import { reducer } from './+state/dynamic-form.reducer';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatButtonModule],
@@ -20,20 +26,19 @@ import { DefaultErrorMessages } from './form-errors/form-errors';
 })
 export class DynamicFormModule {
   static forRoot({
-    componentMap,
-    errors
+    components,
+    errors = defaultErrorMessages
   }: DynamicFormConfig): ModuleWithProviders<RootDataAccessDynamicFormModule> {
     return {
       ngModule: RootDataAccessDynamicFormModule,
       providers: [
         {
-          provide: 'DYNAMIC_FORM_COMPONENT_MAP',
-          useValue: componentMap
+          provide: DYNAMIC_FORM_COMPONENTS,
+          useValue: components
         },
-        // If no errors are provided, supply the default error messages
         {
-          provide: 'DYNAMIC_FORM_ERRORS',
-          useValue: errors ? errors : DefaultErrorMessages
+          provide: DYNAMIC_FORM_ERRORS,
+          useValue: errors
         }
       ]
     };
@@ -49,13 +54,10 @@ export class DynamicFormModule {
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forFeature('dynamicForm', reducer, {
-      initialState: initialFormState
-    }),
+    StoreModule.forFeature('dynamicForm', reducer),
     EffectsModule.forFeature([DynamicFormsEffects])
   ],
   declarations: [FormErrorsComponent],
-  entryComponents: [FormErrorsComponent],
   exports: [DynamicFormModule]
 })
 export class RootDataAccessDynamicFormModule {}

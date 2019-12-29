@@ -1,9 +1,9 @@
 import { ParameterizedContext } from 'koa';
 import mongoose from 'mongoose';
-import { IUserDocument, IUserModel } from '@uqt/types';
 import { verifyToken, verifyUserIsActive } from '../rest.guards';
-import { signAccessToken } from '../auth.utils';
+import { signAccessToken } from '../auth-utils';
 import { MockUserModel } from './user.mock.spec';
+import { IUserDocument, IUserModel } from '@uqt/api/core-data';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();

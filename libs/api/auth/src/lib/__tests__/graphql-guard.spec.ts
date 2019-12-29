@@ -1,14 +1,14 @@
 import { GraphQLResolveInfo } from 'graphql';
 import mongoose from 'mongoose';
-import { IUserDocument, IUserModel } from '@uqt/types';
-import { AuthenticationRoles } from '@uqt/enums';
 import {
   checkToken,
   checkUserIsActive,
   checkUserRole
 } from '../graphql.guards';
-import { signAccessToken } from '../auth.utils';
+import { signAccessToken } from '../auth-utils';
 import { MockUserModel } from './user.mock.spec';
+import { IUserDocument, IUserModel } from '@uqt/api/core-data';
+import { AuthenticationRoles } from '@uqt/interfaces';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();

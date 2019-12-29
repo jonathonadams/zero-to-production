@@ -1,26 +1,27 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  AfterViewChecked
+  AfterViewInit
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ThemeService } from '@uqt/common/theme';
-import { HighlightService } from '@uqt/examples';
+import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
 
 @Component({
-  selector: 'ex-css-theming',
+  selector: 'example-css-theming',
   templateUrl: './css-theming.component.html',
   styleUrls: ['./css-theming.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CssThemingComponent implements AfterViewChecked {
+export class CssThemingComponent implements AfterViewInit {
   form: FormGroup;
+
   constructor(
-    fb: FormBuilder,
+    private fb: FormBuilder,
     private themeService: ThemeService,
-    private highlightService: HighlightService
+    private highlightService: CodeHighlightService
   ) {
-    this.form = fb.group({
+    this.form = this.fb.group({
       lightPrimary: ['#7b1fa2'],
       lightAccent: ['#f0820f'],
       darkPrimary: ['#20eff0'],
@@ -67,7 +68,7 @@ export class CssThemingComponent implements AfterViewChecked {
     rootElement.style.setProperty('--dark-accent-color', darkAccent);
   }`;
 
-  ngAfterViewChecked() {
+  ngAfterViewInit() {
     this.highlightService.highlightAll();
   }
 }

@@ -1,13 +1,11 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewChild,
   Output,
   EventEmitter,
   Input
 } from '@angular/core';
-import { FormGroupDirective, FormGroup } from '@angular/forms';
-import { ITodo } from '@uqt/types';
+import { ITodo } from '@uqt/interfaces';
 
 @Component({
   selector: 'todo-ui-todo-detail',
@@ -16,9 +14,8 @@ import { ITodo } from '@uqt/types';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiTodoDetailComponent {
-  @Input() selectedTodo: ITodo | undefined;
-  @Output()
-  formSubmit = new EventEmitter<FormGroup>();
+  @Input() formName: string;
+  @Input() selectedTodo: ITodo | null | undefined;
   @Output()
   cancelled = new EventEmitter<void>();
 }

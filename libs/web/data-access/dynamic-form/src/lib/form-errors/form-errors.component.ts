@@ -3,11 +3,13 @@ import {
   ChangeDetectionStrategy,
   OnDestroy,
   Output,
-  EventEmitter
+  EventEmitter,
+  Input
 } from '@angular/core';
 import { timer, Observable, Subscription } from 'rxjs';
 import { formErrorsAnimations } from './form-errors.animations';
-import { DynamicFormFacade } from '../+state/dynamic-form.facade';
+import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade';
+import { first } from 'rxjs/operators';
 
 // TODO a11y Announcer
 
@@ -20,17 +22,22 @@ import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 })
 export class FormErrorsComponent implements OnDestroy {
   private autoClose = 5000; // ms until close
-  @Output() dismiss = new EventEmitter<void>();
-
-  errors$: Observable<string[]>;
+  errors$: Observable<string[] | undefined>;
   private sub: Subscription;
 
-  constructor(private facade: DynamicFormFacade) {
-    this.errors$ = this.facade.errors$;
+  @Input()
+  set formName(name: string) {
+    this.errors$ = this.facade.selectErrors(name);
+  }
 
-    this.sub = timer(this.autoClose).subscribe(() => {
-      this.dismiss.emit();
-    });
+  @Output() dismiss = new EventEmitter<void>();
+
+  constructor(private facade: PrivateDynamicFormFacade) {
+    this.sub = timer(this.autoClose)
+      .pipe(first())
+      .subscribe(() => {
+        this.dismiss.emit();
+      });
   }
 
   ngOnDestroy() {

@@ -21,7 +21,6 @@ import { UiDropDownMenuComponent } from './components/ui/ui-drop-down-menu.compo
     CommonUtilsOverlayModule,
     DataAccessUsersModule
   ],
-  exports: [ToolbarMenuIconComponent],
-  entryComponents: [DropDownMenuComponent]
+  exports: [ToolbarMenuIconComponent]
 })
 export class SharedFloatingMenuModule {}

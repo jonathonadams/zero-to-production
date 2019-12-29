@@ -1,1 +1,1 @@
-export { FrontendProfileModule } from './lib/frontend-profile.module';
+// export { FrontendProfileModule } from './lib/frontend-profile.module';

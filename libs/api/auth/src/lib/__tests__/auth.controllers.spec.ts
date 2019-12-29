@@ -1,11 +1,3 @@
-import {
-  IUser,
-  IUserModel,
-  IRefreshTokenModel,
-  IVerificationToken,
-  IVerificationTokenModel
-} from '@uqt/types';
-import { AuthenticationRoles } from '@uqt/enums';
 import mongoose from 'mongoose';
 
 import {
@@ -20,11 +12,14 @@ import { MockUserModel } from './user.mock.spec';
 
 import { hash } from 'bcryptjs';
 import { MockRefreshTokenModel } from './refresh-token.mock.spec';
-import { signRefreshToken } from '../auth.utils';
+import { signRefreshToken } from '../auth-utils';
 import {
   MockVerificationToken,
   mockSendVerificationEmail
 } from './verification.mock.spec';
+import { IUserModel } from '@uqt/api/core-data';
+import { IVerificationTokenModel, IRefreshTokenModel } from '../auth.interface';
+import { AuthenticationRoles, IUser } from '@uqt/interfaces';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
@@ -39,16 +34,7 @@ const userToRegister = ({
   hashedPassword: 'asF.s0f.s',
   role: AuthenticationRoles.User,
   active: true,
-  isValid: false,
-  settings: {
-    darkMode: false,
-    colors: {
-      lightPrimary: '',
-      lightAccent: '',
-      darkPrimary: '',
-      darkAccent: ''
-    }
-  }
+  isValid: false
 } as any) as IUser;
 
 const userWithPassword = ({

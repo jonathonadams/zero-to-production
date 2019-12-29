@@ -2,12 +2,12 @@ import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
 import { runQuery, setupTestDB, newId } from '@app-testing/api/helpers';
-import { IUserDocument, IUser } from '@uqt/types';
-import { AuthenticationRoles } from '@uqt/enums';
+import { IUserDocument } from '@uqt/api/core-data';
 import { signTestAccessToken } from '@app-testing/api/auth';
 import { User } from './user.model';
 import { schema } from '../graphql';
 import config from '../../../environments';
+import { IUser } from '@uqt/interfaces';
 
 const user: IUser = ({
   username: 'test user',
@@ -15,16 +15,7 @@ const user: IUser = ({
   surname: 'user',
   email: 'test@domain.com',
   dateOfBirth: '2019-01-01',
-  hashedPassword: 'some-password-hash',
-  settings: {
-    darkMode: false,
-    colors: {
-      lightAccent: '',
-      lightPrimary: '',
-      darkAccent: '',
-      darkPrimary: ''
-    }
-  }
+  hashedPassword: 'some-password-hash'
 } as any) as IUser;
 
 const updatedUser = { username: 'updated user' };

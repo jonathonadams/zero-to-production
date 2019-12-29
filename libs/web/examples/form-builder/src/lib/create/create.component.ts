@@ -9,7 +9,6 @@ import {
   FormBuilderFacade,
   IFormBuilderStructure
 } from '@uqt/data-access/form-builder';
-import { RouterFacade } from '@uqt/data-access/router';
 import {
   TFormGroups,
   FormGroupTypes,
@@ -22,6 +21,7 @@ const STRUCTURE: TFormGroups = [
   {
     formGroup: 'config',
     groupType: FormGroupTypes.Group,
+    cssClasses: ['form-builder-create'],
     fields: [
       {
         componentType: FormFieldTypes.Input,
@@ -29,6 +29,16 @@ const STRUCTURE: TFormGroups = [
         name: 'formName',
         label: 'Form Name',
         validators: [Validators.required]
+      },
+      {
+        componentType: FormFieldTypes.CheckBox,
+        name: 'animations',
+        label: 'Animations'
+      },
+      {
+        componentType: FormFieldTypes.CheckBox,
+        name: 'pagination',
+        label: 'Section Pagination'
       }
     ]
   }
@@ -41,45 +51,36 @@ const STRUCTURE: TFormGroups = [
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleCreateFormComponent implements OnInit, OnDestroy {
+  readonly formName = 'form-builder-create';
   form$: Observable<IFormBuilderStructure[]>;
   sub: Subscription;
 
   constructor(
     private dynamicFormFacade: DynamicFormFacade,
-    private formsFacade: FormBuilderFacade,
-    private routerFacade: RouterFacade
+    private formsFacade: FormBuilderFacade
   ) {
     this.form$ = this.formsFacade.form$;
 
-    this.sub = this.dynamicFormFacade.submit$.subscribe(
-      (form: IFormBuilderStructure) => {
+    this.dynamicFormFacade.createFormIfNotExist(this.formName);
+
+    this.sub = this.dynamicFormFacade
+      .formSubmits$(this.formName)
+      .subscribe((form: IFormBuilderStructure) => {
         this.formsFacade.createForm({ ...form, formGroups: [] });
-      }
-    );
+      });
   }
 
   ngOnInit() {
-    this.dynamicFormFacade.setStructure({ structure: STRUCTURE });
-    this.formsFacade.clearSelected();
+    this.dynamicFormFacade.setStructure(this.formName, STRUCTURE);
     this.formsFacade.loadForms();
   }
 
   edit(form: IFormBuilderStructure) {
     this.formsFacade.selectForm(form.id);
-    this.routerFacade.go({
-      path: ['examples', 'form-builder', form.id, 'edit']
-    });
   }
 
   delete(form: IFormBuilderStructure) {
     this.formsFacade.deleteForm(form);
-  }
-
-  display(form: IFormBuilderStructure) {
-    this.formsFacade.selectForm(form.id);
-    this.routerFacade.go({
-      path: ['examples', 'form-builder', form.id, 'display']
-    });
   }
 
   trackForms(i: number, f: IFormBuilderStructure) {

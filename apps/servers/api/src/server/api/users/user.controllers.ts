@@ -2,7 +2,7 @@ import { ParameterizedContext } from 'koa';
 import Boom from '@hapi/boom';
 import { swapId } from '@uqt/api/utils';
 import { User } from './user.model';
-import { IUser } from '@uqt/types';
+import { IUser } from '@uqt/interfaces';
 
 export async function params(
   id: string,
@@ -16,9 +16,9 @@ export async function params(
 // Get All
 export async function getAll(ctx: ParameterizedContext): Promise<void> {
   ctx.status = 200;
-  const resources = (await User.find({})
-    .lean()
-    .exec()) as IUser[];
+  const resources = await User.find({})
+    .lean<IUser[]>()
+    .exec();
 
   ctx.body = resources.map(swapId);
 }
@@ -26,7 +26,7 @@ export async function getAll(ctx: ParameterizedContext): Promise<void> {
 // Get an individual user
 export async function getOne(ctx: ParameterizedContext): Promise<void> {
   const user = await User.findById(ctx.state.id)
-    .lean()
+    .lean<IUser>()
     .exec();
 
   if (!user)
@@ -49,7 +49,7 @@ export async function updateOne(ctx: ParameterizedContext): Promise<void> {
     ctx.request.body,
     { new: true }
   )
-    .lean()
+    .lean<IUser>()
     .exec();
 
   if (!updatedUser)
@@ -62,7 +62,7 @@ export async function updateOne(ctx: ParameterizedContext): Promise<void> {
 // Remove one
 export async function removeOne(ctx: ParameterizedContext): Promise<void> {
   const removedUser = await User.findByIdAndDelete(ctx.state.id)
-    .lean()
+    .lean<IUser>()
     .exec();
 
   if (!removedUser)

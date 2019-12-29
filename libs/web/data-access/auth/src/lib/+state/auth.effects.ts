@@ -7,8 +7,9 @@ import { NotificationService } from '@uqt/utils/notifications';
 import * as AuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
 import { JWTAuthService } from '../services/jwt-auth.service';
-import { IUser, ILoginResponse } from '@uqt/types';
 import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
+import { ILoginResponse } from '../auth.interface';
+import { IUser } from '@uqt/interfaces';
 
 @Injectable()
 export class AuthEffects {
@@ -43,7 +44,7 @@ export class AuthEffects {
   loginSuccess$ = this.actions$.pipe(
     ofType(AuthActions.loginSuccess),
     tap(({ token }) => this.jwtService.setAuthorizationToken(token)),
-    tap(() => this.formFacade.clearData()),
+    // tap(() => this.formFacade.clearData()),
     map(() => AuthActions.loginRedirect())
   );
 
@@ -86,7 +87,7 @@ export class AuthEffects {
   @Effect()
   registerSuccess$ = this.actions$.pipe(
     ofType(AuthActions.registerSuccess),
-    tap(() => this.formFacade.clearData()),
+    // tap(() => this.formFacade.clearData()),
     tap(() => this.ns.emit('Registration Successful. Please log in.')),
     map(() => AuthActions.logoutRedirect())
   );

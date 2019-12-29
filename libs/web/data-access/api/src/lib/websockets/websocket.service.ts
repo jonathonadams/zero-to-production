@@ -1,18 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable, fromEvent, BehaviorSubject, Subject } from 'rxjs';
 import * as io from 'socket.io-client';
-import { environment } from '@env/environment';
+
+export const WEBSOCKET_URL = new InjectionToken<string>('Socket.io URL');
+export const SOCKET_IO_NAMESPACE = new InjectionToken<string>(
+  'Socket.io Namespace'
+);
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
-  private baseUrl = environment.serverUrl;
   private socket: SocketIOClient.Socket;
 
   // Not all socket connections connecting the the API might be browsers
-  browserNamespaceUrl = '/company-client';
-  socketUrl = `${this.baseUrl}${this.browserNamespaceUrl}`;
+  socketUrl = `${this.baseUrl}${this.nameSpace}`;
 
   private connectedSubject = new BehaviorSubject<boolean>(false);
   public connected$ = this.connectedSubject.asObservable();
@@ -20,7 +22,10 @@ export class WebSocketService {
   private messageSubject = new Subject<any>();
   public socketMessage$ = this.messageSubject.asObservable();
 
-  constructor() {
+  constructor(
+    @Inject(WEBSOCKET_URL) private baseUrl: string,
+    @Inject(SOCKET_IO_NAMESPACE) private nameSpace: string
+  ) {
     const socketOptions: SocketIOClient.ConnectOpts = {
       autoConnect: false,
       transports: ['websocket'],
@@ -29,7 +34,7 @@ export class WebSocketService {
       }
     };
 
-    this.socket = io(`${this.socketUrl}y`, socketOptions);
+    this.socket = io(`${this.socketUrl}`, socketOptions);
 
     this.socket.on('connect', () => {
       this.connectedSubject.next(true);

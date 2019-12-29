@@ -1,0 +1,22 @@
+<section
+  lazyLoadScroll
+  (loadIndex)="loadModule($event)"
+  [modules]="(examples$ | async)?.length"
+  class="viewport"
+>
+  <div
+    *ngFor="
+      let example of examples$ | async;
+      trackBy: trackExamples;
+      let last = last
+    "
+    [id]="example.url"
+  >
+    <uqt-example-detail
+      [example]="example"
+      [factory]="selectFactory(example.url) | async"
+    >
+    </uqt-example-detail>
+    <mat-divider *ngIf="!last"></mat-divider>
+  </div>
+</section>

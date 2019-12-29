@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
 import { TodoLayoutComponent } from './ui/todos-layout.component';
-import { AuthGuard } from '@uqt/data-access/auth';
+import { AuthGuard, LoggedInGuard } from '@uqt/data-access/auth';
 import { AuthUsersResolver } from '@uqt/data-access/users';
-import { AUTH_ROUTES } from '@uqt/shared/auth-routes';
+import { LoginComponent, RegisterComponent } from '@uqt/web/common/ui/auth';
+import { AuthComponent } from 'libs/web/common/ui/auth/src/lib/components/auth.component';
 
 export const TODOS_ROUTES: Routes = [
   {
@@ -30,14 +31,7 @@ export const TODOS_ROUTES: Routes = [
             component: TodoLayoutComponent
           }
         ],
-
         data: { animation: 'TodosPage' }
-      },
-      {
-        path: 'profile',
-        loadChildren: () =>
-          import('@uqt/shared/profile').then(m => m.FrontendProfileModule),
-        data: { animation: 'ProfilePage' }
       },
       {
         path: '',
@@ -53,7 +47,28 @@ export const TODOS_ROUTES: Routes = [
       animation: 'AppPages'
     }
   },
-  ...AUTH_ROUTES,
+  {
+    path: '',
+    component: AuthComponent,
+    children: [
+      {
+        path: 'login',
+        pathMatch: 'full',
+        component: LoginComponent,
+        canActivate: [LoggedInGuard],
+        data: { animation: 'LoginPage' }
+      },
+      {
+        path: 'register',
+        pathMatch: 'full',
+        component: RegisterComponent,
+        data: { animation: 'RegisterPage' }
+      }
+    ],
+    data: {
+      animation: 'AuthPages'
+    }
+  },
   {
     path: '',
     pathMatch: 'full',

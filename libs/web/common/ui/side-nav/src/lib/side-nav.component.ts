@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ISideNaveRoute } from '@uqt/types';
 import { SideNavFacade } from './+state/side-nav.facade';
+import { ISideNaveRoute } from './navigation.interface';
 
 @Component({
   selector: 'uqt-common-side-nav',

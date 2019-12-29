@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExamplesDynamicFormRouterModule } from './web-examples-dynamic-form-router.module';
 import { ExampleDynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { CommonUiCardModule } from '@uqt/common/ui/card';
@@ -13,9 +12,12 @@ const COMPONENTS = [ExampleDynamicFormComponent];
     CommonModule,
     CustomMaterialModule,
     CommonUiCardModule,
-    DynamicFormModule.forChild(),
-    ExamplesDynamicFormRouterModule
+    DynamicFormModule.forChild()
   ],
   declarations: COMPONENTS
 })
-export class WebExamplesDynamicFormModule {}
+export class WebExamplesDynamicFormModule {
+  static get lazyEntryComponent() {
+    return ExampleDynamicFormComponent;
+  }
+}

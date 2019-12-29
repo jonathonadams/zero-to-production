@@ -12,7 +12,7 @@ import {
 import { MatSelectChange } from '@angular/material/select';
 import { Subscription, fromEvent } from 'rxjs';
 import { debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
-import { TodoFilterStatus } from '@uqt/enums';
+import { TodoFilterStatus } from '@uqt/todos/data-access';
 
 @Component({
   selector: 'todo-ui-filter-todos',
@@ -23,7 +23,7 @@ import { TodoFilterStatus } from '@uqt/enums';
 export class UiFilterTodosComponent implements OnInit, OnDestroy {
   subscription: Subscription | undefined;
   @Input()
-  todoFilter: TodoFilterStatus | undefined;
+  todoFilter: TodoFilterStatus | null | undefined;
   @Input()
   filterOptions: { display: string; value: TodoFilterStatus }[] | undefined;
   @Output()

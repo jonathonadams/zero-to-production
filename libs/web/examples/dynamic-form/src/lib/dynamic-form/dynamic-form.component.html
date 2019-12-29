@@ -32,12 +32,12 @@
   </aside>
   <h4>Rendered Form</h4>
   <uqt-card>
-    <app-dynamic-form>
+    <app-dynamic-form [formName]="formName">
       <button mat-raised-button type="submit">Submit</button>
     </app-dynamic-form>
   </uqt-card>
 </section>
 <h4>Submit Output</h4>
-<uqt-card class="output">
+<div class="output">
   <pre><code>{{ submit$ | async | json }}</code></pre>
-</uqt-card>
+</div>

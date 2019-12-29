@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/libs/interfaces",
+    "tsBuildInfoFile": "../../dist/buildcache/interfaces.tsbuildinfo",
+    "types": []
+  },
+  "exclude": ["**/*.spec.ts"],
+  "include": ["**/*.ts"]
+}

@@ -2,9 +2,22 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
 import { ExamplesComponent } from './examples/examples.component';
-import { ExampleDetailComponent } from './example-detail/example-detail.component';
+import { ExamplesDemosComponent } from './example-demos/examples-demos.component';
+import { AboutComponent } from './about/about.component';
 
 export const EXAMPLES_ROUTES: Routes = [
+  {
+    path: 'about',
+    pathMatch: 'full',
+    component: ExamplesFeatureShellComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: AboutComponent
+      }
+    ]
+  },
   {
     path: 'examples',
     component: ExamplesFeatureShellComponent,
@@ -15,50 +28,47 @@ export const EXAMPLES_ROUTES: Routes = [
         component: ExamplesComponent
       },
       {
-        path: 'dynamic-form',
-        component: ExampleDetailComponent,
-        loadChildren: () =>
-          import('@uqt/examples/dynamic-form').then(
-            m => m.WebExamplesDynamicFormModule
-          )
+        path: 'demos',
+        pathMatch: 'full',
+        component: ExamplesDemosComponent
       },
+
       {
-        path: 'form-builder',
-        component: ExampleDetailComponent,
-        loadChildren: () =>
-          import('@uqt/examples/form-builder').then(
-            m => m.WebExamplesFormBuilderModule
-          )
-      },
-      {
-        path: 'theming',
-        component: ExampleDetailComponent,
-        loadChildren: () =>
-          import('@uqt/examples/theming').then(m => m.WebExamplesThemingModule)
-      },
-      {
-        path: 'secure',
-        component: ExampleDetailComponent,
-        loadChildren: () =>
-          import('@uqt/todos/feature-shell').then(
-            m => m.TodosFeatureShellModule
-          )
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'all'
       }
     ]
   },
-
   {
+    path: 'secure',
+    loadChildren: () =>
+      import('@uqt/web/examples/secure-todos').then(
+        m => m.WebExamplesSecureTodosModule
+      )
+  },
+  // {
+  //   path: '',
+  //   pathMatch: 'full',
+  //   redirectTo: 'about'
+  // },
+  {
+    // TODO -> This is only for testing
     path: '',
     pathMatch: 'full',
-    redirectTo: 'examples'
+    loadChildren: () =>
+      import('@uqt/examples/form-builder').then(
+        m => m.WebExamplesFormBuilderModule
+      )
   },
   {
     path: '**',
-    redirectTo: 'examples'
+    redirectTo: 'about' // TODO -> 404 page
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(EXAMPLES_ROUTES)]
+  imports: [RouterModule.forChild(EXAMPLES_ROUTES)],
+  exports: [RouterModule]
 })
 export class ExamplesFeatureShellRoutingModule {}

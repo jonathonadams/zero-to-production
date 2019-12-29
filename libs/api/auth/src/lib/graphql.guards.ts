@@ -1,8 +1,8 @@
 import { verify } from 'jsonwebtoken';
 import Boom from '@hapi/boom';
-import { IUserModel, IUser } from '@uqt/types';
-import { AuthenticationRoles } from '@uqt/enums';
 import { AuthMiddleware } from './auth.graphql';
+import { IUserModel } from '@uqt/api/core-data';
+import { AuthenticationRoles, IUser } from '@uqt/interfaces';
 
 /**
  * Verify the token signature

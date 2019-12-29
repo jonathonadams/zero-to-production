@@ -4,15 +4,14 @@ import { createSpyObj } from '@app-testing/frontend/helpers';
 import { GraphQLStub } from '@app-testing/frontend/stubs/graphql.stubs';
 import { HttpStub } from '@app-testing/frontend/stubs/http.stubs';
 import { GraphQLService, ApiService } from '@uqt/data-access/api';
+import { AuthService } from './auth.service';
+import { JWTAuthService } from './jwt-auth.service';
 import {
   ILoginCredentials,
   ILoginResponse,
-  IUser,
   IRegistrationDetails
-} from '@uqt/types';
-import { AuthService } from './auth.service';
-import { JWTAuthService } from './jwt-auth.service';
-import { AuthenticationRoles } from '@uqt/enums';
+} from '../auth.interface';
+import { AuthenticationRoles, IUser } from '@uqt/interfaces';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -126,16 +125,7 @@ describe('AuthService', () => {
         surname: 'user',
         email: 'test@domain.com',
         dateOfBirth: '2019-01-01',
-        password: 'asF.s0f.s',
-        settings: {
-          darkMode: false,
-          colors: {
-            lightAccent: '',
-            lightPrimary: '',
-            darkAccent: '',
-            darkPrimary: ''
-          }
-        }
+        password: 'asF.s0f.s'
       };
 
       const expectedResponse: IUser = {
@@ -167,16 +157,7 @@ describe('AuthService', () => {
         givenName: 'test',
         surname: 'user',
         email: 'test@domain.com',
-        dateOfBirth: '2019-01-01',
-        settings: {
-          darkMode: false,
-          colors: {
-            lightAccent: '',
-            lightPrimary: '',
-            darkAccent: '',
-            darkPrimary: ''
-          }
-        }
+        dateOfBirth: '2019-01-01'
       } as any) as IRegistrationDetails;
 
       const graphErrors = [

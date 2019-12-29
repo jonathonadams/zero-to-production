@@ -6,8 +6,8 @@ import {
   EventEmitter
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ISideNaveRoute } from '@uqt/types';
 import { slideInAnimation } from '@uqt/common/animations';
+import { ISideNaveRoute } from '../navigation.interface';
 
 @Component({
   selector: 'uqt-ui-side-nav',
@@ -17,8 +17,8 @@ import { slideInAnimation } from '@uqt/common/animations';
   animations: [slideInAnimation]
 })
 export class UiSideNavComponent {
-  @Input() opened: boolean | undefined;
-  @Input() routes: ISideNaveRoute[] | undefined;
+  @Input() opened: boolean | null;
+  @Input() routes: ISideNaveRoute[] | null;
   @Output() setValue = new EventEmitter<boolean>();
 
   prepareRoute(outlet: RouterOutlet) {

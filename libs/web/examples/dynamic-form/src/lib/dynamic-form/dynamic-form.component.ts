@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  AfterViewInit
+} from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -8,7 +13,8 @@ import {
   FormGroupTypes,
   FormFieldTypes
 } from '@uqt/data-access/dynamic-form';
-import { HighlightService } from '@uqt/examples';
+import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
+import { IExample } from '@uqt/examples/data-access';
 
 const SIMPLE_FORM: TFormGroups = [
   {
@@ -71,12 +77,14 @@ const COMPLEX_FORM: TFormGroups = [
 ];
 
 @Component({
-  selector: 'ex-dynamic-form',
+  selector: 'example-dynamic-form',
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleDynamicFormComponent implements OnInit {
+export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
+  readonly formName = 'dynamic-form-example';
+  example: IExample | undefined;
   simpleStructure = true;
   submit$: Observable<any>;
 
@@ -124,34 +132,39 @@ export class ExampleDynamicFormComponent implements OnInit {
 
   constructor(
     private formFacade: DynamicFormFacade,
-    private highlight: HighlightService
+    private highlight: CodeHighlightService
   ) {
-    this.submit$ = this.formFacade.submit$;
+    this.formFacade.createFormIfNotExist(this.formName);
+    this.submit$ = this.formFacade.formSubmits$(this.formName);
   }
 
   ngOnInit() {
-    this.formFacade.setStructure({ structure: SIMPLE_FORM });
+    this.formFacade.setStructure(this.formName, SIMPLE_FORM);
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewInit() {
     this.highlight.highlightAll();
   }
 
   setStructure(simpleForm: boolean) {
     if (simpleForm) {
-      this.formFacade.resetIndex();
-      this.formFacade.setStructure({ structure: SIMPLE_FORM });
+      // this.formFacade.resetIndex();
+      this.formFacade.setStructure(this.formName, SIMPLE_FORM);
     } else {
-      this.formFacade.setStructure({ structure: COMPLEX_FORM });
+      this.formFacade.setStructure(this.formName, COMPLEX_FORM);
     }
     this.simpleStructure = simpleForm;
   }
 
   toggleAnimations(change: MatSlideToggleChange) {
-    this.formFacade.setFormConfig({ animations: change.checked });
+    this.formFacade.setFormConfig(this.formName, {
+      animations: change.checked
+    });
   }
 
   togglePagination(change: MatSlideToggleChange) {
-    this.formFacade.setFormConfig({ paginateSections: change.checked });
+    this.formFacade.setFormConfig(this.formName, {
+      paginateSections: change.checked
+    });
   }
 }

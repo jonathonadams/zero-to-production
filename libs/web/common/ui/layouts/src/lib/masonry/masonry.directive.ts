@@ -11,21 +11,24 @@ import {
   selector: '[layoutMasonry]'
 })
 export class MasonryLayoutDirective implements AfterContentChecked {
-  @Input() columns!: number;
+  @Input() columns: number | undefined;
   @ContentChildren('blocks') blocks!: QueryList<ElementRef<HTMLElement>>;
 
   constructor(private el: ElementRef) {}
 
   ngAfterContentChecked() {
-    if (this.blocks) {
-      const colHeights = Array(this.blocks.length).fill(0);
+    const blocks = this.blocks;
+    const columns = this.columns;
+    if (blocks && columns) {
+      const colHeights = Array(blocks.length).fill(0);
 
-      this.blocks.forEach((block, idx) => {
-        const order = (idx + 1) % this.columns || this.columns;
+      blocks.forEach((block, idx) => {
+        const order = (idx + 1) % columns || columns;
 
         block.nativeElement.style.order = order as any;
-        colHeights[order] += parseFloat(block.nativeElement
-          .offsetHeight as any);
+        colHeights[order] += parseFloat(
+          block.nativeElement.offsetHeight as any
+        );
       });
 
       const highestColumn = Math.max.apply(Math, colHeights);

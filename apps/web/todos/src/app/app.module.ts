@@ -13,16 +13,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { DataAccessApiModule } from '@uqt/data-access/api';
 import { DataAccessAuthModule } from '@uqt/data-access/auth';
 import { DataAccessUsersModule } from '@uqt/data-access/users';
-import { DataAccessRouterModule } from '@uqt/data-access/router';
+// import { DataAccessRouterModule } from '@uqt/data-access/router';
 import { TodosFeatureShellModule } from '@uqt/todos/feature-shell';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { AppEffects } from './+state/app.effects';
 import { AppState, appReducerMap } from './+state/app.state';
 import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
-import {
-  DynamicFormMaterialComponentsModule,
-  MATERIAL_COMPONENT_MAP
-} from '@uqt/data-access/dynamic-form-material-components';
+import { DynamicFormMaterialComponentsModule } from '@uqt/common/dynamic-form-material-components';
+import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,8 +42,11 @@ import {
     DataAccessApiModule.forRoot(environment),
     DataAccessAuthModule.forRoot(),
     DataAccessUsersModule.forRoot(),
-    DataAccessRouterModule.forRoot(),
-    DynamicFormModule.forRoot({ componentMap: MATERIAL_COMPONENT_MAP }),
+    // DataAccessRouterModule.forRoot(),
+    DynamicFormModule.forRoot({
+      components: APP_COMPONENTS,
+      errors: APP_ERRORS
+    }),
     DynamicFormMaterialComponentsModule,
     AppRoutingModule.forRoot(),
     TodosFeatureShellModule,

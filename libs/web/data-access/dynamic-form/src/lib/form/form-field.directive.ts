@@ -6,45 +6,48 @@ import {
   OnChanges,
   OnInit,
   ViewContainerRef,
-  ComponentFactory,
-  Inject
+  Inject,
+  InjectionToken
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
   FormGroupTypes,
   TField,
   DynamicFormComponentMap
-} from '../dynamic-form.models';
+} from '../dynamic-form.interface';
+
+export interface IDynamicFormField {
+  idx: number | undefined;
+  type: FormGroupTypes;
+  field: TField;
+  group: FormGroup;
+}
+
+export const DYNAMIC_FORM_COMPONENTS = new InjectionToken<
+  DynamicFormComponentMap
+>('DYNAMIC_FORM_COMPONENTS');
 
 @Directive({
   selector: '[appDynamicFormField]'
 })
 export class DynamicFormFieldDirective implements OnInit, OnChanges {
   @Input() idx: number | undefined;
-  @Input() type!: FormGroupTypes;
-  @Input() field!: TField;
-  @Input() group!: FormGroup;
-  component!: ComponentRef<any>;
+  @Input() type: FormGroupTypes;
+  @Input() field: TField;
+  @Input() group: FormGroup;
+  component: ComponentRef<IDynamicFormField>;
 
   constructor(
-    @Inject('DYNAMIC_FORM_COMPONENT_MAP')
+    @Inject(DYNAMIC_FORM_COMPONENTS)
     private componentMap: DynamicFormComponentMap,
     private resolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef
   ) {}
 
   ngOnInit() {
-    let component: ComponentFactory<any>;
-
-    if (this.field.customComponent) {
-      component = this.resolver.resolveComponentFactory<any>(
-        this.field.customComponent
-      );
-    } else {
-      component = this.resolver.resolveComponentFactory<any>(
-        this.componentMap[this.field.componentType]
-      );
-    }
+    const component = this.resolver.resolveComponentFactory<IDynamicFormField>(
+      this.componentMap[this.field.componentType]
+    );
 
     this.viewContainerRef.clear();
     this.component = this.viewContainerRef.createComponent(component);

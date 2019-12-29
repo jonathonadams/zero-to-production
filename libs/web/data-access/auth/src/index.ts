@@ -7,3 +7,9 @@ export { AuthInterceptor } from './lib/interceptors/auth-interceptor';
 export { JWTAuthService } from './lib/services/jwt-auth.service';
 export { AuthService } from './lib/services/auth.service';
 export { AuthFacade } from './lib/+state/auth.facade';
+export {
+  ILoginCredentials,
+  ILoginResponse,
+  IJWTPayload,
+  AvailableStatus
+} from './lib/auth.interface';

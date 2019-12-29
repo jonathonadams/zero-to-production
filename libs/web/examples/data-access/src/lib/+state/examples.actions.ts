@@ -1,17 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IExample } from '@uqt/types';
-
-export const selectExample = createAction(
-  '[Example/UI] Select',
-  props<{ url: string }>()
-);
-
-export const clearSelected = createAction('[Example/UI] Clear');
-
-export const searchFilter = createAction(
-  '[Example/UI] Search Filter',
-  props<{ search: string }>()
-);
+import { IExample } from '../example.interface';
 
 export const addExamples = createAction(
   '[Example] Add',

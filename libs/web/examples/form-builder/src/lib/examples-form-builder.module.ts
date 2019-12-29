@@ -6,12 +6,14 @@ import { ExampleDisplayFormComponent } from './display/display.component';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
 import { DataAccessFormBuilderModule } from '@uqt/data-access/form-builder';
-import { ExamplesFormBuilderRouterModule } from './examples-form-builder-router.module';
+import { OverviewComponent } from './overview/overview.component';
+import { TempRoutingModule } from './temp-routing.module';
 
 const COMPONENTS = [
   ExampleCreateFormComponent,
   ExampleBuildFormComponent,
-  ExampleDisplayFormComponent
+  ExampleDisplayFormComponent,
+  OverviewComponent
 ];
 
 @NgModule({
@@ -21,7 +23,11 @@ const COMPONENTS = [
     CustomMaterialModule,
     DynamicFormModule,
     DataAccessFormBuilderModule,
-    ExamplesFormBuilderRouterModule
+    TempRoutingModule // TODO -> Delete
   ]
 })
-export class WebExamplesFormBuilderModule {}
+export class WebExamplesFormBuilderModule {
+  static get lazyEntryComponent() {
+    return OverviewComponent;
+  }
+}

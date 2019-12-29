@@ -6,7 +6,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { ITodo } from '@uqt/types';
+import { ITodo } from '@uqt/interfaces';
 import { LIST_ANIMATION } from './todo-list.animation';
 
 @Component({
@@ -17,7 +17,7 @@ import { LIST_ANIMATION } from './todo-list.animation';
 })
 export class UiTodoListComponent {
   @Input()
-  todos: ITodo[] | undefined;
+  todos: ITodo[] | null | undefined;
   @Output()
   selected = new EventEmitter<ITodo>();
   @Output()

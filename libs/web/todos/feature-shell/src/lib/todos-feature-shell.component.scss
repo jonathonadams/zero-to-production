@@ -1,8 +1,9 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow: hidden;
+  height: 100%;
+}
+
+.app-content {
+  height: calc(100% - 4em);
 }
 
 .header {

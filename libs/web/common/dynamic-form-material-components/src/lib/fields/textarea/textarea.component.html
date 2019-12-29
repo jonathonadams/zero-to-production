@@ -1,0 +1,8 @@
+<mat-form-field [formGroup]="group">
+  <mat-label>{{ field.label }}</mat-label>
+  <textarea
+    matInput
+    cdkTextareaAutosize
+    [formControlName]="field.name"
+  ></textarea>
+</mat-form-field>

@@ -1,8 +1,8 @@
-import { Injectable, ComponentRef, Inject } from '@angular/core';
+import { Injectable, ComponentRef, Inject, Type } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 import { OverlayConfig, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
-import { DynamicFormErrorsMap } from './form-errors';
+import { DynamicFormErrorsMap, DYNAMIC_FORM_ERRORS } from './form-errors';
 import mapR from 'ramda/es/map';
 import { FormErrorTypes } from './form-errors';
 import { FormErrorsComponent } from './form-errors.component';
@@ -10,15 +10,18 @@ import { FormErrorsComponent } from './form-errors.component';
 @Injectable({ providedIn: 'root' })
 export class DynamicFormErrorsService {
   constructor(
-    @Inject('DYNAMIC_FORM_ERRORS')
+    @Inject(DYNAMIC_FORM_ERRORS)
     private formErrors: DynamicFormErrorsMap,
     private overlay: Overlay
   ) {}
 
-  createFormErrors() {
+  createFormErrors(formName: string) {
     const { overlayRef, componentRef } = this.createOverlay(
       FormErrorsComponent
     );
+
+    // set the formName so the errors component can pick up the correct form
+    componentRef.instance.formName = formName;
 
     componentRef.instance.dismiss.subscribe(() => {
       overlayRef.dispose();
@@ -64,13 +67,22 @@ export class DynamicFormErrorsService {
     const fieldErrors: string[] = [];
 
     for (let i = 0; i < topLevelKeys.length; i++) {
-      const errorsKeys = Object.keys(errors[topLevelKeys[i]]);
-      const nestedErrors = reduceErrorKeysToMessages(
-        this.formErrors,
-        topLevelKeys[i],
-        errorsKeys
-      );
-      fieldErrors.push(...nestedErrors);
+      if (topLevelKeys[i] === 'form') {
+        const errorKeys = Object.keys(errors[topLevelKeys[i]]);
+        fieldErrors.push(
+          ...errorKeys.map(
+            key => this.formErrors[key as keyof typeof FormErrorTypes]
+          )
+        );
+      } else {
+        const errorsKeys = Object.keys(errors[topLevelKeys[i]]);
+        const nestedErrors = reduceErrorKeysToMessages(
+          this.formErrors,
+          topLevelKeys[i],
+          errorsKeys
+        );
+        fieldErrors.push(...nestedErrors);
+      }
     }
 
     return fieldErrors;

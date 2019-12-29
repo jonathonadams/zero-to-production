@@ -6,9 +6,7 @@
       </p></mat-list-item
     >
     <mat-list-item role="listitem"
-      ><mat-slide-toggle
-        (change)="toggleDarkMode.emit($event.checked)"
-        [checked]="user?.settings.darkMode"
+      ><mat-slide-toggle (change)="toggleDarkMode.emit($event.checked)"
         >Dark Mode</mat-slide-toggle
       ></mat-list-item
     >

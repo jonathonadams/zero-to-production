@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import { AuthenticationRoles } from '@uqt/enums';
-import { IUser, IUserDocument, IUserModel } from '@uqt/types';
 import { defaultSchemaOptions } from '@uqt/api/utils';
+import { IUserDocument, IUserModel } from '@uqt/api/core-data';
+import { IUser, AuthenticationRoles } from '@uqt/interfaces';
 
 export const userSchema = new mongoose.Schema<IUser>(
   {

@@ -108,3 +108,19 @@ https://github.com/NativeScript/NativeScript/issues/7537
 TODO -> Create a TestCafe Builder
 
 ## uqt
+
+# Nrwl Repo
+
+https://github.com/nrwl/nx/issues/259
+
+https://github.com/nrwl/nx/issues/1515
+
+## After Angular v9 Migrations are complete
+
+uninstall @angular-devkit/schematics
+
+## Remove typing once merged
+
+@types/node-fetch
+https://github.com/apollographql/apollo-tooling/issues/1670
+https://github.com/apollographql/apollo-tooling/pull/1701

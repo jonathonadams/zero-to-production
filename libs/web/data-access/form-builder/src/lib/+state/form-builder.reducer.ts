@@ -1,7 +1,7 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as FormActions from './form-builder.actions';
 import { createReducer, on, Action } from '@ngrx/store';
-import { IFormBuilderStructure } from '../form-builder.models';
+import { IFormBuilderStructure } from '../form-builder.interface';
 
 export interface FormsEntityState extends EntityState<IFormBuilderStructure> {
   selectedFormId: string | null;

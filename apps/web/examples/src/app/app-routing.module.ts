@@ -5,7 +5,9 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forRoot([], {
       initialNavigation: 'enabled',
-      relativeLinkResolution: 'corrected'
+      relativeLinkResolution: 'corrected',
+      scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled'
     })
   ],
   exports: [RouterModule]
@@ -14,7 +16,7 @@ export class RootAppRoutingModule {}
 
 @NgModule()
 export class AppRoutingModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<RootAppRoutingModule> {
     return {
       ngModule: RootAppRoutingModule
     };

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GraphQLService } from '@uqt/data-access/api';
-import { JWTAuthService } from '@uqt/data-access/auth';
+import { JWTAuthService, IJWTPayload } from '@uqt/data-access/auth';
 import {
   ALL_TODOS_QUERY,
   LOAD_TODO_QUERY,
@@ -9,7 +9,7 @@ import {
   UPDATE_TODO_QUERY,
   REMOTE_TODO_QUERY
 } from './todos.queries';
-import { ITodo, IJWTPayload } from '@uqt/types';
+import { ITodo } from '@uqt/interfaces';
 import { FetchResult } from 'apollo-link';
 
 @Injectable()
