@@ -29,17 +29,7 @@ export class FormEffects {
     ofType(FormActions.loadForms),
     exhaustMap(action =>
       this.formService.getAllForms().pipe(
-        map(result => {
-          if (result.errors) {
-            return FormActions.loadFormsFail({
-              error: result.errors[0].message
-            });
-          } else if (result.data) {
-            return FormActions.loadFormsSuccess({
-              forms: result.data.allForms
-            });
-          }
-        }),
+        map(forms => FormActions.loadFormsSuccess({ forms })),
         catchError((error: HttpErrorResponse) =>
           of(FormActions.loadFormsFail({ error: error.message }))
         )
@@ -50,19 +40,9 @@ export class FormEffects {
   @Effect()
   createForm$ = this.actions$.pipe(
     ofType(FormActions.createForm),
-    mergeMap(({ form }) =>
-      this.formService.createForm(form).pipe(
-        map(result => {
-          if (result.errors) {
-            return FormActions.createFormFail({
-              error: result.errors[0].message
-            });
-          } else if (result.data) {
-            return FormActions.createFormSuccess({
-              form: result.data.newForm
-            });
-          }
-        }),
+    mergeMap(({ form: newForm }) =>
+      this.formService.createForm(newForm).pipe(
+        map(form => FormActions.createFormSuccess({ form })),
         catchError((error: HttpErrorResponse) =>
           of(FormActions.createFormFail({ error: error.message }))
         )
@@ -75,18 +55,11 @@ export class FormEffects {
     ofType(FormActions.updateForm),
     mergeMap(({ form }) =>
       this.formService.updateForm(form).pipe(
-        map(result => {
-          if (result.errors) {
-            return FormActions.updateFormFail({
-              error: result.errors[0].message
-            });
-          } else if (result.data) {
-            return FormActions.updateFormSuccess({
-              form: { id: form.id, changes: result.data.updateForm }
-            });
-          }
-        }),
-
+        map(form =>
+          FormActions.updateFormSuccess({
+            form: { id: form.id, changes: form }
+          })
+        ),
         catchError((error: HttpErrorResponse) =>
           of(FormActions.updateFormFail({ error: error.message }))
         )
@@ -99,15 +72,7 @@ export class FormEffects {
     ofType(FormActions.deleteForm),
     mergeMap(({ form }) =>
       this.formService.deleteForm(form.id).pipe(
-        map(result => {
-          if (result.errors) {
-            return FormActions.deleteFormFail({
-              error: result.errors[0].message
-            });
-          } else if (result.data) {
-            return FormActions.deleteFormSuccess({ id: form.id });
-          }
-        }),
+        map(id => FormActions.deleteFormSuccess({ id })),
         catchError((error: HttpErrorResponse) =>
           of(FormActions.deleteFormFail({ error: error.message }))
         )

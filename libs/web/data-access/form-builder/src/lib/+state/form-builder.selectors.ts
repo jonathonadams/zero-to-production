@@ -1,9 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { FormsEntityState, adapter } from './form-builder.reducer';
 
-// Select the top level 'forms' state.
 export const selectFormState = createFeatureSelector<FormsEntityState>(
-  'formsState'
+  'formBuilderState'
 );
 
 export const {
