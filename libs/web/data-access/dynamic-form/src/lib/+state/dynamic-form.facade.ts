@@ -25,18 +25,8 @@ export class DynamicFormFacade {
     this.store.dispatch(fromActions.createForm({ formName }));
   }
 
-  setStructure(formName: string, structure: TFormGroups) {
-    this.store.dispatch(fromActions.setFormStructure({ formName, structure }));
-  }
-
   setFormConfig(formName: string, config: Partial<IDynamicFormConfig>) {
     this.store.dispatch(fromActions.setFormConfig({ formName, config }));
-  }
-
-  setValidators(formName: string, validators: ValidatorFn[]) {
-    this.store.dispatch(
-      fromActions.setFormValidators({ formName, validators })
-    );
   }
 
   updateData(formName: string, data: any) {

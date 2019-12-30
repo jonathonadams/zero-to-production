@@ -24,7 +24,7 @@ export function selectFormConfig(formName: string) {
 
 export function selectFormStructure(formName: string) {
   return createSelector(selectForm(formName), form =>
-    form ? form.structure : undefined
+    form ? form.config.structure : undefined
   );
 }
 
@@ -42,7 +42,7 @@ export function selectFormErrors(formName: string) {
 
 export function selectFormValidators(formName: string) {
   return createSelector(selectForm(formName), form =>
-    form ? form.formValidators : undefined
+    form ? form.config.formValidators : undefined
   );
 }
 

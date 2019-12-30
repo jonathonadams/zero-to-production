@@ -139,7 +139,7 @@ export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.formFacade.setStructure(this.formName, SIMPLE_FORM);
+    this.formFacade.setFormConfig(this.formName, { structure: SIMPLE_FORM });
   }
 
   ngAfterViewInit() {
@@ -148,10 +148,9 @@ export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
 
   setStructure(simpleForm: boolean) {
     if (simpleForm) {
-      // this.formFacade.resetIndex();
-      this.formFacade.setStructure(this.formName, SIMPLE_FORM);
+      this.formFacade.setFormConfig(this.formName, { structure: SIMPLE_FORM });
     } else {
-      this.formFacade.setStructure(this.formName, COMPLEX_FORM);
+      this.formFacade.setFormConfig(this.formName, { structure: COMPLEX_FORM });
     }
     this.simpleStructure = simpleForm;
   }

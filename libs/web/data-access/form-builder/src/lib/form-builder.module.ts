@@ -11,14 +11,12 @@ import { FormsEntityState, reducer } from './+state/form-builder.reducer';
 import { FormEffects } from './+state/form-builder.effects';
 import { FormBuilderConfigComponent } from './form-builder/form-config/form-config.component';
 import { FormBuilderHeaderComponent } from './form-builder/form-header/form-header.component';
-import { FormBuilderRendererComponent } from './form-builder-renderer/form-builder-renderer.component';
 
 @NgModule({
   declarations: [
     FormBuilderComponent,
     FormBuilderConfigComponent,
-    FormBuilderHeaderComponent,
-    FormBuilderRendererComponent
+    FormBuilderHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +27,6 @@ import { FormBuilderRendererComponent } from './form-builder-renderer/form-build
     StoreModule.forFeature<FormsEntityState>('formBuilderState', reducer),
     EffectsModule.forFeature([FormEffects])
   ],
-  exports: [FormBuilderComponent, FormBuilderRendererComponent]
+  exports: [FormBuilderComponent]
 })
 export class DataAccessFormBuilderModule {}

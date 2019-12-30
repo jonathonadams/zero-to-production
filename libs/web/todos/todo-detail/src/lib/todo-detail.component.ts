@@ -99,8 +99,10 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
         this.clearTodo();
       });
 
-    this.formFacade.setFormConfig(this.formName, { animations: true });
-    this.formFacade.setStructure(this.formName, STRUCTURE);
+    this.formFacade.setFormConfig(this.formName, {
+      animations: true,
+      structure: STRUCTURE
+    });
   }
 
   clearTodo() {

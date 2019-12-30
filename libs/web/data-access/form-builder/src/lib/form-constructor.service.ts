@@ -3,7 +3,6 @@ import map from 'ramda/es/map';
 import {
   IFormGroup,
   TField,
-  TFormGroups,
   FormFieldTypes,
   FormGroupTypes,
   DynamicFormState
@@ -79,16 +78,16 @@ export class FormBuilderConstructorService {
     formGroups
   }: IFormBuilderStructure): DynamicFormState {
     return {
-      formName: config.formName,
       config: {
+        formName: config.formName,
         animations: config.animations ? config.animations : false,
-        paginateSections: config.pagination ? config.pagination : false
+        paginateSections: config.pagination ? config.pagination : false,
+        structure: map(mapToFormGroup, formGroups),
+        formValidators: []
       },
       index: 0,
-      formValidators: [],
       data: {},
-      errors: [],
-      structure: map(mapToFormGroup, formGroups)
+      errors: []
     };
   }
 

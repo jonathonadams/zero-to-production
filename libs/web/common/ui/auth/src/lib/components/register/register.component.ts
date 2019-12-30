@@ -56,9 +56,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
       'passwordCheck'
     );
     // we do want animations for the register form
-    this.formFacade.setFormConfig(this.formName, { animations: true });
-    this.formFacade.setValidators(this.formName, [passwordCheck]);
-    this.formFacade.setStructure(this.formName, REGISTER_STRUCTURE);
+    this.formFacade.setFormConfig(this.formName, {
+      animations: true,
+      paginateSections: true,
+      structure: REGISTER_STRUCTURE,
+      formValidators: [passwordCheck]
+    });
   }
 
   register(details: IRegistrationFormStructure): void {

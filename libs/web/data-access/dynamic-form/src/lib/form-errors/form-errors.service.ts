@@ -2,10 +2,13 @@ import { Injectable, ComponentRef, Inject, Type } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 import { OverlayConfig, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
-import { DynamicFormErrorsMap, DYNAMIC_FORM_ERRORS } from './form-errors';
 import mapR from 'ramda/es/map';
-import { FormErrorTypes } from './form-errors';
 import { FormErrorsComponent } from './form-errors.component';
+import {
+  DYNAMIC_FORM_ERRORS,
+  DynamicFormErrorsMap,
+  FormErrorTypes
+} from '../form-errors.interface';
 
 @Injectable({ providedIn: 'root' })
 export class DynamicFormErrorsService {

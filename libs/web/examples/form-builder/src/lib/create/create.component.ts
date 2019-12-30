@@ -71,7 +71,9 @@ export class ExampleCreateFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.dynamicFormFacade.setStructure(this.formName, STRUCTURE);
+    this.dynamicFormFacade.setFormConfig(this.formName, {
+      structure: STRUCTURE
+    });
     this.formsFacade.loadForms();
   }
 

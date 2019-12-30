@@ -1,20 +1,23 @@
 import { ValidatorFn, AsyncValidator } from '@angular/forms';
 import { Type } from '@angular/core';
-import { DynamicFormErrorsMap } from './form-errors/form-errors';
+import { DynamicFormErrorsMap } from './form-errors.interface';
 
 export interface DynamicFormState {
-  formName: string;
   config: IDynamicFormConfig;
   index: number;
   data: any;
-  structure: TFormGroups;
-  formValidators: ValidatorFn[];
   errors: string[];
 }
 
+/**
+ * The bare interface to create a new form:
+ */
 export interface IDynamicFormConfig {
+  formName: string;
   animations: boolean;
   paginateSections: boolean;
+  structure: TFormGroups;
+  formValidators: ValidatorFn[];
 }
 
 export type TField =

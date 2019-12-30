@@ -16,7 +16,7 @@ import { DynamicFormConfig } from './dynamic-form.interface';
 import {
   DYNAMIC_FORM_ERRORS,
   defaultErrorMessages
-} from './form-errors/form-errors';
+} from './form-errors.interface';
 import { reducer } from './+state/dynamic-form.reducer';
 
 @NgModule({

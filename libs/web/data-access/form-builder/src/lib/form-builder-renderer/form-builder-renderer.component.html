@@ -1,9 +1,0 @@
-<app-dynamic-form *ngIf="formName" [formName]="formName">
-  <!-- <ng-content></ng-content> -->
-  <!-- <button type="submit" mat-raised-button class="submit-button">
-    Submit Form
-  </button> -->
-  <ng-content select='button[type="submit"]'></ng-content>
-  <ng-content select='button[type="reset"]'></ng-content>
-  <ng-content></ng-content>
-</app-dynamic-form>
