@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { IFormBuilderStructure } from '../form-builder.interface';
+import { IDynamicFormConfig } from '@uqt/data-access/dynamic-form';
 
 export const selectForm = createAction(
   '[Form/Builder] Select',
-  props<{ id: string }>()
+  props<{ formName: string }>()
 );
 
 export const clearSelected = createAction('[Form/Builder] Clear');
@@ -13,7 +13,7 @@ export const loadForms = createAction('[Form/Builder] Load Forms');
 
 export const loadFormsSuccess = createAction(
   '[Form/Builder] Load Success',
-  props<{ forms: IFormBuilderStructure[] }>()
+  props<{ forms: IDynamicFormConfig[] }>()
 );
 
 export const loadFormsFail = createAction(
@@ -23,11 +23,11 @@ export const loadFormsFail = createAction(
 
 export const createForm = createAction(
   '[Form/Builder] Create',
-  props<{ form: IFormBuilderStructure }>()
+  props<{ form: Partial<IDynamicFormConfig> }>()
 );
 export const createFormSuccess = createAction(
   '[Form/Builder] Create Success',
-  props<{ form: IFormBuilderStructure }>()
+  props<{ form: IDynamicFormConfig }>()
 );
 
 export const createFormFail = createAction(
@@ -37,11 +37,11 @@ export const createFormFail = createAction(
 
 export const updateForm = createAction(
   '[Form/Builder] Update ',
-  props<{ form: IFormBuilderStructure }>()
+  props<{ form: IDynamicFormConfig }>()
 );
 export const updateFormSuccess = createAction(
   '[Form/Builder] Update Success',
-  props<{ form: Update<IFormBuilderStructure> }>()
+  props<{ form: Update<IDynamicFormConfig> }>()
 );
 
 export const updateFormFail = createAction(
@@ -51,22 +51,17 @@ export const updateFormFail = createAction(
 
 export const deleteForm = createAction(
   '[Form/Builder] Delete',
-  props<{ form: IFormBuilderStructure }>()
+  props<{ form: IDynamicFormConfig }>()
 );
 
 export const deleteFormSuccess = createAction(
   '[Form/Builder] Delete Success',
-  props<{ id: string }>()
+  props<{ formName: string }>()
 );
 
 export const deleteFormFail = createAction(
   '[Form/Builder] Delete Fail',
   props<{ error: string }>()
 );
-
-// export const createFormFromBuilderConfig = createAction(
-//   '[Form/Builder] Creat From Config',
-//   props<{ config: IFormBuilderStructure }>()
-// );
 
 export const addFormGroup = createAction('[Form/Builder] Add FormGroup ');

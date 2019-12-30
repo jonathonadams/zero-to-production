@@ -9,28 +9,28 @@ import { UsernameAvailableValidator } from '../../validators/username-available.
 import { passwordValidator } from '../../validators/auth.validators';
 
 const PASSWORD_GROUP: IFormGroup = {
-  formGroup: 'password',
+  groupName: 'password',
   groupType: FormGroupTypes.Group,
   fields: [
     {
-      componentType: 'USERNAME',
-      type: 'text',
+      type: 'USERNAME',
+      inputType: 'text',
       name: 'username',
       label: 'Username',
       validators: [Validators.required],
       asyncValidators: [UsernameAvailableValidator]
     },
     {
-      componentType: FormFieldTypes.Input,
-      type: 'password',
+      type: FormFieldTypes.Input,
+      inputType: 'password',
       name: 'password',
       label: 'Select Password',
       autocomplete: 'new-password',
       validators: [Validators.required, passwordValidator]
     },
     {
-      componentType: FormFieldTypes.Input,
-      type: 'password',
+      type: FormFieldTypes.Input,
+      inputType: 'password',
       name: 'passwordCheck',
       label: 'Verify Password',
       autocomplete: 'new-password',
@@ -40,35 +40,35 @@ const PASSWORD_GROUP: IFormGroup = {
 };
 
 export const DETAILS_GROUP: IFormGroup = {
-  formGroup: 'details',
+  groupName: 'details',
   groupType: FormGroupTypes.Group,
   fields: [
     {
-      componentType: FormFieldTypes.Input,
-      type: 'text',
+      type: FormFieldTypes.Input,
+      inputType: 'text',
       name: 'givenName',
       label: 'Given Name',
       autocomplete: 'given-name',
       validators: [Validators.required]
     },
     {
-      componentType: FormFieldTypes.Input,
-      type: 'text',
+      type: FormFieldTypes.Input,
+      inputType: 'text',
       name: 'surname',
       label: 'Surname',
       autocomplete: 'family-name',
       validators: [Validators.required]
     },
     {
-      componentType: FormFieldTypes.Input,
-      type: 'email',
+      type: FormFieldTypes.Input,
+      inputType: 'email',
       name: 'email',
       label: 'Email',
       autocomplete: 'email',
       validators: [Validators.required, Validators.email]
     },
     {
-      componentType: FormFieldTypes.DatePicker,
+      type: FormFieldTypes.DatePicker,
       name: 'dateOfBirth',
       label: 'Date Of Birth',
       autocomplete: 'bday',

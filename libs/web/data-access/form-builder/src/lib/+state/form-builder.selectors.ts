@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { FormsEntityState, adapter } from './form-builder.reducer';
+import { FormBuilderEntityState, adapter } from './form-builder.reducer';
 
-export const selectFormState = createFeatureSelector<FormsEntityState>(
+export const selectFormState = createFeatureSelector<FormBuilderEntityState>(
   'formBuilderState'
 );
 
@@ -11,13 +11,13 @@ export const {
   selectAll: selectAllForms
 } = adapter.getSelectors(selectFormState);
 
-export const selectCurrentFormId = createSelector(
+export const selectCurrentFormName = createSelector(
   selectFormState,
-  (state: FormsEntityState) => state.selectedFormId
+  (state: FormBuilderEntityState) => state.selectedFormName
 );
 
 export const selectCurrentForm = createSelector(
   selectFormEntities,
-  selectCurrentFormId,
+  selectCurrentFormName,
   (formEntities, formId) => formEntities[String(formId)]
 );

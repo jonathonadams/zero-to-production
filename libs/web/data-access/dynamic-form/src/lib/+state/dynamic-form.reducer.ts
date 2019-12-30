@@ -1,7 +1,10 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as FormActions from './dynamic-form.actions';
-import { DynamicFormState } from '../dynamic-form.interface';
+import {
+  DynamicFormState,
+  IDynamicFormConfig
+} from '../dynamic-form.interface';
 
 export interface DynamicFormEntityState extends EntityState<DynamicFormState> {}
 
@@ -85,15 +88,22 @@ export function reducer(
   return formReducer(state, action);
 }
 
-function generateInitialFormState(formName: string): DynamicFormState {
+export function generateInitialFormConfig(config: Partial<IDynamicFormConfig>) {
   return {
-    config: {
-      formName,
+    ...{
+      formName: '',
       animations: false,
       paginateSections: false,
       structure: [],
       formValidators: []
     },
+    ...config
+  };
+}
+
+function generateInitialFormState(formName: string): DynamicFormState {
+  return {
+    config: generateInitialFormConfig({ formName }),
     index: 0,
     data: {},
     errors: []

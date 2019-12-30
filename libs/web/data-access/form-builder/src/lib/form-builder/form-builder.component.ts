@@ -8,9 +8,9 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Subscription, Observable } from 'rxjs';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
 import compose from 'ramda/es/compose';
-import { IFormBuilderStructure } from '../form-builder.interface';
 import { FormBuilderConstructorService } from '../form-constructor.service';
 import { map, filter, tap, first } from 'rxjs/operators';
+import { IDynamicFormConfig } from '@uqt/data-access/dynamic-form';
 
 @Component({
   selector: 'uqt-form-builder',
@@ -24,7 +24,7 @@ export class FormBuilderComponent {
   dropListIds: string[] = [];
 
   builderForm: FormGroup;
-  selectedForm$: Observable<IFormBuilderStructure | undefined>;
+  selectedForm$: Observable<IDynamicFormConfig | undefined>;
 
   showFormConfig = false;
 
@@ -44,23 +44,26 @@ export class FormBuilderComponent {
   }
 
   ngOnInit() {
-    (this.selectedForm$ as Observable<IFormBuilderStructure>)
+    (this.selectedForm$ as Observable<IDynamicFormConfig>)
       .pipe(
         filter(fb => fb !== undefined),
         map(fb => this.constructorService.formBuilder(fb)),
         tap(form => (this.builderForm = form))
       )
       .subscribe(f => {
+        this.dropListIds = this.createConnectedToId(this.structure.length);
         this.cd.detectChanges();
       });
   }
 
-  get formGroups() {
-    return this.builderForm.get('formGroups') as FormArray;
+  get structure() {
+    return (this.builderForm.get('config') as FormGroup).get(
+      'structure'
+    ) as FormArray;
   }
 
   getGroupFields(index: number) {
-    return (this.formGroups.get(String(index)) as FormGroup).get(
+    return (this.structure.get(String(index)) as FormGroup).get(
       'fields'
     ) as FormArray;
   }
@@ -85,7 +88,7 @@ export class FormBuilderComponent {
   }
 
   deleteFormGroup(i: number): void {
-    this.formGroups.removeAt(i);
+    this.structure.removeAt(i);
   }
 
   removeGroupField(groupIndex: number, fieldIndex: number) {
@@ -95,14 +98,15 @@ export class FormBuilderComponent {
   onSubmit({ valid, value }: FormGroup) {
     if (valid) {
       this.selectedForm$.pipe(first()).subscribe(form => {
-        const newForm = { ...form, ...value };
+        const { config } = value;
+        const newForm = { ...form, ...config };
         this.facade.updateForm(newForm);
       });
     }
   }
 
   formGroupDropped(event: CdkDragDrop<FormGroup[]>) {
-    const formGroups = this.formGroups;
+    const formGroups = this.structure;
     if (event.previousContainer.id === event.container.id) {
       this.constructorService.moveFormArrayGroup(
         formGroups,

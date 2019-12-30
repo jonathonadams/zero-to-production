@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import * as fromActions from './dynamic-form.actions';
 import * as fromSelectors from './dynamic-form.selectors';
 import { ValidatorFn, ValidationErrors } from '@angular/forms';
 import { TFormGroups, IDynamicFormConfig } from '../dynamic-form.interface';
-import { tap, filter, map, take } from 'rxjs/operators';
+import { tap, filter, take, map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class PrivateDynamicFormFacade {
@@ -17,8 +17,7 @@ export class PrivateDynamicFormFacade {
   private triggerSubmitSubject = new Subject<string>();
   submitTriggers$ = this.triggerSubmitSubject.asObservable();
 
-  setDataSubject = new Subject<any>();
-  setData$ = this.setDataSubject.asObservable();
+  setDataSubject = new BehaviorSubject<{ [key: string]: any }>({});
 
   constructor(protected store: Store<any>) {}
 
@@ -55,6 +54,13 @@ export class PrivateDynamicFormFacade {
   selectValidators(formName: string): Observable<ValidatorFn[] | undefined> {
     return this.store.pipe(
       select(fromSelectors.selectFormValidators(formName))
+    );
+  }
+
+  setData$(formName: string) {
+    return this.setDataSubject.pipe(
+      map(data => data[formName]),
+      filter(data => data !== undefined)
     );
   }
 

@@ -1,16 +1,18 @@
 import { TestBed } from '@angular/core/testing';
-import { FormConstructorService } from './form-constructor.service';
+import { FormBuilderConstructorService } from './form-constructor.service';
 
-describe('FormConstructorService', () => {
-  let service: FormConstructorService;
+describe('FormBuilderConstructorService', () => {
+  let service: FormBuilderConstructorService;
 
   beforeAll(() => {
     TestBed.configureTestingModule({
       imports: [],
-      declarations: [FormConstructorService]
+      declarations: [FormBuilderConstructorService]
     });
 
-    service = TestBed.get<FormConstructorService>(FormConstructorService);
+    service = TestBed.get<FormBuilderConstructorService>(
+      FormBuilderConstructorService
+    );
   });
 
   it('should be truthy', () => {

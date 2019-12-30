@@ -1,14 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs';
-import {
-  catchError,
-  map,
-  exhaustMap,
-  mergeMap,
-  tap,
-  filter
-} from 'rxjs/operators';
+import { catchError, map, exhaustMap, mergeMap } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 import * as FormActions from './form-builder.actions';
@@ -57,7 +50,7 @@ export class FormEffects {
       this.formService.updateForm(form).pipe(
         map(form =>
           FormActions.updateFormSuccess({
-            form: { id: form.id, changes: form }
+            form: { id: form.formName, changes: form }
           })
         ),
         catchError((error: HttpErrorResponse) =>
@@ -71,35 +64,12 @@ export class FormEffects {
   deleteForm$ = this.actions$.pipe(
     ofType(FormActions.deleteForm),
     mergeMap(({ form }) =>
-      this.formService.deleteForm(form.id).pipe(
-        map(id => FormActions.deleteFormSuccess({ id })),
+      this.formService.deleteForm(form.formName).pipe(
+        map(name => FormActions.deleteFormSuccess({ formName: name })),
         catchError((error: HttpErrorResponse) =>
           of(FormActions.deleteFormFail({ error: error.message }))
         )
       )
     )
   );
-
-  // @Effect({ dispatch: false })
-  // createFormFromConfig$ = this.actions$.pipe(
-  //   ofType(FormActions.createFormFromBuilderConfig),
-  //   // switchMap(
-  //   //   () => this.facade.selectedForm$ as Observable<IFormBuilderStructure>
-  //   // ),
-  //   filter(config => config !== undefined),
-  //   map(action => {
-  //     return {
-  //       config: action.config,
-  //       structure: this.formConstructor.creteDyanmicFormStructureFromBuilderConfig(
-  //         action.config
-  //       )
-  //     };
-  //   }),
-  //   tap(({ config }) =>
-  //     this.dynamicFormFacade.createFormIfNotExist(config.config.formName)
-  //   ),
-  //   tap(({ config, structure }) =>
-  //     this.dynamicFormFacade.setStructure(config.config.formName, structure)
-  //   )
-  // );
 }

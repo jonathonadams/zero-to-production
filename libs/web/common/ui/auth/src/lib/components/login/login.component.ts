@@ -16,20 +16,20 @@ import { AuthFacade, ILoginCredentials } from '@uqt/data-access/auth';
 
 const STRUCTURE: TFormGroups = [
   {
-    formGroup: 'credentials',
+    groupName: 'credentials',
     groupType: FormGroupTypes.Group,
     fields: [
       {
-        componentType: FormFieldTypes.Input,
-        type: 'text',
+        type: FormFieldTypes.Input,
+        inputType: 'text',
         name: 'username',
         label: 'Username',
         autocomplete: 'username',
         validators: [Validators.required]
       },
       {
-        componentType: FormFieldTypes.Input,
-        type: 'password',
+        type: FormFieldTypes.Input,
+        inputType: 'password',
         name: 'password',
         label: 'Password',
         autocomplete: 'current-password',

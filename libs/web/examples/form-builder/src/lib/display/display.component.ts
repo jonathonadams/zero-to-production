@@ -1,11 +1,10 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { FormBuilderFacade } from '@uqt/data-access/form-builder';
 import {
-  FormBuilderFacade,
-  IFormBuilderStructure
-} from '@uqt/data-access/form-builder';
-import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
+  DynamicFormFacade,
+  IDynamicFormConfig
+} from '@uqt/data-access/dynamic-form';
 
 @Component({
   selector: 'uqt-example-form-display',
@@ -14,8 +13,8 @@ import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDisplayFormComponent implements OnDestroy {
-  form$: Observable<IFormBuilderStructure[]>;
-  selectedForm$: Observable<IFormBuilderStructure | undefined>;
+  form$: Observable<IDynamicFormConfig[]>;
+  selectedForm$: Observable<IDynamicFormConfig | undefined>;
   subscription: Subscription;
 
   submit$: Observable<any>;
@@ -29,7 +28,7 @@ export class ExampleDisplayFormComponent implements OnDestroy {
     // this.submit$ = this.formsFacade.formSubmits$(this.formName);
 
     // this.subscription = (this.selectedForm$ as Observable<
-    //   IFormBuilderStructure
+    //   IDynamicFormConfig
     // >)
     //   .pipe(filter(config => config !== undefined))
     //   .subscribe(config => {

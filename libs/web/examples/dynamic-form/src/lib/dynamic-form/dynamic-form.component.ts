@@ -18,19 +18,19 @@ import { IExample } from '@uqt/examples/data-access';
 
 const SIMPLE_FORM: TFormGroups = [
   {
-    formGroup: 'contactDetails',
+    groupName: 'contactDetails',
     groupType: FormGroupTypes.Group,
     fields: [
       {
-        componentType: FormFieldTypes.Input,
-        type: 'text',
+        type: FormFieldTypes.Input,
+        inputType: 'text',
         name: 'contactNumber',
         label: 'Contact Number',
         validators: [Validators.required]
       },
       {
-        componentType: FormFieldTypes.Input,
-        type: 'email',
+        type: FormFieldTypes.Input,
+        inputType: 'email',
         name: 'emailAddress',
         label: 'Email Address',
         validators: [Validators.required, Validators.email]
@@ -41,20 +41,20 @@ const SIMPLE_FORM: TFormGroups = [
 
 const COMPLEX_FORM: TFormGroups = [
   {
-    formGroup: 'userDetails',
+    groupName: 'userDetails',
     groupType: FormGroupTypes.Group,
     fields: [
       {
-        componentType: FormFieldTypes.Input,
-        type: 'text',
+        type: FormFieldTypes.Input,
+        inputType: 'text',
         name: 'givenName',
         label: 'Given Name',
         autocomplete: 'given-name',
         validators: [Validators.required]
       },
       {
-        componentType: FormFieldTypes.Input,
-        type: 'text',
+        type: FormFieldTypes.Input,
+        inputType: 'text',
         name: 'surname',
         autocomplete: 'family-name',
         label: 'Email Address'
@@ -62,11 +62,11 @@ const COMPLEX_FORM: TFormGroups = [
     ]
   },
   {
-    formGroup: 'additionalDetails',
+    groupName: 'additionalDetails',
     groupType: FormGroupTypes.Group,
     fields: [
       {
-        componentType: FormFieldTypes.DatePicker,
+        type: FormFieldTypes.DatePicker,
         name: 'dateOfBirth',
         label: 'Date Of Birth',
         autocomplete: 'bday',

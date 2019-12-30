@@ -28,19 +28,21 @@ export type TField =
   | ITextArea
   | ICustomInput;
 
-export type TFormGroups = (IFormGroup | TFormArray)[];
+export type TFormGroups = TFormGroup[];
+export type TFormGroup = IFormGroup | TFormArray;
 
 export interface IFormGroup {
-  formGroup: string;
+  groupName: string;
   groupType: FormGroupTypes.Group;
   fields: TField[];
   cssClasses?: string[];
 }
 
-export type TFormArray = IFormGroupArray | IFormFieldArray;
+export type TFormArray = IFormGroupArray;
+// export type TFormArray = IFormGroupArray | IFormFieldArray;
 
 export interface IBaseFormArray {
-  formGroup: string;
+  groupName: string;
   groupType: FormGroupTypes.Array;
   initialNumber?: number;
 }
@@ -50,10 +52,10 @@ export interface IFormGroupArray extends IBaseFormArray {
   fields: TField[];
 }
 
-export interface IFormFieldArray extends IBaseFormArray {
-  arrayType: FormArrayTypes.Field;
-  field: TField;
-}
+// export interface IFormFieldArray extends IBaseFormArray {
+//   arrayType: FormArrayTypes.Field;
+//   field: TField;
+// }
 
 export interface IBaseField {
   name: string;
@@ -65,25 +67,25 @@ export interface IBaseField {
 }
 
 export interface IInputField extends IBaseField {
-  componentType: FormFieldTypes.Input;
-  type: TInputType;
+  type: FormFieldTypes.Input;
+  inputType: TInputType;
 }
 
 export interface ITextArea extends IBaseField {
-  componentType: FormFieldTypes.TextArea;
+  type: FormFieldTypes.TextArea;
 }
 
 export interface ISelectField extends IBaseField {
-  componentType: FormFieldTypes.Select;
+  type: FormFieldTypes.Select;
   selectOptions: ISelectOption[];
 }
 
 export interface IToggleField extends IBaseField {
-  componentType: FormFieldTypes.Toggle;
+  type: FormFieldTypes.Toggle;
 }
 
 export interface IDatePickerField extends IBaseField {
-  componentType: FormFieldTypes.DatePicker;
+  type: FormFieldTypes.DatePicker;
 }
 
 export interface ISelectOption {
@@ -92,7 +94,7 @@ export interface ISelectOption {
 }
 
 export interface ICustomInput extends IBaseField {
-  componentType: string;
+  type: string;
 }
 
 // There are more to complete here

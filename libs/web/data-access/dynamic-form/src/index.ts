@@ -4,3 +4,4 @@ export { DynamicFormFacade } from './lib/+state/dynamic-form.facade';
 export { DynamicFormService } from './lib/dynamic-form.service';
 export { defaultErrorMessages } from './lib/form-errors.interface';
 export * from './lib/dynamic-form.interface';
+export { generateInitialFormConfig } from './lib/+state/dynamic-form.reducer';

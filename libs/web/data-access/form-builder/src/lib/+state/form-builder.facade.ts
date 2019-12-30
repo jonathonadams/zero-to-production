@@ -3,12 +3,12 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { selectAllForms, selectCurrentForm } from './form-builder.selectors';
 import * as FromActions from './form-builder.actions';
-import { IFormBuilderStructure } from '../form-builder.interface';
+import { IDynamicFormConfig } from '@uqt/data-access/dynamic-form';
 
 @Injectable({ providedIn: 'root' })
 export class FormBuilderFacade {
-  form$: Observable<IFormBuilderStructure[]>;
-  selectedForm$: Observable<IFormBuilderStructure | undefined>;
+  form$: Observable<IDynamicFormConfig[]>;
+  selectedForm$: Observable<IDynamicFormConfig | undefined>;
 
   constructor(private store: Store<any>) {
     this.form$ = this.store.pipe(select(selectAllForms));
@@ -19,33 +19,25 @@ export class FormBuilderFacade {
     this.store.dispatch(FromActions.loadForms());
   }
 
-  selectForm(id: string): void {
-    this.store.dispatch(FromActions.selectForm({ id }));
+  selectForm(name: string): void {
+    this.store.dispatch(FromActions.selectForm({ formName: name }));
   }
 
   clearSelected(): void {
     this.store.dispatch(FromActions.clearSelected());
   }
 
-  saveForm(form: IFormBuilderStructure): void {
-    form.id ? this.updateForm(form) : this.createForm(form);
-  }
-
-  createForm(form: IFormBuilderStructure): void {
+  createForm(form: Partial<IDynamicFormConfig>): void {
     this.store.dispatch(FromActions.createForm({ form }));
   }
 
-  updateForm(form: IFormBuilderStructure): void {
+  updateForm(form: IDynamicFormConfig): void {
     this.store.dispatch(FromActions.updateForm({ form }));
   }
 
-  deleteForm(form: IFormBuilderStructure): void {
+  deleteForm(form: IDynamicFormConfig): void {
     this.store.dispatch(FromActions.deleteForm({ form }));
   }
-
-  // createFormFromConfig(config: IFormBuilderStructure) {
-  //   this.store.dispatch(FromActions.createFormFromBuilderConfig({ config }));
-  // }
 
   addFormGroup() {
     this.store.dispatch(FromActions.addFormGroup());

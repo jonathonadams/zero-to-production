@@ -7,7 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
-import { FormsEntityState, reducer } from './+state/form-builder.reducer';
+import { FormBuilderEntityState, reducer } from './+state/form-builder.reducer';
 import { FormEffects } from './+state/form-builder.effects';
 import { FormBuilderConfigComponent } from './form-builder/form-config/form-config.component';
 import { FormBuilderHeaderComponent } from './form-builder/form-header/form-header.component';
@@ -24,7 +24,7 @@ import { FormBuilderHeaderComponent } from './form-builder/form-header/form-head
     DynamicFormModule,
     CustomMaterialModule,
     DragDropModule,
-    StoreModule.forFeature<FormsEntityState>('formBuilderState', reducer),
+    StoreModule.forFeature<FormBuilderEntityState>('formBuilderState', reducer),
     EffectsModule.forFeature([FormEffects])
   ],
   exports: [FormBuilderComponent]

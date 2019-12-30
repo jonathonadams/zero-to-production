@@ -102,7 +102,7 @@ is currently configured.
     <section
       class="uqt-dynamic-form-section"
       [ngClass]="structure.cssClasses ? structure.cssClasses : []"
-      [formGroupName]="structure.formGroup"
+      [formGroupName]="structure.groupName"
       @centerExpand
     >
       <ng-container
@@ -110,7 +110,7 @@ is currently configured.
         appDynamicFormField
         [field]="field"
         [type]="structure.groupType"
-        [group]="getFormGroup(formGroup, structure.formGroup)"
+        [group]="getFormGroup(formGroup, structure.groupName)"
       >
       </ng-container>
     </section>
@@ -129,7 +129,7 @@ is currently configured.
       <section
         class="uqt-dynamic-form-section"
         [ngClass]="structure.cssClasses ? structure.cssClasses : []"
-        [formArrayName]="structure.formGroup"
+        [formArrayName]="structure.groupName"
         @centerExpand
       >
         <ng-container
@@ -138,7 +138,7 @@ is currently configured.
           [idx]="i"
           [type]="structure.groupType"
           [field]="structure.field"
-          [group]="getFormGroup(formGroup, structure.formGroup)"
+          [group]="getFormGroup(formGroup, structure.groupName)"
         >
         </ng-container>
       </section>
@@ -154,14 +154,14 @@ is currently configured.
     <ng-container [formGroup]="formGroup">
       <section
         [ngClass]="structure.cssClasses ? structure.cssClasses : []"
-        [formArrayName]="structure.formGroup"
+        [formArrayName]="structure.groupName"
         @centerExpand
       >
         <ng-container
           *ngFor="
             let arrayGroup of getFormArrayFormGroups(
               formGroup,
-              structure.formGroup
+              structure.groupName
             );
             let i = index
           "

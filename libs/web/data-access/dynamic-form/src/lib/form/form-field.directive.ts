@@ -46,7 +46,7 @@ export class DynamicFormFieldDirective implements OnInit, OnChanges {
 
   ngOnInit() {
     const component = this.resolver.resolveComponentFactory<IDynamicFormField>(
-      this.componentMap[this.field.componentType]
+      this.componentMap[this.field.type]
     );
 
     this.viewContainerRef.clear();

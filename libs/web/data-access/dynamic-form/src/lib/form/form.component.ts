@@ -111,7 +111,8 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
      * When the form resets, it will emit a value changed event and subsequently will update the store
      * @param data
      */
-    this.privateFacade.setData$
+    this.privateFacade
+      .setData$(this.formName)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(data => {
         (this.form as FormGroup).reset(data);

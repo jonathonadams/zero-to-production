@@ -19,19 +19,19 @@ import { RouterFacade } from '@uqt/data-access/router';
 
 const STRUCTURE: TFormGroups = [
   {
-    formGroup: 'todo',
+    groupName: 'todo',
     groupType: FormGroupTypes.Group,
     fields: [
       {
-        componentType: FormFieldTypes.Input,
-        type: 'text',
+        type: FormFieldTypes.Input,
+        inputType: 'text',
         name: 'title',
         label: 'Title',
         validators: [Validators.required]
       },
       {
-        componentType: FormFieldTypes.Input,
-        type: 'text',
+        type: FormFieldTypes.Input,
+        inputType: 'text',
         name: 'description',
         label: 'Description',
         validators: [Validators.required]
@@ -63,7 +63,7 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe)
       )
       .subscribe(todo => {
-        this.formFacade.setData({ todo });
+        this.formFacade.setData(this.formName, { todo });
         this.updateTodoUrl(todo.id);
       });
 

@@ -1,35 +1,27 @@
 import { Injectable } from '@angular/core';
-import map from 'ramda/es/map';
 import {
-  IFormGroup,
   TField,
-  FormFieldTypes,
-  FormGroupTypes,
-  DynamicFormState
+  IDynamicFormConfig,
+  TFormGroup
 } from '@uqt/data-access/dynamic-form';
-import {
-  IFormBuilderStructure,
-  IFormBuilderField,
-  IFormBuilderGroup
-} from './form-builder.interface';
 import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class FormBuilderConstructorService {
   constructor(private fb: FormBuilder) {}
 
-  formBuilder(structure: IFormBuilderStructure): FormGroup {
+  formBuilder(config: IDynamicFormConfig): FormGroup {
     // Top level group
     const form = this.fb.group({
       config: this.fb.group({
-        formName: [structure.config.formName],
-        animations: [structure.config.animations],
-        pagination: [structure.config.pagination]
-      }),
-      formGroups: this.fb.array([])
+        formName: [config.formName],
+        animations: [config.animations],
+        paginateSections: [config.paginateSections],
+        structure: this.fb.array([])
+      })
     });
 
-    structure.formGroups.forEach(group => {
+    config.structure.forEach(group => {
       const builderGroup = this.createFormGroupFromGroup(group);
       const fieldsArray = builderGroup.get('fields') as FormArray;
 
@@ -37,24 +29,26 @@ export class FormBuilderConstructorService {
         fieldsArray.push(this.createFieldGroupFromFiled(field));
       });
 
-      (form.get('formGroups') as FormArray).push(builderGroup);
+      ((form.get('config') as FormGroup).get('structure') as FormArray).push(
+        builderGroup
+      );
     });
 
     return form;
   }
 
-  createFormGroupFromGroup(group: IFormBuilderGroup): FormGroup {
+  createFormGroupFromGroup(group: TFormGroup): FormGroup {
     return this.fb.group({
       groupName: [group.groupName],
       fields: this.fb.array([])
     });
   }
 
-  createFieldGroupFromFiled(field: IFormBuilderField) {
+  createFieldGroupFromFiled(field: TField) {
     return this.fb.group({
-      fieldName: [field.fieldName],
-      fieldType: [field.fieldType],
-      fieldLabel: [field.fieldLabel]
+      name: [field.name],
+      type: [field.type],
+      label: [field.label]
     });
   }
 
@@ -67,28 +61,10 @@ export class FormBuilderConstructorService {
 
   createFieldGroup() {
     return this.fb.group({
-      fieldName: [],
-      fieldType: [],
-      fieldLabel: []
+      name: [],
+      type: [],
+      label: []
     });
-  }
-
-  creteDyanmicFormStructureFromBuilderConfig({
-    config,
-    formGroups
-  }: IFormBuilderStructure): DynamicFormState {
-    return {
-      config: {
-        formName: config.formName,
-        animations: config.animations ? config.animations : false,
-        paginateSections: config.pagination ? config.pagination : false,
-        structure: map(mapToFormGroup, formGroups),
-        formValidators: []
-      },
-      index: 0,
-      data: {},
-      errors: []
-    };
   }
 
   /**
@@ -128,19 +104,37 @@ export class FormBuilderConstructorService {
   }
 }
 
-function mapToFormField(field: IFormBuilderField): TField {
-  return {
-    componentType: FormFieldTypes.Input, // TODO -> Dynamic
-    name: field.fieldName,
-    type: 'text',
-    label: field.fieldLabel
-  };
-}
+// creteDyanmicFormStructureFromBuilderConfig({
+//   config,
+//   formGroups
+// }: IDynamicFormConfig): DynamicFormState {
+//   return {
+//     config: {
+//       formName: config.formName,
+//       animations: config.animations ? config.animations : false,
+//       paginateSections: config.pagination ? config.pagination : false,
+//       structure: map(mapToFormGroup, formGroups),
+//       formValidators: []
+//     },
+//     index: 0,
+//     data: {},
+//     errors: []
+//   };
+// }
 
-function mapToFormGroup(group: IFormBuilderGroup): IFormGroup {
-  return {
-    formGroup: group.groupName,
-    groupType: FormGroupTypes.Group,
-    fields: map(mapToFormField, group.fields)
-  };
-}
+// function mapToFormField(field: IFormBuilderField): TField {
+//   return {
+//     componentType: FormFieldTypes.Input, // TODO -> Dynamic
+//     name: field.fieldName,
+//     type: 'text',
+//     label: field.fieldLabel
+//   };
+// }
+
+// function mapToFormGroup(group: IFormBuilderGroup): IFormGroup {
+//   return {
+//     formGroup: group.groupName,
+//     groupType: FormGroupTypes.Group,
+//     fields: map(mapToFormField, group.fields)
+//   };
+// }
