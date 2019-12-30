@@ -57,9 +57,9 @@
           <mat-card
             cdkDrag
             class="group-section"
-            *ngFor="let group of structure.controls; let i = index"
+            *ngFor="let group of structure.controls; let groupIndex = index"
           >
-            <div [formGroupName]="i">
+            <div [formGroupName]="groupIndex">
               <div class="group-settings">
                 <mat-form-field>
                   <mat-label>Section Name</mat-label>
@@ -69,7 +69,7 @@
                 <button
                   mat-icon-button
                   type="button"
-                  (click)="deleteFormGroup(i)"
+                  (click)="deleteFormGroup(groupIndex)"
                 >
                   <mat-icon>delete</mat-icon>
                 </button>
@@ -77,7 +77,7 @@
               <mat-divider [inset]="true"></mat-divider>
 
               <div
-                [id]="'fields-' + i"
+                [id]="'fields-' + groupIndex"
                 class="group-fields"
                 formArrayName="fields"
                 cdkDropList
@@ -88,57 +88,18 @@
                   class="group-form-field"
                   cdkDrag
                   *ngFor="
-                    let field of getGroupFields(i).controls;
-                    let idx = index
+                    let field of getGroupFields(groupIndex).controls;
+                    let fieldIndex = index
                   "
                 >
-                  <div class="group-form-field-header">
-                    <p>{{ field.value.type }}: {{ field.value.label }}</p>
-                    <span>
-                      <button
-                        mat-icon-button
-                        type="button"
-                        (click)="showFormField(i, idx)"
-                      >
-                        <mat-icon>expand_more</mat-icon>
-                      </button>
-
-                      <button
-                        mat-icon-button
-                        type="button"
-                        (click)="removeGroupField(i, idx)"
-                      >
-                        <mat-icon>clear</mat-icon>
-                      </button>
-                    </span>
-                  </div>
-
-                  <div
-                    *ngIf="
-                      fieldVisible.groupIndex === i &&
-                      fieldVisible.fieldIndex === idx
-                    "
-                    [formGroupName]="idx"
-                    class="edit-field"
+                  <uqt-form-builder-field
+                    [form]="builderForm"
+                    [field]="field"
+                    [groupIndex]="groupIndex"
+                    [fieldIndex]="fieldIndex"
+                    (remove)="removeGroupField($event)"
                   >
-                    <mat-form-field appearance="outline">
-                      <mat-label>Field Label (display)</mat-label>
-                      <input matInput type="text" formControlName="label" />
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                      <mat-label>Field Name</mat-label>
-                      <input matInput type="text" formControlName="name" />
-                    </mat-form-field>
-
-                    <mat-form-field
-                      *ngIf="field.value.type === 'INPUT'"
-                      appearance="outline"
-                    >
-                      <mat-label>Input Type</mat-label>
-                      <input matInput type="text" formControlName="inputType" />
-                    </mat-form-field>
-                  </div>
+                  </uqt-form-builder-field>
                 </div>
               </div>
             </div>

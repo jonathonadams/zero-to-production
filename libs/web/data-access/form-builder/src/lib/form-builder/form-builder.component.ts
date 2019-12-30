@@ -42,11 +42,6 @@ export class FormBuilderComponent {
 
   showFormConfig = false;
 
-  fieldVisible: { groupIndex: null | number; fieldIndex: null | number } = {
-    groupIndex: null,
-    fieldIndex: null
-  };
-
   private sub: Subscription;
 
   constructor(
@@ -86,26 +81,17 @@ export class FormBuilderComponent {
     this.showFormConfig = !this.showFormConfig;
   }
 
-  showFormField(groupIndex: number, fieldIndex: number) {
-    const selected = this.fieldVisible;
-    if (
-      groupIndex === selected.groupIndex &&
-      fieldIndex === selected.fieldIndex
-    ) {
-      selected.fieldIndex = selected.groupIndex = null;
-    } else {
-      this.fieldVisible = {
-        groupIndex,
-        fieldIndex
-      };
-    }
-  }
-
   deleteFormGroup(i: number): void {
     this.structure.removeAt(i);
   }
 
-  removeGroupField(groupIndex: number, fieldIndex: number) {
+  removeGroupField({
+    groupIndex,
+    fieldIndex
+  }: {
+    groupIndex: number;
+    fieldIndex: number;
+  }) {
     this.getGroupFields(groupIndex).removeAt(fieldIndex);
   }
 

@@ -11,12 +11,14 @@ import { FormBuilderEntityState, reducer } from './+state/form-builder.reducer';
 import { FormEffects } from './+state/form-builder.effects';
 import { FormBuilderConfigComponent } from './form-builder/form-config/form-config.component';
 import { FormBuilderHeaderComponent } from './form-builder/form-header/form-header.component';
+import { FormBuilderFieldComponent } from './form-builder/form-field/form-field.component';
 
 @NgModule({
   declarations: [
     FormBuilderComponent,
     FormBuilderConfigComponent,
-    FormBuilderHeaderComponent
+    FormBuilderHeaderComponent,
+    FormBuilderFieldComponent
   ],
   imports: [
     CommonModule,

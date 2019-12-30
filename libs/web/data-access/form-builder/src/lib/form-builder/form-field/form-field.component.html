@@ -1,0 +1,55 @@
+<ng-container [formGroup]="form">
+  <ng-container formGroupName="config">
+    <ng-container formArrayName="structure">
+      <ng-container [formGroupName]="groupIndex">
+        <ng-container formArrayName="fields">
+          <div class="group-form-field-header">
+            <p>{{ field.value.type }}: {{ field.value.label }}</p>
+            <span>
+              <button mat-icon-button type="button" (click)="toggleConfig()">
+                <mat-icon>expand_more</mat-icon>
+              </button>
+
+              <button
+                mat-icon-button
+                type="button"
+                (click)="
+                  remove.emit({
+                    groupIndex: groupIndex,
+                    fieldIndex: fieldIndex
+                  })
+                "
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
+            </span>
+          </div>
+
+          <div
+            *ngIf="showConfig"
+            [formGroupName]="fieldIndex"
+            class="edit-field"
+          >
+            <mat-form-field appearance="outline">
+              <mat-label>Field Label (display)</mat-label>
+              <input matInput type="text" formControlName="label" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Field Name</mat-label>
+              <input matInput type="text" formControlName="name" />
+            </mat-form-field>
+
+            <mat-form-field
+              *ngIf="field.value.type === 'INPUT'"
+              appearance="outline"
+            >
+              <mat-label>Input Type</mat-label>
+              <input matInput type="text" formControlName="inputType" />
+            </mat-form-field>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</ng-container>
