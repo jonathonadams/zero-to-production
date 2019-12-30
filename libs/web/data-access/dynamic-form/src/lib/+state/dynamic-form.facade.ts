@@ -3,8 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromActions from './dynamic-form.actions';
 import { ValidatorFn } from '@angular/forms';
-import { TFormGroups } from '../dynamic-form.interface';
-import { IDynamicFormConfig } from './dynamic-form.reducer';
+import { TFormGroups, IDynamicFormConfig } from '../dynamic-form.interface';
 import { filter, map } from 'rxjs/operators';
 import { PrivateDynamicFormFacade } from './private-dynamic-form.facade';
 

@@ -43,9 +43,9 @@ export class FormBuilderFacade {
     this.store.dispatch(FromActions.deleteForm({ form }));
   }
 
-  createFormFromConfig(config: IFormBuilderStructure) {
-    this.store.dispatch(FromActions.createFormFromBuilderConfig({ config }));
-  }
+  // createFormFromConfig(config: IFormBuilderStructure) {
+  //   this.store.dispatch(FromActions.createFormFromBuilderConfig({ config }));
+  // }
 
   addFormGroup() {
     this.store.dispatch(FromActions.addFormGroup());

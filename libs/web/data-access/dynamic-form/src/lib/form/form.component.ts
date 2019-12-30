@@ -19,8 +19,11 @@ import {
 import { expandFromCenter } from '@uqt/common/animations';
 import { DynamicFormService } from '../dynamic-form.service';
 import { DynamicFormErrorsService } from '../form-errors/form-errors.service';
-import { FormGroupTypes, TFormGroups } from '../dynamic-form.interface';
-import { IDynamicFormConfig } from '../+state/dynamic-form.reducer';
+import {
+  FormGroupTypes,
+  TFormGroups,
+  IDynamicFormConfig
+} from '../dynamic-form.interface';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade';
 

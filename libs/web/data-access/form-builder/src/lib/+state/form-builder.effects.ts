@@ -80,26 +80,26 @@ export class FormEffects {
     )
   );
 
-  @Effect({ dispatch: false })
-  createFormFromConfig$ = this.actions$.pipe(
-    ofType(FormActions.createFormFromBuilderConfig),
-    // switchMap(
-    //   () => this.facade.selectedForm$ as Observable<IFormBuilderStructure>
-    // ),
-    filter(config => config !== undefined),
-    map(action => {
-      return {
-        config: action.config,
-        structure: this.formConstructor.creteDyanmicFormStructureFromBuilderConfig(
-          action.config
-        )
-      };
-    }),
-    tap(({ config }) =>
-      this.dynamicFormFacade.createFormIfNotExist(config.config.formName)
-    ),
-    tap(({ config, structure }) =>
-      this.dynamicFormFacade.setStructure(config.config.formName, structure)
-    )
-  );
+  // @Effect({ dispatch: false })
+  // createFormFromConfig$ = this.actions$.pipe(
+  //   ofType(FormActions.createFormFromBuilderConfig),
+  //   // switchMap(
+  //   //   () => this.facade.selectedForm$ as Observable<IFormBuilderStructure>
+  //   // ),
+  //   filter(config => config !== undefined),
+  //   map(action => {
+  //     return {
+  //       config: action.config,
+  //       structure: this.formConstructor.creteDyanmicFormStructureFromBuilderConfig(
+  //         action.config
+  //       )
+  //     };
+  //   }),
+  //   tap(({ config }) =>
+  //     this.dynamicFormFacade.createFormIfNotExist(config.config.formName)
+  //   ),
+  //   tap(({ config, structure }) =>
+  //     this.dynamicFormFacade.setStructure(config.config.formName, structure)
+  //   )
+  // );
 }

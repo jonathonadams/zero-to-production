@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { FetchResult } from 'apollo-link';
 import { IFormBuilderStructure } from './form-builder.interface';
 
 /**
  * Very Simple storage in local-storage
+ * On creation, a sudo random id is created by Math.floor(Math.random() * 100)
  *
- * TODO -> If you want to make this more robust, move this to a
+ * TODO -> replace this service as a provider to save in DB?
  */
 @Injectable({ providedIn: 'root' })
 export class FormBuilderService {
@@ -21,7 +21,7 @@ export class FormBuilderService {
   public createForm(
     form: IFormBuilderStructure
   ): Observable<IFormBuilderStructure> {
-    const formId = Math.floor(Math.random() * Math.floor(100)).toString();
+    const formId = Math.floor(Math.random() * 100).toString();
     const newForm: IFormBuilderStructure = { ...form, id: formId };
 
     const formS = localStorage.getItem(this.key);

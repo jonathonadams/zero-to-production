@@ -64,9 +64,9 @@ export const deleteFormFail = createAction(
   props<{ error: string }>()
 );
 
-export const createFormFromBuilderConfig = createAction(
-  '[Form/Builder] Creat From Config',
-  props<{ config: IFormBuilderStructure }>()
-);
+// export const createFormFromBuilderConfig = createAction(
+//   '[Form/Builder] Creat From Config',
+//   props<{ config: IFormBuilderStructure }>()
+// );
 
 export const addFormGroup = createAction('[Form/Builder] Add FormGroup ');

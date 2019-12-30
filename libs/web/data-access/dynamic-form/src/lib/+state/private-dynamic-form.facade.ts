@@ -4,8 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import * as fromActions from './dynamic-form.actions';
 import * as fromSelectors from './dynamic-form.selectors';
 import { ValidatorFn, ValidationErrors } from '@angular/forms';
-import { TFormGroups } from '../dynamic-form.interface';
-import { IDynamicFormConfig } from './dynamic-form.reducer';
+import { TFormGroups, IDynamicFormConfig } from '../dynamic-form.interface';
 import { tap, filter, map, take } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })

@@ -1,8 +1,10 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as FormActions from './dynamic-form.actions';
-import { ValidatorFn } from '@angular/forms';
-import { TFormGroups } from '../dynamic-form.interface';
+import {
+  DynamicFormState,
+  IDynamicFormConfig
+} from '../dynamic-form.interface';
 
 export interface DynamicFormEntityState extends EntityState<DynamicFormState> {}
 
@@ -17,21 +19,6 @@ export const adapter: EntityAdapter<DynamicFormState> = createEntityAdapter<
 });
 
 export const initialEntityFormState: DynamicFormEntityState = adapter.getInitialState();
-
-export interface DynamicFormState {
-  formName: string;
-  config: IDynamicFormConfig;
-  index: number;
-  data: any;
-  structure: TFormGroups;
-  formValidators: ValidatorFn[];
-  errors: string[];
-}
-
-export interface IDynamicFormConfig {
-  animations: boolean;
-  paginateSections: boolean;
-}
 
 export const initialFormConfig: IDynamicFormConfig = {
   animations: true,

@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { ValidatorFn, ValidationErrors } from '@angular/forms';
-import { TFormGroups } from '../dynamic-form.interface';
-import { IDynamicFormConfig } from './dynamic-form.reducer';
+import { TFormGroups, IDynamicFormConfig } from '../dynamic-form.interface';
 
 export const createForm = createAction(
   '[Dynamic Form] Create',

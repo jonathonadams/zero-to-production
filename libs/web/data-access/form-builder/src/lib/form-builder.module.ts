@@ -29,6 +29,6 @@ import { FormBuilderRendererComponent } from './form-builder-renderer/form-build
     StoreModule.forFeature<FormsEntityState>('formBuilderState', reducer),
     EffectsModule.forFeature([FormEffects])
   ],
-  exports: [FormBuilderComponent]
+  exports: [FormBuilderComponent, FormBuilderRendererComponent]
 })
 export class DataAccessFormBuilderModule {}

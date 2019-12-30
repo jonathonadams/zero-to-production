@@ -1,21 +1,11 @@
 <div class="container">
-  <div class="links">
-    <button
-      mat-stroked-button
-      *ngFor="let form of form$ | async"
-      [disabled]="(selectedForm$ | async)?.id === form.id"
-    >
-      {{ form.config.formName }}
-    </button>
-
-    <mat-divider class="divider"></mat-divider>
-  </div>
-
-  <app-dynamic-form [formName]="formName"
-    ><button type="submit" mat-raised-button class="submit-button">
+  <app-dynamic-form>
+    <button type="submit" mat-raised-button class="submit-button">
       Submit Form
     </button>
   </app-dynamic-form>
+  <uqt-form-builder-renderer [config]="selectedForm$ | async">
+  </uqt-form-builder-renderer>
 
   <div class="output">
     <pre>{{ submit$ | async | json }}</pre>

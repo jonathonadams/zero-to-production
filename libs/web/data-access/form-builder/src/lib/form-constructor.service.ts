@@ -5,7 +5,8 @@ import {
   TField,
   TFormGroups,
   FormFieldTypes,
-  FormGroupTypes
+  FormGroupTypes,
+  DynamicFormState
 } from '@uqt/data-access/dynamic-form';
 import {
   IFormBuilderStructure,
@@ -73,10 +74,22 @@ export class FormBuilderConstructorService {
     });
   }
 
-  creteDyanmicFormStructureFromBuilderConfig(
-    structure: IFormBuilderStructure
-  ): TFormGroups {
-    return map(mapToFormGroup, structure.formGroups);
+  creteDyanmicFormStructureFromBuilderConfig({
+    config,
+    formGroups
+  }: IFormBuilderStructure): DynamicFormState {
+    return {
+      formName: config.formName,
+      config: {
+        animations: config.animations ? config.animations : false,
+        paginateSections: config.pagination ? config.pagination : false
+      },
+      index: 0,
+      formValidators: [],
+      data: {},
+      errors: [],
+      structure: map(mapToFormGroup, formGroups)
+    };
   }
 
   /**

@@ -2,6 +2,21 @@ import { ValidatorFn, AsyncValidator } from '@angular/forms';
 import { Type } from '@angular/core';
 import { DynamicFormErrorsMap } from './form-errors/form-errors';
 
+export interface DynamicFormState {
+  formName: string;
+  config: IDynamicFormConfig;
+  index: number;
+  data: any;
+  structure: TFormGroups;
+  formValidators: ValidatorFn[];
+  errors: string[];
+}
+
+export interface IDynamicFormConfig {
+  animations: boolean;
+  paginateSections: boolean;
+}
+
 export type TField =
   | IInputField
   | ISelectField
