@@ -4,7 +4,8 @@ import {
   IDynamicFormConfig,
   TFormGroup,
   FormFieldTypes,
-  FormGroupTypes
+  FormGroupTypes,
+  IInputField
 } from '@uqt/data-access/dynamic-form';
 import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
 
@@ -48,11 +49,17 @@ export class FormBuilderConstructorService {
   }
 
   createFieldGroupFromFiled(field: TField) {
-    return this.fb.group({
+    const baseGroup: any = {
       name: [field.name],
       label: [field.label],
       type: [field.type]
-    });
+    };
+
+    if (field.type === FormFieldTypes.Input) {
+      baseGroup['inputType'] = (field as IInputField).inputType;
+    }
+
+    return this.fb.group(baseGroup);
   }
 
   createFormGroup(type: FormGroupTypes): FormGroup {
@@ -64,11 +71,17 @@ export class FormBuilderConstructorService {
   }
 
   createFieldGroup(type: FormFieldTypes) {
-    return this.fb.group({
+    const baseGroup: any = {
       name: [],
       label: [],
       type: [type]
-    });
+    };
+
+    if (type === FormFieldTypes.Input) {
+      baseGroup['inputType'] = [];
+    }
+
+    return this.fb.group(baseGroup);
   }
 
   /**

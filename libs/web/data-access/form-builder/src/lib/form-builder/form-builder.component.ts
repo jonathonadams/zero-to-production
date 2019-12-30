@@ -27,6 +27,9 @@ export class FormBuilderComponent {
 
   fieldTypes = [
     { display: 'Input', value: FormFieldTypes.Input },
+    { display: 'Date', value: FormFieldTypes.DatePicker },
+    { display: 'Select', value: FormFieldTypes.Select },
+    { display: 'Checkbox', value: FormFieldTypes.CheckBox },
     { display: 'Toggle', value: FormFieldTypes.Toggle }
   ];
 
