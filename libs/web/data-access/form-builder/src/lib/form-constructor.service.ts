@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import {
   TField,
   IDynamicFormConfig,
-  TFormGroup
+  TFormGroup,
+  FormFieldTypes,
+  FormGroupTypes
 } from '@uqt/data-access/dynamic-form';
 import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
 
@@ -40,6 +42,7 @@ export class FormBuilderConstructorService {
   createFormGroupFromGroup(group: TFormGroup): FormGroup {
     return this.fb.group({
       groupName: [group.groupName],
+      groupType: [group.groupType],
       fields: this.fb.array([])
     });
   }
@@ -47,23 +50,24 @@ export class FormBuilderConstructorService {
   createFieldGroupFromFiled(field: TField) {
     return this.fb.group({
       name: [field.name],
-      type: [field.type],
-      label: [field.label]
+      label: [field.label],
+      type: [field.type]
     });
   }
 
-  createFormGroup(): FormGroup {
+  createFormGroup(type: FormGroupTypes): FormGroup {
     return this.fb.group({
       groupName: [],
+      groupType: [type],
       fields: this.fb.array([])
     });
   }
 
-  createFieldGroup() {
+  createFieldGroup(type: FormFieldTypes) {
     return this.fb.group({
       name: [],
-      type: [],
-      label: []
+      label: [],
+      type: [type]
     });
   }
 

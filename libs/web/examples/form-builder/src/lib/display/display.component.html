@@ -1,11 +1,11 @@
-<div class="container">
-  <!-- <app-dynamic-form>
-    <button type="submit" mat-raised-button class="submit-button">
+<div *ngIf="selectedForm$ | async" class="container">
+  <app-dynamic-form [formName]="(selectedForm$ | async)?.formName">
+    <button type="submit" mat-raised-button>
       Submit Form
     </button>
-  </app-dynamic-form> -->
+  </app-dynamic-form>
+</div>
 
-  <div class="output">
-    <pre>{{ submit$ | async | json }}</pre>
-  </div>
+<div class="output">
+  <pre>{{ submit$ | async | json }}</pre>
 </div>

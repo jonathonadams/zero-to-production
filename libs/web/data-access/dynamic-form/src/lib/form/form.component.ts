@@ -4,7 +4,8 @@ import {
   ChangeDetectionStrategy,
   OnDestroy,
   Input,
-  ViewEncapsulation
+  ViewEncapsulation,
+  OnChanges
 } from '@angular/core';
 import { FormGroup, FormArray, ValidatorFn } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
@@ -34,8 +35,12 @@ import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade'
   encapsulation: ViewEncapsulation.None,
   animations: [expandFromCenter]
 })
-export class DynamicFormComponent implements OnInit, OnDestroy {
-  @Input() formName: string | undefined;
+export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
+  @Input()
+  set formName(name: string | undefined) {
+    this._name = name;
+  }
+  private _name: string | undefined;
 
   public form: FormGroup | undefined;
   private unsubscribe = new Subject<void>();
@@ -53,29 +58,39 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.initDynamicForm();
+  }
+
+  ngOnChanges() {
+    // When the form name changes, unsubscribe from all and init the new form
+    this.ngOnDestroy();
+    this.initDynamicForm();
+  }
+
+  initDynamicForm() {
     // Error Checks to ensure and ID has been set and initialized in the store
-    if (!this.formName) {
+    if (!this._name) {
       throw new Error('Form name must bes set');
     }
-    this.privateFacade.checkExistsAndThrow(this.formName);
+    this.privateFacade.checkExistsAndThrow(this._name);
 
     // From this point on we can guarantee the form is configured
     this.structure$ = this.privateFacade.selectStructure(
-      this.formName
+      this._name
     ) as Observable<TFormGroups>;
 
-    (this.privateFacade.selectConfig(this.formName) as Observable<
+    (this.privateFacade.selectConfig(this._name) as Observable<
       IDynamicFormConfig
     >)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(config => (this.config = config));
 
-    (this.privateFacade.selectIndex(this.formName) as Observable<number>)
+    (this.privateFacade.selectIndex(this._name) as Observable<number>)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(idx => (this.formIdx = idx));
 
     this.validators$ = this.privateFacade.selectValidators(
-      this.formName
+      this._name
     ) as Observable<ValidatorFn[]>;
 
     this.structure$
@@ -102,7 +117,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
       )
       .subscribe(data => {
         // Update the store
-        this.facade.updateData(this.formName as string, data);
+        this.facade.updateData(this._name as string, data);
       });
 
     /**
@@ -112,14 +127,14 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
      * @param data
      */
     this.privateFacade
-      .setData$(this.formName)
+      .setData$(this._name)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(data => {
         (this.form as FormGroup).reset(data);
       });
 
     this.privateFacade
-      .submitTriggers(this.formName)
+      .submitTriggers(this._name)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(() => {
         this.onSubmit(this.form);
@@ -129,13 +144,13 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   onSubmit(form: FormGroup | undefined) {
     if (form) {
       if (form.valid) {
-        this.privateFacade.clearErrors(this.formName as string);
-        this.privateFacade.internalSubmit(this.formName as string, form.value);
+        this.privateFacade.clearErrors(this._name as string);
+        this.privateFacade.internalSubmit(this._name as string, form.value);
       } else {
         // collect all form errors
         const errors = this.service.getAllFormErrors(form);
-        this.privateFacade.setErrors(this.formName as string, errors);
-        this.errorsService.createFormErrors(this.formName as string);
+        this.privateFacade.setErrors(this._name as string, errors);
+        this.errorsService.createFormErrors(this._name as string);
       }
     }
   }
@@ -157,14 +172,14 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   nextSection() {
-    if (this.formName) {
-      this.facade.nextSection(this.formName);
+    if (this._name) {
+      this.facade.nextSection(this._name);
     }
   }
 
   backASection() {
-    if (this.formName) {
-      this.facade.backASection(this.formName);
+    if (this._name) {
+      this.facade.backASection(this._name);
     }
   }
 

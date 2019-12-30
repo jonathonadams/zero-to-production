@@ -13,9 +13,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDisplayFormComponent implements OnDestroy {
-  form$: Observable<IDynamicFormConfig[]>;
   selectedForm$: Observable<IDynamicFormConfig | undefined>;
-  subscription: Subscription;
+  sub: Subscription;
 
   submit$: Observable<any>;
 
@@ -24,19 +23,17 @@ export class ExampleDisplayFormComponent implements OnDestroy {
     private formsFacade: DynamicFormFacade
   ) {
     this.selectedForm$ = this.builderFacade.selectedForm$;
-    // this.formsFacade.createFormIfNotExist(this.formName);
-    // this.submit$ = this.formsFacade.formSubmits$(this.formName);
 
-    // this.subscription = (this.selectedForm$ as Observable<
-    //   IDynamicFormConfig
-    // >)
-    //   .pipe(filter(config => config !== undefined))
-    //   .subscribe(config => {
-    //     this.builderFacade.createFormFromConfig(config);
-    //   });
+    this.sub = this.selectedForm$.subscribe(form => {
+      if (form) {
+        this.formsFacade.createFormIfNotExist(form.formName);
+        this.formsFacade.setFormConfig(form.formName, form);
+        this.submit$ = this.formsFacade.formSubmits$(form.formName);
+      }
+    });
   }
 
   ngOnDestroy() {
-    // this.subscription.unsubscribe();
+    this.sub.unsubscribe();
   }
 }

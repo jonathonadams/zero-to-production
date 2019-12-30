@@ -10,7 +10,11 @@ import { FormBuilderFacade } from '../+state/form-builder.facade';
 import compose from 'ramda/es/compose';
 import { FormBuilderConstructorService } from '../form-constructor.service';
 import { map, filter, tap, first } from 'rxjs/operators';
-import { IDynamicFormConfig } from '@uqt/data-access/dynamic-form';
+import {
+  IDynamicFormConfig,
+  FormFieldTypes,
+  FormGroupTypes
+} from '@uqt/data-access/dynamic-form';
 
 @Component({
   selector: 'uqt-form-builder',
@@ -19,6 +23,13 @@ import { IDynamicFormConfig } from '@uqt/data-access/dynamic-form';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormBuilderComponent {
+  groupTypes = [{ display: 'Group', value: FormGroupTypes.Group }];
+
+  fieldTypes = [
+    { display: 'Input', value: FormFieldTypes.Input },
+    { display: 'Toggle', value: FormFieldTypes.Toggle }
+  ];
+
   toolBoxGroupId = 'tb-form-group';
   toolBoxFieldId = 'tb-field-group';
   dropListIds: string[] = [];
@@ -44,7 +55,7 @@ export class FormBuilderComponent {
   }
 
   ngOnInit() {
-    (this.selectedForm$ as Observable<IDynamicFormConfig>)
+    this.sub = (this.selectedForm$ as Observable<IDynamicFormConfig>)
       .pipe(
         filter(fb => fb !== undefined),
         map(fb => this.constructorService.formBuilder(fb)),
@@ -107,15 +118,17 @@ export class FormBuilderComponent {
 
   formGroupDropped(event: CdkDragDrop<FormGroup[]>) {
     const formGroups = this.structure;
-    if (event.previousContainer.id === event.container.id) {
+    if (event.previousContainer.id !== event.container.id) {
+      // It is a new group being dropped
+      const groupType: FormGroupTypes = event.item.data;
+      const formGroup = this.constructorService.createFormGroup(groupType);
+      formGroups.insert(event.currentIndex, formGroup);
+    } else {
       this.constructorService.moveFormArrayGroup(
         formGroups,
         event.previousIndex,
         event.currentIndex
       );
-    } else {
-      const formGroup = this.constructorService.createFormGroup();
-      formGroups.insert(event.currentIndex, formGroup);
     }
 
     this.dropListIds = this.createConnectedToId(formGroups.length);
@@ -135,7 +148,8 @@ export class FormBuilderComponent {
 
     if (event.previousContainer.id === this.toolBoxFieldId) {
       // It is a new field being dropped from the 'toolbox'
-      const groupField = this.constructorService.createFieldGroup();
+      const fieldType: FormFieldTypes = event.item.data;
+      const groupField = this.constructorService.createFieldGroup(fieldType);
       currentGroup.insert(event.currentIndex, groupField);
     } else {
       if (event.previousContainer.id === event.container.id) {

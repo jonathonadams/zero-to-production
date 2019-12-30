@@ -6,14 +6,28 @@
       cdkDropList
       [cdkDropListConnectedTo]="[formSections]"
     >
-      <div cdkDrag class="toolbox-element">Form Group</div>
+      <div
+        class="toolbox-element"
+        *ngFor="let groupType of groupTypes"
+        cdkDrag
+        [cdkDragData]="groupType.value"
+      >
+        Form {{ groupType.display }}
+      </div>
     </div>
     <div
       [id]="toolBoxFieldId"
       cdkDropList
       [cdkDropListConnectedTo]="dropListIds"
     >
-      <div cdkDrag class="toolbox-element">Form Field</div>
+      <div
+        class="toolbox-element"
+        *ngFor="let field of fieldTypes"
+        cdkDrag
+        [cdkDragData]="field.value"
+      >
+        {{ field.display }} Element
+      </div>
     </div>
   </aside>
 
@@ -79,7 +93,7 @@
                   "
                 >
                   <div class="group-form-field-header">
-                    <p>Field: {{ field.value.fieldLabel }}</p>
+                    <p>{{ field.value.type }}: {{ field.value.label }}</p>
                     <span>
                       <button
                         mat-icon-button
@@ -105,27 +119,16 @@
                       fieldVisible.fieldIndex === idx
                     "
                     [formGroupName]="idx"
+                    class="edit-field"
                   >
                     <mat-form-field appearance="outline">
                       <mat-label>Field Label (display)</mat-label>
-                      <input
-                        matInput
-                        type="text"
-                        formControlName="fieldLabel"
-                      />
+                      <input matInput type="text" formControlName="label" />
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
                       <mat-label>Field Name</mat-label>
-                      <input matInput type="text" formControlName="fieldName" />
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                      <mat-label>Field Type</mat-label>
-                      <mat-select formControlName="fieldType">
-                        <mat-option [value]="0">Text Field</mat-option>
-                        <mat-option [value]="1">Number Field</mat-option>
-                      </mat-select>
+                      <input matInput type="text" formControlName="name" />
                     </mat-form-field>
                   </div>
                 </div>
