@@ -5,7 +5,9 @@ import {
   TFormGroup,
   FormFieldTypes,
   FormGroupTypes,
-  IInputField
+  IInputField,
+  ISelectField,
+  ISelectOption
 } from '@uqt/data-access/dynamic-form';
 import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
 
@@ -48,6 +50,14 @@ export class FormBuilderConstructorService {
     });
   }
 
+  createFormGroup(type: FormGroupTypes): FormGroup {
+    return this.fb.group({
+      groupName: [],
+      groupType: [type],
+      fields: this.fb.array([])
+    });
+  }
+
   createFieldGroupFromFiled(field: TField) {
     const baseGroup: any = {
       name: [field.name],
@@ -59,15 +69,16 @@ export class FormBuilderConstructorService {
       baseGroup['inputType'] = (field as IInputField).inputType;
     }
 
-    return this.fb.group(baseGroup);
-  }
+    if (field.type === FormFieldTypes.Select) {
+      const optionsArray = this.fb.array([]);
+      (field as ISelectField).selectOptions.forEach(option => {
+        optionsArray.push(this.createSelectOptionFromOption(option));
+      });
 
-  createFormGroup(type: FormGroupTypes): FormGroup {
-    return this.fb.group({
-      groupName: [],
-      groupType: [type],
-      fields: this.fb.array([])
-    });
+      baseGroup['selectOptions'] = optionsArray;
+    }
+
+    return this.fb.group(baseGroup);
   }
 
   createFieldGroup(type: FormFieldTypes) {
@@ -81,7 +92,26 @@ export class FormBuilderConstructorService {
       baseGroup['inputType'] = [];
     }
 
+    if (type === FormFieldTypes.Select) {
+      const optionsArray = this.fb.array([]);
+      baseGroup['selectOptions'] = optionsArray;
+    }
+
     return this.fb.group(baseGroup);
+  }
+
+  createSelectOptionFromOption(option: ISelectOption) {
+    return this.fb.group({
+      display: [option.display],
+      value: [option.value]
+    });
+  }
+
+  createSelectOption() {
+    return this.fb.group({
+      display: [],
+      value: []
+    });
   }
 
   /**
@@ -120,38 +150,3 @@ export class FormBuilderConstructorService {
     newArrayGroup.insert(newIndex, controlBeingMoved);
   }
 }
-
-// creteDyanmicFormStructureFromBuilderConfig({
-//   config,
-//   formGroups
-// }: IDynamicFormConfig): DynamicFormState {
-//   return {
-//     config: {
-//       formName: config.formName,
-//       animations: config.animations ? config.animations : false,
-//       paginateSections: config.pagination ? config.pagination : false,
-//       structure: map(mapToFormGroup, formGroups),
-//       formValidators: []
-//     },
-//     index: 0,
-//     data: {},
-//     errors: []
-//   };
-// }
-
-// function mapToFormField(field: IFormBuilderField): TField {
-//   return {
-//     componentType: FormFieldTypes.Input, // TODO -> Dynamic
-//     name: field.fieldName,
-//     type: 'text',
-//     label: field.fieldLabel
-//   };
-// }
-
-// function mapToFormGroup(group: IFormBuilderGroup): IFormGroup {
-//   return {
-//     formGroup: group.groupName,
-//     groupType: FormGroupTypes.Group,
-//     fields: map(mapToFormField, group.fields)
-//   };
-// }

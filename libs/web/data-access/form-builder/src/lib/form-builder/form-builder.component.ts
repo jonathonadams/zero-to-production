@@ -154,6 +154,34 @@ export class FormBuilderComponent {
     }
   }
 
+  addSelectOption({
+    groupIndex,
+    fieldIndex
+  }: {
+    groupIndex: number;
+    fieldIndex: number;
+  }) {
+    const selectFields = (this.getGroupFields(groupIndex).at(
+      fieldIndex
+    ) as FormGroup).get('selectOptions') as FormArray;
+    selectFields.push(this.constructorService.createSelectOption());
+  }
+
+  deleteSelectOption({
+    groupIndex,
+    fieldIndex,
+    optionIndex
+  }: {
+    groupIndex: number;
+    fieldIndex: number;
+    optionIndex: number;
+  }) {
+    const selectFields = (this.getGroupFields(groupIndex).at(
+      fieldIndex
+    ) as FormGroup).get('selectOptions') as FormArray;
+    selectFields.removeAt(optionIndex);
+  }
+
   ngOnDestroy() {
     if (this.sub) this.sub.unsubscribe();
   }

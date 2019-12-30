@@ -47,6 +47,54 @@
               <mat-label>Input Type</mat-label>
               <input matInput type="text" formControlName="inputType" />
             </mat-form-field>
+
+            <!-- IF THE FORM FIELD IS A SELECT OPTION, IT HAS A NESTED FORM GROUP 'selectOptions'
+              this is a form array of groups that has a 'display' and 'value' control
+             -->
+            <ng-container *ngIf="field.value.type === 'SELECT'">
+              <button
+                type="button"
+                (click)="
+                  addSelectOption.emit({
+                    groupIndex: groupIndex,
+                    fieldIndex: fieldIndex
+                  })
+                "
+              >
+                ADD OPTION
+              </button>
+              <ng-container formArrayName="selectOptions">
+                <div
+                  *ngFor="
+                    let optionsField of getSelectOptions(field).controls;
+                    let optionIndex = index
+                  "
+                >
+                  <ng-container [formGroupName]="optionIndex">
+                    <mat-form-field>
+                      <mat-label>Display</mat-label>
+                      <input matInput type="text" formControlName="display" />
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-label>Value</mat-label>
+                      <input matInput type="text" formControlName="value" />
+                    </mat-form-field>
+                  </ng-container>
+                  <button
+                    type="button"
+                    (click)="
+                      deleteSelectOption.emit({
+                        groupIndex: groupIndex,
+                        fieldIndex: fieldIndex,
+                        optionIndex: optionIndex
+                      })
+                    "
+                  >
+                    Delete Option
+                  </button>
+                </div>
+              </ng-container>
+            </ng-container>
           </div>
         </ng-container>
       </ng-container>
