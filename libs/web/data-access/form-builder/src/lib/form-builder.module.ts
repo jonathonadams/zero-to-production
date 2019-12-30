@@ -12,13 +12,15 @@ import { FormEffects } from './+state/form-builder.effects';
 import { FormBuilderConfigComponent } from './form-builder/form-config/form-config.component';
 import { FormBuilderHeaderComponent } from './form-builder/form-header/form-header.component';
 import { FormBuilderFieldComponent } from './form-builder/form-field/form-field.component';
+import { FormBuilderToolboxComponent } from './form-builder/form-builder-toolbox/form-builder-toolbox.component';
 
 @NgModule({
   declarations: [
     FormBuilderComponent,
     FormBuilderConfigComponent,
     FormBuilderHeaderComponent,
-    FormBuilderFieldComponent
+    FormBuilderFieldComponent,
+    FormBuilderToolboxComponent
   ],
   imports: [
     CommonModule,

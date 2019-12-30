@@ -1,35 +1,11 @@
 <!-- TODO -> Section / Field preview and icons -->
 <div *ngIf="builderForm" class="container">
-  <aside class="toolbox">
-    <div
-      [id]="toolBoxGroupId"
-      cdkDropList
-      [cdkDropListConnectedTo]="[formSections]"
-    >
-      <div
-        class="toolbox-element"
-        *ngFor="let groupType of groupTypes"
-        cdkDrag
-        [cdkDragData]="groupType.value"
-      >
-        Form {{ groupType.display }}
-      </div>
-    </div>
-    <div
-      [id]="toolBoxFieldId"
-      cdkDropList
-      [cdkDropListConnectedTo]="dropListIds"
-    >
-      <div
-        class="toolbox-element"
-        *ngFor="let field of fieldTypes"
-        cdkDrag
-        [cdkDragData]="field.value"
-      >
-        {{ field.display }} Element
-      </div>
-    </div>
-  </aside>
+  <uqt-form-builder-toolbox
+    class="toolbox"
+    [toolBoxGroupId]="toolBoxGroupId"
+    [toolBoxFieldId]="toolBoxFieldId"
+    [dropListIds]="dropListIds"
+  ></uqt-form-builder-toolbox>
 
   <mat-divider [vertical]="true"></mat-divider>
 
@@ -48,10 +24,10 @@
           <mat-divider></mat-divider>
         </div>
         <div
+          id="fb-form-sections"
           class="form-sections"
           formArrayName="structure"
           cdkDropList
-          #formSections="cdkDropList"
           (cdkDropListDropped)="formGroupDropped($event)"
         >
           <mat-card
@@ -77,7 +53,7 @@
               <mat-divider [inset]="true"></mat-divider>
 
               <div
-                [id]="'fields-' + groupIndex"
+                [id]="'fb-fields-' + groupIndex"
                 class="group-fields"
                 formArrayName="fields"
                 cdkDropList

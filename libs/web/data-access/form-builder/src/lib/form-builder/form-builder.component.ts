@@ -23,16 +23,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormBuilderComponent {
-  groupTypes = [{ display: 'Group', value: FormGroupTypes.Group }];
-
-  fieldTypes = [
-    { display: 'Input', value: FormFieldTypes.Input },
-    { display: 'Date', value: FormFieldTypes.DatePicker },
-    { display: 'Select', value: FormFieldTypes.Select },
-    { display: 'Checkbox', value: FormFieldTypes.CheckBox },
-    { display: 'Toggle', value: FormFieldTypes.Toggle }
-  ];
-
   toolBoxGroupId = 'tb-form-group';
   toolBoxFieldId = 'tb-field-group';
   dropListIds: string[] = [];
@@ -126,7 +116,7 @@ export class FormBuilderComponent {
   createConnectedToId(groups: number) {
     const ids: string[] = [];
     for (let i = 0; i < groups; i++) {
-      ids.push(`fields-${i}`);
+      ids.push(`fb-fields-${i}`);
     }
     return ids;
   }

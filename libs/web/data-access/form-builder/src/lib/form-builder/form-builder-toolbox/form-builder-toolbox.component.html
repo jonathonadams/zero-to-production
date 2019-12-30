@@ -1,0 +1,26 @@
+<aside class="toolbox">
+  <div
+    [id]="toolBoxGroupId"
+    cdkDropList
+    [cdkDropListConnectedTo]="['fb-form-sections']"
+  >
+    <div
+      class="toolbox-element"
+      *ngFor="let groupType of groupTypes"
+      cdkDrag
+      [cdkDragData]="groupType.value"
+    >
+      Form {{ groupType.display }}
+    </div>
+  </div>
+  <div [id]="toolBoxFieldId" cdkDropList [cdkDropListConnectedTo]="dropListIds">
+    <div
+      class="toolbox-element"
+      *ngFor="let field of fieldTypes"
+      cdkDrag
+      [cdkDragData]="field.value"
+    >
+      {{ field.display }} Element
+    </div>
+  </div>
+</aside>
