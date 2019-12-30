@@ -28,11 +28,6 @@ export class ExamplesDemosComponent {
     return this.moduleLoader.selectFactory(tag);
   }
 
-  ngOnInit() {
-    // Load the first example
-    this.loadModule(0);
-  }
-
   loadModule(index: number) {
     this.examples$
       .pipe(

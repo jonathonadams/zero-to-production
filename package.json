@@ -148,6 +148,7 @@
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
     "read-package-json": "^2.1.1",
+    "resize-observer-polyfill": "^1.5.1",
     "testcafe": "^1.7.0",
     "testcafe-angular-selectors": "^0.3.2",
     "ts-jest": "^24.2.0",
