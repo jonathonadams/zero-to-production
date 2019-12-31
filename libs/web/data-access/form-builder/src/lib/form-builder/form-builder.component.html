@@ -14,12 +14,8 @@
       <div formGroupName="config">
         <div class="form-config">
           <uqt-form-builder-header
-            [name]="builderForm.value.config.formName"
-            (toggleConfig)="toggleFormConfig()"
+            [form]="builderForm"
           ></uqt-form-builder-header>
-
-          <uqt-form-builder-config *ngIf="showFormConfig" [form]="builderForm">
-          </uqt-form-builder-config>
 
           <mat-divider></mat-divider>
         </div>

@@ -1,10 +1,26 @@
-<p>Form Name: {{ name }}</p>
-<div class="action-buttons">
-  <button icon-button type="button" (click)="toggleConfig.emit()">
-    <fa-icon [icon]="chevronDown"></fa-icon>
-  </button>
+<div class="header">
+  <p>Form Name: {{ form.value.config.formName }}</p>
+  <div class="action-buttons">
+    <button icon-button type="button" (click)="toggleConfig()">
+      <fa-icon [icon]="chevronDown"></fa-icon>
+    </button>
 
-  <button icon-button type="submit">
-    <fa-icon [icon]="save"></fa-icon>
-  </button>
+    <button icon-button type="submit">
+      <fa-icon [icon]="save"></fa-icon>
+    </button>
+  </div>
+</div>
+
+<div class="settings" *ngIf="showConfig" [formGroup]="form">
+  <ng-container formGroupName="config">
+    <mat-form-field>
+      <mat-label>Form Name</mat-label>
+      <input matInput type="text" formControlName="formName" />
+    </mat-form-field>
+
+    <mat-checkbox formControlName="animations">Animations</mat-checkbox>
+    <mat-checkbox formControlName="paginateSections"
+      >Section Pagination</mat-checkbox
+    >
+  </ng-container>
 </div>

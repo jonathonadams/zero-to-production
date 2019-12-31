@@ -65,6 +65,7 @@ export class ExampleCreateFormComponent implements OnInit, OnDestroy {
       .formSubmits$(this.formName)
       .subscribe((form: { config: Partial<IDynamicFormConfig> }) => {
         this.formsFacade.createForm(form.config);
+        this.dynamicFormFacade.setData(this.formName, {});
       });
   }
 

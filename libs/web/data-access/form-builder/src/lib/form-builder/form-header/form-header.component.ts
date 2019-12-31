@@ -6,6 +6,7 @@ import {
   Output
 } from '@angular/core';
 import { faSave, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'uqt-form-builder-header',
@@ -17,5 +18,10 @@ export class FormBuilderHeaderComponent {
   save = faSave;
   chevronDown = faChevronDown;
   @Input() name: string;
-  @Output() toggleConfig = new EventEmitter<void>();
+  @Input() form: FormGroup;
+
+  showConfig = false;
+  toggleConfig() {
+    this.showConfig = !this.showConfig;
+  }
 }
