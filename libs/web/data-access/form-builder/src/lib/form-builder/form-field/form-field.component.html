@@ -4,7 +4,10 @@
       <ng-container [formGroupName]="groupIndex">
         <ng-container formArrayName="fields">
           <div class="group-form-field-header">
-            <p>{{ field.value.type }}: {{ field.value.label }}</p>
+            <p>
+              <fa-icon [icon]="iconType(field.value.type)"></fa-icon>:
+              {{ field.value.label }}
+            </p>
             <span>
               <button mat-icon-button type="button" (click)="toggleConfig()">
                 <mat-icon>expand_more</mat-icon>

@@ -6,6 +6,15 @@ import {
   EventEmitter
 } from '@angular/core';
 import { FormGroup, AbstractControl, FormArray } from '@angular/forms';
+import { FormFieldTypes } from '@uqt/data-access/dynamic-form';
+import {
+  faPen,
+  faCalendarAlt,
+  faCheckSquare,
+  faList,
+  faToggleOn,
+  faAlignJustify
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'uqt-form-builder-field',
@@ -41,5 +50,22 @@ export class FormBuilderFieldComponent {
 
   getSelectOptions(formGroup: AbstractControl) {
     return formGroup.get('selectOptions') as FormArray;
+  }
+
+  iconType(type: FormFieldTypes) {
+    switch (type) {
+      case FormFieldTypes.CheckBox:
+        return faCheckSquare;
+      case FormFieldTypes.DatePicker:
+        return faCalendarAlt;
+      case FormFieldTypes.Input:
+        return faPen;
+      case FormFieldTypes.Select:
+        return faList;
+      case FormFieldTypes.TextArea:
+        return faAlignJustify;
+      case FormFieldTypes.Toggle:
+        return faToggleOn;
+    }
   }
 }
