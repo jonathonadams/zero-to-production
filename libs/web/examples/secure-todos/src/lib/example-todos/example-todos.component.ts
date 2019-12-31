@@ -11,6 +11,6 @@ export class ExampleTodosComponent {
   constructor(private router: Router) {}
 
   showTodos() {
-    this.router.navigate(['secure']);
+    this.router.navigate(['examples', 'demos', 'secure']);
   }
 }

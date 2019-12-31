@@ -29,10 +29,17 @@ export const EXAMPLES_ROUTES: Routes = [
       },
       {
         path: 'demos',
-        pathMatch: 'full',
-        component: ExamplesDemosComponent
+        component: ExamplesDemosComponent,
+        children: [
+          {
+            path: 'secure',
+            loadChildren: () =>
+              import('@uqt/web/examples/secure-todos').then(
+                m => m.WebExamplesSecureTodosModule
+              )
+          }
+        ]
       },
-
       {
         path: '',
         pathMatch: 'full',
@@ -40,18 +47,6 @@ export const EXAMPLES_ROUTES: Routes = [
       }
     ]
   },
-  {
-    path: 'secure',
-    loadChildren: () =>
-      import('@uqt/web/examples/secure-todos').then(
-        m => m.WebExamplesSecureTodosModule
-      )
-  },
-  // {
-  //   path: '',
-  //   pathMatch: 'full',
-  //   redirectTo: 'about'
-  // },
   {
     // TODO -> This is only for testing
     path: '',

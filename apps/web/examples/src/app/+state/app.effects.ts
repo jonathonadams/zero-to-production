@@ -15,19 +15,19 @@ export class AppEffects {
   @Effect({ dispatch: false })
   loginRedirects$ = this.action$.pipe(
     ofType(loginRedirect),
-    tap(() => this.router.navigate(['secure', 'home']))
+    tap(() => this.router.navigate(['examples', 'demos', 'secure', 'home']))
   );
 
   @Effect({ dispatch: false })
   registerRedirect$ = this.action$.pipe(
     ofType(registerRedirect),
-    tap(() => this.router.navigate(['secure', 'register']))
+    tap(() => this.router.navigate(['examples', 'demos', 'secure', 'register']))
   );
 
   @Effect({ dispatch: false })
   logoutRedirect$ = this.action$.pipe(
     ofType(logoutRedirect),
-    tap(() => this.router.navigate(['secure', 'login']))
+    tap(() => this.router.navigate(['examples', 'demos', 'secure', 'login']))
   );
   constructor(private action$: Actions, private router: Router) {}
 }
