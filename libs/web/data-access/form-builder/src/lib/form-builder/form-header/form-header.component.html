@@ -1,10 +1,10 @@
-<p>{{ name }}</p>
-<div class="buttons">
-  <button mat-icon-button type="button" (click)="toggleConfig.emit()">
-    <mat-icon>expand_more</mat-icon>
+<p>Form Name: {{ name }}</p>
+<div class="action-buttons">
+  <button icon-button type="button" (click)="toggleConfig.emit()">
+    <fa-icon [icon]="chevronDown"></fa-icon>
   </button>
 
-  <button mat-icon-button type="submit">
-    <mat-icon>save</mat-icon>
+  <button icon-button type="submit">
+    <fa-icon [icon]="save"></fa-icon>
   </button>
 </div>

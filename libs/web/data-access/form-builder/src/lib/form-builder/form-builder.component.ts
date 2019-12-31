@@ -15,6 +15,7 @@ import {
   FormFieldTypes,
   FormGroupTypes
 } from '@uqt/data-access/dynamic-form';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'uqt-form-builder',
@@ -23,6 +24,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormBuilderComponent {
+  faTrash = faTrash;
+
   toolBoxGroupId = 'tb-form-group';
   toolBoxFieldId = 'tb-field-group';
   dropListIds: string[] = [];

@@ -1562,6 +1562,37 @@
           "styleext": "scss"
         }
       }
+    },
+    "web-common-ui-buttons": {
+      "projectType": "library",
+      "root": "libs/web/common/ui/buttons",
+      "sourceRoot": "libs/web/common/ui/buttons/src",
+      "prefix": "uqt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/common/ui/buttons/tsconfig.lib.json",
+              "libs/web/common/ui/buttons/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/web/common/ui/buttons/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/common/ui/buttons/jest.config.js",
+            "tsConfig": "libs/web/common/ui/buttons/tsconfig.spec.json",
+            "setupFile": "libs/web/common/ui/buttons/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

@@ -1,4 +1,5 @@
 <aside class="toolbox">
+  <h4>Form Group Types</h4>
   <div
     [id]="toolBoxGroupId"
     cdkDropList
@@ -6,13 +7,17 @@
   >
     <div
       class="toolbox-element"
-      *ngFor="let groupType of groupTypes"
+      *ngFor="let group of groupTypes"
       cdkDrag
-      [cdkDragData]="groupType.value"
+      [cdkDragData]="group.value"
     >
-      Form {{ groupType.display }}
+      <p>
+        <fa-icon [icon]="group.icon"></fa-icon>&nbsp;&nbsp;&nbsp;Form
+        {{ group.display }}
+      </p>
     </div>
   </div>
+  <h4>Form Field Types</h4>
   <div [id]="toolBoxFieldId" cdkDropList [cdkDropListConnectedTo]="dropListIds">
     <div
       class="toolbox-element"
@@ -20,7 +25,12 @@
       cdkDrag
       [cdkDragData]="field.value"
     >
-      {{ field.display }} Element
+      <p>
+        <fa-icon [icon]="field.icon"></fa-icon>&nbsp;&nbsp;&nbsp;{{
+          field.display
+        }}
+        Field
+      </p>
     </div>
   </div>
 </aside>

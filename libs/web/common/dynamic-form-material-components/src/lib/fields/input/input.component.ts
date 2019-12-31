@@ -1,9 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  Input,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormGroupTypes, IInputField } from '@uqt/data-access/dynamic-form';
 
@@ -20,8 +15,7 @@ import { FormGroupTypes, IInputField } from '@uqt/data-access/dynamic-form';
       }
     `
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormInputComponent {
   @Input() idx: number; // Only accessed if a FormArrayGroup

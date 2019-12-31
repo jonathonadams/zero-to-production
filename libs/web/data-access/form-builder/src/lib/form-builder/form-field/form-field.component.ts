@@ -13,7 +13,11 @@ import {
   faCheckSquare,
   faList,
   faToggleOn,
-  faAlignJustify
+  faAlignJustify,
+  IconDefinition,
+  faChevronDown,
+  faChevronUp,
+  faTrash
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -23,6 +27,10 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormBuilderFieldComponent {
+  faChevronDown = faChevronDown;
+  faChevronUp = faChevronUp;
+  faTrash = faTrash;
+
   @Input() form: FormGroup;
   @Input() field: AbstractControl;
   @Input() groupIndex: number;
@@ -52,7 +60,7 @@ export class FormBuilderFieldComponent {
     return formGroup.get('selectOptions') as FormArray;
   }
 
-  iconType(type: FormFieldTypes) {
+  iconType(type: FormFieldTypes): IconDefinition {
     switch (type) {
       case FormFieldTypes.CheckBox:
         return faCheckSquare;

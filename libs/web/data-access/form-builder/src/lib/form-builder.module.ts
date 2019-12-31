@@ -5,6 +5,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CommonUiButtonsModule } from '@uqt/web/common/ui/buttons';
 import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
@@ -25,6 +26,7 @@ import { FormBuilderToolboxComponent } from './form-builder/form-builder-toolbox
   ],
   imports: [
     CommonModule,
+    CommonUiButtonsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
     DynamicFormModule,

@@ -5,17 +5,19 @@
         <ng-container formArrayName="fields">
           <div class="group-form-field-header">
             <p>
-              <fa-icon [icon]="iconType(field.value.type)"></fa-icon>:
-              {{ field.value.label }}
+              <fa-icon [icon]="iconType(field.value.type)"></fa-icon
+              >&nbsp;&nbsp;&nbsp;{{ field.value.label }}
             </p>
-            <span>
-              <button mat-icon-button type="button" (click)="toggleConfig()">
-                <mat-icon>expand_more</mat-icon>
+            <div class="action-buttons">
+              <button icon-button type="button" (click)="toggleConfig()">
+                <fa-icon
+                  [icon]="showConfig ? faChevronUp : faChevronDown"
+                ></fa-icon>
               </button>
 
               <button
-                mat-icon-button
                 type="button"
+                icon-button
                 (click)="
                   remove.emit({
                     groupIndex: groupIndex,
@@ -23,15 +25,15 @@
                   })
                 "
               >
-                <mat-icon>clear</mat-icon>
+                <fa-icon [icon]="faTrash"></fa-icon>
               </button>
-            </span>
+            </div>
           </div>
 
           <div
             *ngIf="showConfig"
             [formGroupName]="fieldIndex"
-            class="edit-field"
+            class="edit-fields"
           >
             <mat-form-field appearance="outline">
               <mat-label>Field Label (display)</mat-label>
@@ -67,35 +69,39 @@
                 ADD OPTION
               </button>
               <ng-container formArrayName="selectOptions">
-                <div
-                  *ngFor="
-                    let optionsField of getSelectOptions(field).controls;
-                    let optionIndex = index
-                  "
-                >
-                  <ng-container [formGroupName]="optionIndex">
-                    <mat-form-field>
-                      <mat-label>Display</mat-label>
-                      <input matInput type="text" formControlName="display" />
-                    </mat-form-field>
-                    <mat-form-field>
-                      <mat-label>Value</mat-label>
-                      <input matInput type="text" formControlName="value" />
-                    </mat-form-field>
-                  </ng-container>
-                  <button
-                    type="button"
-                    (click)="
-                      deleteSelectOption.emit({
-                        groupIndex: groupIndex,
-                        fieldIndex: fieldIndex,
-                        optionIndex: optionIndex
-                      })
+                <h5>Select Field Options</h5>
+                <ol class="select-options">
+                  <li
+                    class="option-fields"
+                    *ngFor="
+                      let optionsField of getSelectOptions(field).controls;
+                      let optionIndex = index
                     "
                   >
-                    Delete Option
-                  </button>
-                </div>
+                    <ng-container [formGroupName]="optionIndex">
+                      <mat-form-field>
+                        <mat-label>Display</mat-label>
+                        <input matInput type="text" formControlName="display" />
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>Value</mat-label>
+                        <input matInput type="text" formControlName="value" />
+                      </mat-form-field>
+                    </ng-container>
+                    <button
+                      type="button"
+                      (click)="
+                        deleteSelectOption.emit({
+                          groupIndex: groupIndex,
+                          fieldIndex: fieldIndex,
+                          optionIndex: optionIndex
+                        })
+                      "
+                    >
+                      Delete Option
+                    </button>
+                  </li>
+                </ol>
               </ng-container>
             </ng-container>
           </div>

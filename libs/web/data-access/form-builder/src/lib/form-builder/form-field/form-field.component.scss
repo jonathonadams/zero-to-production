@@ -1,9 +1,37 @@
 .group-form-field-header {
+  margin: 0 1em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  .action-buttons {
+    margin: auto 0;
+
+    button:first-child {
+      margin-right: 1em;
+    }
+  }
 }
-.edit-field {
-  display: flex;
-  flex-direction: row;
+
+.edit-fields {
+  & > * {
+    margin-right: 1em;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.select-options {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+  .option-fields {
+    & > * {
+      margin-right: 1em;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
 }

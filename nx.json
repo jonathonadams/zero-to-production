@@ -145,6 +145,9 @@
     },
     "web-examples-lazy-load-scrolling": {
       "tags": []
+    },
+    "web-common-ui-buttons": {
+      "tags": []
     }
   }
 }

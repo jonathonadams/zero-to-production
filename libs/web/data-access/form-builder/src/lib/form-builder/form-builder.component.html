@@ -43,13 +43,14 @@
                 </mat-form-field>
 
                 <button
-                  mat-icon-button
                   type="button"
+                  icon-button
                   (click)="deleteFormGroup(groupIndex)"
                 >
-                  <mat-icon>delete</mat-icon>
+                  <fa-icon [icon]="faTrash"></fa-icon>
                 </button>
               </div>
+
               <mat-divider [inset]="true"></mat-divider>
 
               <div

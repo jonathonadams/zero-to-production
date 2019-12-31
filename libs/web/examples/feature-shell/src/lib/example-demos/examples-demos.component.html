@@ -1,15 +1,11 @@
 <section
   lazyLoadScroll
   (loadIndex)="loadModule($event)"
-  [modules]="(examples$ | async)?.length"
+  [modules]="examples?.length"
   class="viewport"
 >
   <div
-    *ngFor="
-      let example of examples$ | async;
-      trackBy: trackExamples;
-      let last = last
-    "
+    *ngFor="let example of examples; trackBy: trackExamples; let last = last"
     [id]="example.url"
     #lazyItem
   >
