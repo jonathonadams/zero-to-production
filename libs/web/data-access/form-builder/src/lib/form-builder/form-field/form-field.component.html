@@ -57,21 +57,24 @@
               this is a form array of groups that has a 'display' and 'value' control
              -->
             <ng-container *ngIf="field.value.type === 'SELECT'">
-              <button
-                type="button"
-                (click)="
-                  addSelectOption.emit({
-                    groupIndex: groupIndex,
-                    fieldIndex: fieldIndex
-                  })
-                "
-              >
-                ADD OPTION
-              </button>
               <ng-container formArrayName="selectOptions">
-                <h5>Select Field Options</h5>
-                <ol class="select-options">
-                  <li
+                <div class="select-options">
+                  <h5 class="options-heading">Select Options</h5>
+                  <button
+                    type="button"
+                    raised-button
+                    (click)="
+                      addSelectOption.emit({
+                        groupIndex: groupIndex,
+                        fieldIndex: fieldIndex
+                      })
+                    "
+                  >
+                    <fa-icon [icon]="faPlus"></fa-icon>&nbsp;&nbsp;&nbsp;Add
+                    Option
+                  </button>
+
+                  <div
                     class="option-fields"
                     *ngFor="
                       let optionsField of getSelectOptions(field).controls;
@@ -79,17 +82,18 @@
                     "
                   >
                     <ng-container [formGroupName]="optionIndex">
-                      <mat-form-field>
+                      <mat-form-field appearance="outline">
                         <mat-label>Display</mat-label>
                         <input matInput type="text" formControlName="display" />
                       </mat-form-field>
-                      <mat-form-field>
+                      <mat-form-field appearance="outline">
                         <mat-label>Value</mat-label>
                         <input matInput type="text" formControlName="value" />
                       </mat-form-field>
                     </ng-container>
                     <button
                       type="button"
+                      icon-button
                       (click)="
                         deleteSelectOption.emit({
                           groupIndex: groupIndex,
@@ -98,10 +102,10 @@
                         })
                       "
                     >
-                      Delete Option
+                      <fa-icon [icon]="faTrash"></fa-icon>
                     </button>
-                  </li>
-                </ol>
+                  </div>
+                </div>
               </ng-container>
             </ng-container>
           </div>

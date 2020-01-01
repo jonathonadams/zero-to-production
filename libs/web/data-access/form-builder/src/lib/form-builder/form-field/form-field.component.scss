@@ -24,7 +24,10 @@
 }
 
 .select-options {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  .options-heading {
+    display: inline-block;
+    margin-right: 2em;
+  }
 
   .option-fields {
     & > * {
@@ -33,5 +36,11 @@
         margin-right: 0;
       }
     }
+  }
+}
+
+:host {
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
   }
 }

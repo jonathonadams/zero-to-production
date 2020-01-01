@@ -17,7 +17,9 @@ import {
   IconDefinition,
   faChevronDown,
   faChevronUp,
-  faTrash
+  faTrash,
+  faPlus,
+  faAsterisk
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -30,6 +32,8 @@ export class FormBuilderFieldComponent {
   faChevronDown = faChevronDown;
   faChevronUp = faChevronUp;
   faTrash = faTrash;
+  faPlus = faPlus;
+  faAsterisk = faAsterisk;
 
   @Input() form: FormGroup;
   @Input() field: AbstractControl;
