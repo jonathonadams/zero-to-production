@@ -47,7 +47,7 @@
               <mat-divider [inset]="true"></mat-divider>
 
               <div
-                [id]="'fb-fields-' + groupIndex"
+                [id]="createFieldsId(groupIndex)"
                 class="group-fields"
                 formArrayName="fields"
                 cdkDropList

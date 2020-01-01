@@ -9,7 +9,7 @@ import { Subscription, Observable } from 'rxjs';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
 import compose from 'ramda/es/compose';
 import { FormBuilderConstructorService } from '../form-constructor.service';
-import { map, filter, tap, first } from 'rxjs/operators';
+import { map, filter, tap, first, distinctUntilChanged } from 'rxjs/operators';
 import {
   IDynamicFormConfig,
   FormFieldTypes,
@@ -26,8 +26,8 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 export class FormBuilderComponent {
   faTrash = faTrash;
 
-  toolBoxGroupId = 'tb-form-group';
-  toolBoxFieldId = 'tb-field-group';
+  toolBoxGroupId = 'uqt-tb-form-group';
+  toolBoxFieldId = 'uqt-tb-field-group';
   dropListIds: string[] = [];
 
   builderForm: FormGroup;
@@ -49,6 +49,10 @@ export class FormBuilderComponent {
     this.sub = (this.selectedForm$ as Observable<IDynamicFormConfig>)
       .pipe(
         filter(fb => fb !== undefined),
+        // Don't rebuild the form if the name is the same
+        // This would only be the case when you click the save button, in which case the forms
+        // are in sync
+        distinctUntilChanged((prev, curr) => prev.formName === curr.formName),
         map(fb => this.constructorService.formBuilder(fb)),
         tap(form => (this.builderForm = form))
       )
@@ -105,23 +109,28 @@ export class FormBuilderComponent {
       const groupType: FormGroupTypes = event.item.data;
       const formGroup = this.constructorService.createFormGroup(groupType);
       formGroups.insert(event.currentIndex, formGroup);
+
+      this.dropListIds = this.createConnectedToId(formGroups.length);
     } else {
+      // re-ordering the form groups
       this.constructorService.moveFormArrayGroup(
         formGroups,
         event.previousIndex,
         event.currentIndex
       );
     }
-
-    this.dropListIds = this.createConnectedToId(formGroups.length);
   }
 
   createConnectedToId(groups: number) {
     const ids: string[] = [];
     for (let i = 0; i < groups; i++) {
-      ids.push(`fb-fields-${i}`);
+      ids.push(this.createFieldsId(i));
     }
     return ids;
+  }
+
+  createFieldsId(index: number) {
+    return `uqt-fb-fields-${index}`;
   }
 
   formFieldDropped(event: CdkDragDrop<FormGroup[]>) {
