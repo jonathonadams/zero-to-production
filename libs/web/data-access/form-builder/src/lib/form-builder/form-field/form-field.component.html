@@ -31,12 +31,18 @@
             [formGroupName]="fieldIndex"
             class="edit-fields"
           >
-            <mat-form-field appearance="outline">
+            <mat-form-field
+              appearance="outline"
+              (click)="$event.stopPropagation()"
+            >
               <mat-label>Field Label (display)</mat-label>
               <input matInput type="text" formControlName="label" />
             </mat-form-field>
 
-            <mat-form-field appearance="outline">
+            <mat-form-field
+              appearance="outline"
+              (click)="$event.stopPropagation()"
+            >
               <mat-label>Field Name</mat-label>
               <input matInput type="text" formControlName="name" />
             </mat-form-field>
@@ -44,9 +50,17 @@
             <mat-form-field
               *ngIf="field.value.type === 'INPUT'"
               appearance="outline"
+              (click)="$event.stopPropagation()"
             >
               <mat-label>Input Type</mat-label>
-              <input matInput type="text" formControlName="inputType" />
+              <mat-select formControlName="inputType">
+                <mat-option
+                  *ngFor="let type of inputFieldTypes"
+                  [value]="type.value"
+                >
+                  {{ type.display }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
 
             <!-- IF THE FORM FIELD IS A SELECT OPTION, IT HAS A NESTED FORM GROUP 'selectOptions'
@@ -79,11 +93,17 @@
                     "
                   >
                     <ng-container [formGroupName]="optionIndex">
-                      <mat-form-field appearance="outline">
+                      <mat-form-field
+                        appearance="outline"
+                        (click)="$event.stopPropagation()"
+                      >
                         <mat-label>Display</mat-label>
                         <input matInput type="text" formControlName="display" />
                       </mat-form-field>
-                      <mat-form-field appearance="outline">
+                      <mat-form-field
+                        appearance="outline"
+                        (click)="$event.stopPropagation()"
+                      >
                         <mat-label>Value</mat-label>
                         <input matInput type="text" formControlName="value" />
                       </mat-form-field>

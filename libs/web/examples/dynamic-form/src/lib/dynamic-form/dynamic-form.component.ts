@@ -11,7 +11,8 @@ import {
   DynamicFormFacade,
   TFormGroups,
   FormGroupTypes,
-  FormFieldTypes
+  FormFieldTypes,
+  InputFieldTypes
 } from '@uqt/data-access/dynamic-form';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
 import { IExample } from '@uqt/examples/data-access';
@@ -23,14 +24,13 @@ const SIMPLE_FORM: TFormGroups = [
     fields: [
       {
         type: FormFieldTypes.Input,
-        inputType: 'text',
         name: 'contactNumber',
         label: 'Contact Number',
         validators: [Validators.required]
       },
       {
         type: FormFieldTypes.Input,
-        inputType: 'email',
+        inputType: InputFieldTypes.Email,
         name: 'emailAddress',
         label: 'Email Address',
         validators: [Validators.required, Validators.email]
@@ -46,7 +46,6 @@ const COMPLEX_FORM: TFormGroups = [
     fields: [
       {
         type: FormFieldTypes.Input,
-        inputType: 'text',
         name: 'givenName',
         label: 'Given Name',
         autocomplete: 'given-name',
@@ -54,7 +53,6 @@ const COMPLEX_FORM: TFormGroups = [
       },
       {
         type: FormFieldTypes.Input,
-        inputType: 'text',
         name: 'surname',
         autocomplete: 'family-name',
         label: 'Email Address'

@@ -23,7 +23,6 @@ const STRUCTURE: TFormGroups = [
     fields: [
       {
         type: FormFieldTypes.Input,
-        inputType: 'text',
         name: 'formName',
         label: 'Form Name',
         validators: [Validators.required]

@@ -7,7 +7,7 @@ import {
   HostListener
 } from '@angular/core';
 import { FormGroup, AbstractControl, FormArray } from '@angular/forms';
-import { FormFieldTypes } from '@uqt/data-access/dynamic-form';
+import { FormFieldTypes, InputFieldTypes } from '@uqt/data-access/dynamic-form';
 import {
   faPen,
   faCalendarAlt,
@@ -61,6 +61,16 @@ export class FormBuilderFieldComponent {
   getSelectOptions(formGroup: AbstractControl) {
     return formGroup.get('selectOptions') as FormArray;
   }
+
+  inputFieldTypes = [
+    { display: 'Text', value: InputFieldTypes.Date },
+    { display: 'Email', value: InputFieldTypes.Email },
+    { display: 'Number', value: InputFieldTypes.Number },
+    { display: 'Password', value: InputFieldTypes.Password },
+    { display: 'Tel', value: InputFieldTypes.Tel },
+    { display: 'Time', value: InputFieldTypes.Time },
+    { display: 'Url', value: InputFieldTypes.Url }
+  ];
 
   iconType(type: FormFieldTypes): IconDefinition {
     switch (type) {

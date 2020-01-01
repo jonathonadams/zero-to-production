@@ -24,14 +24,12 @@ const STRUCTURE: TFormGroups = [
     fields: [
       {
         type: FormFieldTypes.Input,
-        inputType: 'text',
         name: 'title',
         label: 'Title',
         validators: [Validators.required]
       },
       {
         type: FormFieldTypes.Input,
-        inputType: 'text',
         name: 'description',
         label: 'Description',
         validators: [Validators.required]

@@ -10,7 +10,8 @@ import {
   DynamicFormFacade,
   TFormGroups,
   FormGroupTypes,
-  FormFieldTypes
+  FormFieldTypes,
+  InputFieldTypes
 } from '@uqt/data-access/dynamic-form';
 import { AuthFacade, ILoginCredentials } from '@uqt/data-access/auth';
 
@@ -21,7 +22,6 @@ const STRUCTURE: TFormGroups = [
     fields: [
       {
         type: FormFieldTypes.Input,
-        inputType: 'text',
         name: 'username',
         label: 'Username',
         autocomplete: 'username',
@@ -29,7 +29,7 @@ const STRUCTURE: TFormGroups = [
       },
       {
         type: FormFieldTypes.Input,
-        inputType: 'password',
+        inputType: InputFieldTypes.Password,
         name: 'password',
         label: 'Password',
         autocomplete: 'current-password',

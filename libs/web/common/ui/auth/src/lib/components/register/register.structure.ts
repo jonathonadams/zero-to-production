@@ -3,7 +3,8 @@ import {
   IFormGroup,
   FormGroupTypes,
   FormFieldTypes,
-  TFormGroups
+  TFormGroups,
+  InputFieldTypes
 } from '@uqt/data-access/dynamic-form';
 import { UsernameAvailableValidator } from '../../validators/username-available.validator';
 import { passwordValidator } from '../../validators/auth.validators';
@@ -14,7 +15,6 @@ const PASSWORD_GROUP: IFormGroup = {
   fields: [
     {
       type: 'USERNAME',
-      inputType: 'text',
       name: 'username',
       label: 'Username',
       validators: [Validators.required],
@@ -22,7 +22,7 @@ const PASSWORD_GROUP: IFormGroup = {
     },
     {
       type: FormFieldTypes.Input,
-      inputType: 'password',
+      inputType: InputFieldTypes.Password,
       name: 'password',
       label: 'Select Password',
       autocomplete: 'new-password',
@@ -30,7 +30,7 @@ const PASSWORD_GROUP: IFormGroup = {
     },
     {
       type: FormFieldTypes.Input,
-      inputType: 'password',
+      inputType: InputFieldTypes.Password,
       name: 'passwordCheck',
       label: 'Verify Password',
       autocomplete: 'new-password',
@@ -45,7 +45,6 @@ export const DETAILS_GROUP: IFormGroup = {
   fields: [
     {
       type: FormFieldTypes.Input,
-      inputType: 'text',
       name: 'givenName',
       label: 'Given Name',
       autocomplete: 'given-name',
@@ -53,7 +52,6 @@ export const DETAILS_GROUP: IFormGroup = {
     },
     {
       type: FormFieldTypes.Input,
-      inputType: 'text',
       name: 'surname',
       label: 'Surname',
       autocomplete: 'family-name',
@@ -61,7 +59,7 @@ export const DETAILS_GROUP: IFormGroup = {
     },
     {
       type: FormFieldTypes.Input,
-      inputType: 'email',
+      inputType: InputFieldTypes.Email,
       name: 'email',
       label: 'Email',
       autocomplete: 'email',

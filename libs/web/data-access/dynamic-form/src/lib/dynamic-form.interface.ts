@@ -68,7 +68,7 @@ export interface IBaseField {
 
 export interface IInputField extends IBaseField {
   type: FormFieldTypes.Input;
-  inputType: TInputType;
+  inputType?: InputFieldTypes;
 }
 
 export interface ITextArea extends IBaseField {
@@ -116,20 +116,21 @@ export type TAutoComplete =
   | 'organization'
   | 'street-address';
 
-export type TInputType =
-  | 'color'
-  | 'date'
-  | 'datetime-local'
-  | 'email'
-  | 'month'
-  | 'number'
-  | 'password'
-  | 'search'
-  | 'tel'
-  | 'text'
-  | 'time'
-  | 'url'
-  | 'week';
+export enum InputFieldTypes {
+  Color = 'color',
+  Date = 'date',
+  DateTimeLocal = 'datetime-local',
+  Email = 'email',
+  Month = 'month',
+  Number = 'number',
+  Password = 'password',
+  Search = 'search',
+  Tel = 'tel',
+  Text = 'text',
+  Time = 'time',
+  Url = 'url',
+  Week = 'week'
+}
 
 // Muse be strings
 export enum FormGroupTypes {
