@@ -1,8 +1,6 @@
 <div class="container">
   <mat-card>
-    <mat-card-header>
-      <h3>Create New Form</h3>
-    </mat-card-header>
+    <h3>Create New Form</h3>
     <app-dynamic-form [formName]="formName">
       <button type="submit" mat-raised-button class="submit-button">
         create Form
@@ -11,9 +9,7 @@
   </mat-card>
 
   <mat-card class="list">
-    <mat-card-header>
-      Forms
-    </mat-card-header>
+    <h4>Forms</h4>
     <mat-list>
       <mat-list-item
         *ngFor="let form of form$ | async; trackBy: trackForms; last as last"

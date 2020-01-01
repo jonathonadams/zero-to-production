@@ -35,7 +35,7 @@ const STRUCTURE: TFormGroups = [
       {
         type: FormFieldTypes.CheckBox,
         name: 'paginateSections',
-        label: 'Section Pagination'
+        label: 'Section Pages'
       }
     ]
   }

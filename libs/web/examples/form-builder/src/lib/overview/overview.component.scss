@@ -1,6 +1,12 @@
-// TODO -> REMOVE Once done
 :host {
   display: block;
+  overflow-y: auto; // TODO -> Delete once finished
   height: 100%;
-  overflow-y: auto;
+  & > * {
+    display: block;
+    margin-bottom: 1em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

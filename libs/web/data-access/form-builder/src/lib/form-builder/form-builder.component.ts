@@ -16,12 +16,14 @@ import {
   FormGroupTypes
 } from '@uqt/data-access/dynamic-form';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { expandAnimation } from './form.animation';
 
 @Component({
   selector: 'uqt-form-builder',
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [expandAnimation]
 })
 export class FormBuilderComponent {
   faTrash = faTrash;

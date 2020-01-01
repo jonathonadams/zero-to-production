@@ -10,9 +10,9 @@ export const EXAMPLES: IExample[] = [
       'Create a dynamic form component to remove the pain from using angular form',
     description:
       'With the amount of boiler plate required to use forms in Angular, they ' +
-      'can become tedious quickly. A dynamic form component that can be used ' +
-      'application wide can significantly simplify forms and standardize styling, ' +
-      'validation handling, animations etc.',
+      'can become tedious quickly. Creating and using a dynamic form component ' +
+      'application wide can significantly simplify forms and help standardize styling, ' +
+      'validation, animations etc.',
     url: 'dynamic-form',
     link: 'some-github-link'
   },
@@ -22,7 +22,7 @@ export const EXAMPLES: IExample[] = [
     summary: 'A Drag & Drop form builder for user creatable forms',
     description:
       'Building on the Dynamic Form Component, an example of a Drag & Drop Form ' +
-      'Builder to allow end users to build the form structure.',
+      'Builder to allow users to build their own forms.',
     url: 'form-builder',
     link: 'some-github-link'
   },

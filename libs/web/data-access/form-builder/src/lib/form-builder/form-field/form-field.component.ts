@@ -19,7 +19,7 @@ import {
   faTrash,
   faPlus
 } from '@fortawesome/free-solid-svg-icons';
-import { expandAnimation } from '../../form.animation';
+import { expandAnimation } from '../form.animation';
 
 @Component({
   selector: 'uqt-form-builder-field',
@@ -58,10 +58,6 @@ export class FormBuilderFieldComponent {
     this.showConfig = !this.showConfig;
   }
 
-  getSelectOptions(formGroup: AbstractControl) {
-    return formGroup.get('selectOptions') as FormArray;
-  }
-
   inputFieldTypes = [
     { display: 'Text', value: InputFieldTypes.Text },
     { display: 'Email', value: InputFieldTypes.Email },
@@ -71,6 +67,10 @@ export class FormBuilderFieldComponent {
     { display: 'Time', value: InputFieldTypes.Time },
     { display: 'Url', value: InputFieldTypes.Url }
   ];
+
+  getSelectOptions(formGroup: AbstractControl) {
+    return formGroup.get('selectOptions') as FormArray;
+  }
 
   iconType(type: FormFieldTypes): IconDefinition {
     switch (type) {
