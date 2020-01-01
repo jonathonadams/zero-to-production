@@ -3,7 +3,8 @@ import {
   ChangeDetectionStrategy,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  HostListener
 } from '@angular/core';
 import { FormGroup, AbstractControl, FormArray } from '@angular/forms';
 import { FormFieldTypes } from '@uqt/data-access/dynamic-form';
@@ -15,25 +16,21 @@ import {
   faToggleOn,
   faAlignJustify,
   IconDefinition,
-  faChevronDown,
-  faChevronUp,
   faTrash,
-  faPlus,
-  faAsterisk
+  faPlus
 } from '@fortawesome/free-solid-svg-icons';
+import { expandAnimation } from '../../form.animation';
 
 @Component({
   selector: 'uqt-form-builder-field',
   templateUrl: './form-field.component.html',
   styleUrls: ['./form-field.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [expandAnimation]
 })
 export class FormBuilderFieldComponent {
-  faChevronDown = faChevronDown;
-  faChevronUp = faChevronUp;
   faTrash = faTrash;
   faPlus = faPlus;
-  faAsterisk = faAsterisk;
 
   @Input() form: FormGroup;
   @Input() field: AbstractControl;
@@ -56,7 +53,8 @@ export class FormBuilderFieldComponent {
   }>();
 
   showConfig = false;
-  toggleConfig() {
+  @HostListener('click')
+  onClick() {
     this.showConfig = !this.showConfig;
   }
 

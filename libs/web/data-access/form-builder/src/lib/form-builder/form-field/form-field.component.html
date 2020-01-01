@@ -9,12 +9,6 @@
               >&nbsp;&nbsp;&nbsp;{{ field.value.label }}
             </p>
             <div class="action-buttons">
-              <button icon-button type="button" (click)="toggleConfig()">
-                <fa-icon
-                  [icon]="showConfig ? faChevronUp : faChevronDown"
-                ></fa-icon>
-              </button>
-
               <button
                 type="button"
                 icon-button
@@ -22,7 +16,8 @@
                   remove.emit({
                     groupIndex: groupIndex,
                     fieldIndex: fieldIndex
-                  })
+                  });
+                  $event.stopPropagation()
                 "
               >
                 <fa-icon [icon]="faTrash"></fa-icon>
@@ -32,6 +27,7 @@
 
           <div
             *ngIf="showConfig"
+            @expand
             [formGroupName]="fieldIndex"
             class="edit-fields"
           >
@@ -67,7 +63,8 @@
                       addSelectOption.emit({
                         groupIndex: groupIndex,
                         fieldIndex: fieldIndex
-                      })
+                      });
+                      $event.stopPropagation()
                     "
                   >
                     <fa-icon [icon]="faPlus"></fa-icon>&nbsp;&nbsp;&nbsp;Add
@@ -99,7 +96,8 @@
                           groupIndex: groupIndex,
                           fieldIndex: fieldIndex,
                           optionIndex: optionIndex
-                        })
+                        });
+                        $event.stopPropagation()
                       "
                     >
                       <fa-icon [icon]="faTrash"></fa-icon>

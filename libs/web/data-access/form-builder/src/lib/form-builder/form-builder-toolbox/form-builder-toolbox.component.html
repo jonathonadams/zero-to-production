@@ -1,11 +1,11 @@
-<aside class="toolbox">
+<aside>
   <h4>Form Group Types</h4>
   <div
     [id]="toolBoxGroupId"
     cdkDropList
     [cdkDropListConnectedTo]="['fb-form-sections']"
   >
-    <div
+    <mat-card
       class="toolbox-element"
       *ngFor="let group of groupTypes"
       cdkDrag
@@ -15,11 +15,11 @@
         <fa-icon [icon]="group.icon"></fa-icon>&nbsp;&nbsp;&nbsp;Form
         {{ group.display }}
       </p>
-    </div>
+    </mat-card>
   </div>
   <h4>Form Field Types</h4>
   <div [id]="toolBoxFieldId" cdkDropList [cdkDropListConnectedTo]="dropListIds">
-    <div
+    <mat-card
       class="toolbox-element"
       *ngFor="let field of fieldTypes"
       cdkDrag
@@ -31,6 +31,6 @@
         }}
         Field
       </p>
-    </div>
+    </mat-card>
   </div>
 </aside>
