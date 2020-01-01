@@ -92,11 +92,11 @@ export class FormBuilderComponent {
     this.getGroupFields(groupIndex).removeAt(fieldIndex);
   }
 
-  onSubmit({ valid, value }: FormGroup) {
-    if (valid) {
-      this.selectedForm$.pipe(first()).subscribe(form => {
-        const { config } = value;
-        const newForm = { ...form, ...config };
+  onSubmit(form: FormGroup) {
+    if (form.valid) {
+      this.selectedForm$.pipe(first()).subscribe(builderForm => {
+        const { config } = form.value;
+        const newForm = { ...builderForm, ...config };
         this.facade.updateForm(newForm);
       });
     }

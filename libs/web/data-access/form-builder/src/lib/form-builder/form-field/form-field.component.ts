@@ -63,7 +63,7 @@ export class FormBuilderFieldComponent {
   }
 
   inputFieldTypes = [
-    { display: 'Text', value: InputFieldTypes.Date },
+    { display: 'Text', value: InputFieldTypes.Text },
     { display: 'Email', value: InputFieldTypes.Email },
     { display: 'Number', value: InputFieldTypes.Number },
     { display: 'Password', value: InputFieldTypes.Password },

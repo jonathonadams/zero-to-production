@@ -32,7 +32,13 @@
               <div class="group-settings">
                 <mat-form-field>
                   <mat-label>Section Name</mat-label>
-                  <input matInput type="text" formControlName="groupName" />
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="groupName"
+                    required
+                  />
+                  <mat-error></mat-error>
                 </mat-form-field>
 
                 <button

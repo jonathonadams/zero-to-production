@@ -9,7 +9,7 @@ import {
   ISelectField,
   ISelectOption
 } from '@uqt/data-access/dynamic-form';
-import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
+import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class FormBuilderConstructorService {
@@ -19,7 +19,7 @@ export class FormBuilderConstructorService {
     // Top level group
     const form = this.fb.group({
       config: this.fb.group({
-        formName: [config.formName],
+        formName: [config.formName, Validators.required],
         animations: [config.animations],
         paginateSections: [config.paginateSections],
         structure: this.fb.array([])
@@ -44,29 +44,32 @@ export class FormBuilderConstructorService {
 
   createFormGroupFromGroup(group: TFormGroup): FormGroup {
     return this.fb.group({
-      groupName: [group.groupName],
-      groupType: [group.groupType],
+      groupName: [group.groupName, Validators.required],
+      groupType: [group.groupType, Validators.required],
       fields: this.fb.array([])
     });
   }
 
   createFormGroup(type: FormGroupTypes): FormGroup {
     return this.fb.group({
-      groupName: [],
-      groupType: [type],
+      groupName: ['', Validators.required],
+      groupType: [type, Validators.required],
       fields: this.fb.array([])
     });
   }
 
   createFieldGroupFromFiled(field: TField) {
     const baseGroup: any = {
-      name: [field.name],
-      label: [field.label],
-      type: [field.type]
+      name: [field.name, Validators.required],
+      label: [field.label, Validators.required],
+      type: [field.type, Validators.required]
     };
 
     if (field.type === FormFieldTypes.Input) {
-      baseGroup['inputType'] = (field as IInputField).inputType;
+      baseGroup['inputType'] = [
+        (field as IInputField).inputType,
+        Validators.required
+      ];
     }
 
     if (field.type === FormFieldTypes.Select) {
@@ -83,13 +86,13 @@ export class FormBuilderConstructorService {
 
   createFieldGroup(type: FormFieldTypes) {
     const baseGroup: any = {
-      name: [],
-      label: [],
+      name: ['', Validators.required],
+      label: ['', Validators.required],
       type: [type]
     };
 
     if (type === FormFieldTypes.Input) {
-      baseGroup['inputType'] = [];
+      baseGroup['inputType'] = ['text', Validators.required];
     }
 
     if (type === FormFieldTypes.Select) {
@@ -102,15 +105,15 @@ export class FormBuilderConstructorService {
 
   createSelectOptionFromOption(option: ISelectOption) {
     return this.fb.group({
-      display: [option.display],
-      value: [option.value]
+      display: [option.display, Validators.required],
+      value: [option.value, Validators.required]
     });
   }
 
   createSelectOption() {
     return this.fb.group({
-      display: [],
-      value: []
+      display: ['', Validators.required],
+      value: ['', Validators.required]
     });
   }
 
