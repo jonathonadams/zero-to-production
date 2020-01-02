@@ -1,10 +1,5 @@
 <div *ngIf="builderForm" class="container" @expand>
-  <uqt-form-builder-toolbox
-    class="toolbox"
-    [toolBoxGroupId]="toolBoxGroupId"
-    [toolBoxFieldId]="toolBoxFieldId"
-    [dropListIds]="dropListIds"
-  ></uqt-form-builder-toolbox>
+  <uqt-form-builder-toolbox class="toolbox"></uqt-form-builder-toolbox>
 
   <mat-divider [vertical]="true"></mat-divider>
 
@@ -57,7 +52,7 @@
                 class="group-fields"
                 formArrayName="fields"
                 cdkDropList
-                [cdkDropListConnectedTo]="dropListIds"
+                [cdkDropListConnectedTo]="$any(dropListIds$ | async)"
                 (cdkDropListDropped)="formFieldDropped($event)"
               >
                 <div

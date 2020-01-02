@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroupTypes, FormFieldTypes } from '@uqt/data-access/dynamic-form';
+import { Observable } from 'rxjs';
 import {
   faPen,
   faCalendarAlt,
@@ -9,6 +10,7 @@ import {
   faAlignJustify,
   faObjectGroup
 } from '@fortawesome/free-solid-svg-icons';
+import { FormBuilderConstructorService } from '../../form-constructor.service';
 
 @Component({
   selector: 'uqt-form-builder-toolbox',
@@ -17,9 +19,15 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormBuilderToolboxComponent {
-  @Input() toolBoxGroupId: string;
-  @Input() toolBoxFieldId: string;
-  @Input() dropListIds: string[];
+  toolBoxGroupId: string;
+  toolBoxFieldId: string;
+  dropListIds$: Observable<string[]>;
+
+  constructor(private service: FormBuilderConstructorService) {
+    this.toolBoxFieldId = this.service.toolBoxFieldId;
+    this.toolBoxGroupId = this.service.toolBoxGroupId;
+    this.dropListIds$ = this.service.dropListIds$;
+  }
 
   groupTypes = [
     { display: 'Group', value: FormGroupTypes.Group, icon: faObjectGroup }
@@ -38,20 +46,4 @@ export class FormBuilderToolboxComponent {
     { display: 'Toggle', value: FormFieldTypes.Toggle, icon: faToggleOn },
     { display: 'Text Area', value: FormFieldTypes.Toggle, icon: faAlignJustify }
   ];
-
-  // iconType(type: FormFieldTypes): IconDefinition {
-  // switch (type) {
-  //   case FormFieldTypes.CheckBox:
-  //     return faCheckSquare;
-  //   case FormFieldTypes.DatePicker:
-  //     return faCalendarAlt;
-  //   case FormFieldTypes.Input:
-  //     return faPen;
-  //   case FormFieldTypes.Select:
-  //     return faList;
-  //   case FormFieldTypes.TextArea:
-  //     return faAlignJustify;
-  //   case FormFieldTypes.Toggle:
-  //     return faToggleOn;
-  // }
 }

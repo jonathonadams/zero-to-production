@@ -10,10 +10,37 @@ import {
   ISelectOption
 } from '@uqt/data-access/dynamic-form';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FormBuilderConstructorService {
+  private dropListIdsSubject = new BehaviorSubject<string[]>([]);
+  dropListIds$: Observable<string[]> = this.dropListIdsSubject.asObservable();
+
+  get toolBoxGroupId() {
+    return 'uqt-tb-form-group';
+  }
+  get toolBoxFieldId() {
+    return 'uqt-tb-field-group';
+  }
+
   constructor(private fb: FormBuilder) {}
+
+  // The field id' and the connectedToIds' is so that the drag and drop
+  // elements from the toolbox and the and the form builder know about
+  // each other. The state is shared across the service to de-couple
+  // the toolbox and the form-builder components
+  createConnectedToId(groups: number) {
+    const ids: string[] = [];
+    for (let i = 0; i < groups; i++) {
+      ids.push(this.createFieldsId(i));
+    }
+    this.dropListIdsSubject.next(ids);
+  }
+
+  createFieldsId(index: number) {
+    return `uqt-fb-fields-${index}`;
+  }
 
   formBuilder(config: IDynamicFormConfig): FormGroup {
     // Top level group

@@ -28,9 +28,9 @@ import { expandAnimation } from './form.animation';
 export class FormBuilderComponent {
   faTrash = faTrash;
 
-  toolBoxGroupId = 'uqt-tb-form-group';
-  toolBoxFieldId = 'uqt-tb-field-group';
-  dropListIds: string[] = [];
+  toolBoxGroupId: string;
+  toolBoxFieldId: string;
+  dropListIds$: Observable<string[]>;
 
   builderForm: FormGroup;
   selectedForm$: Observable<IDynamicFormConfig | undefined>;
@@ -45,6 +45,9 @@ export class FormBuilderComponent {
     private cd: ChangeDetectorRef
   ) {
     this.selectedForm$ = this.facade.selectedForm$;
+    this.toolBoxGroupId = this.constructorService.toolBoxGroupId;
+    this.toolBoxFieldId = this.constructorService.toolBoxFieldId;
+    this.dropListIds$ = this.constructorService.dropListIds$;
   }
 
   ngOnInit() {
@@ -59,7 +62,7 @@ export class FormBuilderComponent {
         tap(form => (this.builderForm = form))
       )
       .subscribe(f => {
-        this.dropListIds = this.createConnectedToId(this.structure.length);
+        this.constructorService.createConnectedToId(this.structure.length);
         this.cd.detectChanges();
       });
   }
@@ -112,7 +115,7 @@ export class FormBuilderComponent {
       const formGroup = this.constructorService.createFormGroup(groupType);
       formGroups.insert(event.currentIndex, formGroup);
 
-      this.dropListIds = this.createConnectedToId(formGroups.length);
+      this.constructorService.createConnectedToId(formGroups.length);
     } else {
       // re-ordering the form groups
       this.constructorService.moveFormArrayGroup(
@@ -123,16 +126,16 @@ export class FormBuilderComponent {
     }
   }
 
-  createConnectedToId(groups: number) {
-    const ids: string[] = [];
-    for (let i = 0; i < groups; i++) {
-      ids.push(this.createFieldsId(i));
-    }
-    return ids;
-  }
+  // createConnectedToId(groups: number) {
+  //   const ids: string[] = [];
+  //   for (let i = 0; i < groups; i++) {
+  //     ids.push(this.createFieldsId(i));
+  //   }
+  //   return ids;
+  // }
 
   createFieldsId(index: number) {
-    return `uqt-fb-fields-${index}`;
+    return this.constructorService.createFieldsId(index);
   }
 
   formFieldDropped(event: CdkDragDrop<FormGroup[]>) {

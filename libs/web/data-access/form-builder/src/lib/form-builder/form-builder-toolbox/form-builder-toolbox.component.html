@@ -18,7 +18,11 @@
     </mat-card>
   </div>
   <h4>Form Field Types</h4>
-  <div [id]="toolBoxFieldId" cdkDropList [cdkDropListConnectedTo]="dropListIds">
+  <div
+    [id]="toolBoxFieldId"
+    cdkDropList
+    [cdkDropListConnectedTo]="$any(dropListIds$ | async)"
+  >
     <mat-card
       class="toolbox-element"
       *ngFor="let field of fieldTypes"
