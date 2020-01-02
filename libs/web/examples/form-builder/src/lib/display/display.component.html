@@ -1,3 +1,9 @@
+<p>
+  The rendered form below is demonstrate what could be possible with the Dynamic
+  Form + Form Builder. I will leave it to you to be more creative with the use
+  case.
+</p>
+
 <div *ngIf="selectedForm$ | async" class="container">
   <app-dynamic-form [formName]="(selectedForm$ | async)?.formName">
     <button type="submit" mat-raised-button>

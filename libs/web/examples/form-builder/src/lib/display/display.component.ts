@@ -7,12 +7,12 @@ import {
 } from '@uqt/data-access/dynamic-form';
 
 @Component({
-  selector: 'uqt-example-form-display',
+  selector: 'uqt-example-form-builder-display',
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleDisplayFormComponent implements OnDestroy {
+export class ExampleFormBuilderDisplayComponent implements OnDestroy {
   selectedForm$: Observable<IDynamicFormConfig | undefined>;
   sub: Subscription;
 

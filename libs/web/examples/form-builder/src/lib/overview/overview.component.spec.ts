@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OverviewComponent } from './overview.component';
+import { ExampleFormBuilderOverviewComponent } from './overview.component';
 
-describe('OverviewComponent', () => {
-  let component: OverviewComponent;
-  let fixture: ComponentFixture<OverviewComponent>;
+describe('ExampleFormBuilderOverviewComponent', () => {
+  let component: ExampleFormBuilderOverviewComponent;
+  let fixture: ComponentFixture<ExampleFormBuilderOverviewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [OverviewComponent]
+      declarations: [ExampleFormBuilderOverviewComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OverviewComponent);
+    fixture = TestBed.createComponent(ExampleFormBuilderOverviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

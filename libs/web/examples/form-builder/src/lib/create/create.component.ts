@@ -42,12 +42,12 @@ const STRUCTURE: TFormGroups = [
 ];
 
 @Component({
-  selector: 'uqt-example-form-create',
+  selector: 'uqt-example-form-builder-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleCreateFormComponent implements OnInit, OnDestroy {
+export class ExampleFormBuilderCreateComponent implements OnInit, OnDestroy {
   readonly formName = 'form-builder-create';
   form$: Observable<IDynamicFormConfig[]>;
   sub: Subscription;
