@@ -24,12 +24,12 @@
     >
       <h3 matLine>{{ form.formName }}</h3>
 
-      <button mat-icon-button (click)="edit(form)">
-        <mat-icon>edit</mat-icon>
+      <button type="button" icon-button (click)="edit(form)">
+        <fa-icon [icon]="faPen"></fa-icon>
       </button>
 
-      <button mat-icon-button (click)="delete(form)">
-        <mat-icon>delete</mat-icon>
+      <button type="button" icon-button (click)="edit(form)">
+        <fa-icon [icon]="faTrash"></fa-icon>
       </button>
 
       <mat-divider [inset]="true" *ngIf="!last"></mat-divider>

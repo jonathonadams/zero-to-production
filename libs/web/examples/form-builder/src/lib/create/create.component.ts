@@ -14,6 +14,7 @@ import {
   IDynamicFormConfig
 } from '@uqt/data-access/dynamic-form';
 import { Validators } from '@angular/forms';
+import { faEdit, faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
 
 const STRUCTURE: TFormGroups = [
   {
@@ -48,6 +49,9 @@ const STRUCTURE: TFormGroups = [
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFormBuilderCreateComponent implements OnInit, OnDestroy {
+  faPen = faPen;
+  faTrash = faTrash;
+
   readonly formName = 'form-builder-create';
   form$: Observable<IDynamicFormConfig[]>;
   sub: Subscription;
