@@ -19,13 +19,16 @@ import { AboutComponent } from './about/about.component';
 import { WebCommonUiAuthModule } from '@uqt/web/common/ui/auth';
 import { ExampleDetailComponent } from './example-detail/example-detail.component';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
+import { ExampleDynamicFormComponent } from './example-demos/dynamic-form/dynamic-form.component';
 
 const COMPONENTS = [
+  AboutComponent,
   ExamplesFeatureShellComponent,
   ExamplesDemosComponent,
   ExamplesComponent,
   ExampleDetailComponent,
-  AboutComponent
+  AboutComponent,
+  ExampleDynamicFormComponent
 ];
 
 @NgModule({

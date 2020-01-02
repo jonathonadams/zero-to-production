@@ -3,6 +3,8 @@ import { IExample } from '@uqt/examples/data-access';
 // TODO -> link to the correct github repo
 
 export const EXAMPLES: IExample[] = [
+  // The Dynamic Form Component must be the first example to align with the lazy load modules
+  // If this changes, ensure to correct the that component as well
   {
     id: '1',
     title: 'Dynamic Form Component',

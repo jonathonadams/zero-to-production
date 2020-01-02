@@ -47,9 +47,6 @@
       "@uqt/examples/form-builder": [
         "libs/web/examples/form-builder/src/index.ts"
       ],
-      "@uqt/examples/dynamic-form": [
-        "libs/web/examples/dynamic-form/src/index.ts"
-      ],
       "@uqt/examples/theming": ["libs/web/examples/theming/src/index.ts"],
       "@uqt/common/ui/card": ["libs/web/common/ui/card/src/index.ts"],
       "@uqt/common/dynamic-form-material-components": [

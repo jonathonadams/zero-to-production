@@ -15,7 +15,7 @@ import {
   InputFieldTypes
 } from '@uqt/data-access/dynamic-form';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
-import { IExample } from '@uqt/examples/data-access';
+import { IExample, ExamplesFacade } from '@uqt/examples/data-access';
 
 const SIMPLE_FORM: TFormGroups = [
   {
@@ -75,14 +75,14 @@ const COMPLEX_FORM: TFormGroups = [
 ];
 
 @Component({
-  selector: 'example-dynamic-form',
+  selector: 'uqt-example-dynamic-form',
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
   readonly formName = 'dynamic-form-example';
-  example: IExample | undefined;
+  example$: Observable<IExample | undefined>;
   simpleStructure = true;
   submit$: Observable<any>;
 
@@ -129,9 +129,11 @@ export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
   }`;
 
   constructor(
+    private facade: ExamplesFacade,
     private formFacade: DynamicFormFacade,
     private highlight: CodeHighlightService
   ) {
+    this.example$ = this.facade.selectExample('dynamic-form');
     this.formFacade.createFormIfNotExist(this.formName);
     this.submit$ = this.formFacade.formSubmits$(this.formName);
   }

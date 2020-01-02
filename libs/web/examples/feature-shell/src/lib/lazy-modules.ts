@@ -1,10 +1,6 @@
 import { ILazyModuleRegistry } from '@uqt/data-access/dynamic-module-loading';
 
 export const LAZY_MODULES: ILazyModuleRegistry = {
-  'dynamic-form': () =>
-    import('@uqt/examples/dynamic-form').then(
-      m => m.WebExamplesDynamicFormModule
-    ),
   'form-builder': () =>
     import('@uqt/examples/form-builder').then(
       m => m.WebExamplesFormBuilderModule
