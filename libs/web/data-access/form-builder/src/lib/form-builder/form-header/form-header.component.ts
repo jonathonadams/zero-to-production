@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup } from '@angular/forms';
-import { expandAnimation } from '../form.animation';
+import { expandAnimation } from '../../form.animation';
 
 @Component({
   selector: 'uqt-form-builder-header',

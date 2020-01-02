@@ -2,4 +2,11 @@
   Drag form sections and form inputs onto the form. Click on each field to
   configure it. Save your form once finished.
 </p>
-<uqt-form-builder></uqt-form-builder>
+
+<div *ngIf="selectedForm$ | async" class="container" @expand>
+  <uqt-form-builder-toolbox class="toolbox"></uqt-form-builder-toolbox>
+
+  <mat-divider [vertical]="true"></mat-divider>
+
+  <uqt-form-builder class="form-builder"></uqt-form-builder>
+</div>

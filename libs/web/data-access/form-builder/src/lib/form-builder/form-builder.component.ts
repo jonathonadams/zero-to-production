@@ -16,7 +16,7 @@ import {
   FormGroupTypes
 } from '@uqt/data-access/dynamic-form';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { expandAnimation } from './form.animation';
+import { expandAnimation } from '../form.animation';
 
 @Component({
   selector: 'uqt-form-builder',
@@ -65,6 +65,10 @@ export class FormBuilderComponent {
         this.constructorService.createConnectedToId(this.structure.length);
         this.cd.detectChanges();
       });
+  }
+
+  createFieldId(index: number) {
+    return this.constructorService.createFieldId(index);
   }
 
   get structure() {
@@ -124,18 +128,6 @@ export class FormBuilderComponent {
         event.currentIndex
       );
     }
-  }
-
-  // createConnectedToId(groups: number) {
-  //   const ids: string[] = [];
-  //   for (let i = 0; i < groups; i++) {
-  //     ids.push(this.createFieldsId(i));
-  //   }
-  //   return ids;
-  // }
-
-  createFieldsId(index: number) {
-    return this.constructorService.createFieldsId(index);
   }
 
   formFieldDropped(event: CdkDragDrop<FormGroup[]>) {

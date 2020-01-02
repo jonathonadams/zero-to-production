@@ -13,7 +13,7 @@ import { FormBuilderEntityState, reducer } from './+state/form-builder.reducer';
 import { FormEffects } from './+state/form-builder.effects';
 import { FormBuilderHeaderComponent } from './form-builder/form-header/form-header.component';
 import { FormBuilderFieldComponent } from './form-builder/form-field/form-field.component';
-import { FormBuilderToolboxComponent } from './form-builder/form-builder-toolbox/form-builder-toolbox.component';
+import { FormBuilderToolboxComponent } from './form-builder-toolbox/form-builder-toolbox.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,6 @@ import { FormBuilderToolboxComponent } from './form-builder/form-builder-toolbox
     StoreModule.forFeature<FormBuilderEntityState>('formBuilderState', reducer),
     EffectsModule.forFeature([FormEffects])
   ],
-  exports: [FormBuilderComponent]
+  exports: [FormBuilderComponent, FormBuilderToolboxComponent]
 })
 export class DataAccessFormBuilderModule {}

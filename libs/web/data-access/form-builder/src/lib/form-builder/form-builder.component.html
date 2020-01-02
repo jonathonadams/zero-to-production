@@ -1,84 +1,80 @@
-<div *ngIf="builderForm" class="container" @expand>
-  <uqt-form-builder-toolbox class="toolbox"></uqt-form-builder-toolbox>
-
-  <mat-divider [vertical]="true"></mat-divider>
-
-  <section class="form-builder">
-    <form [formGroup]="builderForm" (ngSubmit)="onSubmit(builderForm)">
-      <div formGroupName="config">
-        <div class="form-config">
-          <uqt-form-builder-header
-            [form]="builderForm"
-          ></uqt-form-builder-header>
-        </div>
-        <div
-          id="fb-form-sections"
-          class="form-sections"
-          formArrayName="structure"
-          cdkDropList
-          (cdkDropListDropped)="formGroupDropped($event)"
+<!--
+  Must be wrapped in and ngIf because if a FormGroup has
+  not being created errors will be thrown
+-->
+<ng-container *ngIf="builderForm">
+  <form [formGroup]="builderForm" (ngSubmit)="onSubmit(builderForm)">
+    <div formGroupName="config">
+      <div class="form-config">
+        <uqt-form-builder-header [form]="builderForm"></uqt-form-builder-header>
+      </div>
+      <div
+        id="fb-form-sections"
+        class="form-sections"
+        formArrayName="structure"
+        cdkDropList
+        (cdkDropListDropped)="formGroupDropped($event)"
+      >
+        <mat-card
+          cdkDrag
+          class="group-section"
+          *ngFor="let group of structure.controls; let groupIndex = index"
         >
-          <mat-card
-            cdkDrag
-            class="group-section"
-            *ngFor="let group of structure.controls; let groupIndex = index"
-          >
-            <div [formGroupName]="groupIndex">
-              <div class="group-settings">
-                <mat-form-field>
-                  <mat-label>Section Name</mat-label>
-                  <input
-                    matInput
-                    type="text"
-                    formControlName="groupName"
-                    required
-                  />
-                  <mat-error></mat-error>
-                </mat-form-field>
+          <div [formGroupName]="groupIndex">
+            <div class="group-settings">
+              <mat-form-field>
+                <mat-label>Section Name</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="groupName"
+                  required
+                />
+                <mat-error></mat-error>
+              </mat-form-field>
 
-                <button
-                  type="button"
-                  icon-button
-                  (click)="deleteFormGroup(groupIndex)"
-                >
-                  <fa-icon [icon]="faTrash"></fa-icon>
-                </button>
-              </div>
-
-              <mat-divider [inset]="true"></mat-divider>
-
-              <div
-                [id]="createFieldsId(groupIndex)"
-                class="group-fields"
-                formArrayName="fields"
-                cdkDropList
-                [cdkDropListConnectedTo]="$any(dropListIds$ | async)"
-                (cdkDropListDropped)="formFieldDropped($event)"
+              <button
+                type="button"
+                icon-button
+                (click)="deleteFormGroup(groupIndex)"
               >
-                <div
-                  class="group-form-field"
-                  cdkDrag
-                  *ngFor="
-                    let field of getGroupFields(groupIndex).controls;
-                    let fieldIndex = index
-                  "
+                <fa-icon [icon]="faTrash"></fa-icon>
+              </button>
+            </div>
+
+            <mat-divider [inset]="true"></mat-divider>
+
+            <div
+              [id]="createFieldId(groupIndex)"
+              class="group-fields"
+              formArrayName="fields"
+              cdkDropList
+              [cdkDropListConnectedTo]="$any(dropListIds$ | async)"
+              (cdkDropListDropped)="formFieldDropped($event)"
+            >
+              <div
+                class="group-form-field"
+                cdkDrag
+                *ngFor="
+                  let field of getGroupFields(groupIndex).controls;
+                  let fieldIndex = index
+                "
+              >
+                <uqt-form-builder-field
+                  [form]="builderForm"
+                  [field]="field"
+                  [groupIndex]="groupIndex"
+                  [fieldIndex]="fieldIndex"
+                  (remove)="removeGroupField($event)"
+                  (addSelectOption)="addSelectOption($event)"
+                  (deleteSelectOption)="deleteSelectOption($event)"
                 >
-                  <uqt-form-builder-field
-                    [form]="builderForm"
-                    [field]="field"
-                    [groupIndex]="groupIndex"
-                    [fieldIndex]="fieldIndex"
-                    (remove)="removeGroupField($event)"
-                    (addSelectOption)="addSelectOption($event)"
-                    (deleteSelectOption)="deleteSelectOption($event)"
-                  >
-                  </uqt-form-builder-field>
-                </div>
+                </uqt-form-builder-field>
               </div>
             </div>
-          </mat-card>
-        </div>
+          </div>
+        </mat-card>
       </div>
-    </form>
-  </section>
-</div>
+    </div>
+  </form>
+</ng-container>

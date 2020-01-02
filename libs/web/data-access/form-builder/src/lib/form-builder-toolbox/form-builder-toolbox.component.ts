@@ -10,7 +10,7 @@ import {
   faAlignJustify,
   faObjectGroup
 } from '@fortawesome/free-solid-svg-icons';
-import { FormBuilderConstructorService } from '../../form-constructor.service';
+import { FormBuilderConstructorService } from '../form-constructor.service';
 
 @Component({
   selector: 'uqt-form-builder-toolbox',

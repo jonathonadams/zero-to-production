@@ -2,64 +2,44 @@
   display: block;
 }
 
-.container {
-  display: flex;
-  flex-direction: row;
-  justify-content: stretch;
+.form-config {
+  margin-bottom: 0.5em;
+}
 
-  .toolbox {
-    margin-right: 1em;
-    .toolbox-element {
-      height: 3em;
-      border: 1px solid;
-      margin-bottom: 0.5em;
+.form-sections {
+  min-height: 500px;
+
+  &.cdk-drop-list-dragging {
+    border-radius: 3px;
+    border: 1px dashed grey;
+  }
+}
+
+.group-section {
+  margin-bottom: 0.5em;
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .group-settings {
+    button:last-child {
+      margin-left: 2em;
     }
   }
 
-  .form-builder {
-    margin-left: 1em;
-    flex: 1;
+  .group-fields {
+    min-height: 5em; // For the drop space
 
-    .form-config {
-      margin-bottom: 0.5em;
+    &.cdk-drop-list-dragging {
+      border-radius: 3px;
+      border: 1px dashed grey;
     }
 
-    .form-sections {
-      min-height: 500px;
-
-      &.cdk-drop-list-dragging {
-        border-radius: 3px;
-        border: 1px dashed grey;
-      }
-    }
-
-    .group-section {
-      margin-bottom: 0.5em;
+    .group-form-field {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      margin-bottom: 0.2em;
       &:last-child {
         margin-bottom: 0;
-      }
-
-      .group-settings {
-        button:last-child {
-          margin-left: 2em;
-        }
-      }
-
-      .group-fields {
-        min-height: 5em; // For the drop space
-
-        &.cdk-drop-list-dragging {
-          border-radius: 3px;
-          border: 1px dashed grey;
-        }
-
-        .group-form-field {
-          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-          margin-bottom: 0.2em;
-          &:last-child {
-            margin-bottom: 0;
-          }
-        }
       }
     }
   }

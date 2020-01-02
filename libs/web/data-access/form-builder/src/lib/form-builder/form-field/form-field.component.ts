@@ -19,7 +19,7 @@ import {
   faTrash,
   faPlus
 } from '@fortawesome/free-solid-svg-icons';
-import { expandAnimation } from '../form.animation';
+import { expandAnimation } from '../../form.animation';
 
 @Component({
   selector: 'uqt-form-builder-field',

@@ -33,12 +33,12 @@ export class FormBuilderConstructorService {
   createConnectedToId(groups: number) {
     const ids: string[] = [];
     for (let i = 0; i < groups; i++) {
-      ids.push(this.createFieldsId(i));
+      ids.push(this.createFieldId(i));
     }
     this.dropListIdsSubject.next(ids);
   }
 
-  createFieldsId(index: number) {
+  createFieldId(index: number) {
     return `uqt-fb-fields-${index}`;
   }
 
