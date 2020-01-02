@@ -47,14 +47,19 @@ export const EXAMPLES_ROUTES: Routes = [
       }
     ]
   },
+  // {
+  //   // TODO -> This is only for testing
+  //   path: '',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //     import('@uqt/examples/form-builder').then(
+  //       m => m.WebExamplesFormBuilderModule
+  //     )
+  // },
   {
-    // TODO -> This is only for testing
     path: '',
     pathMatch: 'full',
-    loadChildren: () =>
-      import('@uqt/examples/form-builder').then(
-        m => m.WebExamplesFormBuilderModule
-      )
+    redirectTo: 'about'
   },
   {
     path: '**',

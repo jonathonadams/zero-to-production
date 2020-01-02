@@ -61,3 +61,8 @@ export const submitForm = createAction(
   '[Dynamic Form] Form Submit',
   props<{ formName: string; data: any }>()
 );
+
+export const resetFormState = createAction(
+  '[Dynamic Form] Reset State',
+  props<{ formName: string }>()
+);

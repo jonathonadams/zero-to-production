@@ -1,17 +1,22 @@
-<p>
-  The rendered form below is demonstrate what could be possible with the Dynamic
-  Form + Form Builder. I will leave it to you to be more creative with the use
-  case.
-</p>
+<ng-container *ngIf="selectedForm$ | async">
+  <p>
+    The rendered form below is demonstrate what could be possible with the
+    Dynamic Form + Form Builder. I will leave it to you to be more creative with
+    the use case.
+  </p>
 
-<div *ngIf="selectedForm$ | async" class="container">
-  <app-dynamic-form [formName]="(selectedForm$ | async)?.formName">
-    <button type="submit" mat-raised-button>
-      Submit Form
-    </button>
-  </app-dynamic-form>
-</div>
+  <div class="container">
+    <h3 class="title">
+      {{ (selectedForm$ | async)?.formName || '' | uppercase }}
+    </h3>
+    <app-dynamic-form [formName]="(selectedForm$ | async)?.formName">
+      <button type="submit" mat-raised-button>
+        Submit Form
+      </button>
+    </app-dynamic-form>
+  </div>
 
-<div class="output">
-  <pre>{{ submit$ | async | json }}</pre>
-</div>
+  <div>
+    <pre>{{ submit$ | async | json }}</pre>
+  </div>
+</ng-container>

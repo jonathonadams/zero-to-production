@@ -78,6 +78,16 @@ export const formReducer = createReducer(
     const currentState = state.entities[formName] as DynamicFormState;
     const index = currentState.index <= 1 ? 0 : currentState.index - 1;
     return adapter.updateOne({ id: formName, changes: { index } }, state);
+  }),
+  on(FormActions.resetFormState, (state, { formName }) => {
+    const currentState = state.entities[formName] as DynamicFormState;
+    return adapter.updateOne(
+      {
+        id: formName,
+        changes: resetFormState(currentState.config)
+      },
+      state
+    );
   })
 );
 
@@ -104,6 +114,15 @@ export function generateInitialFormConfig(config: Partial<IDynamicFormConfig>) {
 function generateInitialFormState(formName: string): DynamicFormState {
   return {
     config: generateInitialFormConfig({ formName }),
+    index: 0,
+    data: {},
+    errors: []
+  };
+}
+
+function resetFormState(config: IDynamicFormConfig): DynamicFormState {
+  return {
+    config: generateInitialFormConfig(config),
     index: 0,
     data: {},
     errors: []

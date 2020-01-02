@@ -28,6 +28,7 @@ export class ExampleFormBuilderDisplayComponent implements OnDestroy {
       if (form) {
         this.formsFacade.createFormIfNotExist(form.formName);
         this.formsFacade.setFormConfig(form.formName, form);
+        this.formsFacade.resetFormSate(form.formName);
         this.submit$ = this.formsFacade.formSubmits$(form.formName);
       }
     });

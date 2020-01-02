@@ -53,4 +53,8 @@ export class DynamicFormFacade {
   backASection(formName: string) {
     this.store.dispatch(fromActions.backIndex({ formName }));
   }
+
+  resetFormSate(formName: string) {
+    this.store.dispatch(fromActions.resetFormState({ formName }));
+  }
 }
