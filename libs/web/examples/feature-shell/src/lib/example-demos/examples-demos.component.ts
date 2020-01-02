@@ -32,7 +32,7 @@ export class ExamplesDemosComponent {
 
   loadModule(index: number) {
     const example = this.examples[index];
-    if (example) {
+    if (example && example.url !== 'dynamic-form') {
       this.moduleLoader.initLoadModule(example.url);
     }
   }

@@ -1,7 +1,4 @@
 :host {
-  display: block;
-  overflow-y: auto; // TODO -> Delete once finished
-  height: 100%;
   & > * {
     display: block;
     margin-bottom: 1em;

@@ -8,7 +8,8 @@ import {
   QueryList,
   ContentChildren
 } from '@angular/core';
-// TODO -> once included in TypeScript definitions and you are comfortable with the
+
+// UQT_TODO -> once included in TypeScript definitions and you are comfortable with the
 // support for the api, remove the polyfill
 // https://github.com/Microsoft/TypeScript/issues/28502
 // https://caniuse.com/#search=Resize%20Observer

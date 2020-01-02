@@ -7,6 +7,15 @@
   height: 100%;
   overflow-y: auto;
   max-width: 1000px;
-  padding: 0.5em;
+  padding: 0 0.25em;
   margin: 0 auto;
+
+  & > * {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2em;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
 }
