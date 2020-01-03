@@ -90,6 +90,7 @@ export class ModuleLoaderService {
       const path = registeredModule.importPath;
 
       try {
+        // Load the module form the server by executing the import statement
         const elementModule = await path();
         let moduleFactory: NgModuleFactory<any>;
 
@@ -101,6 +102,14 @@ export class ModuleLoaderService {
           moduleFactory = await this.compiler.compileModuleAsync(elementModule);
         }
 
+        // 'lazyEntryComponent' is a getter on the Module definition
+        // that returns the Component to act as the entry component. e.g.
+        //
+        // export class WebExamplesFormBuilderModule {
+        //   static get lazyEntryComponent() {
+        //      return ExampleFormBuilderOverviewComponent;
+        //   }
+        // }
         const entryComponent = (<any>moduleFactory.moduleType)
           .lazyEntryComponent;
 
@@ -112,6 +121,7 @@ export class ModuleLoaderService {
         }
 
         const moduleRef = moduleFactory.create(this.injector);
+        // Now we have an instance of the componentFactory to use
         const factory = moduleRef.componentFactoryResolver.resolveComponentFactory(
           entryComponent
         );

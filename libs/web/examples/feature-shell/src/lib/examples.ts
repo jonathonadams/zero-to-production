@@ -40,9 +40,12 @@ export const EXAMPLES: IExample[] = [
   {
     id: '4',
     title: 'Lazy Load Scrolling',
-    summary: 'A demonstration of using dynamic forms and user created forms',
+    summary:
+      'A scrolling strategy to lazy load feature modules (thank you IVY __HEART__) ',
     description:
-      'A demonstration of using dynamic forms and user created forms',
+      'It is common practice to lazy load modules as child routes, but there are more ways to ' +
+      'benefit from code splitting. Scrolling is just one example of how to manually load modules.',
+
     url: 'lazy-scroll',
     link: 'some-github-link'
   },
