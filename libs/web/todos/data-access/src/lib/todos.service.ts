@@ -27,7 +27,7 @@ export class TodosService {
   public createTodo(todo: ITodo): Observable<FetchResult<{ newTodo: ITodo }>> {
     // Set the user id of the current JWT id
     const userId = (this.auth.getDecodedToken() as IJWTPayload).sub;
-    const newTodo: ITodo = { ...todo, user: userId };
+    const newTodo: ITodo = { ...todo, userId };
     // set the completed state to false
     // todo.completed = false;
     const variables = { input: newTodo };

@@ -5,7 +5,7 @@ import { ITodo } from '@uqt/interfaces';
 
 export const todoSchema = new mongoose.Schema<ITodo>(
   {
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'user'

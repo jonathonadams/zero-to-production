@@ -5,13 +5,15 @@ import { generateResolvers } from './create-resolvers';
 export function createTypeResolver<T extends mongoose.Document>({
   model,
   name,
-  resolverAuthentication
+  resolverAuthentication,
+  userResourcesOnly = false
 }: {
   model: mongoose.Model<T>;
   name: string;
   resolverAuthentication?: (
     resolver: GraphQLFieldResolver<any, any, any>
   ) => GraphQLFieldResolver<any, any, any>;
+  userResourcesOnly?: boolean;
 }): {
   Query: {
     [queryName: string]: GraphQLFieldResolver<any, any, any> | undefined;
@@ -20,7 +22,7 @@ export function createTypeResolver<T extends mongoose.Document>({
     [mutationName: string]: GraphQLFieldResolver<any, any, any> | undefined;
   };
 } {
-  const resolvers = generateResolvers<T>(model);
+  const resolvers = generateResolvers<T>(model, userResourcesOnly);
 
   const typeResolver = {
     Query: {} as any,

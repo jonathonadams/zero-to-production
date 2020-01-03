@@ -52,6 +52,9 @@ export const todosReducer = createReducer(
   }),
   on(TodoActions.deleteTodoSuccess, (state, { id }) => {
     return adapter.removeOne(id, state);
+  }),
+  on(TodoActions.clearTodos, state => {
+    return adapter.removeAll(state);
   })
 );
 

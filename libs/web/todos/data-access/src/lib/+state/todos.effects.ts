@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, exhaustMap, mergeMap } from 'rxjs/operators';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import * as TodoActions from './todos.actions';
 import { TodosService } from '../todos.service';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { logout } from '@uqt/data-access/auth';
 
 // Note: when merging observable from multiple sources there are 4x operators tha can be uses
 // exhaustMap, mergeMap, switchMap and concatMap
@@ -115,4 +116,12 @@ export class TodoEffects {
       )
     )
   );
+
+  // Clear the user todos on logout
+  clearTodos$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(logout),
+      map(() => TodoActions.clearTodos())
+    );
+  });
 }

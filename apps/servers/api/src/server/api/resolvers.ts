@@ -13,7 +13,8 @@ const resolvers = merge(
   createTypeResolver<ITodoDocument>({
     model: Todo,
     name: 'Todo',
-    resolverAuthentication: verifyTokenGraphQL
+    resolverAuthentication: verifyTokenGraphQL,
+    userResourcesOnly: true
   })
 );
 
