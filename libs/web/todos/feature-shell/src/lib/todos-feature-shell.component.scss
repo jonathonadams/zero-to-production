@@ -1,8 +1,10 @@
 :host {
+  display: block;
   height: 100%;
 }
 
 .app-content {
+  display: block;
   height: calc(100% - 4em);
 }
 

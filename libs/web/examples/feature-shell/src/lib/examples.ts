@@ -33,7 +33,8 @@ export const EXAMPLES: IExample[] = [
     title: 'Themeing with CSS Variables',
     summary: 'Using CSS Variables to create user configurable Theme',
     description:
-      'Combing CSS Variables along with a Theming Service allows for create user configurable color pallet',
+      'Combing CSS Variables along with a Theming Service allows for create user ' +
+      'configurable color pallet',
     url: 'theming',
     link: 'some-github-link'
   },
@@ -43,18 +44,19 @@ export const EXAMPLES: IExample[] = [
     summary:
       'A scrolling strategy to lazy load feature modules (thank you IVY __HEART__) ',
     description:
-      'It is common practice to lazy load modules as child routes, but there are more ways to ' +
-      'benefit from code splitting. Scrolling is just one example of how to manually load modules.',
-
+      'It is common practice to lazy load modules as child routes, but there are more ' +
+      'ways to benefit from code splitting. Scrolling is just one example of how to ' +
+      'manually load modules.',
     url: 'lazy-scroll',
     link: 'some-github-link'
   },
   {
     id: '5',
-    title: 'Todo app with authentication',
-    summary: 'A demonstration of using dynamic forms and user created forms',
+    title: 'Todo App with Authentication',
+    summary: 'A demo fo the versatility of a well structured Monorepo',
     description:
-      'A demonstration of using dynamic forms and user created forms',
+      'We have all seen a Todo App before but this demonstrates how reusable code can be ' +
+      'in a well structured monorepo',
     url: 'secure',
     link: 'some-github-link'
   }

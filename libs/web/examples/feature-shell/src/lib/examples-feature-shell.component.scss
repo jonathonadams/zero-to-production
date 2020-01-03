@@ -1,7 +1,13 @@
 :host {
   height: 100%;
+  display: block;
 }
 
 .app-content {
+  display: block;
   height: calc(100% - 4em);
+}
+
+.header {
+  z-index: 2;
 }

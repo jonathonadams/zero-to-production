@@ -1,3 +1,21 @@
-<p>Some bullshit about how awesome monorepos are</p>
-<button (click)="showTodos()">Show Todos</button>
-<router-outlet></router-outlet>
+<p>
+  A monorepo has many benefits, one if which is code sharing of libraries. The
+  Todo Application below is it's own standalone application of which almost all
+  of its code base is comprised of imported libraries that together makes up the
+  application (Auth, Dashboard, Todos etc). As the application itself is just
+  another library, it can be imported into any other application.
+</p>
+<p>
+  For further information about monorepo design principles, have a look at the
+  information and tools the amazing team at <a href="https://nrwl.io/">Nrwl</a>
+  provide.
+</p>
+<button mat-stroked-button (click)="showTodos()">Show Me the Money!!!</button>
+<section class="app" *ngIf="showApplication">
+  <router-outlet></router-outlet>
+</section>
+<h3>Make it your Own</h3>
+<p>
+  Follow the guide <a href="www.google.com">TODO here</a> to make this monorepo
+  the beginning of your own project.
+</p>
