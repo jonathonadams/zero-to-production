@@ -16,6 +16,7 @@ import {
 } from '@uqt/data-access/dynamic-form';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
 import { IExample, ExamplesFacade } from '@uqt/examples/data-access';
+import { component, markup, submitSyntax } from './dynamic-form.code';
 
 const SIMPLE_FORM: TFormGroups = [
   {
@@ -86,47 +87,9 @@ export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
   simpleStructure = true;
   submit$: Observable<any>;
 
-  component = `// example.component.ts
-  const CONTACT_DETAILS: TFormGroups = [
-    {
-      formGroup: 'contactDetails',
-      groupType: FormGroupTypes.Group,
-      fields: [
-        {
-          componentType: FormFieldTypes.Input,
-          type: 'text',
-          name: 'contactNumber',
-          label: 'Contact Number',
-          validators: [Validators.required]
-        },
-        {
-          componentType: FormFieldTypes.Input,
-          type: 'email',
-          name: 'emailAddress',
-          label: 'Email Address',
-          validators: [Validators.required, Validators.email]
-        }
-      ]
-    }
-  ];
-
-  ...
-  
-  ngOnInit() {
-    this.formFacade.setStructure({ structure: CONTACT_DETAILS });
-  }`;
-
-  markup = `<!-- example.component.html -->
-  <app-dynamic-form>
-    <button type="submit">Submit</button>
-  </app-dynamic-form>`;
-
-  submitSyntax = `// example.component.ts
-  constructor(private formFacade: DynamicFormFacade) {
-    this.formFacade.submit$.subscribe(formOutput => {
-        // do something with the output
-    });
-  }`;
+  component = component;
+  markup = markup;
+  submitSyntax = submitSyntax;
 
   constructor(
     private facade: ExamplesFacade,
