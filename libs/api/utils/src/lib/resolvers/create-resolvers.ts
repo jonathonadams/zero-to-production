@@ -15,7 +15,7 @@ type Resolver<T> = GraphQLFieldResolver<any, any, T>;
 
 export function generateResolvers<T extends mongoose.Document>(
   model: mongoose.Model<T>,
-  userResourcesOnly: boolean
+  userResourcesOnly: boolean = false
 ) {
   const controllers = createControllers<T>(model);
 

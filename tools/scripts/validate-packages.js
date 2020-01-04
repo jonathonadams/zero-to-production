@@ -1,47 +1,24 @@
 'use strict';
-var __awaiter =
-  (this && this.__awaiter) ||
-  function(thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function(resolve, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator['throw'](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done
-          ? resolve(result.value)
-          : new P(function(resolve) {
-              resolve(result.value);
-            }).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
-var readJson = require('read-package-json');
-var glob = require('glob');
+Object.defineProperty(exports, '__esModule', { value: true });
+const tslib_1 = require('tslib');
+// @ts-ignore
+const read_package_json_1 = tslib_1.__importDefault(
+  require('read-package-json')
+);
+const glob_1 = tslib_1.__importDefault(require('glob'));
+const util_1 = require('util');
+const asyncGlob = util_1.promisify(glob_1.default);
+const asyncReadJson = util_1.promisify(read_package_json_1.default);
 (function validatePackageJson() {
-  return __awaiter(this, void 0, void 0, function*() {
+  return tslib_1.__awaiter(this, void 0, void 0, function*() {
     console.log('Validating package.json files.');
     const workSpaceDir = process.cwd();
     const collectedErrors = [];
-    const { dependencies, devDependencies } = yield readPackageJson(
-      `${workSpaceDir}/package.json`
+    const rootPackage = `${workSpaceDir}/package.json`;
+    const { dependencies, devDependencies } = readPackageJson(rootPackage);
+    const packagePaths = yield asyncGlob(
+      `${workSpaceDir}/apps/**/package.json`
     );
-    const packagePaths = yield new Promise((resolve, reject) => {
-      glob(`${workSpaceDir}/apps/**/package.json`, (err, matches) => {
-        resolve(matches);
-      });
-    });
     const childPackages = yield Promise.all(packagePaths.map(readPackageJson));
     childPackages.forEach(packageJson => {
       // Iterate over each dependency and check the main one
@@ -53,7 +30,12 @@ var glob = require('glob');
           ) {
             // The packages do not match up
             collectedErrors.push(
-              `${packageJson.name} has mismatching version for ${packageName}. Receive ${packageJson.dependencies[packageName]} but should be ${dependencies[packageName]}`
+              createErrorMessage(
+                packageJson.name,
+                packageName,
+                packageJson.dependencies[packageName],
+                dependencies[packageName]
+              )
             );
           }
         });
@@ -66,7 +48,12 @@ var glob = require('glob');
           ) {
             // The packages do not match up
             collectedErrors.push(
-              `${packageJson.name} has mismatching version for ${packageName}. Receive ${packageJson.devDependencies[packageName]} but should be ${devDependencies[packageName]}`
+              createErrorMessage(
+                packageJson.name,
+                packageName,
+                packageJson.dependencies[packageName],
+                dependencies[packageName]
+              )
             );
           }
         });
@@ -74,7 +61,7 @@ var glob = require('glob');
     });
     if (collectedErrors.length > 0) {
       collectedErrors.forEach(error => {
-        console.log(error);
+        console.error(error);
       });
       process.exit(1);
     } else {
@@ -83,16 +70,17 @@ var glob = require('glob');
   });
 })();
 function readPackageJson(path) {
-  return __awaiter(this, void 0, void 0, function*() {
-    return new Promise((resolve, reject) => {
-      readJson(path, false, function(er, data) {
-        if (er) {
-          console.error('There was an error reading the file');
-          reject();
-        }
-        resolve(data);
-      });
-    });
-  });
+  return asyncReadJson(path, false);
+}
+// function isPropertyDefined(property: any): boolean {
+//   return !!property;
+// }
+function createErrorMessage(
+  projectName,
+  packageName,
+  currentVersionNumber,
+  requiredVersionNumber
+) {
+  return `${projectName} has mismatching version for ${packageName}. Receive ${currentVersionNumber} but should be ${requiredVersionNumber}`;
 }
 //# sourceMappingURL=validate-packages.js.map

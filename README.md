@@ -7,7 +7,7 @@
 #### App
 
 - [x] Finish user registration. NOTE -> For the demo, don't require unique emails
-- [ ] Examples sections
+- [x] Examples sections
   - Form Builder
 - [ ] Add a settings section
   - Re style user drop down to only have username, avatar and link to settings
@@ -18,7 +18,7 @@
 - [x] Dynamic Form to accept validators
 - [x] Dynamic Form global errors (with animations)
 - [x] Make the form errors pipe accept form level errors.
-- [ ] Collect form errors from side effects submit
+- [x] Collect form errors from side effects submit
 - [x] Restyle errors animations
 - [x] Submit button not using content projection does not have auto focus
 - [ ] Make dynamic form use recursive field types (array/group)
@@ -27,12 +27,18 @@
 #### Form Builder
 
 - [ ] Document
-- [ ] Add field types, select fields etc
+- [x] Add field types, select fields etc
 - [ ] Tests
 
-#### Accessability
+### Deployment
 
-- [ ] Audit for a11y
+- [ ] Create a demo site & cloud functions
+
+### Dev Ops
+
+- [x] Docker build script for dynamic projects (using Docker ENV inputs)
+- [ ] Kubernetes Specs
+- [ ] Cloud Functions
 
 #### Tests
 
@@ -40,6 +46,10 @@
 - [ ] Complete e2e tests
 
 ## Road Map
+
+#### Accessability
+
+- [ ] Audit for a11y
 
 ### App
 
@@ -51,16 +61,6 @@
   - Dynamic Animation Timing
   - Using Web Components
   - Charting and report generating (jsPdf)
-
-### Deployment
-
-- [ ] Create a demo site & cloud functions
-
-### Dev Ops
-
-- [ ] Docker build script for dynamic projects (using Docker ENV inputs)
-- [ ] Kubernetes Specs
-- [ ] Cloud Functions
 
 ### Mobile App
 

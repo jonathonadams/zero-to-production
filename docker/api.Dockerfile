@@ -23,6 +23,9 @@
 # -----------------------------------------
 FROM node:alpine AS builder-setup
 
+ARG PROJECT_DIRECTORY
+RUN test -n "$PROJECT_DIRECTORY" || (echo "PROJECT_DIRECTORY  not set" && false)
+
 # Set the node environment
 ENV NODE_ENV development
 
@@ -30,12 +33,13 @@ ENV NODE_ENV development
 WORKDIR /tmp
 
 # Copy all files required for the build container to run (do not copy source files)
-COPY angular.json package.json package-lock.json tsconfig.json tsconfig.libs.json /tmp/
+COPY angular.json package.json package-lock.json tsconfig.base.json tsconfig.json tsconfig.libs.json /tmp/
 
 RUN cd /tmp 
 
-# Disable the MongoMemoryServer Post Install
+# Disable the MongoMemoryServer Post Install & Cypress Binary Install
 ENV MONGOMS_DISABLE_POSTINSTALL=1
+ENV CYPRESS_INSTALL_BINARY=0
 
 # TODO -> Onlyd dev dependencies? And only for building the API
 # Install all deps
@@ -55,9 +59,8 @@ WORKDIR /app
 
 COPY package-lock.json /app
 
-# TODO -> Dynamic from ENV import?
 # Copy the package.json from the app specific directory
-COPY apps/servers/api/package.json  /app
+COPY $PROJECT_DIRECTORY/package.json  /app
 
 RUN cd /app
 
@@ -73,17 +76,21 @@ RUN npm install --only=prod --unsafe-perm || \
 # -----------------------------------------
 FROM builder-setup as builder
 
+ARG PROJECT_DIRECTORY
+RUN test -n "$PROJECT_DIRECTORY" || (echo "PROJECT_DIRECTORY  not set" && false)
+
 ENV NODE_ENV development
 
 # Copy all src files
-COPY apps/servers/api/ /tmp/apps/servers/api
+COPY $PROJECT_DIRECTORY/ /tmp/apps/servers/api
 
 # Make out output directory
 RUN mkdir -p /tmp/dist
 
 # TODO - Don't copy frontend libs?
-# Copt all libs 
-COPY libs/ /tmp/libs
+# Copy all libs
+COPY libs/api /tmp/libs/api
+COPY libs/interfaces/ /tmp/libs/interfaces
 
 RUN cd /tmp/
 
@@ -91,7 +98,7 @@ RUN cd /tmp/
 RUN npm run build:libs
 
 # Run the production build task (from app specifig package.json)
-COPY apps/servers/api/package.json  /tmp
+COPY $PROJECT_DIRECTORY/package.json  /tmp
 RUN npm run build
 
 # -----------------------------------------
