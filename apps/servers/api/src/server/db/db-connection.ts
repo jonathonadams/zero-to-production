@@ -1,24 +1,31 @@
 import mongoose from 'mongoose';
-import config from '../../environments';
-
-const uri = `mongodb://${config.database.host}:${config.database.port}`;
+import { ServerConfig } from '@uqt/api/config';
 
 export async function dbConnection(
-  url = uri,
-  opts = config.databaseOptions
+  config: ServerConfig
 ): Promise<mongoose.Mongoose | undefined> {
-  const connectionOptions: mongoose.ConnectionOptions = {
-    ...opts,
-    user: config.database.user,
-    pass: config.database.pass,
-    dbName: config.database.dbName
-  };
+  console.log('In Connect');
+  console.log(config);
 
+  const url = createMongoConnectionString(config);
+
+  console.log(url);
+  console.log(config.databaseOptions);
   try {
-    return await mongoose.connect(url, connectionOptions);
+    return await mongoose.connect(url, config.databaseOptions);
   } catch (err) {
     console.error('There was an error connecting to the DataBase');
     console.error(err);
-    // Exit the application?
+  }
+}
+
+function createMongoConnectionString(config: ServerConfig): string {
+  if (config.production) {
+    if (!config.database.connectionString) {
+      console.error('No DataBase connection string provided');
+    }
+    return config.database.connectionString;
+  } else {
+    return `mongodb://${config.database.user}:${config.database.pass}@${config.database.host}:${config.database.port}`;
   }
 }

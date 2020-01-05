@@ -29,7 +29,7 @@ export default class ApiServer {
     /**
      * Start the db connection
      */
-    dbConnection();
+    dbConnection(config);
 
     /**
      * Setup all the required middleware for the app

@@ -1,13 +1,13 @@
 /* istanbul ignore file */
 
 import { randomBytes } from 'crypto';
-import { EnvironnementConfig } from '@uqt/api/config';
+import { ProductionConfig } from '@uqt/api/config';
 import { envToNumber } from './util';
 
 /**
  * Production environment settings
  */
-const prodConfig: EnvironnementConfig = {
+const prodConfig: ProductionConfig = {
   production: true,
   logging: false,
   docs: false,
@@ -25,11 +25,7 @@ const prodConfig: EnvironnementConfig = {
       process.env.REFRESH_TOKEN_SECRET || 'some-super-secret-password'
   },
   database: {
-    host: process.env.MONGO_TCP_ADDR || 'localhost',
-    port: envToNumber(process.env.MONGO_TCP_PORT, 27017),
-    dbName: process.env.MONGO_DB || 'production_database',
-    user: process.env.MONGO_USER || 'mongo',
-    pass: process.env.MONGO_PASSWORD || 'mongo'
+    connectionString: process.env.DB_CONNECTION_STRING || ''
   }
 };
 

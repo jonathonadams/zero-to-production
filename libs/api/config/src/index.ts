@@ -2,5 +2,7 @@ export { setupMiddleware } from './lib/global.middleware';
 export {
   ServerConfig,
   EnvironnementConfig,
-  GlobalConfig
+  GlobalConfig,
+  ProductionConfig,
+  DevOrTestConfig
 } from './lib/config.interface';

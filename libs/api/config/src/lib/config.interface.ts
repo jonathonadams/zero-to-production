@@ -10,8 +10,10 @@ export interface GlobalConfig {
   databaseOptions: ConnectionOptions;
 }
 
-export interface EnvironnementConfig {
-  production: boolean;
+export type EnvironnementConfig = ProductionConfig | DevOrTestConfig;
+
+export interface DevOrTestConfig {
+  production: false;
   logging: false | 'dev';
   docs: boolean;
   databaseOptions: ConnectionOptions;
@@ -32,4 +34,22 @@ export interface EnvironnementConfig {
   };
 }
 
-export interface ServerConfig extends GlobalConfig, EnvironnementConfig {}
+export interface ProductionConfig {
+  production: true;
+  logging: false;
+  docs: false;
+  databaseOptions: ConnectionOptions;
+  expireTime: number;
+  apiKeys: {
+    sendGrid: string;
+  };
+  secrets: {
+    accessToken: string;
+    refreshToken: string;
+  };
+  database: {
+    connectionString: string;
+  };
+}
+
+export type ServerConfig = GlobalConfig & EnvironnementConfig;

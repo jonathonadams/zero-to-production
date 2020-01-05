@@ -1,18 +1,19 @@
 /* istanbul ignore file */
 
-import { EnvironnementConfig } from '@uqt/api/config';
+import { DevOrTestConfig } from '@uqt/api/config';
 import { envToNumber } from './util';
 
 /**
  * Development environment settings
  */
-const devConfig: EnvironnementConfig = {
+const devConfig: DevOrTestConfig = {
   production: false,
   logging: 'dev',
   docs: true,
   databaseOptions: {
     autoIndex: true,
-    loggerLevel: 'warn'
+    loggerLevel: 'warn',
+    dbName: process.env.MONGO_DEV_DB || 'development_database'
   },
   expireTime: envToNumber(process.env.JWT_EXPIRE_TIME, 86400),
   apiKeys: {
@@ -25,7 +26,6 @@ const devConfig: EnvironnementConfig = {
   database: {
     host: process.env.MONGO_TCP_ADDR || 'localhost',
     port: envToNumber(process.env.MONGO_TCP_PORT, 27017),
-    dbName: process.env.MONGO_DEV_DB || 'development_database',
     user: process.env.MONGO_DEV_USER || 'mongo',
     pass: process.env.MONGO_DEV_PASSWORD || 'mongo'
   }
