@@ -28,7 +28,6 @@ export interface DevOrTestConfig {
   database: {
     host: string;
     port: number;
-    dbName: string;
     user: string;
     pass: string;
   };
