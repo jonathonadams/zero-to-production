@@ -1,0 +1,69 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: traefik-ingress-controller
+  labels:
+    k8s-app: traefik-ingress-lb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: traefik-ingress-lb
+  template:
+    metadata:
+      labels:
+        k8s-app: traefik-ingress-lb
+        name: traefik-ingress-lb
+    spec:
+      serviceAccountName: traefik-ingress-controller
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: traefik-ingress-lb
+          image: traefik
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /config
+              name: config
+          args:
+            - --configFile=/config/traefik.toml
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+          # TODO -> Reduce the readiness probe to be more realistic
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 80
+            initialDelaySeconds: 60
+            timeoutSeconds: 60
+            failureThreshold: 10
+      volumes:
+        - name: config
+          configMap:
+            name: traefik-external-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-ingress-service
+  annotations:
+    # Allow both http and https as a protocol
+    # https://cloud.google.com/kubernetes-engine/docs/concepts/ingress
+    cloud.google.com/app-protocols: '{"https":"HTTPS","http":"HTTP"}'
+    # Enable sticky sessions for websocket handshakes
+    # https://docs.traefik.io/configuration/backends/kubernetes/
+    traefik.ingress.kubernetes.io/affinity: 'true'
+    # Because of the Socket.io we need a custom config for increase timeout time
+    # https://cloud.google.com/kubernetes-engine/docs/how-to/configure-backend-service
+    beta.cloud.google.com/backend-config: '{"ports": {"http":"config-http", "https":"config-http"}}'
+spec:
+  selector:
+    k8s-app: traefik-ingress-lb
+  ports:
+    - name: http
+      port: 80
+    - name: https
+      port: 443
+  type: NodePort

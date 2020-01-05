@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-config
+  labels:
+    name: env-config
+  # namespace: default
+data:
+  api.port: '3000'
+  jwt.expire-time: '86400'
+  env: production

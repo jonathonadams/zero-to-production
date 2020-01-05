@@ -4,13 +4,8 @@ import { ServerConfig } from '@uqt/api/config';
 export async function dbConnection(
   config: ServerConfig
 ): Promise<mongoose.Mongoose | undefined> {
-  console.log('In Connect');
-  console.log(config);
-
   const url = createMongoConnectionString(config);
 
-  console.log(url);
-  console.log(config.databaseOptions);
   try {
     return await mongoose.connect(url, config.databaseOptions);
   } catch (err) {
