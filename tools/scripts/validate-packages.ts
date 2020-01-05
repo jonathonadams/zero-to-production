@@ -12,7 +12,7 @@ const asyncReadJson = promisify(readJson);
   const collectedErrors: string[] = [];
   const rootPackage = `${workSpaceDir}/package.json`;
 
-  const { dependencies, devDependencies } = readPackageJson(rootPackage);
+  const { dependencies, devDependencies } = await readPackageJson(rootPackage);
 
   const packagePaths = await asyncGlob(`${workSpaceDir}/apps/**/package.json`);
 
@@ -68,7 +68,7 @@ const asyncReadJson = promisify(readJson);
   }
 })();
 
-function readPackageJson(path: string) {
+async function readPackageJson(path: string) {
   return asyncReadJson(path, false);
 }
 
