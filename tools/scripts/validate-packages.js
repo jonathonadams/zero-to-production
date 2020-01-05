@@ -15,7 +15,9 @@ const asyncReadJson = util_1.promisify(read_package_json_1.default);
     const workSpaceDir = process.cwd();
     const collectedErrors = [];
     const rootPackage = `${workSpaceDir}/package.json`;
-    const { dependencies, devDependencies } = readPackageJson(rootPackage);
+    const { dependencies, devDependencies } = yield readPackageJson(
+      rootPackage
+    );
     const packagePaths = yield asyncGlob(
       `${workSpaceDir}/apps/**/package.json`
     );
@@ -70,7 +72,9 @@ const asyncReadJson = util_1.promisify(read_package_json_1.default);
   });
 })();
 function readPackageJson(path) {
-  return asyncReadJson(path, false);
+  return tslib_1.__awaiter(this, void 0, void 0, function*() {
+    return asyncReadJson(path, false);
+  });
 }
 // function isPropertyDefined(property: any): boolean {
 //   return !!property;
@@ -83,4 +87,3 @@ function createErrorMessage(
 ) {
   return `${projectName} has mismatching version for ${packageName}. Receive ${currentVersionNumber} but should be ${requiredVersionNumber}`;
 }
-//# sourceMappingURL=validate-packages.js.map

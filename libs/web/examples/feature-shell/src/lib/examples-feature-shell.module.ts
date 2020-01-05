@@ -17,9 +17,9 @@ import { ExamplesDemosComponent } from './example-demos/examples-demos.component
 import { LAZY_MODULES } from './lazy-modules';
 import { AboutComponent } from './about/about.component';
 import { WebCommonUiAuthModule } from '@uqt/web/common/ui/auth';
-import { ExampleDetailComponent } from './example-detail/example-detail.component';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
 import { ExampleDynamicFormComponent } from './example-demos/dynamic-form/dynamic-form.component';
+import { ExampleDetailComponent } from './example-demos/example-detail/example-detail.component';
 
 const COMPONENTS = [
   AboutComponent,

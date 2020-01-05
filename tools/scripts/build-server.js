@@ -30,4 +30,3 @@ child_process_1.exec(
     console.log(stdout);
   }
 );
-//# sourceMappingURL=build-server.js.map

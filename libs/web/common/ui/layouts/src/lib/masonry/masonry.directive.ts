@@ -6,6 +6,7 @@ import {
   ContentChildren,
   AfterContentChecked
 } from '@angular/core';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 @Directive({
   selector: '[layoutMasonry]'
@@ -14,7 +15,7 @@ export class MasonryLayoutDirective implements AfterContentChecked {
   @Input() columns: number | undefined;
   @ContentChildren('blocks') blocks!: QueryList<ElementRef<HTMLElement>>;
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, breakPointObserver: BreakpointObserver) {}
 
   ngAfterContentChecked() {
     const blocks = this.blocks;

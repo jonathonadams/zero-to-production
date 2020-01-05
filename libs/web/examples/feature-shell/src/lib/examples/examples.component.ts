@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ExamplesComponent {
   examples$: Observable<IExample[]>;
+  // columns = 3;
 
   constructor(private facade: ExamplesFacade, private router: Router) {
     this.examples$ = this.facade.examples$;
@@ -18,5 +19,9 @@ export class ExamplesComponent {
 
   showExamples() {
     this.router.navigate(['examples', 'demos']);
+  }
+
+  trackExample(i: number, e: IExample) {
+    return e.id;
   }
 }
