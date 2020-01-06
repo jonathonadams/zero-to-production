@@ -4,8 +4,11 @@ import { TodoFeatureShellComponent } from './todos-feature-shell.component';
 import { TodoLayoutComponent } from './ui/todos-layout.component';
 import { AuthGuard, LoggedInGuard } from '@uqt/data-access/auth';
 import { AuthUsersResolver } from '@uqt/data-access/users';
-import { LoginComponent, RegisterComponent } from '@uqt/web/common/ui/auth';
-import { AuthComponent } from 'libs/web/common/ui/auth/src/lib/components/auth.component';
+import {
+  LoginComponent,
+  RegisterComponent,
+  AuthComponent
+} from '@uqt/web/common/ui/auth';
 
 export const TODOS_ROUTES: Routes = [
   {

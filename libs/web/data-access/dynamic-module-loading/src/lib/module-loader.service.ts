@@ -31,9 +31,11 @@ export const LAZY_MODULE_REGISTRY = new InjectionToken<ILazyModuleRegistry>(
   'LAZY_MODULE_REGISTRY'
 );
 
-@Injectable({
-  providedIn: 'root'
-})
+// If you provide the dependency at the root injector 'providedIn:"root"', then
+// you need to provide the LAZY_MODULE_REGISTRY injection token at the root level as well.
+// It is up to you to determine your use case, but for this example I chose to provide the DI Token
+// In a lazy loaded module, hence not in root injector
+@Injectable()
 export class ModuleLoaderService {
   private _registry: Map<string, IModuleRegistry> = new Map();
   private registry: BehaviorSubject<IFactoryRegistry> = new BehaviorSubject({});

@@ -1559,6 +1559,40 @@
           "styleext": "scss"
         }
       }
+    },
+    "web-examples-live-demos": {
+      "projectType": "library",
+      "root": "libs/web/examples/live-demos",
+      "sourceRoot": "libs/web/examples/live-demos/src",
+      "prefix": "uqt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/examples/live-demos/tsconfig.lib.json",
+              "libs/web/examples/live-demos/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/web/examples/live-demos/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/examples/live-demos/jest.config.js",
+            "tsConfig": "libs/web/examples/live-demos/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/live-demos/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

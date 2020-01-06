@@ -67,7 +67,10 @@
       "@uqt/web/examples/lazy-load-scrolling": [
         "libs/web/examples/lazy-load-scrolling/src/index.ts"
       ],
-      "@uqt/web/common/ui/buttons": ["libs/web/common/ui/buttons/src/index.ts"]
+      "@uqt/web/common/ui/buttons": ["libs/web/common/ui/buttons/src/index.ts"],
+      "@uqt/web/examples/live-demos": [
+        "libs/web/examples/live-demos/src/index.ts"
+      ]
     }
   }
 }

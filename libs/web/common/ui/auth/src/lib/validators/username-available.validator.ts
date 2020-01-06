@@ -8,7 +8,7 @@ import { Observable, of, timer } from 'rxjs';
 import { map, catchError, tap, switchMap, take } from 'rxjs/operators';
 import { AuthService, AuthFacade } from '@uqt/data-access/auth';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UsernameAvailableValidator implements AsyncValidator {
   constructor(private auth: AuthService, private facade: AuthFacade) {}
 

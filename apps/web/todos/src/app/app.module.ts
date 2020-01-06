@@ -13,7 +13,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { DataAccessApiModule } from '@uqt/data-access/api';
 import { DataAccessAuthModule } from '@uqt/data-access/auth';
 import { DataAccessUsersModule } from '@uqt/data-access/users';
-// import { DataAccessRouterModule } from '@uqt/data-access/router';
 import { TodosFeatureShellModule } from '@uqt/todos/feature-shell';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { AppEffects } from './+state/app.effects';
@@ -42,7 +41,6 @@ import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
     DataAccessApiModule.forRoot(environment),
     DataAccessAuthModule.forRoot(),
     DataAccessUsersModule.forRoot(),
-    // DataAccessRouterModule.forRoot(),
     DynamicFormModule.forRoot({
       components: APP_COMPONENTS,
       errors: APP_ERRORS

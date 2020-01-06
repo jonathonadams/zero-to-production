@@ -3,7 +3,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { FrontendUtilsStorageModule } from '@uqt/utils/storage';
 import { CommonNotificationModule } from '@uqt/utils/notifications';
 
 import { AuthEffects } from './+state/auth.effects';
@@ -18,7 +17,6 @@ import { reducer, AuthState, initialState } from './+state/auth.reducer';
 @NgModule({
   imports: [
     CommonNotificationModule,
-    FrontendUtilsStorageModule,
     StoreModule.forFeature<AuthState>('authState', reducer, { initialState }),
     EffectsModule.forFeature([AuthEffects])
   ]
