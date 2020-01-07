@@ -1,37 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import * as fromActions from './side-nav.actions';
-import * as fromSelectors from './side-nav.selectors';
+import * as SideNavActions from './side-nav.actions';
+import * as fromSideNav from './side-nav.selectors';
 import { ISideNaveRoute } from '../navigation.interface';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SideNavFacade {
   opened$: Observable<boolean>;
   route$: Observable<ISideNaveRoute[]>;
 
   constructor(private store: Store<any>) {
-    this.opened$ = this.store.pipe(select(fromSelectors.selectOpenedState));
-    this.route$ = this.store.pipe(select(fromSelectors.selectSideNavRoutes));
+    this.opened$ = this.store.pipe(select(fromSideNav.selectOpenedState));
+    this.route$ = this.store.pipe(select(fromSideNav.selectSideNavRoutes));
   }
 
   toggle() {
-    this.store.dispatch(fromActions.toggleSideNav());
+    this.store.dispatch(SideNavActions.toggleSideNav());
   }
 
   open() {
-    this.store.dispatch(fromActions.openSideNav());
+    this.store.dispatch(SideNavActions.openSideNav());
   }
 
   close() {
-    this.store.dispatch(fromActions.closeSideNav());
+    this.store.dispatch(SideNavActions.closeSideNav());
   }
 
   setValue(opened: boolean) {
-    this.store.dispatch(fromActions.setSideNavOpenValue({ opened }));
+    this.store.dispatch(SideNavActions.setSideNavOpenValue({ opened }));
   }
 
   setNavRoutes(routes: ISideNaveRoute[]) {
-    this.store.dispatch(fromActions.setSideNavRoutes({ routes }));
+    this.store.dispatch(SideNavActions.setSideNavRoutes({ routes }));
   }
 }

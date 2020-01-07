@@ -119,24 +119,24 @@ describe('AuthEffects', () => {
       spy.mockReset();
     });
 
-    it('should clear all data in the dynamic form', done => {
-      const spy = jest.spyOn(formFacade, 'clearData');
-      spy.mockReset();
+    // it('should clear all data in the dynamic form', done => {
+    //   const spy = jest.spyOn(formFacade, 'clearData');
+    //   spy.mockReset();
 
-      const token = 'JWT.TOKEN';
-      const action = AuthActions.loginSuccess({ token });
+    //   const token = 'JWT.TOKEN';
+    //   const action = AuthActions.loginSuccess({ token });
 
-      actions$ = hot('-a---', { a: action });
+    //   actions$ = hot('-a---', { a: action });
 
-      effects.loginSuccess$.subscribe(someAction => {
-        expect(spy).toHaveBeenCalled();
-        done();
-      });
+    //   effects.loginSuccess$.subscribe(someAction => {
+    //     expect(spy).toHaveBeenCalled();
+    //     done();
+    //   });
 
-      Scheduler.get().flush();
+    //   Scheduler.get().flush();
 
-      spy.mockReset();
-    });
+    //   spy.mockReset();
+    // });
   });
 
   describe('register$', () => {
@@ -233,23 +233,23 @@ describe('AuthEffects', () => {
       spy.mockReset();
     });
 
-    it('should clear all data in the dynamic form', done => {
-      const spy = jest.spyOn(formFacade, 'clearData');
-      spy.mockReset();
+    // it('should clear all data in the dynamic form', done => {
+    //   const spy = jest.spyOn(formFacade, 'clearData');
+    //   spy.mockReset();
 
-      const action = AuthActions.registerSuccess({ user: {} as IUser });
+    //   const action = AuthActions.registerSuccess({ user: {} as IUser });
 
-      actions$ = hot('-a---', { a: action });
+    //   actions$ = hot('-a---', { a: action });
 
-      effects.registerSuccess$.subscribe(someAction => {
-        expect(spy).toHaveBeenCalled();
-        done();
-      });
+    //   effects.registerSuccess$.subscribe(someAction => {
+    //     expect(spy).toHaveBeenCalled();
+    //     done();
+    //   });
 
-      Scheduler.get().flush();
+    //   Scheduler.get().flush();
 
-      spy.mockReset();
-    });
+    //   spy.mockReset();
+    // });
   });
 
   describe('logout$', () => {

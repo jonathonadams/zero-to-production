@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import jwtDecode from 'jwt-decode';
 import { IJWTPayload } from '../auth.interface';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class JWTAuthService {
   readonly storageKey = 'access_token';
   constructor() {}

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import * as fromActions from './dynamic-form.actions';
-import * as fromSelectors from './dynamic-form.selectors';
 import { ValidatorFn, ValidationErrors } from '@angular/forms';
-import { TFormGroups, IDynamicFormConfig } from '../dynamic-form.interface';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { tap, filter, take, map } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
+import * as DynamicFormActions from './dynamic-form.actions';
+import * as fromDynamicForm from './dynamic-form.selectors';
+import { TFormGroups, IDynamicFormConfig } from '../dynamic-form.interface';
 
 @Injectable({ providedIn: 'root' })
 export class PrivateDynamicFormFacade {
@@ -24,7 +24,7 @@ export class PrivateDynamicFormFacade {
   checkExistsAndThrow(formName: string) {
     return this.store
       .pipe(
-        select(fromSelectors.selectForm(formName)),
+        select(fromDynamicForm.selectForm(formName)),
         take(1),
         tap(form => {
           if (!form) {
@@ -36,24 +36,26 @@ export class PrivateDynamicFormFacade {
   }
 
   selectConfig(formName: string): Observable<IDynamicFormConfig | undefined> {
-    return this.store.pipe(select(fromSelectors.selectFormConfig(formName)));
+    return this.store.pipe(select(fromDynamicForm.selectFormConfig(formName)));
   }
 
   selectStructure(formName: string): Observable<TFormGroups | undefined> {
-    return this.store.pipe(select(fromSelectors.selectFormStructure(formName)));
+    return this.store.pipe(
+      select(fromDynamicForm.selectFormStructure(formName))
+    );
   }
 
   selectErrors(formName: string): Observable<string[] | undefined> {
-    return this.store.pipe(select(fromSelectors.selectFormErrors(formName)));
+    return this.store.pipe(select(fromDynamicForm.selectFormErrors(formName)));
   }
 
   selectIndex(formName: string): Observable<number | undefined> {
-    return this.store.pipe(select(fromSelectors.selectFormIndex(formName)));
+    return this.store.pipe(select(fromDynamicForm.selectFormIndex(formName)));
   }
 
   selectValidators(formName: string): Observable<ValidatorFn[] | undefined> {
     return this.store.pipe(
-      select(fromSelectors.selectFormValidators(formName))
+      select(fromDynamicForm.selectFormValidators(formName))
     );
   }
 
@@ -65,7 +67,7 @@ export class PrivateDynamicFormFacade {
   }
 
   setErrors(formName: string, errors: ValidationErrors) {
-    this.store.dispatch(fromActions.setFormErrors({ formName, errors }));
+    this.store.dispatch(DynamicFormActions.setFormErrors({ formName, errors }));
   }
 
   // This is only triggered from from either a valid form submit within the form component
@@ -83,7 +85,7 @@ export class PrivateDynamicFormFacade {
   }
 
   clearErrors(formName: string) {
-    this.store.dispatch(fromActions.clearFormErrors({ formName }));
+    this.store.dispatch(DynamicFormActions.clearFormErrors({ formName }));
   }
 
   onDestroy() {

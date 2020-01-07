@@ -2,22 +2,16 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-
-import { CommonNotificationModule } from '@uqt/utils/notifications';
-
 import { AuthEffects } from './+state/auth.effects';
-import { AuthFacade } from './+state/auth.facade';
-import { AuthService } from './services/auth.service';
-import { AuthGuard } from './guards/auth.guard';
-import { LoggedInGuard } from './guards/logged-in.guard';
 import { AuthInterceptor } from './interceptors/auth-interceptor';
-import { JWTAuthService } from './services/jwt-auth.service';
-import { reducer, AuthState, initialState } from './+state/auth.reducer';
+import * as fromAuth from './+state/auth.reducer';
 
 @NgModule({
   imports: [
-    CommonNotificationModule,
-    StoreModule.forFeature<AuthState>('authState', reducer, { initialState }),
+    StoreModule.forFeature<fromAuth.AuthState>(
+      fromAuth.authStateKey,
+      fromAuth.reducer
+    ),
     EffectsModule.forFeature([AuthEffects])
   ]
 })
@@ -28,11 +22,6 @@ export class DataAccessAuthModule {
     return {
       ngModule: RootDataAccessAuthModule,
       providers: [
-        AuthFacade,
-        AuthService,
-        JWTAuthService,
-        AuthGuard,
-        LoggedInGuard,
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
       ]
     };

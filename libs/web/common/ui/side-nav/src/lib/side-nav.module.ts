@@ -4,11 +4,7 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { CommonUiSideNavComponent } from './side-nav.component';
-import {
-  reducer,
-  SideNavState,
-  initialState
-} from './+state/side-nave.reducer';
+import * as fromSideNav from './+state/side-nave.reducer';
 import { SideNavFacade } from './+state/side-nav.facade';
 import { UiSideNavComponent } from './ui/ui-side-nav.component';
 
@@ -18,9 +14,10 @@ import { UiSideNavComponent } from './ui/ui-side-nav.component';
     CommonModule,
     RouterModule,
     CustomMaterialModule,
-    StoreModule.forFeature<SideNavState>('sideNavState', reducer, {
-      initialState
-    })
+    StoreModule.forFeature<fromSideNav.SideNavState>(
+      fromSideNav.sideNaveKey,
+      fromSideNav.reducer
+    )
   ],
   providers: [SideNavFacade],
   exports: [CommonUiSideNavComponent]

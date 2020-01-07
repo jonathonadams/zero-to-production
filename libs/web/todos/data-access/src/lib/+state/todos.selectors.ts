@@ -4,7 +4,12 @@ import isEmpty from 'ramda/es/isEmpty';
 import and from 'ramda/es/and';
 import allPass from 'ramda/es/allPass';
 import filter from 'ramda/es/filter';
-import { TodosEntityState, adapter, TodoFilterStatus } from './todos.reducer';
+import {
+  TodosEntityState,
+  adapter,
+  TodoFilterStatus,
+  todosFeatureKey
+} from './todos.reducer';
 import { ITodo } from '@uqt/interfaces';
 import {
   equalsC,
@@ -15,7 +20,7 @@ import {
 
 // Select the top level 'todos' state.
 export const selectTodoState = createFeatureSelector<TodosEntityState>(
-  'todosState'
+  todosFeatureKey
 );
 
 export const {

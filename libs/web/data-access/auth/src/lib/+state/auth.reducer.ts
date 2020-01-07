@@ -2,6 +2,8 @@ import { createReducer, on, Action } from '@ngrx/store';
 import * as fromAuth from './auth.actions';
 import { AvailableStatus } from '../auth.interface';
 
+export const authStateKey = 'authStateKey';
+
 export interface AuthState {
   loggedIn: boolean;
   availability: AvailableStatus | null;

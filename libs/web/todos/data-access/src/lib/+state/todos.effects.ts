@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, exhaustMap, mergeMap } from 'rxjs/operators';
-import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
-import * as TodoActions from './todos.actions';
-import { TodosService } from '../todos.service';
-import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { logout } from '@uqt/data-access/auth';
+import { of } from 'rxjs';
+import { catchError, map, exhaustMap, mergeMap } from 'rxjs/operators';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
+import * as TodoActions from './todos.actions';
+import { TodosService } from '../todos.service';
+import { ITodo } from '@uqt/interfaces';
 
 // Note: when merging observable from multiple sources there are 4x operators tha can be uses
 // exhaustMap, mergeMap, switchMap and concatMap
@@ -26,92 +27,79 @@ import { logout } from '@uqt/data-access/auth';
 export class TodoEffects {
   constructor(private actions$: Actions, private todoService: TodosService) {}
 
-  @Effect()
-  loadTodos$ = this.actions$.pipe(
-    ofType(TodoActions.loadTodos),
-    exhaustMap(action =>
-      this.todoService.getAllTodos().pipe(
-        map(result => {
-          if (result.errors) {
-            return TodoActions.loadTodosFail({
-              error: result.errors[0].message
-            });
-          } else if (result.data) {
-            return TodoActions.loadTodosSuccess({
-              todos: result.data.allTodos
-            });
-          }
-        }),
-        catchError((error: HttpErrorResponse) =>
-          of(TodoActions.loadTodosFail({ error: error.message }))
+  loadTodos$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TodoActions.loadTodos),
+      exhaustMap(action => this.todoService.getAllTodos()),
+      map(({ errors, data }) =>
+        errors
+          ? TodoActions.loadTodosFail({ error: errors[0].message })
+          : TodoActions.loadTodosSuccess({
+              todos: (data as { allTodos: ITodo[] }).allTodos
+            })
+      ),
+      catchError((error: HttpErrorResponse) =>
+        of(TodoActions.loadTodosFail({ error: error.message }))
+      )
+    )
+  );
+
+  createTodo$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TodoActions.createTodo),
+      mergeMap(({ todo }) =>
+        this.todoService.createTodo(todo).pipe(
+          map(({ errors, data }) =>
+            errors
+              ? TodoActions.createTodoFail({ error: errors[0].message })
+              : TodoActions.createTodoSuccess({
+                  todo: (data as { newTodo: ITodo }).newTodo
+                })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(TodoActions.createTodoFail({ error: error.message }))
+          )
         )
       )
     )
   );
 
-  @Effect()
-  createTodo$ = this.actions$.pipe(
-    ofType(TodoActions.createTodo),
-    mergeMap(({ todo }) =>
-      this.todoService.createTodo(todo).pipe(
-        map(result => {
-          if (result.errors) {
-            return TodoActions.createTodoFail({
-              error: result.errors[0].message
-            });
-          } else if (result.data) {
-            return TodoActions.createTodoSuccess({
-              todo: result.data.newTodo
-            });
-          }
-        }),
-        catchError((error: HttpErrorResponse) =>
-          of(TodoActions.createTodoFail({ error: error.message }))
+  updateTodo$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TodoActions.updateTodo),
+      mergeMap(({ todo }) =>
+        this.todoService.updateTodo(todo).pipe(
+          map(({ errors, data }) =>
+            errors
+              ? TodoActions.updateTodoFail({ error: errors[0].message })
+              : TodoActions.updateTodoSuccess({
+                  todo: {
+                    id: todo.id,
+                    changes: (data as { updateTodo: ITodo }).updateTodo
+                  }
+                })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(TodoActions.updateTodoFail({ error: error.message }))
+          )
         )
       )
     )
   );
 
-  @Effect()
-  updateTodo$ = this.actions$.pipe(
-    ofType(TodoActions.updateTodo),
-    mergeMap(({ todo }) =>
-      this.todoService.updateTodo(todo).pipe(
-        map(result => {
-          if (result.errors) {
-            return TodoActions.updateTodoFail({
-              error: result.errors[0].message
-            });
-          } else if (result.data) {
-            return TodoActions.updateTodoSuccess({
-              todo: { id: todo.id, changes: result.data.updateTodo }
-            });
-          }
-        }),
-
-        catchError((error: HttpErrorResponse) =>
-          of(TodoActions.updateTodoFail({ error: error.message }))
-        )
-      )
-    )
-  );
-
-  @Effect()
-  deleteTodo$ = this.actions$.pipe(
-    ofType(TodoActions.deleteTodo),
-    mergeMap(({ todo }) =>
-      this.todoService.deleteTodo(todo.id).pipe(
-        map(result => {
-          if (result.errors) {
-            return TodoActions.deleteTodoFail({
-              error: result.errors[0].message
-            });
-          } else if (result.data) {
-            return TodoActions.deleteTodoSuccess({ id: todo.id });
-          }
-        }),
-        catchError((error: HttpErrorResponse) =>
-          of(TodoActions.deleteTodoFail({ error: error.message }))
+  deleteTodo$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TodoActions.deleteTodo),
+      mergeMap(({ todo }) =>
+        this.todoService.deleteTodo(todo.id).pipe(
+          map(({ errors, data }) =>
+            errors
+              ? TodoActions.deleteTodoFail({ error: errors[0].message })
+              : TodoActions.deleteTodoSuccess({ id: todo.id })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(TodoActions.deleteTodoFail({ error: error.message }))
+          )
         )
       )
     )

@@ -3,6 +3,8 @@ import * as ExampleActions from './examples.actions';
 import { createReducer, on, Action } from '@ngrx/store';
 import { IExample } from '../example.interface';
 
+export const exampleEntityStateKey = 'examplesState';
+
 export interface ExamplesEntityState extends EntityState<IExample> {}
 
 export function selectExampleUrl(example: IExample) {

@@ -3,7 +3,7 @@ import { CanActivate } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AuthFacade } from '../+state/auth.facade';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private facade: AuthFacade) {}
 

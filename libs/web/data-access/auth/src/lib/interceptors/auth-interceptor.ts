@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
 import { AuthFacade } from '../+state/auth.facade';
 import { JWTAuthService } from '../services/jwt-auth.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private auth: JWTAuthService, private facade: AuthFacade) {}
 

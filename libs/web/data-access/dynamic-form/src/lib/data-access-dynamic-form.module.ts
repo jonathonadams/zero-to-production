@@ -17,7 +17,7 @@ import {
   DYNAMIC_FORM_ERRORS,
   defaultErrorMessages
 } from './form-errors.interface';
-import { reducer } from './+state/dynamic-form.reducer';
+import * as fromDynamicForm from './+state/dynamic-form.reducer';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatButtonModule],
@@ -54,7 +54,10 @@ export class DynamicFormModule {
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forFeature('dynamicForm', reducer),
+    StoreModule.forFeature<fromDynamicForm.DynamicFormEntityState>(
+      fromDynamicForm.dynamicFormKey,
+      fromDynamicForm.reducer
+    ),
     EffectsModule.forFeature([DynamicFormsEffects])
   ],
   declarations: [FormErrorsComponent],

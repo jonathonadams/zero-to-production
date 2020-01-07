@@ -1,15 +1,15 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
-import { reducer } from './+state/users.reducer';
 import { EffectsModule } from '@ngrx/effects';
+import * as fromUsers from './+state/users.reducer';
 import { UsersEffects } from './+state/users.effects';
-import { UsersFacade } from './+state/users.facade';
-import { UsersService } from './services/users.service';
-import { AuthUsersResolver } from './auth-user.resolver';
 
 @NgModule({
   imports: [
-    StoreModule.forFeature('usersState', reducer),
+    StoreModule.forFeature<fromUsers.UsersEntityState>(
+      fromUsers.usersEntityStateKey,
+      fromUsers.reducer
+    ),
     EffectsModule.forFeature([UsersEffects])
   ]
 })
@@ -19,8 +19,7 @@ export class RootDataAccessUsersModule {}
 export class DataAccessUsersModule {
   static forRoot(): ModuleWithProviders<DataAccessUsersModule> {
     return {
-      ngModule: RootDataAccessUsersModule,
-      providers: [UsersService, UsersFacade, AuthUsersResolver]
+      ngModule: RootDataAccessUsersModule
     };
   }
 }

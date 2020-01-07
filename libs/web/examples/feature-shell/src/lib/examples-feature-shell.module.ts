@@ -11,6 +11,7 @@ import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
 import { AboutComponent } from './about/about.component';
 import { ChildScrollDirective } from './child-scroll.directive';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CommonNotificationModule } from '@uqt/utils/notifications';
 
 const COMPONENTS = [
   ExamplesFeatureShellComponent,
@@ -26,6 +27,7 @@ const COMPONENTS = [
     CustomMaterialModule,
     CommonUiToolbarModule,
     CommonUiCardModule,
+    CommonNotificationModule,
     ScrollingModule,
     ExamplesDataAccessModule,
     ExamplesFeatureShellRoutingModule

@@ -2,21 +2,25 @@ import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as AuthActions from './auth.actions';
-import { selectLoggedInStatus, selectAvailability } from './auth.selectors';
+import * as fromAuth from './auth.selectors';
 import {
   ILoginCredentials,
   IRegistrationDetails,
   AvailableStatus
 } from '../auth.interface';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthFacade {
   loggedInStatus$: Observable<boolean>;
   usernameAvailability$: Observable<AvailableStatus | null>;
 
   constructor(private store: Store<any>) {
-    this.loggedInStatus$ = this.store.pipe(select(selectLoggedInStatus));
-    this.usernameAvailability$ = this.store.pipe(select(selectAvailability));
+    this.loggedInStatus$ = this.store.pipe(
+      select(fromAuth.selectLoggedInStatus)
+    );
+    this.usernameAvailability$ = this.store.pipe(
+      select(fromAuth.selectAvailability)
+    );
   }
 
   login(credentials: ILoginCredentials): void {

@@ -3,6 +3,8 @@ import * as FormActions from './form-builder.actions';
 import { createReducer, on, Action } from '@ngrx/store';
 import { IDynamicFormConfig } from '@uqt/data-access/dynamic-form';
 
+export const formBuilderKey = 'formBuilder';
+
 export interface FormBuilderEntityState
   extends EntityState<IDynamicFormConfig> {
   selectedFormName: string | null;

@@ -1,16 +1,16 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { DynamicFormEntityState, adapter } from './dynamic-form.reducer';
+import * as fromDynamicForm from './dynamic-form.reducer';
 
-const selectDynamicFormState = createFeatureSelector<DynamicFormEntityState>(
-  'dynamicForm'
-);
+const selectDynamicFormState = createFeatureSelector<
+  fromDynamicForm.DynamicFormEntityState
+>(fromDynamicForm.dynamicFormKey);
 
 export const {
   selectIds: selectFormNames,
   selectEntities: selectFormEntities,
   selectAll: selectAllForms,
   selectTotal
-} = adapter.getSelectors(selectDynamicFormState);
+} = fromDynamicForm.adapter.getSelectors(selectDynamicFormState);
 
 export function selectForm(formName: string) {
   return createSelector(selectFormEntities, forms => forms[formName]);

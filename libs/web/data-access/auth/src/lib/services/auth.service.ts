@@ -9,7 +9,7 @@ import {
   IRegistrationDetails
 } from '../auth.interface';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(
     private jwt: JWTAuthService,

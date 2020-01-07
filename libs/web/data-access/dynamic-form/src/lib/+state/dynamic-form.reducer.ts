@@ -1,10 +1,12 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import * as FormActions from './dynamic-form.actions';
+import * as DynamicFormActions from './dynamic-form.actions';
 import {
   DynamicFormState,
   IDynamicFormConfig
 } from '../dynamic-form.interface';
+
+export const dynamicFormKey = 'dynamicForm';
 
 export interface DynamicFormEntityState extends EntityState<DynamicFormState> {}
 
@@ -22,7 +24,7 @@ export const initialEntityFormState: DynamicFormEntityState = adapter.getInitial
 
 export const formReducer = createReducer(
   initialEntityFormState,
-  on(FormActions.createForm, (state, { formName }) => {
+  on(DynamicFormActions.createForm, (state, { formName }) => {
     // Only creates if it does not yet currently exist
     if ((state.ids as string[]).indexOf(formName) === -1) {
       return adapter.addOne(generateInitialFormState(formName), state);
@@ -30,7 +32,7 @@ export const formReducer = createReducer(
       return state;
     }
   }),
-  on(FormActions.setFormConfig, (state, { formName, config }) => {
+  on(DynamicFormActions.setFormConfig, (state, { formName, config }) => {
     const currentState = state.entities[formName] as DynamicFormState;
     checkEntityAndThrow(currentState, formName);
     return adapter.updateOne(
@@ -41,16 +43,16 @@ export const formReducer = createReducer(
       state
     );
   }),
-  on(FormActions.updateFormData, (state, { formName, data }) => {
+  on(DynamicFormActions.updateFormData, (state, { formName, data }) => {
     return adapter.updateOne({ id: formName, changes: { data } }, state);
   }),
-  on(FormActions.formErrorsComplete, (state, { formName, errors }) => {
+  on(DynamicFormActions.formErrorsComplete, (state, { formName, errors }) => {
     return adapter.updateOne({ id: formName, changes: { errors } }, state);
   }),
-  on(FormActions.clearFormErrors, (state, { formName }) => {
+  on(DynamicFormActions.clearFormErrors, (state, { formName }) => {
     return adapter.updateOne({ id: formName, changes: { errors: [] } }, state);
   }),
-  on(FormActions.gotToIndex, (state, { formName, index }) => {
+  on(DynamicFormActions.gotToIndex, (state, { formName, index }) => {
     const currentState = state.entities[formName] as DynamicFormState;
     const newIndex =
       index >= 0 && index < currentState.config.structure.length
@@ -61,7 +63,7 @@ export const formReducer = createReducer(
       state
     );
   }),
-  on(FormActions.nextIndex, (state, { formName }) => {
+  on(DynamicFormActions.nextIndex, (state, { formName }) => {
     // This will never be undefined, as the action can only dispatched
     // from within the form with the currently set formName
     const currentState = state.entities[formName] as DynamicFormState;
@@ -72,14 +74,14 @@ export const formReducer = createReducer(
 
     return adapter.updateOne({ id: formName, changes: { index } }, state);
   }),
-  on(FormActions.backIndex, (state, { formName }) => {
+  on(DynamicFormActions.backIndex, (state, { formName }) => {
     // This will never be undefined, as the action can only dispatched
     // from within the form with the currently set formName
     const currentState = state.entities[formName] as DynamicFormState;
     const index = currentState.index <= 1 ? 0 : currentState.index - 1;
     return adapter.updateOne({ id: formName, changes: { index } }, state);
   }),
-  on(FormActions.resetFormState, (state, { formName }) => {
+  on(DynamicFormActions.resetFormState, (state, { formName }) => {
     const currentState = state.entities[formName] as DynamicFormState;
     return adapter.updateOne(
       {
