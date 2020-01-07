@@ -1,5 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { IExample, ExamplesFacade } from '@uqt/examples/data-access';
 
 @Component({
   selector: 'uqt-about',
@@ -8,9 +10,18 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AboutComponent {
-  constructor(private router: Router) {}
+  examples$: Observable<IExample[]>;
+  // columns = 3;
+
+  constructor(private facade: ExamplesFacade, private router: Router) {
+    this.examples$ = this.facade.examples$;
+  }
 
   showExamples() {
-    this.router.navigate(['examples']);
+    this.router.navigate(['examples', 'demos']);
+  }
+
+  trackExample(i: number, e: IExample) {
+    return e.id;
   }
 }

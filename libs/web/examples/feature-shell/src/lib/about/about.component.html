@@ -1,4 +1,4 @@
-<section class="content">
+<section class="content" cdkScrollable>
   <div class="about">
     <h1 class="title">Zero to Production Monorepo Starter</h1>
 
@@ -21,7 +21,7 @@
         master-detail etc)!
       </li>
       <li>
-        Live examples of some less common Angular techniques.
+        Live examples of some less common Anglar techniques.
       </li>
       <li>
         Node API using Koa, GraphQL and MongoDB (including a custom Angular CLI
@@ -36,5 +36,18 @@
     <p>COPYRIGHT Jonathon Adams</p>
 
     <button type="button" (click)="showExamples()">Examples!!</button>
+  </div>
+  <div class="examples">
+    <uqt-card
+      childScroll
+      #animate
+      class="example"
+      *ngFor="let example of examples$ | async"
+      trackBy="trackExample"
+    >
+      <h3 class="card-header">{{ example.title }}</h3>
+      <p class="card-content">{{ example.summary }}</p>
+      <a [href]="example.link">See here for README</a>
+    </uqt-card>
   </div>
 </section>

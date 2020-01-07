@@ -9,11 +9,14 @@ import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { ExamplesDataAccessModule } from '@uqt/examples/data-access';
 import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
 import { AboutComponent } from './about/about.component';
+import { ChildScrollDirective } from './child-scroll.directive';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 const COMPONENTS = [
   ExamplesFeatureShellComponent,
   AboutComponent,
-  ExamplesComponent
+  ExamplesComponent,
+  ChildScrollDirective
 ];
 
 @NgModule({
@@ -23,6 +26,7 @@ const COMPONENTS = [
     CustomMaterialModule,
     CommonUiToolbarModule,
     CommonUiCardModule,
+    ScrollingModule,
     ExamplesDataAccessModule,
     ExamplesFeatureShellRoutingModule
   ],
