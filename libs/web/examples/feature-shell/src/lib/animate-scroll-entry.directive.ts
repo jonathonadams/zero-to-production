@@ -1,4 +1,4 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, OnDestroy } from '@angular/core';
 import { ScrollDispatcher } from '@angular/cdk/overlay';
 import {
   AnimationPlayer,
@@ -8,6 +8,7 @@ import {
   animate,
   keyframes
 } from '@angular/animations';
+import { Subscription } from 'rxjs';
 
 export enum ElementViewportPosition {
   Above = 'Above',
@@ -18,10 +19,12 @@ export enum ElementViewportPosition {
 @Directive({
   selector: '[animateScrollEntry]'
 })
-export class AnimateScrollEntryDirective {
+export class AnimateScrollEntryDirective implements OnDestroy {
   player: AnimationPlayer;
   previousPosition: ElementViewportPosition;
   animationCompleted = true;
+
+  private sub: Subscription;
 
   constructor(
     private el: ElementRef,
@@ -30,44 +33,77 @@ export class AnimateScrollEntryDirective {
   ) {}
 
   ngOnInit() {
-    this.scrollDispatcher.ancestorScrolled(this.el, 100).subscribe(scrolled => {
-      if (scrolled) {
-        const elRef = scrolled.getElementRef().nativeElement as HTMLElement;
+    this.checkCurrentPosition();
 
-        const clientTop = elRef.clientTop;
-        const clientHeight = elRef.clientHeight;
+    this.registerScrollDispatcher();
+  }
 
-        const newPosition = this.elementScrollPosition(
-          this.el,
-          clientTop,
-          clientHeight
-        );
+  private checkCurrentPosition() {
+    // There should only be one parent
+    const [scrollAncestor] = this.scrollDispatcher.getAncestorScrollContainers(
+      this.el
+    );
+    if (scrollAncestor) {
+      const elRef = scrollAncestor.getElementRef().nativeElement as HTMLElement;
 
-        const oldPosition = this.previousPosition;
+      const clientTop = elRef.clientTop;
+      const clientHeight = elRef.clientHeight;
 
-        // Only play a new animation if the old has stopped playing
-        if (this.animationCompleted) {
-          // Only play the intro animation if the old position was below the current viewport
-          // i.e. scrolling up.
-          if (
-            (oldPosition === ElementViewportPosition.Below || !oldPosition) &&
-            newPosition === ElementViewportPosition.On
-          ) {
-            this.playAnimation(this.spinInto());
+      const currentPosition = this.elementScrollPosition(
+        this.el,
+        clientTop,
+        clientHeight
+      );
 
-            // Only hide if the new position is below the viewport
-            // if it is above, keep its current state
-          } else if (
-            oldPosition === ElementViewportPosition.On &&
-            newPosition === ElementViewportPosition.Below
-          ) {
-            this.playAnimation(this.hide());
-          }
-
-          this.previousPosition = newPosition;
-        }
+      if (currentPosition === ElementViewportPosition.On) {
+        this.playAnimation(this.spinInto());
       }
-    });
+
+      this.previousPosition = currentPosition;
+    }
+  }
+
+  private registerScrollDispatcher() {
+    this.sub = this.scrollDispatcher
+      .ancestorScrolled(this.el, 100)
+      .subscribe(scrolled => {
+        if (scrolled) {
+          const elRef = scrolled.getElementRef().nativeElement as HTMLElement;
+
+          const clientTop = elRef.clientTop;
+          const clientHeight = elRef.clientHeight;
+
+          const newPosition = this.elementScrollPosition(
+            this.el,
+            clientTop,
+            clientHeight
+          );
+
+          const oldPosition = this.previousPosition;
+
+          // Only play a new animation if the old has stopped playing
+          if (this.animationCompleted) {
+            // Only play the intro animation if the old position was below the current viewport
+            // i.e. scrolling up.
+            if (
+              oldPosition === ElementViewportPosition.Below &&
+              newPosition === ElementViewportPosition.On
+            ) {
+              this.playAnimation(this.spinInto());
+
+              // Only hide if the new position is below the viewport
+              // if it is above, keep its current state
+            } else if (
+              oldPosition === ElementViewportPosition.On &&
+              newPosition === ElementViewportPosition.Below
+            ) {
+              this.playAnimation(this.hide());
+            }
+
+            this.previousPosition = newPosition;
+          }
+        }
+      });
   }
 
   private playAnimation(metadata: AnimationMetadata[]) {
@@ -146,5 +182,9 @@ export class AnimateScrollEntryDirective {
     } else {
       return ElementViewportPosition.Above;
     }
+  }
+
+  ngOnDestroy() {
+    if (this.sub) this.sub.unsubscribe();
   }
 }
