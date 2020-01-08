@@ -22,9 +22,6 @@ export class ChildScrollDirective {
   player: AnimationPlayer;
   previousPosition: ElementViewportPosition;
 
-  coolDown = false;
-  // timer: NodeJS.Timeout;
-
   constructor(
     private el: ElementRef,
     private builder: AnimationBuilder,
@@ -39,25 +36,27 @@ export class ChildScrollDirective {
         const clientTop = elRef.clientTop;
         const clientHeight = elRef.clientHeight;
 
-        const position = this.elementScrollPosition(
+        const newPosition = this.elementScrollPosition(
           this.el,
           clientTop,
           clientHeight
         );
 
-        if (position !== this.previousPosition) {
-          if (position === ElementViewportPosition.On) {
-            // if (!this.coolDown) {
-            this.playAnimation(this.spinInto());
+        const oldPosition = this.previousPosition;
 
-            // this.coolDown = true;
-            // this.timer = setTimeout(() => (this.coolDown = false), 1000);
-            // }
-          } else {
-            // this.playAnimation(this.shrinkBorder());
-          }
+        if (
+          (oldPosition === ElementViewportPosition.Below || !oldPosition) &&
+          newPosition === ElementViewportPosition.On
+        ) {
+          this.playAnimation(this.spinInto());
+        } else if (
+          oldPosition === ElementViewportPosition.On &&
+          newPosition === ElementViewportPosition.Below
+        ) {
+          this.playAnimation(this.hide());
         }
-        this.previousPosition = position;
+
+        this.previousPosition = newPosition;
       }
     });
   }
@@ -78,38 +77,30 @@ export class ChildScrollDirective {
     const delay = Math.random().toFixed(2);
     const timing = (0.5 + Math.random()).toFixed(2);
     return [
-      style({
-        height: '*'
-      }),
       animate(
         `${timing}s ${delay}s ease-out`,
         keyframes([
           style({
-            height: '*',
             opacity: 0,
             transform:
               'translate3d(0, 200%, -20em) scale3d(0.2, 0.2, 0.2) rotateX(720deg)'
           }),
           style({
-            // height: '*',
             opacity: 0.25,
             transform:
               'translate3d(0, 120%, -18em) scale3d(0.4, 0.4, 0.4) rotateX(540deg)'
           }),
           style({
-            // height: '*',
             opacity: 0.5,
             transform:
               'translate3d(0, 60%, -16em) scale3d(0.6, 0.6, 0.6) rotateX(360deg)'
           }),
           style({
-            // height: '*',
             opacity: 0.75,
             transform:
               'translate3d(0, 20%, -10em) scale3d(0.8, 0.8, 0.8) rotateX(180deg)'
           }),
           style({
-            // height: '*',
             opacity: 1,
             transform: 'none'
           })
@@ -118,16 +109,8 @@ export class ChildScrollDirective {
     ];
   }
 
-  private shrinkBorder(): AnimationMetadata[] {
-    return [
-      style({ borderRadius: '4px' }),
-      animate(
-        '100ms ease',
-        style({
-          borderRadius: '50px'
-        })
-      )
-    ];
+  private hide(): AnimationMetadata[] {
+    return [style({ opacity: 0 })];
   }
 
   elementScrollPosition(
