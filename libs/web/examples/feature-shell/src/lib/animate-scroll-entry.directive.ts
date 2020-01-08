@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
 import { ScrollDispatcher } from '@angular/cdk/overlay';
 import {
   AnimationPlayer,
@@ -16,11 +16,12 @@ export enum ElementViewportPosition {
 }
 
 @Directive({
-  selector: '[childScroll]'
+  selector: '[animateScrollEntry]'
 })
-export class ChildScrollDirective {
+export class AnimateScrollEntryDirective {
   player: AnimationPlayer;
   previousPosition: ElementViewportPosition;
+  animationCompleted = true;
 
   constructor(
     private el: ElementRef,
@@ -29,7 +30,7 @@ export class ChildScrollDirective {
   ) {}
 
   ngOnInit() {
-    this.scrollDispatcher.ancestorScrolled(this.el, 200).subscribe(scrolled => {
+    this.scrollDispatcher.ancestorScrolled(this.el, 100).subscribe(scrolled => {
       if (scrolled) {
         const elRef = scrolled.getElementRef().nativeElement as HTMLElement;
 
@@ -44,19 +45,27 @@ export class ChildScrollDirective {
 
         const oldPosition = this.previousPosition;
 
-        if (
-          (oldPosition === ElementViewportPosition.Below || !oldPosition) &&
-          newPosition === ElementViewportPosition.On
-        ) {
-          this.playAnimation(this.spinInto());
-        } else if (
-          oldPosition === ElementViewportPosition.On &&
-          newPosition === ElementViewportPosition.Below
-        ) {
-          this.playAnimation(this.hide());
-        }
+        // Only play a new animation if the old has stopped playing
+        if (this.animationCompleted) {
+          // Only play the intro animation if the old position was below the current viewport
+          // i.e. scrolling up.
+          if (
+            (oldPosition === ElementViewportPosition.Below || !oldPosition) &&
+            newPosition === ElementViewportPosition.On
+          ) {
+            this.playAnimation(this.spinInto());
 
-        this.previousPosition = newPosition;
+            // Only hide if the new position is below the viewport
+            // if it is above, keep its current state
+          } else if (
+            oldPosition === ElementViewportPosition.On &&
+            newPosition === ElementViewportPosition.Below
+          ) {
+            this.playAnimation(this.hide());
+          }
+
+          this.previousPosition = newPosition;
+        }
       }
     });
   }
@@ -69,16 +78,20 @@ export class ChildScrollDirective {
     const factory = this.builder.build(metadata);
     this.player = factory.create(this.el.nativeElement);
 
+    // register an onDone function to toggle the state once it is completed
+    this.player.onDone(() => (this.animationCompleted = true));
+
+    this.animationCompleted = false;
     this.player.play();
   }
 
   private spinInto(): AnimationMetadata[] {
-    // sudo random number between 0 and 0.5
+    // sudo random number between 0 and 1
     const delay = Math.random().toFixed(2);
     const timing = (0.5 + Math.random()).toFixed(2);
     return [
       animate(
-        `${timing}s ${delay}s ease-out`,
+        `${timing}s ${delay}s cubic-bezier(.37,.63,.31,.9)`,
         keyframes([
           style({
             opacity: 0,
@@ -113,6 +126,13 @@ export class ChildScrollDirective {
     return [style({ opacity: 0 })];
   }
 
+  /**
+   * Determines if an element is within the current view port
+   *
+   * @param el
+   * @param topY
+   * @param bottomY
+   */
   elementScrollPosition(
     el: ElementRef,
     topY: number,

@@ -43,7 +43,7 @@
       *ngFor="let example of examples$ | async; let i = index"
       trackBy="trackExample"
     >
-      <uqt-card childScroll class="inner-card">
+      <uqt-card animateScrollEntry class="inner-card">
         <h3 class="card-header">{{ example.title }}</h3>
         <p class="card-content">{{ example.summary }}</p>
         <a [href]="example.link">See here for README</a>

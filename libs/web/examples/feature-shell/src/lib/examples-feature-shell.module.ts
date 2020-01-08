@@ -9,16 +9,9 @@ import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { ExamplesDataAccessModule } from '@uqt/examples/data-access';
 import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
 import { AboutComponent } from './about/about.component';
-import { ChildScrollDirective } from './child-scroll.directive';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonNotificationModule } from '@uqt/utils/notifications';
-
-const COMPONENTS = [
-  ExamplesFeatureShellComponent,
-  AboutComponent,
-  ExamplesComponent,
-  ChildScrollDirective
-];
+import { AnimateScrollEntryDirective } from './animate-scroll-entry.directive';
 
 @NgModule({
   imports: [
@@ -32,6 +25,11 @@ const COMPONENTS = [
     ExamplesDataAccessModule,
     ExamplesFeatureShellRoutingModule
   ],
-  declarations: COMPONENTS
+  declarations: [
+    ExamplesFeatureShellComponent,
+    AboutComponent,
+    ExamplesComponent,
+    AnimateScrollEntryDirective
+  ]
 })
 export class ExamplesFeatureShellModule {}
