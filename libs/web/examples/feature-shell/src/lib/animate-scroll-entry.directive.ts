@@ -43,16 +43,19 @@ export class AnimateScrollEntryDirective implements OnDestroy {
     const [scrollAncestor] = this.scrollDispatcher.getAncestorScrollContainers(
       this.el
     );
+
+    // console.log(scrollAncestor);
     if (scrollAncestor) {
       const elRef = scrollAncestor.getElementRef().nativeElement as HTMLElement;
 
       const clientTop = elRef.clientTop;
       const clientHeight = elRef.clientHeight;
+      const offsetTop = elRef.offsetTop;
 
       const currentPosition = this.elementScrollPosition(
         this.el,
-        clientTop,
-        clientHeight
+        clientTop + offsetTop,
+        clientHeight + offsetTop
       );
 
       if (currentPosition === ElementViewportPosition.On) {
@@ -72,11 +75,12 @@ export class AnimateScrollEntryDirective implements OnDestroy {
 
           const clientTop = elRef.clientTop;
           const clientHeight = elRef.clientHeight;
+          const offsetTop = elRef.offsetTop;
 
           const newPosition = this.elementScrollPosition(
             this.el,
-            clientTop,
-            clientHeight
+            clientTop + offsetTop,
+            clientHeight + offsetTop
           );
 
           const oldPosition = this.previousPosition;
