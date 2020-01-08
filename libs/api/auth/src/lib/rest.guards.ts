@@ -21,7 +21,7 @@ export function verifyToken(secret: string) {
       try {
         ctx.state.token = verify(ctx.request.token, secret);
       } catch (err) {
-        throw Boom.unauthorized();
+        throw Boom.unauthorized(null, 'Bearer');
       }
       return next();
     } catch (err) {
@@ -45,7 +45,7 @@ export function verifyUserIsActive(User: IUserModel) {
   ) {
     try {
       const user = await User.findById(ctx.state.token.sub);
-      if (!user || !user.active) throw Boom.unauthorized('Unauthorized');
+      if (!user || !user.active) throw Boom.unauthorized(null, 'Bearer');
 
       // Set the user on the ctx.state.user property
       ctx.state.user = user;

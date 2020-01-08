@@ -15,7 +15,7 @@ export function checkToken(secret: string): AuthMiddleware {
     try {
       context.state.token = verify(context.token, secret);
     } catch (err) {
-      throw Boom.unauthorized('Unauthorized.');
+      throw Boom.unauthorized(null, 'Bearer');
     }
   };
 }
@@ -30,7 +30,7 @@ export function checkUserIsActive(User: IUserModel): AuthMiddleware {
   return async function checkActiveUser(parent, args, context, info) {
     const id = context.state.token.sub;
     const user = await User.findById(id);
-    if (!user || !user.active) throw Boom.unauthorized();
+    if (!user || !user.active) throw Boom.unauthorized(null, 'Bearer');
     context.state.user = user;
   };
 }
@@ -41,6 +41,7 @@ export function checkUserIsActive(User: IUserModel): AuthMiddleware {
  */
 export function checkUserRole(role: AuthenticationRoles): AuthMiddleware {
   return async function checkRole(parent, args, context, info) {
-    if ((context.state.user as IUser).role !== role) throw Boom.unauthorized();
+    if ((context.state.user as IUser).role !== role)
+      throw Boom.unauthorized(null, 'Bearer');
   };
 }

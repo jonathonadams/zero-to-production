@@ -126,11 +126,11 @@ export function loginController({
   ): Promise<{ token: string }> {
     const user = await userModel.findByUsername(username);
 
-    if (!user || !user.active) throw Boom.unauthorized('Unauthorized');
+    if (!user || !user.active) throw Boom.unauthorized(null, 'Bearer');
 
     const valid = await compare(password, user.hashedPassword as string);
 
-    if (!valid) throw Boom.unauthorized('Unauthorized');
+    if (!valid) throw Boom.unauthorized(null, 'Bearer');
 
     const token = accessToken(user);
 
@@ -159,11 +159,11 @@ export function authorizeController({
   ): Promise<{ token: string; refreshToken: string }> {
     const user = await userModel.findByUsername(username);
 
-    if (!user || user.active === false) throw Boom.unauthorized('Unauthorized');
+    if (!user || user.active === false) throw Boom.unauthorized(null, 'Bearer');
 
     const valid = await compare(password, user.hashedPassword as string);
 
-    if (!valid) throw Boom.unauthorized('Unauthorized');
+    if (!valid) throw Boom.unauthorized(null, 'Bearer');
 
     const accessToken = signAccessToken({
       secret: accessTokenSecret,
@@ -204,21 +204,21 @@ export function refreshAccessTokenController({
   ): Promise<{ token: string }> {
     const token = await refreshTokenModel.findByTokenWithUser(refreshToken);
     // No token found
-    if (token === null) throw Boom.unauthorized();
+    if (token === null) throw Boom.unauthorized(null, 'Bearer');
 
     // No user found or matched with given parameters
     if (token.user === null || token.user.username !== username)
-      throw Boom.unauthorized();
+      throw Boom.unauthorized(null, 'Bearer');
 
     // revoke refreshToken if user is inactive
     if (token.user.active === false) {
       await token.remove();
-      throw Boom.unauthorized();
+      throw Boom.unauthorized(null, 'Bearer');
     }
 
     // The provided token is valid
     const valid = await verify(refreshToken, refreshTokenSecret);
-    if (!valid) throw Boom.unauthorized();
+    if (!valid) throw Boom.unauthorized(null, 'Bearer');
 
     const accessToken = signAccessToken({
       secret: accessTokenSecret,

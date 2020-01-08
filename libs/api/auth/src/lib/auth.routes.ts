@@ -29,7 +29,7 @@ export function login(config: {
     const password: string = (ctx.request as any).body.password;
 
     if (!username || !password)
-      throw Boom.unauthorized('A username and password must be provided');
+      throw Boom.unauthorized('Username and password must be provided');
 
     ctx.body = await controller(username, password);
   };
@@ -76,7 +76,7 @@ export function authorize(config: {
     const password = (ctx.request as any).body.password;
 
     if (!username || !password)
-      throw Boom.unauthorized('Not all parameters provided.');
+      throw Boom.unauthorized('Username and password must be provided');
 
     ctx.body = await controller(username, password);
   };
@@ -95,7 +95,7 @@ export function refreshAccessToken(config: {
     const refreshToken = (ctx.request as any).body.refreshToken;
 
     if (!username || !refreshToken)
-      throw Boom.unauthorized('Not all parameters provided.');
+      throw Boom.unauthorized('Username and password must be provided');
 
     const success = await controller(username, refreshToken);
     ctx.status = 403;
