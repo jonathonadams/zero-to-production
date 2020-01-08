@@ -31,12 +31,12 @@ describe('TodoEffects', () => {
         provideMockActions(() => action$)
       ]
     });
-    effects = TestBesd.inject<TodoEffects>(TodoEffects);
-    action$ = TestBesd.inject<Actions>(Actions);
-    todoService = TestBesd.inject<TodosService>(TodosService);
+    effects = TestBed.inject<TodoEffects>(TodoEffects);
+    action$ = TestBed.inject<Actions>(Actions);
+    todoService = TestBed.inject<TodosService>(TodosService);
     mockTodo = {
       id: '1',
-      user: '1',
+      userId: '1',
       title: 'some title',
       description: 'some description',
       completed: true
@@ -52,14 +52,14 @@ describe('TodoEffects', () => {
       const todos: ITodo[] = [
         {
           id: '1',
-          user: '1',
+          userId: '1',
           title: 'some title',
           description: 'some description',
           completed: true
         },
         {
           id: '2',
-          user: '1',
+          userId: '1',
           title: 'another title',
           description: 'another description',
           completed: false

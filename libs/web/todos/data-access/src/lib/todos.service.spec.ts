@@ -30,9 +30,9 @@ describe('TodoService', () => {
       ]
     });
 
-    service = TestBesd.inject<TodosService>(TodosService);
-    authService = TestBesd.inject<JWTAuthService>(JWTAuthService);
-    graphQLService = TestBesd.inject<GraphQLService>(GraphQLService);
+    service = TestBed.inject<TodosService>(TodosService);
+    authService = TestBed.inject<JWTAuthService>(JWTAuthService);
+    graphQLService = TestBed.inject<GraphQLService>(GraphQLService);
   });
 
   it('should be created', () => {
@@ -70,7 +70,7 @@ describe('TodoService', () => {
       const spy = jest.spyOn(graphQLService, 'mutation');
 
       const originalTodo: ITodo = {
-        user: '1',
+        userId: '1',
         title: 'some title',
         description: 'some description',
         completed: false
@@ -79,7 +79,7 @@ describe('TodoService', () => {
       const sentTodo = {
         ...originalTodo,
         completed: false,
-        user: '1'
+        userId: '1'
       } as ITodo;
       authService.getDecodedToken = jest.fn(() => {
         return {
@@ -101,7 +101,7 @@ describe('TodoService', () => {
 
       const updatedTodo: ITodo = {
         id: '1',
-        user: '1',
+        userId: '1',
         title: 'some title',
         description: 'some description',
         completed: true
@@ -124,7 +124,7 @@ describe('TodoService', () => {
 
       const todo: ITodo = {
         id: '1',
-        user: '1',
+        userId: '1',
         title: 'some title',
         description: 'some description',
         completed: true
@@ -171,7 +171,7 @@ describe('TodoService', () => {
 //     const spy = jest.spyOn(apiService, 'post');
 
 //     const todo: Todo = {
-//       user: '1',
+//       userId: '1',
 //       title: 'some title',
 //       description: 'some description',
 //       completed: true
@@ -198,7 +198,7 @@ describe('TodoService', () => {
 
 //     const todo: Todo = {
 //       id: '1',
-//       user: '1',
+//       userId: '1',
 //       title: 'some title',
 //       description: 'some description',
 //       completed: true
@@ -220,7 +220,7 @@ describe('TodoService', () => {
 
 //     const todo: Todo = {
 //       id: '1',
-//       user: '1',
+//       userId: '1',
 //       title: 'some title',
 //       description: 'some description',
 //       completed: true

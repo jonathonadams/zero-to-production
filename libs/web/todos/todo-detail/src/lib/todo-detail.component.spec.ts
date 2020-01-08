@@ -43,10 +43,10 @@ describe('TodoDetailComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    todoFacade = TestBesd.inject<TodosFacade>(TodosFacade);
-    activatedRoute = TestBesd.inject<ActivatedRoute>(ActivatedRoute);
-    location = TestBesd.inject<Location>(Location);
-    formsFacade = TestBesd.inject<DynamicFormFacade>(DynamicFormFacade);
+    todoFacade = TestBed.inject<TodosFacade>(TodosFacade);
+    activatedRoute = TestBed.inject<ActivatedRoute>(ActivatedRoute);
+    location = TestBed.inject<Location>(Location);
+    formsFacade = TestBed.inject<DynamicFormFacade>(DynamicFormFacade);
   }));
 
   beforeEach(() => {
@@ -97,7 +97,7 @@ describe('TodoDetailComponent', () => {
 //       schemas: [NO_ERRORS_SCHEMA]
 //     }).compileComponents();
 
-//     todoFacade = TestBesd.inject(TodosFacade);
+//     todoFacade = TestBed.inject(TodosFacade);
 //   }));
 
 //   beforeEach(() => {

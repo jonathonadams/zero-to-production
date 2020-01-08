@@ -20,9 +20,9 @@ describe('LoggedInGuard', () => {
       ]
     });
 
-    loggedInGuard = TestBesd.inject<LoggedInGuard>(LoggedInGuard);
-    authService = TestBesd.inject<AuthService>(AuthService);
-    authFacade = TestBesd.inject<AuthFacade>(AuthFacade);
+    loggedInGuard = TestBed.inject<LoggedInGuard>(LoggedInGuard);
+    authService = TestBed.inject<AuthService>(AuthService);
+    authFacade = TestBed.inject<AuthFacade>(AuthFacade);
   });
 
   it('should check if the user is logged in and dispatch a LoginRedirect if they are', () => {

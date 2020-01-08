@@ -26,9 +26,9 @@ describe('ApiService', () => {
     });
 
     // Inject the http service and test controller for each test
-    apiService = TestBesd.inject<ApiService>(ApiService);
-    httpClient = TestBesd.inject<HttpClient>(HttpClient);
-    httpTestingController = TestBesd.inject(
+    apiService = TestBed.inject<ApiService>(ApiService);
+    httpClient = TestBed.inject<HttpClient>(HttpClient);
+    httpTestingController = TestBed.inject(
       HttpTestingController as Type<HttpTestingController>
     );
   });

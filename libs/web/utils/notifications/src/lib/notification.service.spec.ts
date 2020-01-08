@@ -12,10 +12,10 @@ describe('NotificationService', () => {
     TestBed.configureTestingModule({
       providers: [NotificationService, { provide: MatSnackBar, useValue: spy }]
     });
-    notificationService = TestBesd.inject<NotificationService>(
+    notificationService = TestBed.inject<NotificationService>(
       NotificationService
     );
-    snackBarServiceSpy = TestBesd.inject<MatSnackBar>(MatSnackBar);
+    snackBarServiceSpy = TestBed.inject<MatSnackBar>(MatSnackBar);
   });
 
   it('should be created', () => {

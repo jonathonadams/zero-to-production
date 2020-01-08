@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { GraphQLError } from 'graphql';
+import { sign } from 'jsonwebtoken';
 import { createSpyObj } from '@app-testing/frontend/helpers';
 import { GraphQLStub } from '@app-testing/frontend/stubs/graphql.stubs';
 import { HttpStub } from '@app-testing/frontend/stubs/http.stubs';
 import { GraphQLService, ApiService } from '@uqt/data-access/api';
 import { AuthService } from './auth.service';
-import { JWTAuthService } from './jwt-auth.service';
 import {
   ILoginCredentials,
   ILoginResponse,
@@ -15,60 +15,39 @@ import { AuthenticationRoles, IUser } from '@uqt/interfaces';
 
 describe('AuthService', () => {
   let authService: AuthService;
-  let graphQLStub: GraphQLStub;
-  let apiStub: HttpStub;
-  let jwtService: JWTAuthService;
-  const jwtServiceSpy = createSpyObj('JWTAuthService', [
-    'getAuthorizationToken',
-    'checkTokenIsValid'
-  ]);
+  let graphQLStub: GraphQLService;
+  let apiStub: ApiService;
+
+  let JWT: string;
+  const storageKey = 'access_token';
+  const tokenSecret = 'this-is-a-test-secret';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         AuthService,
-        { provide: JWTAuthService, useValue: jwtServiceSpy },
         { provide: GraphQLService, useClass: GraphQLStub },
         { provide: ApiService, useValue: HttpStub }
       ]
     });
-    authService = TestBesd.inject<AuthService>(AuthService);
-    graphQLStub = TestBesd.inject<GraphQLService>(GraphQLService);
-    apiStub = TestBesd.inject<ApiService>(ApiService);
-    jwtService = TestBesd.inject<JWTAuthService>(JWTAuthService);
+    authService = TestBed.inject<AuthService>(AuthService);
+    graphQLStub = TestBed.inject<GraphQLService>(GraphQLService);
+    apiStub = TestBed.inject<ApiService>(ApiService);
+
+    JWT = sign(
+      {
+        role: 0
+      },
+      tokenSecret,
+      {
+        subject: '123',
+        expiresIn: 1000
+      }
+    );
   });
 
   it('should be created', () => {
     expect(authService).toBeTruthy();
-  });
-
-  describe('checkUserIsLoggedIn', () => {
-    it('should return true if there is a token and it is valid', () => {
-      jwtService.getAuthorizationToken = jest.fn(() => 'some_token');
-      jwtService.checkTokenIsValid = jest.fn((token: string) => true);
-      const loggedIn = authService.checkUserIsLoggedIn();
-
-      expect(loggedIn).toEqual(true);
-    });
-
-    it('should return false if there is no token', () => {
-      jwtService.getAuthorizationToken = jest.fn(() => null);
-      const loggedIn = authService.checkUserIsLoggedIn();
-
-      expect(loggedIn).toEqual(false);
-    });
-
-    it('should return false if the token is invalid', () => {
-      // const token = sign({}, tokenSecret, { expiresIn: -10000, subject: '1' });
-      // localStorage.setItem(storageKey, token);
-
-      jwtService.getAuthorizationToken = jest.fn(() => 'some_token');
-      jwtService.checkTokenIsValid = jest.fn((token: string) => false);
-
-      const loggedIn = authService.checkUserIsLoggedIn();
-
-      expect(loggedIn).toEqual(false);
-    });
   });
 
   describe('login', () => {
@@ -83,7 +62,9 @@ describe('AuthService', () => {
         token: 'JWT'
       };
       // Set the response from the the stub
-      graphQLStub.setExpectedResponse<{ login: ILoginResponse }>({
+      ((graphQLStub as unknown) as GraphQLStub).setExpectedResponse<{
+        login: ILoginResponse;
+      }>({
         login: expectedResponse
       });
       authService.login(loginCredentials).subscribe(response => {
@@ -104,7 +85,7 @@ describe('AuthService', () => {
         { name: 'Unauthorized Error', message: 'Unauthorized' }
       ] as GraphQLError[];
       // Set the response from the the stub
-      graphQLStub.setErrorResponse(graphErrors);
+      ((graphQLStub as unknown) as GraphQLStub).setErrorResponse(graphErrors);
       authService.login(loginCredentials).subscribe(response => {
         expect(response.data).toEqual(null);
         expect(response.errors).toBeDefined();
@@ -137,7 +118,9 @@ describe('AuthService', () => {
       };
 
       // Set the response from the the stub
-      graphQLStub.setExpectedResponse<{ user: IUser }>({
+      ((graphQLStub as unknown) as GraphQLStub).setExpectedResponse<{
+        user: IUser;
+      }>({
         user: expectedResponse
       });
 
@@ -165,7 +148,7 @@ describe('AuthService', () => {
       ] as GraphQLError[];
 
       // Set the response from the the stub
-      graphQLStub.setErrorResponse(graphErrors);
+      ((graphQLStub as unknown) as GraphQLStub).setErrorResponse(graphErrors);
       authService.register(newUser).subscribe(response => {
         expect(response.data).toEqual(null);
         expect(response.errors).toBeDefined();
@@ -203,5 +186,99 @@ describe('AuthService', () => {
     //   // Finally, assert that there are no outstanding requests.
     //   httpTestingController.verify();
     // });
+  });
+
+  describe('checkUserIsLoggedIn', () => {
+    it('should return true if there is a token and it is valid', () => {
+      authService.getAuthorizationToken = jest.fn(() => 'some_token');
+      authService.checkTokenIsValid = jest.fn((token: string) => true);
+      const loggedIn = authService.checkUserIsLoggedIn();
+
+      expect(loggedIn).toEqual(true);
+    });
+
+    it('should return false if there is no token', () => {
+      authService.getAuthorizationToken = jest.fn(() => null);
+      const loggedIn = authService.checkUserIsLoggedIn();
+
+      expect(loggedIn).toEqual(false);
+    });
+
+    it('should return false if the token is invalid', () => {
+      // const token = sign({}, tokenSecret, { expiresIn: -10000, subject: '1' });
+      // localStorage.setItem(storageKey, token);
+
+      authService.getAuthorizationToken = jest.fn(() => 'some_token');
+      authService.checkTokenIsValid = jest.fn((token: string) => false);
+
+      const loggedIn = authService.checkUserIsLoggedIn();
+
+      expect(loggedIn).toEqual(false);
+    });
+  });
+
+  describe('setAuthorizationToken', () => {
+    it('should set the access token', () => {
+      localStorage.removeItem(storageKey);
+      const tokenBeforeSetting = localStorage.getItem(storageKey);
+      expect(tokenBeforeSetting).toEqual(null);
+
+      authService.setAuthorizationToken(JWT);
+      const token = localStorage.getItem(storageKey);
+
+      expect(token).toBeTruthy();
+      expect(token).toEqual(JWT);
+    });
+  });
+
+  describe('getAuthorizationToken', () => {
+    it('should get the access token', () => {
+      localStorage.setItem(storageKey, JWT);
+      const token = authService.getAuthorizationToken();
+
+      expect(token).toBeDefined();
+      expect(token).toEqual(JWT);
+    });
+  });
+
+  describe('removeAuthorizationToken', () => {
+    it('should remove the access token', () => {
+      localStorage.setItem(storageKey, JWT);
+      const token = localStorage.getItem(storageKey);
+
+      // First check the token is there
+      expect(token).toBeTruthy();
+
+      // Call the remove token function
+      authService.removeAuthorizationToken();
+
+      const tokenAfterRemove = localStorage.getItem(storageKey);
+      expect(tokenAfterRemove).toEqual(null);
+    });
+  });
+
+  describe('decodeToken', () => {
+    it('should return a decoded token', () => {
+      const decodedToken = authService.decodeToken(JWT);
+
+      expect(typeof decodedToken).toEqual('object');
+      expect(decodedToken.sub).toEqual('123');
+    });
+  });
+
+  describe('checkTokenIsValid', () => {
+    it('should return true if the token has not expired', () => {
+      const token = sign({}, tokenSecret, { expiresIn: 10000, subject: '1' });
+      const valid = authService.checkTokenIsValid(token);
+
+      expect(valid).toEqual(true);
+    });
+
+    it('should return false if the token has expired', () => {
+      const token = sign({}, tokenSecret, { expiresIn: -10000, subject: '1' });
+      const valid = authService.checkTokenIsValid(token);
+
+      expect(valid).toEqual(false);
+    });
   });
 });

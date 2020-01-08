@@ -6,7 +6,6 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { IUser } from '@uqt/interfaces';
 import * as AuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
-import { JWTAuthService } from '../services/jwt-auth.service';
 import { ILoginResponse } from '../auth.interface';
 
 @Injectable()
@@ -42,7 +41,7 @@ export class AuthEffects {
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loginSuccess),
-      tap(({ token }) => this.jwtService.setAuthorizationToken(token)),
+      tap(({ token }) => this.authService.setAuthorizationToken(token)),
       // tap(() => this.formFacade.clearData()),
       map(() => AuthActions.loginRedirect())
     )
@@ -82,14 +81,10 @@ export class AuthEffects {
   logout$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.logout),
-      tap(() => this.jwtService.removeAuthorizationToken()),
+      tap(() => this.authService.removeAuthorizationToken()),
       map(() => AuthActions.logoutRedirect())
     )
   );
 
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService,
-    private jwtService: JWTAuthService
-  ) {}
+  constructor(private actions$: Actions, private authService: AuthService) {}
 }

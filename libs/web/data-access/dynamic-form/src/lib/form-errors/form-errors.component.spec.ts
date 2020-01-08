@@ -20,7 +20,7 @@ describe('FormErrorsComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    facade = TestBesd.inject<DynamicFormFacade>(DynamicFormFacade);
+    facade = TestBed.inject<DynamicFormFacade>(DynamicFormFacade);
   }));
 
   beforeEach(() => {

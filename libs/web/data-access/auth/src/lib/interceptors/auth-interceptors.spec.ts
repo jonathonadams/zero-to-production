@@ -7,13 +7,13 @@ import {
 import { AuthInterceptor } from './auth-interceptor';
 import { AuthFacade } from '../+state/auth.facade';
 import { Type } from '@angular/core';
-import { JWTAuthService } from '../services/jwt-auth.service';
+import { AuthService } from '../services/auth.service';
 
 describe('AuthInterceptor', () => {
   const testData = { name: 'Test Data' };
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
-  let authServiceSpy: JWTAuthService;
+  let authServiceSpy: AuthService;
   let authFacade: AuthFacade;
   const authSpy = { getAuthorizationToken: jest.fn() };
   const authFacadeSpy = { logout: jest.fn() };
@@ -27,17 +27,17 @@ describe('AuthInterceptor', () => {
           useClass: AuthInterceptor,
           multi: true
         },
-        { provide: JWTAuthService, useValue: authSpy },
+        { provide: AuthService, useValue: authSpy },
         { provide: AuthFacade, useValue: authFacadeSpy }
       ]
     });
 
-    httpClient = TestBesd.inject<HttpClient>(HttpClient);
-    httpTestingController = TestBesd.inject(
+    httpClient = TestBed.inject<HttpClient>(HttpClient);
+    httpTestingController = TestBed.inject(
       HttpTestingController as Type<HttpTestingController>
     );
-    authServiceSpy = TestBesd.inject<JWTAuthService>(JWTAuthService);
-    authFacade = TestBesd.inject<AuthFacade>(AuthFacade);
+    authServiceSpy = TestBed.inject<AuthService>(AuthService);
+    authFacade = TestBed.inject<AuthFacade>(AuthFacade);
   });
 
   it('should add a Bearer token to the Authorization header of all outgoing request', () => {
