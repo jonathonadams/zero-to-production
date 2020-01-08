@@ -96,7 +96,7 @@ export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
     private formFacade: DynamicFormFacade,
     private highlight: CodeHighlightService
   ) {
-    this.example$ = this.facade.selectExample('dynamic-form');
+    this.example$ = this.facade.selectExampleById('1'); // hard coded because it is first and not coming from the db
     this.formFacade.createFormIfNotExist(this.formName);
     this.submit$ = this.formFacade.formSubmits$(this.formName);
   }

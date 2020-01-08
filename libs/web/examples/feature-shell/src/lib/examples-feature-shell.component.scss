@@ -5,7 +5,10 @@
 
 .app-content {
   display: block;
-  height: calc(100% - 4em);
+  height: calc(100% - 3.5em);
+  @media screen and (min-width: 600px) {
+    height: calc(100% - 4em);
+  }
 }
 
 .header {

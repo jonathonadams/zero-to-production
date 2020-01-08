@@ -1,63 +1,49 @@
 :host {
   display: block;
   height: 100%;
-  // overflow-y: scroll;
-  // background-color: rgba(0, 0, 0, 0.5);
-  // background-image: url('/assets/images/factory-background.png'); // Fallback for no gradient support
-  // background-image: url('/assets/images/factory-background.png'),
-  //   linear-gradient(white, yellow);
-  // background-repeat: no-repeat;
-  // background-position: center center;
-  // background-attachment: fixed;
-  // background-size: cover;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-image: url('/assets/images/factory-background.png'); // Fallback for no gradient support
+  background-image: url('/assets/images/factory-background.png'),
+    linear-gradient(white, yellow);
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
+// factory image
 // https://www.pngfly.com/png-sl89i7/
 
-.content {
+.container {
   overflow-y: auto;
   height: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.about {
-  // height: 100%;
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
-  // justify-content: space-around;
-}
 
-// .title
-//   background: blue;
-//   padding: 15px 30px;
-//   border-radius: 50px;
-// }
+  .content {
+    margin: 0 auto;
+    max-width: 1000px;
+  }
 
-.examples {
-  // padding: 1em;
-  overflow: hidden;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  .examples {
+    overflow: hidden; // needed to maintain height when element spin into view
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
 
-  .example {
-    height: 10em;
-    width: 20em;
-    min-width: 20em;
-    margin: 1em;
-    transform-style: preserve-3d;
-    perspective: 400rem;
-    transform-origin: bottom;
-    // > * {
-    //   backface-visibility: hidden;
-    // }
-    .inner-card {
-      height: 100%;
-      opacity: 0;
+    .example {
+      margin: 0.5em;
+      height: 10em;
+      width: 19em;
+      min-width: 19em;
+      transform-style: preserve-3d;
+      perspective: 400rem;
+      transform-origin: bottom;
+      // > * {
+      //   backface-visibility: hidden;
+      // }
+      .inner-card {
+        background-color: white;
+        height: 100%;
+        opacity: 0;
+      }
     }
   }
 }

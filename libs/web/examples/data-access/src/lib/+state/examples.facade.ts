@@ -19,8 +19,8 @@ export class ExamplesFacade {
     );
   }
 
-  selectExample(url: string): Observable<IExample | undefined> {
-    return this.entities$.pipe(map(dictionary => dictionary[url]));
+  selectExampleById(id: string): Observable<IExample | undefined> {
+    return this.entities$.pipe(map(dictionary => dictionary[id]));
   }
 
   addExamples(examples: IExample[]): void {
