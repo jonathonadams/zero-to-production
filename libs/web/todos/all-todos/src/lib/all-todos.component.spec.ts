@@ -23,7 +23,7 @@ describe('AllTodosComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    todosFacade = TestBed.get<TodosFacade>(TodosFacade);
+    todosFacade = TestBesd.inject<TodosFacade>(TodosFacade);
   }));
 
   beforeEach(() => {

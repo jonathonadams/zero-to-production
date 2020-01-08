@@ -33,8 +33,8 @@ describe('LoginComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    authFacade = TestBed.get<AuthFacade>(AuthFacade);
-    formFacade = TestBed.get<DynamicFormFacade>(DynamicFormFacade);
+    authFacade = TestBesd.inject<AuthFacade>(AuthFacade);
+    formFacade = TestBesd.inject<DynamicFormFacade>(DynamicFormFacade);
   }));
 
   beforeEach(() => {

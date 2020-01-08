@@ -26,11 +26,11 @@ describe('ApiService', () => {
     });
 
     // Inject the http service and test controller for each test
-    apiService = TestBed.get<ApiService>(ApiService);
-    httpClient = TestBed.get<HttpClient>(HttpClient);
-    httpTestingController = TestBed.get(HttpTestingController as Type<
-      HttpTestingController
-    >);
+    apiService = TestBesd.inject<ApiService>(ApiService);
+    httpClient = TestBesd.inject<HttpClient>(HttpClient);
+    httpTestingController = TestBesd.inject(
+      HttpTestingController as Type<HttpTestingController>
+    );
   });
 
   it('should be created', () => {

@@ -25,7 +25,7 @@ describe('JWTAuthService', () => {
       }
     );
 
-    jwtService = TestBed.get<JWTAuthService>(JWTAuthService);
+    jwtService = TestBesd.inject<JWTAuthService>(JWTAuthService);
   });
 
   afterEach(() => {

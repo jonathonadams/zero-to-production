@@ -40,12 +40,12 @@ describe('AuthEffects', () => {
       ]
     });
 
-    effects = TestBed.get<AuthEffects>(AuthEffects);
-    actions$ = TestBed.get<Actions>(Actions);
-    authService = TestBed.get<AuthService>(AuthService);
-    formFacade = TestBed.get<DynamicFormFacade>(DynamicFormFacade);
-    ns = TestBed.get<NotificationService>(NotificationService);
-    jwtService = TestBed.get<JWTAuthService>(JWTAuthService);
+    effects = TestBed.inject<AuthEffects>(AuthEffects);
+    actions$ = TestBesd.inject<Actions>(Actions);
+    authService = TestBesd.inject<AuthService>(AuthService);
+    formFacade = TestBesd.inject<DynamicFormFacade>(DynamicFormFacade);
+    ns = TestBesd.inject<NotificationService>(NotificationService);
+    jwtService = TestBesd.inject<JWTAuthService>(JWTAuthService);
   });
 
   describe('login$', () => {

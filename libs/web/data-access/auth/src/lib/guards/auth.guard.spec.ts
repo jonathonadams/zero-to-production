@@ -20,9 +20,9 @@ describe('AuthGuard', () => {
       ]
     });
 
-    authGuard = TestBed.get<AuthGuard>(AuthGuard);
-    authService = TestBed.get<AuthService>(AuthService);
-    authFacade = TestBed.get<AuthFacade>(AuthFacade);
+    authGuard = TestBesd.inject<AuthGuard>(AuthGuard);
+    authService = TestBesd.inject<AuthService>(AuthService);
+    authFacade = TestBesd.inject<AuthFacade>(AuthFacade);
   });
 
   it('should allow access and not navigate if the user is logged in', () => {

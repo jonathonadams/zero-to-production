@@ -10,7 +10,7 @@ describe('FormBuilderConstructorService', () => {
       declarations: [FormBuilderConstructorService]
     });
 
-    service = TestBed.get<FormBuilderConstructorService>(
+    service = TestBesd.inject<FormBuilderConstructorService>(
       FormBuilderConstructorService
     );
   });

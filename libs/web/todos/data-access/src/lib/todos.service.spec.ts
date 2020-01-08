@@ -30,9 +30,9 @@ describe('TodoService', () => {
       ]
     });
 
-    service = TestBed.get<TodosService>(TodosService);
-    authService = TestBed.get<JWTAuthService>(JWTAuthService);
-    graphQLService = TestBed.get<GraphQLService>(GraphQLService);
+    service = TestBesd.inject<TodosService>(TodosService);
+    authService = TestBesd.inject<JWTAuthService>(JWTAuthService);
+    graphQLService = TestBesd.inject<GraphQLService>(GraphQLService);
   });
 
   it('should be created', () => {

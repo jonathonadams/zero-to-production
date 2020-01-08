@@ -25,13 +25,13 @@ describe('ServiceWorkerService', () => {
         { provide: ApplicationRef, useValue: appRefSpy }
       ]
     });
-    swService = TestBed.get<ServiceWorkerService>(ServiceWorkerService);
-    updates = TestBed.get<SwUpdate>(SwUpdate);
-    appRef = TestBed.get<ApplicationRef>(ApplicationRef);
+    swService = TestBesd.inject<ServiceWorkerService>(ServiceWorkerService);
+    updates = TestBesd.inject<SwUpdate>(SwUpdate);
+    appRef = TestBesd.inject<ApplicationRef>(ApplicationRef);
   });
 
   it('should be created', () => {
-    const service: ServiceWorkerService = TestBed.get(ServiceWorkerService);
+    const service: ServiceWorkerService = TestBesd.inject(ServiceWorkerService);
     expect(service).toBeTruthy();
   });
 });

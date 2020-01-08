@@ -32,10 +32,10 @@ describe('AuthService', () => {
         { provide: ApiService, useValue: HttpStub }
       ]
     });
-    authService = TestBed.get<AuthService>(AuthService);
-    graphQLStub = TestBed.get<GraphQLService>(GraphQLService);
-    apiStub = TestBed.get<ApiService>(ApiService);
-    jwtService = TestBed.get<JWTAuthService>(JWTAuthService);
+    authService = TestBesd.inject<AuthService>(AuthService);
+    graphQLStub = TestBesd.inject<GraphQLService>(GraphQLService);
+    apiStub = TestBesd.inject<ApiService>(ApiService);
+    jwtService = TestBesd.inject<JWTAuthService>(JWTAuthService);
   });
 
   it('should be created', () => {

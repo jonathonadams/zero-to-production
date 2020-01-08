@@ -32,12 +32,12 @@ describe('AuthInterceptor', () => {
       ]
     });
 
-    httpClient = TestBed.get<HttpClient>(HttpClient);
-    httpTestingController = TestBed.get(HttpTestingController as Type<
-      HttpTestingController
-    >);
-    authServiceSpy = TestBed.get<JWTAuthService>(JWTAuthService);
-    authFacade = TestBed.get<AuthFacade>(AuthFacade);
+    httpClient = TestBesd.inject<HttpClient>(HttpClient);
+    httpTestingController = TestBesd.inject(
+      HttpTestingController as Type<HttpTestingController>
+    );
+    authServiceSpy = TestBesd.inject<JWTAuthService>(JWTAuthService);
+    authFacade = TestBesd.inject<AuthFacade>(AuthFacade);
   });
 
   it('should add a Bearer token to the Authorization header of all outgoing request', () => {

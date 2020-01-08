@@ -34,7 +34,7 @@ describe('DynamicFormComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    facade = TestBed.get<DynamicFormFacade>(DynamicFormFacade);
+    facade = TestBesd.inject<DynamicFormFacade>(DynamicFormFacade);
   }));
 
   beforeEach(() => {
