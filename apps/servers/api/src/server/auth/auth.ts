@@ -14,7 +14,7 @@ import { User, VerificationToken } from '../api/users';
 export const {
   verifyToken: verifyTokenRest,
   verifyUserIsActive: verifyUserIsActiveRest
-} = getRestGuards(User, config.secrets.accessToken);
+} = getRestGuards(User, config.auth.accessTokenPublicKey);
 
 /**
  * Guards to user with GraphQL
@@ -23,15 +23,15 @@ export const {
   verifyToken: verifyTokenGraphQL,
   verifyUserIsActive: verifyUserIsActiveGraphQL,
   verifyUserRole: verifyUserRoleGraphQL
-} = getGraphQlGuards(User, config.secrets.accessToken);
+} = getGraphQlGuards(User, config.auth.accessTokenPublicKey);
 
 /**
  * Auth Resolvers
  */
 export const { authResolvers } = getAuthResolvers(User, VerificationToken)(
-  config.secrets.accessToken,
-  config.expireTime,
-  config.apiKeys.sendGrid,
+  config.auth.accessTokenPublicKey,
+  config.auth.accessTokenExpireTime,
+  config.auth.sendGridApiKey,
   config.hostUrl
 );
 
@@ -44,9 +44,9 @@ export const applyAuthRoutes = applyAuthorizationRoutes({
   verificationModel: VerificationToken,
   refreshTokenModel: RefreshToken
 })({
-  accessTokenSecret: config.secrets.accessToken,
-  accessTokenExpireTime: config.expireTime,
-  refreshTokenSecret: config.secrets.refreshToken,
-  SENDGRID_API_KEY: config.apiKeys.sendGrid,
+  accessTokenPrivateKey: config.auth.accessTokenPrivateKey,
+  accessTokenExpireTime: config.auth.accessTokenExpireTime,
+  refreshTokenPrivateKey: config.auth.refreshTokenPrivateKey,
+  sendGridApiKey: config.auth.sendGridApiKey,
   hostUrl: config.hostUrl
 });

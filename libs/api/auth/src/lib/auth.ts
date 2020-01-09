@@ -28,20 +28,20 @@ import { AuthenticationRoles } from '@uqt/interfaces';
 // export class AuthModule {
 export function getRestGuards(
   userModel: IUserModel,
-  accessTokenSecret: string
+  accessTokenPublicKey: string
 ) {
   return {
-    verifyToken: verifyToken(accessTokenSecret),
+    verifyToken: verifyToken(accessTokenPublicKey),
     verifyUserIsActive: verifyUserIsActive(userModel)
   };
 }
 
 export function getGraphQlGuards(
   userModel: IUserModel,
-  accessTokenSecret: string
+  accessTokenPublicKey: string
 ) {
   // export the below array to use in the authenticate request function.
-  const verifyTokenM = [checkToken(accessTokenSecret)];
+  const verifyTokenM = [checkToken(accessTokenPublicKey)];
   const verifyUserIsActiveM = [...verifyTokenM, checkUserIsActive(userModel)];
 
   return {
@@ -58,9 +58,9 @@ export function getAuthResolvers(
   verificationModel: IVerificationTokenModel
 ) {
   return function authConfig(
-    accessTokenSecret: string,
+    accessTokenPrivateKey: string,
     accessTokenExpireTime: number,
-    SENDGRID_API_KEY: string,
+    sendGridApiKey: string,
     hostUrl: string
   ) {
     return {
@@ -68,13 +68,13 @@ export function getAuthResolvers(
         Mutation: {
           login: loginResolver({
             userModel,
-            secret: accessTokenSecret,
+            accessTokenPrivateKey,
             expireTime: accessTokenExpireTime
           }),
           register: registerResolver(
             userModel,
             verificationModel,
-            verificationEmail(SENDGRID_API_KEY, hostUrl)
+            verificationEmail(sendGridApiKey, hostUrl)
           )
         }
       }
@@ -123,7 +123,7 @@ export function applyAuthorizationRoutes({
       return function applyRoutes(app: Koa) {
         if (userLogin) {
           applyLoginRoutes(models.userModel)(
-            config.accessTokenSecret,
+            config.accessTokenPrivateKey,
             config.accessTokenExpireTime
           )(app);
         }
@@ -133,7 +133,7 @@ export function applyAuthorizationRoutes({
             models.userModel,
             models.verificationModel as IVerificationTokenModel
           )(
-            config.SENDGRID_API_KEY as string,
+            config.sendGridApiKey as string,
             config.hostUrl as string
           )(app);
         }
@@ -142,9 +142,9 @@ export function applyAuthorizationRoutes({
             models.userModel,
             models.refreshTokenModel as IRefreshTokenModel
           )(
-            config.accessTokenSecret,
+            config.accessTokenPrivateKey,
             config.accessTokenExpireTime,
-            config.refreshTokenSecret as string
+            config.refreshTokenPrivateKey as string
           )(app);
         }
 
@@ -156,14 +156,14 @@ export function applyAuthorizationRoutes({
 
 function applyLoginRoutes(userModel: IUserModel) {
   return function loginConfig(
-    accessTokenSecret: string,
+    accessTokenPrivateKey: string,
     accessTokenExpireTime: number
   ) {
     return function loginRoutes(app: Koa) {
       const router = new Router();
       const config = {
-        userModel: userModel,
-        secret: accessTokenSecret,
+        userModel,
+        accessTokenPrivateKey,
         expireTime: accessTokenExpireTime
       };
 
@@ -205,19 +205,19 @@ function applyRefreshTokenRoutes(
   refreshTokenModel: IRefreshTokenModel
 ) {
   return function refreshTokenConfig(
-    accessTokenSecret: string,
+    accessTokenPrivateKey: string,
     accessTokenExpireTime: number,
-    refreshTokenSecret: string
+    refreshTokenPrivateKey: string
   ) {
     return function refreshTokenRoutes(app: Koa) {
       const router = new Router();
 
       const authorizeConfig = {
-        userModel: userModel,
-        refreshTokenModel: refreshTokenModel,
-        accessTokenSecret: accessTokenSecret,
-        accessTokenExpireTime: accessTokenExpireTime,
-        refreshTokenSecret: refreshTokenSecret
+        userModel,
+        refreshTokenModel,
+        accessTokenPrivateKey,
+        accessTokenExpireTime,
+        refreshTokenPrivateKey
       };
 
       router.post('/authorize', authorize(authorizeConfig));
@@ -239,11 +239,11 @@ function checkLoginModels({ userModel }: AuthModels) {
 }
 
 function checkLoginConfig({
-  accessTokenSecret,
+  accessTokenPrivateKey,
   accessTokenExpireTime
 }: AuthRoutesConfig) {
   // TODO Process exit?
-  if (!accessTokenSecret || !accessTokenExpireTime) return false;
+  if (!accessTokenPrivateKey || !accessTokenExpireTime) return false;
   return true;
 }
 
@@ -254,11 +254,11 @@ function checkRegistrationModels({ userModel, verificationModel }: AuthModels) {
 }
 
 function checkRegistrationConfig({
-  SENDGRID_API_KEY,
+  sendGridApiKey,
   hostUrl
 }: AuthRoutesConfig) {
   // TODO Process exit?
-  if (!SENDGRID_API_KEY || !hostUrl) return false;
+  if (!sendGridApiKey || !hostUrl) return false;
   return true;
 }
 
@@ -269,12 +269,16 @@ function checkRefreshTokenModels({ userModel, refreshTokenModel }: AuthModels) {
 }
 
 function checkRefreshTokenConfig({
-  accessTokenSecret,
+  accessTokenPrivateKey,
   accessTokenExpireTime,
-  refreshTokenSecret
+  refreshTokenPrivateKey
 }: AuthRoutesConfig) {
   // TODO Process exit?
-  if (!accessTokenSecret || !accessTokenExpireTime || !refreshTokenSecret)
+  if (
+    !accessTokenPrivateKey ||
+    !accessTokenExpireTime ||
+    !refreshTokenPrivateKey
+  )
     return false;
   return true;
 }

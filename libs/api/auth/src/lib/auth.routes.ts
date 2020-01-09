@@ -18,7 +18,7 @@ import { IVerificationTokenModel, IRefreshTokenModel } from './auth.interface';
  */
 export function login(config: {
   userModel: IUserModel;
-  secret: string;
+  accessTokenPrivateKey: string;
   expireTime: number;
 }) {
   // Set up the controller with the config
@@ -66,9 +66,9 @@ export function verify(
 export function authorize(config: {
   userModel: IUserModel;
   refreshTokenModel: IRefreshTokenModel;
-  accessTokenSecret: string;
+  accessTokenPrivateKey: string;
   accessTokenExpireTime: number;
-  refreshTokenSecret: string;
+  refreshTokenPrivateKey: string;
 }) {
   const controller = authorizeController(config);
   return async function authorizeRt(ctx: Koa.ParameterizedContext) {
@@ -85,9 +85,9 @@ export function authorize(config: {
 export function refreshAccessToken(config: {
   userModel: IUserModel;
   refreshTokenModel: IRefreshTokenModel;
-  accessTokenSecret: string;
+  accessTokenPrivateKey: string;
   accessTokenExpireTime: number;
-  refreshTokenSecret: string;
+  refreshTokenPrivateKey: string;
 }) {
   const controller = refreshAccessTokenController(config);
   return async function(ctx: Koa.ParameterizedContext) {

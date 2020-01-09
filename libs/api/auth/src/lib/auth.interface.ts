@@ -14,10 +14,10 @@ export interface AuthModels {
 }
 
 export interface AuthRoutesConfig {
-  accessTokenSecret: string;
+  accessTokenPrivateKey: string;
   accessTokenExpireTime: number;
-  refreshTokenSecret?: string;
-  SENDGRID_API_KEY?: string;
+  refreshTokenPrivateKey?: string;
+  sendGridApiKey?: string;
   hostUrl?: string;
 }
 

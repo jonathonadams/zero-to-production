@@ -1,7 +1,10 @@
 /* istanbul ignore file */
 
-import { DevOrTestConfig } from '@uqt/api/config';
-import { envToNumber } from './util';
+import {
+  DevOrTestConfig,
+  envToNumber,
+  getEnvVariableOrExit
+} from '@uqt/api/config';
 
 /**
  * Test environment settings
@@ -14,13 +17,13 @@ const testConfig: DevOrTestConfig = {
     loggerLevel: 'warn',
     dbName: process.env.MONGO_TEST_DB || 'test_database'
   },
-  expireTime: 1200,
-  apiKeys: {
-    sendGrid: process.env.SENDGRID_API_KEY || ''
-  },
-  secrets: {
-    accessToken: process.env.ACCESS_TOKEN_SECRET || 'test-secret',
-    refreshToken: process.env.REFRESH_TOKEN_SECRET || 'test-secret'
+  auth: {
+    accessTokenExpireTime: 1200,
+    accessTokenPublicKey: getEnvVariableOrExit('ACCESS_TOKEN_PUBLIC_KEY'),
+    accessTokenPrivateKey: getEnvVariableOrExit('ACCESS_TOKEN_PRIVATE_KEY'),
+    refreshTokenPublicKey: getEnvVariableOrExit('REFRESH_TOKEN_PUBLIC_KEY'),
+    refreshTokenPrivateKey: getEnvVariableOrExit('REFRESH_TOKEN_PRIVATE_KEY'),
+    sendGridApiKey: process.env.SENDGRID_API_KEY || ''
   },
   database: {
     host: process.env.MONGO_TCP_ADDR || 'localhost',

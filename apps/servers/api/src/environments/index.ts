@@ -1,15 +1,13 @@
 /* istanbul ignore file */
 
-import merge from 'lodash.merge';
 import {
   GlobalConfig,
   EnvironnementConfig,
-  ServerConfig
+  envToNumber
 } from '@uqt/api/config';
 import devConfig from './development';
 import prodConfig from './production';
 import testConfig from './test';
-import { envToNumber } from './util';
 
 /**
  * Config values common across all environments environments
@@ -68,6 +66,13 @@ switch (process.env.NODE_ENV) {
 /**
  * Merge overrides the global settings with the appropriate environment settings
  */
-merge(config, environmentSettings);
-
-export default config as ServerConfig;
+export default {
+  ...config,
+  ...environmentSettings,
+  ...{
+    databaseOptions: {
+      ...config.databaseOptions,
+      ...environmentSettings.databaseOptions
+    }
+  }
+};

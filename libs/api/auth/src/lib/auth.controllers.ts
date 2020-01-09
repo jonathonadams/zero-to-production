@@ -108,15 +108,15 @@ export function verifyController(
  */
 export function loginController({
   userModel,
-  secret,
+  accessTokenPrivateKey,
   expireTime
 }: {
   userModel: IUserModel;
-  secret: string;
+  accessTokenPrivateKey: string;
   expireTime: number;
 }) {
   const accessToken = signAccessToken({
-    secret,
+    accessTokenPrivateKey,
     expireTime
   });
 
@@ -143,15 +143,15 @@ export function loginController({
 export function authorizeController({
   userModel,
   refreshTokenModel,
-  accessTokenSecret,
+  accessTokenPrivateKey,
   accessTokenExpireTime,
-  refreshTokenSecret
+  refreshTokenPrivateKey
 }: {
   userModel: IUserModel;
   refreshTokenModel: IRefreshTokenModel;
-  accessTokenSecret: string;
+  accessTokenPrivateKey: string;
   accessTokenExpireTime: number;
-  refreshTokenSecret: string;
+  refreshTokenPrivateKey: string;
 }) {
   return async function authorizeCtr(
     username: string,
@@ -166,12 +166,12 @@ export function authorizeController({
     if (!valid) throw Boom.unauthorized(null, 'Bearer');
 
     const accessToken = signAccessToken({
-      secret: accessTokenSecret,
+      accessTokenPrivateKey,
       expireTime: accessTokenExpireTime
     })(user);
 
     const refreshToken = signRefreshToken({
-      secret: refreshTokenSecret
+      refreshTokenPrivateKey
     })(user);
 
     await refreshTokenModel.create({
@@ -189,14 +189,14 @@ export function authorizeController({
 // a controller that receives a refresh token and returns an access token.
 export function refreshAccessTokenController({
   refreshTokenModel,
-  accessTokenSecret,
+  accessTokenPrivateKey,
   accessTokenExpireTime,
-  refreshTokenSecret
+  refreshTokenPrivateKey
 }: {
   refreshTokenModel: IRefreshTokenModel;
-  accessTokenSecret: string;
+  accessTokenPrivateKey: string;
   accessTokenExpireTime: number;
-  refreshTokenSecret: string;
+  refreshTokenPrivateKey: string;
 }) {
   return async function refreshAccessTokenCt(
     username: string,
@@ -217,11 +217,11 @@ export function refreshAccessTokenController({
     }
 
     // The provided token is valid
-    const valid = await verify(refreshToken, refreshTokenSecret);
+    const valid = await verify(refreshToken, refreshTokenPrivateKey);
     if (!valid) throw Boom.unauthorized(null, 'Bearer');
 
     const accessToken = signAccessToken({
-      secret: accessTokenSecret,
+      accessTokenPrivateKey,
       expireTime: accessTokenExpireTime
     })(token.user);
 

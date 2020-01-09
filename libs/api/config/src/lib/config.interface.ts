@@ -10,6 +10,15 @@ export interface GlobalConfig {
   databaseOptions: ConnectionOptions;
 }
 
+export interface AuthConfig {
+  accessTokenExpireTime: number;
+  accessTokenPublicKey: string;
+  accessTokenPrivateKey: string;
+  refreshTokenPublicKey: string;
+  refreshTokenPrivateKey: string;
+  sendGridApiKey: string;
+}
+
 export type EnvironnementConfig = ProductionConfig | DevOrTestConfig;
 
 export interface DevOrTestConfig {
@@ -17,14 +26,7 @@ export interface DevOrTestConfig {
   logging: false | 'dev';
   docs: boolean;
   databaseOptions: ConnectionOptions;
-  expireTime: number;
-  apiKeys: {
-    sendGrid: string;
-  };
-  secrets: {
-    accessToken: string;
-    refreshToken: string;
-  };
+  auth: AuthConfig;
   database: {
     host: string;
     port: number;
@@ -38,14 +40,7 @@ export interface ProductionConfig {
   logging: false;
   docs: false;
   databaseOptions: ConnectionOptions;
-  expireTime: number;
-  apiKeys: {
-    sendGrid: string;
-  };
-  secrets: {
-    accessToken: string;
-    refreshToken: string;
-  };
+  auth: AuthConfig;
   database: {
     connectionString: string;
   };

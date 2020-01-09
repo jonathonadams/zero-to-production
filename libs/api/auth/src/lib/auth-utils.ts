@@ -5,10 +5,10 @@ import { IUser } from '@uqt/interfaces';
 
 // A function that returns a singed JWT
 export function signAccessToken({
-  secret,
+  accessTokenPrivateKey,
   expireTime
 }: {
-  secret: string;
+  accessTokenPrivateKey: string;
   expireTime: number;
 }) {
   return function accessToken(user: IUser) {
@@ -17,9 +17,10 @@ export function signAccessToken({
         // Enter additional payload info here
         role: user.role
       },
-      secret,
+      accessTokenPrivateKey,
       {
-        subject: user.id.toString(),
+        algorithm: 'RS256',
+        subject: user.id,
         expiresIn: expireTime,
         issuer: 'your-company-here'
       }
@@ -27,15 +28,20 @@ export function signAccessToken({
   };
 }
 
-export function signRefreshToken({ secret }: { secret: string }) {
+export function signRefreshToken({
+  refreshTokenPrivateKey
+}: {
+  refreshTokenPrivateKey: string;
+}) {
   return function refreshToken(user: IUser) {
     return sign(
       {
-        prop: 'some property'
+        // add whatever properties you desire here
       },
-      secret,
+      refreshTokenPrivateKey,
       {
-        subject: user.id.toString(),
+        algorithm: 'RS256',
+        subject: user.id,
         issuer: 'your-company-here'
       }
     );

@@ -11,7 +11,7 @@ import { IUser } from '@uqt/interfaces';
  */
 export function loginResolver(config: {
   userModel: IUserModel;
-  secret: string;
+  accessTokenPrivateKey: string;
   expireTime: number;
 }): GraphQLFieldResolver<any, { username: string; password: string }, any> {
   const controller = loginController(config);

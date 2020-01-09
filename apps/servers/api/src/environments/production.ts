@@ -1,8 +1,10 @@
 /* istanbul ignore file */
 
-import { randomBytes } from 'crypto';
-import { ProductionConfig } from '@uqt/api/config';
-import { envToNumber } from './util';
+import {
+  ProductionConfig,
+  getEnvVariableOrExit,
+  envToNumber
+} from '@uqt/api/config';
 
 /**
  * Production environment settings
@@ -14,15 +16,16 @@ const prodConfig: ProductionConfig = {
   databaseOptions: {
     loggerLevel: 'error'
   },
-  expireTime: envToNumber(process.env.JWT_EXPIRE_TIME, 86400),
-  apiKeys: {
-    sendGrid: process.env.SENDGRID_API_KEY || ''
-  },
-  secrets: {
-    accessToken:
-      process.env.ACCESS_TOKEN_SECRET || randomBytes(16).toString('hex'),
-    refreshToken:
-      process.env.REFRESH_TOKEN_SECRET || 'some-super-secret-password'
+  auth: {
+    accessTokenExpireTime: envToNumber(
+      getEnvVariableOrExit('ACCESS_TOKEN_EXPIRE_TIME'),
+      86400
+    ),
+    accessTokenPublicKey: getEnvVariableOrExit('ACCESS_TOKEN_PUBLIC_KEY'),
+    accessTokenPrivateKey: getEnvVariableOrExit('ACCESS_TOKEN_PRIVATE_KEY'),
+    refreshTokenPublicKey: getEnvVariableOrExit('REFRESH_TOKEN_PUBLIC_KEY'),
+    refreshTokenPrivateKey: getEnvVariableOrExit('REFRESH_TOKEN_PRIVATE_KEY'),
+    sendGridApiKey: process.env.SENDGRID_API_KEY || ''
   },
   database: {
     connectionString: process.env.DB_CONNECTION_STRING || ''

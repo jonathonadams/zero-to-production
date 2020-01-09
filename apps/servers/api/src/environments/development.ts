@@ -1,7 +1,10 @@
 /* istanbul ignore file */
 
-import { DevOrTestConfig } from '@uqt/api/config';
-import { envToNumber } from './util';
+import {
+  DevOrTestConfig,
+  getEnvVariableOrExit,
+  envToNumber
+} from '@uqt/api/config';
 
 /**
  * Development environment settings
@@ -15,19 +18,22 @@ const devConfig: DevOrTestConfig = {
     loggerLevel: 'warn',
     dbName: process.env.MONGO_DEV_DB || 'development_database'
   },
-  expireTime: envToNumber(process.env.JWT_EXPIRE_TIME, 86400),
-  apiKeys: {
-    sendGrid: process.env.SENDGRID_API_KEY || ''
-  },
-  secrets: {
-    accessToken: process.env.ACCESS_TOKEN_SECRET || 'development-secret',
-    refreshToken: process.env.REFRESH_TOKEN_SECRET || 'development-secret'
+  auth: {
+    accessTokenExpireTime: envToNumber(
+      process.env.ACCESS_TOKEN_EXPIRE_TIME,
+      86400
+    ),
+    accessTokenPublicKey: getEnvVariableOrExit('ACCESS_TOKEN_PUBLIC_KEY'),
+    accessTokenPrivateKey: getEnvVariableOrExit('ACCESS_TOKEN_PRIVATE_KEY'),
+    refreshTokenPublicKey: getEnvVariableOrExit('REFRESH_TOKEN_PUBLIC_KEY'),
+    refreshTokenPrivateKey: getEnvVariableOrExit('REFRESH_TOKEN_PRIVATE_KEY'),
+    sendGridApiKey: process.env.SENDGRID_API_KEY || ''
   },
   database: {
     host: process.env.MONGO_TCP_ADDR || 'localhost',
     port: envToNumber(process.env.MONGO_TCP_PORT, 27017),
-    user: process.env.MONGO_DEV_USER || 'mongo',
-    pass: process.env.MONGO_DEV_PASSWORD || 'mongo'
+    user: getEnvVariableOrExit('MONGO_DEV_USER'),
+    pass: getEnvVariableOrExit('MONGO_DEV_PASSWORD')
   }
 };
 
