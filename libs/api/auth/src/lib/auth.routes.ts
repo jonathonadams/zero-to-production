@@ -9,7 +9,12 @@ import {
   verifyController
 } from './auth.controllers';
 import { IUserModel } from '@uqt/api/core-data';
-import { IVerificationTokenModel, IRefreshTokenModel } from './auth.interface';
+import {
+  IVerificationTokenModel,
+  IRefreshTokenModel,
+  RegistrationControllerConfig,
+  VerifyUserControllerConfig
+} from './auth.interface';
 
 /**
  *  A function that handles logging a user in
@@ -35,27 +40,17 @@ export function login(config: {
   };
 }
 
-export function register(
-  User: IUserModel,
-  VerificationToken: IVerificationTokenModel,
-  sendVerificationEmail: (to: string, token: string) => Promise<[any, {}]>
-) {
-  const controller = registerController(
-    User,
-    VerificationToken,
-    sendVerificationEmail
-  );
+export function register(config: RegistrationControllerConfig) {
+  const controller = registerController(config);
+
   return async function registerRt(ctx: Koa.ParameterizedContext) {
     const user = (ctx.request as any).body;
     ctx.body = await controller(user);
   };
 }
 
-export function verify(
-  User: IUserModel,
-  VerificationToken: IVerificationTokenModel
-) {
-  const controller = verifyController(User, VerificationToken);
+export function verify(config: VerifyUserControllerConfig) {
+  const controller = verifyController(config);
   return async function verifyRt(ctx: Koa.ParameterizedContext) {
     const email = ctx.query.email;
     const token = ctx.query.token;

@@ -1,6 +1,39 @@
 import mongoose from 'mongoose';
 import { IUserModel, IUserDocument } from '@uqt/api/core-data';
 
+// -------------------------------------
+// For signing access and refresh tokens
+// -------------------------------------
+export interface SignAccessTokenConfig {
+  accessTokenPrivateKey: string;
+  expireTime: number;
+}
+
+export interface SignRefreshTokenConfig {
+  refreshTokenPrivateKey: string;
+}
+
+// -------------------------------------
+// Interfaces for each controller
+// -------------------------------------
+export interface LoginControllerConfig extends SignAccessTokenConfig {
+  userModel: IUserModel;
+}
+
+export interface VerifyUserControllerConfig {
+  User: IUserModel;
+  VerificationToken: IVerificationTokenModel;
+}
+
+export interface RegistrationControllerConfig
+  extends VerifyUserControllerConfig {
+  sendVerificationEmail: (to: string, token: string) => Promise<[any, {}]>;
+}
+
+// -------------------------------------
+// TODO ---------
+// -------------------------------------
+
 export interface AuthRouteOptions {
   userLogin?: boolean;
   userRegistration?: boolean;

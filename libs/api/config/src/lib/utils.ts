@@ -1,9 +1,7 @@
-export function getEnvVariableOrExit(envVariable: string): string {
+export function getEnvVariableOrWarn(envVariable: string): string {
   const env: string | undefined = process.env[envVariable];
   if (!env) {
-    console.error(`${envVariable} environment variable is not set`);
-    console.error('Exiting server with error code 1');
-    process.exit(1);
+    console.error(`Warning: ${envVariable} environment variable is not set`);
   }
   return env as string;
 }

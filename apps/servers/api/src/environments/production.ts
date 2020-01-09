@@ -2,7 +2,7 @@
 
 import {
   ProductionConfig,
-  getEnvVariableOrExit,
+  getEnvVariableOrWarn,
   envToNumber
 } from '@uqt/api/config';
 
@@ -18,17 +18,17 @@ const prodConfig: ProductionConfig = {
   },
   auth: {
     accessTokenExpireTime: envToNumber(
-      getEnvVariableOrExit('ACCESS_TOKEN_EXPIRE_TIME'),
+      getEnvVariableOrWarn('ACCESS_TOKEN_EXPIRE_TIME'),
       86400
     ),
-    accessTokenPublicKey: getEnvVariableOrExit('ACCESS_TOKEN_PUBLIC_KEY'),
-    accessTokenPrivateKey: getEnvVariableOrExit('ACCESS_TOKEN_PRIVATE_KEY'),
-    refreshTokenPublicKey: getEnvVariableOrExit('REFRESH_TOKEN_PUBLIC_KEY'),
-    refreshTokenPrivateKey: getEnvVariableOrExit('REFRESH_TOKEN_PRIVATE_KEY'),
-    sendGridApiKey: process.env.SENDGRID_API_KEY || ''
+    accessTokenPublicKey: getEnvVariableOrWarn('ACCESS_TOKEN_PUBLIC_KEY'),
+    accessTokenPrivateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
+    refreshTokenPublicKey: getEnvVariableOrWarn('REFRESH_TOKEN_PUBLIC_KEY'),
+    refreshTokenPrivateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
+    sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY')
   },
   database: {
-    connectionString: process.env.DB_CONNECTION_STRING || ''
+    connectionString: getEnvVariableOrWarn('DB_CONNECTION_STRING')
   }
 };
 

@@ -3,7 +3,7 @@
 import {
   DevOrTestConfig,
   envToNumber,
-  getEnvVariableOrExit
+  getEnvVariableOrWarn
 } from '@uqt/api/config';
 
 /**
@@ -19,10 +19,10 @@ const testConfig: DevOrTestConfig = {
   },
   auth: {
     accessTokenExpireTime: 1200,
-    accessTokenPublicKey: getEnvVariableOrExit('ACCESS_TOKEN_PUBLIC_KEY'),
-    accessTokenPrivateKey: getEnvVariableOrExit('ACCESS_TOKEN_PRIVATE_KEY'),
-    refreshTokenPublicKey: getEnvVariableOrExit('REFRESH_TOKEN_PUBLIC_KEY'),
-    refreshTokenPrivateKey: getEnvVariableOrExit('REFRESH_TOKEN_PRIVATE_KEY'),
+    accessTokenPublicKey: getEnvVariableOrWarn('ACCESS_TOKEN_PUBLIC_KEY'),
+    accessTokenPrivateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
+    refreshTokenPublicKey: getEnvVariableOrWarn('REFRESH_TOKEN_PUBLIC_KEY'),
+    refreshTokenPrivateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
     sendGridApiKey: process.env.SENDGRID_API_KEY || ''
   },
   database: {

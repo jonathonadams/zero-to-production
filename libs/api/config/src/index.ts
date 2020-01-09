@@ -6,4 +6,4 @@ export {
   ProductionConfig,
   DevOrTestConfig
 } from './lib/config.interface';
-export { getEnvVariableOrExit, envToNumber } from './lib/utils';
+export { getEnvVariableOrWarn, envToNumber } from './lib/utils';

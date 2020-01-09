@@ -1,7 +1,7 @@
 import { ParameterizedContext } from 'koa';
 import mongoose from 'mongoose';
 import { verifyToken, verifyUserIsActive } from '../rest.guards';
-import { signAccessToken } from '../auth-utils';
+import { signAccessToken } from '../token';
 import { MockUserModel } from './user.mock.spec';
 import { IUserDocument, IUserModel } from '@uqt/api/core-data';
 

@@ -2,22 +2,24 @@ import { randomBytes } from 'crypto';
 import { verify } from 'jsonwebtoken';
 import { compare, hash } from 'bcryptjs';
 import Boom from '@hapi/boom';
-import {
-  signAccessToken,
-  signRefreshToken,
-  isPasswordAllowed,
-  userToJSON
-} from './auth-utils';
+import { signAccessToken, signRefreshToken } from './token';
 import { IUserModel } from '@uqt/api/core-data';
-import { IVerificationTokenModel, IRefreshTokenModel } from './auth.interface';
+import {
+  IRefreshTokenModel,
+  LoginControllerConfig,
+  RegistrationControllerConfig,
+  VerifyUserControllerConfig
+} from './auth.interface';
 import { IUser } from '@uqt/interfaces';
+import { isPasswordAllowed, userToJSON } from './auth-utils';
+
 // TODO -> Refresh Token Model/Storage
 
-export function registerController(
-  User: IUserModel,
-  VerificationToken: IVerificationTokenModel,
-  sendVerificationEmail: (to: string, token: string) => Promise<[any, {}]>
-) {
+export function registerController({
+  User,
+  VerificationToken,
+  sendVerificationEmail
+}: RegistrationControllerConfig) {
   return async function registerCtr(user: IUser): Promise<IUser> {
     const password: string = (user as any).password;
     if (!password) Boom.badRequest('No password provided');
@@ -54,10 +56,10 @@ export function registerController(
  * @param {IVerificationTokenModel} VerificationToken
  * @returns Verification Controller
  */
-export function verifyController(
-  User: IUserModel,
-  VerificationToken: IVerificationTokenModel
-) {
+export function verifyController({
+  User,
+  VerificationToken
+}: VerifyUserControllerConfig) {
   return async function verifyCtr(
     email: string,
     token: string
@@ -108,17 +110,9 @@ export function verifyController(
  */
 export function loginController({
   userModel,
-  accessTokenPrivateKey,
-  expireTime
-}: {
-  userModel: IUserModel;
-  accessTokenPrivateKey: string;
-  expireTime: number;
-}) {
-  const accessToken = signAccessToken({
-    accessTokenPrivateKey,
-    expireTime
-  });
+  ...tokenConfig
+}: LoginControllerConfig) {
+  const accessToken = signAccessToken(tokenConfig);
 
   return async function loginCtr(
     username: string,

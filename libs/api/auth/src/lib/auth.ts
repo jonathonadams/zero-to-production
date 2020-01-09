@@ -186,14 +186,17 @@ function applyRegistrationRoutes(
       const router = new Router();
       router.post(
         '/authorize/register',
-        register(
-          userModel,
-          verificationModel,
-          verificationEmail(SENDGRID_API_KEY, hostUrl)
-        )
+        register({
+          User: userModel,
+          VerificationToken: verificationModel,
+          sendVerificationEmail: verificationEmail(SENDGRID_API_KEY, hostUrl)
+        })
       );
 
-      router.get('/authorize/verify', verify(userModel, verificationModel));
+      router.get(
+        '/authorize/verify',
+        verify({ User: userModel, VerificationToken: verificationModel })
+      );
 
       return app.use(router.routes());
     };
