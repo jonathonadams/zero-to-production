@@ -1,29 +1,32 @@
-import { ParameterizedContext } from 'koa';
+import * as Koa from 'koa';
 import mongoose from 'mongoose';
 import { verifyToken, verifyUserIsActive } from '../rest.guards';
 import { signAccessToken } from '../token';
-import { MockUserModel } from './user.mock.spec';
+import { MockUserModel } from './user.mock';
 import { IUserDocument, IUserModel } from '@uqt/api/core-data';
+import { PRIVATE_KEY, PUBLIC_KEY, INVALID_KEY } from './rsa-keys';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
 }
 
+const accessTokenPrivateKey = PRIVATE_KEY;
+const accessTokenPublicKey = PUBLIC_KEY;
+const invalidPrivateKey = INVALID_KEY;
+
 describe('Rest Auth Guards', () => {
-  const validSecret = 'valid-secret';
-  const expireTime = 1 * 60 * 60 * 1000;
-  const invalidSecret = 'invalid-secret';
+  const accessTokenExpireTime = 1 * 60 * 60 * 1000;
   let jwt: string;
   let invalidJwt: string;
 
   beforeAll(() => {
-    jwt = signAccessToken({ secret: validSecret, expireTime })({
+    jwt = signAccessToken({ accessTokenPrivateKey, accessTokenExpireTime })({
       id: '1',
       role: 0
     } as IUserDocument);
     invalidJwt = signAccessToken({
-      secret: invalidSecret,
-      expireTime
+      accessTokenPrivateKey: invalidPrivateKey,
+      accessTokenExpireTime
     })({
       id: '1',
       role: 0
@@ -35,7 +38,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken(validSecret)(
+        verifyToken(accessTokenPublicKey)(
           { request: { token: jwt }, state: {} },
           nextSpy
         )
@@ -48,7 +51,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken(validSecret)({ request: {}, state: {} }, nextSpy)
+        verifyToken(accessTokenPublicKey)({ request: {}, state: {} }, nextSpy)
       ).rejects.toThrowError('Unauthorized');
 
       expect(nextSpy).not.toHaveBeenCalled();
@@ -58,7 +61,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken(validSecret)(
+        verifyToken(accessTokenPublicKey)(
           { request: { token: invalidJwt }, state: {} },
           nextSpy
         )
@@ -83,7 +86,9 @@ describe('Rest Auth Guards', () => {
       MockUserModel.userToRespondWith = mockUser;
       await expect(
         verifyUserIsActive((MockUserModel as unknown) as IUserModel)(
-          { state: { token: { sub: id } } } as ParameterizedContext,
+          ({
+            state: { token: { sub: id } }
+          } as unknown) as Koa.ParameterizedContext,
           nextSpy
         )
       ).resolves.not.toThrowError();
@@ -111,7 +116,9 @@ describe('Rest Auth Guards', () => {
 
       await expect(
         verifyUserIsActive((MockUserModel as unknown) as IUserModel)(
-          { state: { token: { sub: wrongId } } } as ParameterizedContext,
+          ({
+            state: { token: { sub: wrongId } }
+          } as unknown) as Koa.ParameterizedContext,
           nextSpy
         )
       ).rejects.toThrowError('Unauthorized');
@@ -135,7 +142,9 @@ describe('Rest Auth Guards', () => {
       MockUserModel.userToRespondWith = mockUser;
       await expect(
         verifyUserIsActive((MockUserModel as unknown) as IUserModel)(
-          { state: { token: { sub: id } } } as ParameterizedContext,
+          ({
+            state: { token: { sub: id } }
+          } as unknown) as Koa.ParameterizedContext,
           nextSpy
         )
       ).rejects.toThrowError('Unauthorized');

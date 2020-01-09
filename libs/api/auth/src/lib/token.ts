@@ -1,13 +1,14 @@
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import { IUser } from '@uqt/interfaces';
 import {
-  SignAccessTokenConfig,
-  SignRefreshTokenConfig
+  AccessTokenConfig,
+  RefreshTokenConfig,
+  VerifyRefreshTokenConfig
 } from './auth.interface';
 
 // A function that returns a singed JWT
-export function signAccessToken(config: SignAccessTokenConfig) {
-  return function accessToken(user: IUser) {
+export function signAccessToken(config: AccessTokenConfig) {
+  return (user: IUser) => {
     return sign(
       {
         // Enter additional payload info here
@@ -24,8 +25,8 @@ export function signAccessToken(config: SignAccessTokenConfig) {
   };
 }
 
-export function signRefreshToken(config: SignRefreshTokenConfig) {
-  return function refreshToken(user: IUser) {
+export function signRefreshToken(config: RefreshTokenConfig) {
+  return (user: IUser) => {
     return sign(
       {
         // add whatever properties you desire here
@@ -37,5 +38,13 @@ export function signRefreshToken(config: SignRefreshTokenConfig) {
         issuer: 'your-company-here'
       }
     );
+  };
+}
+
+export function verifyRefreshToken({
+  refreshTokenPublicKey
+}: VerifyRefreshTokenConfig) {
+  return (token: string) => {
+    return verify(token, refreshTokenPublicKey, { algorithms: ['RS256'] });
   };
 }

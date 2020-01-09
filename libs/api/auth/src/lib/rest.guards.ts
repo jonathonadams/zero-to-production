@@ -22,7 +22,7 @@ export function getRestGuards(
  * Checks if the the token passed is valid
  */
 export function verifyToken(secret: string) {
-  return async function verifyTk(ctx: any, next: () => Promise<any>) {
+  return async (ctx: any, next: () => Promise<any>) => {
     try {
       /**
        * the encoded token is set at ctx.request.token if the verification
@@ -49,10 +49,7 @@ export function verifyToken(secret: string) {
  *
  */
 export function verifyUserIsActive(User: IUserModel) {
-  return async function verifyActive(
-    ctx: koa.ParameterizedContext,
-    next: () => Promise<any>
-  ) {
+  return async (ctx: koa.ParameterizedContext, next: () => Promise<any>) => {
     try {
       const user = await User.findById(ctx.state.token.sub);
       if (!user || !user.active) throw Boom.unauthorized(null, 'Bearer');

@@ -1247,7 +1247,7 @@
         }
       }
     },
-    "common-ui-card": {
+    "web-common-ui-card": {
       "projectType": "library",
       "root": "libs/web/common/ui/card",
       "sourceRoot": "libs/web/common/ui/card/src",

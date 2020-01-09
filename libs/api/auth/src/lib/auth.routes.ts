@@ -9,28 +9,17 @@ import {
   setupRevokeRefreshTokenController,
   setupVerifyController
 } from './auth.controllers';
-import { IUserModel } from '@uqt/api/core-data';
 import {
-  IVerificationTokenModel,
-  IRefreshTokenModel,
   RegistrationControllerConfig,
-  VerifyUserControllerConfig,
-  LoginControllerConfig
+  VerifyControllerConfig,
+  LoginControllerConfig,
+  AuthorizeControllerConfig,
+  RefreshControllerConfig,
+  RevokeControllerConfig,
+  AuthConfigWithRefreshTokens
 } from './auth.interface';
-import { verificationEmail } from './send-email';
+import { setupEmailVerification } from './send-email';
 
-export interface AuthRoutesWithRefreshTokenConfig {
-  accessTokenPrivateKey: string;
-  accessTokenExpireTime: number;
-  refreshTokenPrivateKey: string;
-  User: IUserModel;
-  VerificationToken: IVerificationTokenModel;
-  RefreshToken: IRefreshTokenModel;
-  sendGridApiKey: string;
-  hostUrl: string;
-}
-
-//  verificationEmail: (to: string, token: string) => Promise<[any, {}]>;
 /**
  * This will register 5 routes for authentication
  *
@@ -43,20 +32,16 @@ export interface AuthRoutesWithRefreshTokenConfig {
  */
 
 export function applyAuthRoutesWithRefreshTokens(
-  config: AuthRoutesWithRefreshTokenConfig
+  config: AuthConfigWithRefreshTokens
 ) {
   return (app: Koa) => {
+    const verificationEmail = setupEmailVerification(config);
+
     const router = new Router();
     router.post('/authorize/login', login(config));
     router.post(
       '/authorize/register',
-      register({
-        ...config,
-        verificationEmail: verificationEmail(
-          config.sendGridApiKey,
-          config.hostUrl
-        )
-      })
+      register({ ...config, verificationEmail })
     );
     router.get('/authorize/verify', verify(config));
     router.post('/authorize', authorize(config));
@@ -96,7 +81,7 @@ export function register(config: RegistrationControllerConfig) {
   };
 }
 
-export function verify(config: VerifyUserControllerConfig) {
+export function verify(config: VerifyControllerConfig) {
   const verifyController = setupVerifyController(config);
   return async (ctx: Koa.ParameterizedContext) => {
     const email = ctx.query.email;
@@ -105,13 +90,7 @@ export function verify(config: VerifyUserControllerConfig) {
   };
 }
 
-export function authorize(config: {
-  User: IUserModel;
-  RefreshToken: IRefreshTokenModel;
-  accessTokenPrivateKey: string;
-  accessTokenExpireTime: number;
-  refreshTokenPrivateKey: string;
-}) {
+export function authorize(config: AuthorizeControllerConfig) {
   const authorizeController = setupAuthorizeController(config);
   return async (ctx: Koa.ParameterizedContext) => {
     const username = (ctx.request as any).body.username;
@@ -124,13 +103,7 @@ export function authorize(config: {
   };
 }
 
-export function refreshAccessToken(config: {
-  User: IUserModel;
-  RefreshToken: IRefreshTokenModel;
-  accessTokenPrivateKey: string;
-  accessTokenExpireTime: number;
-  refreshTokenPrivateKey: string;
-}) {
+export function refreshAccessToken(config: RefreshControllerConfig) {
   const refreshAccessTokenCtr = setupRefreshAccessTokenController(config);
 
   return async (ctx: Koa.ParameterizedContext) => {
@@ -146,9 +119,7 @@ export function refreshAccessToken(config: {
   };
 }
 
-export function revokeRefreshToken(config: {
-  RefreshToken: IRefreshTokenModel;
-}) {
+export function revokeRefreshToken(config: RevokeControllerConfig) {
   const revokeTokenController = setupRevokeRefreshTokenController(config);
   return async (ctx: Koa.ParameterizedContext) => {
     const token: string = (ctx.request as any).body.refreshToken;

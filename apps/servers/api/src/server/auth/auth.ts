@@ -1,5 +1,4 @@
 import {
-  applyAuthorizationRoutes,
   getAuthResolvers,
   getGraphQlGuards,
   getRestGuards,
@@ -26,39 +25,24 @@ export const {
   verifyUserRole: verifyUserRoleGraphQL
 } = getGraphQlGuards(User, config.auth.accessTokenPublicKey);
 
-/**
- * Auth Resolvers
- */
-export const { authResolvers } = getAuthResolvers(User, VerificationToken)(
-  config.auth.accessTokenPublicKey,
-  config.auth.accessTokenExpireTime,
-  config.auth.sendGridApiKey,
-  config.hostUrl
-);
-
-export const applyAuthRoutes = applyAuthRoutesWithRefreshTokens({
+const authConfig = {
   User,
   VerificationToken,
   RefreshToken,
   accessTokenPrivateKey: config.auth.accessTokenPrivateKey,
   accessTokenExpireTime: config.auth.accessTokenExpireTime,
   refreshTokenPrivateKey: config.auth.refreshTokenPrivateKey,
+  refreshTokenPublicKey: config.auth.refreshTokenPublicKey,
   sendGridApiKey: config.auth.sendGridApiKey,
   hostUrl: config.hostUrl
-});
+};
 
-// applyAuthorizationRoutes({
-//   userLogin: true,
-//   userRegistration: true,
-//   refreshTokens: true
-// })({
-//   userModel: User,
-//   verificationModel: VerificationToken,
-//   refreshTokenModel: RefreshToken
-// })({
-//   accessTokenPrivateKey: config.auth.accessTokenPrivateKey,
-//   accessTokenExpireTime: config.auth.accessTokenExpireTime,
-//   refreshTokenPrivateKey: config.auth.refreshTokenPrivateKey,
-//   sendGridApiKey: config.auth.sendGridApiKey,
-//   hostUrl: config.hostUrl
-// });
+/**
+ * Auth Resolvers
+ */
+export const { authResolvers } = getAuthResolvers(authConfig);
+
+/**
+ * Applies all required auth routes
+ */
+export const applyAuthRoutes = applyAuthRoutesWithRefreshTokens(authConfig);

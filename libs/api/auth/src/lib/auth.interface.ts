@@ -1,38 +1,68 @@
 import mongoose from 'mongoose';
 import { IUserModel, IUserDocument } from '@uqt/api/core-data';
 
+export type VerifyEmail = (to: string, token: string) => Promise<[any, {}]>;
+
 // -------------------------------------
 // For signing access and refresh tokens
 // -------------------------------------
-export interface SignAccessTokenConfig {
+export interface AccessTokenConfig {
   accessTokenPrivateKey: string;
   accessTokenExpireTime: number;
 }
 
-export interface SignRefreshTokenConfig {
+export interface RefreshTokenConfig {
   refreshTokenPrivateKey: string;
+}
+
+export interface VerifyRefreshTokenConfig {
+  refreshTokenPublicKey: string;
+}
+
+export interface EmailVerificationConfig {
+  sendGridApiKey: string;
+  hostUrl: string;
 }
 
 // -------------------------------------
 // Interfaces for each controller
 // -------------------------------------
-export interface LoginControllerConfig extends SignAccessTokenConfig {
+export interface LoginControllerConfig extends AccessTokenConfig {
   User: IUserModel;
 }
 
-export interface VerifyUserControllerConfig {
+export interface VerifyControllerConfig {
   User: IUserModel;
   VerificationToken: IVerificationTokenModel;
 }
 
-export interface RegistrationControllerConfig
-  extends VerifyUserControllerConfig {
-  verificationEmail: (to: string, token: string) => Promise<[any, {}]>;
+export interface RegistrationControllerConfig extends VerifyControllerConfig {
+  verificationEmail: VerifyEmail;
 }
 
-// -------------------------------------
-// TODO ---------
-// -------------------------------------
+export interface AuthorizeControllerConfig
+  extends LoginControllerConfig,
+    RefreshTokenConfig {
+  RefreshToken: IRefreshTokenModel;
+}
+
+export interface RefreshControllerConfig
+  extends AccessTokenConfig,
+    VerifyRefreshTokenConfig {
+  RefreshToken: IRefreshTokenModel;
+}
+
+export interface RevokeControllerConfig {
+  RefreshToken: IRefreshTokenModel;
+}
+
+export interface AuthConfigWithRefreshTokens
+  extends LoginControllerConfig,
+    VerifyControllerConfig,
+    VerifyRefreshTokenConfig,
+    AuthorizeControllerConfig,
+    RefreshControllerConfig,
+    EmailVerificationConfig {}
 
 export interface AuthRouteOptions {
   userLogin?: boolean;

@@ -1,14 +1,14 @@
 import { randomBytes } from 'crypto';
-import { verify } from 'jsonwebtoken';
 import { compare, hash } from 'bcryptjs';
 import Boom from '@hapi/boom';
-import { signAccessToken, signRefreshToken } from './token';
-import { IUserModel } from '@uqt/api/core-data';
+import { signAccessToken, signRefreshToken, verifyRefreshToken } from './token';
 import {
-  IRefreshTokenModel,
   LoginControllerConfig,
   RegistrationControllerConfig,
-  VerifyUserControllerConfig
+  VerifyControllerConfig,
+  AuthorizeControllerConfig,
+  RefreshControllerConfig,
+  RevokeControllerConfig
 } from './auth.interface';
 import { IUser } from '@uqt/interfaces';
 import { isPasswordAllowed, userToJSON } from './auth-utils';
@@ -59,7 +59,7 @@ export function setupRegisterController({
 export function setupVerifyController({
   User,
   VerificationToken
-}: VerifyUserControllerConfig) {
+}: VerifyControllerConfig) {
   return async (email: string, token: string) => {
     /**
      * Check the user exists and is not already registered
@@ -105,11 +105,9 @@ export function setupVerifyController({
  *   expireTime
  * }
  */
-export function setupLoginController({
-  User,
-  ...tokenConfig
-}: LoginControllerConfig) {
-  const accessToken = signAccessToken(tokenConfig);
+export function setupLoginController(config: LoginControllerConfig) {
+  const { User } = config;
+  const accessToken = signAccessToken(config);
 
   return async (username: string, password: string) => {
     const user = await User.findByUsername(username);
@@ -128,19 +126,11 @@ export function setupLoginController({
   };
 }
 
-export function setupAuthorizeController({
-  User,
-  RefreshToken,
-  accessTokenPrivateKey,
-  accessTokenExpireTime,
-  refreshTokenPrivateKey
-}: {
-  User: IUserModel;
-  RefreshToken: IRefreshTokenModel;
-  accessTokenPrivateKey: string;
-  accessTokenExpireTime: number;
-  refreshTokenPrivateKey: string;
-}) {
+export function setupAuthorizeController(config: AuthorizeControllerConfig) {
+  const { User, RefreshToken } = config;
+  const createAccessToken = signAccessToken(config);
+  const createRefreshToken = signRefreshToken(config);
+
   return async (username: string, password: string) => {
     const user = await User.findByUsername(username);
 
@@ -150,14 +140,8 @@ export function setupAuthorizeController({
 
     if (!valid) throw Boom.unauthorized(null, 'Bearer');
 
-    const accessToken = signAccessToken({
-      accessTokenPrivateKey,
-      accessTokenExpireTime
-    })(user);
-
-    const refreshToken = signRefreshToken({
-      refreshTokenPrivateKey
-    })(user);
+    const accessToken = createAccessToken(user);
+    const refreshToken = createRefreshToken(user);
 
     await RefreshToken.create({
       user: user.id,
@@ -172,40 +156,38 @@ export function setupAuthorizeController({
 }
 
 // a controller that receives a refresh token and returns an access token.
-export function setupRefreshAccessTokenController({
-  RefreshToken,
-  accessTokenPrivateKey,
-  accessTokenExpireTime,
-  refreshTokenPrivateKey
-}: {
-  RefreshToken: IRefreshTokenModel;
-  accessTokenPrivateKey: string;
-  accessTokenExpireTime: number;
-  refreshTokenPrivateKey: string;
-}) {
-  return async (username: string, refreshToken: string) => {
-    const token = await RefreshToken.findByTokenWithUser(refreshToken);
-    // No token found
-    if (token === null) throw Boom.unauthorized(null, 'Bearer');
+export function setupRefreshAccessTokenController(
+  config: RefreshControllerConfig
+) {
+  const { RefreshToken } = config;
+  const verify = verifyRefreshToken(config);
+  const createAccessToken = signAccessToken(config);
 
-    // No user found or matched with given parameters
-    if (token.user === null || token.user.username !== username)
-      throw Boom.unauthorized(null, 'Bearer');
-
-    // revoke refreshToken if user is inactive
-    if (token.user.active === false) {
-      await token.remove();
+  return async (username: string, refreshTokenProvided: string) => {
+    // Verify the refresh token. Don't care about decoding it (as we retrieve form DB as well),
+    // Just catch and throw an unauthorized error
+    try {
+      await verify(refreshTokenProvided);
+    } catch (err) {
       throw Boom.unauthorized(null, 'Bearer');
     }
 
-    // The provided token is valid
-    const valid = await verify(refreshToken, refreshTokenPrivateKey);
-    if (!valid) throw Boom.unauthorized(null, 'Bearer');
+    const savedToken = await RefreshToken.findByTokenWithUser(
+      refreshTokenProvided
+    );
+    // No token found
+    if (savedToken === null) throw Boom.unauthorized(null, 'Bearer');
 
-    const accessToken = signAccessToken({
-      accessTokenPrivateKey,
-      accessTokenExpireTime
-    })(token.user);
+    // No user found or matched with given parameters
+    if (savedToken.user === null || savedToken.user.username !== username)
+      throw Boom.unauthorized(null, 'Bearer');
+
+    // revoke refreshToken if user is inactive
+    if (savedToken.user.active === false) {
+      await savedToken.remove();
+      throw Boom.unauthorized(null, 'Bearer');
+    }
+    const accessToken = createAccessToken(savedToken.user);
 
     return {
       token: accessToken
@@ -216,9 +198,7 @@ export function setupRefreshAccessTokenController({
 // a controller to revoke a refresh token
 export function setupRevokeRefreshTokenController({
   RefreshToken
-}: {
-  RefreshToken: IRefreshTokenModel;
-}) {
+}: RevokeControllerConfig) {
   return async (token: string) => {
     const refreshToken = await RefreshToken.findOne({ token }).exec();
 

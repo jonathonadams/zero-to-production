@@ -1,36 +1,28 @@
 import { GraphQLFieldResolver } from 'graphql';
 import { IUserModel } from '@uqt/api/core-data';
-import { loginController, registerController } from './auth.controllers';
-import { IVerificationTokenModel } from './auth.interface';
+import {
+  setupLoginController,
+  setupRegisterController
+} from './auth.controllers';
+import {
+  LoginControllerConfig,
+  RegistrationControllerConfig,
+  AuthConfigWithRefreshTokens
+} from './auth.interface';
 import { IUser } from '@uqt/interfaces';
-import { verificationEmail } from './send-email';
+import { setupEmailVerification } from './send-email';
 
-export function getAuthResolvers(
-  userModel: IUserModel,
-  verificationModel: IVerificationTokenModel
-) {
-  return function authConfig(
-    accessTokenPrivateKey: string,
-    accessTokenExpireTime: number,
-    sendGridApiKey: string,
-    hostUrl: string
-  ) {
-    return {
-      authResolvers: {
-        Mutation: {
-          login: loginResolver({
-            userModel,
-            accessTokenPrivateKey,
-            expireTime: accessTokenExpireTime
-          }),
-          register: registerResolver(
-            userModel,
-            verificationModel,
-            verificationEmail(sendGridApiKey, hostUrl)
-          )
-        }
+// TODO -> GraphQL Verify call
+export function getAuthResolvers(config: AuthConfigWithRefreshTokens) {
+  const verificationEmail = setupEmailVerification(config);
+  const registerConfig = { ...config, verificationEmail };
+  return {
+    authResolvers: {
+      Mutation: {
+        login: loginResolver(config),
+        register: registerResolver(registerConfig)
       }
-    };
+    }
   };
 }
 
@@ -39,37 +31,24 @@ export function getAuthResolvers(
  *
  * @returns { Object } A User and signed JWT.
  */
-export function loginResolver(config: {
-  userModel: IUserModel;
-  accessTokenPrivateKey: string;
-  expireTime: number;
-}): GraphQLFieldResolver<any, { username: string; password: string }, any> {
-  const controller = loginController(config);
+export function loginResolver(
+  config: LoginControllerConfig
+): GraphQLFieldResolver<any, { username: string; password: string }, any> {
+  const loginController = setupLoginController(config);
 
-  return async function login(
-    root,
-    args,
-    context,
-    info
-  ): Promise<{ token: string }> {
+  return async function login(root, args, ctx, i): Promise<{ token: string }> {
     const username: string = args.username;
     const password: string = args.password;
 
-    return await controller(username, password);
+    return await loginController(username, password);
   };
 }
 
 export function registerResolver(
-  userModel: IUserModel,
-  verificationModel: IVerificationTokenModel,
-  sendVerificationEmail: (to: string, token: string) => Promise<[any, {}]>
+  config: RegistrationControllerConfig
 ): GraphQLFieldResolver<any, { input: IUser }, any> {
-  const controller = registerController({
-    User: userModel,
-    VerificationToken: verificationModel,
-    sendVerificationEmail
-  });
-  return async function register(root, args, context, info) {
-    return controller(args.input);
+  const registerController = setupRegisterController(config);
+  return async function register(root, args, ctx, i) {
+    return registerController(args.input);
   };
 }

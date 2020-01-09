@@ -6,29 +6,33 @@ import {
   checkUserRole
 } from '../graphql.guards';
 import { signAccessToken } from '../token';
-import { MockUserModel } from './user.mock.spec';
+import { MockUserModel } from './user.mock';
 import { IUserDocument, IUserModel } from '@uqt/api/core-data';
 import { AuthenticationRoles } from '@uqt/interfaces';
+import { PRIVATE_KEY, PUBLIC_KEY, INVALID_KEY } from './rsa-keys';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
 }
 
+const accessTokenPrivateKey = PRIVATE_KEY;
+const accessTokenPublicKey = PUBLIC_KEY;
+const invalidPrivateKey = INVALID_KEY;
+
 describe('GraphQL Auth Guards', () => {
-  const validSecret = 'valid-secret';
-  const expireTime = 1 * 60 * 60 * 1000;
-  const invalidSecret = 'invalid-secret';
+  const accessTokenExpireTime = 1 * 60 * 60 * 1000;
+
   let jwt: string;
   let invalidJwt: string;
 
   beforeAll(() => {
-    jwt = signAccessToken({ secret: validSecret, expireTime })({
+    jwt = signAccessToken({ accessTokenPrivateKey, accessTokenExpireTime })({
       id: '1',
       role: 0
     } as IUserDocument);
     invalidJwt = signAccessToken({
-      secret: invalidSecret,
-      expireTime
+      accessTokenPrivateKey: invalidPrivateKey,
+      accessTokenExpireTime
     })({
       id: '1',
       role: 0
@@ -38,7 +42,7 @@ describe('GraphQL Auth Guards', () => {
   describe('checkToken', () => {
     it('should not throw an error if a JWT is provided and is valid', async () => {
       await expect(
-        checkToken(validSecret)(
+        checkToken(accessTokenPublicKey)(
           {},
           {},
           { state: {}, token: jwt },
@@ -49,13 +53,13 @@ describe('GraphQL Auth Guards', () => {
 
     it('should throw 401 Unauthorized if the JWT is not provided', async () => {
       await expect(
-        checkToken(validSecret)({}, {}, {}, {} as GraphQLResolveInfo)
+        checkToken(accessTokenPublicKey)({}, {}, {}, {} as GraphQLResolveInfo)
       ).rejects.toThrowError();
     });
 
     it('should throw 401 Unauthorized if the JWT is not valid', async () => {
       await expect(
-        checkToken(validSecret)(
+        checkToken(accessTokenPublicKey)(
           {},
           {},
           { token: invalidJwt },

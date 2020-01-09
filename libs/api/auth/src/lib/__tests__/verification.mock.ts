@@ -47,10 +47,3 @@ export class MockVerificationToken {
     return this._token;
   }
 }
-
-export async function mockSendVerificationEmail(
-  to: string,
-  token: string
-): Promise<[any, {}]> {
-  return [true, {}];
-}

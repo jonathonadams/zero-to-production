@@ -1,4 +1,3 @@
-export { applyAuthorizationRoutes } from './lib/auth';
 export { isPasswordAllowed } from './lib/auth-utils';
 export {
   IRefreshTokenModel,
