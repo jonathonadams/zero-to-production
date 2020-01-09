@@ -15,12 +15,12 @@ import { isPasswordAllowed, userToJSON } from './auth-utils';
 
 // TODO -> Refresh Token Model/Storage
 
-export function registerController({
+export function setupRegisterController({
   User,
   VerificationToken,
-  sendVerificationEmail
+  verificationEmail
 }: RegistrationControllerConfig) {
-  return async function registerCtr(user: IUser): Promise<IUser> {
+  return async (user: IUser) => {
     const password: string = (user as any).password;
     if (!password) Boom.badRequest('No password provided');
 
@@ -42,7 +42,7 @@ export function registerController({
     });
 
     await await verificationToken.save();
-    await sendVerificationEmail(user.email, verificationToken.token);
+    await verificationEmail(user.email, verificationToken.token);
 
     return userToJSON(newUser.toJSON());
   };
@@ -56,14 +56,11 @@ export function registerController({
  * @param {IVerificationTokenModel} VerificationToken
  * @returns Verification Controller
  */
-export function verifyController({
+export function setupVerifyController({
   User,
   VerificationToken
 }: VerifyUserControllerConfig) {
-  return async function verifyCtr(
-    email: string,
-    token: string
-  ): Promise<{ message: string }> {
+  return async (email: string, token: string) => {
     /**
      * Check the user exists and is not already registered
      */
@@ -108,17 +105,14 @@ export function verifyController({
  *   expireTime
  * }
  */
-export function loginController({
-  userModel,
+export function setupLoginController({
+  User,
   ...tokenConfig
 }: LoginControllerConfig) {
   const accessToken = signAccessToken(tokenConfig);
 
-  return async function loginCtr(
-    username: string,
-    password: string
-  ): Promise<{ token: string }> {
-    const user = await userModel.findByUsername(username);
+  return async (username: string, password: string) => {
+    const user = await User.findByUsername(username);
 
     if (!user || !user.active) throw Boom.unauthorized(null, 'Bearer');
 
@@ -134,24 +128,21 @@ export function loginController({
   };
 }
 
-export function authorizeController({
-  userModel,
-  refreshTokenModel,
+export function setupAuthorizeController({
+  User,
+  RefreshToken,
   accessTokenPrivateKey,
   accessTokenExpireTime,
   refreshTokenPrivateKey
 }: {
-  userModel: IUserModel;
-  refreshTokenModel: IRefreshTokenModel;
+  User: IUserModel;
+  RefreshToken: IRefreshTokenModel;
   accessTokenPrivateKey: string;
   accessTokenExpireTime: number;
   refreshTokenPrivateKey: string;
 }) {
-  return async function authorizeCtr(
-    username: string,
-    password: string
-  ): Promise<{ token: string; refreshToken: string }> {
-    const user = await userModel.findByUsername(username);
+  return async (username: string, password: string) => {
+    const user = await User.findByUsername(username);
 
     if (!user || user.active === false) throw Boom.unauthorized(null, 'Bearer');
 
@@ -161,14 +152,14 @@ export function authorizeController({
 
     const accessToken = signAccessToken({
       accessTokenPrivateKey,
-      expireTime: accessTokenExpireTime
+      accessTokenExpireTime
     })(user);
 
     const refreshToken = signRefreshToken({
       refreshTokenPrivateKey
     })(user);
 
-    await refreshTokenModel.create({
+    await RefreshToken.create({
       user: user.id,
       token: refreshToken
     });
@@ -181,22 +172,19 @@ export function authorizeController({
 }
 
 // a controller that receives a refresh token and returns an access token.
-export function refreshAccessTokenController({
-  refreshTokenModel,
+export function setupRefreshAccessTokenController({
+  RefreshToken,
   accessTokenPrivateKey,
   accessTokenExpireTime,
   refreshTokenPrivateKey
 }: {
-  refreshTokenModel: IRefreshTokenModel;
+  RefreshToken: IRefreshTokenModel;
   accessTokenPrivateKey: string;
   accessTokenExpireTime: number;
   refreshTokenPrivateKey: string;
 }) {
-  return async function refreshAccessTokenCt(
-    username: string,
-    refreshToken: string
-  ): Promise<{ token: string }> {
-    const token = await refreshTokenModel.findByTokenWithUser(refreshToken);
+  return async (username: string, refreshToken: string) => {
+    const token = await RefreshToken.findByTokenWithUser(refreshToken);
     // No token found
     if (token === null) throw Boom.unauthorized(null, 'Bearer');
 
@@ -216,7 +204,7 @@ export function refreshAccessTokenController({
 
     const accessToken = signAccessToken({
       accessTokenPrivateKey,
-      expireTime: accessTokenExpireTime
+      accessTokenExpireTime
     })(token.user);
 
     return {
@@ -226,13 +214,13 @@ export function refreshAccessTokenController({
 }
 
 // a controller to revoke a refresh token
-export function revokeRefreshTokenController(
-  refreshTokenMode: IRefreshTokenModel
-) {
-  return async function revokeRFController(
-    token: string
-  ): Promise<{ success: true }> {
-    const refreshToken = await refreshTokenMode.findOne({ token }).exec();
+export function setupRevokeRefreshTokenController({
+  RefreshToken
+}: {
+  RefreshToken: IRefreshTokenModel;
+}) {
+  return async (token: string) => {
+    const refreshToken = await RefreshToken.findOne({ token }).exec();
 
     if (refreshToken === null) throw Boom.badRequest();
 

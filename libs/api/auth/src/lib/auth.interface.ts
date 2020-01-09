@@ -6,7 +6,7 @@ import { IUserModel, IUserDocument } from '@uqt/api/core-data';
 // -------------------------------------
 export interface SignAccessTokenConfig {
   accessTokenPrivateKey: string;
-  expireTime: number;
+  accessTokenExpireTime: number;
 }
 
 export interface SignRefreshTokenConfig {
@@ -17,7 +17,7 @@ export interface SignRefreshTokenConfig {
 // Interfaces for each controller
 // -------------------------------------
 export interface LoginControllerConfig extends SignAccessTokenConfig {
-  userModel: IUserModel;
+  User: IUserModel;
 }
 
 export interface VerifyUserControllerConfig {
@@ -27,7 +27,7 @@ export interface VerifyUserControllerConfig {
 
 export interface RegistrationControllerConfig
   extends VerifyUserControllerConfig {
-  sendVerificationEmail: (to: string, token: string) => Promise<[any, {}]>;
+  verificationEmail: (to: string, token: string) => Promise<[any, {}]>;
 }
 
 // -------------------------------------

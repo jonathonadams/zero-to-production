@@ -9,10 +9,6 @@ import {
   revokeRefreshToken,
   verify
 } from './auth.routes';
-import { verifyToken, verifyUserIsActive } from './rest.guards';
-import { checkToken, checkUserIsActive, checkUserRole } from './graphql.guards';
-import { authenticateRequest } from './auth.graphql';
-import { loginResolver, registerResolver } from './auth.resolvers';
 import { verificationEmail } from './send-email';
 import {
   IVerificationTokenModel,
@@ -21,66 +17,10 @@ import {
   AuthModels,
   AuthRoutesConfig
 } from './auth.interface';
-import { AuthenticationRoles } from '@uqt/interfaces';
 
 // TODO -> Best way to deal with Refresh Tokens this? attach to user?, Separate model?
 
 // export class AuthModule {
-export function getRestGuards(
-  userModel: IUserModel,
-  accessTokenPublicKey: string
-) {
-  return {
-    verifyToken: verifyToken(accessTokenPublicKey),
-    verifyUserIsActive: verifyUserIsActive(userModel)
-  };
-}
-
-export function getGraphQlGuards(
-  userModel: IUserModel,
-  accessTokenPublicKey: string
-) {
-  // export the below array to use in the authenticate request function.
-  const verifyTokenM = [checkToken(accessTokenPublicKey)];
-  const verifyUserIsActiveM = [...verifyTokenM, checkUserIsActive(userModel)];
-
-  return {
-    verifyToken: authenticateRequest(verifyTokenM),
-    verifyUserIsActive: authenticateRequest(verifyUserIsActiveM),
-    verifyUserRole(role: AuthenticationRoles) {
-      return authenticateRequest([...verifyUserIsActiveM, checkUserRole(role)]);
-    }
-  };
-}
-
-export function getAuthResolvers(
-  userModel: IUserModel,
-  verificationModel: IVerificationTokenModel
-) {
-  return function authConfig(
-    accessTokenPrivateKey: string,
-    accessTokenExpireTime: number,
-    sendGridApiKey: string,
-    hostUrl: string
-  ) {
-    return {
-      authResolvers: {
-        Mutation: {
-          login: loginResolver({
-            userModel,
-            accessTokenPrivateKey,
-            expireTime: accessTokenExpireTime
-          }),
-          register: registerResolver(
-            userModel,
-            verificationModel,
-            verificationEmail(sendGridApiKey, hostUrl)
-          )
-        }
-      }
-    };
-  };
-}
 
 /**
  * This will register 5 routes for authentication

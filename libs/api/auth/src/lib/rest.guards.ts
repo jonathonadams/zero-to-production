@@ -3,6 +3,16 @@ import Boom from '@hapi/boom';
 import { verify } from 'jsonwebtoken';
 import { IUserModel } from '@uqt/api/core-data';
 
+export function getRestGuards(
+  userModel: IUserModel,
+  accessTokenPublicKey: string
+) {
+  return {
+    verifyToken: verifyToken(accessTokenPublicKey),
+    verifyUserIsActive: verifyUserIsActive(userModel)
+  };
+}
+
 /**
  * npm module koa-bearer-token will get the bearer token from Authorize Header
  * and add it to ctx.request.token. Note this is not decoded

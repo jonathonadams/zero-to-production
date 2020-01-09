@@ -1,8 +1,25 @@
 import { verify } from 'jsonwebtoken';
 import Boom from '@hapi/boom';
-import { AuthMiddleware } from './auth.graphql';
+import { AuthMiddleware, authenticateRequest } from './auth.graphql';
 import { IUserModel } from '@uqt/api/core-data';
 import { AuthenticationRoles, IUser } from '@uqt/interfaces';
+
+export function getGraphQlGuards(
+  userModel: IUserModel,
+  accessTokenPublicKey: string
+) {
+  // export the below array to use in the authenticate request function.
+  const verifyTokenM = [checkToken(accessTokenPublicKey)];
+  const verifyUserIsActiveM = [...verifyTokenM, checkUserIsActive(userModel)];
+
+  return {
+    verifyToken: authenticateRequest(verifyTokenM),
+    verifyUserIsActive: authenticateRequest(verifyUserIsActiveM),
+    verifyUserRole(role: AuthenticationRoles) {
+      return authenticateRequest([...verifyUserIsActiveM, checkUserRole(role)]);
+    }
+  };
+}
 
 /**
  * Verify the token signature

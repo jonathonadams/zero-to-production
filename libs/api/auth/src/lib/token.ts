@@ -17,7 +17,7 @@ export function signAccessToken(config: SignAccessTokenConfig) {
       {
         algorithm: 'RS256',
         subject: user.id,
-        expiresIn: config.expireTime,
+        expiresIn: config.accessTokenExpireTime,
         issuer: 'your-company-here'
       }
     );

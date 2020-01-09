@@ -2,7 +2,8 @@ import {
   applyAuthorizationRoutes,
   getAuthResolvers,
   getGraphQlGuards,
-  getRestGuards
+  getRestGuards,
+  applyAuthRoutesWithRefreshTokens
 } from '@uqt/api/auth';
 import { RefreshToken } from './tokens.model';
 import config from '../../environments';
@@ -35,18 +36,29 @@ export const { authResolvers } = getAuthResolvers(User, VerificationToken)(
   config.hostUrl
 );
 
-export const applyAuthRoutes = applyAuthorizationRoutes({
-  userLogin: true,
-  userRegistration: true,
-  refreshTokens: true
-})({
-  userModel: User,
-  verificationModel: VerificationToken,
-  refreshTokenModel: RefreshToken
-})({
+export const applyAuthRoutes = applyAuthRoutesWithRefreshTokens({
+  User,
+  VerificationToken,
+  RefreshToken,
   accessTokenPrivateKey: config.auth.accessTokenPrivateKey,
   accessTokenExpireTime: config.auth.accessTokenExpireTime,
   refreshTokenPrivateKey: config.auth.refreshTokenPrivateKey,
   sendGridApiKey: config.auth.sendGridApiKey,
   hostUrl: config.hostUrl
 });
+
+// applyAuthorizationRoutes({
+//   userLogin: true,
+//   userRegistration: true,
+//   refreshTokens: true
+// })({
+//   userModel: User,
+//   verificationModel: VerificationToken,
+//   refreshTokenModel: RefreshToken
+// })({
+//   accessTokenPrivateKey: config.auth.accessTokenPrivateKey,
+//   accessTokenExpireTime: config.auth.accessTokenExpireTime,
+//   refreshTokenPrivateKey: config.auth.refreshTokenPrivateKey,
+//   sendGridApiKey: config.auth.sendGridApiKey,
+//   hostUrl: config.hostUrl
+// });
