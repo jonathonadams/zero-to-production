@@ -39,7 +39,7 @@ import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
       routerState: RouterState.Minimal
     }),
     DataAccessApiModule.forRoot(environment),
-    DataAccessAuthModule.forRoot(),
+    DataAccessAuthModule.forRoot({ authServerUrl: environment.serverUrl }),
     DataAccessUsersModule.forRoot(),
     DynamicFormMaterialComponentsModule,
     DynamicFormModule.forRoot({

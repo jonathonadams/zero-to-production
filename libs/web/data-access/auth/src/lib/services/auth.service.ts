@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import jwtDecode from 'jwt-decode';
-import { GraphQLService, ApiService } from '@uqt/data-access/api';
+import { GraphQLService } from '@uqt/data-access/api';
 import { IUser } from '@uqt/interfaces';
 import {
   ILoginCredentials,
@@ -9,11 +9,20 @@ import {
   IRegistrationDetails,
   IJWTPayload
 } from '../auth.interface';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+export const AUTH_SERVER_URL = new InjectionToken<string>(
+  'forRoot() Auth Server Url'
+);
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   readonly storageKey = 'access_token';
-  constructor(private graphQL: GraphQLService, private api: ApiService) {}
+  constructor(
+    @Inject(AUTH_SERVER_URL) private authServerUrl: string,
+    private graphQL: GraphQLService,
+    private http: HttpClient
+  ) {}
 
   // Login function that returns a user and JWT
   // This is a graphql login function
@@ -47,12 +56,17 @@ export class AuthService {
   }
 
   // TODO -> Graphql?
+
   public isUsernameAvailable(
     username: string
   ): Observable<{ isAvailable: boolean }> {
-    return this.api.get<{ isAvailable: boolean }>(`users/available`, {
-      username
-    });
+    return this.http.get<{ isAvailable: boolean }>(
+      `${this.authServerUrl}/authorize/available`,
+      {
+        headers: this.headers,
+        params: { username }
+      }
+    );
   }
 
   // Checks if the user is logged in
@@ -88,5 +102,14 @@ export class AuthService {
     const now = Math.floor(Date.now() / 1000);
     const expTime: number = this.decodeToken(token).exp;
     return now < expTime ? true : false;
+  }
+
+  get headers(): HttpHeaders {
+    const headersConfig = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    };
+
+    return new HttpHeaders(headersConfig);
   }
 }

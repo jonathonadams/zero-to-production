@@ -17,9 +17,9 @@ import { HttpClientModule } from '@angular/common/http';
 export class DataAccessApiModule {
   static forRoot({
     graphQLUrl = 'graphql',
-    apiBaseUrl = 'api',
-    webSocketUrl = '',
-    socketIONamespace = ''
+    apiBaseUrl = 'api'
+    // webSocketUrl = '',
+    // socketIONamespace = ''
   } = {}): ModuleWithProviders<DataAccessApiModule> {
     return {
       ngModule: DataAccessApiModule,

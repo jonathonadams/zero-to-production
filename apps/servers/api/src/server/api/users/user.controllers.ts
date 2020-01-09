@@ -71,12 +71,3 @@ export async function removeOne(ctx: ParameterizedContext): Promise<void> {
   ctx.status = 200;
   ctx.body = swapId(removedUser);
 }
-
-export async function usernameAvailable(ctx: ParameterizedContext) {
-  const username: string = ctx.query.username;
-
-  const resource = await User.findOne({ $text: { $search: username } });
-
-  ctx.status = 200;
-  ctx.body = { isAvailable: !resource ? true : false };
-}

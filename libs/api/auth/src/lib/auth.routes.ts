@@ -16,15 +16,17 @@ import {
   AuthorizeControllerConfig,
   RefreshControllerConfig,
   RevokeControllerConfig,
-  AuthConfigWithRefreshTokens
+  AuthConfigWithRefreshTokens,
+  AvailableControllerConfig
 } from './auth.interface';
 import { setupEmailVerification } from './send-email';
 
 /**
- * This will register 5 routes for authentication
+ * This will register 6 routes for authentication
  *
  * '/authorize/login' -> return access token only when user logs in
  * '/authorize/register' -> return access token when user successfully registers
+ * '/authorize/available' -> return on object indicating the availability of a given username
  * '/authorize/verify' -> verify the newly registered user (via email)
  * '/authorize' -> returns an access token and refresh token.
  * '/authorize/token' -> returns a new access token from a valid refresh token
@@ -43,6 +45,7 @@ export function applyAuthRoutesWithRefreshTokens(
       '/authorize/register',
       register({ ...config, verificationEmail })
     );
+    router.post('/authorize/available', usernameAvailable(config));
     router.get('/authorize/verify', verify(config));
     router.post('/authorize', authorize(config));
     router.post('/authorize/token', refreshAccessToken(config));
@@ -124,5 +127,17 @@ export function revokeRefreshToken(config: RevokeControllerConfig) {
   return async (ctx: Koa.ParameterizedContext) => {
     const token: string = (ctx.request as any).body.refreshToken;
     ctx.body = await revokeTokenController(token);
+  };
+}
+
+export function usernameAvailable(config: AvailableControllerConfig) {
+  const { User } = config;
+  return async (ctx: Koa.ParameterizedContext) => {
+    const username: string = ctx.query.username;
+
+    const resource = await User.findOne({ $text: { $search: username } });
+
+    ctx.status = 200;
+    ctx.body = { isAvailable: !resource ? true : false };
   };
 }
