@@ -1,5 +1,6 @@
 import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
+// @ts-ignore
 import jwtDecode from 'jwt-decode';
 import { GraphQLService } from '@uqt/data-access/api';
 import { IUser } from '@uqt/interfaces';
@@ -70,34 +71,34 @@ export class AuthService {
     );
   }
 
-  // Checks if the user is logged in
-  checkUserIsLoggedIn(): boolean {
-    const token = this.getAuthorizationToken();
-    return token && this.checkTokenIsValid(token) ? true : false;
-  }
-
   setAuthorizationToken(token: string): void {
     localStorage.setItem(this.storageKey, token);
   }
 
-  getAuthorizationToken(): string | null {
+  get authorizationToken(): string | null {
     return localStorage.getItem(this.storageKey);
+  }
+
+  // Checks if the user is logged in
+  checkUserIsLoggedIn(): boolean {
+    const token = this.authorizationToken;
+    return token && this.checkTokenIsValid(token) ? true : false;
   }
 
   removeAuthorizationToken(): void {
     localStorage.removeItem(this.storageKey);
   }
 
-  decodeToken(token: string): IJWTPayload {
+  private decodeToken(token: string): IJWTPayload {
     return jwtDecode<IJWTPayload>(token);
   }
 
-  getDecodedToken(): IJWTPayload | undefined {
-    const token = this.getAuthorizationToken();
-    if (token !== null) {
-      return this.decodeToken(token);
-    }
-  }
+  // get decodedToken(): IJWTPayload | undefined {
+  //   const token = this.getAuthorizationToken();
+  //   if (token !== null) {
+  //     return this.decodeToken(token);
+  //   }
+  // }
 
   checkTokenIsValid(token: string): boolean {
     const now = Math.floor(Date.now() / 1000);

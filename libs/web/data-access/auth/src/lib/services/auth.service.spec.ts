@@ -257,14 +257,14 @@ describe('AuthService', () => {
     });
   });
 
-  describe('decodeToken', () => {
-    it('should return a decoded token', () => {
-      const decodedToken = authService.decodeToken(JWT);
+  // describe('decodeToken', () => {
+  //   it('should return a decoded token', () => {
+  //     const decodedToken = authService.decodeToken(JWT);
 
-      expect(typeof decodedToken).toEqual('object');
-      expect(decodedToken.sub).toEqual('123');
-    });
-  });
+  //     expect(typeof decodedToken).toEqual('object');
+  //     expect(decodedToken.sub).toEqual('123');
+  //   });
+  // });
 
   describe('checkTokenIsValid', () => {
     it('should return true if the token has not expired', () => {
