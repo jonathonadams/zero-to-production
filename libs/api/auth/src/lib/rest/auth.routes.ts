@@ -8,7 +8,7 @@ import {
   setupRefreshAccessTokenController,
   setupRevokeRefreshTokenController,
   setupVerifyController
-} from './auth.controllers';
+} from '../auth.controllers';
 import {
   RegistrationControllerConfig,
   VerifyControllerConfig,
@@ -18,8 +18,8 @@ import {
   RevokeControllerConfig,
   AuthConfigWithRefreshTokens,
   AvailableControllerConfig
-} from './auth.interface';
-import { setupEmailVerification } from './send-email';
+} from '../auth.interface';
+import { setupEmailVerification } from '../send-email';
 
 /**
  * This will register 6 routes for authentication
@@ -64,59 +64,51 @@ export function login(config: LoginControllerConfig) {
   // Set up the controller with the config
   const loginController = setupLoginController(config);
 
-  return async (ctx: Koa.ParameterizedContext) => {
-    const username: string = (ctx.request as any).body.username;
-    const password: string = (ctx.request as any).body.password;
+  return (ctx: Koa.ParameterizedContext) => {
+    const { username, password } = restUsernameAndPasswordCheck(ctx);
 
-    if (!username || !password)
-      throw Boom.unauthorized('Username and password must be provided');
-
-    ctx.body = await loginController(username, password);
+    ctx.body = loginController(username, password);
   };
 }
 
 export function register(config: RegistrationControllerConfig) {
   const registerController = setupRegisterController(config);
 
-  return async (ctx: Koa.ParameterizedContext) => {
+  return (ctx: Koa.ParameterizedContext) => {
     const user = (ctx.request as any).body;
-    ctx.body = await registerController(user);
+    ctx.body = registerController(user);
   };
 }
 
 export function verify(config: VerifyControllerConfig) {
   const verifyController = setupVerifyController(config);
-  return async (ctx: Koa.ParameterizedContext) => {
+  return (ctx: Koa.ParameterizedContext) => {
     const email = ctx.query.email;
     const token = ctx.query.token;
-    ctx.body = await verifyController(email, token);
+    ctx.body = verifyController(email, token);
   };
 }
 
 export function authorize(config: AuthorizeControllerConfig) {
   const authorizeController = setupAuthorizeController(config);
-  return async (ctx: Koa.ParameterizedContext) => {
-    const username = (ctx.request as any).body.username;
-    const password = (ctx.request as any).body.password;
+  return (ctx: Koa.ParameterizedContext) => {
+    const { username, password } = restUsernameAndPasswordCheck(ctx);
 
-    if (!username || !password)
-      throw Boom.unauthorized('Username and password must be provided');
-
-    ctx.body = await authorizeController(username, password);
+    ctx.body = authorizeController(username, password);
   };
 }
 
 export function refreshAccessToken(config: RefreshControllerConfig) {
   const refreshAccessTokenCtr = setupRefreshAccessTokenController(config);
 
-  return async (ctx: Koa.ParameterizedContext) => {
+  return (ctx: Koa.ParameterizedContext) => {
     const username = (ctx.request as any).body.username;
     const refreshToken = (ctx.request as any).body.refreshToken;
 
     if (!username || !refreshToken)
       throw Boom.unauthorized('Username and password must be provided');
 
-    const success = await refreshAccessTokenCtr(username, refreshToken);
+    const success = refreshAccessTokenCtr(username, refreshToken);
     ctx.status = 403;
     ctx.body = success;
   };
@@ -124,9 +116,9 @@ export function refreshAccessToken(config: RefreshControllerConfig) {
 
 export function revokeRefreshToken(config: RevokeControllerConfig) {
   const revokeTokenController = setupRevokeRefreshTokenController(config);
-  return async (ctx: Koa.ParameterizedContext) => {
+  return (ctx: Koa.ParameterizedContext) => {
     const token: string = (ctx.request as any).body.refreshToken;
-    ctx.body = await revokeTokenController(token);
+    ctx.body = revokeTokenController(token);
   };
 }
 
@@ -139,5 +131,17 @@ export function usernameAvailable(config: AvailableControllerConfig) {
 
     ctx.status = 200;
     ctx.body = { isAvailable: !resource ? true : false };
+  };
+}
+
+function restUsernameAndPasswordCheck(ctx: Koa.ParameterizedContext) {
+  const username: string = (ctx.request as any).body.username;
+  const password: string = (ctx.request as any).body.password;
+
+  if (!username || !password)
+    throw Boom.unauthorized('Username and password must be provided');
+  return {
+    username,
+    password
   };
 }

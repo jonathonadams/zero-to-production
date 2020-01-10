@@ -68,26 +68,6 @@ export interface AuthConfigWithRefreshTokens
     RefreshControllerConfig,
     EmailVerificationConfig {}
 
-export interface AuthRouteOptions {
-  userLogin?: boolean;
-  userRegistration?: boolean;
-  refreshTokens?: boolean;
-}
-
-export interface AuthModels {
-  userModel: IUserModel;
-  verificationModel?: IVerificationTokenModel;
-  refreshTokenModel?: IRefreshTokenModel;
-}
-
-export interface AuthRoutesConfig {
-  accessTokenPrivateKey: string;
-  accessTokenExpireTime: number;
-  refreshTokenPrivateKey?: string;
-  sendGridApiKey?: string;
-  hostUrl?: string;
-}
-
 export interface IRefreshToken {
   user: IUserDocument;
   token: string;
@@ -117,12 +97,3 @@ export interface IVerificationTokenDocument
 
 export interface IVerificationTokenModel
   extends mongoose.Model<IVerificationTokenDocument> {}
-
-// /**
-//  * Non 0 indexed because *ngIf === 0" will be false
-//  */
-// export enum AvailableStatus {
-//   Available = 1,
-//   UnAvailable = 2,
-//   Pending = 3
-// }

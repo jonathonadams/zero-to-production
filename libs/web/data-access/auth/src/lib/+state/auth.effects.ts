@@ -10,65 +10,59 @@ import { ILoginResponse } from '../auth.interface';
 
 @Injectable()
 export class AuthEffects {
-  login$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.login),
-      exhaustMap(credentials =>
-        // Note that when using GraphQL as a login option,
-        // Any errors will not be errors in the HTTP request (will be status 200)
-        // But rather an array on the result.errors property
-        this.authService.login(credentials).pipe(
-          map(result => {
-            if (result.errors) {
-              return AuthActions.loginFailure({
-                error: result.errors[0].message
-              });
-            } else {
-              // The data property will alway exist here as there was not errors property
-              return AuthActions.loginSuccess(
-                (result.data as { login: ILoginResponse }).login
-              );
-            }
-          }),
-          catchError((error: HttpErrorResponse) =>
-            of(AuthActions.loginFailure({ error: error.message }))
+  login$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.login),
+        exhaustMap(credentials =>
+          // Note that when using GraphQL as a login option,
+          // Any errors will not be errors in the HTTP request (will be status 200)
+          // But rather an array on the result.errors property
+          this.authService.login(credentials).pipe(
+            map(({ errors, data }) =>
+              errors
+                ? AuthActions.loginFailure({ error: errors[0].message })
+                : AuthActions.loginSuccess(
+                    (data as { login: ILoginResponse }).login
+                  )
+            ),
+            catchError((error: HttpErrorResponse) =>
+              of(AuthActions.loginFailure({ error: error.message }))
+            )
           )
         )
-      )
-    )
+      ),
+    { resubscribeOnError: false }
   );
 
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loginSuccess),
       tap(({ token }) => this.authService.setAuthorizationToken(token)),
-      // tap(() => this.formFacade.clearData()),
       map(() => AuthActions.loginRedirect())
     )
   );
 
-  register$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.register),
-      exhaustMap(({ details }) =>
-        this.authService.register(details).pipe(
-          map(result => {
-            if (result.errors) {
-              return AuthActions.registerFailure({
-                error: result.errors[0].message
-              });
-            } else {
-              return AuthActions.registerSuccess({
-                user: (result.data as { register: IUser }).register
-              });
-            }
-          }),
-          catchError((error: HttpErrorResponse) =>
-            of(AuthActions.registerFailure({ error: error.message }))
+  register$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.register),
+        exhaustMap(({ details }) =>
+          this.authService.register(details).pipe(
+            map(({ errors, data }) =>
+              errors
+                ? AuthActions.registerFailure({ error: errors[0].message })
+                : AuthActions.registerSuccess({
+                    user: (data as { register: IUser }).register
+                  })
+            ),
+            catchError((error: HttpErrorResponse) =>
+              of(AuthActions.registerFailure({ error: error.message }))
+            )
           )
         )
-      )
-    )
+      ),
+    { resubscribeOnError: false }
   );
 
   registerSuccess$ = createEffect(() =>

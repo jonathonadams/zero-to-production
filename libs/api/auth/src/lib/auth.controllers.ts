@@ -121,7 +121,8 @@ export function setupLoginController(config: LoginControllerConfig) {
     const token = accessToken(user);
 
     return {
-      token
+      token,
+      expiresIn: config.accessTokenExpireTime
     };
   };
 }
@@ -150,6 +151,7 @@ export function setupAuthorizeController(config: AuthorizeControllerConfig) {
 
     return {
       token: accessToken,
+      expiresIn: config.accessTokenExpireTime,
       refreshToken: refreshToken
     };
   };

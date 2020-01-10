@@ -4,7 +4,7 @@ import {
   checkToken,
   checkUserIsActive,
   checkUserRole
-} from '../graphql.guards';
+} from '../graphql/graphql.guards';
 import { signAccessToken } from '../token';
 import { MockUserModel } from './user.mock';
 import { IUserDocument, IUserModel } from '@uqt/api/core-data';

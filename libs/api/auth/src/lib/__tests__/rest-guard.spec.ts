@@ -1,6 +1,6 @@
 import * as Koa from 'koa';
 import mongoose from 'mongoose';
-import { verifyToken, verifyUserIsActive } from '../rest.guards';
+import { verifyToken, verifyUserIsActive } from '../rest/rest.guards';
 import { signAccessToken } from '../token';
 import { MockUserModel } from './user.mock';
 import { IUserDocument, IUserModel } from '@uqt/api/core-data';

@@ -3,14 +3,14 @@ import { IUserModel } from '@uqt/api/core-data';
 import {
   setupLoginController,
   setupRegisterController
-} from './auth.controllers';
+} from '../auth.controllers';
 import {
   LoginControllerConfig,
   RegistrationControllerConfig,
   AuthConfigWithRefreshTokens
-} from './auth.interface';
+} from '../auth.interface';
 import { IUser } from '@uqt/interfaces';
-import { setupEmailVerification } from './send-email';
+import { setupEmailVerification } from '../send-email';
 
 // TODO -> GraphQL Verify call
 export function getAuthResolvers(config: AuthConfigWithRefreshTokens) {
@@ -36,11 +36,11 @@ export function loginResolver(
 ): GraphQLFieldResolver<any, { username: string; password: string }, any> {
   const loginController = setupLoginController(config);
 
-  return async function login(root, args, ctx, i): Promise<{ token: string }> {
+  return function login(root, args, ctx, i): Promise<{ token: string }> {
     const username: string = args.username;
     const password: string = args.password;
 
-    return await loginController(username, password);
+    return loginController(username, password);
   };
 }
 
@@ -48,7 +48,7 @@ export function registerResolver(
   config: RegistrationControllerConfig
 ): GraphQLFieldResolver<any, { input: IUser }, any> {
   const registerController = setupRegisterController(config);
-  return async function register(root, args, ctx, i) {
+  return function register(root, args, ctx, i) {
     return registerController(args.input);
   };
 }

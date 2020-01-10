@@ -31,6 +31,7 @@ export class AuthService {
       mutation LoginUser($username: String!, $password: String!){
         login(username: $username, password: $password){
           token
+          expiresIn
         }
       }
     `;
@@ -44,7 +45,7 @@ export class AuthService {
 
   register(details: IRegistrationDetails) {
     const query = `
-      mutation Register($input: NewUserInput!) {
+      mutation Register($input: RegisterInput!) {
         register(input: $input) {
           id
         }
