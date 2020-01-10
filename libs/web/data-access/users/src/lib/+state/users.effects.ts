@@ -1,22 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { of } from 'rxjs';
-import { catchError, map, switchMap, mergeMap } from 'rxjs/operators';
-import { Actions, ofType, createEffect } from '@ngrx/effects';
+import { of, Observable } from 'rxjs';
 import {
-  JWTAuthService,
-  loginSuccess,
-  logout,
-  IJWTPayload
-} from '@uqt/data-access/auth';
+  catchError,
+  map,
+  switchMap,
+  mergeMap,
+  exhaustMap,
+  takeUntil
+} from 'rxjs/operators';
+import {
+  Actions,
+  ofType,
+  createEffect,
+  EffectNotification,
+  OnRunEffects
+} from '@ngrx/effects';
+import { AuthActions, IJWTPayload, AuthService } from '@uqt/data-access/auth';
 import * as UserActions from './users.actions';
 import { UsersService } from '../services/users.service';
 
 @Injectable()
-export class UsersEffects {
+export class UsersEffects implements OnRunEffects {
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loginSuccess),
+      ofType(AuthActions.loginSuccess),
       map(() => UserActions.loadAuthUser())
     )
   );
@@ -29,7 +37,7 @@ export class UsersEffects {
        * It is not be possible for the JWT to be undefined
        * as the resolver will run AFTER the AuthGuard runs,
        */
-      map(action => this.jwtService.getDecodedToken() as IJWTPayload),
+      map(action => this.authService.getDecodedToken() as IJWTPayload),
       switchMap(token =>
         this.usersService.getOneUser(token.sub).pipe(
           map(user => UserActions.loadAuthUserSuccess({ user })),
@@ -57,7 +65,7 @@ export class UsersEffects {
 
   clearAuthenticatedUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(logout),
+      ofType(AuthActions.logout),
       map(() => UserActions.clearAuthUser())
     )
   );
@@ -97,9 +105,28 @@ export class UsersEffects {
     )
   );
 
+  // Clear the user todos on logout
+  clearUser$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logout),
+      map(() => UserActions.clearUsers())
+    );
+  });
+
+  ngrxOnRunEffects(resolvedEffects$: Observable<EffectNotification>) {
+    return this.actions$.pipe(
+      ofType(AuthActions.loginSuccess),
+      exhaustMap(() =>
+        resolvedEffects$.pipe(
+          takeUntil(this.actions$.pipe(ofType(AuthActions.logout)))
+        )
+      )
+    );
+  }
+
   constructor(
     private actions$: Actions,
     private usersService: UsersService,
-    private jwtService: JWTAuthService
+    private authService: AuthService
   ) {}
 }

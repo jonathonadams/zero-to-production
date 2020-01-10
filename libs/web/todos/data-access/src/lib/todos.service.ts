@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GraphQLService } from '@uqt/data-access/api';
-import { JWTAuthService, IJWTPayload } from '@uqt/data-access/auth';
+import { AuthService, IJWTPayload } from '@uqt/data-access/auth';
 import {
   ALL_TODOS_QUERY,
   LOAD_TODO_QUERY,
@@ -14,7 +14,7 @@ import { FetchResult } from 'apollo-link';
 
 @Injectable()
 export class TodosService {
-  constructor(private graphQl: GraphQLService, private auth: JWTAuthService) {}
+  constructor(private graphQl: GraphQLService, private auth: AuthService) {}
 
   public getAllTodos(): Observable<FetchResult<{ allTodos: ITodo[] }>> {
     return this.graphQl.query<{ allTodos: ITodo[] }>(ALL_TODOS_QUERY);

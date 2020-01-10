@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { NotificationService } from '@uqt/utils/notifications';
-import * as AuthActions from '@uqt/data-access/auth';
+import { AuthActions } from '@uqt/data-access/auth';
 
 @Injectable({
   providedIn: 'root'

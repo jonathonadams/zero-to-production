@@ -1,10 +1,4 @@
-import {
-  createFeatureSelector,
-  createSelector,
-  createReducer,
-  on,
-  Action
-} from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 import { EntityState, createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import { IUser } from '@uqt/interfaces';
 import * as UserActions from './users.actions';
@@ -51,6 +45,9 @@ export const usersReducer = createReducer(
   }),
   on(UserActions.deleteUserSuccess, (state, { id }) => {
     return adapter.removeOne(id, state);
+  }),
+  on(UserActions.clearUsers, state => {
+    return adapter.removeAll(state);
   })
 );
 

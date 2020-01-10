@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import * as AuthActions from '@uqt/data-access/auth';
+import { AuthActions } from '@uqt/data-access/auth';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NotificationService } from '@uqt/utils/notifications';

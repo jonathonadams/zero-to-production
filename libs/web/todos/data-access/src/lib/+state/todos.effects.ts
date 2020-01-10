@@ -1,9 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { logout } from '@uqt/data-access/auth';
-import { of } from 'rxjs';
-import { catchError, map, exhaustMap, mergeMap } from 'rxjs/operators';
-import { Actions, ofType, createEffect } from '@ngrx/effects';
+import { AuthActions } from '@uqt/data-access/auth';
+import { of, Observable } from 'rxjs';
+import {
+  catchError,
+  map,
+  exhaustMap,
+  mergeMap,
+  takeUntil
+} from 'rxjs/operators';
+import {
+  Actions,
+  ofType,
+  createEffect,
+  OnRunEffects,
+  EffectNotification
+} from '@ngrx/effects';
 import * as TodoActions from './todos.actions';
 import { TodosService } from '../todos.service';
 import { ITodo } from '@uqt/interfaces';
@@ -24,9 +36,7 @@ import { ITodo } from '@uqt/interfaces';
 // concatMap -> merges the observable in the correct order. No observable is ignored and everything runs sequentially. Use this when order matters.
 
 @Injectable()
-export class TodoEffects {
-  constructor(private actions$: Actions, private todoService: TodosService) {}
-
+export class TodoEffects implements OnRunEffects {
   loadTodos$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TodoActions.loadTodos),
@@ -108,8 +118,21 @@ export class TodoEffects {
   // Clear the user todos on logout
   clearTodos$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(logout),
+      ofType(AuthActions.logout),
       map(() => TodoActions.clearTodos())
     );
   });
+
+  ngrxOnRunEffects(resolvedEffects$: Observable<EffectNotification>) {
+    return this.actions$.pipe(
+      ofType(AuthActions.loginSuccess),
+      exhaustMap(() =>
+        resolvedEffects$.pipe(
+          takeUntil(this.actions$.pipe(ofType(AuthActions.logout)))
+        )
+      )
+    );
+  }
+
+  constructor(private actions$: Actions, private todoService: TodosService) {}
 }
