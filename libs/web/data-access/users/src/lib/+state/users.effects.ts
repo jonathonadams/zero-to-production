@@ -37,7 +37,7 @@ export class UsersEffects implements OnRunEffects {
        * It is not be possible for the JWT to be undefined
        * as the resolver will run AFTER the AuthGuard runs,
        */
-      map(action => this.authService.getDecodedToken() as IJWTPayload),
+      map(action => this.authService.decodedToken as IJWTPayload),
       switchMap(token =>
         this.usersService.getOneUser(token.sub).pipe(
           map(user => UserActions.loadAuthUserSuccess({ user })),

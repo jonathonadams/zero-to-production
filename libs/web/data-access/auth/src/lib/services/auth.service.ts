@@ -71,17 +71,17 @@ export class AuthService {
     );
   }
 
-  setAuthorizationToken(token: string): void {
+  setAuthToken(token: string): void {
     localStorage.setItem(this.storageKey, token);
   }
 
-  get authorizationToken(): string | null {
+  get authToken(): string | null {
     return localStorage.getItem(this.storageKey);
   }
 
   // Checks if the user is logged in
   checkUserIsLoggedIn(): boolean {
-    const token = this.authorizationToken;
+    const token = this.authToken;
     return token && this.checkTokenIsValid(token) ? true : false;
   }
 
@@ -89,16 +89,16 @@ export class AuthService {
     localStorage.removeItem(this.storageKey);
   }
 
-  private decodeToken(token: string): IJWTPayload {
+  decodeToken(token: string): IJWTPayload {
     return jwtDecode<IJWTPayload>(token);
   }
 
-  // get decodedToken(): IJWTPayload | undefined {
-  //   const token = this.getAuthorizationToken();
-  //   if (token !== null) {
-  //     return this.decodeToken(token);
-  //   }
-  // }
+  get decodedToken(): IJWTPayload | undefined {
+    const token = this.authToken;
+    if (token !== null) {
+      return this.decodeToken(token);
+    }
+  }
 
   checkTokenIsValid(token: string): boolean {
     const now = Math.floor(Date.now() / 1000);

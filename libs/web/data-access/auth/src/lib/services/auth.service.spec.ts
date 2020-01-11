@@ -190,7 +190,8 @@ describe('AuthService', () => {
 
   describe('checkUserIsLoggedIn', () => {
     it('should return true if there is a token and it is valid', () => {
-      authService.getAuthorizationToken = jest.fn(() => 'some_token');
+      jest.spyOn(authService, 'authToken', 'get').mockReturnValue('some_token');
+      jest.spyOn(authService, 'authToken', 'get').mockReturnValue('some_token');
       authService.checkTokenIsValid = jest.fn((token: string) => true);
       const loggedIn = authService.checkUserIsLoggedIn();
 
@@ -198,7 +199,7 @@ describe('AuthService', () => {
     });
 
     it('should return false if there is no token', () => {
-      authService.getAuthorizationToken = jest.fn(() => null);
+      jest.spyOn(authService, 'authToken', 'get').mockReturnValue(null);
       const loggedIn = authService.checkUserIsLoggedIn();
 
       expect(loggedIn).toEqual(false);
@@ -208,7 +209,7 @@ describe('AuthService', () => {
       // const token = sign({}, tokenSecret, { expiresIn: -10000, subject: '1' });
       // localStorage.setItem(storageKey, token);
 
-      authService.getAuthorizationToken = jest.fn(() => 'some_token');
+      jest.spyOn(authService, 'authToken', 'get').mockReturnValue('some_token');
       authService.checkTokenIsValid = jest.fn((token: string) => false);
 
       const loggedIn = authService.checkUserIsLoggedIn();
@@ -223,7 +224,7 @@ describe('AuthService', () => {
       const tokenBeforeSetting = localStorage.getItem(storageKey);
       expect(tokenBeforeSetting).toEqual(null);
 
-      authService.setAuthorizationToken(JWT);
+      authService.setAuthToken(JWT);
       const token = localStorage.getItem(storageKey);
 
       expect(token).toBeTruthy();
@@ -231,10 +232,10 @@ describe('AuthService', () => {
     });
   });
 
-  describe('getAuthorizationToken', () => {
+  describe('authToken', () => {
     it('should get the access token', () => {
       localStorage.setItem(storageKey, JWT);
-      const token = authService.getAuthorizationToken();
+      const token = authService.authToken;
 
       expect(token).toBeDefined();
       expect(token).toEqual(JWT);
@@ -257,14 +258,14 @@ describe('AuthService', () => {
     });
   });
 
-  // describe('decodeToken', () => {
-  //   it('should return a decoded token', () => {
-  //     const decodedToken = authService.decodeToken(JWT);
+  describe('decodeToken', () => {
+    it('should return a decoded token', () => {
+      const decodedToken = authService.decodeToken(JWT);
 
-  //     expect(typeof decodedToken).toEqual('object');
-  //     expect(decodedToken.sub).toEqual('123');
-  //   });
-  // });
+      expect(typeof decodedToken).toEqual('object');
+      expect(decodedToken.sub).toEqual('123');
+    });
+  });
 
   describe('checkTokenIsValid', () => {
     it('should return true if the token has not expired', () => {

@@ -89,7 +89,7 @@ describe('AuthEffects', () => {
     });
 
     it('should invoke the AuthService.setAuthorizationToken with the access token', done => {
-      const spy = jest.spyOn(authService, 'setAuthorizationToken');
+      const spy = jest.spyOn(authService, 'setAuthToken');
       spy.mockReset();
       const token = 'JWT.TOKEN';
       const action = AuthActions.loginSuccess({ token });

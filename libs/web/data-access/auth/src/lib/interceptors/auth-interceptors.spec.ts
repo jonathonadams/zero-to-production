@@ -44,8 +44,8 @@ describe('AuthInterceptor', () => {
     const spy = jest.spyOn(authFacade, 'logout');
 
     const token = 'TOKEN';
-    authServiceSpy.getAuthorizationToken = jest.fn(() => token);
 
+    jest.spyOn(authServiceSpy, 'authToken', 'get').mockReturnValue(token);
     const someData = { data: 'someData ' };
 
     // Make an HTTP GET request
