@@ -1,5 +1,6 @@
-// Creates a JSON Web Key Ses route
+import { createPublicKey } from 'crypto';
 import Koa from 'koa';
+import Router from 'koa-router';
 // @ts-ignore
 import { pem2jwk } from 'pem-jwk';
 
@@ -8,13 +9,21 @@ import { pem2jwk } from 'pem-jwk';
 
 const END_POINT = '/.well-known/jwks.json';
 
-export function addJsonWebKeySetRoute(rsaKey: string, app: Koa) {
-  const jwk: any = pem2jwk(rsaKey, { alg: 'RS256', use: 'sig' });
+export function createPublicJsonWebKeySetRouteFromPrivateKey(
+  privateKey: string,
+  kid: string,
+  app: Koa
+) {
+  const publicPem = createPublicKey(privateKey);
 
-  console.log(jwk);
-  // console.log(rsaPemToJwk);
-  // console.log(jwk);
-  // console.log(jwkp);
+  const pem = publicPem.export({ format: 'pem', type: 'spki' });
+  const jwk: object = pem2jwk(pem, { alg: 'RS256', use: 'sig', kid });
 
-  // return jwkp;
+  const router = new Router();
+
+  router.get(END_POINT, async ctx => {
+    ctx.body = jwk;
+  });
+
+  app.use(router.routes());
 }

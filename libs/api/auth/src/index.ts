@@ -11,3 +11,4 @@ export { getGraphQlGuards } from './lib/graphql/graphql.guards';
 export { getAuthResolvers } from './lib/graphql/auth.resolvers';
 export { applyAuthRoutesWithRefreshTokens } from './lib/routes/auth.routes';
 export { authTypeDef } from './lib/graphql/auth.types';
+export { createPublicJsonWebKeySetRouteFromPrivateKey } from './lib/routes/jwks';

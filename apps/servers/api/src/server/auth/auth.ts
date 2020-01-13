@@ -1,8 +1,10 @@
+import Koa from 'koa';
 import {
   getAuthResolvers,
   getGraphQlGuards,
   getRestGuards,
-  applyAuthRoutesWithRefreshTokens
+  applyAuthRoutesWithRefreshTokens,
+  createPublicJsonWebKeySetRouteFromPrivateKey
 } from '@uqt/api/auth';
 import { RefreshToken } from './tokens.model';
 import config from '../../environments';
@@ -56,4 +58,12 @@ export const { authResolvers } = getAuthResolvers(authConfig);
 /**
  * Applies all required auth routes
  */
-export const applyAuthRoutes = applyAuthRoutesWithRefreshTokens(authConfig);
+export function applyAuthRoutes(app: Koa) {
+  applyAuthRoutesWithRefreshTokens(authConfig)(app);
+  // JWKS route
+  createPublicJsonWebKeySetRouteFromPrivateKey(
+    config.auth.accessTokenPrivateKey,
+    '123',
+    app
+  );
+}
