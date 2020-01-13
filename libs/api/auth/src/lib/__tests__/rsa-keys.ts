@@ -1,71 +1,20 @@
-/*
-# generate private key
-openssl genrsa -out private.pem 2048
-# extatract public key from it
-openssl rsa -in private.pem -pubout > public.pem
-*/
-export const PRIVATE_KEY = `-----BEGIN RSA PRIVATE KEY-----
-MIIEpAIBAAKCAQEAwT5uvjhvQjhffSypQcgcRTtJH7ABHqE0i83MEXxh0lOGK5R3
-ArgyR7tejNNV3dEgZ7Vbymrf1mn1qMujrkr0QOyTcuJfz50jL3orNegJrh64QRl8
-MSlBO18uSKWVm2+KFLrfXx62OEXEZxI2gUFJP4iiRnHG2haDEjXqxQJnaqa1hldZ
-mtujCXNpZI2wnfRcgU9kGGV9+sE4vyjLeMya5C96FM7memamaE5ed29qtjhRslek
-aGOxKkcz4Ox+a2u81x3gT900dcRMDAWz5qjA7t4KM0ozPeN6scZlr2U/MuNQWNj4
-Q8WFvYilKuBpCp5V1B1ap/3M6oCGgNUMi1gV+QIDAQABAoIBAQCl47alzUSVkFdI
-2cIjGmpKdG59qVYMuU6mhXCdwi0npVQUrUrNJtrjAVJVika4OQKchO/bgIvPQP8G
-fGpzAR1VbsHVacfeLoM6CqJ1kFBfDTgXio02lrfNBBRzgNJBsSrUSOfgfDjpbdsA
-sH3hz+3VgLHtz1ZpedHjHC4CGeI1ho9ThawpnkQIXwUjd6RUTdmB9ecEAf6PZ59T
-ixEMsuVONFEGXePihZbrLkctqcvXemNx1eXdbO60KPjcmLeEon5zIn1X5CP4o6AF
-T3+EoHfrTIyN2oELBDMzsxibZy9Bxf14zKbNpg8vjNqTKoN/SM0XRLRy8RdASUea
-iayYu0CRAoGBAPeX70d3ruzoc4NML2V79DQKnfPnrw6xDIldhbFAkz07XK6naRt2
-N44DYgrgCvgGedSk+d356jFTjO6rbf7BAvQwA3QY7GdqOOwjllQzb7vgZiLgbS79
-qtHDqYzSYMPJA3vnEXsbLznM5XUa+9jh9EVqsryWzuibA40jq3xN4cb7AoGBAMfO
-GEc3IV1U10j4leGC7irCAyzo8NAAtYKJk/AoXv8wsCSehxKi36P1JOKZOexRwtfu
-CTIKSE0Iw6OqhU4wScqTHS/nNmvUMkbXM2D95wCrzChdJryMpH3wd+gIIxpE9ORg
-QpE5WLMwKNRdQt6iX9snnGYnlPRI7u6uPjB4+xSbAoGAD2BKJeAS5veQpOjIUL8f
-7VNzd8A9qOXp52X9dYKTIkxbdyVCa8gtrw4aup4rUDfmvQP52IU6vBF6QSA4Vofa
-DRwmOsGJfOql2lRjc5s2Jy7KaQQTA8YRI7HJB8vQ4pfLNZimB0Uq66YD4f/pABEY
-QG9d5kRfWSa3U76RWcjkap0CgYB0TmbZhaD5WDqdcn6kr/d9kkQQ72PGYLNH0lf4
-UzfBKpFOL62GzqKKKVgYQ4NxKcLWuOxHYa7mkLR5X/iLJBbAQdSanueR6wp9LCXv
-Tr0aKecEk/zJgsD5wnG58oqkbwFyswnsyUn1vJH31HXpbPGJe8xRtrbBYHcdHvZ6
-duIJAwKBgQDtHqF1134JRPDQZ9P7RRMT3Rl0ZJDjITLDGUsTJ24fmL9M8mVB5e/b
-svs9JgIp63uc1zZKk71PVuwoz8pdk9YmSL5VNHLwui4gAO790XP9ixWdLWpeHDAF
-yAeKMYanIRY7lZaJcr68Ibs0R802aSH3ViorWhcVhtUCiLBL7gBZlg==
------END RSA PRIVATE KEY-----`;
+import { generateKeyPairSync } from 'crypto';
 
-export const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwT5uvjhvQjhffSypQcgc
-RTtJH7ABHqE0i83MEXxh0lOGK5R3ArgyR7tejNNV3dEgZ7Vbymrf1mn1qMujrkr0
-QOyTcuJfz50jL3orNegJrh64QRl8MSlBO18uSKWVm2+KFLrfXx62OEXEZxI2gUFJ
-P4iiRnHG2haDEjXqxQJnaqa1hldZmtujCXNpZI2wnfRcgU9kGGV9+sE4vyjLeMya
-5C96FM7memamaE5ed29qtjhRslekaGOxKkcz4Ox+a2u81x3gT900dcRMDAWz5qjA
-7t4KM0ozPeN6scZlr2U/MuNQWNj4Q8WFvYilKuBpCp5V1B1ap/3M6oCGgNUMi1gV
-+QIDAQAB
------END PUBLIC KEY-----`;
+export const { publicKey, privateKey } = generateKeyPairs();
+export const { privateKey: invalidPrivateKey } = generateKeyPairs();
 
-export const INVALID_KEY = `-----BEGIN RSA PRIVATE KEY-----
-MIIEogIBAAKCAQEAsClXntlD+BFvpGIg9idu4yaZZrbkNkIELuixvBKq1rFvtWYM
-RFcF6iOdOHRWw7Oj0i0HcVMDAOoC5Q5wyD6FdRbk1yGujyZ+DGBByignP6Z9poFD
-+cFy3qtouwzPfY7QHbMv0/iZSFm1GC5aJK+KDg5UekcROh5mKb7xBPFXs1WZhK4Z
-TLJ5xKMi/UgK3Q5Xjk2W3pzTTPRuxDock2TnuaOQfEZFhiuucNUgU4mYtZ561TGC
-qdWJsvUiNVoWEgBmIhVfpvnoKYjgXWP1ofHNLPtImUriWAUwIylcmexiDKDrisAW
-Wnr3r2x0wQAIdWpMsiQ1MaypkiiFWQdKlQQtkQIDAQABAoIBAE1t/otdqBhzYYT5
-dM99SaoiHy8cmHaY0cnkkaq+8cRoPVeYQTAQqBLgEIzt5e0jGpCZJjpTaHCQazFP
-BZeek36Bz5gXv+g/3QuHi6NVvtqlTXlQPBadRuZEpUYCPXlMuoEzb4RWMtmwRH8a
-cJjLZ30CI3OTpSjMj88tlDa99fRmon0LnAyopR5sTnsmsNp6XZ/HXkY2OEOh2TdC
-dEU0Rmqj8Hf2fYqs2bwZOeVKkXfqIHTOxbLYo3MRA8/HdDQ1j/ASfYXChq6d5lLR
-ytR8mnyUIG2p7N/wrW+lpC/yjyCiVdT6XaT2tYOBlDQAyZV4VwAdkCri2L7gTBtp
-1ZLHfYECgYEA4qhgfwHlUVtx1m/gDjCpQ2vNr8+NVwr6e6ifbmHuxYXdWzyW8gZn
-0cpilAAVhLjlfglNsxmZogA3+rMcrz68pzATNPcsMS+zpM7OPLIQafd9QJbx9qh8
-DO2qoCUYNt4ujdKTO2iOPOi8ocmeJslTTHU4laYG6HhpJJ73LA1GxckCgYEAxvd6
-lEOvgz6lhAMmJtvSsMI1aTRPgNzOKiBjbM4wO0X4w/CeBMRwzM4XxqfpZeLGq5QR
-gOGHlZ7BtucmWU1bWTpBmyQd3zTNWbIGe/gvmkM1XKazeYqxqwAA2AcRNovWJUZr
-XHPwXnkzLVVc5AQgIfOLRHeW3ObVVn3Tv+5gLYkCgYBB7qjjSTHj0K30quaKOi2C
-p0FV+xIqV881WX/HJEXIv3/8oktma+aXaD/0vXGFAiP/3cT0bGX8cgPWsXOOprlK
-CPoNVjlMtYuUTXRAw6typ8OPnlkUXz52pEwV+bRpgYgZST/68BcwMKNujK+sqLPK
-ce7b2Uf5J82uEW/lKJeFwQKBgFNioGLGwyXT+XYMA89BTVl66vt+StuMrnKFRGXz
-O897kbg8fV0uHsAWl2xQLsbedbiuw28qFbKk6DaJRU8j1mbcvWYRittiu7UdoQ4P
-g5O5GwILcyg68h7iT3g57gLYNBVHH/ONO228ibA0GEwPVpAkC3fUTsuhikNHVJkZ
-hAFRAoGAH0EiEiGcMOpVbiI3ZJ59aDin144G9meAB8DR1j4LJinxQfXE9Eq3XzHU
-wcvXPynvnCl+aRlZYbf9C4Cuft5Kddy9FpRv6HGMkZPdDwBlgK5+9Fdey6yyKPmu
-IuvM2dXLfiD4fii7lQu59et8f6qSbqLCuZihBpqp9OnjkLQt9Go=
------END RSA PRIVATE KEY-----`;
+function generateKeyPairs() {
+  return generateKeyPairSync('rsa', {
+    modulusLength: 4096,
+    publicKeyEncoding: {
+      type: 'spki',
+      format: 'pem'
+    },
+    privateKeyEncoding: {
+      type: 'pkcs8',
+      format: 'pem'
+      // cipher: 'aes-256-cbc',
+      // passphrase: 'top secret'
+    }
+  });
+}

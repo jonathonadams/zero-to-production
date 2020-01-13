@@ -5,10 +5,11 @@ import { IUserModel } from '@uqt/api/core-data';
 
 export function getRestGuards(
   userModel: IUserModel,
-  accessTokenPublicKey: string
+  publicKey: string,
+  issuer: string
 ) {
   return {
-    verifyToken: verifyToken(accessTokenPublicKey),
+    verifyToken: verifyToken(publicKey, issuer),
     verifyUserIsActive: verifyUserIsActive(userModel)
   };
 }
@@ -20,16 +21,21 @@ export function getRestGuards(
 
 /**
  * Checks if the the token passed is valid
+ *
+ * Returns the payload decoded if the signature is valid and optional expiration, audience, or issuer are valid. If not, it will throw the error.
  */
-export function verifyToken(secret: string) {
+export function verifyToken(publicKey: string, issuer: string) {
   return async (ctx: any, next: () => Promise<any>) => {
     try {
       /**
        * the encoded token is set at ctx.request.token if the verification
-       * passes, replace the encoded token with the decoded token note that the verify function  operates synchronously
+       * passes, replace the encoded token with the decoded token note that the verify function operates synchronously
        */
       try {
-        ctx.state.token = verify(ctx.request.token, secret);
+        ctx.state.token = verify(ctx.request.token, publicKey, {
+          algorithms: ['RS256'],
+          issuer
+        });
       } catch (err) {
         throw Boom.unauthorized(null, 'Bearer');
       }

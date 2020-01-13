@@ -4,15 +4,12 @@ import { verifyToken, verifyUserIsActive } from '../routes/route.guards';
 import { signAccessToken } from '../token';
 import { MockUserModel } from './user.mock';
 import { IUserDocument, IUserModel } from '@uqt/api/core-data';
-import { PRIVATE_KEY, PUBLIC_KEY, INVALID_KEY } from './rsa-keys';
+import { privateKey, publicKey, invalidPrivateKey } from './rsa-keys';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
 }
-
-const accessTokenPrivateKey = PRIVATE_KEY;
-const accessTokenPublicKey = PUBLIC_KEY;
-const invalidPrivateKey = INVALID_KEY;
+const accessTokenIssuer = 'issuer';
 
 describe('Rest Auth Guards', () => {
   const accessTokenExpireTime = 1 * 60 * 60 * 1000;
@@ -20,13 +17,18 @@ describe('Rest Auth Guards', () => {
   let invalidJwt: string;
 
   beforeAll(() => {
-    jwt = signAccessToken({ accessTokenPrivateKey, accessTokenExpireTime })({
+    jwt = signAccessToken({
+      accessTokenPrivateKey: privateKey,
+      accessTokenExpireTime,
+      accessTokenIssuer: 'issuer'
+    })({
       id: '1',
       role: 0
     } as IUserDocument);
     invalidJwt = signAccessToken({
       accessTokenPrivateKey: invalidPrivateKey,
-      accessTokenExpireTime
+      accessTokenExpireTime,
+      accessTokenIssuer
     })({
       id: '1',
       role: 0
@@ -38,7 +40,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken(accessTokenPublicKey)(
+        verifyToken(publicKey, accessTokenIssuer)(
           { request: { token: jwt }, state: {} },
           nextSpy
         )
@@ -51,17 +53,33 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken(accessTokenPublicKey)({ request: {}, state: {} }, nextSpy)
+        verifyToken(publicKey, accessTokenIssuer)(
+          { request: {}, state: {} },
+          nextSpy
+        )
       ).rejects.toThrowError('Unauthorized');
 
       expect(nextSpy).not.toHaveBeenCalled();
     });
 
-    it('should throw 401 Unauthorized if the JWT is not valid', async () => {
+    it('should throw 401 Unauthorized if the JWT signature is not correct', async () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken(accessTokenPublicKey)(
+        verifyToken(publicKey, accessTokenIssuer)(
+          { request: { token: invalidJwt }, state: {} },
+          nextSpy
+        )
+      ).rejects.toThrowError('Unauthorized');
+
+      expect(nextSpy).not.toHaveBeenCalled();
+    });
+
+    it('should throw 401 Unauthorized if the JWT issuer is not correct', async () => {
+      const nextSpy = jest.fn();
+
+      await expect(
+        verifyToken(publicKey, 'some-different-issuer')(
           { request: { token: invalidJwt }, state: {} },
           nextSpy
         )

@@ -14,7 +14,11 @@ import { User, VerificationToken } from '../api/users';
 export const {
   verifyToken: verifyTokenRest,
   verifyUserIsActive: verifyUserIsActiveRest
-} = getRestGuards(User, config.auth.accessTokenPublicKey);
+} = getRestGuards(
+  User,
+  config.auth.accessTokenPublicKey,
+  config.auth.accessTokenIssuer
+);
 
 /**
  * Guards to user with GraphQL
@@ -23,14 +27,21 @@ export const {
   verifyToken: verifyTokenGraphQL,
   verifyUserIsActive: verifyUserIsActiveGraphQL,
   verifyUserRole: verifyUserRoleGraphQL
-} = getGraphQlGuards(User, config.auth.accessTokenPublicKey);
+} = getGraphQlGuards(
+  User,
+  config.auth.accessTokenPublicKey,
+  config.auth.accessTokenIssuer
+);
 
+// TODO
+//Access Token ENV
 const authConfig = {
   User,
   VerificationToken,
   RefreshToken,
   accessTokenPrivateKey: config.auth.accessTokenPrivateKey,
   accessTokenExpireTime: config.auth.accessTokenExpireTime,
+  accessTokenIssuer: config.auth.accessTokenIssuer,
   refreshTokenPrivateKey: config.auth.refreshTokenPrivateKey,
   refreshTokenPublicKey: config.auth.refreshTokenPublicKey,
   sendGridApiKey: config.auth.sendGridApiKey,

@@ -6,10 +6,11 @@ import { AuthenticationRoles, IUser } from '@uqt/interfaces';
 
 export function getGraphQlGuards(
   userModel: IUserModel,
-  accessTokenPublicKey: string
+  publicKey: string,
+  issuer: string
 ) {
   // export the below array to use in the authenticate request function.
-  const verifyTokenM = [checkToken(accessTokenPublicKey)];
+  const verifyTokenM = [checkToken(publicKey, issuer)];
   const verifyUserIsActiveM = [...verifyTokenM, checkUserIsActive(userModel)];
 
   return {
@@ -27,10 +28,13 @@ export function getGraphQlGuards(
  *
  * @param secret access token secret
  */
-export function checkToken(secret: string): AuthMiddleware {
+export function checkToken(publicKey: string, issuer: string): AuthMiddleware {
   return async function checkTkn(parent, args, context, info) {
     try {
-      context.state.token = verify(context.token, secret);
+      context.state.token = verify(context.token, publicKey, {
+        algorithms: ['RS256'],
+        issuer
+      });
     } catch (err) {
       throw Boom.unauthorized(null, 'Bearer');
     }

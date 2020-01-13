@@ -14,6 +14,7 @@ export interface AuthConfig {
   accessTokenExpireTime: number;
   accessTokenPublicKey: string;
   accessTokenPrivateKey: string;
+  accessTokenIssuer: string;
   refreshTokenPublicKey: string;
   refreshTokenPrivateKey: string;
   sendGridApiKey: string;

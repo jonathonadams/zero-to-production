@@ -9,6 +9,7 @@ export type VerifyEmail = (to: string, token: string) => Promise<[any, {}]>;
 export interface AccessTokenConfig {
   accessTokenPrivateKey: string;
   accessTokenExpireTime: number;
+  accessTokenIssuer: string;
 }
 
 export interface RefreshTokenConfig {

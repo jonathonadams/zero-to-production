@@ -9,15 +9,13 @@ import { signAccessToken } from '../token';
 import { MockUserModel } from './user.mock';
 import { IUserDocument, IUserModel } from '@uqt/api/core-data';
 import { AuthenticationRoles } from '@uqt/interfaces';
-import { PRIVATE_KEY, PUBLIC_KEY, INVALID_KEY } from './rsa-keys';
+import { privateKey, invalidPrivateKey, publicKey } from './rsa-keys';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
 }
 
-const accessTokenPrivateKey = PRIVATE_KEY;
-const accessTokenPublicKey = PUBLIC_KEY;
-const invalidPrivateKey = INVALID_KEY;
+const accessTokenIssuer = 'issuer';
 
 describe('GraphQL Auth Guards', () => {
   const accessTokenExpireTime = 1 * 60 * 60 * 1000;
@@ -26,13 +24,18 @@ describe('GraphQL Auth Guards', () => {
   let invalidJwt: string;
 
   beforeAll(() => {
-    jwt = signAccessToken({ accessTokenPrivateKey, accessTokenExpireTime })({
+    jwt = signAccessToken({
+      accessTokenPrivateKey: privateKey,
+      accessTokenExpireTime,
+      accessTokenIssuer
+    })({
       id: '1',
       role: 0
     } as IUserDocument);
     invalidJwt = signAccessToken({
       accessTokenPrivateKey: invalidPrivateKey,
-      accessTokenExpireTime
+      accessTokenExpireTime,
+      accessTokenIssuer
     })({
       id: '1',
       role: 0
@@ -42,7 +45,7 @@ describe('GraphQL Auth Guards', () => {
   describe('checkToken', () => {
     it('should not throw an error if a JWT is provided and is valid', async () => {
       await expect(
-        checkToken(accessTokenPublicKey)(
+        checkToken(publicKey, accessTokenIssuer)(
           {},
           {},
           { state: {}, token: jwt },
@@ -53,13 +56,29 @@ describe('GraphQL Auth Guards', () => {
 
     it('should throw 401 Unauthorized if the JWT is not provided', async () => {
       await expect(
-        checkToken(accessTokenPublicKey)({}, {}, {}, {} as GraphQLResolveInfo)
+        checkToken(publicKey, accessTokenIssuer)(
+          {},
+          {},
+          {},
+          {} as GraphQLResolveInfo
+        )
       ).rejects.toThrowError();
     });
 
-    it('should throw 401 Unauthorized if the JWT is not valid', async () => {
+    it('should throw 401 Unauthorized if the JWT signature is not correct', async () => {
       await expect(
-        checkToken(accessTokenPublicKey)(
+        checkToken(publicKey, accessTokenIssuer)(
+          {},
+          {},
+          { token: invalidJwt },
+          {} as GraphQLResolveInfo
+        )
+      ).rejects.toThrowError();
+    });
+
+    it('should throw 401 Unauthorized if the JWT issuer is not correct', async () => {
+      await expect(
+        checkToken(publicKey, 'some-different-issuer')(
           {},
           {},
           { token: invalidJwt },

@@ -23,6 +23,7 @@ const prodConfig: ProductionConfig = {
     ),
     accessTokenPublicKey: getEnvVariableOrWarn('ACCESS_TOKEN_PUBLIC_KEY'),
     accessTokenPrivateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
+    accessTokenIssuer: 'YOUR_COMPANY_HERE',
     refreshTokenPublicKey: getEnvVariableOrWarn('REFRESH_TOKEN_PUBLIC_KEY'),
     refreshTokenPrivateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
     sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY')

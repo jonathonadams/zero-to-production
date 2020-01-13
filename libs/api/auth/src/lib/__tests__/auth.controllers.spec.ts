@@ -16,7 +16,7 @@ import { MockRefreshTokenModel } from './refresh-token.mock';
 import { signRefreshToken } from '../token';
 import { MockVerificationToken } from './verification.mock';
 import { IVerificationTokenModel, IRefreshTokenModel } from '../auth.interface';
-import { PRIVATE_KEY, PUBLIC_KEY } from './rsa-keys';
+import { privateKey, publicKey } from './rsa-keys';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
@@ -39,8 +39,8 @@ const userWithPassword = ({
   password: 'asF.s0f.s123123'
 } as any) as IUser;
 
-const accessTokenPrivateKey = PRIVATE_KEY;
-const accessTokenPublicKey = PUBLIC_KEY;
+const accessTokenPrivateKey = privateKey;
+const accessTokenPublicKey = publicKey;
 
 const refreshTokenPrivateKey = accessTokenPrivateKey;
 const refreshTokenPublicKey = accessTokenPublicKey;
@@ -64,7 +64,8 @@ function mockLoginController() {
   return setupLoginController({
     User: (MockUserModel as unknown) as IUserModel,
     accessTokenPrivateKey,
-    accessTokenExpireTime: 100000
+    accessTokenExpireTime: 100000,
+    accessTokenIssuer: 'issuer'
   });
 }
 
@@ -74,6 +75,7 @@ function mockAuthorizeController() {
     accessTokenPrivateKey,
     refreshTokenPrivateKey,
     accessTokenExpireTime: 100000,
+    accessTokenIssuer: 'issuer',
     RefreshToken: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
   });
 }
@@ -83,6 +85,7 @@ function mockRefreshTokenController() {
     accessTokenPrivateKey,
     refreshTokenPublicKey,
     accessTokenExpireTime: 100000,
+    accessTokenIssuer: 'issuer',
     RefreshToken: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
   });
 }

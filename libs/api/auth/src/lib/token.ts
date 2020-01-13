@@ -19,7 +19,7 @@ export function signAccessToken(config: AccessTokenConfig) {
         algorithm: 'RS256',
         subject: user.id,
         expiresIn: config.accessTokenExpireTime,
-        issuer: 'your-company-here'
+        issuer: config.accessTokenIssuer
       }
     );
   };
