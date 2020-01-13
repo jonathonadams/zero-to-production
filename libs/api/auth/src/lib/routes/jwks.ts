@@ -22,7 +22,7 @@ export function createPublicJsonWebKeySetRouteFromPrivateKey(
   const router = new Router();
 
   router.get(END_POINT, async ctx => {
-    ctx.body = jwk;
+    ctx.body = { keys: [jwk] };
   });
 
   app.use(router.routes());

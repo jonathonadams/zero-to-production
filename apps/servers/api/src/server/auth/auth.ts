@@ -1,4 +1,5 @@
 import Koa from 'koa';
+import jwksClient from 'jwks-rsa';
 import {
   getAuthResolvers,
   getGraphQlGuards,
@@ -63,7 +64,23 @@ export function applyAuthRoutes(app: Koa) {
   // JWKS route
   createPublicJsonWebKeySetRouteFromPrivateKey(
     config.auth.accessTokenPrivateKey,
-    '123',
+    'key',
     app
   );
 }
+
+const client = jwksClient({
+  strictSsl: false, // Default value
+  jwksUri: 'http://localhost:3000/.well-known/jwks.json',
+  requestHeaders: {} // Optional
+});
+
+setTimeout(() => {
+  const kid = 'key';
+  client.getSigningKey(kid, (err, key) => {
+    console.log(err);
+    console.log(key);
+    // const signingKey = key.publicKey || key.rsaPublicKey;
+    // Now I can use this to configure my Express or Hapi middleware
+  });
+}, 10000);
