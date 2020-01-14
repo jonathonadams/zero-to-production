@@ -1,23 +1,41 @@
 import { verify } from 'jsonwebtoken';
 import Boom from '@hapi/boom';
-import { AuthMiddleware, authenticateRequest } from './auth.graphql';
-import { IUserModel } from '@uqt/api/core-data';
+import { authenticateRequest } from './auth.graphql';
 import { AuthenticationRoles, IUser } from '@uqt/interfaces';
+import {
+  GuardConfig,
+  JWKSGuarConfig,
+  VerifyActiveUserConfig,
+  VerifyTokenJWKSConfig,
+  AuthMiddleware
+} from '../auth.interface';
+import { isJWKS } from '../auth-utils';
+import { retrievePublicKeyFormJWKS } from '../token';
 
-export function getGraphQlGuards(
-  userModel: IUserModel,
-  publicKey: string,
-  issuer: string
+export function getGraphQlGuards(config: GuardConfig | JWKSGuarConfig) {
+  // Check if using JWKS or if public key is provided
+  const verifyToken = isJWKS(config)
+    ? checkTokenJWKS(config)
+    : checkToken(config);
+
+  const verifyActiveUser = checkUserIsActive(config);
+
+  return createResolvers(verifyToken, verifyActiveUser);
+}
+
+function createResolvers(
+  verifyToken: AuthMiddleware,
+  verifyActiveUser: AuthMiddleware
 ) {
-  // export the below array to use in the authenticate request function.
-  const verifyTokenM = [checkToken(publicKey, issuer)];
-  const verifyUserIsActiveM = [...verifyTokenM, checkUserIsActive(userModel)];
-
   return {
-    verifyToken: authenticateRequest(verifyTokenM),
-    verifyUserIsActive: authenticateRequest(verifyUserIsActiveM),
+    verifyToken: authenticateRequest([verifyToken]),
+    verifyActiveUser: authenticateRequest([verifyToken, verifyActiveUser]),
     verifyUserRole(role: AuthenticationRoles) {
-      return authenticateRequest([...verifyUserIsActiveM, checkUserRole(role)]);
+      return authenticateRequest([
+        verifyToken,
+        verifyActiveUser,
+        checkUserRole(role)
+      ]);
     }
   };
 }
@@ -28,12 +46,29 @@ export function getGraphQlGuards(
  *
  * @param secret access token secret
  */
-export function checkToken(publicKey: string, issuer: string): AuthMiddleware {
-  return async function checkTkn(parent, args, context, info) {
+export function checkToken(config: GuardConfig): AuthMiddleware {
+  return (parent, args, context, info) => {
     try {
-      context.state.token = verify(context.token, publicKey, {
+      context.state.token = verify(context.token, config.publicKey, {
         algorithms: ['RS256'],
-        issuer
+        issuer: config.issuer
+      });
+    } catch (err) {
+      throw Boom.unauthorized(null, 'Bearer');
+    }
+  };
+}
+
+export function checkTokenJWKS(config: VerifyTokenJWKSConfig): AuthMiddleware {
+  const getPublicKey = retrievePublicKeyFormJWKS(config);
+
+  return async (parent, args, ctx, info) => {
+    try {
+      const publicKey = await getPublicKey(ctx.token);
+
+      ctx.state.token = verify(ctx.token, publicKey, {
+        algorithms: ['RS256'],
+        issuer: config.issuer
       });
     } catch (err) {
       throw Boom.unauthorized(null, 'Bearer');
@@ -47,8 +82,10 @@ export function checkToken(publicKey: string, issuer: string): AuthMiddleware {
  *
  * @param User
  */
-export function checkUserIsActive(User: IUserModel): AuthMiddleware {
-  return async function checkActiveUser(parent, args, context, info) {
+export function checkUserIsActive({
+  User
+}: VerifyActiveUserConfig): AuthMiddleware {
+  return async (parent, args, context, info) => {
     const id = context.state.token.sub;
     const user = await User.findById(id);
     if (!user || !user.active) throw Boom.unauthorized(null, 'Bearer');
@@ -61,7 +98,7 @@ export function checkUserIsActive(User: IUserModel): AuthMiddleware {
  * Throws an error if the user is not an admin invalid*
  */
 export function checkUserRole(role: AuthenticationRoles): AuthMiddleware {
-  return async function checkRole(parent, args, context, info) {
+  return (parent, args, context, info) => {
     if ((context.state.user as IUser).role !== role)
       throw Boom.unauthorized(null, 'Bearer');
   };

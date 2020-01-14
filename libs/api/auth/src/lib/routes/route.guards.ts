@@ -1,16 +1,21 @@
 import koa from 'koa';
 import Boom from '@hapi/boom';
 import { verify } from 'jsonwebtoken';
-import { IUserModel } from '@uqt/api/core-data';
+import { retrievePublicKeyFormJWKS } from '../token';
+import {
+  JWKSGuarConfig,
+  GuardConfig,
+  VerifyTokenConfig,
+  VerifyTokenJWKSConfig,
+  VerifyActiveUserConfig
+} from '../auth.interface';
+import { isJWKS } from '../auth-utils';
 
-export function getRestGuards(
-  userModel: IUserModel,
-  publicKey: string,
-  issuer: string
-) {
+export function getRestGuards(config: GuardConfig | JWKSGuarConfig) {
+  // Check if using JWKS guards or if public key is set
   return {
-    verifyToken: verifyToken(publicKey, issuer),
-    verifyUserIsActive: verifyUserIsActive(userModel)
+    verifyToken: isJWKS(config) ? verifyTokenJWKS(config) : verifyToken(config),
+    verifyActiveUser: verifyUserIsActive(config)
   };
 }
 
@@ -19,29 +24,49 @@ export function getRestGuards(
  * and add it to ctx.request.token. Note this is not decoded
  */
 
+export function verifyToken(config: VerifyTokenConfig) {
+  return async (ctx: any, next: () => Promise<any>) => {
+    /**
+     * the encoded token is set at ctx.request.token if the verification
+     * passes, replace the encoded token with the decoded token note that the verify function operates synchronously
+     */
+    try {
+      ctx.state.user = verify(ctx.request.token, config.publicKey, {
+        algorithms: ['RS256'],
+        issuer: config.issuer
+      });
+
+      return next();
+    } catch (err) {
+      throw Boom.unauthorized(null, 'Bearer');
+    }
+  };
+}
+
 /**
  * Checks if the the token passed is valid
  *
  * Returns the payload decoded if the signature is valid and optional expiration, audience, or issuer are valid. If not, it will throw the error.
  */
-export function verifyToken(publicKey: string, issuer: string) {
+export function verifyTokenJWKS(config: VerifyTokenJWKSConfig) {
+  const getPublicKey = retrievePublicKeyFormJWKS(config);
+
   return async (ctx: any, next: () => Promise<any>) => {
+    /**
+     * the encoded token is set at ctx.request.token if the verification
+     * passes, replace the encoded token with the decoded token note that the verify function operates synchronously
+     */
     try {
-      /**
-       * the encoded token is set at ctx.request.token if the verification
-       * passes, replace the encoded token with the decoded token note that the verify function operates synchronously
-       */
-      try {
-        ctx.state.token = verify(ctx.request.token, publicKey, {
-          algorithms: ['RS256'],
-          issuer
-        });
-      } catch (err) {
-        throw Boom.unauthorized(null, 'Bearer');
-      }
+      const publicKey = await getPublicKey(ctx.request.token);
+
+      ctx.state.user = verify(ctx.request.token, publicKey, {
+        algorithms: ['RS256'],
+        issuer: config.issuer
+      });
+
       return next();
     } catch (err) {
-      throw err;
+      throw Boom.unauthorized(null, 'Bearer');
     }
   };
 }
@@ -50,14 +75,14 @@ export function verifyToken(publicKey: string, issuer: string) {
  *  Checks if the user is active
  *
  * This middleware will only be called on a route that is after the verify token
- * middleware has already been called. Hence you can guarantee that ctx.request.token
+ * middleware has already been called. Hence you can guarantee that ctx.request.user
  * will contain the decoded token, and hence the 'sub' property will be the id
  *
  */
-export function verifyUserIsActive(User: IUserModel) {
+export function verifyUserIsActive({ User }: VerifyActiveUserConfig) {
   return async (ctx: koa.ParameterizedContext, next: () => Promise<any>) => {
     try {
-      const user = await User.findById(ctx.state.token.sub);
+      const user = await User.findById(ctx.state.user.sub);
       if (!user || !user.active) throw Boom.unauthorized(null, 'Bearer');
 
       // Set the user on the ctx.state.user property

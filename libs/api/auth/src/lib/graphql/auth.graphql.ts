@@ -1,6 +1,5 @@
 import { GraphQLResolveInfo, GraphQLFieldResolver } from 'graphql';
-
-export type AuthMiddleware = GraphQLFieldResolver<any, any, any>;
+import { AuthMiddleware } from '../auth.interface';
 
 /**
  * The authenticate request function takes an array of authentication middleware, and returns a function

@@ -1,5 +1,6 @@
 // @ts-ignore
 import omit from 'lodash.omit';
+import { JWKSGuarConfig, GuardConfig } from './auth.interface';
 
 export function isPasswordAllowed(password: string): boolean {
   return (
@@ -12,4 +13,10 @@ export function isPasswordAllowed(password: string): boolean {
 
 export function userToJSON<T>(user: T): T {
   return omit(user, ['hashedPassword', 'password']);
+}
+
+export function isJWKS(
+  config: JWKSGuarConfig | GuardConfig
+): config is JWKSGuarConfig {
+  return (config as JWKSGuarConfig).production !== undefined;
 }

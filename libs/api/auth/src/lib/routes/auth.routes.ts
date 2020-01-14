@@ -64,51 +64,51 @@ export function login(config: LoginControllerConfig) {
   // Set up the controller with the config
   const loginController = setupLoginController(config);
 
-  return (ctx: Koa.ParameterizedContext) => {
+  return async (ctx: Koa.ParameterizedContext) => {
     const { username, password } = restUsernameAndPasswordCheck(ctx);
 
-    ctx.body = loginController(username, password);
+    ctx.body = await loginController(username, password);
   };
 }
 
 export function register(config: RegistrationControllerConfig) {
   const registerController = setupRegisterController(config);
 
-  return (ctx: Koa.ParameterizedContext) => {
+  return async (ctx: Koa.ParameterizedContext) => {
     const user = (ctx.request as any).body;
-    ctx.body = registerController(user);
+    ctx.body = await registerController(user);
   };
 }
 
 export function verify(config: VerifyControllerConfig) {
   const verifyController = setupVerifyController(config);
-  return (ctx: Koa.ParameterizedContext) => {
+  return async (ctx: Koa.ParameterizedContext) => {
     const email = ctx.query.email;
     const token = ctx.query.token;
-    ctx.body = verifyController(email, token);
+    ctx.body = await verifyController(email, token);
   };
 }
 
 export function authorize(config: AuthorizeControllerConfig) {
   const authorizeController = setupAuthorizeController(config);
-  return (ctx: Koa.ParameterizedContext) => {
+  return async (ctx: Koa.ParameterizedContext) => {
     const { username, password } = restUsernameAndPasswordCheck(ctx);
 
-    ctx.body = authorizeController(username, password);
+    ctx.body = await authorizeController(username, password);
   };
 }
 
 export function refreshAccessToken(config: RefreshControllerConfig) {
   const refreshAccessTokenCtr = setupRefreshAccessTokenController(config);
 
-  return (ctx: Koa.ParameterizedContext) => {
+  return async (ctx: Koa.ParameterizedContext) => {
     const username = (ctx.request as any).body.username;
     const refreshToken = (ctx.request as any).body.refreshToken;
 
     if (!username || !refreshToken)
       throw Boom.unauthorized('Username and password must be provided');
 
-    const success = refreshAccessTokenCtr(username, refreshToken);
+    const success = await refreshAccessTokenCtr(username, refreshToken);
     ctx.status = 403;
     ctx.body = success;
   };
@@ -116,9 +116,9 @@ export function refreshAccessToken(config: RefreshControllerConfig) {
 
 export function revokeRefreshToken(config: RevokeControllerConfig) {
   const revokeTokenController = setupRevokeRefreshTokenController(config);
-  return (ctx: Koa.ParameterizedContext) => {
+  return async (ctx: Koa.ParameterizedContext) => {
     const token: string = (ctx.request as any).body.refreshToken;
-    ctx.body = revokeTokenController(token);
+    ctx.body = await revokeTokenController(token);
   };
 }
 

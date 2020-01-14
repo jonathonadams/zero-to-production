@@ -1,5 +1,4 @@
 import Koa from 'koa';
-import jwksClient from 'jwks-rsa';
 import {
   getAuthResolvers,
   getGraphQlGuards,
@@ -11,30 +10,28 @@ import { RefreshToken } from './tokens.model';
 import config from '../../environments';
 import { User, VerificationToken } from '../api/users';
 
+const guardConfig = {
+  User,
+  production: config.production,
+  authServerUrl: config.hostUrl,
+  issuer: config.auth.accessTokenIssuer
+};
 /**
  * Guards for use in Routes
  */
 export const {
   verifyToken: verifyTokenRest,
-  verifyUserIsActive: verifyUserIsActiveRest
-} = getRestGuards(
-  User,
-  config.auth.accessTokenPublicKey,
-  config.auth.accessTokenIssuer
-);
+  verifyActiveUser: verifyActiveUserRest
+} = getRestGuards(guardConfig);
 
 /**
  * Guards to user with GraphQL
  */
 export const {
   verifyToken: verifyTokenGraphQL,
-  verifyUserIsActive: verifyUserIsActiveGraphQL,
+  verifyActiveUser: verifyActiveUserGraphQL,
   verifyUserRole: verifyUserRoleGraphQL
-} = getGraphQlGuards(
-  User,
-  config.auth.accessTokenPublicKey,
-  config.auth.accessTokenIssuer
-);
+} = getGraphQlGuards(guardConfig);
 
 // TODO
 //Access Token ENV
@@ -56,6 +53,8 @@ const authConfig = {
  */
 export const { authResolvers } = getAuthResolvers(authConfig);
 
+// TODO -> Key ID
+
 /**
  * Applies all required auth routes
  */
@@ -68,19 +67,3 @@ export function applyAuthRoutes(app: Koa) {
     app
   );
 }
-
-const client = jwksClient({
-  strictSsl: false, // Default value
-  jwksUri: 'http://localhost:3000/.well-known/jwks.json',
-  requestHeaders: {} // Optional
-});
-
-setTimeout(() => {
-  const kid = 'key';
-  client.getSigningKey(kid, (err, key) => {
-    console.log(err);
-    console.log(key);
-    // const signingKey = key.publicKey || key.rsaPublicKey;
-    // Now I can use this to configure my Express or Hapi middleware
-  });
-}, 10000);

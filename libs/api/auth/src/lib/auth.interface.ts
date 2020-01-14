@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 import { IUserModel, IUserDocument } from '@uqt/api/core-data';
+import { GraphQLFieldResolver } from 'graphql';
+
+export type AuthMiddleware = GraphQLFieldResolver<any, any, any>;
 
 export type VerifyEmail = (to: string, token: string) => Promise<[any, {}]>;
 
@@ -73,6 +76,36 @@ export interface IRefreshToken {
   user: IUserDocument;
   token: string;
 }
+
+export interface JWKSConfig {
+  authServerUrl: string;
+  production: boolean;
+}
+
+export interface GuardConfig
+  extends VerifyTokenConfig,
+    VerifyActiveUserConfig {}
+
+export interface JWKSGuarConfig
+  extends VerifyTokenJWKSConfig,
+    VerifyActiveUserConfig {}
+
+export interface VerifyTokenJWKSConfig {
+  issuer: string;
+  authServerUrl: string;
+  production: boolean;
+}
+
+export interface VerifyTokenConfig {
+  issuer: string;
+  publicKey: string;
+}
+
+export interface VerifyActiveUserConfig {
+  User: IUserModel;
+}
+
+// ------------------------------------------
 
 export interface IRefreshTokenDocument
   extends IRefreshToken,
