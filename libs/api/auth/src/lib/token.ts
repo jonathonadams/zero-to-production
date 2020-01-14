@@ -1,5 +1,5 @@
 import { sign, verify, decode } from 'jsonwebtoken';
-import jwksClient from 'jwks-rsa';
+import { koaJwtSecret } from 'jwks-rsa';
 import { IUser } from '@uqt/interfaces';
 import {
   AccessTokenConfig,
@@ -14,7 +14,7 @@ export function signAccessToken(config: AccessTokenConfig) {
     return sign(
       {
         // Enter additional payload info here
-        // role: user.role
+        role: user.role
       },
       config.accessTokenPrivateKey,
       {
@@ -58,7 +58,7 @@ export function retrievePublicKeyFormJWKS(config: JWKSConfig) {
       complete: true
     }) as { header: { alg: string; kid: string; type: 'JWT' } };
 
-    return jwksClient.koaJwtSecret({
+    return koaJwtSecret({
       cache: true,
       rateLimit: true,
       strictSsl: config.production, // strict SSL in production

@@ -7,7 +7,8 @@ import {
   JWKSGuarConfig,
   VerifyActiveUserConfig,
   VerifyTokenJWKSConfig,
-  AuthMiddleware
+  AuthMiddleware,
+  VerifyTokenConfig
 } from '../auth.interface';
 import { isJWKS } from '../auth-utils';
 import { retrievePublicKeyFormJWKS } from '../token';
@@ -46,10 +47,10 @@ function createResolvers(
  *
  * @param secret access token secret
  */
-export function checkToken(config: GuardConfig): AuthMiddleware {
-  return (parent, args, context, info) => {
+export function checkToken(config: VerifyTokenConfig): AuthMiddleware {
+  return async (parent, args, ctx, info) => {
     try {
-      context.state.token = verify(context.token, config.publicKey, {
+      ctx.state.user = verify(ctx.token, config.publicKey, {
         algorithms: ['RS256'],
         issuer: config.issuer
       });
@@ -66,7 +67,7 @@ export function checkTokenJWKS(config: VerifyTokenJWKSConfig): AuthMiddleware {
     try {
       const publicKey = await getPublicKey(ctx.token);
 
-      ctx.state.token = verify(ctx.token, publicKey, {
+      ctx.state.user = verify(ctx.token, publicKey, {
         algorithms: ['RS256'],
         issuer: config.issuer
       });
@@ -86,7 +87,7 @@ export function checkUserIsActive({
   User
 }: VerifyActiveUserConfig): AuthMiddleware {
   return async (parent, args, context, info) => {
-    const id = context.state.token.sub;
+    const id = context.state.user.sub;
     const user = await User.findById(id);
     if (!user || !user.active) throw Boom.unauthorized(null, 'Bearer');
     context.state.user = user;
@@ -98,7 +99,7 @@ export function checkUserIsActive({
  * Throws an error if the user is not an admin invalid*
  */
 export function checkUserRole(role: AuthenticationRoles): AuthMiddleware {
-  return (parent, args, context, info) => {
+  return async (parent, args, context, info) => {
     if ((context.state.user as IUser).role !== role)
       throw Boom.unauthorized(null, 'Bearer');
   };

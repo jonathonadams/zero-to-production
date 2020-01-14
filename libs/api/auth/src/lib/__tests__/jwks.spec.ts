@@ -1,13 +1,14 @@
-import { publicKey, privateKey } from './rsa-keys';
-import { addJsonWebKeySetRoute } from '../routes/jwks';
+import { privateKey } from './rsa-keys';
+import { createPublicJsonWebKeySetRouteFromPrivateKey } from '../routes/jwks';
 import Koa from 'koa';
 
 const app = new Koa();
 
+// TODO
 describe(`JWKS`, () => {
   describe('something', () => {
     it('should register a new user', () => {
-      addJsonWebKeySetRoute(publicKey);
+      createPublicJsonWebKeySetRouteFromPrivateKey(privateKey, '123', app);
     });
   });
 });

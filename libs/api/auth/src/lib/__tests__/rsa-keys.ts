@@ -1,7 +1,10 @@
 import { generateKeyPairSync } from 'crypto';
 
 export const { publicKey, privateKey } = generateKeyPairs();
-export const { privateKey: invalidPrivateKey } = generateKeyPairs();
+export const {
+  privateKey: invalidPrivateKey,
+  publicKey: invalidPublicKey
+} = generateKeyPairs();
 
 function generateKeyPairs() {
   return generateKeyPairSync('rsa', {
