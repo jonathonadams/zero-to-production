@@ -6,21 +6,19 @@ import * as fromAuth from './auth.selectors';
 import {
   ILoginCredentials,
   IRegistrationDetails,
-  AvailableStatus
+  UsernameAvailable
 } from '../auth.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthFacade {
-  loggedInStatus$: Observable<boolean>;
-  usernameAvailability$: Observable<AvailableStatus | null>;
+  isAuthenticated$: Observable<boolean>;
+  usernameAvailable$: Observable<UsernameAvailable | null>;
 
   constructor(private store: Store<any>) {
-    this.loggedInStatus$ = this.store.pipe(
-      select(fromAuth.selectLoggedInStatus)
+    this.isAuthenticated$ = this.store.pipe(
+      select(fromAuth.selectIsAuthenticated)
     );
-    this.usernameAvailability$ = this.store.pipe(
-      select(fromAuth.selectAvailability)
-    );
+    this.usernameAvailable$ = this.store.pipe(select(fromAuth.selectAvailable));
   }
 
   login(credentials: ILoginCredentials): void {
@@ -56,6 +54,6 @@ export class AuthFacade {
   }
 
   clearAvailable() {
-    this.store.dispatch(AuthActions.clearAvailability());
+    this.store.dispatch(AuthActions.clearAvailable());
   }
 }

@@ -50,6 +50,6 @@ export const usernameUnAvailable = createAction(
   '[Auth/API] Username UnAvailable'
 );
 
-export const clearAvailability = createAction('[Auth/Api] Username Clear');
+export const clearAvailable = createAction('[Auth/Api] Username Clear');
 
 export const logout = createAction('[Auth] Logout');

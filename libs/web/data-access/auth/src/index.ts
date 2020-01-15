@@ -9,7 +9,7 @@ export {
   ILoginCredentials,
   ILoginResponse,
   IJWTPayload,
-  AvailableStatus
+  UsernameAvailable
 } from './lib/auth.interface';
 
 import * as AuthActions from './lib/+state/auth.actions';

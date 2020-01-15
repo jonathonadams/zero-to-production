@@ -5,12 +5,12 @@ export const selectAuthSate = createFeatureSelector<fromAuth.AuthState>(
   fromAuth.authStateKey
 );
 
-export const selectLoggedInStatus = createSelector(
+export const selectIsAuthenticated = createSelector(
   selectAuthSate,
-  state => state.loggedIn
+  state => state.isAuthenticated
 );
 
-export const selectAvailability = createSelector(
+export const selectAvailable = createSelector(
   selectAuthSate,
-  state => state.availability
+  state => state.available
 );

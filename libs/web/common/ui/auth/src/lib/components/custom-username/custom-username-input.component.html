@@ -1,6 +1,6 @@
 <div [formGroup]="group">
   <input type="text" [formControlName]="field.name" autocomplete="username" />
-  <span *ngIf="usernameAvailability$ | async as status">
+  <span *ngIf="usernameAvailable$ | async as status">
     <mat-icon *ngIf="status === 1">done</mat-icon>
     <mat-icon *ngIf="status === 2">close</mat-icon>
     <mat-icon class="pending" *ngIf="status === 3">sync</mat-icon>

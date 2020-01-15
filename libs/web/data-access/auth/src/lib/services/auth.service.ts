@@ -19,6 +19,8 @@ export const AUTH_SERVER_URL = new InjectionToken<string>(
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   readonly storageKey = 'access_token';
+  readonly sessionKey = 'expires_at';
+
   constructor(
     @Inject(AUTH_SERVER_URL) private authServerUrl: string,
     private graphQL: GraphQLService,
@@ -71,39 +73,55 @@ export class AuthService {
     );
   }
 
-  setAuthToken(token: string): void {
-    localStorage.setItem(this.storageKey, token);
-  }
+  // setAuthToken(token: string): void {
+  //   localStorage.setItem(this.storageKey, token);
+  // }
 
   get authToken(): string | null {
     return localStorage.getItem(this.storageKey);
   }
 
   // Checks if the user is logged in
-  checkUserIsLoggedIn(): boolean {
-    const token = this.authToken;
-    return token && this.checkTokenIsValid(token) ? true : false;
-  }
+  // checkUserIsLoggedIn(): boolean {
+  //   const token = this.authToken;
+  //   return token && this.checkTokenIsValid(token) ? true : false;
+  // }
 
-  removeAuthorizationToken(): void {
+  removeToken(): void {
     localStorage.removeItem(this.storageKey);
   }
 
-  decodeToken(token: string): IJWTPayload {
-    return jwtDecode<IJWTPayload>(token);
+  // decodeToken(token: string): IJWTPayload {
+  //   return jwtDecode<IJWTPayload>(token);
+  // }
+
+  // get decodedToken(): IJWTPayload | undefined {
+  //   const token = this.authToken;
+  //   if (token !== null) {
+  //     return this.decodeToken(token);
+  //   }
+  // }
+
+  // checkTokenIsValid(token: string): boolean {
+  //   const now = Math.floor(Date.now() / 1000);
+  //   const expTime: number = this.decodeToken(token).exp;
+  //   return now < expTime ? true : false;
+  // }
+
+  setSession({ token, expiresIn }: ILoginResponse) {
+    const expiresAt = new Date().valueOf() + 1000 * expiresIn;
+
+    localStorage.setItem(this.storageKey, token);
+    localStorage.setItem(this.sessionKey, expiresAt.toString());
   }
 
-  get decodedToken(): IJWTPayload | undefined {
-    const token = this.authToken;
-    if (token !== null) {
-      return this.decodeToken(token);
-    }
+  public isLoggedIn() {
+    return new Date().valueOf() < this.expiration;
   }
 
-  checkTokenIsValid(token: string): boolean {
-    const now = Math.floor(Date.now() / 1000);
-    const expTime: number = this.decodeToken(token).exp;
-    return now < expTime ? true : false;
+  get expiration() {
+    const expiresAt = localStorage.getItem(this.sessionKey);
+    return Number(expiresAt);
   }
 
   get headers(): HttpHeaders {

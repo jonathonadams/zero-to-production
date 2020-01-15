@@ -38,7 +38,7 @@ export class AuthEffects {
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loginSuccess),
-      tap(({ token }) => this.authService.setAuthToken(token)),
+      tap(loginResponse => this.authService.setSession(loginResponse)),
       map(() => AuthActions.loginRedirect())
     )
   );
@@ -75,7 +75,7 @@ export class AuthEffects {
   logout$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.logout),
-      tap(() => this.authService.removeAuthorizationToken()),
+      tap(() => this.authService.removeToken()),
       map(() => AuthActions.logoutRedirect())
     )
   );

@@ -5,6 +5,7 @@ export interface ILoginCredentials {
 
 export interface ILoginResponse {
   token: string;
+  expiresIn: number;
 }
 
 export interface IRegistrationDetails {
@@ -23,7 +24,7 @@ export interface IJWTPayload {
   role: number;
 }
 
-export enum AvailableStatus {
+export enum UsernameAvailable {
   Available = 1,
   UnAvailable = 2,
   Pending = 3
