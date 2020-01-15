@@ -6,26 +6,53 @@ export type AuthMiddleware = GraphQLFieldResolver<any, any, any>;
 
 export type VerifyEmail = (to: string, token: string) => Promise<[any, {}]>;
 
+export type AuthModuleConfig =
+  | LoginAndRegisterConfig
+  | AuthWithRefreshTokenConfig;
+
+export interface LoginAndRegisterConfig {
+  login: LoginControllerConfig;
+  verify: VerifyControllerConfig;
+  register: VerifyControllerConfig; // This is the same as verify because setting up the SendGrid email happens in the controller
+  email: EmailVerificationConfig;
+}
+
+export interface AuthWithRefreshTokenConfig extends LoginAndRegisterConfig {
+  authorize: AuthorizeControllerConfig;
+  refresh: RefreshControllerConfig;
+  revoke: RevokeControllerConfig;
+}
+
 // -------------------------------------
 // For signing access and refresh tokens
 // -------------------------------------
 export interface AccessTokenConfig {
-  accessTokenPrivateKey: string;
-  accessTokenExpireTime: number;
-  accessTokenIssuer: string;
+  privateKey: string;
+  expireTime: number;
+  issuer: string;
+  audience: string;
+  keyId: string;
 }
 
 export interface RefreshTokenConfig {
-  refreshTokenPrivateKey: string;
-}
-
-export interface VerifyRefreshTokenConfig {
-  refreshTokenPublicKey: string;
+  privateKey: string;
+  audience: string;
+  issuer: string;
 }
 
 export interface EmailVerificationConfig {
   sendGridApiKey: string;
   hostUrl: string;
+}
+
+export interface JWKSRouteConfig {
+  privateKey: string;
+  keyId: string;
+}
+
+export interface JWKSGuardConfig {
+  authServerUrl: string;
+  production: boolean;
 }
 
 // -------------------------------------
@@ -56,7 +83,7 @@ export interface AuthorizeControllerConfig
 
 export interface RefreshControllerConfig
   extends AccessTokenConfig,
-    VerifyRefreshTokenConfig {
+    RefreshTokenConfig {
   RefreshToken: IRefreshTokenModel;
 }
 
@@ -64,23 +91,9 @@ export interface RevokeControllerConfig {
   RefreshToken: IRefreshTokenModel;
 }
 
-export interface AuthConfigWithRefreshTokens
-  extends LoginControllerConfig,
-    VerifyControllerConfig,
-    VerifyRefreshTokenConfig,
-    AuthorizeControllerConfig,
-    RefreshControllerConfig,
-    EmailVerificationConfig {}
-
-export interface IRefreshToken {
-  user: IUserDocument;
-  token: string;
-}
-
-export interface JWKSConfig {
-  authServerUrl: string;
-  production: boolean;
-}
+// -------------------------------------
+// Interfaces for the Auth Guards
+// -------------------------------------
 
 export interface GuardConfig
   extends VerifyTokenConfig,
@@ -92,12 +105,14 @@ export interface JWKSGuarConfig
 
 export interface VerifyTokenJWKSConfig {
   issuer: string;
+  audience: string;
   authServerUrl: string;
   production: boolean;
 }
 
 export interface VerifyTokenConfig {
   issuer: string;
+  audience: string;
   publicKey: string;
 }
 
@@ -105,7 +120,13 @@ export interface VerifyActiveUserConfig {
   User: IUserModel;
 }
 
-// ------------------------------------------
+// -------------------------------------
+// Interfaces for each Model
+// -------------------------------------
+export interface IRefreshToken {
+  user: IUserDocument;
+  token: string;
+}
 
 export interface IRefreshTokenDocument
   extends IRefreshToken,

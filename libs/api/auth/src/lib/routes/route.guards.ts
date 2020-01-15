@@ -33,7 +33,8 @@ export function verifyToken(config: VerifyTokenConfig) {
     try {
       ctx.state.user = verify(ctx.request.token, config.publicKey, {
         algorithms: ['RS256'],
-        issuer: config.issuer
+        issuer: config.issuer,
+        audience: config.audience
       });
 
       return next();
@@ -61,7 +62,8 @@ export function verifyTokenJWKS(config: VerifyTokenJWKSConfig) {
 
       ctx.state.user = verify(ctx.request.token, publicKey, {
         algorithms: ['RS256'],
-        issuer: config.issuer
+        issuer: config.issuer,
+        audience: config.audience
       });
 
       return next();

@@ -6,6 +6,13 @@ import {
   getEnvVariableOrWarn
 } from '@uqt/api/config';
 
+const hostUrl = process.env.HOST_URL || `http://localhost:${process.env.PORT}`;
+const authServerUrl =
+  process.env.AUTH_SERVER_URL || `http://localhost:${process.env.PORT}`;
+
+// TODO -> They keyId should be some sort of hash or something
+const keyId = 'some-random-key-id';
+
 /**
  * Test environment settings
  */
@@ -18,13 +25,23 @@ const testConfig: DevOrTestConfig = {
     dbName: process.env.MONGO_TEST_DB || 'test_database'
   },
   auth: {
-    accessTokenExpireTime: 1200,
-    accessTokenPublicKey: getEnvVariableOrWarn('ACCESS_TOKEN_PUBLIC_KEY'),
-    accessTokenPrivateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
-    accessTokenIssuer: 'YOUR_COMPANY_HERE', // TODO
-    refreshTokenPublicKey: getEnvVariableOrWarn('REFRESH_TOKEN_PUBLIC_KEY'),
-    refreshTokenPrivateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
-    sendGridApiKey: process.env.SENDGRID_API_KEY || ''
+    authServerUrl,
+    accessToken: {
+      privateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
+      expireTime: 86400,
+      issuer: getEnvVariableOrWarn('ISSUER'),
+      audience: hostUrl,
+      keyId
+    },
+    refreshToken: {
+      privateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
+      issuer: getEnvVariableOrWarn('ISSUER'),
+      audience: hostUrl
+    },
+    email: {
+      hostUrl,
+      sendGridApiKey: process.env.SENDGRID_API_KEY || ''
+    }
   },
   database: {
     host: process.env.MONGO_TCP_ADDR || 'localhost',

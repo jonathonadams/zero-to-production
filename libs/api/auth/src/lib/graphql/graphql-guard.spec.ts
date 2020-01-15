@@ -24,27 +24,32 @@ export function newId() {
   return mongoose.Types.ObjectId().toHexString();
 }
 
-const accessTokenIssuer = 'issuer';
+const issuer = 'some-issuer';
+const audience = 'say-hello!!!';
+const keyId = 'key-id';
+const expireTime = 1 * 60 * 60 * 1000;
 
 describe('GraphQL Auth Guards', () => {
-  const accessTokenExpireTime = 1 * 60 * 60 * 1000;
-
   let jwt: string;
   let invalidJwt: string;
 
   beforeAll(() => {
     jwt = signAccessToken({
-      accessTokenPrivateKey: privateKey,
-      accessTokenExpireTime,
-      accessTokenIssuer
+      privateKey,
+      expireTime,
+      issuer,
+      audience,
+      keyId
     })({
       id: '1',
       role: 0
     } as IUserDocument);
     invalidJwt = signAccessToken({
-      accessTokenPrivateKey: invalidPrivateKey,
-      accessTokenExpireTime,
-      accessTokenIssuer
+      privateKey: invalidPrivateKey,
+      expireTime,
+      issuer,
+      audience,
+      keyId
     })({
       id: '1',
       role: 0
@@ -54,7 +59,7 @@ describe('GraphQL Auth Guards', () => {
   describe('checkToken', () => {
     it('should not throw an error if a JWT is provided and is valid', async () => {
       await expect(
-        checkToken({ publicKey, issuer: accessTokenIssuer })(
+        checkToken({ publicKey, issuer, audience })(
           {},
           {},
           { state: {}, token: jwt },
@@ -65,7 +70,7 @@ describe('GraphQL Auth Guards', () => {
 
     it('should throw 401 Unauthorized if the JWT is not provided', async () => {
       await expect(
-        checkToken({ publicKey, issuer: accessTokenIssuer })(
+        checkToken({ publicKey, issuer, audience })(
           {},
           {},
           {},
@@ -76,7 +81,7 @@ describe('GraphQL Auth Guards', () => {
 
     it('should throw 401 Unauthorized if the JWT signature is not correct', async () => {
       await expect(
-        checkToken({ publicKey, issuer: accessTokenIssuer })(
+        checkToken({ publicKey, issuer, audience })(
           {},
           {},
           { token: invalidJwt },
@@ -89,7 +94,18 @@ describe('GraphQL Auth Guards', () => {
       await expect(
         checkToken({
           publicKey,
-          issuer: 'some-different-issuer'
+          issuer: 'some-different-issuer',
+          audience
+        })({}, {}, { token: invalidJwt }, {} as GraphQLResolveInfo)
+      ).rejects.toThrowError();
+    });
+
+    it('should throw 401 Unauthorized if the JWT audience is not correct', async () => {
+      await expect(
+        checkToken({
+          publicKey,
+          issuer,
+          audience: 'wrong-audience'
         })({}, {}, { token: invalidJwt }, {} as GraphQLResolveInfo)
       ).rejects.toThrowError();
     });
@@ -105,7 +121,8 @@ describe('GraphQL Auth Guards', () => {
         checkTokenJWKS({
           production: false,
           authServerUrl: 'http://some-url',
-          issuer: accessTokenIssuer
+          issuer: issuer,
+          audience
         })({}, {}, { state: {}, token: jwt }, {} as GraphQLResolveInfo)
       ).resolves.not.toThrowError();
 
@@ -121,7 +138,8 @@ describe('GraphQL Auth Guards', () => {
         checkTokenJWKS({
           production: false,
           authServerUrl: 'http://some-url',
-          issuer: accessTokenIssuer
+          issuer,
+          audience
         })({}, {}, {}, {} as GraphQLResolveInfo)
       ).rejects.toThrowError('Unauthorized');
 
@@ -137,7 +155,8 @@ describe('GraphQL Auth Guards', () => {
         checkTokenJWKS({
           production: false,
           authServerUrl: 'http://some-url',
-          issuer: accessTokenIssuer
+          issuer,
+          audience
         })({}, {}, { state: {}, token: jwt }, {} as GraphQLResolveInfo)
       ).rejects.toThrowError('Unauthorized');
 
@@ -153,7 +172,8 @@ describe('GraphQL Auth Guards', () => {
         checkTokenJWKS({
           production: false,
           authServerUrl: 'http://some-url',
-          issuer: accessTokenIssuer
+          issuer,
+          audience
         })({}, {}, { state: {}, token: jwt }, {} as GraphQLResolveInfo)
       ).rejects.toThrowError('Unauthorized');
 
@@ -169,7 +189,25 @@ describe('GraphQL Auth Guards', () => {
         checkTokenJWKS({
           production: false,
           authServerUrl: 'http://some-url',
-          issuer: 'some-wrong-issuer'
+          issuer: 'some-wrong-issuer',
+          audience
+        })({}, {}, { state: {}, token: jwt }, {} as GraphQLResolveInfo)
+      ).rejects.toThrowError('Unauthorized');
+
+      (koaJwtSecret as any).mockReset();
+    });
+
+    it('should throw 401 Unauthorized if the JWT audience is not correct', async () => {
+      (koaJwtSecret as any).mockReturnValueOnce(
+        async (jwt: string) => publicKey
+      );
+
+      await expect(
+        checkTokenJWKS({
+          production: false,
+          authServerUrl: 'http://some-url',
+          issuer,
+          audience: 'wrong-audience'
         })({}, {}, { state: {}, token: jwt }, {} as GraphQLResolveInfo)
       ).rejects.toThrowError('Unauthorized');
 

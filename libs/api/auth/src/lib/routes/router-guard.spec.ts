@@ -17,26 +17,32 @@ import {
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
 }
-const accessTokenIssuer = 'issuer';
 
+const issuer = 'some-issuer';
+const audience = 'say-hello!!!';
+const keyId = 'key-id';
+const expireTime = 1 * 60 * 60 * 1000;
 describe('Rest Auth Guards', () => {
-  const accessTokenExpireTime = 1 * 60 * 60 * 1000;
   let jwt: string;
   let invalidJwt: string;
 
   beforeAll(() => {
     jwt = signAccessToken({
-      accessTokenPrivateKey: privateKey,
-      accessTokenExpireTime,
-      accessTokenIssuer
+      privateKey,
+      expireTime,
+      issuer,
+      audience,
+      keyId
     })({
       id: '1',
       role: 0
     } as IUserDocument);
     invalidJwt = signAccessToken({
-      accessTokenPrivateKey: invalidPrivateKey,
-      accessTokenExpireTime,
-      accessTokenIssuer
+      privateKey: invalidPrivateKey,
+      expireTime,
+      issuer,
+      keyId,
+      audience
     })({
       id: '1',
       role: 0
@@ -48,7 +54,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken({ publicKey, issuer: accessTokenIssuer })(
+        verifyToken({ publicKey, issuer, audience })(
           { request: { token: jwt }, state: {} },
           nextSpy
         )
@@ -61,7 +67,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken({ publicKey, issuer: accessTokenIssuer })(
+        verifyToken({ publicKey, issuer, audience })(
           { request: {}, state: {} },
           nextSpy
         )
@@ -74,7 +80,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken({ publicKey, issuer: accessTokenIssuer })(
+        verifyToken({ publicKey, issuer, audience })(
           { request: { token: invalidJwt }, state: {} },
           nextSpy
         )
@@ -87,7 +93,20 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken({ publicKey, issuer: 'some-different-issuer' })(
+        verifyToken({ publicKey, issuer: 'some-different-issuer', audience })(
+          { request: { token: invalidJwt }, state: {} },
+          nextSpy
+        )
+      ).rejects.toThrowError('Unauthorized');
+
+      expect(nextSpy).not.toHaveBeenCalled();
+    });
+
+    it('should throw 401 Unauthorized if the JWT audience is not correct', async () => {
+      const nextSpy = jest.fn();
+
+      await expect(
+        verifyToken({ publicKey, issuer, audience: 'wrong-audience' })(
           { request: { token: invalidJwt }, state: {} },
           nextSpy
         )
@@ -109,7 +128,8 @@ describe('Rest Auth Guards', () => {
         verifyTokenJWKS({
           production: false,
           authServerUrl: 'http://some-url',
-          issuer: accessTokenIssuer
+          issuer,
+          audience
         })({ request: { token: jwt }, state: {} }, nextSpy)
       ).resolves.not.toThrowError();
 
@@ -128,7 +148,8 @@ describe('Rest Auth Guards', () => {
         verifyTokenJWKS({
           production: false,
           authServerUrl: 'http://some-url',
-          issuer: accessTokenIssuer
+          issuer,
+          audience
         })({ request: {}, state: {} }, nextSpy)
       ).rejects.toThrowError('Unauthorized');
 
@@ -147,7 +168,8 @@ describe('Rest Auth Guards', () => {
         verifyTokenJWKS({
           production: false,
           authServerUrl: 'http://some-url',
-          issuer: accessTokenIssuer
+          issuer,
+          audience
         })({ request: { token: jwt }, state: {} }, nextSpy)
       ).rejects.toThrowError('Unauthorized');
 
@@ -166,7 +188,8 @@ describe('Rest Auth Guards', () => {
         verifyTokenJWKS({
           production: false,
           authServerUrl: 'http://some-url',
-          issuer: accessTokenIssuer
+          issuer,
+          audience
         })({ request: { token: jwt }, state: {} }, nextSpy)
       ).rejects.toThrowError('Unauthorized');
 
@@ -185,7 +208,28 @@ describe('Rest Auth Guards', () => {
         verifyTokenJWKS({
           production: false,
           authServerUrl: 'http://some-url',
-          issuer: 'some-wrong-issuer'
+          issuer: 'some-wrong-issuer',
+          audience
+        })({ request: { token: jwt }, state: {} }, nextSpy)
+      ).rejects.toThrowError('Unauthorized');
+
+      expect(nextSpy).not.toHaveBeenCalled();
+      (koaJwtSecret as any).mockReset();
+    });
+
+    it('should throw 401 Unauthorized if the JWT audience is not correct', async () => {
+      const nextSpy = jest.fn();
+
+      (koaJwtSecret as any).mockReturnValueOnce(
+        async (jwt: string) => publicKey
+      );
+
+      await expect(
+        verifyTokenJWKS({
+          production: false,
+          authServerUrl: 'http://some-url',
+          issuer,
+          audience: 'wrong-audience'
         })({ request: { token: jwt }, state: {} }, nextSpy)
       ).rejects.toThrowError('Unauthorized');
 

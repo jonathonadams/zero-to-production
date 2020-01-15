@@ -1,17 +1,13 @@
 import mongoose from 'mongoose';
 import { ServerConfig } from '@uqt/api/config';
 
-export async function dbConnection(
-  config: ServerConfig
-): Promise<mongoose.Mongoose | undefined> {
+export function dbConnection(config: ServerConfig) {
   const url = createMongoConnectionString(config);
 
-  try {
-    return await mongoose.connect(url, config.databaseOptions);
-  } catch (err) {
+  return mongoose.connect(url, config.databaseOptions).catch((err: any) => {
     console.error('There was an error connecting to the DataBase');
     console.error(err);
-  }
+  });
 }
 
 function createMongoConnectionString(config: ServerConfig): string {

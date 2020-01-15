@@ -5,19 +5,28 @@ import { ConnectionOptions } from 'mongoose';
  */
 
 export interface GlobalConfig {
-  hostUrl: string;
   port: number;
   databaseOptions: ConnectionOptions;
 }
 
 export interface AuthConfig {
-  accessTokenExpireTime: number;
-  accessTokenPublicKey: string;
-  accessTokenPrivateKey: string;
-  accessTokenIssuer: string;
-  refreshTokenPublicKey: string;
-  refreshTokenPrivateKey: string;
-  sendGridApiKey: string;
+  authServerUrl: string;
+  accessToken: {
+    privateKey: string;
+    expireTime: number;
+    issuer: string;
+    keyId: string;
+    audience: string;
+  };
+  refreshToken: {
+    privateKey: string;
+    issuer: string;
+    audience: string;
+  };
+  email: {
+    hostUrl: string;
+    sendGridApiKey: string;
+  };
 }
 
 export type EnvironnementConfig = ProductionConfig | DevOrTestConfig;

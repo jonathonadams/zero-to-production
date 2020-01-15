@@ -33,7 +33,7 @@ export function setupRegisterController({
 
     user.hashedPassword = await hash(password, 10);
 
-    const newUser = new User({ ...user, isValid: false, active: true });
+    const newUser = new User({ ...user, isVerified: false, active: true });
     await newUser.save();
 
     const verificationToken = new VerificationToken({
@@ -67,7 +67,7 @@ export function setupVerifyController({
     const user = await User.findOne({ email }).exec();
 
     if (!user) throw Boom.badRequest('Email address is not available');
-    if (user.isValid) throw Boom.badRequest('User is already registered');
+    if (user.isVerified) throw Boom.badRequest('User is already registered');
 
     /**
      * Check the provided Token is valid
@@ -81,7 +81,7 @@ export function setupVerifyController({
     if (verificationToken.userId.toString() !== user.id.toString())
       throw Boom.badRequest('Token does not match email address');
 
-    user.set({ isValid: true });
+    user.set({ isVerified: true });
     /**
      * Update the user status to valid, and remove the token from the db.
      */
@@ -122,7 +122,7 @@ export function setupLoginController(config: LoginControllerConfig) {
 
     return {
       token,
-      expiresIn: config.accessTokenExpireTime
+      expiresIn: config.expireTime
     };
   };
 }
@@ -151,7 +151,7 @@ export function setupAuthorizeController(config: AuthorizeControllerConfig) {
 
     return {
       token: accessToken,
-      expiresIn: config.accessTokenExpireTime,
+      expiresIn: config.expireTime,
       refreshToken: refreshToken
     };
   };

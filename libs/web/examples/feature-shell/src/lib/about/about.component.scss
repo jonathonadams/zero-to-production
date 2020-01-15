@@ -36,9 +36,9 @@
       transform-style: preserve-3d;
       perspective: 400rem;
       transform-origin: bottom;
-      // > * {
-      //   backface-visibility: hidden;
-      // }
+      > * {
+        backface-visibility: hidden;
+      }
       .inner-card {
         background-color: white;
         height: 100%;

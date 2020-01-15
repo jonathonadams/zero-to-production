@@ -1,5 +1,6 @@
 export { isPasswordAllowed } from './lib/auth-utils';
 export {
+  AuthModuleConfig,
   IRefreshTokenModel,
   IRefreshTokenDocument,
   IVerificationToken,

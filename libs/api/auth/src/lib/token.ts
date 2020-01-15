@@ -1,11 +1,11 @@
+import { createPublicKey } from 'crypto';
 import { sign, verify, decode } from 'jsonwebtoken';
 import { koaJwtSecret } from 'jwks-rsa';
 import { IUser } from '@uqt/interfaces';
 import {
   AccessTokenConfig,
   RefreshTokenConfig,
-  VerifyRefreshTokenConfig,
-  JWKSConfig
+  JWKSGuardConfig
 } from './auth.interface';
 
 // A function that returns a singed JWT
@@ -16,13 +16,14 @@ export function signAccessToken(config: AccessTokenConfig) {
         // Enter additional payload info here
         role: user.role
       },
-      config.accessTokenPrivateKey,
+      config.privateKey,
       {
         algorithm: 'RS256',
         subject: user.id,
-        expiresIn: config.accessTokenExpireTime,
-        issuer: config.accessTokenIssuer,
-        keyid: 'key'
+        expiresIn: config.expireTime,
+        issuer: config.issuer,
+        keyid: config.keyId,
+        audience: config.audience
       }
     );
   };
@@ -34,35 +35,49 @@ export function signRefreshToken(config: RefreshTokenConfig) {
       {
         // add whatever properties you desire here
       },
-      config.refreshTokenPrivateKey,
+      config.privateKey,
       {
         algorithm: 'RS256',
         subject: user.id,
-        issuer: 'your-company-here'
+        issuer: config.issuer,
+        audience: config.audience
       }
     );
   };
 }
 
-export function verifyRefreshToken({
-  refreshTokenPublicKey
-}: VerifyRefreshTokenConfig) {
+export function verifyRefreshToken(config: RefreshTokenConfig) {
+  // Create a public key from the private key
+  const publicPem = createPublicKey(config.privateKey);
+  const publicKey = publicPem.export({ format: 'pem', type: 'spki' });
+
   return (token: string) => {
-    return verify(token, refreshTokenPublicKey, { algorithms: ['RS256'] });
+    return verify(token, publicKey, {
+      algorithms: ['RS256'],
+      issuer: config.issuer,
+      audience: config.audience
+    });
   };
 }
 
-export function retrievePublicKeyFormJWKS(config: JWKSConfig) {
+export function retrievePublicKeyFormJWKS(config: JWKSGuardConfig) {
+  const jwksUri = `${config.authServerUrl}/.well-known/jwks.json`;
+
+  const jwtSecret = koaJwtSecret({
+    cache: true,
+    // cacheMaxEntries: 5, // Default value
+    // cacheMaxAge: ms('10h'), // Default value,
+    rateLimit: true,
+    // jwksRequestsPerMinute: 10, // Default value
+    strictSsl: config.production, // strict SSL in production
+    jwksUri
+  });
+
   return (jwt: string) => {
     const { header } = decode(jwt, {
       complete: true
     }) as { header: { alg: string; kid: string; type: 'JWT' } };
 
-    return koaJwtSecret({
-      cache: true,
-      rateLimit: true,
-      strictSsl: config.production, // strict SSL in production
-      jwksUri: `${config.authServerUrl}/.well-known/jwks.json`
-    })(header);
+    return jwtSecret(header);
   };
 }

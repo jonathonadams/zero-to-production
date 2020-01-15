@@ -1,5 +1,4 @@
 import { GraphQLFieldResolver } from 'graphql';
-import { IUserModel } from '@uqt/api/core-data';
 import {
   setupLoginController,
   setupRegisterController
@@ -7,19 +6,20 @@ import {
 import {
   LoginControllerConfig,
   RegistrationControllerConfig,
-  AuthConfigWithRefreshTokens
+  AuthModuleConfig
 } from '../auth.interface';
 import { IUser } from '@uqt/interfaces';
 import { setupEmailVerification } from '../send-email';
 
-// TODO -> GraphQL Verify call
-export function getAuthResolvers(config: AuthConfigWithRefreshTokens) {
-  const verificationEmail = setupEmailVerification(config);
-  const registerConfig = { ...config, verificationEmail };
+// Verify can not be done via GraphQL because it will be a hyperlink in the
+// email they receive
+export function getAuthResolvers(config: AuthModuleConfig) {
+  const verificationEmail = setupEmailVerification(config.email);
+  const registerConfig = { ...config.register, verificationEmail };
   return {
     authResolvers: {
       Mutation: {
-        login: loginResolver(config),
+        login: loginResolver(config.login),
         register: registerResolver(registerConfig)
       }
     }

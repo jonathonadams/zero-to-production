@@ -5,21 +5,13 @@ import {
   getEnvVariableOrWarn,
   envToNumber
 } from '@uqt/api/config';
-import { generateKeyPairSync } from 'crypto';
 
-const { publicKey, privateKey } = generateKeyPairSync('rsa', {
-  modulusLength: 4096,
-  publicKeyEncoding: {
-    type: 'spki',
-    format: 'pem'
-  },
-  privateKeyEncoding: {
-    type: 'pkcs8',
-    format: 'pem'
-    // cipher: 'aes-256-cbc'
-    // passphrase: 'top secret'
-  }
-});
+const hostUrl = process.env.HOST_URL || `http://localhost:${process.env.PORT}`;
+const authServerUrl =
+  process.env.AUTH_SERVER_URL || `http://localhost:${process.env.PORT}`;
+
+// TODO -> They keyId should be some sort of hash or something
+const keyId = 'some-random-key-id';
 
 /**
  * Development environment settings
@@ -34,18 +26,23 @@ const devConfig: DevOrTestConfig = {
     dbName: process.env.MONGO_DEV_DB || 'development_database'
   },
   auth: {
-    accessTokenExpireTime: envToNumber(
-      process.env.ACCESS_TOKEN_EXPIRE_TIME,
-      86400
-    ),
-    // accessTokenPublicKey: getEnvVariableOrWarn('ACCESS_TOKEN_PUBLIC_KEY'),
-    // accessTokenPrivateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
-    accessTokenPrivateKey: privateKey,
-    accessTokenPublicKey: publicKey,
-    accessTokenIssuer: 'YOUR_COMPANY_HERE', // TODO
-    refreshTokenPublicKey: getEnvVariableOrWarn('REFRESH_TOKEN_PUBLIC_KEY'),
-    refreshTokenPrivateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
-    sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY')
+    authServerUrl,
+    accessToken: {
+      privateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
+      expireTime: envToNumber(process.env.ACCESS_TOKEN_EXPIRE_TIME, 86400),
+      issuer: getEnvVariableOrWarn('ISSUER'),
+      audience: hostUrl,
+      keyId
+    },
+    refreshToken: {
+      privateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
+      issuer: getEnvVariableOrWarn('ISSUER'),
+      audience: hostUrl
+    },
+    email: {
+      hostUrl,
+      sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY')
+    }
   },
   database: {
     host: process.env.MONGO_TCP_ADDR || 'localhost',

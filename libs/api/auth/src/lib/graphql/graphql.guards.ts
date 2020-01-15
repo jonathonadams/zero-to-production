@@ -52,7 +52,8 @@ export function checkToken(config: VerifyTokenConfig): AuthMiddleware {
     try {
       ctx.state.user = verify(ctx.token, config.publicKey, {
         algorithms: ['RS256'],
-        issuer: config.issuer
+        issuer: config.issuer,
+        audience: config.audience
       });
     } catch (err) {
       throw Boom.unauthorized(null, 'Bearer');
@@ -69,7 +70,8 @@ export function checkTokenJWKS(config: VerifyTokenJWKSConfig): AuthMiddleware {
 
       ctx.state.user = verify(ctx.token, publicKey, {
         algorithms: ['RS256'],
-        issuer: config.issuer
+        issuer: config.issuer,
+        audience: config.audience
       });
     } catch (err) {
       throw Boom.unauthorized(null, 'Bearer');

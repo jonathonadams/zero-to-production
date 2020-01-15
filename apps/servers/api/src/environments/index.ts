@@ -19,11 +19,6 @@ import testConfig from './test';
  */
 const config: GlobalConfig = {
   /**
-   * The host url of the server
-   */
-  hostUrl: process.env.HOST_URL || `http://localhost:${process.env.PORT}`,
-
-  /**
    * The port the server will listen on
    */
   port: envToNumber(process.env.PORT, 3000),

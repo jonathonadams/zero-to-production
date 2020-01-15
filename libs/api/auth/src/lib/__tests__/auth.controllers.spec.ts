@@ -16,7 +16,7 @@ import { MockRefreshTokenModel } from './refresh-token.mock';
 import { signRefreshToken } from '../token';
 import { MockVerificationToken } from './verification.mock';
 import { IVerificationTokenModel, IRefreshTokenModel } from '../auth.interface';
-import { privateKey, publicKey } from './rsa-keys';
+import { privateKey } from './rsa-keys';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
@@ -31,7 +31,7 @@ const userToRegister = ({
   hashedPassword: 'asF.s0f.s',
   role: AuthenticationRoles.User,
   active: true,
-  isValid: false
+  isVerified: false
 } as any) as IUser;
 
 const userWithPassword = ({
@@ -39,11 +39,9 @@ const userWithPassword = ({
   password: 'asF.s0f.s123123'
 } as any) as IUser;
 
-const accessTokenPrivateKey = privateKey;
-const accessTokenPublicKey = publicKey;
-
-const refreshTokenPrivateKey = accessTokenPrivateKey;
-const refreshTokenPublicKey = accessTokenPublicKey;
+const issuer = 'some-issuer';
+const audience = 'say-hello!!!';
+const keyId = 'key-id';
 
 function mockRegistrationController(email: jest.Mock<any, any> = jest.fn()) {
   return setupRegisterController({
@@ -63,29 +61,33 @@ function mockVerificationController() {
 function mockLoginController() {
   return setupLoginController({
     User: (MockUserModel as unknown) as IUserModel,
-    accessTokenPrivateKey,
-    accessTokenExpireTime: 100000,
-    accessTokenIssuer: 'issuer'
+    privateKey,
+    expireTime: 100000,
+    issuer,
+    audience,
+    keyId
   });
 }
 
 function mockAuthorizeController() {
   return setupAuthorizeController({
     User: (MockUserModel as unknown) as IUserModel,
-    accessTokenPrivateKey,
-    refreshTokenPrivateKey,
-    accessTokenExpireTime: 100000,
-    accessTokenIssuer: 'issuer',
+    privateKey,
+    expireTime: 100000,
+    issuer,
+    audience,
+    keyId,
     RefreshToken: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
   });
 }
 
 function mockRefreshTokenController() {
   return setupRefreshAccessTokenController({
-    accessTokenPrivateKey,
-    refreshTokenPublicKey,
-    accessTokenExpireTime: 100000,
-    accessTokenIssuer: 'issuer',
+    privateKey,
+    audience,
+    keyId,
+    expireTime: 100000,
+    issuer,
     RefreshToken: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
   });
 }
@@ -186,7 +188,7 @@ describe(`Authentication Controllers`, () => {
         ...{ remove: removeMock }
       };
 
-      expect((MockUserModel._user as IUser).isValid).toBe(false);
+      expect((MockUserModel._user as IUser).isVerified).toBe(false);
 
       const message = await mockVerificationController()(
         userToRegister.email,
@@ -194,7 +196,7 @@ describe(`Authentication Controllers`, () => {
       );
 
       expect(setMock).toHaveBeenCalled();
-      expect(setMock.mock.calls[0][0]).toEqual({ isValid: true });
+      expect(setMock.mock.calls[0][0]).toEqual({ isVerified: true });
       expect(removeMock).toHaveBeenCalled();
 
       MockVerificationToken.reset();
@@ -218,7 +220,7 @@ describe(`Authentication Controllers`, () => {
 
       MockUserModel.userToRespondWith = {
         ...userToRegister,
-        isValid: true
+        isVerified: true
       };
 
       await expect(
@@ -413,9 +415,11 @@ describe(`Authentication Controllers`, () => {
         id: newId()
       };
 
-      const refreshTokenString = signRefreshToken({ refreshTokenPrivateKey })(
-        userWithId
-      );
+      const refreshTokenString = signRefreshToken({
+        privateKey,
+        audience,
+        issuer
+      })(userWithId);
 
       const refreshToken = await MockRefreshTokenModel.create({
         user: {
@@ -445,9 +449,11 @@ describe(`Authentication Controllers`, () => {
         id: newId()
       };
 
-      const refreshTokenString = signRefreshToken({ refreshTokenPrivateKey })(
-        userWithId
-      );
+      const refreshTokenString = signRefreshToken({
+        privateKey,
+        audience,
+        issuer
+      })(userWithId);
 
       const refreshToken = await MockRefreshTokenModel.create({
         user: {
@@ -482,9 +488,11 @@ describe(`Authentication Controllers`, () => {
         id: newId()
       };
 
-      const refreshTokenString = signRefreshToken({ refreshTokenPrivateKey })(
-        userWithId
-      );
+      const refreshTokenString = signRefreshToken({
+        privateKey,
+        audience,
+        issuer
+      })(userWithId);
 
       const refreshToken = await MockRefreshTokenModel.create({
         user: {
@@ -512,9 +520,11 @@ describe(`Authentication Controllers`, () => {
         id: newId()
       };
 
-      const refreshTokenString = signRefreshToken({ refreshTokenPrivateKey })(
-        userWithId
-      );
+      const refreshTokenString = signRefreshToken({
+        privateKey,
+        audience,
+        issuer
+      })(userWithId);
 
       const refreshToken = await MockRefreshTokenModel.create({
         user: {

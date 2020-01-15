@@ -16,40 +16,43 @@ import {
   AuthorizeControllerConfig,
   RefreshControllerConfig,
   RevokeControllerConfig,
-  AuthConfigWithRefreshTokens,
-  AvailableControllerConfig
+  AvailableControllerConfig,
+  AuthModuleConfig
 } from '../auth.interface';
 import { setupEmailVerification } from '../send-email';
+import { isRefreshConfig } from '../auth-utils';
 
 /**
- * This will register 6 routes for authentication
+ * This will register 7 routes for authentication
  *
  * '/authorize/login' -> return access token only when user logs in
  * '/authorize/register' -> return access token when user successfully registers
  * '/authorize/available' -> return on object indicating the availability of a given username
  * '/authorize/verify' -> verify the newly registered user (via email)
  * '/authorize' -> returns an access token and refresh token.
- * '/authorize/token' -> returns a new access token from a valid refresh token
- * '/authorize/token/revoke' -> revokes the provided refresh token.
+ * '/authorize/refresh' -> returns a new access token from a valid refresh token
+ * '/authorize/revoke' -> revokes the provided refresh token.
  */
 
-export function applyAuthRoutesWithRefreshTokens(
-  config: AuthConfigWithRefreshTokens
-) {
+export function applyAuthRoutesWithRefreshTokens(config: AuthModuleConfig) {
   return (app: Koa) => {
-    const verificationEmail = setupEmailVerification(config);
+    const verificationEmail = setupEmailVerification(config.email);
 
     const router = new Router();
-    router.post('/authorize/login', login(config));
+    router.post('/authorize/login', login(config.login));
     router.post(
       '/authorize/register',
-      register({ ...config, verificationEmail })
+      register({ ...config.register, verificationEmail })
     );
-    router.post('/authorize/available', usernameAvailable(config));
-    router.get('/authorize/verify', verify(config));
-    router.post('/authorize', authorize(config));
-    router.post('/authorize/token', refreshAccessToken(config));
-    router.post('/authorize/token/revoke', revokeRefreshToken(config));
+    router.get('/authorize/verify', verify(config.verify));
+    router.get('/authorize/available', usernameAvailable(config.login));
+
+    // Only if the config requires everything for refresh tokens as well
+    if (isRefreshConfig(config)) {
+      router.post('/authorize', authorize(config.authorize));
+      router.post('/authorize/refresh', refreshAccessToken(config.refresh));
+      router.post('/authorize/token/revoke', revokeRefreshToken(config.revoke));
+    }
 
     return app.use(router.routes());
   };
