@@ -4,10 +4,16 @@
   background-color: rgba(0, 0, 0, 0.5);
   background-image: url('/assets/images/factory-background.png'); // Fallback for no gradient support
   background-image: url('/assets/images/factory-background.png'),
-    linear-gradient(white, yellow);
+    linear-gradient(#61ffe7, #616fff);
   background-repeat: no-repeat;
   background-position: center center;
 }
+
+$color1: #61ffe7;
+$color2: #58d7e8;
+$color3: #6ec8ff;
+$color4: #588be8;
+$color5: #616fff;
 
 // factory image
 // https://www.pngfly.com/png-sl89i7/
