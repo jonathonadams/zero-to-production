@@ -13,7 +13,7 @@
     "@sendgrid/mail": "^6.4.0",
     "apollo-server-koa": "^2.9.16",
     "bcryptjs": "^2.4.3",
-    "dataloader": "^1.4.0",
+    "dataloader": "^2.0.0",
     "glob": "^7.1.6",
     "graphql": "^14.4.2",
     "graphql-iso-date": "^3.6.1",
