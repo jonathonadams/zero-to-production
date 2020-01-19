@@ -4,7 +4,7 @@ import { ExamplesFeatureShellRoutingModule } from './examples-feature-shell-rout
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
 import { CommonUiToolbarModule } from '@uqt/common/ui/toolbar';
 import { CommonUiCardModule } from '@uqt/common/ui/card';
-import { ExamplesComponent } from './examples/examples.component';
+import { ExampleComponent } from './example/example.component';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { ExamplesDataAccessModule } from '@uqt/examples/data-access';
 import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
@@ -28,7 +28,7 @@ import { AnimateScrollEntryDirective } from './animate-scroll-entry.directive';
   declarations: [
     ExamplesFeatureShellComponent,
     AboutComponent,
-    ExamplesComponent,
+    ExampleComponent,
     AnimateScrollEntryDirective
   ]
 })

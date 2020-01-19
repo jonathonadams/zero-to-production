@@ -129,9 +129,10 @@ export class AnimateScrollEntryDirective implements OnDestroy {
     // sudo random number between 0 and 1
     const delay = Math.random().toFixed(2);
     const timing = (0.5 + Math.random()).toFixed(2);
+    const sequence = `${timing}s ${delay}s cubic-bezier(.37,.63,.31,.9)`;
     return [
       animate(
-        `${timing}s ${delay}s cubic-bezier(.37,.63,.31,.9)`,
+        sequence,
         keyframes([
           style({
             opacity: 0,

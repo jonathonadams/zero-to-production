@@ -1,55 +1,71 @@
 <section class="container" cdkScrollable>
   <div class="content">
     <div class="about">
-      <h1 class="title">Zero to Production Monorepo Starter</h1>
+      <h1>Zero to Production</h1>
+      <h2>Fullstack Monorepo Starter</h2>
 
-      <p>GITHUB LINK</p>
-      <p>Jonathon Adams CONTACT</p>
+      <p>GITHUB LINK Jonathon Adams CONTACT</p>
+      <p>COPYRIGHT Jonathon Adams</p>
 
       <h3>About</h3>
 
       <p>
-        The goal of this project is to demonstrate a full stack Monorepo as well
-        as providing the foundation for you to start your own (plus having fun
-        along away)
+        An example of a full stack Monorepo with Angular, GraphQL & Kubernetes
+      </p>
+
+      <p>
+        Instructions to re-brand and get you up an running with your own
+        deployed client and server can be found here LINK
       </p>
 
       <h3>Whats in the box?</h3>
       <ul>
         <li>
-          A couple of frontend applications including this 'examples' site and a
-          Todo Application with the whole box and dice (Auth, registration,
-          master-detail etc)!
-        </li>
-        <li>
-          Live examples of some less common Anglar techniques.
+          An Angular Todo application with Ngrx(LINK) including user
+          registration and authentication
         </li>
         <li>
           Node API using Koa, GraphQL and MongoDB (including a custom Angular
           CLI Builder)
         </li>
         <li>
-          Deploy you server in a Kubernetes environnement on Google Cloud
+          Guides to deploy you server behind Traefik revers proxy Google Cloud
+          Kubernetes engine
         </li>
-        <li>Much more to come</li>
+        <li>More to come (see here LINK for Road Map)</li>
       </ul>
 
-      <p>COPYRIGHT Jonathon Adams</p>
-
+      <h3>Bonus Material</h3>
+      <p>
+        Live examples of some less common/more advanced Anglar techniques (like
+        this weird scrolling animation below)
+      </p>
       <button type="button" (click)="showExamples()">Examples!!</button>
     </div>
     <div class="examples">
-      <div
+      <!-- <div
         class="example"
         *ngFor="let example of examples$ | async; let i = index"
         trackBy="trackExample"
+      > -->
+      <uqt-example
+        class="example"
+        *ngFor="let example of examples$ | async; let i = index"
+        trackBy="trackExample"
+        animateScrollEntry
+        [example]="example"
       >
-        <uqt-card animateScrollEntry class="inner-card">
+      </uqt-example>
+
+      <!-- <uqt-card animateScrollEntry class="inner-card">
           <h3 class="card-header">{{ example.title }}</h3>
           <p class="card-content">{{ example.summary }}</p>
-          <a [href]="example.link">See here for README</a>
-        </uqt-card>
-      </div>
+          <button (click)="showMore(i)">SHOW</button>
+          <ng-container *ngIf="show[i]">
+            <p>{{ example.description }}</p>
+          </ng-container>
+        </uqt-card> -->
+      <!-- </div> -->
     </div>
   </div>
 </section>

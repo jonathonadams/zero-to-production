@@ -13,4 +13,10 @@
 
 .header {
   z-index: 2;
+  position: relative;
+  overflow: visible;
+  .logo {
+    cursor: pointer;
+    height: 3em;
+  }
 }

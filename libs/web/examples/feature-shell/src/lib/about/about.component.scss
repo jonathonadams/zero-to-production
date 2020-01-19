@@ -1,19 +1,17 @@
 :host {
   display: block;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  background-image: url('/assets/images/factory-background.png'); // Fallback for no gradient support
-  background-image: url('/assets/images/factory-background.png'),
-    linear-gradient(#61ffe7, #616fff);
+  // background-color: rgba(0, 0, 0, 0.5);
+  // background-image: linear-gradient(#96bae3, #a7b9fd);
   background-repeat: no-repeat;
   background-position: center center;
 }
 
-$color1: #61ffe7;
-$color2: #58d7e8;
-$color3: #6ec8ff;
-$color4: #588be8;
-$color5: #616fff;
+// $color1: #A7FDE5;
+// $color2: #96E3E3;
+// $color3: #B1E7FA;
+// $color4: #96BAE3;
+// $color5: #A7B9FD;
 
 // factory image
 // https://www.pngfly.com/png-sl89i7/
@@ -23,8 +21,25 @@ $color5: #616fff;
   height: 100%;
 
   .content {
-    margin: 0 auto;
+    margin: 0.5em auto;
     max-width: 1000px;
+    min-height: calc(100% - 2em);
+  }
+
+  .about {
+    border-radius: 10px;
+    padding: 0.5em;
+    & h1,
+    h2 {
+      background-color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      display: block;
+      // margin: 0 auto;
+      // color: #84acba;
+      // background-color: #84acba;
+      // padding: 0.2em;
+      // border-radius: 1em;
+    }
   }
 
   .examples {
@@ -33,23 +48,26 @@ $color5: #616fff;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
+    align-items: stretch;
 
     .example {
       margin: 0.5em;
-      height: 10em;
+      height: auto;
+      min-height: 8em;
       width: 19em;
-      min-width: 19em;
+      // min-width: 19em;
       transform-style: preserve-3d;
       perspective: 400rem;
-      transform-origin: bottom;
+      // transform-origin: bottom;
+      opacity: 0; // so the card is initially invisible
       > * {
-        backface-visibility: hidden;
+        // backface-visibility: hidden;
       }
-      .inner-card {
-        background-color: white;
-        height: 100%;
-        opacity: 0;
-      }
+      // .inner-card {
+      //   background-color: rgba(255, 255, 255, 0.9);
+      //   height: 100%;
+      //   opacity: 0;
+      // }
     }
   }
 }

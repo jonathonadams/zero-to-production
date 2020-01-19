@@ -11,7 +11,6 @@ import { IExample, ExamplesFacade } from '@uqt/examples/data-access';
 })
 export class AboutComponent {
   examples$: Observable<IExample[]>;
-  // columns = 3;
 
   constructor(private facade: ExamplesFacade, private router: Router) {
     this.examples$ = this.facade.examples$;
