@@ -1,4 +1,18 @@
-export const component = `// example.component.ts
+export const moduleRegistry = `// app.module.ts
+@NgModule({
+  imports: [
+    ...
+    DynamicFormModule.forRoot({
+      components: APP_COMPONENTS,
+      errors: APP_ERRORS
+    }),
+   ...
+  ]
+})
+export class AppModule {}
+`;
+
+export const setStructureMarkup = `// example.component.ts
 const CONTACT_DETAILS: TFormGroups = [
   {
     formGroup: 'contactDetails',
@@ -22,20 +36,30 @@ const CONTACT_DETAILS: TFormGroups = [
   }
 ];
 
-...
+@Component({
+  ...
+})
+export class ExampleDynamicFormComponent {
+  readonly formName = 'dynamic-form-example';
+  
+constructor(private formFacade: DynamicFormFacade) {
+  this.formFacade.createFormIfNotExist(this.formName);
+}
 
 ngOnInit() {
   this.formFacade.setStructure({ structure: CONTACT_DETAILS });
 }`;
 
 export const markup = `<!-- example.component.html -->
-<app-dynamic-form>
+<app-dynamic-form [formName]="formName">
   <button type="submit">Submit</button>
 </app-dynamic-form>`;
 
 export const submitSyntax = `// example.component.ts
 constructor(private formFacade: DynamicFormFacade) {
-  this.formFacade.submit$.subscribe(formOutput => {
+
+  this.formFacade.formSubmits$(this.formName)
+    .subscribe(formOutput => {
       // do something with the output
-  });
+    });
 }`;

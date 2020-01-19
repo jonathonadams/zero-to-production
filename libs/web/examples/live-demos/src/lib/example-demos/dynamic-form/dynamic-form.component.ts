@@ -12,11 +12,17 @@ import {
   TFormGroups,
   FormGroupTypes,
   FormFieldTypes,
-  InputFieldTypes
+  InputFieldTypes,
+  FormArrayTypes
 } from '@uqt/data-access/dynamic-form';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
 import { IExample, ExamplesFacade } from '@uqt/examples/data-access';
-import { component, markup, submitSyntax } from './dynamic-form.code';
+import {
+  markup,
+  submitSyntax,
+  moduleRegistry,
+  setStructureMarkup
+} from './dynamic-form.code';
 
 const SIMPLE_FORM: TFormGroups = [
   {
@@ -59,20 +65,36 @@ const COMPLEX_FORM: TFormGroups = [
         label: 'Email Address'
       }
     ]
-  },
-  {
-    groupName: 'additionalDetails',
-    groupType: FormGroupTypes.Group,
-    fields: [
-      {
-        type: FormFieldTypes.DatePicker,
-        name: 'dateOfBirth',
-        label: 'Date Of Birth',
-        autocomplete: 'bday',
-        validators: [Validators.required]
-      }
-    ]
   }
+  // {
+  //   groupName: 'contactDetails',
+  //   groupType: FormGroupTypes.Array,
+  //   arrayType: FormArrayTypes.Field,
+  //   initialNumber: 3,
+  //   field: {
+  //     type: FormFieldTypes.Input,
+  //     name: 'contactDetails',
+  //     label: 'Contact Details'
+  //   }
+  // },
+  // {
+  //   groupName: 'someMoreDetails',
+  //   groupType: FormGroupTypes.Array,
+  //   arrayType: FormArrayTypes.Group,
+  //   initialNumber: 3,
+  //   fields: [
+  //     {
+  //       type: FormFieldTypes.Input,
+  //       name: 'phone',
+  //       label: 'Phone Number'
+  //     },
+  //     {
+  //       type: FormFieldTypes.Input,
+  //       name: 'email',
+  //       label: 'Email Address'
+  //     }
+  //   ]
+  // }
 ];
 
 @Component({
@@ -87,9 +109,10 @@ export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
   simpleStructure = true;
   submit$: Observable<any>;
 
-  component = component;
+  setStructureMarkup = setStructureMarkup;
   markup = markup;
   submitSyntax = submitSyntax;
+  moduleRegistry = moduleRegistry;
 
   constructor(
     private facade: ExamplesFacade,
