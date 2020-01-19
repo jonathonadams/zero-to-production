@@ -9,7 +9,12 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-import { TFormGroups, FormGroupTypes, TField } from './dynamic-form.interface';
+import {
+  TFormGroups,
+  FormGroupTypes,
+  TField,
+  FormArrayTypes
+} from './dynamic-form.interface';
 
 @Injectable({ providedIn: 'root' })
 export class DynamicFormService {
@@ -33,34 +38,52 @@ export class DynamicFormService {
         // then add the nested form group to the top level group
         form.addControl(group.groupName, fg);
       } else if (group.groupType === FormGroupTypes.Array) {
-        const fa = this.fb.array([]);
+        if (group.arrayType === FormArrayTypes.Group) {
+          const fa = this.fb.array([]);
 
-        if (group.initialNumber !== undefined) {
-          for (let i = 0; i < (group.initialNumber as number); i++) {
-            // TODO -> REVISIT FOR ARRAY GROUPS
-            // if (group.arrayType === FormArrayTypes.Field) {
-            //   // and add all nested groups to the form
+          if (group.initialNumber !== undefined) {
+            for (let i = 0; i < (group.initialNumber as number); i++) {
+              // TODO -> REVISIT FOR ARRAY GROUPS
+              // if (group.arrayType === FormArrayTypes.Field) {
+              //   // and add all nested groups to the form
 
-            //   const control = this.createControl(group.field);
-            //   // Add the form field to the array
-            //   fa.push(control);
-            // } else {
-            // Creat form group
-            const fg = this.fb.group({});
-            // and add all nested groups to the form
-            group.fields.forEach(field => {
-              const control = this.createControl(field);
-              fg.addControl(field.name, control);
-            });
+              //   const control = this.createControl(group.field);
+              //   // Add the form field to the array
+              //   fa.push(control);
+              // } else {
+              // Creat form group
+              const fg = this.fb.group({});
+              // and add all nested groups to the form
+              group.fields.forEach(field => {
+                const control = this.createControl(field);
+                fg.addControl(field.name, control);
+              });
 
-            // Add the form group to the array
-            fa.push(fg);
-            // }
+              // Add the form group to the array
+              fa.push(fg);
+              // }
+            }
           }
-        }
 
-        // then add the nested form group to the top level group
-        form.addControl(group.groupName, fa);
+          // then add the nested form group to the top level group
+          form.addControl(group.groupName, fa);
+        } else if (group.arrayType === FormArrayTypes.Field) {
+          const fa = this.fb.array([]);
+
+          if (group.initialNumber !== undefined) {
+            for (let i = 0; i < (group.initialNumber as number); i++) {
+              const control = this.createControl(group.field);
+              // and add all nested groups to the form
+
+              // Add the form group to the array
+              fa.push(control);
+              // }
+            }
+          }
+
+          // then add the nested form group to the top level group
+          form.addControl(group.groupName, fa);
+        }
       }
     });
 

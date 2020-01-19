@@ -7,7 +7,8 @@ import {
   FormGroupTypes,
   IInputField,
   ISelectField,
-  ISelectOption
+  ISelectOption,
+  IFormGroup
 } from '@uqt/data-access/dynamic-form';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -57,7 +58,8 @@ export class FormBuilderConstructorService {
       const builderGroup = this.createFormGroupFromGroup(group);
       const fieldsArray = builderGroup.get('fields') as FormArray;
 
-      group.fields.forEach(field => {
+      // TODO -> Allow for creating form array fields and form group fields
+      (group as IFormGroup).fields.forEach(field => {
         fieldsArray.push(this.createFieldGroupFromFiled(field));
       });
 

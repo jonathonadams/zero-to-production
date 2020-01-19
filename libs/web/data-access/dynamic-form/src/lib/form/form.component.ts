@@ -23,7 +23,8 @@ import { DynamicFormErrorsService } from '../form-errors/form-errors.service';
 import {
   FormGroupTypes,
   TFormGroups,
-  IDynamicFormConfig
+  IDynamicFormConfig,
+  FormArrayTypes
 } from '../dynamic-form.interface';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade';
@@ -45,8 +46,8 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
   public form: FormGroup | undefined;
   private unsubscribe = new Subject<void>();
 
-  config: IDynamicFormConfig;
-  formIdx: number;
+  config$: Observable<IDynamicFormConfig>;
+  formIdx$: Observable<number>;
   structure$: Observable<TFormGroups>;
   validators$: Observable<ValidatorFn[]>;
 
@@ -79,15 +80,13 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
       this._name
     ) as Observable<TFormGroups>;
 
-    (this.privateFacade.selectConfig(this._name) as Observable<
+    this.config$ = this.privateFacade.selectConfig(this._name) as Observable<
       IDynamicFormConfig
-    >)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(config => (this.config = config));
+    >;
 
-    (this.privateFacade.selectIndex(this._name) as Observable<number>)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(idx => (this.formIdx = idx));
+    this.formIdx$ = this.privateFacade.selectIndex(this._name) as Observable<
+      number
+    >;
 
     this.validators$ = this.privateFacade.selectValidators(
       this._name
@@ -159,8 +158,8 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
     return formGroup.get(name) as FormGroup;
   }
 
-  getArrayGroupControls(arrayGroup: FormArray) {
-    return arrayGroup.controls;
+  getArrayGroupControls(formGroup: FormGroup, groupName: string) {
+    return (formGroup.get(groupName) as FormArray).controls;
   }
 
   getFormArrayFormGroups(formGroup: FormGroup, name: string): FormGroup[] {
@@ -169,6 +168,10 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 
   isGroupFields(type: FormGroupTypes): boolean {
     return Boolean(type === FormGroupTypes.Group);
+  }
+
+  isFieldArray(type: FormArrayTypes): boolean {
+    return Boolean(type === FormArrayTypes.Field);
   }
 
   nextSection() {
@@ -186,5 +189,13 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+  }
+
+  get topLevelContext() {
+    return { formGroup: this.form };
+  }
+
+  createTemplateOutletContext(formGroup: FormGroup, structure: any) {
+    return { formGroup, structure };
   }
 }

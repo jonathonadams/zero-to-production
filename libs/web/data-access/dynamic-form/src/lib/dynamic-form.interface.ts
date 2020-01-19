@@ -38,8 +38,8 @@ export interface IFormGroup {
   cssClasses?: string[];
 }
 
-export type TFormArray = IFormGroupArray;
-// export type TFormArray = IFormGroupArray | IFormFieldArray;
+// export type TFormArray = IFormGroupArray;
+export type TFormArray = IFormGroupArray | IFormFieldArray;
 
 export interface IBaseFormArray {
   groupName: string;
@@ -52,10 +52,10 @@ export interface IFormGroupArray extends IBaseFormArray {
   fields: TField[];
 }
 
-// export interface IFormFieldArray extends IBaseFormArray {
-//   arrayType: FormArrayTypes.Field;
-//   field: TField;
-// }
+export interface IFormFieldArray extends IBaseFormArray {
+  arrayType: FormArrayTypes.Field;
+  field: TField;
+}
 
 export interface IBaseField {
   name: string;

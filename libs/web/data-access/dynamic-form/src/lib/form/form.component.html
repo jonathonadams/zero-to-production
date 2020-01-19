@@ -11,16 +11,16 @@ is currently configured.
   [formGroup]="form"
   autocomplete="off"
   (ngSubmit)="onSubmit(form)"
-  [@.disabled]="!config.animations"
+  [@.disabled]="!(config$ | async)?.animations"
 >
   <!-- Pagination is the main top level config.  -->
   <ng-container
-    *ngTemplateOutlet="
-      config.paginateSections ? formWithPagination : formWithoutPagination;
-      context: {
-        formGroup: form
-      }
+    [ngTemplateOutlet]="
+      (config$ | async)?.paginateSections
+        ? formWithPagination
+        : formWithoutPagination
     "
+    [ngTemplateOutletContext]="topLevelContext"
   ></ng-container>
   <ng-content select='button[type="submit"]'></ng-content>
   <ng-content select='button[type="reset"]'></ng-content>
@@ -37,15 +37,14 @@ is currently configured.
   <ng-container [formGroup]="formGroup">
     <ng-container *ngFor="let structure of structure$ | async; let idx = index">
       <!-- only show the section with the current idx selected -->
-      <ng-container *ngIf="formIdx === idx">
+      <ng-container *ngIf="$any(formIdx$ | async) === idx">
         <ng-container
           [ngTemplateOutlet]="
             isGroupFields(structure.groupType) ? formFields : arrayGroup
           "
-          [ngTemplateOutletContext]="{
-            structure: structure,
-            formGroup: formGroup
-          }"
+          [ngTemplateOutletContext]="
+            createTemplateOutletContext(formGroup, structure)
+          "
         ></ng-container>
       </ng-container>
     </ng-container>
@@ -57,7 +56,7 @@ is currently configured.
       <button
         type="button"
         mat-icon-button
-        [disabled]="formIdx <= 0"
+        [disabled]="$any(formIdx$ | async) <= 0"
         (click)="backASection()"
       >
         <mat-icon>navigate_before</mat-icon>
@@ -66,7 +65,7 @@ is currently configured.
       <button
         type="button"
         mat-icon-button
-        [disabled]="formIdx >= str.length - 1"
+        [disabled]="$any(formIdx$ | async) >= str.length - 1"
         (click)="nextSection()"
       >
         <mat-icon>navigate_next</mat-icon>
@@ -84,10 +83,9 @@ is currently configured.
         [ngTemplateOutlet]="
           isGroupFields(structure.groupType) ? formFields : arrayGroup
         "
-        [ngTemplateOutletContext]="{
-          structure: structure,
-          formGroup: formGroup
-        }"
+        [ngTemplateOutletContext]="
+          createTemplateOutletContext(formGroup, structure)
+        "
       ></ng-container>
     </ng-container>
   </ng-container>
@@ -120,64 +118,81 @@ is currently configured.
 <!-- The below section deals with if a fromGroup is an arrayGroup -->
 <!-- Note that the form array can be an array of fields, or an array of form groups -->
 <ng-template #arrayGroup let-structure="structure" let-formGroup="formGroup">
-  <ng-container [formGroup]="formGroup">
-    <!-- The array group can either be a group of fields, or a group of form groups -->
-    <ng-container
-      *ngIf="isGroupFields(structure.arrayType); else arrayGroupType"
-    >
-      <!-- The array group is a collection of form controls -->
-      <section
-        class="uqt-dynamic-form-section"
-        [ngClass]="structure.cssClasses ? structure.cssClasses : []"
-        [formArrayName]="structure.groupName"
-        @centerExpand
-      >
-        <ng-container
-          *ngFor="let field of getArrayGroupControls(formGroup); let i = index"
-          appDynamicFormField
-          [idx]="i"
-          [type]="structure.groupType"
-          [field]="structure.field"
-          [group]="getFormGroup(formGroup, structure.groupName)"
-        >
-        </ng-container>
-      </section>
-    </ng-container>
-  </ng-container>
+  <!-- The array group can either be a group of fields, or a group of form groups -->
 
-  <!-- The arrayGroup is a collection of groups -->
-  <ng-template
-    #arrayGroupType
-    let-structure="structure"
-    let-formGroup="formGroup"
+  <ng-container
+    [ngTemplateOutlet]="
+      isFieldArray(structure.arrayType) ? arrayFieldType : arrayGroupType
+    "
+    [ngTemplateOutletContext]="
+      createTemplateOutletContext(formGroup, structure)
+    "
   >
-    <ng-container [formGroup]="formGroup">
-      <section
-        [ngClass]="structure.cssClasses ? structure.cssClasses : []"
-        [formArrayName]="structure.groupName"
-        @centerExpand
+  </ng-container>
+</ng-template>
+
+<!-- Template for if the group is a collection of fields -->
+<ng-template
+  #arrayFieldType
+  let-structure="structure"
+  let-formGroup="formGroup"
+>
+  <ng-container [formGroup]="formGroup">
+    <!-- The array group is a collection of form controls -->
+    <section
+      class="uqt-dynamic-form-section"
+      [ngClass]="structure.cssClasses ? structure.cssClasses : []"
+      [formArrayName]="structure.groupName"
+      @centerExpand
+    >
+      <ng-container
+        *ngFor="
+          let field of getArrayGroupControls(formGroup, structure.groupName);
+          let i = index
+        "
+        appDynamicFormField
+        [idx]="i"
+        [type]="structure.groupType"
+        [field]="structure.field"
+        [group]="getFormGroup(formGroup, structure.groupName)"
       >
-        <ng-container
-          *ngFor="
-            let arrayGroup of getFormArrayFormGroups(
-              formGroup,
-              structure.groupName
-            );
-            let i = index
-          "
-        >
-          <div [formGroupName]="i" class="form-array-group">
-            <ng-container
-              *ngFor="let field of structure.fields"
-              appDynamicFormField
-              [field]="field"
-              [type]="structure.arrayType"
-              [group]="arrayGroup"
-            >
-            </ng-container>
-          </div>
-        </ng-container>
-      </section>
-    </ng-container>
-  </ng-template>
+      </ng-container>
+    </section>
+  </ng-container>
+</ng-template>
+
+<!-- The arrayGroup is a collection of groups -->
+<ng-template
+  #arrayGroupType
+  let-structure="structure"
+  let-formGroup="formGroup"
+>
+  <ng-container [formGroup]="formGroup">
+    <section
+      [ngClass]="structure.cssClasses ? structure.cssClasses : []"
+      [formArrayName]="structure.groupName"
+      @centerExpand
+    >
+      <ng-container
+        *ngFor="
+          let arrayGroup of getFormArrayFormGroups(
+            formGroup,
+            structure.groupName
+          );
+          let i = index
+        "
+      >
+        <div [formGroupName]="i" class="form-array-group">
+          <ng-container
+            *ngFor="let field of structure.fields"
+            appDynamicFormField
+            [field]="field"
+            [type]="structure.arrayType"
+            [group]="arrayGroup"
+          >
+          </ng-container>
+        </div>
+      </ng-container>
+    </section>
+  </ng-container>
 </ng-template>
