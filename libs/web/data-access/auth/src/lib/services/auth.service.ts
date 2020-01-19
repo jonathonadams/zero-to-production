@@ -10,7 +10,9 @@ import {
   IRegistrationDetails,
   IJWTPayload
 } from '../auth.interface';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { secondsToExpiresAtMillis } from '../utils';
+import { AuthFacade } from '../+state/auth.facade';
 
 export const AUTH_SERVER_URL = new InjectionToken<string>(
   'forRoot() Auth Server Url'
@@ -24,8 +26,12 @@ export class AuthService {
   constructor(
     @Inject(AUTH_SERVER_URL) private authServerUrl: string,
     private graphQL: GraphQLService,
+    private facade: AuthFacade,
     private http: HttpClient
-  ) {}
+  ) {
+    // On create (page refresh/load), update the redux store
+    this.isLoggedIn();
+  }
 
   // Login function that returns a user and JWT
   // This is a graphql login function
@@ -87,9 +93,9 @@ export class AuthService {
   //   return token && this.checkTokenIsValid(token) ? true : false;
   // }
 
-  removeToken(): void {
-    localStorage.removeItem(this.storageKey);
-  }
+  // removeToken(): void {
+  //   localStorage.removeItem(this.storageKey);
+  // }
 
   // decodeToken(token: string): IJWTPayload {
   //   return jwtDecode<IJWTPayload>(token);
@@ -108,28 +114,50 @@ export class AuthService {
   //   return now < expTime ? true : false;
   // }
 
-  setSession({ token, expiresIn }: ILoginResponse) {
-    const expiresAt = new Date().valueOf() + 1000 * expiresIn;
-
+  setSession({ token, expiresIn }: ILoginResponse): void {
+    const expiresAt = secondsToExpiresAtMillis(expiresIn);
     localStorage.setItem(this.storageKey, token);
     localStorage.setItem(this.sessionKey, expiresAt.toString());
   }
 
-  public isLoggedIn() {
-    return new Date().valueOf() < this.expiration;
+  removeSession(): void {
+    localStorage.removeItem(this.storageKey);
+    localStorage.removeItem(this.sessionKey);
   }
 
-  get expiration() {
-    const expiresAt = localStorage.getItem(this.sessionKey);
-    return Number(expiresAt);
+  /**
+   *
+   * NOTE: Side Effect. Each time the isLoggedIn methods is called, it will synchronously update the redux store
+   *
+   * @memberof AuthService
+   */
+  public isLoggedIn(): void {
+    const expiration = this.expiration;
+    if (expiration) {
+      const isAuthenticated: boolean = new Date().valueOf() < expiration;
+      if (isAuthenticated) {
+        this.facade.setAuthenticated(isAuthenticated, expiration);
+      } else {
+        this.removeSession();
+        this.facade.setAuthenticated(isAuthenticated, null);
+      }
+    }
   }
 
-  get headers(): HttpHeaders {
-    const headersConfig = {
+  private get expiration(): number | null {
+    const expiresAt: string | null = localStorage.getItem(this.sessionKey);
+    return expiresAt ? Number(expiresAt) : null;
+  }
+
+  get authUserId(): string | null {
+    const token = this.authToken;
+    return token !== null ? jwtDecode<IJWTPayload>(token).sub : null;
+  }
+
+  get headers() {
+    return {
       'Content-Type': 'application/json',
       Accept: 'application/json'
     };
-
-    return new HttpHeaders(headersConfig);
   }
 }

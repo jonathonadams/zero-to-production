@@ -16,7 +16,7 @@ import {
   EffectNotification,
   OnRunEffects
 } from '@ngrx/effects';
-import { AuthActions, IJWTPayload, AuthService } from '@uqt/data-access/auth';
+import { AuthActions, AuthService } from '@uqt/data-access/auth';
 import * as UserActions from './users.actions';
 import { UsersService } from '../services/users.service';
 
@@ -37,9 +37,9 @@ export class UsersEffects implements OnRunEffects {
        * It is not be possible for the JWT to be undefined
        * as the resolver will run AFTER the AuthGuard runs,
        */
-      map(action => this.authService.decodedToken as IJWTPayload),
-      switchMap(token =>
-        this.usersService.getOneUser(token.sub).pipe(
+      map(action => this.authService.authUserId as string),
+      switchMap(id =>
+        this.usersService.getOneUser(id).pipe(
           map(user => UserActions.loadAuthUserSuccess({ user })),
           catchError((error: HttpErrorResponse) =>
             of(UserActions.loadAuthUserFail({ error: error.message }))

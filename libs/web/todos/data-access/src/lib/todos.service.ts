@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GraphQLService } from '@uqt/data-access/api';
-import { AuthService, IJWTPayload } from '@uqt/data-access/auth';
+import { AuthService } from '@uqt/data-access/auth';
 import {
   ALL_TODOS_QUERY,
   LOAD_TODO_QUERY,
@@ -26,7 +26,7 @@ export class TodosService {
 
   public createTodo(todo: ITodo): Observable<FetchResult<{ newTodo: ITodo }>> {
     // Set the user id of the current JWT id
-    const userId = (this.auth.decodedToken as IJWTPayload).sub;
+    const userId = this.auth.authUserId as string;
     const newTodo: ITodo = { ...todo, userId };
     // set the completed state to false
     // todo.completed = false;

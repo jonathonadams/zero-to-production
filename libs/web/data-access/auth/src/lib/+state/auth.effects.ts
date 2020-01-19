@@ -75,7 +75,7 @@ export class AuthEffects {
   logout$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.logout),
-      tap(() => this.authService.removeToken()),
+      tap(() => this.authService.removeSession()),
       map(() => AuthActions.logoutRedirect())
     )
   );

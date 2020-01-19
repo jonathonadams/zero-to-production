@@ -19,13 +19,9 @@ export interface IRegistrationDetails {
 
 export interface IJWTPayload {
   sub: string; // subject (id)
+  iss: string; // JWT issuer
+  aud: string; // JWT Audience
   exp: number; // expire time
   iat: string; // issued at time
-  role: number;
-}
-
-export enum UsernameAvailable {
-  Available = 1,
-  UnAvailable = 2,
-  Pending = 3
+  role: number; // User role
 }

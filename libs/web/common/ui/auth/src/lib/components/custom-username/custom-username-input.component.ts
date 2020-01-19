@@ -18,8 +18,7 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable, Subject } from 'rxjs';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor } from '@angular/cdk/a11y';
-// import { UsernameAvailable } from '@uqt/api/auth';
-import { AuthFacade, UsernameAvailable } from '@uqt/data-access/auth';
+import { AuthFacade } from '@uqt/data-access/auth';
 import { IInputField } from '@uqt/data-access/dynamic-form';
 
 @Component({
@@ -39,7 +38,7 @@ import { IInputField } from '@uqt/data-access/dynamic-form';
 export class CustomUsernameInputComponent
   implements ControlValueAccessor, MatFormFieldControl<string>, OnDestroy {
   static nextId = 0;
-  usernameAvailable$: Observable<UsernameAvailable | null>;
+  isAvailable$: Observable<boolean | 'pending' | null>;
 
   @Input() group: FormGroup;
   @Input() field: IInputField;
@@ -131,7 +130,7 @@ export class CustomUsernameInputComponent
     private _elRef: ElementRef<HTMLElement>,
     @Optional() @Self() public ngControl: NgControl
   ) {
-    this.usernameAvailable$ = this.facade.usernameAvailable$;
+    this.isAvailable$ = this.facade.isAvailable$;
 
     _focusMonitor.monitor(_elRef, true).subscribe(origin => {
       if (this.focused && !origin) {

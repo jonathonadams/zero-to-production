@@ -5,18 +5,14 @@ import {
   HttpClientTestingModule
 } from '@angular/common/http/testing';
 import { AuthInterceptor } from './auth-interceptor';
-import { AuthFacade } from '../+state/auth.facade';
 import { Type } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
 describe('AuthInterceptor', () => {
-  const testData = { name: 'Test Data' };
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
   let authServiceSpy: AuthService;
-  let authFacade: AuthFacade;
   const authSpy = { getAuthorizationToken: jest.fn() };
-  const authFacadeSpy = { logout: jest.fn() };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -27,8 +23,7 @@ describe('AuthInterceptor', () => {
           useClass: AuthInterceptor,
           multi: true
         },
-        { provide: AuthService, useValue: authSpy },
-        { provide: AuthFacade, useValue: authFacadeSpy }
+        { provide: AuthService, useValue: authSpy }
       ]
     });
 
@@ -37,12 +32,9 @@ describe('AuthInterceptor', () => {
       HttpTestingController as Type<HttpTestingController>
     );
     authServiceSpy = TestBed.inject<AuthService>(AuthService);
-    authFacade = TestBed.inject<AuthFacade>(AuthFacade);
   });
 
   it('should add a Bearer token to the Authorization header of all outgoing request', () => {
-    const spy = jest.spyOn(authFacade, 'logout');
-
     const token = 'TOKEN';
 
     jest.spyOn(authServiceSpy, 'authToken', 'get').mockReturnValue(token);
@@ -68,27 +60,34 @@ describe('AuthInterceptor', () => {
     // Subscribe callback asserts that correct data was returned.
     req.flush(someData);
 
-    // Assert the logout wat not called
-    expect(spy).not.toHaveBeenCalled();
-
     // Finally, assert that there are no outstanding requests.
     httpTestingController.verify();
   });
 
-  it('should log the user out if the response is a 401 (Unauthorized)', () => {
-    const spy = jest.spyOn(authFacade, 'logout');
+  it('should not have an Authorization header if their is no auth token', () => {
+    jest.spyOn(authServiceSpy, 'authToken', 'get').mockReturnValue(null);
+    const someData = { data: 'someData ' };
 
-    // Make an HTTP GET request, don't care about the response
-    httpClient.get('/test').subscribe(data => {});
+    // Make an HTTP GET request
+    httpClient.get('/test').subscribe(data => {
+      // When observable resolves, result should match test data
+      expect(data).toEqual(someData);
+    });
 
+    // The following `expectOne()` will match the request's URL.
+    // If no requests or multiple requests matched that URL
+    // `expectOne()` would throw.
     const req = httpTestingController.expectOne('/test');
 
-    // Set the response to be a 401
-    req.flush({}, { status: 401, statusText: 'Unauthorized' });
+    // Assert that the request is a GET.
+    expect(req.request.method).toEqual('GET');
 
-    // Assert the logout wat not called
-    expect(spy).toHaveBeenCalled();
+    expect(req.request.headers.get('Authorization')).not.toBeTruthy();
+    // Respond with mock data, causing Observable to resolve.
+    // Subscribe callback asserts that correct data was returned.
+    req.flush(someData);
 
+    // Finally, assert that there are no outstanding requests.
     httpTestingController.verify();
   });
 });

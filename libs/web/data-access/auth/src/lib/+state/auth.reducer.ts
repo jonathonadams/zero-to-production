@@ -1,22 +1,22 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as fromAuth from './auth.actions';
-import { UsernameAvailable } from '../auth.interface';
 import { IUser } from '@uqt/interfaces';
+import { secondsToExpiresAtMillis } from '../utils';
 
 export const authStateKey = 'authStateKey';
 
 export interface AuthState {
   isAuthenticated: boolean;
-  expiresIn: number | null;
+  expiresAt: number | null;
   user: IUser | null;
-  available: UsernameAvailable | null;
+  isAvailable: boolean | null | 'pending';
 }
 
 export const initialState: AuthState = {
   isAuthenticated: false,
-  expiresIn: null,
+  expiresAt: null,
   user: null,
-  available: null
+  isAvailable: null
 };
 
 const authReducer = createReducer(
@@ -25,20 +25,23 @@ const authReducer = createReducer(
     return {
       ...state,
       isAuthenticated: true,
-      expiresIn: new Date().valueOf() + 1000 * expiresIn // expiresIn will be in seconds
+      expiresAt: secondsToExpiresAtMillis(expiresIn) // expiresIn will be in seconds
     };
+  }),
+  on(fromAuth.registerSuccess, state => {
+    return { ...state, isAvailable: null };
   }),
   on(fromAuth.logout, state => {
     return { ...state, isAuthenticated: false };
   }),
+  on(fromAuth.setAuthenticated, (state, { isAuthenticated, expiresAt }) => {
+    return { ...state, isAuthenticated, expiresAt };
+  }),
   on(fromAuth.usernamePending, state => {
-    return { ...state, available: UsernameAvailable.Pending };
+    return { ...state, isAvailable: 'pending' as 'pending' };
   }),
-  on(fromAuth.usernameAvailable, state => {
-    return { ...state, available: UsernameAvailable.Available };
-  }),
-  on(fromAuth.usernameUnAvailable, state => {
-    return { ...state, available: UsernameAvailable.UnAvailable };
+  on(fromAuth.usernameAvailable, (state, { isAvailable }) => {
+    return { ...state, isAvailable };
   }),
   on(fromAuth.clearAvailable, state => {
     return { ...state, available: null };

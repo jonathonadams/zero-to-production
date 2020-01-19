@@ -42,12 +42,16 @@ export const registerFailure = createAction(
   props<{ error: string }>()
 );
 
+export const setAuthenticated = createAction(
+  '[Auth] Set Authenticated',
+  props<{ isAuthenticated: boolean; expiresAt: number | null }>()
+);
+
 export const usernamePending = createAction('[Auth/API] Username Pending');
 
-export const usernameAvailable = createAction('[Auth/API] Username Available');
-
-export const usernameUnAvailable = createAction(
-  '[Auth/API] Username UnAvailable'
+export const usernameAvailable = createAction(
+  '[Auth/API] Username Available',
+  props<{ isAvailable: boolean }>()
 );
 
 export const clearAvailable = createAction('[Auth/Api] Username Clear');

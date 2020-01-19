@@ -3,22 +3,19 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as AuthActions from './auth.actions';
 import * as fromAuth from './auth.selectors';
-import {
-  ILoginCredentials,
-  IRegistrationDetails,
-  UsernameAvailable
-} from '../auth.interface';
+import { ILoginCredentials, IRegistrationDetails } from '../auth.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthFacade {
   isAuthenticated$: Observable<boolean>;
-  usernameAvailable$: Observable<UsernameAvailable | null>;
+  // Username
+  isAvailable$: Observable<boolean | null | 'pending'>;
 
   constructor(private store: Store<any>) {
     this.isAuthenticated$ = this.store.pipe(
       select(fromAuth.selectIsAuthenticated)
     );
-    this.usernameAvailable$ = this.store.pipe(select(fromAuth.selectAvailable));
+    this.isAvailable$ = this.store.pipe(select(fromAuth.selectIsAvailable));
   }
 
   login(credentials: ILoginCredentials): void {
@@ -41,16 +38,18 @@ export class AuthFacade {
     this.store.dispatch(AuthActions.logout());
   }
 
+  setAuthenticated(isAuthenticated: boolean, expiresAt: number | null) {
+    this.store.dispatch(
+      AuthActions.setAuthenticated({ isAuthenticated, expiresAt })
+    );
+  }
+
   usernamePending() {
     this.store.dispatch(AuthActions.usernamePending());
   }
 
-  usernameAvailable() {
-    this.store.dispatch(AuthActions.usernameAvailable());
-  }
-
-  usernameUnAvailable() {
-    this.store.dispatch(AuthActions.usernameUnAvailable());
+  usernameAvailable(isAvailable: { isAvailable: boolean }) {
+    this.store.dispatch(AuthActions.usernameAvailable(isAvailable));
   }
 
   clearAvailable() {
