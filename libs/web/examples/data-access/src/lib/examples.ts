@@ -15,8 +15,7 @@ export const EXAMPLES: IExample[] = [
       'can become tedious quickly. Creating and using a dynamic form component ' +
       'application wide can significantly simplify forms and help standardize styling, ' +
       'validation, animations etc.',
-    url: 'dynamic-form',
-    link: 'some-github-link'
+    url: 'dynamic-form'
   },
   {
     id: '2',
@@ -25,8 +24,7 @@ export const EXAMPLES: IExample[] = [
     description:
       'Building on the Dynamic Form Component, an example of a Drag & Drop Form ' +
       'Builder to allow users to build their own forms.',
-    url: 'form-builder',
-    link: 'some-github-link'
+    url: 'form-builder'
   },
   {
     id: '3',
@@ -35,8 +33,7 @@ export const EXAMPLES: IExample[] = [
     description:
       'Combing CSS Variables along with a Theming Service allows for create user ' +
       'configurable color pallet',
-    url: 'theming',
-    link: 'some-github-link'
+    url: 'theming'
   },
   {
     id: '4',
@@ -47,8 +44,7 @@ export const EXAMPLES: IExample[] = [
       'It is common practice to lazy load modules as child routes, but there are more ' +
       'ways to benefit from code splitting. Scrolling is just one example of how to ' +
       'manually load modules.',
-    url: 'lazy-scroll',
-    link: 'some-github-link'
+    url: 'lazy-scroll'
   },
   {
     id: '5',
@@ -57,7 +53,6 @@ export const EXAMPLES: IExample[] = [
     description:
       'We have all seen a Todo App before but this demonstrates how reusable code can be ' +
       'in a well structured monorepo',
-    url: 'secure',
-    link: 'some-github-link'
+    url: 'secure'
   }
 ];

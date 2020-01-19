@@ -4,5 +4,4 @@ export interface IExample {
   summary: string;
   description: string;
   url: string;
-  link: string;
 }
