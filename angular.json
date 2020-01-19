@@ -1593,6 +1593,40 @@
           "styleext": "scss"
         }
       }
+    },
+    "web-examples-dynamic-form": {
+      "projectType": "library",
+      "root": "libs/web/examples/dynamic-form",
+      "sourceRoot": "libs/web/examples/dynamic-form/src",
+      "prefix": "uqt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/examples/dynamic-form/tsconfig.lib.json",
+              "libs/web/examples/dynamic-form/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/web/examples/dynamic-form/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/examples/dynamic-form/jest.config.js",
+            "tsConfig": "libs/web/examples/dynamic-form/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/dynamic-form/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

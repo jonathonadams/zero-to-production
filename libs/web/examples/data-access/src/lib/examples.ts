@@ -9,7 +9,7 @@ export const EXAMPLES: IExample[] = [
     id: '1',
     title: 'Dynamic Form Component',
     summary:
-      'Create a dynamic form component to remove the pain from using angular form',
+      'Create a dynamic form component to remove the pain from using angular form.',
     description:
       'With the amount of boiler plate required to use forms in Angular, they ' +
       'can become tedious quickly. Creating and using a dynamic form component ' +
@@ -20,26 +20,26 @@ export const EXAMPLES: IExample[] = [
   {
     id: '2',
     title: 'Drag & Drop Form Builder',
-    summary: 'A Drag & Drop form builder for user creatable forms',
+    summary: 'A Drag & Drop form builder for user creatable forms.',
     description:
       'Building on the Dynamic Form Component, an example of a Drag & Drop Form ' +
-      'Builder to allow users to build their own forms.',
+      'Builder to allow users to build their own structure (to use with the dynamic form component).',
     url: 'form-builder'
   },
   {
     id: '3',
     title: 'Themeing with CSS Variables',
-    summary: 'Using CSS Variables to create user configurable Theme',
+    summary: 'Using CSS Variables to create user configurable Theme.',
     description:
       'Combing CSS Variables along with a Theming Service allows for create user ' +
-      'configurable color pallet',
+      'configurable color pallet.',
     url: 'theming'
   },
   {
     id: '4',
     title: 'Lazy Load Scrolling',
     summary:
-      'A scrolling strategy to lazy load feature modules (thank you IVY __HEART__) ',
+      'A scrolling strategy to lazy load feature modules (thank you IVY __HEART__).',
     description:
       'It is common practice to lazy load modules as child routes, but there are more ' +
       'ways to benefit from code splitting. Scrolling is just one example of how to ' +
@@ -49,10 +49,10 @@ export const EXAMPLES: IExample[] = [
   {
     id: '5',
     title: 'Todo App with Authentication',
-    summary: 'A demo fo the versatility of a well structured Monorepo',
+    summary: 'A demo fo the versatility of a well structured Monorepo.',
     description:
       'We have all seen a Todo App before but this demonstrates how reusable code can be ' +
-      'in a well structured monorepo',
+      'in a well structured monorepo.',
     url: 'secure'
   }
 ];

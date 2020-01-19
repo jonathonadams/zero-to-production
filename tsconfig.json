@@ -70,6 +70,9 @@
       "@uqt/web/common/ui/buttons": ["libs/web/common/ui/buttons/src/index.ts"],
       "@uqt/web/examples/live-demos": [
         "libs/web/examples/live-demos/src/index.ts"
+      ],
+      "@uqt/web/examples/dynamic-form": [
+        "libs/web/examples/dynamic-form/src/index.ts"
       ]
     }
   }

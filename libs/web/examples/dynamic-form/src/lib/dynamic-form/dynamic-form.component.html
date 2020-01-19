@@ -9,39 +9,40 @@
       First, register the dynamic form module in the root AppModule. Here you
       provide a registry of what components you would like the form to render
       for each form element type. Optionally, you can provide custom error
-      messages for each error type
+      messages for each error type.
     </p>
     <p>
       NOTE: For convenience, a Material Design component registry is provided in
-      THIS LIBRARY but you can create your own
+      THIS LIBRARY but you can create your own.
     </p>
     <pre><code class="language-ts">{{ moduleRegistry }}</code></pre>
 
     <p>
       Each instance of the dynamic form is unique application wide identified by
-      the formName property
+      the <em>formName</em> property.
     </p>
     <p>
       Create a new form instance, then define and set the structure to render
-      your form
+      your form.
     </p>
     <pre><code class="language-ts">{{ setStructureMarkup }}</code></pre>
 
     <p>
-      In you markup include the dynamic form component and set the formName
-      property
+      In you markup include the dynamic form component and set the
+      <em>formName</em>
+      property.
     </p>
     <pre><code class="language-html">{{ markup }}</code></pre>
 
     <p>
       The output of submitting the form is provided via an observable from the
-      <span><code class="language-ts">DynamicFormsFacade</code></span>
+      <em>DynamicFormsFacade</em>.
     </p>
     <pre><code class="language-ts">{{ submitSyntax }}</code></pre>
 
     <p>
       For a complete guide on how to make your own component map, error messages
-      and custom styling, please see the README <a>here</a> TODO LINK
+      and custom styling, please see the README <a>here</a> TODO LINK.
     </p>
 
     <h3>Try it below</h3>

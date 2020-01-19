@@ -12,8 +12,7 @@ import {
   TFormGroups,
   FormGroupTypes,
   FormFieldTypes,
-  InputFieldTypes,
-  FormArrayTypes
+  InputFieldTypes
 } from '@uqt/data-access/dynamic-form';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
 import { IExample, ExamplesFacade } from '@uqt/examples/data-access';

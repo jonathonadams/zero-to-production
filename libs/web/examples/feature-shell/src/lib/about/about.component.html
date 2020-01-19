@@ -35,20 +35,14 @@
         <li>More to come (see here LINK for Road Map)</li>
       </ul>
 
-      <h3>Bonus Material</h3>
+      <h3>Bonus</h3>
       <p>
-        Live examples of some less common/more advanced Anglar techniques (like
-        this weird scrolling animation below)
+        Demonstrations of some less common/more advanced Angular techniques
       </p>
-      <button type="button" (click)="showExamples()">Examples!!</button>
     </div>
     <div class="examples">
-      <!-- <div
-        class="example"
-        *ngFor="let example of examples$ | async; let i = index"
-        trackBy="trackExample"
-      > -->
       <uqt-example
+        (click)="showExamples()"
         class="example"
         *ngFor="let example of examples$ | async; let i = index"
         trackBy="trackExample"
@@ -56,16 +50,6 @@
         [example]="example"
       >
       </uqt-example>
-
-      <!-- <uqt-card animateScrollEntry class="inner-card">
-          <h3 class="card-header">{{ example.title }}</h3>
-          <p class="card-content">{{ example.summary }}</p>
-          <button (click)="showMore(i)">SHOW</button>
-          <ng-container *ngIf="show[i]">
-            <p>{{ example.description }}</p>
-          </ng-container>
-        </uqt-card> -->
-      <!-- </div> -->
     </div>
   </div>
 </section>

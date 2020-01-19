@@ -148,6 +148,9 @@
     },
     "web-examples-live-demos": {
       "tags": []
+    },
+    "web-examples-dynamic-form": {
+      "tags": []
     }
   }
 }
