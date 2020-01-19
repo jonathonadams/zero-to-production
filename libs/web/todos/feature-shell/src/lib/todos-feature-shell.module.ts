@@ -11,7 +11,6 @@ import { TodosFeatureShellRoutingModule } from './todos-feature-shell-routing.mo
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
 import { TodoLayoutComponent } from './ui/todos-layout.component';
 import { WebCommonUiAuthModule } from '@uqt/web/common/ui/auth';
-import { CommonNotificationModule } from '@uqt/utils/notifications';
 
 @NgModule({
   declarations: [TodoFeatureShellComponent, TodoLayoutComponent],
@@ -22,7 +21,6 @@ import { CommonNotificationModule } from '@uqt/utils/notifications';
     DynamicFormModule.forChild(),
     CommonUiSideNavModule,
     CommonUiToolbarModule,
-    CommonNotificationModule,
     TodosFeatureShellRoutingModule,
     SharedFloatingMenuModule,
     CommonUiLayoutsModule,

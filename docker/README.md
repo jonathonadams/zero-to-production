@@ -1,17 +1,28 @@
-# Building with Docker
+# Test and Build with Docker
 
-TODO
+## Building API Server
 
-- Document
-- Dynamic project names with ENV variables
-- Build script?
-- Test frontend with nginx docker container
+Note: You do not need to build your API server first
 
-Build
+1. `docker build -t <image-name> -f docker/api.Dockerfile --build-arg PROJECT_DIRECTORY=apps/<project-directory> .`
 
-$ docker image build -t example-api -f api.Dockerfile
-$ docker image build -t example-web -f web.Dockerfile
+## Optionals Build Via Npm Script
 
-docker compose
+11 `npm run build:server -- --projectDirectory=apps/<project-directory> --containerName=<container-name>`
+
+## Test Production Angular Application
+
+1. `docker build -t <image-name> -f docker/web.Dockerfile --build-arg DISTRIBUTION_DIRECTORY=dist/apps/<dist-folder> .`
+2. `docker create --name <container-name> -p 8080:80 <image-name>`
+3. `docker start <container-name>`
+4. Run e2e Tests
+
+## Test with Docker Compose
 
 \$ docker-compose up -d
+
+## Clean Up
+
+1. `docker stop <container-name>`
+2. `docker rm <container-name>`
+3. `docker rmi <image-name>`

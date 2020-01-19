@@ -8,6 +8,10 @@ TODO
 
 COLOR PALLET
 
+## Angular Client
+
+Delete firebase.json and firebaserc
+
 ## API
 
 ### AUTH MODULE

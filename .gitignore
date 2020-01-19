@@ -39,6 +39,10 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Firebase hosting
+.firebaserc
+.firebase
+
 # Environment Config
 .env
 /**/.env
