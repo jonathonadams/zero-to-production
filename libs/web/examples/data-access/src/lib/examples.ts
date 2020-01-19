@@ -29,10 +29,10 @@ export const EXAMPLES: IExample[] = [
   {
     id: '3',
     title: 'Themeing with CSS Variables',
-    summary: 'Using CSS Variables to create user configurable Theme.',
+    summary: 'Using CSS Variables to create a user configurable theme.',
     description:
-      'Combing CSS Variables along with a Theming Service allows for create user ' +
-      'configurable color pallet.',
+      'Combing CSS Variables along with a Theming Service to create a user ' +
+      'configurable them.',
     url: 'theming'
   },
   {
@@ -51,8 +51,8 @@ export const EXAMPLES: IExample[] = [
     title: 'Todo App with Authentication',
     summary: 'A demo fo the versatility of a well structured Monorepo.',
     description:
-      'We have all seen a Todo App before but this demonstrates how reusable code can be ' +
-      'in a well structured monorepo.',
+      'We have all seen a Todo App before but this demonstrates how a well structured monorepo ' +
+      'can make your code highly reusable.',
     url: 'secure'
   }
 ];

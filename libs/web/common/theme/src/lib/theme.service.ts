@@ -5,6 +5,7 @@ import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 // Only want one instance of the theme service
 @Injectable({ providedIn: 'root' })
 export class ThemeService implements OnDestroy {
+  storageKey = 'theme-settings';
   /**
    * Use a behavior subject as the state needs to be emitted
    * when a components subscribes to it
@@ -34,18 +35,32 @@ export class ThemeService implements OnDestroy {
     // });
   }
 
-  setThemeColors({
+  setThemeColors(colors: any): void {
+    this.applyColors(colors);
+    this.saveColorsToLocalStorage(colors);
+  }
+
+  private applyColors({
     lightPrimary = null,
     lightAccent = null,
     darkPrimary = null,
     darkAccent = null
-  }): void {
+  }) {
     const rootElement = this.document.querySelector(':root') as HTMLElement;
 
     rootElement.style.setProperty('--light-primary-color', lightPrimary);
     rootElement.style.setProperty('--light-accent-color', lightAccent);
     rootElement.style.setProperty('--dark-primary-color', darkPrimary);
     rootElement.style.setProperty('--dark-accent-color', darkAccent);
+  }
+
+  private saveColorsToLocalStorage(colors: any) {
+    localStorage.setItem(this.storageKey, JSON.stringify(colors));
+  }
+
+  loadAndApplyColors() {
+    const colors: any = localStorage.getItem(this.storageKey);
+    if (colors) this.applyColors(JSON.parse(colors));
   }
 
   setDarkThemeStatus(active: boolean): void {
@@ -55,4 +70,8 @@ export class ThemeService implements OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+}
+
+export function themeProviderFactory(service: ThemeService) {
+  return () => service.loadAndApplyColors();
 }

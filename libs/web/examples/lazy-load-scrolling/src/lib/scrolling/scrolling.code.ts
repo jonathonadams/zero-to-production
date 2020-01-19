@@ -32,7 +32,7 @@ export class ModuleLoaderService {
   public async initLoadModule(key: string): Promise<any> {
     const modulePath = this.registry[key];
 
-    // Load the module form the server by executing the import statement
+    // Load the module from the server by executing the import statement
     const elementModule = await modulePath();
     
     let moduleFactory: NgModuleFactory<any>;

@@ -3,19 +3,44 @@
   Todo Application below is it's own standalone application of which almost all
   of its code base is comprised of imported libraries that together makes up the
   application (Auth, Dashboard, Todos etc). As the application itself is just
-  another library, it can be imported into any other application.
+  another library, it can be imported into other application.
 </p>
 <p>
   For further information about monorepo design principles, have a look at the
-  information and tools the amazing team at <a href="https://nrwl.io/">Nrwl</a>
+  information and tools from the amazing team at
+  <a target="_blank" rel="noreferrer noopener" href="https://nrwl.io/">Nrwl</a>
   provide.
 </p>
-<button mat-stroked-button (click)="showTodos()">Show Me the Money!!!</button>
+<button *ngIf="!showApplication" mat-stroked-button (click)="showTodos()">
+  Show Me the Money!!!
+</button>
+<ng-container *ngIf="showApplication">
+  <h3>NOTE</h3>
+  <p>
+    The application below is a full, complete working application with a live
+    API hosted on Google Cloud as provided in this monorepo. You will have to
+    register before you can log in.
+  </p>
+  <p>
+    For privacy reasons the API has been configured to accept dummy data (so not
+    to collect and sensitive information). The email address provided does NOT
+    have to be unique, so go ahead and put <b>test@email.com</b> or similar.
+    Your username is the only thing required to be unique for registration to be
+    successful.
+  </p>
+  <p>
+    The Database will be wiped regularly so don't be surprised if you come back
+    next week and its' all gone.
+  </p>
+</ng-container>
 <section class="app" *ngIf="showApplication">
   <router-outlet></router-outlet>
 </section>
 <h3>Make it your Own</h3>
 <p>
-  Follow the guide <a href="www.google.com">TODO here</a> to make this monorepo
-  the beginning of your own project.
+  Follow the guide
+  <a target="_blank" rel="noreferrer noopener" href="www.google.com"
+    >TODO here</a
+  >
+  to make this monorepo the beginning of your own project. Enjoy!
 </p>

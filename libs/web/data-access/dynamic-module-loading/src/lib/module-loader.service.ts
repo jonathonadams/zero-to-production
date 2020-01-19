@@ -92,7 +92,7 @@ export class ModuleLoaderService {
       const path = registeredModule.importPath;
 
       try {
-        // Load the module form the server by executing the import statement
+        // Load the module from the server by executing the import statement
         const elementModule = await path();
         let moduleFactory: NgModuleFactory<any>;
 

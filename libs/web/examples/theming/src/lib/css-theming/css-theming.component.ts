@@ -6,7 +6,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ThemeService } from '@uqt/common/theme';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
-import { css, ts } from './css-theming.code';
+import { css, ts, appInit } from './css-theming.code';
 
 @Component({
   selector: 'example-css-theming',
@@ -19,6 +19,7 @@ export class CssThemingComponent implements AfterViewInit {
 
   css = css;
   ts = ts;
+  appInit = appInit;
 
   constructor(
     private fb: FormBuilder,
@@ -34,6 +35,15 @@ export class CssThemingComponent implements AfterViewInit {
 
     this.form.valueChanges.subscribe(themeSettings => {
       this.themeService.setThemeColors(themeSettings);
+    });
+  }
+
+  resetTheme() {
+    this.form.reset({
+      lightPrimary: '#7b1fa2',
+      lightAccent: '#f0820f',
+      darkPrimary: '#20eff0',
+      darkAccent: '#d33685'
     });
   }
 

@@ -1,22 +1,28 @@
 <p>
   Because of a long outstanding
-  <a href="https://github.com/angular/angular/issues/14324"
+
+  <a
+    target="_blank"
+    rel="noreferrer noopener"
+    href="https://github.com/angular/angular/issues/14324"
     >bug/feature request</a
   >
   in View Engine, it has is not been possible to lazy load entry components.
   This limitation could be worked around by using Web Components and Angular
   Elements. With the introduction of the Ivy Rendering Engine this is no longer
-  needed (as Entry Components have been depreciated)
+  needed (as entry components have been depreciated)
 </p>
 <p>
   Define a 'registry' of modules to be lazy loaded. The import path follows the
-  same convention as when defining `loadChildren` Just like when defining lazy
-  loaded child routes. The Angular Compiler will take care of code splitting for
-  you. Then provide the registry as a provider for the parent module.
+  same convention as when defining a route based lazy loaded module via the
+  <em>loadChildren</em> route property. The Angular Compiler & Webpack will take
+  care of code splitting for you. Then provide the registry as a provider to the
+  parent module.
 </p>
 <pre><code class="language-ts">{{ moduleProviders }}</code></pre>
 <p>
-  Create a ModuleLoadingService to load the module when required.
+  Create a <em>ModuleLoadingService</em> to handle loading the modules as
+  required.
 </p>
 <p>
   NOTE: The code example of the module loading service below is simplified to
@@ -31,19 +37,31 @@
   component can subscribe and render the entry component once loaded.
 </p>
 <p>
-  NOTE: A LazyLoadScroll Directive is used to create the component from the
-  factory. It makes use of the ResizeObserver API to listen element size
+  NOTE: A <em>LazyLoadScroll</em> Directive is used to create the component from
+  the factory. It makes use of the ResizeObserver API to listen to element size
   changes. ResizeObserver is not currently widely supported and TypesScript does
-  not have a definition for it, hence A polyfill is currently being used. See
-  <a href="https://caniuse.com/#search=Resize%20Observer">Can I Use</a> and
-  <a href="https://github.com/Microsoft/TypeScript/issues/28502">TypeScript</a>
+  not have a definition for it, hence A polyfill is currently being used. Once
+  supported you can remove the polyfill. See
+  <a
+    target="_blank"
+    rel="noreferrer noopener"
+    href="https://caniuse.com/#search=Resize%20Observer"
+    >Can I Use</a
+  >
+  and
+  <a
+    target="_blank"
+    rel="noreferrer noopener"
+    href="https://github.com/Microsoft/TypeScript/issues/28502"
+    >TypeScript</a
+  >
 </p>
 <h3>Try it Out</h3>
 <ol>
   <li>Open Developer Tools -> Networking Tab</li>
-  <li>Clear History</li>
+  <li>Clear Network History</li>
   <li>Refresh Browser Window</li>
-  <li>Slowly Start Scrolling</li>
+  <li>Start Scrolling</li>
   <li>Note the lazy loading of modules as you scroll</li>
   <li>Profit!!</li>
 </ol>

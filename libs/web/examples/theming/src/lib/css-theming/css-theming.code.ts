@@ -1,4 +1,4 @@
-export const css = `// define css variables
+export const css = `// styles.(s)css
 :root {
   --light-primary-color: #7b1fa2;
   --light-accent-color: #f0820f;
@@ -6,7 +6,8 @@ export const css = `// define css variables
   --dark-accent-color: #d33685;
 }
 
-// material theme pallet
+
+// If you are using a custom material theme you can provide them to your pallet
 $light-primary-pallet: (
   ...
   400: #ff7043,
@@ -32,3 +33,35 @@ setThemeColors({
   rootElement.style.setProperty('--dark-primary-color', darkPrimary);
   rootElement.style.setProperty('--dark-accent-color', darkAccent);
 }`;
+
+export const appInit = `// theme.service.ts
+...
+saveColorsToLocalStorage(colors: any) {
+  localStorage.setItem(this.storageKey, JSON.stringify(colors));
+}
+
+loadAndApplyColors() {
+  const colors: any = localStorage.getItem(this.storageKey);
+  if (colors) this.setThemeColors(JSON.parse(colors));
+}
+
+
+// factory function
+export function themeProviderFactory(service: ThemeService) {
+  return () => service.loadAndApplyColors();
+}
+
+
+// app.module.ts
+@NgModule({
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: themeProviderFactory,
+      multi: true,
+      deps: [ThemeService]
+    }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}`;
