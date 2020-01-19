@@ -19,31 +19,31 @@ const guardConfig = {
   audience: config.auth.accessToken.audience
 };
 
-const authModuleConfig: AuthModuleConfig = {
-  login: { User, ...config.auth.accessToken },
-  register: { User, VerificationToken, ...config.auth.accessToken },
-  verify: { User, VerificationToken, ...config.auth.accessToken },
-  authorize: {
-    User,
-    RefreshToken,
-    ...config.auth.accessToken,
-    ...config.auth.refreshToken
-  },
-  refresh: {
-    RefreshToken,
-    ...config.auth.accessToken,
-    ...config.auth.refreshToken
-  },
-  revoke: {
-    RefreshToken
-  },
-  email: config.auth.email
-};
+// const authModuleConfig: AuthModuleConfig = {
+//   login: { User, ...config.auth.accessToken },
+//   register: { User, VerificationToken, ...config.auth.accessToken },
+//   verify: { User, VerificationToken, ...config.auth.accessToken },
+//   authorize: {
+//     User,
+//     RefreshToken,
+//     ...config.auth.accessToken,
+//     ...config.auth.refreshToken
+//   },
+//   refresh: {
+//     RefreshToken,
+//     ...config.auth.accessToken,
+//     ...config.auth.refreshToken
+//   },
+//   revoke: {
+//     RefreshToken
+//   },
+//   email: config.auth.email
+// };
 
-const jwksRouteConfig = {
-  privateKey: config.auth.accessToken.privateKey,
-  keyId: config.auth.accessToken.keyId
-};
+// const jwksRouteConfig = {
+//   privateKey: config.auth.accessToken.privateKey,
+//   keyId: config.auth.accessToken.keyId
+// };
 
 /**
  * Guards for use in Routes
@@ -62,16 +62,16 @@ export const {
   verifyUserRole: verifyUserRoleGraphQL
 } = getGraphQlGuards(guardConfig);
 
-/**
- * Applies all required auth routes
- */
-export function applyAuthRoutes(app: Koa) {
-  applyAuthRoutesWithRefreshTokens(authModuleConfig)(app);
-  // JWKS route
-  createPublicJsonWebKeySetRouteFromPrivateKey(jwksRouteConfig)(app);
-}
+// /**
+//  * Applies all required auth routes
+//  */
+// export function applyAuthRoutes(app: Koa) {
+//   applyAuthRoutesWithRefreshTokens(authModuleConfig)(app);
+//   // JWKS route
+//   createPublicJsonWebKeySetRouteFromPrivateKey(jwksRouteConfig)(app);
+// }
 
-/**
- * Auth Resolvers
- */
-export const { authResolvers } = getAuthResolvers(authModuleConfig);
+// /**
+//  * Auth Resolvers
+//  */
+// export const { authResolvers } = getAuthResolvers(authModuleConfig);

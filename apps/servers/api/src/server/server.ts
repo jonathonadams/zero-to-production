@@ -2,7 +2,9 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import { setupMiddleware } from '@uqt/api/config';
 import { applyApiEndpoints } from './api';
-import { applyAuthRoutes } from './auth/auth';
+// UQT_UPDATE
+import { applyAuthRoutes } from './auth/demo.auth';
+// import { applyAuthRoutes } from './auth/auth';
 import { dbConnection } from './db/db-connection';
 import config from '../environments';
 

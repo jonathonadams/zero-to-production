@@ -7,3 +7,9 @@ TODO
 - Change the navigation section in the TODO app because of the relative path section
 
 COLOR PALLET
+
+## API
+
+### AUTH MODULE
+
+Delete the 'demo' auth folder found here TODO and delete the `demo.auth.ts` file here TODO
