@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { TodosService } from './todos.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { JWTAuthService, IJWTPayload } from '@uqt/data-access/auth';
+import { IJWTPayload, AuthService } from '@uqt/data-access/auth';
 import { GraphQLService } from '@uqt/data-access/api';
 import { ITodo } from '@uqt/interfaces';
 import { createSpyObj } from '@app-testing/frontend/helpers';
@@ -16,9 +16,9 @@ import {
 
 describe('TodoService', () => {
   let service: TodosService;
-  let authService: JWTAuthService;
+  let authService: AuthService;
   let graphQLService: GraphQLService;
-  const authSpy = createSpyObj('JWTAuthService', ['getDecodedToken']);
+  const authSpy = createSpyObj('AuthService', ['authUserId']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,12 +26,12 @@ describe('TodoService', () => {
       providers: [
         TodosService,
         { provide: GraphQLService, useClass: GraphQLStub },
-        { provide: JWTAuthService, useValue: authSpy }
+        { provide: AuthService, useValue: authSpy }
       ]
     });
 
     service = TestBed.inject<TodosService>(TodosService);
-    authService = TestBed.inject<JWTAuthService>(JWTAuthService);
+    authService = TestBed.inject<AuthService>(AuthService);
     graphQLService = TestBed.inject<GraphQLService>(GraphQLService);
   });
 
@@ -81,11 +81,13 @@ describe('TodoService', () => {
         completed: false,
         userId: '1'
       } as ITodo;
-      authService.getDecodedToken = jest.fn(() => {
-        return {
-          sub: '1'
-        } as IJWTPayload;
+
+      Object.defineProperty(authService, 'authUserId', {
+        get: () => {
+          return '1';
+        }
       });
+
       service.createTodo(originalTodo);
 
       expect(spy).toHaveBeenCalled();

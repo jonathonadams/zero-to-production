@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { ScrollDispatcher } from '@angular/cdk/overlay';
 import {
   AnimationPlayer,
@@ -19,7 +19,7 @@ export enum ElementViewportPosition {
 @Directive({
   selector: '[animateScrollEntry]'
 })
-export class AnimateScrollEntryDirective implements OnDestroy {
+export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
   player: AnimationPlayer;
   previousPosition: ElementViewportPosition;
   animationCompleted = true;

@@ -8,7 +8,8 @@ export { AuthFacade } from './lib/+state/auth.facade';
 export {
   ILoginCredentials,
   ILoginResponse,
-  IJWTPayload
+  IJWTPayload,
+  IRegistrationDetails
 } from './lib/auth.interface';
 
 import * as AuthActions from './lib/+state/auth.actions';

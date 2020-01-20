@@ -1,21 +1,33 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExampleDisplayFormComponent } from './display.component';
+import { ExampleFormBuilderDisplayComponent } from './display.component';
+import { FormBuilderFacade } from '@uqt/data-access/form-builder';
+import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { of } from 'rxjs';
 
-describe('ExampleDisplayFormComponent', () => {
-  let component: ExampleDisplayFormComponent;
-  let fixture: ComponentFixture<ExampleDisplayFormComponent>;
+describe('ExampleFormBuilderDisplayComponent', () => {
+  let component: ExampleFormBuilderDisplayComponent;
+  let fixture: ComponentFixture<ExampleFormBuilderDisplayComponent>;
+
+  const builderSpy = {
+    selectedForm$: of(jest.fn())
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ExampleDisplayFormComponent]
+      declarations: [ExampleFormBuilderDisplayComponent],
+      providers: [
+        { provide: FormBuilderFacade, useValue: builderSpy },
+        { provide: DynamicFormFacade, useValue: {} }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExampleDisplayFormComponent);
+    fixture = TestBed.createComponent(ExampleFormBuilderDisplayComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

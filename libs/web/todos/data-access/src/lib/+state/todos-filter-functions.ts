@@ -1,7 +1,8 @@
-import curryN from 'ramda/es/curryN';
-import equals from 'ramda/es/equals';
-import or from 'ramda/es/or';
-import toLower from 'ramda/es/toLower';
+import curryN from 'ramda/src/curryN';
+import equals from 'ramda/src/equals';
+import or from 'ramda/src/or';
+import toLower from 'ramda/src/toLower';
+
 import { ITodo } from '@uqt/interfaces';
 import { TodoFilterStatus } from './todos.reducer';
 

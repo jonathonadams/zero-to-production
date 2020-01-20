@@ -19,4 +19,4 @@
 
 ### DevOps
 
-- [ ] Cloud Functions
+- [ ] Cloud Functions, and make library's reusable

@@ -1,21 +1,39 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExampleCreateFormComponent } from './create.component';
+import { ExampleFormBuilderCreateComponent } from './create.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { FormBuilderFacade } from '@uqt/data-access/form-builder';
+import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
+import { of } from 'rxjs';
 
-describe('ExampleCreateFormComponent', () => {
-  let component: ExampleCreateFormComponent;
-  let fixture: ComponentFixture<ExampleCreateFormComponent>;
+describe('ExampleFormBuilderCreateComponent', () => {
+  let component: ExampleFormBuilderCreateComponent;
+  let fixture: ComponentFixture<ExampleFormBuilderCreateComponent>;
+
+  const builderSpy = {
+    selectedForm$: jest.fn(),
+    form$: jest.fn()
+  };
+
+  const formSpy = {
+    createFormIfNotExist: jest.fn(),
+    formSubmits$: () => of(jest.fn())
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ExampleCreateFormComponent]
+      declarations: [ExampleFormBuilderCreateComponent],
+      providers: [
+        { provide: FormBuilderFacade, useValue: builderSpy },
+        { provide: DynamicFormFacade, useValue: formSpy }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExampleCreateFormComponent);
+    fixture = TestBed.createComponent(ExampleFormBuilderCreateComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

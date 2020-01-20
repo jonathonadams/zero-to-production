@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExampleFormBuilderOverviewComponent } from './overview.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ExampleFormBuilderOverviewComponent', () => {
   let component: ExampleFormBuilderOverviewComponent;
@@ -8,14 +9,14 @@ describe('ExampleFormBuilderOverviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ExampleFormBuilderOverviewComponent]
+      declarations: [ExampleFormBuilderOverviewComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ExampleFormBuilderOverviewComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

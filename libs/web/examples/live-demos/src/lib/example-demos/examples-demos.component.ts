@@ -1,7 +1,8 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ComponentFactory
+  ComponentFactory,
+  OnDestroy
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { ModuleLoaderService } from '@uqt/data-access/dynamic-module-loading';
@@ -13,7 +14,7 @@ import { ExamplesFacade, IExample } from '@uqt/examples/data-access';
   styleUrls: ['./examples-demos.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExamplesDemosComponent {
+export class ExamplesDemosComponent implements OnDestroy {
   examples: IExample[];
   sub: Subscription;
 

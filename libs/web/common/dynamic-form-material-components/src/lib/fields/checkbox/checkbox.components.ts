@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormGroupTypes, IToggleField } from '@uqt/data-access/dynamic-form';
 
 @Component({
-  selector: 'app-checkbox',
+  selector: 'uqt-form-checkbox',
   templateUrl: './checkbox.component.html',
   styles: [
     `

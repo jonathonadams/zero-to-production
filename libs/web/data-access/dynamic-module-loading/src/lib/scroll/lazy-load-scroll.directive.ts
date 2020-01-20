@@ -6,7 +6,10 @@ import {
   Input,
   ElementRef,
   QueryList,
-  ContentChildren
+  ContentChildren,
+  OnInit,
+  AfterViewInit,
+  OnDestroy
 } from '@angular/core';
 
 // UQT_UPDATE
@@ -18,7 +21,8 @@ import ResizeObserver from 'resize-observer-polyfill';
 @Directive({
   selector: '[lazyLoadScroll]'
 })
-export class LazyLoadScrollDirective {
+export class LazyLoadScrollDirective
+  implements OnInit, AfterViewInit, OnDestroy {
   private ro: ResizeObserver | undefined;
   private index = 1;
   private initLoad: boolean;

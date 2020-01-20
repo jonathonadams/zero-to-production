@@ -161,9 +161,9 @@ export type BaseComponentMap = {
   [key in FormFieldTypes]: Type<any>;
 };
 
-export type CustomComponentMap = {
+export interface CustomComponentMap {
   [key: string]: Type<any>;
-};
+}
 
 export interface DynamicFormComponentMap
   extends BaseComponentMap,

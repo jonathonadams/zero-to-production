@@ -1,5 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ExamplesDemosComponent } from './examples-demos.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ExamplesFacade } from '@uqt/examples/data-access';
+import { of } from 'rxjs';
+import { ModuleLoaderService } from '@uqt/data-access/dynamic-module-loading';
 
 describe('ExamplesDemosComponent', () => {
   let component: ExamplesDemosComponent;
@@ -7,14 +11,18 @@ describe('ExamplesDemosComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ExamplesDemosComponent]
+      declarations: [ExamplesDemosComponent],
+      providers: [
+        { provide: ExamplesFacade, useValue: { examples$: of(jest.fn()) } },
+        { provide: ModuleLoaderService, useValue: {} }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ExamplesDemosComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

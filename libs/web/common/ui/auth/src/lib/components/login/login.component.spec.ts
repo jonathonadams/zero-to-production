@@ -26,7 +26,10 @@ describe('LoginComponent', () => {
         },
         {
           provide: DynamicFormFacade,
-          useValue: { submit$: of(jest.fn()) }
+          useValue: {
+            createFormIfNotExist: jest.fn(),
+            formSubmits$: () => of(jest.fn())
+          }
         }
       ],
       declarations: [LoginComponent],

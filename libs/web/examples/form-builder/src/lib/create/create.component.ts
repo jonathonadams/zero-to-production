@@ -43,7 +43,7 @@ const STRUCTURE: TFormGroups = [
 ];
 
 @Component({
-  selector: 'uqt-example-form-builder-create',
+  selector: 'ex-example-form-builder-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

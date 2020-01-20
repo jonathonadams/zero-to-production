@@ -7,7 +7,7 @@ import {
 } from '@uqt/data-access/form-builder';
 
 @Component({
-  selector: 'uqt-example-form-builder-build',
+  selector: 'ex-example-form-builder-build',
   templateUrl: './build.component.html',
   styleUrls: ['./build.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

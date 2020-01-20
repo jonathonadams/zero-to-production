@@ -15,6 +15,6 @@ import {
   encapsulation: ViewEncapsulation.None
 })
 export class CommonUiToolbarComponent {
-  @Input() navButton: boolean = false;
+  @Input() navButton = false;
   @Output() navToggle = new EventEmitter<void>();
 }

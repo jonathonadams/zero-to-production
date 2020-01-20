@@ -9,7 +9,7 @@ import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
 import { css, ts, appInit } from './css-theming.code';
 
 @Component({
-  selector: 'example-css-theming',
+  selector: 'ex-css-theming',
   templateUrl: './css-theming.component.html',
   styleUrls: ['./css-theming.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

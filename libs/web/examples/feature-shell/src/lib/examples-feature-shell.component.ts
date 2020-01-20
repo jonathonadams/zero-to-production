@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ExamplesFacade } from '@uqt/examples/data-access';
-import { EXAMPLES } from 'libs/web/examples/data-access/src/lib/examples';
+import { ExamplesFacade, EXAMPLES } from '@uqt/examples/data-access';
 
 @Component({
   selector: 'uqt-examples-feature-shell',

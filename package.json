@@ -41,7 +41,6 @@
   },
   "lint-staged": {
     "*.ts": [
-      "npm run format:fix",
       "git add"
     ]
   },

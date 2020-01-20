@@ -7,7 +7,7 @@ import {
 } from '@uqt/data-access/dynamic-form';
 
 @Component({
-  selector: 'uqt-example-form-builder-display',
+  selector: 'ex-example-form-builder-display',
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

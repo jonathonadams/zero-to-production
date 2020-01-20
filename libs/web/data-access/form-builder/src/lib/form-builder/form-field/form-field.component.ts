@@ -32,6 +32,16 @@ export class FormBuilderFieldComponent {
   faTrash = faTrash;
   faPlus = faPlus;
 
+  inputFieldTypes = [
+    { display: 'Text', value: InputFieldTypes.Text },
+    { display: 'Email', value: InputFieldTypes.Email },
+    { display: 'Number', value: InputFieldTypes.Number },
+    { display: 'Password', value: InputFieldTypes.Password },
+    { display: 'Tel', value: InputFieldTypes.Tel },
+    { display: 'Time', value: InputFieldTypes.Time },
+    { display: 'Url', value: InputFieldTypes.Url }
+  ];
+
   @Input() form: FormGroup;
   @Input() field: AbstractControl;
   @Input() groupIndex: number;
@@ -57,16 +67,6 @@ export class FormBuilderFieldComponent {
   onClick() {
     this.showConfig = !this.showConfig;
   }
-
-  inputFieldTypes = [
-    { display: 'Text', value: InputFieldTypes.Text },
-    { display: 'Email', value: InputFieldTypes.Email },
-    { display: 'Number', value: InputFieldTypes.Number },
-    { display: 'Password', value: InputFieldTypes.Password },
-    { display: 'Tel', value: InputFieldTypes.Tel },
-    { display: 'Time', value: InputFieldTypes.Time },
-    { display: 'Url', value: InputFieldTypes.Url }
-  ];
 
   getSelectOptions(formGroup: AbstractControl) {
     return formGroup.get('selectOptions') as FormArray;

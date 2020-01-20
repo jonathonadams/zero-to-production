@@ -35,7 +35,7 @@ describe(`GraphQL / User`, () => {
 
     createdUser = await User.create(user);
     [createdUser.id, createdUser._id] = [createdUser._id, createdUser.id];
-    jwt = signTestAccessToken(createdUser, config.secrets.accessToken);
+    jwt = signTestAccessToken(createdUser, 'test-secret');
   });
 
   afterAll(async () => {

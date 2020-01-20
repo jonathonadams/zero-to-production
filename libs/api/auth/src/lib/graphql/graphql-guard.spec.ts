@@ -114,7 +114,7 @@ describe('GraphQL Auth Guards', () => {
   describe('checkTokenJWKS', () => {
     it('should call the next handler if a valid JWT is provided and signed by the JWKS', async () => {
       (koaJwtSecret as any).mockReturnValueOnce(
-        async (jwt: string) => publicKey
+        async (token: string) => publicKey
       );
 
       await expect(
@@ -131,7 +131,7 @@ describe('GraphQL Auth Guards', () => {
 
     it('should throw 401 Unauthorized if the JWT is not provided', async () => {
       (koaJwtSecret as any).mockReturnValueOnce(
-        async (jwt: string) => publicKey
+        async (token: string) => publicKey
       );
 
       await expect(
@@ -147,7 +147,7 @@ describe('GraphQL Auth Guards', () => {
     });
 
     it('should throw 401 Unauthorized if the JWKS throws', async () => {
-      (koaJwtSecret as any).mockReturnValueOnce(async (jwt: string) => {
+      (koaJwtSecret as any).mockReturnValueOnce(async (token: string) => {
         throw new Error('Error while getting JWKS');
       });
 
@@ -165,7 +165,7 @@ describe('GraphQL Auth Guards', () => {
 
     it('should throw 401 Unauthorized if the JWKS public key is incorrect', async () => {
       (koaJwtSecret as any).mockReturnValueOnce(
-        async (jwt: string) => invalidPublicKey
+        async (token: string) => invalidPublicKey
       );
 
       await expect(
@@ -182,7 +182,7 @@ describe('GraphQL Auth Guards', () => {
 
     it('should throw 401 Unauthorized if the JWT issuer is not correct', async () => {
       (koaJwtSecret as any).mockReturnValueOnce(
-        async (jwt: string) => publicKey
+        async (token: string) => publicKey
       );
 
       await expect(
@@ -199,7 +199,7 @@ describe('GraphQL Auth Guards', () => {
 
     it('should throw 401 Unauthorized if the JWT audience is not correct', async () => {
       (koaJwtSecret as any).mockReturnValueOnce(
-        async (jwt: string) => publicKey
+        async (token: string) => publicKey
       );
 
       await expect(

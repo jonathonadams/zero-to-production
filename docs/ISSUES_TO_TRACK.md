@@ -9,6 +9,9 @@ lodash-es is tree shakeable, however fails tests at the moment so install indivi
 the below issue is resolved.
 https://github.com/facebook/jest/issues/4842
 
+Change Ramda imports after jest allows native modules
+https://github.com/ramda/ramda/issues/2406
+
 ## RXJS & TypeScript Filter Issues
 
 TS does not correctly infer the types when using filters, current typescript issues

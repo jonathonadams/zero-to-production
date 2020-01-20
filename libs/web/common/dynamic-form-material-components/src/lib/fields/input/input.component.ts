@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormGroupTypes, IInputField } from '@uqt/data-access/dynamic-form';
 
 @Component({
-  selector: 'app-form-input',
+  selector: 'uqt-app-form-input',
   templateUrl: './input.component.html',
   styles: [
     `

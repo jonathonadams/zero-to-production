@@ -2,21 +2,16 @@ import { Todo } from './todo.model';
 import { newId } from '@app-testing/api/helpers';
 import { createGraphQLSpec } from '@app-testing/api/graphQLSpec';
 import { schema } from '../graphql';
-import config from '../../../environments';
+import { ITodo } from '@uqt/interfaces';
 
 const todo = {
   title: 'Some Todo',
   description: 'A todo that needs to be done',
-  user: newId()
-};
+  userId: newId()
+} as ITodo;
 
 const updatedTodo = {
   completed: true
 };
 
-createGraphQLSpec(schema, config.secrets.accessToken)(
-  Todo,
-  'Todo',
-  todo,
-  updatedTodo
-);
+createGraphQLSpec(schema)(Todo, 'Todo', todo, updatedTodo);

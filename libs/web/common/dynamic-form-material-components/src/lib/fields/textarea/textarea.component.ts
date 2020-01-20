@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormGroupTypes, ITextArea } from '@uqt/data-access/dynamic-form';
 
 @Component({
-  selector: 'app-form-textarea',
+  selector: 'uqt-app-form-textarea',
   templateUrl: './textarea.component.html',
   styles: [
     `

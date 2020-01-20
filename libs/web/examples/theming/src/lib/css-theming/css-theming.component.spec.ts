@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CssThemingComponent } from './css-theming.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ThemeService } from '@uqt/common/theme';
+import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
 
 describe('CssThemingComponent', () => {
   let component: CssThemingComponent;
@@ -8,14 +12,19 @@ describe('CssThemingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CssThemingComponent]
+      imports: [ReactiveFormsModule],
+      declarations: [CssThemingComponent],
+      providers: [
+        { provide: ThemeService, useValue: {} },
+        { provide: CodeHighlightService, useValue: {} }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CssThemingComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

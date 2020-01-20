@@ -2,7 +2,8 @@ import { Injectable, ComponentRef, Inject, Type } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 import { OverlayConfig, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
-import mapR from 'ramda/es/map';
+import mapR from 'ramda/src/map';
+// import mapR from 'ramda/es/map';
 import { FormErrorsComponent } from './form-errors.component';
 import {
   DYNAMIC_FORM_ERRORS,

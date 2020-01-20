@@ -46,9 +46,9 @@ export class FormBuilderEffects {
       ofType(FormBuilderActions.updateForm),
       mergeMap(({ form }) =>
         this.formService.updateForm(form).pipe(
-          map(form =>
+          map(updatedForm =>
             FormBuilderActions.updateFormSuccess({
-              form: { id: form.formName, changes: form }
+              form: { id: form.formName, changes: updatedForm }
             })
           ),
           catchError((error: HttpErrorResponse) =>

@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegisterComponent } from './register.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AuthFacade } from '../../+state/auth.facade';
 import { of } from 'rxjs';
 import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
+import { AuthFacade } from '@uqt/data-access/auth';
 
 // TODO -> TESTS
 describe('RegisterComponent', () => {
@@ -17,11 +17,14 @@ describe('RegisterComponent', () => {
       providers: [
         {
           provide: AuthFacade,
-          useValue: { usernameAvailability$: of(jest.fn()) }
+          useValue: {}
         },
         {
           provide: DynamicFormFacade,
-          useValue: { submit$: of(jest.fn()) }
+          useValue: {
+            createFormIfNotExist: jest.fn(),
+            formSubmits$: () => of(jest.fn())
+          }
         }
       ],
       schemas: [NO_ERRORS_SCHEMA]

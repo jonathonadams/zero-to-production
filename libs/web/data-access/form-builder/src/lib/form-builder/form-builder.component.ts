@@ -1,13 +1,16 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnInit,
+  OnDestroy
 } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Subscription, Observable } from 'rxjs';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
-import compose from 'ramda/es/compose';
+// import compose from 'ramda/es/compose';
+import compose from 'ramda/src/compose';
 import { FormBuilderConstructorService } from '../form-constructor.service';
 import { map, filter, tap, first, distinctUntilChanged } from 'rxjs/operators';
 import {
@@ -25,7 +28,7 @@ import { expandAnimation } from '../form.animation';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [expandAnimation]
 })
-export class FormBuilderComponent {
+export class FormBuilderComponent implements OnInit, OnDestroy {
   faTrash = faTrash;
 
   toolBoxGroupId: string;

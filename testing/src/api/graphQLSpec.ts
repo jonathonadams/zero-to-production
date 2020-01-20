@@ -16,10 +16,7 @@ import { signTestAccessToken } from './auth';
  * @param resourceToUpdate
  * @param testDependents
  */
-export function createGraphQLSpec<T>(
-  schema: GraphQLSchema,
-  tokenSecret: string
-) {
+export function createGraphQLSpec<T>(schema: GraphQLSchema) {
   return function(
     model: any,
     resourceName: string,
@@ -50,7 +47,7 @@ export function createGraphQLSpec<T>(
 
       beforeAll(async () => {
         ({ db, mongoServer } = await setupTestDB());
-        jwt = signTestAccessToken({ id: '1', role: 0 }, tokenSecret);
+        jwt = signTestAccessToken({ id: '1', role: 0 }, 'some-secret');
 
         resource = await model.create(resourceToCreate);
       });

@@ -121,7 +121,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       (koaJwtSecret as any).mockReturnValueOnce(
-        async (jwt: string) => publicKey
+        async (token: string) => publicKey
       );
 
       await expect(
@@ -141,7 +141,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       (koaJwtSecret as any).mockReturnValueOnce(
-        async (jwt: string) => publicKey
+        async (token: string) => publicKey
       );
 
       await expect(
@@ -160,7 +160,7 @@ describe('Rest Auth Guards', () => {
     it('should throw 401 Unauthorized if the JWKS throws', async () => {
       const nextSpy = jest.fn();
 
-      (koaJwtSecret as any).mockReturnValueOnce(async (jwt: string) => {
+      (koaJwtSecret as any).mockReturnValueOnce(async (token: string) => {
         throw new Error('Error while getting JWKS');
       });
 
@@ -181,7 +181,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       (koaJwtSecret as any).mockReturnValueOnce(
-        async (jwt: string) => invalidPublicKey
+        async (token: string) => invalidPublicKey
       );
 
       await expect(
@@ -201,7 +201,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       (koaJwtSecret as any).mockReturnValueOnce(
-        async (jwt: string) => publicKey
+        async (token: string) => publicKey
       );
 
       await expect(
@@ -221,7 +221,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       (koaJwtSecret as any).mockReturnValueOnce(
-        async (jwt: string) => publicKey
+        async (token: string) => publicKey
       );
 
       await expect(
