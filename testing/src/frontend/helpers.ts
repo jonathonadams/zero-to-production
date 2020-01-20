@@ -17,7 +17,7 @@ export function asyncError<T>(errorObject: any) {
 export const createSpyObj = (
   baseName: string,
   methodNames: string[]
-): { [key: string]: any } => {
+): { [key: string]: jest.Mock<any, any> } => {
   const obj: any = {};
 
   for (let i = 0; i < methodNames.length; i++) {

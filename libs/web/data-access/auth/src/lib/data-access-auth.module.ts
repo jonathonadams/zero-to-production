@@ -20,9 +20,9 @@ import { ErrorInterceptor } from './interceptors/error-interceptor';
 export class RootDataAccessAuthModule {}
 
 export class DataAccessAuthModule {
-  static forRoot({
-    authServerUrl = ''
-  }): ModuleWithProviders<DataAccessAuthModule> {
+  static forRoot({ authServerUrl = '' } = {}): ModuleWithProviders<
+    DataAccessAuthModule
+  > {
     return {
       ngModule: RootDataAccessAuthModule,
       providers: [

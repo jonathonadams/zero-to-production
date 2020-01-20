@@ -2,14 +2,19 @@ import { TestBed } from '@angular/core/testing';
 import { LoggedInGuard } from './logged-in.guard';
 import { AuthService } from '../services/auth.service';
 import { AuthFacade } from '../+state/auth.facade';
+import { of } from 'rxjs';
+import { cold } from 'jest-marbles';
 
 describe('LoggedInGuard', () => {
   let loggedInGuard: LoggedInGuard;
   let authService: AuthService;
   let authFacade: AuthFacade;
 
-  const authFacadeSpy = { loginRedirect: jest.fn() };
-  const authServiceSpy = { checkUserIsLoggedIn: jest.fn() };
+  const authFacadeSpy = {
+    loginRedirect: jest.fn(),
+    isAuthenticated$: of(jest.fn())
+  };
+  const authServiceSpy = { isLoggedIn: jest.fn() };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,22 +30,39 @@ describe('LoggedInGuard', () => {
     authFacade = TestBed.inject<AuthFacade>(AuthFacade);
   });
 
-  it('should check if the user is logged in and dispatch a LoginRedirect if they are', () => {
-    const spy = jest.spyOn(authFacade, 'loginRedirect');
+  it('should call the AuthService.isLoggedIn method', () => {
+    const authSpy = jest.spyOn(authService, 'isLoggedIn');
+    jest.resetAllMocks();
 
-    authService.checkUserIsLoggedIn = jest.fn(() => true);
+    loggedInGuard.canActivate();
 
-    expect(loggedInGuard.canActivate()).toEqual(false);
-    expect(spy).toHaveBeenCalled();
-    spy.mockReset();
+    expect(authSpy).toHaveBeenCalled();
   });
 
-  it('should allow access if the user is not logged in', () => {
+  it('should call the AuthFacade.loginRedirect if authenticated', () => {
     const spy = jest.spyOn(authFacade, 'loginRedirect');
-    authService.checkUserIsLoggedIn = jest.fn(() => false);
+    authFacade.isAuthenticated$ = of(true);
 
-    expect(loggedInGuard.canActivate()).toEqual(true);
-    expect(spy).not.toHaveBeenCalled();
-    spy.mockReset();
+    jest.resetAllMocks();
+
+    loggedInGuard.canActivate().subscribe();
+
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should not allow access if the user is authenticated', () => {
+    authFacade.isAuthenticated$ = of(true);
+
+    const completion = cold('(a|)', { a: false });
+
+    expect(loggedInGuard.canActivate()).toBeObservable(completion);
+  });
+
+  it('should allow access if the user is unauthenticated', () => {
+    authFacade.isAuthenticated$ = of(false);
+
+    const completion = cold('(a|)', { a: true });
+
+    expect(loggedInGuard.canActivate()).toBeObservable(completion);
   });
 });

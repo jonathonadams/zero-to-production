@@ -11,8 +11,11 @@ import { AuthService } from '../services/auth.service';
 describe('AuthInterceptor', () => {
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
-  let authServiceSpy: AuthService;
-  const authSpy = { getAuthorizationToken: jest.fn() };
+  let authService: AuthService;
+
+  const authSpy = {
+    authToken: jest.fn()
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -31,13 +34,18 @@ describe('AuthInterceptor', () => {
     httpTestingController = TestBed.inject(
       HttpTestingController as Type<HttpTestingController>
     );
-    authServiceSpy = TestBed.inject<AuthService>(AuthService);
+    authService = TestBed.inject<AuthService>(AuthService);
   });
 
   it('should add a Bearer token to the Authorization header of all outgoing request', () => {
     const token = 'TOKEN';
 
-    jest.spyOn(authServiceSpy, 'authToken', 'get').mockReturnValue(token);
+    Object.defineProperty(authService, 'authToken', {
+      get: () => {
+        return token;
+      }
+    });
+
     const someData = { data: 'someData ' };
 
     // Make an HTTP GET request
@@ -65,7 +73,12 @@ describe('AuthInterceptor', () => {
   });
 
   it('should not have an Authorization header if their is no auth token', () => {
-    jest.spyOn(authServiceSpy, 'authToken', 'get').mockReturnValue(null);
+    Object.defineProperty(authService, 'authToken', {
+      get: () => {
+        return null;
+      }
+    });
+
     const someData = { data: 'someData ' };
 
     // Make an HTTP GET request

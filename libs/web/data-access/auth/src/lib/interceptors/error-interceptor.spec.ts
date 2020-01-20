@@ -8,7 +8,7 @@ import { AuthFacade } from '../+state/auth.facade';
 import { Type } from '@angular/core';
 import { ErrorInterceptor } from './error-interceptor';
 
-describe('AuthInterceptor', () => {
+describe('ErrorInterceptor', () => {
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
   let authFacade: AuthFacade;

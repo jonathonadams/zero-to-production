@@ -38,7 +38,9 @@ export class AuthEffects {
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loginSuccess),
-      tap(loginResponse => this.authService.setSession(loginResponse)),
+      tap(({ token, expiresIn }) =>
+        this.authService.setSession({ token, expiresIn })
+      ),
       map(() => AuthActions.loginRedirect())
     )
   );

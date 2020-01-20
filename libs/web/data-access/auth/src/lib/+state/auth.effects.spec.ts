@@ -18,8 +18,8 @@ describe('AuthEffects', () => {
   const authSpy = createSpyObj('AuthService', [
     'login',
     'register',
-    'setAuthorizationToken',
-    'removeAuthorizationToken'
+    'setSession',
+    'removeSession'
   ]);
 
   beforeEach(() => {
@@ -40,12 +40,15 @@ describe('AuthEffects', () => {
     it('should return an LoginSuccess action with token', () => {
       const credentials: ILoginCredentials = { username: 'test', password: '' };
       const token = 'JWT.TOKEN';
+      const expiresIn = 1234;
       const action = AuthActions.login(credentials);
-      const completion = AuthActions.loginSuccess({ token });
+      const completion = AuthActions.loginSuccess({ token, expiresIn });
 
       actions$ = hot('-a---', { a: action });
       // Example graphql response below
-      const response = cold('-a|', { a: { data: { login: { token } } } });
+      const response = cold('-a|', {
+        a: { data: { login: { token, expiresIn } } }
+      });
       const expected = cold('--b', { b: completion });
       authService.login = jest.fn(() => response);
 
@@ -79,7 +82,8 @@ describe('AuthEffects', () => {
   describe('loginSuccess$', () => {
     it('should dispatch a LoginRedirect action', () => {
       const token = 'JWT.TOKEN';
-      const action = AuthActions.loginSuccess({ token });
+      const expiresIn = 1234;
+      const action = AuthActions.loginSuccess({ token, expiresIn });
       const completion = AuthActions.loginRedirect();
 
       actions$ = hot('-a---', { a: action });
@@ -88,17 +92,18 @@ describe('AuthEffects', () => {
       expect(effects.loginSuccess$).toBeObservable(expected);
     });
 
-    it('should invoke the AuthService.setAuthorizationToken with the access token', done => {
-      const spy = jest.spyOn(authService, 'setAuthToken');
+    it('should invoke the AuthService.setSession with the access token', done => {
+      const spy = jest.spyOn(authService, 'setSession');
       spy.mockReset();
       const token = 'JWT.TOKEN';
-      const action = AuthActions.loginSuccess({ token });
+      const expiresIn = 1234;
+      const action = AuthActions.loginSuccess({ token, expiresIn });
 
       actions$ = hot('-a---', { a: action });
 
       effects.loginSuccess$.subscribe(someAction => {
         expect(spy).toHaveBeenCalled();
-        expect(spy).toHaveBeenCalledWith(token);
+        expect(spy).toHaveBeenCalledWith({ token, expiresIn });
         done();
       });
 
@@ -197,8 +202,8 @@ describe('AuthEffects', () => {
       expect(effects.logout$).toBeObservable(expected);
     });
 
-    it('should call the AuthService.removeAuthorizationToken with the returned token', done => {
-      const spy = jest.spyOn(authService, 'removeAuthorizationToken');
+    it('should call the AuthService.removeSession with the returned token', done => {
+      const spy = jest.spyOn(authService, 'removeSession');
       spy.mockReset();
       const action = AuthActions.logout();
 

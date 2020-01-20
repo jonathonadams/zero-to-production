@@ -79,40 +79,9 @@ export class AuthService {
     );
   }
 
-  // setAuthToken(token: string): void {
-  //   localStorage.setItem(this.storageKey, token);
-  // }
-
   get authToken(): string | null {
     return localStorage.getItem(this.storageKey);
   }
-
-  // Checks if the user is logged in
-  // checkUserIsLoggedIn(): boolean {
-  //   const token = this.authToken;
-  //   return token && this.checkTokenIsValid(token) ? true : false;
-  // }
-
-  // removeToken(): void {
-  //   localStorage.removeItem(this.storageKey);
-  // }
-
-  // decodeToken(token: string): IJWTPayload {
-  //   return jwtDecode<IJWTPayload>(token);
-  // }
-
-  // get decodedToken(): IJWTPayload | undefined {
-  //   const token = this.authToken;
-  //   if (token !== null) {
-  //     return this.decodeToken(token);
-  //   }
-  // }
-
-  // checkTokenIsValid(token: string): boolean {
-  //   const now = Math.floor(Date.now() / 1000);
-  //   const expTime: number = this.decodeToken(token).exp;
-  //   return now < expTime ? true : false;
-  // }
 
   setSession({ token, expiresIn }: ILoginResponse): void {
     const expiresAt = secondsToExpiresAtMillis(expiresIn);
@@ -133,20 +102,23 @@ export class AuthService {
    */
   public isLoggedIn(): void {
     const expiration = this.expiration;
-    if (expiration) {
-      const isAuthenticated: boolean = new Date().valueOf() < expiration;
-      if (isAuthenticated) {
-        this.facade.setAuthenticated(isAuthenticated, expiration);
-      } else {
-        this.removeSession();
-        this.facade.setAuthenticated(isAuthenticated, null);
-      }
+    const auth = expiration ? this.isAuthenticated(expiration) : false;
+
+    if (auth) {
+      this.facade.setAuthenticated(true, expiration);
+    } else {
+      this.removeSession();
+      this.facade.setAuthenticated(false, null);
     }
   }
 
   private get expiration(): number | null {
-    const expiresAt: string | null = localStorage.getItem(this.sessionKey);
-    return expiresAt ? Number(expiresAt) : null;
+    const expiration: string | null = localStorage.getItem(this.sessionKey);
+    return expiration ? Number(expiration) : null;
+  }
+
+  private isAuthenticated(expiration: number): boolean {
+    return new Date().valueOf() < expiration;
   }
 
   get authUserId(): string | null {
