@@ -1,8 +1,13 @@
 import { Todo } from './todo.model';
 import { newId } from '@app-testing/api/helpers';
-import { createGraphQLSpec } from '@app-testing/api/graphQLSpec';
-import { schema } from '../graphql';
 import { ITodo } from '@uqt/interfaces';
+import { createGraphQLSpec } from '@app-testing/api/graphQLSpec';
+import config from '../../../environments/index';
+import { schema } from '../graphql';
+
+const tokenConfig = {
+  ...config.auth.accessToken
+};
 
 const todo = {
   title: 'Some Todo',
@@ -14,4 +19,4 @@ const updatedTodo = {
   completed: true
 };
 
-createGraphQLSpec(schema)(Todo, 'Todo', todo, updatedTodo);
+createGraphQLSpec(schema, tokenConfig)(Todo, 'Todo', todo, updatedTodo);
