@@ -14,7 +14,7 @@ import {
   IDynamicFormConfig
 } from '@uqt/data-access/dynamic-form';
 import { Validators } from '@angular/forms';
-import { faEdit, faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
 
 const STRUCTURE: TFormGroups = [
   {

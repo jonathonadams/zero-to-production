@@ -1,16 +1,127 @@
-// it('should invoke the NotificationService.emit() with a welcome message', done => {
-//     const spy = jest.spyOn(ns, 'emit');
-//     spy.mockReset();
-//     const action = AuthActions.registerSuccess({ user: {} as IUser });
+import { TestBed } from '@angular/core/testing';
+import { Observable } from 'rxjs';
+import { Actions } from '@ngrx/effects';
+import { hot, Scheduler } from 'jest-marbles';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { createSpyObj } from '@app-testing/frontend/helpers';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AppEffects } from './app.effects';
+import { NotificationService } from '@uqt/utils/notifications';
+import { Router } from '@angular/router';
+import { AuthActions } from '@uqt/data-access/auth';
 
-//     actions$ = hot('-a---', { a: action });
+describe('AppEffects', () => {
+  let effects: AppEffects;
+  let actions$: Observable<any>;
+  let router: Router;
+  let ns: NotificationService;
+  const nsSpy = createSpyObj('NotificationService', ['emit']);
 
-//     effects.registerSuccess$.subscribe(someAction => {
-//       expect(spy).toHaveBeenCalled();
-//       done();
-//     });
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
+      providers: [
+        AppEffects,
+        { provide: NotificationService, useValue: nsSpy },
+        provideMockActions(() => actions$)
+      ]
+    });
 
-//     Scheduler.get().flush();
+    effects = TestBed.inject<AppEffects>(AppEffects);
+    actions$ = TestBed.inject<Actions>(Actions);
+    router = TestBed.inject<Router>(Router);
+    ns = TestBed.inject<NotificationService>(NotificationService);
+  });
 
-//     spy.mockReset();
-//   });
+  describe('loginRedirect$', () => {
+    it('should navigate to "/home"', () => {
+      const spy = jest.spyOn(router, 'navigate');
+      const action = AuthActions.loginRedirect();
+
+      actions$ = hot('-a---', { a: action });
+
+      effects.loginRedirects$.subscribe();
+
+      Scheduler.get().flush();
+
+      expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith(['home']);
+
+      spy.mockReset();
+    });
+  });
+
+  describe('registerRedirect$', () => {
+    it('should navigate to "/register"', () => {
+      const spy = jest.spyOn(router, 'navigate');
+      const action = AuthActions.registerRedirect();
+
+      actions$ = hot('-a---', { a: action });
+
+      effects.registerRedirect$.subscribe();
+
+      Scheduler.get().flush();
+
+      expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith(['register']);
+
+      spy.mockReset();
+    });
+  });
+
+  describe('logoutRedirect$', () => {
+    it('should navigate to "/login"', () => {
+      const spy = jest.spyOn(router, 'navigate');
+      const action = AuthActions.logoutRedirect();
+
+      actions$ = hot('-a---', { a: action });
+
+      effects.logoutRedirect$.subscribe();
+
+      Scheduler.get().flush();
+
+      expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith(['login']);
+
+      spy.mockReset();
+    });
+  });
+
+  describe('loginFailure$', () => {
+    it('should notify the user of login failure', () => {
+      const routerSpy = jest.spyOn(router, 'navigate');
+      const spy = jest.spyOn(ns, 'emit');
+      const action = AuthActions.loginFailure({ error: 'Nope!!' });
+
+      actions$ = hot('-a---', { a: action });
+
+      effects.loginFailure$.subscribe();
+
+      Scheduler.get().flush();
+
+      expect(spy).toHaveBeenCalled();
+
+      spy.mockReset();
+      routerSpy.mockReset();
+    });
+  });
+
+  describe('registerSuccess$', () => {
+    it('should notify the user of successful registration', () => {
+      const routerSpy = jest.spyOn(router, 'navigate');
+      const spy = jest.spyOn(ns, 'emit');
+      const action = AuthActions.registerSuccess({ user: {} as any });
+
+      actions$ = hot('-a---', { a: action });
+
+      effects.registerSuccess$.subscribe();
+
+      Scheduler.get().flush();
+
+      expect(spy).toHaveBeenCalled();
+
+      spy.mockReset();
+      routerSpy.mockReset();
+    });
+  });
+});

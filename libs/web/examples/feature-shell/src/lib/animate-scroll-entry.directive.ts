@@ -127,8 +127,8 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
 
   private spinInto(): AnimationMetadata[] {
     // sudo random number between 0 and 0.5
-    const delay = (Math.random() / 2).toFixed(2);
-    const timing = (0.5 + Math.random()).toFixed(2);
+    const delay = (Math.random() / 4).toFixed(2);
+    const timing = (0.5 + Math.random() / 2).toFixed(2);
     const sequence = `${timing}s ${delay}s cubic-bezier(.37,.63,.31,.9)`;
     return [
       animate(

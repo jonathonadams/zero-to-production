@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ExamplesFeatureShellRoutingModule } from './examples-feature-shell-routing.module';
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
 import { CommonUiToolbarModule } from '@uqt/common/ui/toolbar';
-import { CommonUiCardModule } from '@uqt/common/ui/card';
+import { CommonUiCardModule } from '@uqt/web/common/ui/card';
 import { ExampleComponent } from './example/example.component';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { ExamplesDataAccessModule } from '@uqt/examples/data-access';

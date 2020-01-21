@@ -1,1 +1,1 @@
-export * from './lib/web-examples-live-demos.module';
+export { WebExamplesLiveDemosModule } from './lib/web-examples-live-demos.module';

@@ -17,6 +17,9 @@
   overflow: visible;
   .logo {
     cursor: pointer;
-    height: 3em;
+    height: 2.5em;
+    > * {
+      height: 100%;
+    }
   }
 }

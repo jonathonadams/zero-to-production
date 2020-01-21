@@ -1,13 +1,10 @@
 <h3>Customize your theme</h3>
 <p>
   Using CSS variables is pretty straight forward. Define your CSS variables in
-  your stylesheet and use them in your them in your component styles.
+  your stylesheet and use them in your component styles.
 </p>
-<section class="variables">
+<aside class="variables">
   <form [formGroup]="form">
-    <button mat-raised-button type="button" (click)="resetTheme()">
-      Reset Theme
-    </button>
     <mat-form-field>
       <mat-label>Light Primary</mat-label>
       <input matInput type="color" formControlName="lightPrimary" />
@@ -24,8 +21,11 @@
       <mat-label>Dark Accent</mat-label>
       <input matInput type="color" formControlName="darkAccent" />
     </mat-form-field>
+    <button mat-raised-button type="button" (click)="resetTheme()">
+      Reset Theme
+    </button>
   </form>
-</section>
+</aside>
 <pre><code class="language-css">{{ css }}</code></pre>
 <p>Create a ThemeService to set the CSS variables.</p>
 <pre><code class="language-ts">{{ ts }}</code></pre>

@@ -48,7 +48,7 @@
         "libs/web/examples/form-builder/src/index.ts"
       ],
       "@uqt/examples/theming": ["libs/web/examples/theming/src/index.ts"],
-      "@uqt/common/ui/card": ["libs/web/common/ui/card/src/index.ts"],
+      "@uqt/web/common/ui/card": ["libs/web/common/ui/card/src/index.ts"],
       "@uqt/common/dynamic-form-material-components": [
         "libs/web/common/dynamic-form-material-components/src/index.ts"
       ],

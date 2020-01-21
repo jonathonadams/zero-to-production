@@ -9,7 +9,6 @@ import { ExampleFormBuilderDisplayComponent } from './display/display.component'
 import { ExampleFormBuilderBuildComponent } from './build/build.component';
 import { ExampleFormBuilderOverviewComponent } from './overview/overview.component';
 import { DataAccessFormBuilderModule } from '@uqt/data-access/form-builder';
-// import { TempRoutingModule } from './temp-routing.module';
 
 const COMPONENTS = [
   ExampleFormBuilderCreateComponent,
@@ -27,7 +26,6 @@ const COMPONENTS = [
     CustomMaterialModule,
     DynamicFormModule,
     DataAccessFormBuilderModule
-    // TempRoutingModule // TODO -> Delete
   ]
 })
 export class WebExamplesFormBuilderModule {

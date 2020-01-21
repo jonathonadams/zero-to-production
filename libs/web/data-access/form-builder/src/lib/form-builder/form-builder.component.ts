@@ -9,8 +9,6 @@ import { FormGroup, FormArray } from '@angular/forms';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Subscription, Observable } from 'rxjs';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
-// import compose from 'ramda/es/compose';
-import compose from 'ramda/src/compose';
 import { FormBuilderConstructorService } from '../form-constructor.service';
 import { map, filter, tap, first, distinctUntilChanged } from 'rxjs/operators';
 import {
@@ -134,7 +132,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   }
 
   formFieldDropped(event: CdkDragDrop<FormGroup[]>) {
-    const currentGroupIndex = getFormGroupIndex(event.container.id);
+    const currentGroupIndex = Number(
+      getStringLastCharacter(event.container.id)
+    );
     const currentGroup = this.getGroupFields(currentGroupIndex);
 
     if (event.previousContainer.id === this.toolBoxFieldId) {
@@ -151,8 +151,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           event.currentIndex
         );
       } else {
-        const previousGroupIndex = getFormGroupIndex(
-          event.previousContainer.id
+        const previousGroupIndex = Number(
+          getStringLastCharacter(event.previousContainer.id)
         );
         const previousGroup = this.getGroupFields(previousGroupIndex);
 
@@ -198,8 +198,6 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     if (this.sub) this.sub.unsubscribe();
   }
 }
-
-const getFormGroupIndex = compose(Number, getStringLastCharacter);
 
 function getStringLastCharacter(string: string) {
   return string.substring(string.length - 1);

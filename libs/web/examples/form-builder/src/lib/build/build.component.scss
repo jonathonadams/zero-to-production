@@ -3,17 +3,14 @@
   flex-direction: row;
   justify-content: stretch;
 
-  //   @media screen and (max-width: 600px) {
-  //     flex-direction: column;
-  //   }
-
-  .toolbox {
-    margin-right: 1em;
+  @media screen and (max-width: 599px) {
+    flex-direction: column;
   }
 
-  .form-builder {
-    padding-left: 1em;
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-    flex: 1;
+  @media screen and (min-width: 600px) {
+    .form-builder {
+      padding-left: 1em;
+      flex: 1;
+    }
   }
 }

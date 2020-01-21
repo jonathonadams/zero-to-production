@@ -31,7 +31,7 @@ export class LazyLoadScrollDirective
    * @required
    */
   @Input() modules: number | undefined;
-  @Input() loadThreshold: number | undefined; // pixels until next load
+  @Input() loadThreshold: number = 1000; // pixels until next load
   @Output() loadIndex = new EventEmitter<number>();
 
   @ContentChildren('lazyItem') children: QueryList<ElementRef>;
@@ -69,6 +69,7 @@ export class LazyLoadScrollDirective
   scroll(event: Event) {
     if (this.modules) {
       // pixelsFromBottom = totalHeight - clientHeight - scrollTopPosition;
+
       const totalHeight = (event.target as HTMLElement).scrollHeight;
       const scrollTopPosition = (event.target as HTMLElement).scrollTop;
       const clientHeight = (event.target as HTMLElement).clientHeight;
@@ -77,7 +78,7 @@ export class LazyLoadScrollDirective
 
       if (
         !this.initLoad &&
-        pixelsFromBottom < (this.loadThreshold || 500) && // default 400 px
+        pixelsFromBottom < this.loadThreshold && // default 400 px
         this.index <= this.modules - 1
       ) {
         this.loadIndex.emit(this.index);
