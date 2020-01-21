@@ -4,7 +4,6 @@ import { Actions } from '@ngrx/effects';
 import { hot, Scheduler } from 'jest-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { createSpyObj } from '@app-testing/frontend/helpers';
-import { RouterTestingModule } from '@angular/router/testing';
 import { AppEffects } from './app.effects';
 import { NotificationService } from '@uqt/utils/notifications';
 import { Router } from '@angular/router';
@@ -19,9 +18,9 @@ describe('AppEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
       providers: [
         AppEffects,
+        { provide: Router, useValue: { navigate: jest.fn() } },
         { provide: NotificationService, useValue: nsSpy },
         provideMockActions(() => actions$)
       ]
@@ -36,6 +35,7 @@ describe('AppEffects', () => {
   describe('loginRedirect$', () => {
     it('should navigate to "/home"', () => {
       const spy = jest.spyOn(router, 'navigate');
+      spy.mockReset();
       const action = AuthActions.loginRedirect();
 
       actions$ = hot('-a---', { a: action });
@@ -46,14 +46,14 @@ describe('AppEffects', () => {
 
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith(['home']);
-
-      spy.mockReset();
     });
   });
 
   describe('registerRedirect$', () => {
     it('should navigate to "/register"', () => {
       const spy = jest.spyOn(router, 'navigate');
+      spy.mockReset();
+
       const action = AuthActions.registerRedirect();
 
       actions$ = hot('-a---', { a: action });
@@ -64,14 +64,13 @@ describe('AppEffects', () => {
 
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith(['register']);
-
-      spy.mockReset();
     });
   });
 
   describe('logoutRedirect$', () => {
     it('should navigate to "/login"', () => {
       const spy = jest.spyOn(router, 'navigate');
+      spy.mockReset();
       const action = AuthActions.logoutRedirect();
 
       actions$ = hot('-a---', { a: action });
@@ -82,8 +81,6 @@ describe('AppEffects', () => {
 
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith(['login']);
-
-      spy.mockReset();
     });
   });
 
@@ -91,6 +88,8 @@ describe('AppEffects', () => {
     it('should notify the user of login failure', () => {
       const routerSpy = jest.spyOn(router, 'navigate');
       const spy = jest.spyOn(ns, 'emit');
+      jest.resetAllMocks();
+
       const action = AuthActions.loginFailure({ error: 'Nope!!' });
 
       actions$ = hot('-a---', { a: action });
@@ -100,9 +99,6 @@ describe('AppEffects', () => {
       Scheduler.get().flush();
 
       expect(spy).toHaveBeenCalled();
-
-      spy.mockReset();
-      routerSpy.mockReset();
     });
   });
 
@@ -110,6 +106,7 @@ describe('AppEffects', () => {
     it('should notify the user of successful registration', () => {
       const routerSpy = jest.spyOn(router, 'navigate');
       const spy = jest.spyOn(ns, 'emit');
+      jest.resetAllMocks();
       const action = AuthActions.registerSuccess({ user: {} as any });
 
       actions$ = hot('-a---', { a: action });
@@ -119,9 +116,6 @@ describe('AppEffects', () => {
       Scheduler.get().flush();
 
       expect(spy).toHaveBeenCalled();
-
-      spy.mockReset();
-      routerSpy.mockReset();
     });
   });
 });
