@@ -19,7 +19,7 @@ import {
 import ResizeObserver from 'resize-observer-polyfill';
 
 @Directive({
-  selector: '[lazyLoadScroll]'
+  selector: '[uqtLazyLoadScroll]'
 })
 export class LazyLoadScrollDirective
   implements OnInit, AfterViewInit, OnDestroy {
@@ -31,7 +31,7 @@ export class LazyLoadScrollDirective
    * @required
    */
   @Input() modules: number | undefined;
-  @Input() loadThreshold: number = 1000; // pixels until next load
+  @Input() loadThreshold = 1000; // pixels until next load
   @Output() loadIndex = new EventEmitter<number>();
 
   @ContentChildren('lazyItem') children: QueryList<ElementRef>;

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnInit } from '@angular/core';
 import {
   AnimationBuilder,
   AnimationPlayer,
@@ -8,9 +8,9 @@ import {
 } from '@angular/animations';
 
 @Directive({
-  selector: '[raised-button]'
+  selector: '[uqt-raised-button]'
 })
-export class RaisedButtonDirective {
+export class RaisedButtonDirective implements OnInit {
   player: AnimationPlayer;
 
   constructor(private builder: AnimationBuilder, private el: ElementRef) {}

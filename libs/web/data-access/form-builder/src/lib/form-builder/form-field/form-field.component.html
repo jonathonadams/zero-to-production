@@ -11,7 +11,7 @@
             <div class="action-buttons">
               <button
                 type="button"
-                icon-button
+                uqt-icon-button
                 (click)="
                   remove.emit({
                     groupIndex: groupIndex,
@@ -76,7 +76,7 @@
                   <h5 class="options-heading">Select Options</h5>
                   <button
                     type="button"
-                    raised-button
+                    uqt-raised-button
                     (click)="
                       addSelectOption.emit({
                         groupIndex: groupIndex,
@@ -124,7 +124,7 @@
                     </ng-container>
                     <button
                       type="button"
-                      icon-button
+                      uqt-icon-button
                       (click)="
                         deleteSelectOption.emit({
                           groupIndex: groupIndex,

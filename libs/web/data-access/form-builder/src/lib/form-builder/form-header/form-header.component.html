@@ -1,7 +1,7 @@
 <div class="header" (click)="showConfig = !showConfig">
   <h3>{{ form.value.config.formName | uppercase }}</h3>
   <div class="action-buttons">
-    <button icon-button type="submit" (click)="$event.stopPropagation()">
+    <button uqt-icon-button type="submit" (click)="$event.stopPropagation()">
       <fa-icon [icon]="save" size="2x"></fa-icon>
     </button>
   </div>

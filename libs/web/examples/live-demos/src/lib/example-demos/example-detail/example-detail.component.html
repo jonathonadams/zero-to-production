@@ -4,6 +4,9 @@
     <p>{{ example?.description }}</p>
   </header>
   <aside class="example-demonstration">
-    <ng-container factoryRenderer [componentFactory]="factory"></ng-container>
+    <ng-container
+      uqtFactoryRenderer
+      [componentFactory]="factory"
+    ></ng-container>
   </aside>
 </article>
