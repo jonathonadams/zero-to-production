@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
 import { runQuery, setupTestDB } from '@app-testing/api/helpers';
@@ -8,11 +7,13 @@ import { User } from './user.model';
 import { schema } from '../graphql';
 import config from '../../../environments';
 import { IUser } from '@uqt/interfaces';
+import ApiServer from '../../server';
+import { Server } from 'http';
 
 //Need to import and run the server because
 // the server is also our "auth server"
 // and the Auth guard needs to be able to retrieve the JWKS
-import { server } from '../../../main';
+const server = new ApiServer();
 
 const tokenConfig = {
   ...config.auth.accessToken
@@ -35,12 +36,14 @@ const updatedUser = { username: 'updated user' };
 describe(`GraphQL / User`, () => {
   // let connection: mongoose.Connection;
   let mongoServer: MongoMemoryServer;
-  let db: mongoose.Mongoose;
+  let dbUri: string;
   let createdUser: IUserDocument;
   let jwt: string;
+  let testServer: Server;
 
   beforeAll(async () => {
-    ({ db, mongoServer } = await setupTestDB());
+    ({ dbUri, mongoServer } = await setupTestDB());
+    testServer = await server.initializeServer(dbUri);
 
     createdUser = await User.create(user);
     [createdUser.id, createdUser._id] = [createdUser._id, createdUser.id];
@@ -48,10 +51,7 @@ describe(`GraphQL / User`, () => {
   });
 
   afterAll(async () => {
-    await new Promise((resolve, reject) => {
-      server.close(resolve);
-    });
-    await db.disconnect();
+    testServer.close();
     await mongoServer.stop();
   });
 

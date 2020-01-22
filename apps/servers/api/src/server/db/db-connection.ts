@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import { ServerConfig } from '@uqt/api/config';
 
-export function dbConnection(config: ServerConfig) {
-  const url = createMongoConnectionString(config);
+export function dbConnection(config: ServerConfig, dbUrl?: string) {
+  const url = dbUrl ? dbUrl : createMongoConnectionString(config);
 
   return mongoose.connect(url, config.databaseOptions).catch((err: any) => {
     console.error('There was an error connecting to the DataBase');

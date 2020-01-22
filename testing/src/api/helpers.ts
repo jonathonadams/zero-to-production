@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { ObjectId } from 'mongodb';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { graphql, GraphQLSchema } from 'graphql';
 
@@ -55,24 +54,13 @@ export const runQuery = function(schema: GraphQLSchema) {
  * Helper function to setup Mongo Memory server
  */
 export async function setupTestDB(): Promise<{
-  db: mongoose.Mongoose;
+  dbUri: string;
   mongoServer: MongoMemoryServer;
 }> {
   const mongoServer = new MongoMemoryServer();
   const mongoUri: string = await mongoServer.getConnectionString();
-  const mongooseOpts: mongoose.ConnectionOptions = {
-    promiseLibrary: Promise,
-    autoReconnect: true,
-    reconnectTries: Number.MAX_VALUE,
-    reconnectInterval: 1000,
-    useNewUrlParser: true
-  };
-
-  const db: mongoose.Mongoose = await mongoose.connect(mongoUri, mongooseOpts);
-  console.log(`MongoDB successfully connected to ${mongoUri}`);
-
   return {
-    db: db,
+    dbUri: mongoUri,
     mongoServer: mongoServer
   };
 }

@@ -1,5 +1,7 @@
+import { createServer } from 'http';
 import Koa from 'koa';
 import Router from 'koa-router';
+import { apolloServer } from './api/graphql';
 import { setupMiddleware } from '@uqt/api/config';
 import { applyApiEndpoints } from './api';
 // UQT_UPDATE
@@ -7,31 +9,35 @@ import { applyAuthRoutes } from './auth/demo.auth';
 // import { applyAuthRoutes } from './auth/auth';
 import { dbConnection } from './db/db-connection';
 import config from '../environments';
+import { Mongoose } from 'mongoose';
 
 /**
  * Crates a new API Server
  */
 export default class ApiServer {
   /**
-   * Instantiate a new API Server
-   * @constructor
-   * @param {Koa} app an instance of a koa server
-   * @param {Router} router an instance of a koa-router
-   */
-  constructor(private app: Koa, private router: Router) {
-    this.setupServer(app, router);
-  }
-
-  /**
    * Sets up all the server configuration and applies the routes
    * @param {Koa} app an instance of a koa server
-   * @param {Router} router an instance of a koa-router
+  /**
+   *
+   *
+   * @param {string} [dbUrl]
+   * @returns
+   * @memberof ApiServer
    */
-  setupServer(app: Koa, router: Router) {
+  async initializeServer(dbUrl?: string) {
+    const app = new Koa();
+    const router = new Router();
+
+    // UQT_UPDATE -> This might not be appropriate for your specific needs
+    // Set the proxy to true if in production mode as it will be hosted behind a revers
+    // proxy such as Nginx or Traefik
+    app.proxy = config.production;
+
     /**
-     * Start the db connection
+     * Start the db connection, optionally pass in the connection url
      */
-    dbConnection(config);
+    const db: Mongoose = (await dbConnection(config, dbUrl)) as Mongoose;
 
     /**
      * Setup all the required middleware for the app
@@ -49,12 +55,6 @@ export default class ApiServer {
     applyAuthRoutes(app);
 
     /**
-     * Apply the routes
-     */
-    app.use(router.routes());
-    app.use(router.allowedMethods());
-
-    /**
      * Health check for kubernetes on google cloud
      *
      * Container must return status 200 on a designated health route. In k8's the default route is '/'
@@ -64,14 +64,26 @@ export default class ApiServer {
       ctx.status = 200;
     });
 
-    return app.callback();
-  }
+    /**
+     * Apply the routes
+     */
+    app.use(router.routes());
+    app.use(router.allowedMethods());
 
-  /**
-   *
-   * @returns a request handler callback for node's native http/http2 server.
-   */
-  public start() {
-    return this.app.callback();
+    const server = createServer(app.callback());
+
+    /**
+     * Listen on the desired port
+     */
+    server.listen({ port: config.port }, () => {
+      console.log(`Server listening on port ${config.port}.`);
+    });
+
+    /**
+     * Add the subscription options, this is a websocket connection
+     */
+    apolloServer.installSubscriptionHandlers(server);
+
+    return server;
   }
 }

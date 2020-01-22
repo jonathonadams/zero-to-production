@@ -4,11 +4,12 @@ import { ITodo } from '@uqt/interfaces';
 import { createGraphQLSpec } from '@app-testing/api/graphQLSpec';
 import config from '../../../environments/index';
 import { schema } from '../graphql';
+import ApiServer from '../../server';
 
 // Need to import and run the server because
 // the server is also our "auth server"
 // and the Auth guard needs to be able to retrieve the JWKS
-import { server } from '../../../main';
+const server = new ApiServer();
 
 const tokenConfig = {
   ...config.auth.accessToken

@@ -1,11 +1,11 @@
 /* istanbul ignore file */
 
 import 'jest-extended';
-import mongoose from 'mongoose';
 import { GraphQLSchema } from 'graphql';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { runQuery, setupTestDB, newId } from './helpers';
 import { signTestAccessToken } from './auth';
+import { Server } from 'http';
 
 /**
  * Object.keys(object) is used to return an array of the names of object properties.
@@ -55,20 +55,21 @@ export function createGraphQLSpec<T>(
 
     describe(`GraphQL / ${upperResourceName}`, () => {
       let mongoServer: MongoMemoryServer;
-      let db: mongoose.Mongoose;
+      let dbUri: string;
       let resource: T;
       let jwt: string;
+      let testServer: Server;
 
       beforeAll(async () => {
-        ({ db, mongoServer } = await setupTestDB());
+        ({ dbUri, mongoServer } = await setupTestDB());
+        testServer = await authServer.initializeServer(dbUri);
         jwt = signTestAccessToken(tokenConfig)({ id: userId });
 
         resource = await model.create(resourceToCreate);
       });
 
       afterAll(async () => {
-        authServer.close();
-        await db.disconnect();
+        testServer.close();
         await mongoServer.stop();
       });
 
