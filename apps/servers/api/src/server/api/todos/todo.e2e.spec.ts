@@ -5,6 +5,11 @@ import { createGraphQLSpec } from '@app-testing/api/graphQLSpec';
 import config from '../../../environments/index';
 import { schema } from '../graphql';
 
+// Need to import and run the server because
+// the server is also our "auth server"
+// and the Auth guard needs to be able to retrieve the JWKS
+import { server } from '../../../main';
+
 const tokenConfig = {
   ...config.auth.accessToken
 };
@@ -19,4 +24,4 @@ const updatedTodo = {
   completed: true
 };
 
-createGraphQLSpec(schema, tokenConfig)(Todo, 'Todo', todo, updatedTodo);
+createGraphQLSpec(schema, tokenConfig, server)(Todo, 'Todo', todo, updatedTodo);

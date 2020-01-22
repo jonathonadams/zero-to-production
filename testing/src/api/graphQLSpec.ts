@@ -1,8 +1,10 @@
+/* istanbul ignore file */
+
 import 'jest-extended';
 import mongoose from 'mongoose';
 import { GraphQLSchema } from 'graphql';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { runQuery, setupTestDB } from './helpers';
+import { runQuery, setupTestDB, newId } from './helpers';
 import { signTestAccessToken } from './auth';
 
 /**
@@ -24,7 +26,8 @@ export function createGraphQLSpec<T>(
     issuer: string;
     keyId: string;
     audience: string;
-  }
+  },
+  authServer: any
 ) {
   return function(
     model: any,
@@ -44,6 +47,8 @@ export function createGraphQLSpec<T>(
       );
     }
 
+    const userId = resourceToCreate.userId ? resourceToCreate.userId : newId();
+
     // GraphQL schemas are designed written with UpperCase names
     const upperResourceName =
       resourceName.charAt(0).toUpperCase() + resourceName.slice(1);
@@ -56,12 +61,13 @@ export function createGraphQLSpec<T>(
 
       beforeAll(async () => {
         ({ db, mongoServer } = await setupTestDB());
-        jwt = signTestAccessToken(tokenConfig)({ id: '1' });
+        jwt = signTestAccessToken(tokenConfig)({ id: userId });
 
         resource = await model.create(resourceToCreate);
       });
 
       afterAll(async () => {
+        authServer.close();
         await db.disconnect();
         await mongoServer.stop();
       });
@@ -112,12 +118,11 @@ export function createGraphQLSpec<T>(
           const queryName = `${resourceName}`;
 
           const result = await runQuery(schema)(
-            `
-        {
-          ${queryName}(id: "${(resource as any).id}") {
-            id
-          }
-        }`,
+            `{
+               ${queryName}(id: "${(resource as any).id}") {
+                 id
+               }
+             }`,
             {},
             jwt
           );

@@ -6,9 +6,8 @@ import {
   getEnvVariableOrWarn
 } from '@uqt/api/config';
 
-const hostUrl = process.env.HOST_URL || `http://localhost:${process.env.PORT}`;
-const authServerUrl =
-  process.env.AUTH_SERVER_URL || `http://localhost:${process.env.PORT}`;
+const hostUrl = `http://localhost:${process.env.PORT}`;
+const authServerUrl = `http://localhost:${process.env.PORT}`;
 
 // TODO -> They keyId should be some sort of hash or something
 const keyId = 'some-random-key-id';

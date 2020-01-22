@@ -20,8 +20,8 @@ export function createControllers<T extends mongoose.Document>(
     // Get All
     getAll: async (userId?: string) => {
       const resources: T[] = await model
-        .find(userId ? { userId } : {})
-        .where(userId ? { userId } : undefined)
+        .find()
+        .where(userId ? { userId } : {})
         .lean<T>()
         .exec();
 
@@ -32,7 +32,7 @@ export function createControllers<T extends mongoose.Document>(
     getOne: async (id: ObjectId, userId?: string) => {
       const resource = await model
         .findById(id)
-        .where(userId ? { userId } : undefined)
+        .where(userId ? { userId } : {})
         .lean<T | null>()
         .exec();
 
@@ -53,7 +53,7 @@ export function createControllers<T extends mongoose.Document>(
     updateOne: async (id: ObjectId, values: any, userId?: string) => {
       const resource = await model
         .findByIdAndUpdate(id, values, { new: true })
-        .where(userId ? { userId } : undefined)
+        .where(userId ? { userId } : {})
         .lean()
         .exec();
       if (!resource)
@@ -67,7 +67,7 @@ export function createControllers<T extends mongoose.Document>(
     removeOne: async (id: ObjectId, userId?: string) => {
       const resource = await model
         .findByIdAndRemove(id)
-        .where(userId ? { userId } : undefined)
+        .where(userId ? { userId } : {})
         .lean()
         .exec();
 

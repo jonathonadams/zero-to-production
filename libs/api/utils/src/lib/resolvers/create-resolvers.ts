@@ -21,7 +21,7 @@ export function generateResolvers<T extends mongoose.Document>(
 
   const getAll: Resolver<any> = async (root, args, ctx, info) => {
     return await controllers.getAll(
-      userResourcesOnly ? ctx.state.token.sub : undefined
+      userResourcesOnly ? ctx.state.user.sub : undefined
     );
   };
   const getOne: Resolver<{ id: ObjectId }> = async (
@@ -32,7 +32,7 @@ export function generateResolvers<T extends mongoose.Document>(
   ) => {
     return await controllers.getOne(
       id,
-      userResourcesOnly ? ctx.state.token.sub : undefined
+      userResourcesOnly ? ctx.state.user.sub : undefined
     );
   };
   const createOne: Resolver<{ input: T }> = async (
@@ -51,7 +51,7 @@ export function generateResolvers<T extends mongoose.Document>(
     return await controllers.updateOne(
       id,
       values,
-      userResourcesOnly ? ctx.state.token.sub : undefined
+      userResourcesOnly ? ctx.state.user.sub : undefined
     );
   };
 
@@ -63,7 +63,7 @@ export function generateResolvers<T extends mongoose.Document>(
   ) => {
     return await controllers.removeOne(
       id,
-      userResourcesOnly ? ctx.state.token.sub : undefined
+      userResourcesOnly ? ctx.state.user.sub : undefined
     );
   };
 

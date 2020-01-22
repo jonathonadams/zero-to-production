@@ -1,13 +1,22 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
-import { runQuery, setupTestDB, newId } from '@app-testing/api/helpers';
+import { runQuery, setupTestDB } from '@app-testing/api/helpers';
 import { IUserDocument } from '@uqt/api/core-data';
 import { signTestAccessToken } from '@app-testing/api/auth';
 import { User } from './user.model';
 import { schema } from '../graphql';
 import config from '../../../environments';
 import { IUser } from '@uqt/interfaces';
+
+//Need to import and run the server because
+// the server is also our "auth server"
+// and the Auth guard needs to be able to retrieve the JWKS
+import { server } from '../../../main';
+
+const tokenConfig = {
+  ...config.auth.accessToken
+};
 
 const user: IUser = ({
   username: 'test user',
@@ -35,10 +44,13 @@ describe(`GraphQL / User`, () => {
 
     createdUser = await User.create(user);
     [createdUser.id, createdUser._id] = [createdUser._id, createdUser.id];
-    jwt = signTestAccessToken(createdUser, 'test-secret');
+    jwt = signTestAccessToken(tokenConfig)(createdUser);
   });
 
   afterAll(async () => {
+    await new Promise((resolve, reject) => {
+      server.close(resolve);
+    });
     await db.disconnect();
     await mongoServer.stop();
   });
