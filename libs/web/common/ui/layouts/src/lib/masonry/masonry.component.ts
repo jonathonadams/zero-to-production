@@ -14,7 +14,7 @@ import {
 })
 export class MasonryComponent {
   @Input() columns: number | undefined;
-  @Input() items: any[] | undefined;
+  @Input() items: any[] | undefined | null;
   @Input() trackBy: any;
   @ContentChild('template') templateRef!: TemplateRef<any>;
 }

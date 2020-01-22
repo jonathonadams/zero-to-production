@@ -4,16 +4,16 @@ exports[`ExampleReducer AddExamples should add the examples to the example state
 Object {
   "entities": Object {
     "1": Object {
-      "description": "some description",
-      "gitHubLink": "",
+      "description": "some full description",
       "id": "1",
+      "summary": "some description",
       "title": "some title",
       "url": "example-1",
     },
     "2": Object {
-      "description": "another description",
-      "gitHubLink": "",
+      "description": "some other full description",
       "id": "2",
+      "summary": "some other description",
       "title": "another title",
       "url": "example-2",
     },
@@ -22,8 +22,6 @@ Object {
     "1",
     "2",
   ],
-  "searchFilter": null,
-  "selectedExampleId": null,
 }
 `;
 
@@ -31,7 +29,5 @@ exports[`ExampleReducer undefined action should return the default state 1`] = `
 Object {
   "entities": Object {},
   "ids": Array [],
-  "searchFilter": null,
-  "selectedExampleId": null,
 }
 `;

@@ -1,23 +1,21 @@
-<div class="container">
-  <div class="links">
-    <button
-      mat-stroked-button
-      *ngFor="let form of form$ | async"
-      [disabled]="(selectedForm$ | async)?.id === form.id"
-    >
-      {{ form.config.formName }}
-    </button>
+<ng-container *ngIf="selectedForm$ | async">
+  <p>
+    The rendered form below show the output of combining the Dynamic Form + Form
+    Builder. I will leave it to you to be more creative with the use case.
+  </p>
 
-    <mat-divider class="divider"></mat-divider>
+  <div class="container">
+    <h3 class="title">
+      {{ (selectedForm$ | async)?.formName || '' | uppercase }}
+    </h3>
+    <app-dynamic-form [formName]="(selectedForm$ | async)?.formName">
+      <button type="submit" mat-raised-button>
+        Submit Form
+      </button>
+    </app-dynamic-form>
   </div>
 
-  <app-dynamic-form [formName]="formName"
-    ><button type="submit" mat-raised-button class="submit-button">
-      Submit Form
-    </button>
-  </app-dynamic-form>
-
-  <div class="output">
+  <div>
     <pre>{{ submit$ | async | json }}</pre>
   </div>
-</div>
+</ng-container>

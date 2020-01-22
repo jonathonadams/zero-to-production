@@ -1,5 +1,6 @@
 import { sync } from 'glob';
 import { readFileSync } from 'fs';
+import { authTypeDef } from '@uqt/api/auth';
 
 function loadGraphQLSchema(filePath: string) {
   return readFileSync(`${process.cwd()}/${filePath}`, { encoding: 'utf-8' });
@@ -12,4 +13,4 @@ function loadGraphQLSchema(filePath: string) {
  */
 const typeDefs = sync('**/*.graphql').map(loadGraphQLSchema);
 
-export default typeDefs;
+export default [...typeDefs, authTypeDef];

@@ -11,9 +11,9 @@
   "dependencies": {
     "@hapi/boom": "^8.0.1",
     "@sendgrid/mail": "^6.4.0",
-    "apollo-server-koa": "^2.9.14",
+    "apollo-server-koa": "^2.9.16",
     "bcryptjs": "^2.4.3",
-    "dataloader": "^1.4.0",
+    "dataloader": "^2.0.0",
     "glob": "^7.1.6",
     "graphql": "^14.4.2",
     "graphql-iso-date": "^3.6.1",
@@ -29,6 +29,8 @@
     "lodash.keyby": "^4.6.0",
     "lodash.merge": "^4.6.2",
     "lodash.omit": "^4.5.0",
-    "mongoose": "^5.8.1"
+    "mongoose": "^5.8.1",
+    "pem-jwk": "^2.0.0",
+    "jwks-rsa": "^1.6.0"
   }
 }

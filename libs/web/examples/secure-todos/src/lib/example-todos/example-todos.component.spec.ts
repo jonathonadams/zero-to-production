@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExampleTodosComponent } from './example-todos.component';
+import { RouterModule, Router } from '@angular/router';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ExampleTodosComponent', () => {
   let component: ExampleTodosComponent;
@@ -8,14 +10,16 @@ describe('ExampleTodosComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ExampleTodosComponent]
+      imports: [RouterModule],
+      declarations: [ExampleTodosComponent],
+      providers: [{ provide: Router, useValue: {} }],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ExampleTodosComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

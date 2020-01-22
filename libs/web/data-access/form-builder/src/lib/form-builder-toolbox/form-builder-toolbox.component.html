@@ -1,0 +1,40 @@
+<aside class="toolbox">
+  <h4>Form Section Types</h4>
+  <div
+    [id]="toolBoxGroupId"
+    cdkDropList
+    [cdkDropListConnectedTo]="['fb-form-sections']"
+  >
+    <uqt-card
+      class="toolbox-element"
+      *ngFor="let group of groupTypes"
+      cdkDrag
+      [cdkDragData]="group.value"
+    >
+      <p>
+        <fa-icon [icon]="group.icon"></fa-icon>&nbsp;&nbsp;&nbsp;{{
+          group.display
+        }}
+      </p>
+    </uqt-card>
+  </div>
+  <h4>Form Field Types</h4>
+  <div
+    [id]="toolBoxFieldId"
+    cdkDropList
+    [cdkDropListConnectedTo]="$any(dropListIds$ | async)"
+  >
+    <uqt-card
+      class="toolbox-element"
+      *ngFor="let field of fieldTypes"
+      cdkDrag
+      [cdkDragData]="field.value"
+    >
+      <p>
+        <fa-icon [icon]="field.icon"></fa-icon>&nbsp;&nbsp;&nbsp;{{
+          field.display
+        }}
+      </p>
+    </uqt-card>
+  </div>
+</aside>

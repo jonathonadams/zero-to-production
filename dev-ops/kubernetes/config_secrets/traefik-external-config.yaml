@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik-external-config
+data:
+  traefik.toml: |
+    [providers]
+      [providers.kubernetesIngress]
+        throttleDuration = "10s"
+        namespaces = ["default","production"]
+        ingressClass = "traefik"
+
+    [log]
+      level = "INFO"
+
+    [ping]
+      entryPoint = "http"
+
+    [entryPoints]
+      [entryPoints.http]
+          address = ":80"
+        
+        # [entryPoints.https]
+        #     address = ":443"
+        # [entryPoints.https.tls]
+        #     minVersion = "VersionTLS12"

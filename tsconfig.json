@@ -47,11 +47,8 @@
       "@uqt/examples/form-builder": [
         "libs/web/examples/form-builder/src/index.ts"
       ],
-      "@uqt/examples/dynamic-form": [
-        "libs/web/examples/dynamic-form/src/index.ts"
-      ],
       "@uqt/examples/theming": ["libs/web/examples/theming/src/index.ts"],
-      "@uqt/common/ui/card": ["libs/web/common/ui/card/src/index.ts"],
+      "@uqt/web/common/ui/card": ["libs/web/common/ui/card/src/index.ts"],
       "@uqt/common/dynamic-form-material-components": [
         "libs/web/common/dynamic-form-material-components/src/index.ts"
       ],
@@ -69,6 +66,13 @@
       ],
       "@uqt/web/examples/lazy-load-scrolling": [
         "libs/web/examples/lazy-load-scrolling/src/index.ts"
+      ],
+      "@uqt/web/common/ui/buttons": ["libs/web/common/ui/buttons/src/index.ts"],
+      "@uqt/web/examples/live-demos": [
+        "libs/web/examples/live-demos/src/index.ts"
+      ],
+      "@uqt/web/examples/dynamic-form": [
+        "libs/web/examples/dynamic-form/src/index.ts"
       ]
     }
   }

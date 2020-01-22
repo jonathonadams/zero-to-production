@@ -62,7 +62,7 @@ export class MyDateAdapter extends NativeDateAdapter {
  * @class DatePickerComponent
  */
 @Component({
-  selector: 'app-form-date-picker',
+  selector: 'uqt-form-date-picker',
   templateUrl: './date-picker.component.html',
   styles: [
     `

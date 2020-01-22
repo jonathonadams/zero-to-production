@@ -2,7 +2,7 @@
   <mat-label>{{ field.label }}</mat-label>
   <input
     matInput
-    [type]="field.type"
+    [type]="field.inputType"
     [autocomplete]="field.autocomplete ? field.autocomplete : 'off'"
     [formControlName]="field.name"
   />
@@ -12,6 +12,10 @@
 <ng-template #arrayBlock>
   <mat-form-field [formGroup]="group">
     <mat-label>{{ field?.label }}</mat-label>
-    <input matInput [type]="field.type" [formControlName]="idx" />
+    <input
+      matInput
+      [type]="field.inputType ? field.inputType : 'text'"
+      [formControlName]="idx"
+    />
   </mat-form-field>
 </ng-template>

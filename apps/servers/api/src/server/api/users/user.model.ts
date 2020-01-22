@@ -22,7 +22,7 @@ export const userSchema = new mongoose.Schema<IUser>(
     email: {
       type: String,
       required: true,
-      unique: false // TODO -> Change this in the real world.
+      unique: false // UQT_UPDATE
     },
     dateOfBirth: {
       type: String,

@@ -1,20 +1,16 @@
-import { IUser } from '@uqt/interfaces';
-import {
-  createFeatureSelector,
-  createSelector,
-  createReducer,
-  on,
-  Action
-} from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 import { EntityState, createEntityAdapter, EntityAdapter } from '@ngrx/entity';
+import { IUser } from '@uqt/interfaces';
 import * as UserActions from './users.actions';
+
+export const usersEntityStateKey = 'usersState';
 
 export interface UsersEntityState extends EntityState<IUser> {
   selectedUserId: string | null;
   authUserId: string | number | null;
 }
 
-const adapter: EntityAdapter<IUser> = createEntityAdapter<IUser>();
+export const adapter: EntityAdapter<IUser> = createEntityAdapter<IUser>();
 
 const initialSate: UsersEntityState = adapter.getInitialState({
   selectedUserId: null,
@@ -49,39 +45,12 @@ export const usersReducer = createReducer(
   }),
   on(UserActions.deleteUserSuccess, (state, { id }) => {
     return adapter.removeOne(id, state);
+  }),
+  on(UserActions.clearUsers, state => {
+    return adapter.removeAll(state);
   })
 );
 
 export function reducer(state: UsersEntityState | undefined, action: Action) {
   return usersReducer(state, action);
 }
-
-export const selectUserState = createFeatureSelector<UsersEntityState>(
-  'usersState'
-);
-
-export const {
-  selectIds: selectUserIds,
-  selectEntities: selectUserEntities,
-  selectAll: selectAllUsers
-} = adapter.getSelectors(selectUserState);
-
-export const selectCurrentUserId = createSelector(
-  selectUserState,
-  (state: UsersEntityState) => state.selectedUserId
-);
-export const selectCurrentUser = createSelector(
-  selectUserEntities,
-  selectCurrentUserId,
-  (userEntities, userId) => userEntities[`${userId}`]
-);
-
-export const selectAuthUserId = createSelector(
-  selectUserState,
-  state => state.authUserId
-);
-export const selectAuthUser = createSelector(
-  selectUserEntities,
-  selectAuthUserId,
-  (userEntities, id) => userEntities[`${id}`]
-);

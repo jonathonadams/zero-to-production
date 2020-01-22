@@ -2,40 +2,33 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-
-import { FrontendUtilsStorageModule } from '@uqt/utils/storage';
-import { CommonNotificationModule } from '@uqt/utils/notifications';
-
 import { AuthEffects } from './+state/auth.effects';
-import { AuthFacade } from './+state/auth.facade';
-import { AuthService } from './services/auth.service';
-import { AuthGuard } from './guards/auth.guard';
-import { LoggedInGuard } from './guards/logged-in.guard';
+import * as fromAuth from './+state/auth.reducer';
+import { AUTH_SERVER_URL } from './services/auth.service';
 import { AuthInterceptor } from './interceptors/auth-interceptor';
-import { JWTAuthService } from './services/jwt-auth.service';
-import { reducer, AuthState, initialState } from './+state/auth.reducer';
+import { ErrorInterceptor } from './interceptors/error-interceptor';
 
 @NgModule({
   imports: [
-    CommonNotificationModule,
-    FrontendUtilsStorageModule,
-    StoreModule.forFeature<AuthState>('authState', reducer, { initialState }),
+    StoreModule.forFeature<fromAuth.AuthState>(
+      fromAuth.authStateKey,
+      fromAuth.reducer
+    ),
     EffectsModule.forFeature([AuthEffects])
   ]
 })
 export class RootDataAccessAuthModule {}
 
 export class DataAccessAuthModule {
-  static forRoot(): ModuleWithProviders<DataAccessAuthModule> {
+  static forRoot({ authServerUrl = '' } = {}): ModuleWithProviders<
+    DataAccessAuthModule
+  > {
     return {
       ngModule: RootDataAccessAuthModule,
       providers: [
-        AuthFacade,
-        AuthService,
-        JWTAuthService,
-        AuthGuard,
-        LoggedInGuard,
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+        { provide: AUTH_SERVER_URL, useValue: authServerUrl },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
       ]
     };
   }

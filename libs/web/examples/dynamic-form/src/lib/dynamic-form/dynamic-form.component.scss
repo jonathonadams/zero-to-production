@@ -1,3 +1,10 @@
+.example-description {
+  margin-bottom: 1em;
+  p {
+    word-wrap: break-word;
+  }
+}
+
 .form-config {
   .config {
     margin: 1em;
@@ -5,6 +12,12 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+
+    @media (max-width: 599px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 }
 

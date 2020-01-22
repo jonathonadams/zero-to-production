@@ -1,25 +1,22 @@
 import mongoose from 'mongoose';
-
-import {
-  registerController,
-  loginController,
-  authorizeController,
-  refreshAccessTokenController,
-  revokeRefreshTokenController,
-  verifyController
-} from '../auth.controllers';
-import { MockUserModel } from './user.mock.spec';
-
 import { hash } from 'bcryptjs';
-import { MockRefreshTokenModel } from './refresh-token.mock.spec';
-import { signRefreshToken } from '../auth-utils';
-import {
-  MockVerificationToken,
-  mockSendVerificationEmail
-} from './verification.mock.spec';
-import { IUserModel } from '@uqt/api/core-data';
-import { IVerificationTokenModel, IRefreshTokenModel } from '../auth.interface';
+import 'jest-extended';
 import { AuthenticationRoles, IUser } from '@uqt/interfaces';
+import { IUserModel } from '@uqt/api/core-data';
+import {
+  setupRegisterController,
+  setupLoginController,
+  setupAuthorizeController,
+  setupRefreshAccessTokenController,
+  setupRevokeRefreshTokenController,
+  setupVerifyController
+} from '../auth.controllers';
+import { MockUserModel } from './user.mock';
+import { MockRefreshTokenModel } from './refresh-token.mock';
+import { signRefreshToken } from '../token';
+import { MockVerificationToken } from './verification.mock';
+import { IVerificationTokenModel, IRefreshTokenModel } from '../auth.interface';
+import { privateKey } from './rsa-keys';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
@@ -34,7 +31,7 @@ const userToRegister = ({
   hashedPassword: 'asF.s0f.s',
   role: AuthenticationRoles.User,
   active: true,
-  isValid: false
+  isVerified: false
 } as any) as IUser;
 
 const userWithPassword = ({
@@ -42,16 +39,75 @@ const userWithPassword = ({
   password: 'asF.s0f.s123123'
 } as any) as IUser;
 
+const issuer = 'some-issuer';
+const audience = 'say-hello!!!';
+const keyId = 'key-id';
+
+function mockRegistrationController(email: jest.Mock<any, any> = jest.fn()) {
+  return setupRegisterController({
+    User: (MockUserModel as unknown) as IUserModel,
+    VerificationToken: (MockVerificationToken as unknown) as IVerificationTokenModel,
+    verificationEmail: email
+  });
+}
+
+function mockVerificationController() {
+  return setupVerifyController({
+    User: (MockUserModel as unknown) as IUserModel,
+    VerificationToken: (MockVerificationToken as unknown) as IVerificationTokenModel
+  });
+}
+
+function mockLoginController() {
+  return setupLoginController({
+    User: (MockUserModel as unknown) as IUserModel,
+    privateKey,
+    expireTime: 100000,
+    issuer,
+    audience,
+    keyId
+  });
+}
+
+function mockAuthorizeController() {
+  return setupAuthorizeController({
+    User: (MockUserModel as unknown) as IUserModel,
+    privateKey,
+    expireTime: 100000,
+    issuer,
+    audience,
+    keyId,
+    RefreshToken: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
+  });
+}
+
+function mockRefreshTokenController() {
+  return setupRefreshAccessTokenController({
+    privateKey,
+    audience,
+    keyId,
+    expireTime: 100000,
+    issuer,
+    RefreshToken: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
+  });
+}
+
+function mockRevokeController() {
+  return setupRevokeRefreshTokenController({
+    RefreshToken: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
+  });
+}
+
 describe(`Authentication Controllers`, () => {
   describe('register', () => {
     it('should register a new user', async () => {
       MockUserModel.userToRespondWith = null;
 
-      const createdUser = await registerController(
-        (MockUserModel as unknown) as IUserModel,
-        (MockVerificationToken as unknown) as IVerificationTokenModel,
-        jest.fn()
-      )({ ...userWithPassword });
+      const createdUser = await setupRegisterController({
+        User: (MockUserModel as unknown) as IUserModel,
+        VerificationToken: (MockVerificationToken as unknown) as IVerificationTokenModel,
+        verificationEmail: jest.fn()
+      })({ ...userWithPassword });
 
       expect(createdUser).toBeTruthy();
       expect(createdUser.id).toBeDefined();
@@ -65,11 +121,9 @@ describe(`Authentication Controllers`, () => {
 
       const spy = jest.fn();
 
-      const createdUser = await registerController(
-        (MockUserModel as unknown) as IUserModel,
-        (MockVerificationToken as unknown) as IVerificationTokenModel,
-        spy
-      )({ ...userWithPassword });
+      const createdUser = await mockRegistrationController(spy)({
+        ...userWithPassword
+      });
 
       expect(spy).toHaveBeenCalled();
       expect(spy.mock.calls[0][0]).toBe(createdUser.email);
@@ -81,11 +135,9 @@ describe(`Authentication Controllers`, () => {
     it('should not return the password or hashed password if successful', async () => {
       MockUserModel.userToRespondWith = null;
 
-      const createdUser = await registerController(
-        (MockUserModel as unknown) as IUserModel,
-        (MockVerificationToken as unknown) as IVerificationTokenModel,
-        mockSendVerificationEmail
-      )({ ...userWithPassword });
+      const createdUser = await mockRegistrationController()({
+        ...userWithPassword
+      });
 
       expect((createdUser as any).password).not.toBeDefined();
       expect((createdUser as any).hashedPassword).not.toBeDefined();
@@ -104,21 +156,13 @@ describe(`Authentication Controllers`, () => {
       MockUserModel.userToRespondWith = null;
 
       await expect(
-        registerController(
-          (MockUserModel as unknown) as IUserModel,
-          (MockVerificationToken as unknown) as IVerificationTokenModel,
-          mockSendVerificationEmail
-        )(userWithUniqueDetails)
+        mockRegistrationController()(userWithUniqueDetails)
       ).resolves.not.toThrowError();
 
       MockUserModel.userToRespondWith = userWithUniqueDetails;
 
       await expect(
-        registerController(
-          (MockUserModel as unknown) as IUserModel,
-          (MockVerificationToken as unknown) as IVerificationTokenModel,
-          mockSendVerificationEmail
-        )(userWithUniqueDetails)
+        mockRegistrationController()(userWithUniqueDetails)
       ).rejects.toThrowError('Username is not available');
 
       MockUserModel.reset();
@@ -144,15 +188,15 @@ describe(`Authentication Controllers`, () => {
         ...{ remove: removeMock }
       };
 
-      expect((MockUserModel._user as IUser).isValid).toBe(false);
+      expect((MockUserModel._user as IUser).isVerified).toBe(false);
 
-      const message = await verifyController(
-        (MockUserModel as unknown) as IUserModel,
-        (MockVerificationToken as unknown) as IVerificationTokenModel
-      )(userToRegister.email, token);
+      const message = await mockVerificationController()(
+        userToRegister.email,
+        token
+      );
 
       expect(setMock).toHaveBeenCalled();
-      expect(setMock.mock.calls[0][0]).toEqual({ isValid: true });
+      expect(setMock.mock.calls[0][0]).toEqual({ isVerified: true });
       expect(removeMock).toHaveBeenCalled();
 
       MockVerificationToken.reset();
@@ -164,10 +208,7 @@ describe(`Authentication Controllers`, () => {
       MockUserModel.userToRespondWith = null;
 
       await expect(
-        verifyController(
-          (MockUserModel as unknown) as IUserModel,
-          (MockVerificationToken as unknown) as IVerificationTokenModel
-        )(userToRegister.email, token)
+        mockVerificationController()(userToRegister.email, token)
       ).rejects.toThrowError('Email address is not available');
 
       MockVerificationToken.reset();
@@ -179,14 +220,11 @@ describe(`Authentication Controllers`, () => {
 
       MockUserModel.userToRespondWith = {
         ...userToRegister,
-        isValid: true
+        isVerified: true
       };
 
       await expect(
-        verifyController(
-          (MockUserModel as unknown) as IUserModel,
-          (MockVerificationToken as unknown) as IVerificationTokenModel
-        )(userToRegister.email, token)
+        mockVerificationController()(userToRegister.email, token)
       ).rejects.toThrowError('User is already registered');
 
       MockVerificationToken.reset();
@@ -200,10 +238,7 @@ describe(`Authentication Controllers`, () => {
       MockVerificationToken.tokenToRespondWith = null;
 
       await expect(
-        verifyController(
-          (MockUserModel as unknown) as IUserModel,
-          (MockVerificationToken as unknown) as IVerificationTokenModel
-        )(userToRegister.email, token)
+        mockVerificationController()(userToRegister.email, token)
       ).rejects.toThrowError('Token is not valid');
 
       MockVerificationToken.reset();
@@ -225,10 +260,7 @@ describe(`Authentication Controllers`, () => {
       };
 
       await expect(
-        verifyController(
-          (MockUserModel as unknown) as IUserModel,
-          (MockVerificationToken as unknown) as IVerificationTokenModel
-        )(userToRegister.email, token)
+        mockVerificationController()(userToRegister.email, token)
       ).rejects.toThrowError('Token does not match email address');
 
       MockVerificationToken.reset();
@@ -248,11 +280,10 @@ describe(`Authentication Controllers`, () => {
 
       MockUserModel.userToRespondWith = userWithId;
 
-      const { token } = await loginController({
-        userModel: (MockUserModel as unknown) as IUserModel,
-        secret: 'some secret',
-        expireTime: 100000
-      })(userWithId.username, (userWithId as any).password);
+      const { token } = await mockLoginController()(
+        userWithId.username,
+        (userWithId as any).password
+      );
 
       expect(token).toBeDefined();
       expect(token).toBeString();
@@ -272,19 +303,11 @@ describe(`Authentication Controllers`, () => {
       MockUserModel.userToRespondWith = userWithId;
 
       await expect(
-        loginController({
-          userModel: (MockUserModel as unknown) as IUserModel,
-          secret: 'some secret',
-          expireTime: 100000
-        })(userWithId.username, 'somWrongPassword')
+        mockLoginController()(userWithId.username, 'somWrongPassword')
       ).rejects.toThrowError('Unauthorized');
 
       await expect(
-        loginController({
-          userModel: (MockUserModel as unknown) as IUserModel,
-          secret: 'some secret',
-          expireTime: 100000
-        })('someWrongUsername', (userWithId as any).password)
+        mockLoginController()('someWrongUsername', (userWithId as any).password)
       ).rejects.toThrowError('Unauthorized');
     });
 
@@ -304,11 +327,7 @@ describe(`Authentication Controllers`, () => {
       MockUserModel.userToRespondWith = inactiveUser;
 
       await expect(
-        loginController({
-          userModel: (MockUserModel as unknown) as IUserModel,
-          secret: 'some secret',
-          expireTime: 100000
-        })(userWithId.username, (userWithId as any).password)
+        mockLoginController()(userWithId.username, (userWithId as any).password)
       ).rejects.toThrowError('Unauthorized');
     });
   });
@@ -325,13 +344,10 @@ describe(`Authentication Controllers`, () => {
 
       MockUserModel.userToRespondWith = userWithId;
 
-      const { token, refreshToken } = await authorizeController({
-        userModel: (MockUserModel as unknown) as IUserModel,
-        accessTokenSecret: 'some secret',
-        refreshTokenSecret: 'refreshSecret',
-        accessTokenExpireTime: 100000,
-        refreshTokenModel: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
-      })(userWithId.username, (userWithId as any).password);
+      const { token, refreshToken } = await mockAuthorizeController()(
+        userWithId.username,
+        (userWithId as any).password
+      );
 
       expect(token).toBeDefined();
       expect(token).toBeString();
@@ -354,23 +370,14 @@ describe(`Authentication Controllers`, () => {
       MockUserModel.userToRespondWith = userWithId;
 
       await expect(
-        authorizeController({
-          userModel: (MockUserModel as unknown) as IUserModel,
-          accessTokenSecret: 'some secret',
-          refreshTokenSecret: 'refreshSecret',
-          accessTokenExpireTime: 100000,
-          refreshTokenModel: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
-        })(userWithId.username, 'somWrongPassword')
+        mockAuthorizeController()(userWithId.username, 'somWrongPassword')
       ).rejects.toThrowError('Unauthorized');
 
       await expect(
-        authorizeController({
-          userModel: (MockUserModel as unknown) as IUserModel,
-          accessTokenSecret: 'some secret',
-          refreshTokenSecret: 'refreshSecret',
-          accessTokenExpireTime: 100000,
-          refreshTokenModel: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
-        })('someWrongUsername', (userWithId as any).password)
+        mockAuthorizeController()(
+          'someWrongUsername',
+          (userWithId as any).password
+        )
       ).rejects.toThrowError('Unauthorized');
     });
 
@@ -390,13 +397,10 @@ describe(`Authentication Controllers`, () => {
       MockUserModel.userToRespondWith = inactiveUser;
 
       await expect(
-        authorizeController({
-          userModel: (MockUserModel as unknown) as IUserModel,
-          accessTokenSecret: 'some secret',
-          refreshTokenSecret: 'refreshSecret',
-          accessTokenExpireTime: 100000,
-          refreshTokenModel: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
-        })(inactiveUser.username, (inactiveUser as any).password)
+        mockAuthorizeController()(
+          inactiveUser.username,
+          (inactiveUser as any).password
+        )
       ).rejects.toThrowError('Unauthorized');
 
       MockUserModel.reset();
@@ -410,11 +414,12 @@ describe(`Authentication Controllers`, () => {
         ...userWithPassword,
         id: newId()
       };
-      const refreshSecret = 'some-super-secret-secret';
 
-      const refreshTokenString = signRefreshToken({ secret: refreshSecret })(
-        userWithId
-      );
+      const refreshTokenString = signRefreshToken({
+        privateKey,
+        audience,
+        issuer
+      })(userWithId);
 
       const refreshToken = await MockRefreshTokenModel.create({
         user: {
@@ -426,12 +431,10 @@ describe(`Authentication Controllers`, () => {
 
       MockRefreshTokenModel.findByTokenWithUserResponse = refreshToken.toJSON();
 
-      const { token } = await refreshAccessTokenController({
-        accessTokenSecret: 'some secret',
-        refreshTokenSecret: refreshSecret,
-        accessTokenExpireTime: 100000,
-        refreshTokenModel: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
-      })(userWithId.username, refreshToken.toJSON().token);
+      const { token } = await mockRefreshTokenController()(
+        userWithId.username,
+        refreshToken.toJSON().token
+      );
 
       expect(token).toBeDefined();
       expect(token).toBeString();
@@ -445,11 +448,12 @@ describe(`Authentication Controllers`, () => {
         ...userWithPassword,
         id: newId()
       };
-      const refreshSecret = 'some-super-secret-secret';
 
-      const refreshTokenString = signRefreshToken({ secret: refreshSecret })(
-        userWithId
-      );
+      const refreshTokenString = signRefreshToken({
+        privateKey,
+        audience,
+        issuer
+      })(userWithId);
 
       const refreshToken = await MockRefreshTokenModel.create({
         user: {
@@ -462,21 +466,14 @@ describe(`Authentication Controllers`, () => {
       MockRefreshTokenModel.findByTokenWithUserResponse = refreshToken.toJSON();
 
       await expect(
-        refreshAccessTokenController({
-          accessTokenSecret: 'some secret',
-          refreshTokenSecret: refreshSecret,
-          accessTokenExpireTime: 100000,
-          refreshTokenModel: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
-        })(userWithId.username, 'incorrect token')
+        mockRefreshTokenController()(userWithId.username, 'incorrect token')
       ).rejects.toThrowError('Unauthorized');
 
       await expect(
-        refreshAccessTokenController({
-          accessTokenSecret: 'some secret',
-          refreshTokenSecret: refreshSecret,
-          accessTokenExpireTime: 100000,
-          refreshTokenModel: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
-        })('incorrect username', refreshToken.toJSON().token)
+        mockRefreshTokenController()(
+          'incorrect username',
+          refreshToken.toJSON().token
+        )
       ).rejects.toThrowError('Unauthorized');
 
       MockUserModel.reset();
@@ -490,11 +487,12 @@ describe(`Authentication Controllers`, () => {
         ...userWithPassword,
         id: newId()
       };
-      const refreshSecret = 'some-super-secret-secret';
 
-      const refreshTokenString = signRefreshToken({ secret: refreshSecret })(
-        userWithId
-      );
+      const refreshTokenString = signRefreshToken({
+        privateKey,
+        audience,
+        issuer
+      })(userWithId);
 
       const refreshToken = await MockRefreshTokenModel.create({
         user: {
@@ -506,9 +504,9 @@ describe(`Authentication Controllers`, () => {
 
       MockRefreshTokenModel.findByTokenWithUserResponse = refreshToken.toJSON();
 
-      const { success } = await revokeRefreshTokenController(
-        /* RefreshTokenModel*/ (MockRefreshTokenModel as unknown) as IRefreshTokenModel
-      )(refreshToken.toJSON().token);
+      const { success } = await mockRevokeController()(
+        refreshToken.toJSON().token
+      );
 
       expect(success).toBe(true);
 
@@ -521,11 +519,12 @@ describe(`Authentication Controllers`, () => {
         ...userWithPassword,
         id: newId()
       };
-      const refreshSecret = 'some-super-secret-secret';
 
-      const refreshTokenString = signRefreshToken({ secret: refreshSecret })(
-        userWithId
-      );
+      const refreshTokenString = signRefreshToken({
+        privateKey,
+        audience,
+        issuer
+      })(userWithId);
 
       const refreshToken = await MockRefreshTokenModel.create({
         user: {
@@ -538,9 +537,7 @@ describe(`Authentication Controllers`, () => {
       MockRefreshTokenModel.findByTokenWithUserResponse = refreshToken.toJSON();
 
       await expect(
-        revokeRefreshTokenController(
-          /* RefreshTokenModel*/ (MockRefreshTokenModel as unknown) as IRefreshTokenModel
-        )('THIS IS NOT THE CORRECT TOKEN')
+        mockRevokeController()('THIS IS NOT A THE CORRECT TOKEN')
       ).rejects.toThrowError('Bad Request');
 
       MockUserModel.reset();

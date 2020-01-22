@@ -1,2 +1,55 @@
-<p>about works!</p>
-<button type="button" (click)="showExamples()">Examples!!</button>
+<section class="container" cdkScrollable>
+  <div class="content">
+    <div class="about">
+      <h1>Zero to Production</h1>
+      <h2>Fullstack Monorepo Starter</h2>
+
+      <p>GITHUB LINK Jonathon Adams CONTACT</p>
+      <p>COPYRIGHT Jonathon Adams</p>
+
+      <h3>About</h3>
+
+      <p>
+        An example of a full stack Monorepo with Angular, GraphQL & Kubernetes
+      </p>
+
+      <p>
+        Instructions to re-brand and get you up an running with your own
+        deployed client and server can be found here LINK
+      </p>
+
+      <h3>Whats in the box?</h3>
+      <ul>
+        <li>
+          An Angular Todo application with Ngrx(LINK) including user
+          registration and authentication
+        </li>
+        <li>
+          Node API using Koa, GraphQL and MongoDB (including a custom Angular
+          CLI Builder)
+        </li>
+        <li>
+          Guides to deploy you server behind Traefik revers proxy Google Cloud
+          Kubernetes engine
+        </li>
+        <li>More to come (see here LINK for Road Map)</li>
+      </ul>
+
+      <h3>Bonus</h3>
+      <p>
+        Demonstrations of some less common/more advanced Angular techniques
+      </p>
+    </div>
+    <div class="examples">
+      <uqt-example
+        (click)="showExamples()"
+        class="example"
+        *ngFor="let example of examples$ | async; let i = index"
+        trackBy="trackExample"
+        uqtAnimateScrollEntry
+        [example]="example"
+      >
+      </uqt-example>
+    </div>
+  </div>
+</section>

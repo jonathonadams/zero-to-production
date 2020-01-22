@@ -8,8 +8,7 @@ import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
 import { REGISTER_STRUCTURE } from './register.structure';
 import { Subscription } from 'rxjs';
 import { passwordMatchValidator } from '../../validators/auth.validators';
-import { AuthFacade } from '@uqt/data-access/auth';
-import { IRegistrationDetails } from 'libs/web/data-access/auth/src/lib/auth.interface';
+import { AuthFacade, IRegistrationDetails } from '@uqt/data-access/auth';
 
 interface IRegistrationFormStructure {
   details: {
@@ -56,9 +55,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
       'passwordCheck'
     );
     // we do want animations for the register form
-    this.formFacade.setFormConfig(this.formName, { animations: true });
-    this.formFacade.setValidators(this.formName, [passwordCheck]);
-    this.formFacade.setStructure(this.formName, REGISTER_STRUCTURE);
+    this.formFacade.setFormConfig(this.formName, {
+      animations: true,
+      paginateSections: true,
+      structure: REGISTER_STRUCTURE,
+      formValidators: [passwordCheck]
+    });
   }
 
   register(details: IRegistrationFormStructure): void {

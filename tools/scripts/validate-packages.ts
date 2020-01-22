@@ -1,86 +1,68 @@
-// @ts-ignore
-import readJson from 'read-package-json';
 import glob from 'glob';
 import { promisify } from 'util';
+import fs from 'fs';
 const asyncGlob = promisify(glob);
-const asyncReadJson = promisify(readJson);
+const fsPromise = fs.promises;
 
 (async function validatePackageJson() {
-  console.log('Validating package.json files.');
+  console.log('Validating package.json files');
 
   const workSpaceDir = process.cwd();
   const collectedErrors: string[] = [];
   const rootPackage = `${workSpaceDir}/package.json`;
 
-  const { dependencies, devDependencies } = readPackageJson(rootPackage);
+  const { dependencies, devDependencies } = await readPackageJson(rootPackage);
 
   const packagePaths = await asyncGlob(`${workSpaceDir}/apps/**/package.json`);
 
   const childPackages = await Promise.all(packagePaths.map(readPackageJson));
+  let packagesToSave: { path: string; package: any }[] = [];
 
-  childPackages.forEach(packageJson => {
+  childPackages.forEach((childPackage, i) => {
+    let isEdited = false;
     // Iterate over each dependency and check the main one
     // Check there are dependencies
-    if (packageJson.dependencies !== undefined) {
-      Object.keys(packageJson.dependencies).forEach(packageName => {
+    if (childPackage.dependencies !== undefined) {
+      Object.keys(childPackage.dependencies).forEach(packageName => {
         if (
-          packageJson.dependencies[packageName] !== dependencies[packageName]
+          childPackage.dependencies[packageName] !== dependencies[packageName]
         ) {
-          // The packages do not match up
-          collectedErrors.push(
-            createErrorMessage(
-              packageJson.name,
-              packageName,
-              packageJson.dependencies[packageName],
-              dependencies[packageName]
-            )
-          );
+          childPackage.dependencies[packageName] = dependencies[packageName];
+          isEdited = true;
         }
       });
     }
-    if (packageJson.devDependencies !== undefined) {
-      Object.keys(packageJson.devDependencies).forEach(packageName => {
+    if (childPackage.devDependencies !== undefined) {
+      Object.keys(childPackage.devDependencies).forEach(packageName => {
         if (
-          packageJson.devDependencies[packageName] !==
+          childPackage.devDependencies[packageName] !==
           devDependencies[packageName]
         ) {
-          // The packages do not match up
-          collectedErrors.push(
-            createErrorMessage(
-              packageJson.name,
-              packageName,
-              packageJson.dependencies[packageName],
-              dependencies[packageName]
-            )
-          );
+          childPackage.devDependencies[packageName] =
+            devDependencies[packageName];
+          isEdited = true;
         }
       });
+    }
+
+    if (isEdited) {
+      packagesToSave.push({ path: packagePaths[i], package: childPackage });
     }
   });
 
-  if (collectedErrors.length > 0) {
-    collectedErrors.forEach(error => {
-      console.error(error);
-    });
-    process.exit(1);
-  } else {
-    console.log('All files seem to be in order.');
-  }
+  await Promise.all(
+    packagesToSave.map(toSave =>
+      fsPromise.writeFile(toSave.path, JSON.stringify(toSave.package, null, 2))
+    )
+  );
+
+  console.log('Finished validating package.json files');
 })();
 
-function readPackageJson(path: string) {
-  return asyncReadJson(path, false);
-}
-
-// function isPropertyDefined(property: any): boolean {
-//   return !!property;
-// }
-
-function createErrorMessage(
-  projectName: string,
-  packageName: string,
-  currentVersionNumber: string,
-  requiredVersionNumber: string
-): string {
-  return `${projectName} has mismatching version for ${packageName}. Receive ${currentVersionNumber} but should be ${requiredVersionNumber}`;
+async function readPackageJson(path: string) {
+  const jsonPackage = await fsPromise.readFile(path);
+  return JSON.parse(jsonPackage.toString()) as {
+    dependencies: { [key: string]: string };
+    devDependencies: { [key: string]: string };
+  };
 }

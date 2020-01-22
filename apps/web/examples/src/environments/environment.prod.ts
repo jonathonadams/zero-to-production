@@ -1,4 +1,4 @@
-const serverUrl = 'localhost:3000';
+const serverUrl = 'https://api.jadams.dev';
 
 export const environment = {
   production: true,

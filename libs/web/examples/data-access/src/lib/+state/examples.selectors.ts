@@ -1,11 +1,11 @@
 import { createFeatureSelector } from '@ngrx/store';
-import { ExamplesEntityState, adapter } from './examples.reducer';
+import * as fromExamples from './examples.reducer';
 
-export const selectExampleState = createFeatureSelector<ExamplesEntityState>(
-  'examplesState'
-);
+export const selectExampleState = createFeatureSelector<
+  fromExamples.ExamplesEntityState
+>(fromExamples.exampleEntityStateKey);
 
 export const {
   selectEntities: selectExampleEntities,
   selectAll: selectAllExamples
-} = adapter.getSelectors(selectExampleState);
+} = fromExamples.adapter.getSelectors(selectExampleState);

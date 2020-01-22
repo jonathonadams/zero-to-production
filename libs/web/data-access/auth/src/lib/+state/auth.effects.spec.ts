@@ -4,60 +4,51 @@ import { Actions } from '@ngrx/effects';
 import { GraphQLError } from 'graphql';
 import { cold, hot, Scheduler } from 'jest-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
-import { NotificationService } from '@uqt/utils/notifications';
 import { createSpyObj } from '@app-testing/frontend/helpers';
 import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
 import * as AuthActions from './auth.actions';
-import { JWTAuthService } from '../services/jwt-auth.service';
 import { ILoginCredentials, IRegistrationDetails } from '../auth.interface';
 import { AuthenticationRoles, IUser } from '@uqt/interfaces';
 
 describe('AuthEffects', () => {
   let effects: AuthEffects;
   let authService: AuthService;
-  let formFacade: DynamicFormFacade;
-  let ns: NotificationService;
   let actions$: Observable<any>;
-  let jwtService: JWTAuthService;
-  const authSpy = createSpyObj('AuthService', ['login', 'register']);
-  const jwtServiceSpy = createSpyObj('JWTAuthService', [
-    'setAuthorizationToken',
-    'removeAuthorizationToken'
+  const authSpy = createSpyObj('AuthService', [
+    'login',
+    'register',
+    'setSession',
+    'removeSession'
   ]);
-  const formFacadeSpy = createSpyObj('DynamicFormFacad', ['clearData']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         AuthEffects,
-        { provide: JWTAuthService, useValue: jwtServiceSpy },
         { provide: AuthService, useValue: authSpy },
-        { provide: DynamicFormFacade, useValue: formFacadeSpy },
-        { provide: NotificationService, useValue: { emit: jest.fn() } },
         provideMockActions(() => actions$)
       ]
     });
 
-    effects = TestBed.get<AuthEffects>(AuthEffects);
-    actions$ = TestBed.get<Actions>(Actions);
-    authService = TestBed.get<AuthService>(AuthService);
-    formFacade = TestBed.get<DynamicFormFacade>(DynamicFormFacade);
-    ns = TestBed.get<NotificationService>(NotificationService);
-    jwtService = TestBed.get<JWTAuthService>(JWTAuthService);
+    effects = TestBed.inject<AuthEffects>(AuthEffects);
+    actions$ = TestBed.inject<Actions>(Actions);
+    authService = TestBed.inject<AuthService>(AuthService);
   });
 
   describe('login$', () => {
     it('should return an LoginSuccess action with token', () => {
       const credentials: ILoginCredentials = { username: 'test', password: '' };
       const token = 'JWT.TOKEN';
+      const expiresIn = 1234;
       const action = AuthActions.login(credentials);
-      const completion = AuthActions.loginSuccess({ token });
+      const completion = AuthActions.loginSuccess({ token, expiresIn });
 
       actions$ = hot('-a---', { a: action });
       // Example graphql response below
-      const response = cold('-a|', { a: { data: { login: { token } } } });
+      const response = cold('-a|', {
+        a: { data: { login: { token, expiresIn } } }
+      });
       const expected = cold('--b', { b: completion });
       authService.login = jest.fn(() => response);
 
@@ -91,7 +82,8 @@ describe('AuthEffects', () => {
   describe('loginSuccess$', () => {
     it('should dispatch a LoginRedirect action', () => {
       const token = 'JWT.TOKEN';
-      const action = AuthActions.loginSuccess({ token });
+      const expiresIn = 1234;
+      const action = AuthActions.loginSuccess({ token, expiresIn });
       const completion = AuthActions.loginRedirect();
 
       actions$ = hot('-a---', { a: action });
@@ -100,36 +92,18 @@ describe('AuthEffects', () => {
       expect(effects.loginSuccess$).toBeObservable(expected);
     });
 
-    it('should invoke the AuthService.setAuthorizationToken with the access token', done => {
-      const spy = jest.spyOn(jwtService, 'setAuthorizationToken');
+    it('should invoke the AuthService.setSession with the access token', done => {
+      const spy = jest.spyOn(authService, 'setSession');
       spy.mockReset();
       const token = 'JWT.TOKEN';
-      const action = AuthActions.loginSuccess({ token });
+      const expiresIn = 1234;
+      const action = AuthActions.loginSuccess({ token, expiresIn });
 
       actions$ = hot('-a---', { a: action });
 
       effects.loginSuccess$.subscribe(someAction => {
         expect(spy).toHaveBeenCalled();
-        expect(spy).toHaveBeenCalledWith(token);
-        done();
-      });
-
-      Scheduler.get().flush();
-
-      spy.mockReset();
-    });
-
-    it('should clear all data in the dynamic form', done => {
-      const spy = jest.spyOn(formFacade, 'clearData');
-      spy.mockReset();
-
-      const token = 'JWT.TOKEN';
-      const action = AuthActions.loginSuccess({ token });
-
-      actions$ = hot('-a---', { a: action });
-
-      effects.loginSuccess$.subscribe(someAction => {
-        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith({ token, expiresIn });
         done();
       });
 
@@ -154,7 +128,7 @@ describe('AuthEffects', () => {
         id: 'some-id',
         role: AuthenticationRoles.User,
         active: true,
-        isValid: true,
+        isVerified: true,
         ...newUser
       };
 
@@ -215,41 +189,6 @@ describe('AuthEffects', () => {
 
       expect(effects.registerSuccess$).toBeObservable(expected);
     });
-
-    it('should invoke the NotificationService.emit() with a welcome message', done => {
-      const spy = jest.spyOn(ns, 'emit');
-      spy.mockReset();
-      const action = AuthActions.registerSuccess({ user: {} as IUser });
-
-      actions$ = hot('-a---', { a: action });
-
-      effects.registerSuccess$.subscribe(someAction => {
-        expect(spy).toHaveBeenCalled();
-        done();
-      });
-
-      Scheduler.get().flush();
-
-      spy.mockReset();
-    });
-
-    it('should clear all data in the dynamic form', done => {
-      const spy = jest.spyOn(formFacade, 'clearData');
-      spy.mockReset();
-
-      const action = AuthActions.registerSuccess({ user: {} as IUser });
-
-      actions$ = hot('-a---', { a: action });
-
-      effects.registerSuccess$.subscribe(someAction => {
-        expect(spy).toHaveBeenCalled();
-        done();
-      });
-
-      Scheduler.get().flush();
-
-      spy.mockReset();
-    });
   });
 
   describe('logout$', () => {
@@ -263,8 +202,8 @@ describe('AuthEffects', () => {
       expect(effects.logout$).toBeObservable(expected);
     });
 
-    it('should call the AuthService.removeAuthorizationToken with the returned token', done => {
-      const spy = jest.spyOn(jwtService, 'removeAuthorizationToken');
+    it('should call the AuthService.removeSession with the returned token', done => {
+      const spy = jest.spyOn(authService, 'removeSession');
       spy.mockReset();
       const action = AuthActions.logout();
 

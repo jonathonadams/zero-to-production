@@ -16,7 +16,7 @@ describe('TodoFeatureShellComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    navFacade = TestBed.get<SideNavFacade>(SideNavFacade);
+    navFacade = TestBed.inject<SideNavFacade>(SideNavFacade);
   }));
 
   beforeEach(() => {

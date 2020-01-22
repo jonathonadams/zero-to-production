@@ -1,7 +1,25 @@
 :host {
   height: 100%;
+  display: block;
 }
 
 .app-content {
-  height: calc(100% - 4em);
+  display: block;
+  height: calc(100% - 3.5em);
+  @media screen and (min-width: 600px) {
+    height: calc(100% - 4em);
+  }
+}
+
+.header {
+  z-index: 2;
+  position: relative;
+  overflow: visible;
+  .logo {
+    cursor: pointer;
+    height: 2.5em;
+    > * {
+      height: 100%;
+    }
+  }
 }

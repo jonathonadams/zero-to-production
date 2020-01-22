@@ -1,0 +1,46 @@
+:host {
+  cursor: pointer;
+}
+
+.group-form-field-header {
+  margin: 0 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .action-buttons {
+    margin: auto 0;
+  }
+}
+
+.edit-fields {
+  & > * {
+    margin-right: 1em;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.select-options {
+  .options-heading {
+    display: inline-block;
+    margin-right: 2em;
+  }
+
+  .option-fields {
+    & > * {
+      margin-right: 1em;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+:host {
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+}

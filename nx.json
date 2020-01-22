@@ -113,10 +113,7 @@
     "web-examples-form-builder": {
       "tags": []
     },
-    "web-examples-dynamic-form": {
-      "tags": []
-    },
-    "web-examples-themeing": {
+    "web-examples-theming": {
       "tags": []
     },
     "web-common-ui-card": {
@@ -144,6 +141,15 @@
       "tags": []
     },
     "web-examples-lazy-load-scrolling": {
+      "tags": []
+    },
+    "web-common-ui-buttons": {
+      "tags": []
+    },
+    "web-examples-live-demos": {
+      "tags": []
+    },
+    "web-examples-dynamic-form": {
       "tags": []
     }
   }

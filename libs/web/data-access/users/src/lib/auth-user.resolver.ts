@@ -5,7 +5,7 @@ import { Resolve } from '@angular/router';
 import { IUser } from '@uqt/interfaces';
 import { UsersFacade } from './+state/users.facade';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthUsersResolver implements Resolve<IUser | undefined> {
   constructor(private facade: UsersFacade) {}
 

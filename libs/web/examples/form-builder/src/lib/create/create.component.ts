@@ -5,54 +5,55 @@ import {
   OnDestroy
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import {
-  FormBuilderFacade,
-  IFormBuilderStructure
-} from '@uqt/data-access/form-builder';
+import { FormBuilderFacade } from '@uqt/data-access/form-builder';
 import {
   TFormGroups,
   FormGroupTypes,
   FormFieldTypes,
-  DynamicFormFacade
+  DynamicFormFacade,
+  IDynamicFormConfig
 } from '@uqt/data-access/dynamic-form';
 import { Validators } from '@angular/forms';
+import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
 
 const STRUCTURE: TFormGroups = [
   {
-    formGroup: 'config',
+    groupName: 'config',
     groupType: FormGroupTypes.Group,
     cssClasses: ['form-builder-create'],
     fields: [
       {
-        componentType: FormFieldTypes.Input,
-        type: 'text',
+        type: FormFieldTypes.Input,
         name: 'formName',
         label: 'Form Name',
         validators: [Validators.required]
       },
       {
-        componentType: FormFieldTypes.CheckBox,
+        type: FormFieldTypes.CheckBox,
         name: 'animations',
         label: 'Animations'
       },
       {
-        componentType: FormFieldTypes.CheckBox,
-        name: 'pagination',
-        label: 'Section Pagination'
+        type: FormFieldTypes.CheckBox,
+        name: 'paginateSections',
+        label: 'Section Pages'
       }
     ]
   }
 ];
 
 @Component({
-  selector: 'uqt-example-form-create',
+  selector: 'ex-example-form-builder-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleCreateFormComponent implements OnInit, OnDestroy {
+export class ExampleFormBuilderCreateComponent implements OnInit, OnDestroy {
+  faPen = faPen;
+  faTrash = faTrash;
+
   readonly formName = 'form-builder-create';
-  form$: Observable<IFormBuilderStructure[]>;
+  form$: Observable<IDynamicFormConfig[]>;
   sub: Subscription;
 
   constructor(
@@ -65,26 +66,35 @@ export class ExampleCreateFormComponent implements OnInit, OnDestroy {
 
     this.sub = this.dynamicFormFacade
       .formSubmits$(this.formName)
-      .subscribe((form: IFormBuilderStructure) => {
-        this.formsFacade.createForm({ ...form, formGroups: [] });
+      .subscribe((form: { config: Partial<IDynamicFormConfig> }) => {
+        this.formsFacade.createForm(form.config);
+        this.dynamicFormFacade.setData(this.formName, {});
       });
   }
 
   ngOnInit() {
-    this.dynamicFormFacade.setStructure(this.formName, STRUCTURE);
+    this.dynamicFormFacade.setFormConfig(this.formName, {
+      structure: STRUCTURE
+    });
+    this.dynamicFormFacade.setData(this.formName, {
+      config: {
+        animations: false,
+        paginateSections: false
+      }
+    });
     this.formsFacade.loadForms();
   }
 
-  edit(form: IFormBuilderStructure) {
-    this.formsFacade.selectForm(form.id);
+  edit(form: IDynamicFormConfig) {
+    this.formsFacade.selectForm(form.formName);
   }
 
-  delete(form: IFormBuilderStructure) {
+  delete(form: IDynamicFormConfig) {
     this.formsFacade.deleteForm(form);
   }
 
-  trackForms(i: number, f: IFormBuilderStructure) {
-    return f.id;
+  trackForms(i: number, f: IDynamicFormConfig) {
+    return f.formName;
   }
 
   ngOnDestroy() {

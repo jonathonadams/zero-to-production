@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomUsernameInputComponent } from './custom-username-input.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AuthFacade } from '../../+state/auth.facade';
+import { AuthFacade } from '@uqt/data-access/auth';
 
 // TODO -> Tests
 describe('CustomUsernameInputComponent', () => {
@@ -13,7 +13,7 @@ describe('CustomUsernameInputComponent', () => {
     TestBed.configureTestingModule({
       declarations: [CustomUsernameInputComponent],
       providers: [
-        { provide: AuthFacade, useValue: { usernameAvailability$: jest.fn() } }
+        { provide: AuthFacade, useValue: { isAvailable$: jest.fn() } }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

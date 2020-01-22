@@ -11,26 +11,32 @@ import {
   DynamicFormFacade,
   TFormGroups,
   FormGroupTypes,
-  FormFieldTypes
+  FormFieldTypes,
+  InputFieldTypes
 } from '@uqt/data-access/dynamic-form';
 import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
-import { IExample } from '@uqt/examples/data-access';
+import { IExample, ExamplesFacade } from '@uqt/examples/data-access';
+import {
+  markup,
+  submitSyntax,
+  moduleRegistry,
+  setStructureMarkup
+} from './dynamic-form.code';
 
 const SIMPLE_FORM: TFormGroups = [
   {
-    formGroup: 'contactDetails',
+    groupName: 'contactDetails',
     groupType: FormGroupTypes.Group,
     fields: [
       {
-        componentType: FormFieldTypes.Input,
-        type: 'text',
+        type: FormFieldTypes.Input,
         name: 'contactNumber',
         label: 'Contact Number',
         validators: [Validators.required]
       },
       {
-        componentType: FormFieldTypes.Input,
-        type: 'email',
+        type: FormFieldTypes.Input,
+        inputType: InputFieldTypes.Email,
         name: 'emailAddress',
         label: 'Email Address',
         validators: [Validators.required, Validators.email]
@@ -41,105 +47,84 @@ const SIMPLE_FORM: TFormGroups = [
 
 const COMPLEX_FORM: TFormGroups = [
   {
-    formGroup: 'userDetails',
+    groupName: 'userDetails',
     groupType: FormGroupTypes.Group,
     fields: [
       {
-        componentType: FormFieldTypes.Input,
-        type: 'text',
+        type: FormFieldTypes.Input,
         name: 'givenName',
         label: 'Given Name',
         autocomplete: 'given-name',
         validators: [Validators.required]
       },
       {
-        componentType: FormFieldTypes.Input,
-        type: 'text',
+        type: FormFieldTypes.Input,
         name: 'surname',
         autocomplete: 'family-name',
         label: 'Email Address'
       }
     ]
-  },
-  {
-    formGroup: 'additionalDetails',
-    groupType: FormGroupTypes.Group,
-    fields: [
-      {
-        componentType: FormFieldTypes.DatePicker,
-        name: 'dateOfBirth',
-        label: 'Date Of Birth',
-        autocomplete: 'bday',
-        validators: [Validators.required]
-      }
-    ]
   }
+  // {
+  //   groupName: 'contactDetails',
+  //   groupType: FormGroupTypes.Array,
+  //   arrayType: FormArrayTypes.Field,
+  //   initialNumber: 3,
+  //   field: {
+  //     type: FormFieldTypes.Input,
+  //     name: 'contactDetails',
+  //     label: 'Contact Details'
+  //   }
+  // },
+  // {
+  //   groupName: 'someMoreDetails',
+  //   groupType: FormGroupTypes.Array,
+  //   arrayType: FormArrayTypes.Group,
+  //   initialNumber: 3,
+  //   fields: [
+  //     {
+  //       type: FormFieldTypes.Input,
+  //       name: 'phone',
+  //       label: 'Phone Number'
+  //     },
+  //     {
+  //       type: FormFieldTypes.Input,
+  //       name: 'email',
+  //       label: 'Email Address'
+  //     }
+  //   ]
+  // }
 ];
 
 @Component({
-  selector: 'example-dynamic-form',
+  selector: 'uqt-example-dynamic-form',
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
   readonly formName = 'dynamic-form-example';
-  example: IExample | undefined;
+  example$: Observable<IExample | undefined>;
   simpleStructure = true;
   submit$: Observable<any>;
 
-  component = `// example.component.ts
-  const CONTACT_DETAILS: TFormGroups = [
-    {
-      formGroup: 'contactDetails',
-      groupType: FormGroupTypes.Group,
-      fields: [
-        {
-          componentType: FormFieldTypes.Input,
-          type: 'text',
-          name: 'contactNumber',
-          label: 'Contact Number',
-          validators: [Validators.required]
-        },
-        {
-          componentType: FormFieldTypes.Input,
-          type: 'email',
-          name: 'emailAddress',
-          label: 'Email Address',
-          validators: [Validators.required, Validators.email]
-        }
-      ]
-    }
-  ];
-
-  ...
-  
-  ngOnInit() {
-    this.formFacade.setStructure({ structure: CONTACT_DETAILS });
-  }`;
-
-  markup = `<!-- example.component.html -->
-  <app-dynamic-form>
-    <button type="submit">Submit</button>
-  </app-dynamic-form>`;
-
-  submitSyntax = `// example.component.ts
-  constructor(private formFacade: DynamicFormFacade) {
-    this.formFacade.submit$.subscribe(formOutput => {
-        // do something with the output
-    });
-  }`;
+  setStructureMarkup = setStructureMarkup;
+  markup = markup;
+  submitSyntax = submitSyntax;
+  moduleRegistry = moduleRegistry;
 
   constructor(
+    private facade: ExamplesFacade,
     private formFacade: DynamicFormFacade,
     private highlight: CodeHighlightService
   ) {
+    this.example$ = this.facade.selectExampleById('1'); // hard coded because it is first and not coming from the db
     this.formFacade.createFormIfNotExist(this.formName);
     this.submit$ = this.formFacade.formSubmits$(this.formName);
   }
 
   ngOnInit() {
-    this.formFacade.setStructure(this.formName, SIMPLE_FORM);
+    this.formFacade.setFormConfig(this.formName, { structure: SIMPLE_FORM });
   }
 
   ngAfterViewInit() {
@@ -148,10 +133,9 @@ export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
 
   setStructure(simpleForm: boolean) {
     if (simpleForm) {
-      // this.formFacade.resetIndex();
-      this.formFacade.setStructure(this.formName, SIMPLE_FORM);
+      this.formFacade.setFormConfig(this.formName, { structure: SIMPLE_FORM });
     } else {
-      this.formFacade.setStructure(this.formName, COMPLEX_FORM);
+      this.formFacade.setFormConfig(this.formName, { structure: COMPLEX_FORM });
     }
     this.simpleStructure = simpleForm;
   }

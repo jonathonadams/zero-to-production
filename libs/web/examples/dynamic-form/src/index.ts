@@ -1,1 +1,1 @@
-export { WebExamplesDynamicFormModule } from './lib/web-examples-dynamic-form.module';
+export * from './lib/web-examples-dynamic-form.module';

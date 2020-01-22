@@ -1,9 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { SideNavState } from './side-nave.reducer';
+import * as fromSidNav from './side-nave.reducer';
 
-export const selectSideNavState = createFeatureSelector<SideNavState>(
-  'sideNavState'
-);
+export const selectSideNavState = createFeatureSelector<
+  fromSidNav.SideNavState
+>(fromSidNav.sideNaveKey);
 
 export const selectOpenedState = createSelector(
   selectSideNavState,

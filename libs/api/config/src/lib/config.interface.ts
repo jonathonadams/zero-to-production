@@ -5,31 +5,55 @@ import { ConnectionOptions } from 'mongoose';
  */
 
 export interface GlobalConfig {
-  hostUrl: string;
   port: number;
   databaseOptions: ConnectionOptions;
 }
 
-export interface EnvironnementConfig {
-  production: boolean;
+export interface AuthConfig {
+  authServerUrl: string;
+  accessToken: {
+    privateKey: string;
+    expireTime: number;
+    issuer: string;
+    keyId: string;
+    audience: string;
+  };
+  refreshToken: {
+    privateKey: string;
+    issuer: string;
+    audience: string;
+  };
+  email: {
+    hostUrl: string;
+    sendGridApiKey: string;
+  };
+}
+
+export type EnvironnementConfig = ProductionConfig | DevOrTestConfig;
+
+export interface DevOrTestConfig {
+  production: false;
   logging: false | 'dev';
   docs: boolean;
   databaseOptions: ConnectionOptions;
-  expireTime: number;
-  apiKeys: {
-    sendGrid: string;
-  };
-  secrets: {
-    accessToken: string;
-    refreshToken: string;
-  };
+  auth: AuthConfig;
   database: {
     host: string;
     port: number;
-    dbName: string;
     user: string;
     pass: string;
   };
 }
 
-export interface ServerConfig extends GlobalConfig, EnvironnementConfig {}
+export interface ProductionConfig {
+  production: true;
+  logging: false;
+  docs: false;
+  databaseOptions: ConnectionOptions;
+  auth: AuthConfig;
+  database: {
+    connectionString: string;
+  };
+}
+
+export type ServerConfig = GlobalConfig & EnvironnementConfig;

@@ -4,10 +4,11 @@ import mongoose from 'mongoose';
 import { createControllers } from './create-controllers';
 
 export function generateRestEndpoints<T extends mongoose.Document>(
-  model: mongoose.Model<T>
+  model: mongoose.Model<T>,
+  userResourcesOnly = false
 ) {
   const router = new Router();
-  const controllers = generateRestControllers<T>(model);
+  const controllers = generateRestControllers<T>(model, userResourcesOnly);
 
   router.param('id', controllers.params);
 
@@ -22,7 +23,8 @@ export function generateRestEndpoints<T extends mongoose.Document>(
 }
 
 export function generateRestControllers<T extends mongoose.Document>(
-  model: mongoose.Model<T>
+  model: mongoose.Model<T>,
+  userResourcesOnly: boolean
 ) {
   const controllers = createControllers<T>(model);
 
@@ -37,12 +39,17 @@ export function generateRestControllers<T extends mongoose.Document>(
     },
     getAll: async (ctx: ParameterizedContext) => {
       ctx.status = 200;
-      ctx.body = await controllers.getAll();
+      ctx.body = await controllers.getAll(
+        userResourcesOnly ? ctx.state.token.sub : undefined
+      );
     },
     getOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
       try {
         ctx.status = 200;
-        ctx.body = await controllers.getOne(ctx.state.id);
+        ctx.body = await controllers.getOne(
+          ctx.state.id,
+          userResourcesOnly ? ctx.state.token.sub : undefined
+        );
       } catch (err) {
         throw err;
       }
@@ -56,7 +63,8 @@ export function generateRestControllers<T extends mongoose.Document>(
         ctx.status = 201;
         ctx.body = await controllers.updateOne(
           ctx.state.id,
-          (ctx.request as any).body
+          (ctx.request as any).body,
+          userResourcesOnly ? ctx.state.token.sub : undefined
         );
       } catch (err) {
         throw err;
@@ -65,7 +73,10 @@ export function generateRestControllers<T extends mongoose.Document>(
     removeOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
       try {
         ctx.status = 200;
-        ctx.body = await controllers.removeOne(ctx.state.id);
+        ctx.body = await controllers.removeOne(
+          ctx.state.id,
+          userResourcesOnly ? ctx.state.token.sub : undefined
+        );
       } catch (err) {
         throw err;
       }

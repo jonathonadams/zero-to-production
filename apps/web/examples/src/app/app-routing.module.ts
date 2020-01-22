@@ -1,10 +1,12 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { SelectivePreloadingStrategyService } from '@uqt/data-access/router';
 
 @NgModule({
   imports: [
     RouterModule.forRoot([], {
       initialNavigation: 'enabled',
+      preloadingStrategy: SelectivePreloadingStrategyService,
       relativeLinkResolution: 'corrected',
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled'

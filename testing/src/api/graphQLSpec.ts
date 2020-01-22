@@ -1,9 +1,11 @@
+/* istanbul ignore file */
+
 import 'jest-extended';
-import mongoose from 'mongoose';
 import { GraphQLSchema } from 'graphql';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { runQuery, setupTestDB } from './helpers';
+import { runQuery, setupTestDB, newId } from './helpers';
 import { signTestAccessToken } from './auth';
+import { Server } from 'http';
 
 /**
  * Object.keys(object) is used to return an array of the names of object properties.
@@ -18,7 +20,14 @@ import { signTestAccessToken } from './auth';
  */
 export function createGraphQLSpec<T>(
   schema: GraphQLSchema,
-  tokenSecret: string
+  tokenConfig: {
+    privateKey: string;
+    expireTime: number;
+    issuer: string;
+    keyId: string;
+    audience: string;
+  },
+  authServer: any
 ) {
   return function(
     model: any,
@@ -38,25 +47,29 @@ export function createGraphQLSpec<T>(
       );
     }
 
+    const userId = resourceToCreate.userId ? resourceToCreate.userId : newId();
+
     // GraphQL schemas are designed written with UpperCase names
     const upperResourceName =
       resourceName.charAt(0).toUpperCase() + resourceName.slice(1);
 
     describe(`GraphQL / ${upperResourceName}`, () => {
       let mongoServer: MongoMemoryServer;
-      let db: mongoose.Mongoose;
+      let dbUri: string;
       let resource: T;
       let jwt: string;
+      let testServer: Server;
 
       beforeAll(async () => {
-        ({ db, mongoServer } = await setupTestDB());
-        jwt = signTestAccessToken({ id: '1', role: 0 }, tokenSecret);
+        ({ dbUri, mongoServer } = await setupTestDB());
+        testServer = await authServer.initializeServer(dbUri);
+        jwt = signTestAccessToken(tokenConfig)({ id: userId });
 
         resource = await model.create(resourceToCreate);
       });
 
       afterAll(async () => {
-        await db.disconnect();
+        testServer.close();
         await mongoServer.stop();
       });
 
@@ -106,12 +119,11 @@ export function createGraphQLSpec<T>(
           const queryName = `${resourceName}`;
 
           const result = await runQuery(schema)(
-            `
-        {
-          ${queryName}(id: "${(resource as any).id}") {
-            id
-          }
-        }`,
+            `{
+               ${queryName}(id: "${(resource as any).id}") {
+                 id
+               }
+             }`,
             {},
             jwt
           );

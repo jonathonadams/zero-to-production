@@ -1,16 +1,23 @@
 // Normalize css
 @import '~normalize.css';
+// Muli font
+@import url('https://fonts.googleapis.com/css?family=Muli:400,500&display=swap');
+
 // Angular Material Themeing Mixins
 @import '~@angular/material/theming';
 
+// Themes for Prism.js syntax highlighting
+@import '~prismjs/themes/prism.css';
+// @import '~prismjs/themes/prism-tomorrow.css';
+
 // import the theming file
 @import 'libs/web/common/theme/styles/theme.scss';
-@import 'libs/web/common/theme/styles/typography.scss';
+@import 'libs/web/common/theme/styles/material-theme.scss';
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat-core($app-typography);
+@include mat-core();
 
 @include angular-material-theme($app-theme);
 
@@ -22,13 +29,17 @@
 
 html,
 body,
-todo-root {
+examples-root {
   height: 100vh;
   overflow: hidden;
-}
-body {
   margin: 0;
-  font-family: Lato, 'Helvetica Neue', sans-serif;
+}
+
+body {
+  font-family: Muli, 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  font-size: 1em;
+  line-height: 1.3rem;
 }
 
 // ------------------------------------------------

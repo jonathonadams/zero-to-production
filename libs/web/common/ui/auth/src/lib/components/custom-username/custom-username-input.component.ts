@@ -18,8 +18,7 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable, Subject } from 'rxjs';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor } from '@angular/cdk/a11y';
-// import { AvailableStatus } from '@uqt/api/auth';
-import { AuthFacade, AvailableStatus } from '@uqt/data-access/auth';
+import { AuthFacade } from '@uqt/data-access/auth';
 import { IInputField } from '@uqt/data-access/dynamic-form';
 
 @Component({
@@ -29,17 +28,15 @@ import { IInputField } from '@uqt/data-access/dynamic-form';
   providers: [
     { provide: MatFormFieldControl, useExisting: CustomUsernameInputComponent }
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[class.floating]': 'shouldLabelFloat',
-    '[id]': 'id',
-    '[attr.aria-describedby]': 'describedBy'
-  }
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomUsernameInputComponent
   implements ControlValueAccessor, MatFormFieldControl<string>, OnDestroy {
   static nextId = 0;
-  usernameAvailability$: Observable<AvailableStatus | null>;
+  static ngAcceptInputType_disabled: boolean | string | null | undefined;
+  static ngAcceptInputType_required: boolean | string | null | undefined;
+
+  isAvailable$: Observable<boolean | 'pending' | null>;
 
   @Input() group: FormGroup;
   @Input() field: IInputField;
@@ -48,13 +45,16 @@ export class CustomUsernameInputComponent
   focused = false;
   errorState = false;
   controlType = 'register-username-input';
+  @HostBinding('id')
   id = `register-username-input-${CustomUsernameInputComponent.nextId}`;
+  @HostBinding('attr.aria-describedby') describedBy = '';
+
+  private _placeholder: string;
+  private _required = false;
+  private _disabled = false;
 
   onChange = (_: any) => {};
   onTouched = () => {};
-
-  // private _disabled = false;
-  @HostBinding('attr.aria-describedby') describedBy = '';
 
   get empty() {
     if (this.group) {
@@ -79,7 +79,6 @@ export class CustomUsernameInputComponent
     this._placeholder = value;
     this.stateChanges.next();
   }
-  private _placeholder: string;
 
   @Input()
   get required(): boolean {
@@ -89,7 +88,6 @@ export class CustomUsernameInputComponent
     this._required = coerceBooleanProperty(value);
     this.stateChanges.next();
   }
-  private _required = false;
 
   @Input()
   get disabled(): boolean {
@@ -107,7 +105,6 @@ export class CustomUsernameInputComponent
     }
     this.stateChanges.next();
   }
-  private _disabled = false;
 
   @Input()
   get value(): string | null {
@@ -131,7 +128,7 @@ export class CustomUsernameInputComponent
     private _elRef: ElementRef<HTMLElement>,
     @Optional() @Self() public ngControl: NgControl
   ) {
-    this.usernameAvailability$ = this.facade.usernameAvailability$;
+    this.isAvailable$ = this.facade.isAvailable$;
 
     _focusMonitor.monitor(_elRef, true).subscribe(origin => {
       if (this.focused && !origin) {
@@ -156,8 +153,8 @@ export class CustomUsernameInputComponent
   }
 
   onContainerClick(event: MouseEvent) {
-    if ((event.target as Element).tagName.toLowerCase() != 'input') {
-      this._elRef.nativeElement.querySelector('input')!.focus();
+    if ((event.target as Element).tagName.toLowerCase() !== 'input') {
+      (this._elRef.nativeElement.querySelector('input') as HTMLElement).focus();
     }
   }
 
@@ -183,7 +180,4 @@ export class CustomUsernameInputComponent
       this.onChange(control.value);
     }
   }
-
-  static ngAcceptInputType_disabled: boolean | string | null | undefined;
-  static ngAcceptInputType_required: boolean | string | null | undefined;
 }

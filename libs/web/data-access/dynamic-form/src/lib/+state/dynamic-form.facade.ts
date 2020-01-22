@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromActions from './dynamic-form.actions';
-import { ValidatorFn } from '@angular/forms';
-import { TFormGroups } from '../dynamic-form.interface';
-import { IDynamicFormConfig } from './dynamic-form.reducer';
+import { IDynamicFormConfig } from '../dynamic-form.interface';
 import { filter, map } from 'rxjs/operators';
 import { PrivateDynamicFormFacade } from './private-dynamic-form.facade';
 
@@ -26,18 +24,8 @@ export class DynamicFormFacade {
     this.store.dispatch(fromActions.createForm({ formName }));
   }
 
-  setStructure(formName: string, structure: TFormGroups) {
-    this.store.dispatch(fromActions.setFormStructure({ formName, structure }));
-  }
-
   setFormConfig(formName: string, config: Partial<IDynamicFormConfig>) {
     this.store.dispatch(fromActions.setFormConfig({ formName, config }));
-  }
-
-  setValidators(formName: string, validators: ValidatorFn[]) {
-    this.store.dispatch(
-      fromActions.setFormValidators({ formName, validators })
-    );
   }
 
   updateData(formName: string, data: any) {
@@ -54,8 +42,8 @@ export class DynamicFormFacade {
    * When the form resets, it will emit a value changed event and subsequently will update the store
    * @param data
    */
-  setData(data: any) {
-    this.facade.setDataSubject.next(data);
+  setData(formName: string, data: any) {
+    this.facade.setDataSubject.next({ [formName]: data });
   }
 
   nextSection(formName: string) {
@@ -64,5 +52,9 @@ export class DynamicFormFacade {
 
   backASection(formName: string) {
     this.store.dispatch(fromActions.backIndex({ formName }));
+  }
+
+  resetFormSate(formName: string) {
+    this.store.dispatch(fromActions.resetFormState({ formName }));
   }
 }

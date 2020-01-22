@@ -4,6 +4,7 @@
     "esModuleInterop": true,
     "rootDir": "./",
     "moduleResolution": "node",
-    "module": "commonjs"
+    "module": "commonjs",
+    "sourceMap": false
   }
 }

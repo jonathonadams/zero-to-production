@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.container {
+  height: 100%;
+
+  .content {
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 1em;
+    height: calc(100% - 2em);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    & > * {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      margin-bottom: 2em;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    // }
+  }
+}

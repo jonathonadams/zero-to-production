@@ -1,0 +1,148 @@
+<ng-container [formGroup]="form">
+  <ng-container formGroupName="config">
+    <ng-container formArrayName="structure">
+      <ng-container [formGroupName]="groupIndex">
+        <ng-container formArrayName="fields">
+          <div class="group-form-field-header">
+            <p>
+              <fa-icon [icon]="iconType(field.value.type)"></fa-icon
+              >&nbsp;&nbsp;&nbsp;{{ field.value.label }}
+            </p>
+            <div class="action-buttons">
+              <button
+                type="button"
+                uqt-icon-button
+                (click)="
+                  remove.emit({
+                    groupIndex: groupIndex,
+                    fieldIndex: fieldIndex
+                  });
+                  $event.stopPropagation()
+                "
+              >
+                <fa-icon [icon]="faTrash"></fa-icon>
+              </button>
+            </div>
+          </div>
+
+          <div
+            *ngIf="showConfig"
+            @expand
+            [formGroupName]="fieldIndex"
+            class="edit-fields"
+          >
+            <mat-form-field
+              appearance="outline"
+              (click)="$event.stopPropagation()"
+            >
+              <mat-label>Field Label (display)</mat-label>
+              <input matInput type="text" formControlName="label" required />
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="outline"
+              (click)="$event.stopPropagation()"
+            >
+              <mat-label>Field Name</mat-label>
+              <input matInput type="text" formControlName="name" required />
+            </mat-form-field>
+
+            <mat-form-field
+              *ngIf="field.value.type === 'INPUT'"
+              appearance="outline"
+              (click)="$event.stopPropagation()"
+            >
+              <mat-label>Input Type</mat-label>
+              <mat-select
+                formControlName="inputType"
+                required
+                [value]="field.value.inputType"
+              >
+                <mat-option
+                  *ngFor="let type of inputFieldTypes"
+                  [value]="type.value"
+                >
+                  {{ type.display }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- IF THE FORM FIELD IS A SELECT OPTION, IT HAS A NESTED FORM GROUP 'selectOptions'
+              this is a form array of groups that has a 'display' and 'value' control
+             -->
+            <ng-container *ngIf="field.value.type === 'SELECT'">
+              <ng-container formArrayName="selectOptions">
+                <div class="select-options">
+                  <h5 class="options-heading">Select Options</h5>
+                  <button
+                    type="button"
+                    uqt-raised-button
+                    (click)="
+                      addSelectOption.emit({
+                        groupIndex: groupIndex,
+                        fieldIndex: fieldIndex
+                      });
+                      $event.stopPropagation()
+                    "
+                  >
+                    <fa-icon [icon]="faPlus"></fa-icon>&nbsp;&nbsp;&nbsp;Add
+                    Option
+                  </button>
+
+                  <div
+                    class="option-fields"
+                    *ngFor="
+                      let optionsField of getSelectOptions(field).controls;
+                      let optionIndex = index
+                    "
+                  >
+                    <ng-container [formGroupName]="optionIndex">
+                      <mat-form-field
+                        appearance="outline"
+                        (click)="$event.stopPropagation()"
+                      >
+                        <mat-label>Display</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          formControlName="display"
+                          required
+                        />
+                      </mat-form-field>
+                      <mat-form-field
+                        appearance="outline"
+                        (click)="$event.stopPropagation()"
+                      >
+                        <mat-label>Value</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          formControlName="value"
+                          required
+                        />
+                      </mat-form-field>
+                    </ng-container>
+                    <button
+                      type="button"
+                      uqt-icon-button
+                      (click)="
+                        deleteSelectOption.emit({
+                          groupIndex: groupIndex,
+                          fieldIndex: fieldIndex,
+                          optionIndex: optionIndex
+                        });
+                        $event.stopPropagation()
+                      "
+                    >
+                      <fa-icon [icon]="faTrash"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</ng-container>

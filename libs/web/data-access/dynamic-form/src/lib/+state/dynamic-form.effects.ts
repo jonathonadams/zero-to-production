@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { map } from 'rxjs/operators';
 import * as fromActions from './dynamic-form.actions';
-import { DynamicFormFacade } from './dynamic-form.facade';
 import { DynamicFormErrorsService } from '../form-errors/form-errors.service';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class DynamicFormsEffects {
   setErrors$ = createEffect(() =>
     this.actions.pipe(
@@ -31,7 +30,6 @@ export class DynamicFormsEffects {
 
   constructor(
     private actions: Actions,
-    private facade: DynamicFormFacade,
     private errorService: DynamicFormErrorsService
   ) {}
 }

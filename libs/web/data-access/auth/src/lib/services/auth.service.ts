@@ -1,26 +1,36 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GraphQLService, ApiService } from '@uqt/data-access/api';
+// @ts-ignore
+import jwtDecode from 'jwt-decode';
+import { GraphQLService } from '@uqt/data-access/api';
 import { IUser } from '@uqt/interfaces';
-import { JWTAuthService } from './jwt-auth.service';
 import {
   ILoginCredentials,
   ILoginResponse,
-  IRegistrationDetails
+  IRegistrationDetails,
+  IJWTPayload
 } from '../auth.interface';
+import { HttpClient } from '@angular/common/http';
+import { secondsToExpiresAtMillis } from '../utils';
+import { AuthFacade } from '../+state/auth.facade';
 
-@Injectable()
+export const AUTH_SERVER_URL = new InjectionToken<string>(
+  'forRoot() Auth Server Url'
+);
+
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(
-    private jwt: JWTAuthService,
-    private graphQL: GraphQLService,
-    private api: ApiService
-  ) {}
+  readonly storageKey = 'access_token';
+  readonly sessionKey = 'expires_at';
 
-  // Checks if the user is logged in
-  checkUserIsLoggedIn(): boolean {
-    const token = this.jwt.getAuthorizationToken();
-    return token && this.jwt.checkTokenIsValid(token) ? true : false;
+  constructor(
+    @Inject(AUTH_SERVER_URL) private authServerUrl: string,
+    private graphQL: GraphQLService,
+    private facade: AuthFacade,
+    private http: HttpClient
+  ) {
+    // On create (page refresh/load), update the redux store
+    this.isLoggedIn();
   }
 
   // Login function that returns a user and JWT
@@ -30,6 +40,7 @@ export class AuthService {
       mutation LoginUser($username: String!, $password: String!){
         login(username: $username, password: $password){
           token
+          expiresIn
         }
       }
     `;
@@ -43,7 +54,7 @@ export class AuthService {
 
   register(details: IRegistrationDetails) {
     const query = `
-      mutation Register($input: NewUserInput!) {
+      mutation Register($input: RegisterInput!) {
         register(input: $input) {
           id
         }
@@ -55,11 +66,70 @@ export class AuthService {
   }
 
   // TODO -> Graphql?
+
   public isUsernameAvailable(
     username: string
   ): Observable<{ isAvailable: boolean }> {
-    return this.api.get<{ isAvailable: boolean }>(`users/available`, {
-      username
-    });
+    return this.http.get<{ isAvailable: boolean }>(
+      `${this.authServerUrl}/authorize/available`,
+      {
+        headers: this.headers,
+        params: { username }
+      }
+    );
+  }
+
+  get authToken(): string | null {
+    return localStorage.getItem(this.storageKey);
+  }
+
+  setSession({ token, expiresIn }: ILoginResponse): void {
+    const expiresAt = secondsToExpiresAtMillis(expiresIn);
+    localStorage.setItem(this.storageKey, token);
+    localStorage.setItem(this.sessionKey, expiresAt.toString());
+  }
+
+  removeSession(): void {
+    localStorage.removeItem(this.storageKey);
+    localStorage.removeItem(this.sessionKey);
+  }
+
+  /**
+   *
+   * NOTE: Side Effect. Each time the isLoggedIn methods is called, it will synchronously update the redux store
+   *
+   * @memberof AuthService
+   */
+  public isLoggedIn(): void {
+    const expiration = this.expiration;
+    const auth = expiration ? this.isAuthenticated(expiration) : false;
+
+    if (auth) {
+      this.facade.setAuthenticated(true, expiration);
+    } else {
+      this.removeSession();
+      this.facade.setAuthenticated(false, null);
+    }
+  }
+
+  private get expiration(): number | null {
+    const expiration: string | null = localStorage.getItem(this.sessionKey);
+    return expiration ? Number(expiration) : null;
+  }
+
+  private isAuthenticated(expiration: number): boolean {
+    return new Date().valueOf() < expiration;
+  }
+
+  get authUserId(): string | null {
+    const token = this.authToken;
+    return token !== null ? jwtDecode<IJWTPayload>(token).sub : null;
+  }
+
+  get headers() {
+    return {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    };
   }
 }

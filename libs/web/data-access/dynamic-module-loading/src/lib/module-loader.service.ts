@@ -31,9 +31,11 @@ export const LAZY_MODULE_REGISTRY = new InjectionToken<ILazyModuleRegistry>(
   'LAZY_MODULE_REGISTRY'
 );
 
-@Injectable({
-  providedIn: 'root'
-})
+// If you provide the dependency at the root injector 'providedIn:"root"', then
+// you need to provide the LAZY_MODULE_REGISTRY injection token at the root level as well.
+// It is up to you to determine your use case, but for this example I chose to provide the DI Token
+// In a lazy loaded module, hence not in root injector
+@Injectable()
 export class ModuleLoaderService {
   private _registry: Map<string, IModuleRegistry> = new Map();
   private registry: BehaviorSubject<IFactoryRegistry> = new BehaviorSubject({});
@@ -90,6 +92,7 @@ export class ModuleLoaderService {
       const path = registeredModule.importPath;
 
       try {
+        // Load the module from the server by executing the import statement
         const elementModule = await path();
         let moduleFactory: NgModuleFactory<any>;
 
@@ -101,6 +104,14 @@ export class ModuleLoaderService {
           moduleFactory = await this.compiler.compileModuleAsync(elementModule);
         }
 
+        // 'lazyEntryComponent' is a getter on the Module definition
+        // that returns the Component to act as the entry component. e.g.
+        //
+        // export class WebExamplesFormBuilderModule {
+        //   static get lazyEntryComponent() {
+        //      return ExampleFormBuilderOverviewComponent;
+        //   }
+        // }
         const entryComponent = (<any>moduleFactory.moduleType)
           .lazyEntryComponent;
 
@@ -112,6 +123,7 @@ export class ModuleLoaderService {
         }
 
         const moduleRef = moduleFactory.create(this.injector);
+        // Now we have an instance of the componentFactory to use
         const factory = moduleRef.componentFactoryResolver.resolveComponentFactory(
           entryComponent
         );

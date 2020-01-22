@@ -2,14 +2,16 @@ import { TestBed } from '@angular/core/testing';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from '../services/auth.service';
 import { AuthFacade } from '../+state/auth.facade';
+import { of } from 'rxjs';
+import { cold } from 'jest-marbles';
 
 describe('AuthGuard', () => {
   let authGuard: AuthGuard;
   let authService: AuthService;
   let authFacade: AuthFacade;
 
-  const authFacadeSpy = { logout: jest.fn() };
-  const authServiceSpy = { checkUserIsLoggedIn: jest.fn() };
+  const authFacadeSpy = { logout: jest.fn(), isAuthenticated$: of(jest.fn()) };
+  const authServiceSpy = { isLoggedIn: jest.fn() };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -20,27 +22,44 @@ describe('AuthGuard', () => {
       ]
     });
 
-    authGuard = TestBed.get<AuthGuard>(AuthGuard);
-    authService = TestBed.get<AuthService>(AuthService);
-    authFacade = TestBed.get<AuthFacade>(AuthFacade);
+    authGuard = TestBed.inject<AuthGuard>(AuthGuard);
+    authService = TestBed.inject<AuthService>(AuthService);
+    authFacade = TestBed.inject<AuthFacade>(AuthFacade);
   });
 
-  it('should allow access and not navigate if the user is logged in', () => {
-    const spy = jest.spyOn(authFacade, 'logout');
+  it('should call the AuthService.isLoggedIn method', () => {
+    const authSpy = jest.spyOn(authService, 'isLoggedIn');
+    jest.resetAllMocks();
 
-    authService.checkUserIsLoggedIn = jest.fn(() => true);
+    authGuard.canActivate();
 
-    expect(authGuard.canActivate()).toEqual(true);
-    expect(spy).not.toHaveBeenCalled();
-    spy.mockReset();
+    expect(authSpy).toHaveBeenCalled();
   });
 
-  it('should dispatch a logout action if the user is not logged in', () => {
+  it('should call the AuthFacade.logout if authenticated', () => {
     const spy = jest.spyOn(authFacade, 'logout');
-    authService.checkUserIsLoggedIn = jest.fn(() => false);
+    authFacade.isAuthenticated$ = of(false);
 
-    expect(authGuard.canActivate()).toEqual(false);
+    jest.resetAllMocks();
+
+    authGuard.canActivate().subscribe();
+
     expect(spy).toHaveBeenCalled();
-    spy.mockReset();
+  });
+
+  it('should not allow if the user is authenticated', () => {
+    authFacade.isAuthenticated$ = of(true);
+
+    const completion = cold('(a|)', { a: true });
+
+    expect(authGuard.canActivate()).toBeObservable(completion);
+  });
+
+  it('should not allow access if the user is unauthenticated', () => {
+    authFacade.isAuthenticated$ = of(false);
+
+    const completion = cold('(a|)', { a: false });
+
+    expect(authGuard.canActivate()).toBeObservable(completion);
   });
 });

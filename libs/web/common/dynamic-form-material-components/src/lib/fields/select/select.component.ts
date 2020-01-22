@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormGroupTypes, ISelectField } from '@uqt/data-access/dynamic-form';
 
 @Component({
-  selector: 'app-form-select',
+  selector: 'uqt-app-form-select',
   templateUrl: './select.component.html',
   styles: [
     `

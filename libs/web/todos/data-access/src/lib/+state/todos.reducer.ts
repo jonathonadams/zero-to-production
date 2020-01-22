@@ -1,13 +1,15 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import * as TodoActions from './todos.actions';
-import { ITodo } from '@uqt/interfaces';
 import { createReducer, on, Action } from '@ngrx/store';
+import { ITodo } from '@uqt/interfaces';
+import * as TodoActions from './todos.actions';
 
 export enum TodoFilterStatus {
   All,
   Completed,
   InCompleted
 }
+
+export const todosFeatureKey = 'todosFeatureState';
 
 // 1. define the entity state
 export interface TodosEntityState extends EntityState<ITodo> {
@@ -52,6 +54,9 @@ export const todosReducer = createReducer(
   }),
   on(TodoActions.deleteTodoSuccess, (state, { id }) => {
     return adapter.removeOne(id, state);
+  }),
+  on(TodoActions.clearTodos, state => {
+    return adapter.removeAll(state);
   })
 );
 

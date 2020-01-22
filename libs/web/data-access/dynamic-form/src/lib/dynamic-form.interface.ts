@@ -1,6 +1,24 @@
 import { ValidatorFn, AsyncValidator } from '@angular/forms';
 import { Type } from '@angular/core';
-import { DynamicFormErrorsMap } from './form-errors/form-errors';
+import { DynamicFormErrorsMap } from './form-errors.interface';
+
+export interface DynamicFormState {
+  config: IDynamicFormConfig;
+  index: number;
+  data: any;
+  errors: string[];
+}
+
+/**
+ * The bare interface to create a new form:
+ */
+export interface IDynamicFormConfig {
+  formName: string;
+  animations: boolean;
+  paginateSections: boolean;
+  structure: TFormGroups;
+  formValidators: ValidatorFn[];
+}
 
 export type TField =
   | IInputField
@@ -10,19 +28,21 @@ export type TField =
   | ITextArea
   | ICustomInput;
 
-export type TFormGroups = (IFormGroup | TFormArray)[];
+export type TFormGroups = TFormGroup[];
+export type TFormGroup = IFormGroup | TFormArray;
 
 export interface IFormGroup {
-  formGroup: string;
+  groupName: string;
   groupType: FormGroupTypes.Group;
   fields: TField[];
   cssClasses?: string[];
 }
 
+// export type TFormArray = IFormGroupArray;
 export type TFormArray = IFormGroupArray | IFormFieldArray;
 
 export interface IBaseFormArray {
-  formGroup: string;
+  groupName: string;
   groupType: FormGroupTypes.Array;
   initialNumber?: number;
 }
@@ -47,25 +67,25 @@ export interface IBaseField {
 }
 
 export interface IInputField extends IBaseField {
-  componentType: FormFieldTypes.Input;
-  type: TInputType;
+  type: FormFieldTypes.Input;
+  inputType?: InputFieldTypes;
 }
 
 export interface ITextArea extends IBaseField {
-  componentType: FormFieldTypes.TextArea;
+  type: FormFieldTypes.TextArea;
 }
 
 export interface ISelectField extends IBaseField {
-  componentType: FormFieldTypes.Select;
+  type: FormFieldTypes.Select;
   selectOptions: ISelectOption[];
 }
 
 export interface IToggleField extends IBaseField {
-  componentType: FormFieldTypes.Toggle;
+  type: FormFieldTypes.Toggle;
 }
 
 export interface IDatePickerField extends IBaseField {
-  componentType: FormFieldTypes.DatePicker;
+  type: FormFieldTypes.DatePicker;
 }
 
 export interface ISelectOption {
@@ -74,7 +94,7 @@ export interface ISelectOption {
 }
 
 export interface ICustomInput extends IBaseField {
-  componentType: string;
+  type: string;
 }
 
 // There are more to complete here
@@ -96,20 +116,21 @@ export type TAutoComplete =
   | 'organization'
   | 'street-address';
 
-export type TInputType =
-  | 'color'
-  | 'date'
-  | 'datetime-local'
-  | 'email'
-  | 'month'
-  | 'number'
-  | 'password'
-  | 'search'
-  | 'tel'
-  | 'text'
-  | 'time'
-  | 'url'
-  | 'week';
+export enum InputFieldTypes {
+  Color = 'color',
+  Date = 'date',
+  DateTimeLocal = 'datetime-local',
+  Email = 'email',
+  Month = 'month',
+  Number = 'number',
+  Password = 'password',
+  Search = 'search',
+  Tel = 'tel',
+  Text = 'text',
+  Time = 'time',
+  Url = 'url',
+  Week = 'week'
+}
 
 // Muse be strings
 export enum FormGroupTypes {
@@ -140,9 +161,9 @@ export type BaseComponentMap = {
   [key in FormFieldTypes]: Type<any>;
 };
 
-export type CustomComponentMap = {
+export interface CustomComponentMap {
   [key: string]: Type<any>;
-};
+}
 
 export interface DynamicFormComponentMap
   extends BaseComponentMap,

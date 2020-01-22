@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { OverviewComponent } from './overview/overview.component';
+import { ExampleFormBuilderOverviewComponent } from './overview/overview.component';
 
 const ROUTES: Routes = [
-  { path: '', pathMatch: 'full', component: OverviewComponent }
+  {
+    path: '',
+    pathMatch: 'full',
+    component: ExampleFormBuilderOverviewComponent
+  }
 ];
 
 @NgModule({

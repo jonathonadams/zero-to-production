@@ -1,10 +1,20 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import compose from 'ramda/es/compose';
-import isEmpty from 'ramda/es/isEmpty';
-import and from 'ramda/es/and';
-import allPass from 'ramda/es/allPass';
-import filter from 'ramda/es/filter';
-import { TodosEntityState, adapter, TodoFilterStatus } from './todos.reducer';
+// import compose from 'ramda/es/compose';
+// import isEmpty from 'ramda/es/isEmpty';
+// import and from 'ramda/es/and';
+// import allPass from 'ramda/es/allPass';
+// import filter from 'ramda/es/filter';
+import compose from 'ramda/src/compose';
+import isEmpty from 'ramda/src/isEmpty';
+import and from 'ramda/src/and';
+import allPass from 'ramda/src/allPass';
+import filter from 'ramda/src/filter';
+import {
+  TodosEntityState,
+  adapter,
+  TodoFilterStatus,
+  todosFeatureKey
+} from './todos.reducer';
 import { ITodo } from '@uqt/interfaces';
 import {
   equalsC,
@@ -15,7 +25,7 @@ import {
 
 // Select the top level 'todos' state.
 export const selectTodoState = createFeatureSelector<TodosEntityState>(
-  'todosState'
+  todosFeatureKey
 );
 
 export const {

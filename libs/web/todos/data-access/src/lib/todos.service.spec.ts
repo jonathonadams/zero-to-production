@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { TodosService } from './todos.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { JWTAuthService, IJWTPayload } from '@uqt/data-access/auth';
+import { IJWTPayload, AuthService } from '@uqt/data-access/auth';
 import { GraphQLService } from '@uqt/data-access/api';
 import { ITodo } from '@uqt/interfaces';
 import { createSpyObj } from '@app-testing/frontend/helpers';
@@ -16,9 +16,9 @@ import {
 
 describe('TodoService', () => {
   let service: TodosService;
-  let authService: JWTAuthService;
+  let authService: AuthService;
   let graphQLService: GraphQLService;
-  const authSpy = createSpyObj('JWTAuthService', ['getDecodedToken']);
+  const authSpy = createSpyObj('AuthService', ['authUserId']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,13 +26,13 @@ describe('TodoService', () => {
       providers: [
         TodosService,
         { provide: GraphQLService, useClass: GraphQLStub },
-        { provide: JWTAuthService, useValue: authSpy }
+        { provide: AuthService, useValue: authSpy }
       ]
     });
 
-    service = TestBed.get<TodosService>(TodosService);
-    authService = TestBed.get<JWTAuthService>(JWTAuthService);
-    graphQLService = TestBed.get<GraphQLService>(GraphQLService);
+    service = TestBed.inject<TodosService>(TodosService);
+    authService = TestBed.inject<AuthService>(AuthService);
+    graphQLService = TestBed.inject<GraphQLService>(GraphQLService);
   });
 
   it('should be created', () => {
@@ -70,7 +70,7 @@ describe('TodoService', () => {
       const spy = jest.spyOn(graphQLService, 'mutation');
 
       const originalTodo: ITodo = {
-        user: '1',
+        userId: '1',
         title: 'some title',
         description: 'some description',
         completed: false
@@ -79,13 +79,15 @@ describe('TodoService', () => {
       const sentTodo = {
         ...originalTodo,
         completed: false,
-        user: '1'
+        userId: '1'
       } as ITodo;
-      authService.getDecodedToken = jest.fn(() => {
-        return {
-          sub: '1'
-        } as IJWTPayload;
+
+      Object.defineProperty(authService, 'authUserId', {
+        get: () => {
+          return '1';
+        }
       });
+
       service.createTodo(originalTodo);
 
       expect(spy).toHaveBeenCalled();
@@ -101,7 +103,7 @@ describe('TodoService', () => {
 
       const updatedTodo: ITodo = {
         id: '1',
-        user: '1',
+        userId: '1',
         title: 'some title',
         description: 'some description',
         completed: true
@@ -124,7 +126,7 @@ describe('TodoService', () => {
 
       const todo: ITodo = {
         id: '1',
-        user: '1',
+        userId: '1',
         title: 'some title',
         description: 'some description',
         completed: true
@@ -171,7 +173,7 @@ describe('TodoService', () => {
 //     const spy = jest.spyOn(apiService, 'post');
 
 //     const todo: Todo = {
-//       user: '1',
+//       userId: '1',
 //       title: 'some title',
 //       description: 'some description',
 //       completed: true
@@ -198,7 +200,7 @@ describe('TodoService', () => {
 
 //     const todo: Todo = {
 //       id: '1',
-//       user: '1',
+//       userId: '1',
 //       title: 'some title',
 //       description: 'some description',
 //       completed: true
@@ -220,7 +222,7 @@ describe('TodoService', () => {
 
 //     const todo: Todo = {
 //       id: '1',
-//       user: '1',
+//       userId: '1',
 //       title: 'some title',
 //       description: 'some description',
 //       completed: true

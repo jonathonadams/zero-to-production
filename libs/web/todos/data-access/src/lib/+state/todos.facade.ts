@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import {
-  selectCurrentTodo,
-  selectFilteredTodos,
-  selectTodoFilterStatus,
-  selectTodoIds
-} from './todos.selectors';
+import * as fromTodos from './todos.selectors';
 import * as TodoActions from './todos.actions';
 import { ITodo } from '@uqt/interfaces';
 import { TodoFilterStatus } from './todos.reducer';
@@ -19,12 +14,14 @@ export class TodosFacade {
   todoIds$: Observable<string[]>;
 
   constructor(private store: Store<any>) {
-    this.filteredTodo$ = this.store.pipe(select(selectFilteredTodos));
-    this.selectedTodo$ = this.store.pipe(select(selectCurrentTodo));
-    this.allTodoFilter$ = this.store.pipe(select(selectTodoFilterStatus));
-    this.todoIds$ = this.store.pipe(select(selectTodoIds)) as Observable<
-      string[]
-    >;
+    this.filteredTodo$ = this.store.pipe(select(fromTodos.selectFilteredTodos));
+    this.selectedTodo$ = this.store.pipe(select(fromTodos.selectCurrentTodo));
+    this.allTodoFilter$ = this.store.pipe(
+      select(fromTodos.selectTodoFilterStatus)
+    );
+    this.todoIds$ = this.store.pipe(
+      select(fromTodos.selectTodoIds)
+    ) as Observable<string[]>;
   }
 
   public loadTodos(): void {

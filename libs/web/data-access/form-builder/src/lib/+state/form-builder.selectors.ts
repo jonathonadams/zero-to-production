@@ -1,24 +1,23 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { FormsEntityState, adapter } from './form-builder.reducer';
+import * as fromFormBuilder from './form-builder.reducer';
 
-// Select the top level 'forms' state.
-export const selectFormState = createFeatureSelector<FormsEntityState>(
-  'formsState'
-);
+export const selectFormState = createFeatureSelector<
+  fromFormBuilder.FormBuilderEntityState
+>(fromFormBuilder.formBuilderKey);
 
 export const {
   selectIds: selectFormIds,
   selectEntities: selectFormEntities,
   selectAll: selectAllForms
-} = adapter.getSelectors(selectFormState);
+} = fromFormBuilder.adapter.getSelectors(selectFormState);
 
-export const selectCurrentFormId = createSelector(
+export const selectCurrentFormName = createSelector(
   selectFormState,
-  (state: FormsEntityState) => state.selectedFormId
+  (state: fromFormBuilder.FormBuilderEntityState) => state.selectedFormName
 );
 
 export const selectCurrentForm = createSelector(
   selectFormEntities,
-  selectCurrentFormId,
+  selectCurrentFormName,
   (formEntities, formId) => formEntities[String(formId)]
 );

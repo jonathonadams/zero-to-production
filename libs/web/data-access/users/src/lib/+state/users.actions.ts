@@ -97,3 +97,5 @@ export const deleteUserFail = createAction(
   '[User/API] Delete Fail',
   props<{ error: string }>()
 );
+
+export const clearUsers = createAction('[User/API] Clear');

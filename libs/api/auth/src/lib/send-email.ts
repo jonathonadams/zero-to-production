@@ -1,8 +1,12 @@
 import sgMail from '@sendgrid/mail';
+import { EmailVerificationConfig } from './auth.interface';
 
-export function verificationEmail(API_KEY: string, hostUrl: string) {
+export function setupEmailVerification({
+  sendGridApiKey,
+  hostUrl
+}: EmailVerificationConfig) {
   // Set the api key
-  sgMail.setApiKey(API_KEY);
+  sgMail.setApiKey(sendGridApiKey);
 
   return async function sendVerificationEmail(to: string, token: string) {
     const msg = {

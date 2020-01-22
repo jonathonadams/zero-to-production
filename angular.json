@@ -884,14 +884,6 @@
             ],
             "exclude": ["**/node_modules/**", "!libs/web/data-access/router/**"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/web/data-access/router/jest.config.js",
-            "tsConfig": "libs/web/data-access/router/tsconfig.spec.json",
-            "setupFile": "libs/web/data-access/router/src/test-setup.ts"
-          }
         }
       },
       "schematics": {
@@ -1216,31 +1208,28 @@
         }
       }
     },
-    "web-examples-dynamic-form": {
+    "web-examples-theming": {
       "projectType": "library",
-      "root": "libs/web/examples/dynamic-form",
-      "sourceRoot": "libs/web/examples/dynamic-form/src",
+      "root": "libs/web/examples/theming",
+      "sourceRoot": "libs/web/examples/theming/src",
       "prefix": "ex",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/web/examples/dynamic-form/tsconfig.lib.json",
-              "libs/web/examples/dynamic-form/tsconfig.spec.json"
+              "libs/web/examples/theming/tsconfig.lib.json",
+              "libs/web/examples/theming/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/web/examples/dynamic-form/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/web/examples/theming/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/web/examples/dynamic-form/jest.config.js",
-            "tsConfig": "libs/web/examples/dynamic-form/tsconfig.spec.json",
-            "setupFile": "libs/web/examples/dynamic-form/src/test-setup.ts"
+            "jestConfig": "libs/web/examples/theming/jest.config.js",
+            "tsConfig": "libs/web/examples/theming/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/theming/src/test-setup.ts"
           }
         }
       },
@@ -1250,38 +1239,7 @@
         }
       }
     },
-    "web-examples-themeing": {
-      "projectType": "library",
-      "root": "libs/web/examples/themeing",
-      "sourceRoot": "libs/web/examples/themeing/src",
-      "prefix": "ex",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/web/examples/themeing/tsconfig.lib.json",
-              "libs/web/examples/themeing/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/web/examples/themeing/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/web/examples/themeing/jest.config.js",
-            "tsConfig": "libs/web/examples/themeing/tsconfig.spec.json",
-            "setupFile": "libs/web/examples/themeing/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
-    "common-ui-card": {
+    "web-common-ui-card": {
       "projectType": "library",
       "root": "libs/web/common/ui/card",
       "sourceRoot": "libs/web/common/ui/card/src",
@@ -1417,13 +1375,6 @@
             ],
             "exclude": ["**/node_modules/**", "!libs/interfaces/**"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/interfaces/jest.config.js",
-            "tsConfig": "libs/interfaces/tsconfig.spec.json"
-          }
         }
       }
     },
@@ -1444,14 +1395,6 @@
               "**/node_modules/**",
               "!libs/web/examples/code-highlight/**"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/web/examples/code-highlight/jest.config.js",
-            "tsConfig": "libs/web/examples/code-highlight/tsconfig.spec.json",
-            "setupFile": "libs/web/examples/code-highlight/src/test-setup.ts"
           }
         }
       },
@@ -1554,6 +1497,105 @@
             "jestConfig": "libs/web/examples/lazy-load-scrolling/jest.config.js",
             "tsConfig": "libs/web/examples/lazy-load-scrolling/tsconfig.spec.json",
             "setupFile": "libs/web/examples/lazy-load-scrolling/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "web-common-ui-buttons": {
+      "projectType": "library",
+      "root": "libs/web/common/ui/buttons",
+      "sourceRoot": "libs/web/common/ui/buttons/src",
+      "prefix": "uqt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/common/ui/buttons/tsconfig.lib.json",
+              "libs/web/common/ui/buttons/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/web/common/ui/buttons/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/common/ui/buttons/jest.config.js",
+            "tsConfig": "libs/web/common/ui/buttons/tsconfig.spec.json",
+            "setupFile": "libs/web/common/ui/buttons/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "web-examples-live-demos": {
+      "projectType": "library",
+      "root": "libs/web/examples/live-demos",
+      "sourceRoot": "libs/web/examples/live-demos/src",
+      "prefix": "uqt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/examples/live-demos/tsconfig.lib.json",
+              "libs/web/examples/live-demos/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/web/examples/live-demos/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/examples/live-demos/jest.config.js",
+            "tsConfig": "libs/web/examples/live-demos/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/live-demos/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "web-examples-dynamic-form": {
+      "projectType": "library",
+      "root": "libs/web/examples/dynamic-form",
+      "sourceRoot": "libs/web/examples/dynamic-form/src",
+      "prefix": "uqt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/examples/dynamic-form/tsconfig.lib.json",
+              "libs/web/examples/dynamic-form/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/web/examples/dynamic-form/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/examples/dynamic-form/jest.config.js",
+            "tsConfig": "libs/web/examples/dynamic-form/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/dynamic-form/src/test-setup.ts"
           }
         }
       },

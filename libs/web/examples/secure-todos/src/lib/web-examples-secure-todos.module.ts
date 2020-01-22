@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
-import { SecureTodosComponent } from './secure-todos/secure-todos.component';
 import { ExampleTodosComponent } from './example-todos/example-todos.component';
 import { SecureTodosRoutingModule } from './web-examples-secure-todos-routing.module';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
-const COMPONENTS = [SecureTodosComponent, ExampleTodosComponent];
+const COMPONENTS = [ExampleTodosComponent];
 
 @NgModule({
-  imports: [SecureTodosRoutingModule],
+  imports: [CommonModule, MatButtonModule, SecureTodosRoutingModule],
   declarations: COMPONENTS
 })
 export class WebExamplesSecureTodosModule {

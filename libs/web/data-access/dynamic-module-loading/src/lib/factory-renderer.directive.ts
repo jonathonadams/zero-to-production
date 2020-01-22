@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[factoryRenderer]'
+  selector: '[uqtFactoryRenderer]'
 })
 export class ComponentFactorRendererDirective implements OnDestroy {
   private componentRef: ComponentRef<any> | undefined;

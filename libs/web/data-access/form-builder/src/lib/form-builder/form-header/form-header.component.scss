@@ -1,0 +1,25 @@
+.header {
+  margin: 0 1em 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.action-buttons {
+  margin: auto 0;
+
+  button:first-child {
+    margin-right: 1em;
+  }
+}
+
+.settings {
+  & > * {
+    margin-right: 2em;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

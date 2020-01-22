@@ -1,33 +1,21 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { take, filter } from 'rxjs/operators';
+import { IDynamicFormConfig } from '@uqt/data-access/dynamic-form';
 import {
   FormBuilderFacade,
-  IFormBuilderStructure
+  expandAnimation
 } from '@uqt/data-access/form-builder';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'uqt-example-form-build',
+  selector: 'ex-example-form-builder-build',
   templateUrl: './build.component.html',
   styleUrls: ['./build.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [expandAnimation]
 })
-export class ExampleBuildFormComponent {
-  selectedForm$: Observable<IFormBuilderStructure | undefined>;
-
-  constructor(private facade: FormBuilderFacade, private router: Router) {
-    this.selectedForm$ = this.facade.selectedForm$;
-  }
-
-  showForm() {
-    (this.selectedForm$ as Observable<IFormBuilderStructure>)
-      .pipe(
-        filter(form => form !== undefined),
-        take(1)
-      )
-      .subscribe(form => {
-        this.router.navigate(['examples', 'form-builder', form.id, 'display']);
-      });
+export class ExampleFormBuilderBuildComponent {
+  selectedForm$: Observable<IDynamicFormConfig | undefined>;
+  constructor(private formBuilderFacade: FormBuilderFacade) {
+    this.selectedForm$ = this.formBuilderFacade.selectedForm$;
   }
 }

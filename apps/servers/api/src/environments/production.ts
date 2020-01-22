@@ -1,35 +1,50 @@
 /* istanbul ignore file */
 
-import { randomBytes } from 'crypto';
-import { EnvironnementConfig } from '@uqt/api/config';
-import { envToNumber } from './util';
+import {
+  ProductionConfig,
+  getEnvVariableOrWarn,
+  envToNumber
+} from '@uqt/api/config';
+
+const hostUrl = getEnvVariableOrWarn('HOST_URL');
+
+// TODO -> They keyId should be some sort of hash or something
+const keyId = 'some-random-key-id';
 
 /**
  * Production environment settings
  */
-const prodConfig: EnvironnementConfig = {
+const prodConfig: ProductionConfig = {
   production: true,
   logging: false,
   docs: false,
   databaseOptions: {
     loggerLevel: 'error'
   },
-  expireTime: envToNumber(process.env.JWT_EXPIRE_TIME, 86400),
-  apiKeys: {
-    sendGrid: process.env.SENDGRID_API_KEY || ''
-  },
-  secrets: {
-    accessToken:
-      process.env.ACCESS_TOKEN_SECRET || randomBytes(16).toString('hex'),
-    refreshToken:
-      process.env.REFRESH_TOKEN_SECRET || 'some-super-secret-password'
+  auth: {
+    authServerUrl: getEnvVariableOrWarn('AUTH_SERVER_URL'),
+    accessToken: {
+      privateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
+      expireTime: envToNumber(
+        getEnvVariableOrWarn('ACCESS_TOKEN_EXPIRE_TIME'),
+        86400
+      ),
+      issuer: getEnvVariableOrWarn('ISSUER'),
+      audience: hostUrl,
+      keyId
+    },
+    refreshToken: {
+      privateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
+      issuer: getEnvVariableOrWarn('ISSUER'),
+      audience: hostUrl
+    },
+    email: {
+      sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY'),
+      hostUrl
+    }
   },
   database: {
-    host: process.env.MONGO_TCP_ADDR || 'localhost',
-    port: envToNumber(process.env.MONGO_TCP_PORT, 27017),
-    dbName: process.env.MONGO_DB || 'production_database',
-    user: process.env.MONGO_USER || 'mongo',
-    pass: process.env.MONGO_PASSWORD || 'mongo'
+    connectionString: getEnvVariableOrWarn('DB_CONNECTION_STRING')
   }
 };
 

@@ -74,3 +74,5 @@ export const deleteTodoFail = createAction(
   '[Todo/API] Delete Fail',
   props<{ error: string }>()
 );
+
+export const clearTodos = createAction('[Todo/API] Clear');

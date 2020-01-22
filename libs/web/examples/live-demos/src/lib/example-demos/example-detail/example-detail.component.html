@@ -1,0 +1,12 @@
+<article class="example">
+  <header class="example-description">
+    <h2>{{ example?.title }}</h2>
+    <p>{{ example?.description }}</p>
+  </header>
+  <aside class="example-demonstration">
+    <ng-container
+      uqtFactoryRenderer
+      [componentFactory]="factory"
+    ></ng-container>
+  </aside>
+</article>

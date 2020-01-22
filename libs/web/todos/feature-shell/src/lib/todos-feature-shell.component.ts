@@ -16,7 +16,7 @@ export class TodoFeatureShellComponent implements OnInit {
   ];
 
   /*
-   * TODO -> Use these absolute routes when you build the todo application by itself.
+   * UQT_UPDATE -> Use these absolute routes when you build the todo application by itself.
    * Currently a bug where if the relative route matches on a an empty path
    * the router serialization does not work correctly
    *

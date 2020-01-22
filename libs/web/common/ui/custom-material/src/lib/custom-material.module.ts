@@ -9,7 +9,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -33,8 +32,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatToolbarModule,
-    MatGridListModule,
     MatMenuModule,
     MatSlideToggleModule,
     MatSelectModule,
@@ -58,8 +55,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatToolbarModule,
-    MatGridListModule,
     MatMenuModule,
     MatSlideToggleModule,
     MatSelectModule,

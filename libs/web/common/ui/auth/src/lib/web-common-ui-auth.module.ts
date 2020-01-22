@@ -10,7 +10,6 @@ import { RegisterComponent } from './components/register/register.component';
 import { RouterModule } from '@angular/router';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { ReactiveFormsModule } from '@angular/forms';
-import { UsernameAvailableValidator } from './validators/username-available.validator';
 import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
 
 const COMPONENTS = [
@@ -32,7 +31,6 @@ const COMPONENTS = [
     CustomMaterialModule,
     DynamicFormModule.forChild()
   ],
-  providers: [UsernameAvailableValidator],
   exports: COMPONENTS
 })
 export class WebCommonUiAuthModule {}

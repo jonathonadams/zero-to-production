@@ -1,4 +1,4 @@
 // TODO  -> Tests
-it('TOTO should be true', () => {
+it('TODO should be true', () => {
   expect(true).toBe(true);
 });

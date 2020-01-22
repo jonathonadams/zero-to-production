@@ -1,24 +1,26 @@
 import { randomBytes } from 'crypto';
-import { verify } from 'jsonwebtoken';
 import { compare, hash } from 'bcryptjs';
 import Boom from '@hapi/boom';
+import { signAccessToken, signRefreshToken, verifyRefreshToken } from './token';
 import {
-  signAccessToken,
-  signRefreshToken,
-  isPasswordAllowed,
-  userToJSON
-} from './auth-utils';
-import { IUserModel } from '@uqt/api/core-data';
-import { IVerificationTokenModel, IRefreshTokenModel } from './auth.interface';
+  LoginControllerConfig,
+  RegistrationControllerConfig,
+  VerifyControllerConfig,
+  AuthorizeControllerConfig,
+  RefreshControllerConfig,
+  RevokeControllerConfig
+} from './auth.interface';
 import { IUser } from '@uqt/interfaces';
+import { isPasswordAllowed, userToJSON } from './auth-utils';
+
 // TODO -> Refresh Token Model/Storage
 
-export function registerController(
-  User: IUserModel,
-  VerificationToken: IVerificationTokenModel,
-  sendVerificationEmail: (to: string, token: string) => Promise<[any, {}]>
-) {
-  return async function registerCtr(user: IUser): Promise<IUser> {
+export function setupRegisterController({
+  User,
+  VerificationToken,
+  verificationEmail
+}: RegistrationControllerConfig) {
+  return async (user: IUser) => {
     const password: string = (user as any).password;
     if (!password) Boom.badRequest('No password provided');
 
@@ -31,7 +33,7 @@ export function registerController(
 
     user.hashedPassword = await hash(password, 10);
 
-    const newUser = new User({ ...user, isValid: false, active: true });
+    const newUser = new User({ ...user, isVerified: false, active: true });
     await newUser.save();
 
     const verificationToken = new VerificationToken({
@@ -40,7 +42,7 @@ export function registerController(
     });
 
     await await verificationToken.save();
-    await sendVerificationEmail(user.email, verificationToken.token);
+    await verificationEmail(user.email, verificationToken.token);
 
     return userToJSON(newUser.toJSON());
   };
@@ -54,21 +56,18 @@ export function registerController(
  * @param {IVerificationTokenModel} VerificationToken
  * @returns Verification Controller
  */
-export function verifyController(
-  User: IUserModel,
-  VerificationToken: IVerificationTokenModel
-) {
-  return async function verifyCtr(
-    email: string,
-    token: string
-  ): Promise<{ message: string }> {
+export function setupVerifyController({
+  User,
+  VerificationToken
+}: VerifyControllerConfig) {
+  return async (email: string, token: string) => {
     /**
      * Check the user exists and is not already registered
      */
     const user = await User.findOne({ email }).exec();
 
     if (!user) throw Boom.badRequest('Email address is not available');
-    if (user.isValid) throw Boom.badRequest('User is already registered');
+    if (user.isVerified) throw Boom.badRequest('User is already registered');
 
     /**
      * Check the provided Token is valid
@@ -82,7 +81,7 @@ export function verifyController(
     if (verificationToken.userId.toString() !== user.id.toString())
       throw Boom.badRequest('Token does not match email address');
 
-    user.set({ isValid: true });
+    user.set({ isVerified: true });
     /**
      * Update the user status to valid, and remove the token from the db.
      */
@@ -106,124 +105,91 @@ export function verifyController(
  *   expireTime
  * }
  */
-export function loginController({
-  userModel,
-  secret,
-  expireTime
-}: {
-  userModel: IUserModel;
-  secret: string;
-  expireTime: number;
-}) {
-  const accessToken = signAccessToken({
-    secret,
-    expireTime
-  });
+export function setupLoginController(config: LoginControllerConfig) {
+  const { User } = config;
+  const accessToken = signAccessToken(config);
 
-  return async function loginCtr(
-    username: string,
-    password: string
-  ): Promise<{ token: string }> {
-    const user = await userModel.findByUsername(username);
+  return async (username: string, password: string) => {
+    const user = await User.findByUsername(username);
 
-    if (!user || !user.active) throw Boom.unauthorized('Unauthorized');
+    if (!user || !user.active) throw Boom.unauthorized(null, 'Bearer');
 
     const valid = await compare(password, user.hashedPassword as string);
 
-    if (!valid) throw Boom.unauthorized('Unauthorized');
+    if (!valid) throw Boom.unauthorized(null, 'Bearer');
 
     const token = accessToken(user);
 
     return {
-      token
+      token,
+      expiresIn: config.expireTime
     };
   };
 }
 
-export function authorizeController({
-  userModel,
-  refreshTokenModel,
-  accessTokenSecret,
-  accessTokenExpireTime,
-  refreshTokenSecret
-}: {
-  userModel: IUserModel;
-  refreshTokenModel: IRefreshTokenModel;
-  accessTokenSecret: string;
-  accessTokenExpireTime: number;
-  refreshTokenSecret: string;
-}) {
-  return async function authorizeCtr(
-    username: string,
-    password: string
-  ): Promise<{ token: string; refreshToken: string }> {
-    const user = await userModel.findByUsername(username);
+export function setupAuthorizeController(config: AuthorizeControllerConfig) {
+  const { User, RefreshToken } = config;
+  const createAccessToken = signAccessToken(config);
+  const createRefreshToken = signRefreshToken(config);
 
-    if (!user || user.active === false) throw Boom.unauthorized('Unauthorized');
+  return async (username: string, password: string) => {
+    const user = await User.findByUsername(username);
+
+    if (!user || user.active === false) throw Boom.unauthorized(null, 'Bearer');
 
     const valid = await compare(password, user.hashedPassword as string);
 
-    if (!valid) throw Boom.unauthorized('Unauthorized');
+    if (!valid) throw Boom.unauthorized(null, 'Bearer');
 
-    const accessToken = signAccessToken({
-      secret: accessTokenSecret,
-      expireTime: accessTokenExpireTime
-    })(user);
+    const accessToken = createAccessToken(user);
+    const refreshToken = createRefreshToken(user);
 
-    const refreshToken = signRefreshToken({
-      secret: refreshTokenSecret
-    })(user);
-
-    await refreshTokenModel.create({
+    await RefreshToken.create({
       user: user.id,
       token: refreshToken
     });
 
     return {
       token: accessToken,
+      expiresIn: config.expireTime,
       refreshToken: refreshToken
     };
   };
 }
 
 // a controller that receives a refresh token and returns an access token.
-export function refreshAccessTokenController({
-  refreshTokenModel,
-  accessTokenSecret,
-  accessTokenExpireTime,
-  refreshTokenSecret
-}: {
-  refreshTokenModel: IRefreshTokenModel;
-  accessTokenSecret: string;
-  accessTokenExpireTime: number;
-  refreshTokenSecret: string;
-}) {
-  return async function refreshAccessTokenCt(
-    username: string,
-    refreshToken: string
-  ): Promise<{ token: string }> {
-    const token = await refreshTokenModel.findByTokenWithUser(refreshToken);
-    // No token found
-    if (token === null) throw Boom.unauthorized();
+export function setupRefreshAccessTokenController(
+  config: RefreshControllerConfig
+) {
+  const { RefreshToken } = config;
+  const verify = verifyRefreshToken(config);
+  const createAccessToken = signAccessToken(config);
 
-    // No user found or matched with given parameters
-    if (token.user === null || token.user.username !== username)
-      throw Boom.unauthorized();
-
-    // revoke refreshToken if user is inactive
-    if (token.user.active === false) {
-      await token.remove();
-      throw Boom.unauthorized();
+  return async (username: string, refreshTokenProvided: string) => {
+    // Verify the refresh token. Don't care about decoding it (as we retrieve form DB as well),
+    // Just catch and throw an unauthorized error
+    try {
+      await verify(refreshTokenProvided);
+    } catch (err) {
+      throw Boom.unauthorized(null, 'Bearer');
     }
 
-    // The provided token is valid
-    const valid = await verify(refreshToken, refreshTokenSecret);
-    if (!valid) throw Boom.unauthorized();
+    const savedToken = await RefreshToken.findByTokenWithUser(
+      refreshTokenProvided
+    );
+    // No token found
+    if (savedToken === null) throw Boom.unauthorized(null, 'Bearer');
 
-    const accessToken = signAccessToken({
-      secret: accessTokenSecret,
-      expireTime: accessTokenExpireTime
-    })(token.user);
+    // No user found or matched with given parameters
+    if (savedToken.user === null || savedToken.user.username !== username)
+      throw Boom.unauthorized(null, 'Bearer');
+
+    // revoke refreshToken if user is inactive
+    if (savedToken.user.active === false) {
+      await savedToken.remove();
+      throw Boom.unauthorized(null, 'Bearer');
+    }
+    const accessToken = createAccessToken(savedToken.user);
 
     return {
       token: accessToken
@@ -232,13 +198,11 @@ export function refreshAccessTokenController({
 }
 
 // a controller to revoke a refresh token
-export function revokeRefreshTokenController(
-  refreshTokenMode: IRefreshTokenModel
-) {
-  return async function revokeRFController(
-    token: string
-  ): Promise<{ success: true }> {
-    const refreshToken = await refreshTokenMode.findOne({ token }).exec();
+export function setupRevokeRefreshTokenController({
+  RefreshToken
+}: RevokeControllerConfig) {
+  return async (token: string) => {
+    const refreshToken = await RefreshToken.findOne({ token }).exec();
 
     if (refreshToken === null) throw Boom.badRequest();
 

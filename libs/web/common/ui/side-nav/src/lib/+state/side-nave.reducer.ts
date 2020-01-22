@@ -2,6 +2,8 @@ import { createReducer, on, Action } from '@ngrx/store';
 import * as fromActions from './side-nav.actions';
 import { ISideNaveRoute } from '../navigation.interface';
 
+export const sideNaveKey = 'sideNavKey';
+
 export interface SideNavState {
   opened: boolean;
   routes: ISideNaveRoute[];

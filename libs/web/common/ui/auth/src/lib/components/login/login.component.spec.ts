@@ -26,15 +26,18 @@ describe('LoginComponent', () => {
         },
         {
           provide: DynamicFormFacade,
-          useValue: { submit$: of(jest.fn()) }
+          useValue: {
+            createFormIfNotExist: jest.fn(),
+            formSubmits$: () => of(jest.fn())
+          }
         }
       ],
       declarations: [LoginComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    authFacade = TestBed.get<AuthFacade>(AuthFacade);
-    formFacade = TestBed.get<DynamicFormFacade>(DynamicFormFacade);
+    authFacade = TestBed.inject<AuthFacade>(AuthFacade);
+    formFacade = TestBed.inject<DynamicFormFacade>(DynamicFormFacade);
   }));
 
   beforeEach(() => {

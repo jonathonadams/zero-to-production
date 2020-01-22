@@ -1,52 +1,77 @@
+import Koa from 'koa';
 import {
-  applyAuthorizationRoutes,
   getAuthResolvers,
   getGraphQlGuards,
-  getRestGuards
+  getRestGuards,
+  applyAuthRoutesWithRefreshTokens,
+  createPublicJsonWebKeySetRouteFromPrivateKey,
+  AuthModuleConfig
 } from '@uqt/api/auth';
 import { RefreshToken } from './tokens.model';
 import config from '../../environments';
 import { User, VerificationToken } from '../api/users';
+
+const guardConfig = {
+  User,
+  production: config.production,
+  authServerUrl: config.auth.authServerUrl,
+  issuer: config.auth.accessToken.issuer,
+  audience: config.auth.accessToken.audience
+};
+
+// const authModuleConfig: AuthModuleConfig = {
+//   login: { User, ...config.auth.accessToken },
+//   register: { User, VerificationToken, ...config.auth.accessToken },
+//   verify: { User, VerificationToken, ...config.auth.accessToken },
+//   authorize: {
+//     User,
+//     RefreshToken,
+//     ...config.auth.accessToken,
+//     ...config.auth.refreshToken
+//   },
+//   refresh: {
+//     RefreshToken,
+//     ...config.auth.accessToken,
+//     ...config.auth.refreshToken
+//   },
+//   revoke: {
+//     RefreshToken
+//   },
+//   email: config.auth.email
+// };
+
+// const jwksRouteConfig = {
+//   privateKey: config.auth.accessToken.privateKey,
+//   keyId: config.auth.accessToken.keyId
+// };
 
 /**
  * Guards for use in Routes
  */
 export const {
   verifyToken: verifyTokenRest,
-  verifyUserIsActive: verifyUserIsActiveRest
-} = getRestGuards(User, config.secrets.accessToken);
+  verifyActiveUser: verifyActiveUserRest
+} = getRestGuards(guardConfig);
 
 /**
  * Guards to user with GraphQL
  */
 export const {
   verifyToken: verifyTokenGraphQL,
-  verifyUserIsActive: verifyUserIsActiveGraphQL,
+  verifyActiveUser: verifyActiveUserGraphQL,
   verifyUserRole: verifyUserRoleGraphQL
-} = getGraphQlGuards(User, config.secrets.accessToken);
+} = getGraphQlGuards(guardConfig);
 
-/**
- * Auth Resolvers
- */
-export const { authResolvers } = getAuthResolvers(User, VerificationToken)(
-  config.secrets.accessToken,
-  config.expireTime,
-  config.apiKeys.sendGrid,
-  config.hostUrl
-);
+// /**
+//  * Applies all required auth routes
+//  */
+// export function applyAuthRoutes(app: Koa) {
+//   applyAuthRoutesWithRefreshTokens(authModuleConfig)(app);
+//   // JWKS route
+//   createPublicJsonWebKeySetRouteFromPrivateKey(jwksRouteConfig)(app);
+// }
 
-export const applyAuthRoutes = applyAuthorizationRoutes({
-  userLogin: true,
-  userRegistration: true,
-  refreshTokens: true
-})({
-  userModel: User,
-  verificationModel: VerificationToken,
-  refreshTokenModel: RefreshToken
-})({
-  accessTokenSecret: config.secrets.accessToken,
-  accessTokenExpireTime: config.expireTime,
-  refreshTokenSecret: config.secrets.refreshToken,
-  SENDGRID_API_KEY: config.apiKeys.sendGrid,
-  hostUrl: config.hostUrl
-});
+// /**
+//  * Auth Resolvers
+//  */
+// export const { authResolvers } = getAuthResolvers(authModuleConfig);

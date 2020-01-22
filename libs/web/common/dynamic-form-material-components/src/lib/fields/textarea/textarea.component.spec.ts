@@ -1,21 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TextareaComponent } from './textarea.component';
+import { FormTextAreaComponent } from './textarea.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-describe('TextareaComponent', () => {
-  let component: TextareaComponent;
-  let fixture: ComponentFixture<TextareaComponent>;
+describe('FormTextAreaComponent', () => {
+  let component: FormTextAreaComponent;
+  let fixture: ComponentFixture<FormTextAreaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TextareaComponent]
+      declarations: [FormTextAreaComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TextareaComponent);
+    fixture = TestBed.createComponent(FormTextAreaComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

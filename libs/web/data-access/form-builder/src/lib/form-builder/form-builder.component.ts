@@ -1,37 +1,42 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnInit,
+  OnDestroy
 } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Subscription, Observable } from 'rxjs';
 import { FormBuilderFacade } from '../+state/form-builder.facade';
-import compose from 'ramda/es/compose';
-import { IFormBuilderStructure } from '../form-builder.interface';
 import { FormBuilderConstructorService } from '../form-constructor.service';
-import { map, filter, tap, first } from 'rxjs/operators';
+import { map, filter, tap, first, distinctUntilChanged } from 'rxjs/operators';
+import {
+  IDynamicFormConfig,
+  FormFieldTypes,
+  FormGroupTypes
+} from '@uqt/data-access/dynamic-form';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { expandAnimation } from '../form.animation';
 
 @Component({
   selector: 'uqt-form-builder',
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [expandAnimation]
 })
-export class FormBuilderComponent {
-  toolBoxGroupId = 'tb-form-group';
-  toolBoxFieldId = 'tb-field-group';
-  dropListIds: string[] = [];
+export class FormBuilderComponent implements OnInit, OnDestroy {
+  faTrash = faTrash;
+
+  toolBoxGroupId: string;
+  toolBoxFieldId: string;
+  dropListIds$: Observable<string[]>;
 
   builderForm: FormGroup;
-  selectedForm$: Observable<IFormBuilderStructure | undefined>;
+  selectedForm$: Observable<IDynamicFormConfig | undefined>;
 
   showFormConfig = false;
-
-  fieldVisible: { groupIndex: null | number; fieldIndex: null | number } = {
-    groupIndex: null,
-    fieldIndex: null
-  };
 
   private sub: Subscription;
 
@@ -41,26 +46,40 @@ export class FormBuilderComponent {
     private cd: ChangeDetectorRef
   ) {
     this.selectedForm$ = this.facade.selectedForm$;
+    this.toolBoxGroupId = this.constructorService.toolBoxGroupId;
+    this.toolBoxFieldId = this.constructorService.toolBoxFieldId;
+    this.dropListIds$ = this.constructorService.dropListIds$;
   }
 
   ngOnInit() {
-    (this.selectedForm$ as Observable<IFormBuilderStructure>)
+    this.sub = (this.selectedForm$ as Observable<IDynamicFormConfig>)
       .pipe(
         filter(fb => fb !== undefined),
+        // Don't rebuild the form if the name is the same
+        // This would only be the case when you click the save button, in which case the forms
+        // are in sync
+        distinctUntilChanged((prev, curr) => prev.formName === curr.formName),
         map(fb => this.constructorService.formBuilder(fb)),
         tap(form => (this.builderForm = form))
       )
       .subscribe(f => {
+        this.constructorService.createConnectedToId(this.structure.length);
         this.cd.detectChanges();
       });
   }
 
-  get formGroups() {
-    return this.builderForm.get('formGroups') as FormArray;
+  createFieldId(index: number) {
+    return this.constructorService.createFieldId(index);
+  }
+
+  get structure() {
+    return (this.builderForm.get('config') as FormGroup).get(
+      'structure'
+    ) as FormArray;
   }
 
   getGroupFields(index: number) {
-    return (this.formGroups.get(String(index)) as FormGroup).get(
+    return (this.structure.get(String(index)) as FormGroup).get(
       'fields'
     ) as FormArray;
   }
@@ -69,69 +88,59 @@ export class FormBuilderComponent {
     this.showFormConfig = !this.showFormConfig;
   }
 
-  showFormField(groupIndex: number, fieldIndex: number) {
-    const selected = this.fieldVisible;
-    if (
-      groupIndex === selected.groupIndex &&
-      fieldIndex === selected.fieldIndex
-    ) {
-      selected.fieldIndex = selected.groupIndex = null;
-    } else {
-      this.fieldVisible = {
-        groupIndex,
-        fieldIndex
-      };
-    }
-  }
-
   deleteFormGroup(i: number): void {
-    this.formGroups.removeAt(i);
+    this.structure.removeAt(i);
   }
 
-  removeGroupField(groupIndex: number, fieldIndex: number) {
+  removeGroupField({
+    groupIndex,
+    fieldIndex
+  }: {
+    groupIndex: number;
+    fieldIndex: number;
+  }) {
     this.getGroupFields(groupIndex).removeAt(fieldIndex);
   }
 
-  onSubmit({ valid, value }: FormGroup) {
-    if (valid) {
-      this.selectedForm$.pipe(first()).subscribe(form => {
-        const newForm = { ...form, ...value };
+  onSubmit(form: FormGroup) {
+    if (form.valid) {
+      this.selectedForm$.pipe(first()).subscribe(builderForm => {
+        const { config } = form.value;
+        const newForm = { ...builderForm, ...config };
         this.facade.updateForm(newForm);
       });
     }
   }
 
   formGroupDropped(event: CdkDragDrop<FormGroup[]>) {
-    const formGroups = this.formGroups;
-    if (event.previousContainer.id === event.container.id) {
+    const formGroups = this.structure;
+    if (event.previousContainer.id !== event.container.id) {
+      // It is a new group being dropped
+      const groupType: FormGroupTypes = event.item.data;
+      const formGroup = this.constructorService.createFormGroup(groupType);
+      formGroups.insert(event.currentIndex, formGroup);
+
+      this.constructorService.createConnectedToId(formGroups.length);
+    } else {
+      // re-ordering the form groups
       this.constructorService.moveFormArrayGroup(
         formGroups,
         event.previousIndex,
         event.currentIndex
       );
-    } else {
-      const formGroup = this.constructorService.createFormGroup();
-      formGroups.insert(event.currentIndex, formGroup);
     }
-
-    this.dropListIds = this.createConnectedToId(formGroups.length);
-  }
-
-  createConnectedToId(groups: number) {
-    const ids: string[] = [];
-    for (let i = 0; i < groups; i++) {
-      ids.push(`fields-${i}`);
-    }
-    return ids;
   }
 
   formFieldDropped(event: CdkDragDrop<FormGroup[]>) {
-    const currentGroupIndex = getFormGroupIndex(event.container.id);
+    const currentGroupIndex = Number(
+      getStringLastCharacter(event.container.id)
+    );
     const currentGroup = this.getGroupFields(currentGroupIndex);
 
     if (event.previousContainer.id === this.toolBoxFieldId) {
       // It is a new field being dropped from the 'toolbox'
-      const groupField = this.constructorService.createFieldGroup();
+      const fieldType: FormFieldTypes = event.item.data;
+      const groupField = this.constructorService.createFieldGroup(fieldType);
       currentGroup.insert(event.currentIndex, groupField);
     } else {
       if (event.previousContainer.id === event.container.id) {
@@ -142,8 +151,8 @@ export class FormBuilderComponent {
           event.currentIndex
         );
       } else {
-        const previousGroupIndex = getFormGroupIndex(
-          event.previousContainer.id
+        const previousGroupIndex = Number(
+          getStringLastCharacter(event.previousContainer.id)
         );
         const previousGroup = this.getGroupFields(previousGroupIndex);
 
@@ -157,12 +166,38 @@ export class FormBuilderComponent {
     }
   }
 
+  addSelectOption({
+    groupIndex,
+    fieldIndex
+  }: {
+    groupIndex: number;
+    fieldIndex: number;
+  }) {
+    const selectFields = (this.getGroupFields(groupIndex).at(
+      fieldIndex
+    ) as FormGroup).get('selectOptions') as FormArray;
+    selectFields.push(this.constructorService.createSelectOption());
+  }
+
+  deleteSelectOption({
+    groupIndex,
+    fieldIndex,
+    optionIndex
+  }: {
+    groupIndex: number;
+    fieldIndex: number;
+    optionIndex: number;
+  }) {
+    const selectFields = (this.getGroupFields(groupIndex).at(
+      fieldIndex
+    ) as FormGroup).get('selectOptions') as FormArray;
+    selectFields.removeAt(optionIndex);
+  }
+
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    if (this.sub) this.sub.unsubscribe();
   }
 }
-
-const getFormGroupIndex = compose(Number, getStringLastCharacter);
 
 function getStringLastCharacter(string: string) {
   return string.substring(string.length - 1);

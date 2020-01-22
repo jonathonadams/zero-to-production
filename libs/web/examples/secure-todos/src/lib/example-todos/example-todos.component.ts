@@ -8,9 +8,11 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleTodosComponent {
+  showApplication = false;
   constructor(private router: Router) {}
 
   showTodos() {
-    this.router.navigate(['secure']);
+    this.showApplication = true;
+    this.router.navigate(['examples', 'demos', 'secure']);
   }
 }

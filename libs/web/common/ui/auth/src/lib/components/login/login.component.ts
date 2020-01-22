@@ -10,26 +10,26 @@ import {
   DynamicFormFacade,
   TFormGroups,
   FormGroupTypes,
-  FormFieldTypes
+  FormFieldTypes,
+  InputFieldTypes
 } from '@uqt/data-access/dynamic-form';
 import { AuthFacade, ILoginCredentials } from '@uqt/data-access/auth';
 
 const STRUCTURE: TFormGroups = [
   {
-    formGroup: 'credentials',
+    groupName: 'credentials',
     groupType: FormGroupTypes.Group,
     fields: [
       {
-        componentType: FormFieldTypes.Input,
-        type: 'text',
+        type: FormFieldTypes.Input,
         name: 'username',
         label: 'Username',
         autocomplete: 'username',
         validators: [Validators.required]
       },
       {
-        componentType: FormFieldTypes.Input,
-        type: 'password',
+        type: FormFieldTypes.Input,
+        inputType: InputFieldTypes.Password,
         name: 'password',
         label: 'Password',
         autocomplete: 'current-password',
@@ -63,9 +63,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // We do not want form group animations for the login page.
-    this.formFacade.setFormConfig(this.formName, { animations: false });
-    this.formFacade.setStructure(this.formName, STRUCTURE);
+    this.formFacade.setFormConfig(this.formName, {
+      animations: false,
+      structure: STRUCTURE
+    });
   }
 
   ngOnDestroy() {

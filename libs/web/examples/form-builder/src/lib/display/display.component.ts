@@ -1,23 +1,20 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { FormBuilderFacade } from '@uqt/data-access/form-builder';
 import {
-  FormBuilderFacade,
-  IFormBuilderStructure
-} from '@uqt/data-access/form-builder';
-import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
+  DynamicFormFacade,
+  IDynamicFormConfig
+} from '@uqt/data-access/dynamic-form';
 
 @Component({
-  selector: 'uqt-example-form-display',
+  selector: 'ex-example-form-builder-display',
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleDisplayFormComponent implements OnDestroy {
-  readonly formName = 'example-form-builder';
-  form$: Observable<IFormBuilderStructure[]>;
-  selectedForm$: Observable<IFormBuilderStructure | undefined>;
-  subscription: Subscription;
+export class ExampleFormBuilderDisplayComponent implements OnDestroy {
+  selectedForm$: Observable<IDynamicFormConfig | undefined>;
+  sub: Subscription;
 
   submit$: Observable<any>;
 
@@ -25,21 +22,19 @@ export class ExampleDisplayFormComponent implements OnDestroy {
     private builderFacade: FormBuilderFacade,
     private formsFacade: DynamicFormFacade
   ) {
-    this.form$ = this.builderFacade.form$;
     this.selectedForm$ = this.builderFacade.selectedForm$;
-    this.formsFacade.createFormIfNotExist(this.formName);
-    this.submit$ = this.formsFacade.formSubmits$(this.formName);
 
-    this.subscription = (this.selectedForm$ as Observable<
-      IFormBuilderStructure
-    >)
-      .pipe(filter(config => config !== undefined))
-      .subscribe(config => {
-        this.builderFacade.createFormFromConfig(config);
-      });
+    this.sub = this.selectedForm$.subscribe(form => {
+      if (form) {
+        this.formsFacade.createFormIfNotExist(form.formName);
+        this.formsFacade.setFormConfig(form.formName, form);
+        this.formsFacade.resetFormSate(form.formName);
+        this.submit$ = this.formsFacade.formSubmits$(form.formName);
+      }
+    });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.sub.unsubscribe();
   }
 }

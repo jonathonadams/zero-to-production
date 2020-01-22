@@ -6,7 +6,7 @@ export interface IUser {
   dateOfBirth: string;
   role: AuthenticationRoles;
   active: boolean;
-  isValid: boolean;
+  isVerified: boolean;
   hashedPassword?: string;
 }
 

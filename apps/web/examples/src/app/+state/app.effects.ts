@@ -1,33 +1,70 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects';
-import {
-  loginRedirect,
-  logoutRedirect,
-  registerRedirect
-} from '@uqt/data-access/auth';
-import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { NotificationService } from '@uqt/utils/notifications';
+import { AuthActions } from '@uqt/data-access/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppEffects {
-  @Effect({ dispatch: false })
-  loginRedirects$ = this.action$.pipe(
-    ofType(loginRedirect),
-    tap(() => this.router.navigate(['secure', 'home']))
+  loginRedirects$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.loginRedirect),
+        tap(() => this.router.navigate(['examples', 'demos', 'secure', 'home']))
+      ),
+    { dispatch: false }
   );
 
-  @Effect({ dispatch: false })
-  registerRedirect$ = this.action$.pipe(
-    ofType(registerRedirect),
-    tap(() => this.router.navigate(['secure', 'register']))
+  registerRedirect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.registerRedirect),
+        tap(() =>
+          this.router.navigate(['examples', 'demos', 'secure', 'register'])
+        )
+      ),
+    { dispatch: false }
   );
 
-  @Effect({ dispatch: false })
-  logoutRedirect$ = this.action$.pipe(
-    ofType(logoutRedirect),
-    tap(() => this.router.navigate(['secure', 'login']))
+  logoutRedirect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.logoutRedirect),
+        tap(() =>
+          this.router.navigate(['examples', 'demos', 'secure', 'login'])
+        )
+      ),
+    { dispatch: false }
   );
-  constructor(private action$: Actions, private router: Router) {}
+
+  loginFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.loginFailure),
+        tap(() =>
+          this.ns.emit('Provided credentials are incorrect. Please Try Again')
+        )
+      ),
+    {
+      dispatch: false
+    }
+  );
+
+  registerSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.registerSuccess),
+        tap(() => this.ns.emit('Registration Successful. Please log in.'))
+      ),
+    { dispatch: false }
+  );
+
+  constructor(
+    private actions$: Actions,
+    private router: Router,
+    private ns: NotificationService
+  ) {}
 }

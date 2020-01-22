@@ -1,1 +1,1 @@
-export { ThemeService } from './lib/theme.service';
+export { ThemeService, themeProviderFactory } from './lib/theme.service';

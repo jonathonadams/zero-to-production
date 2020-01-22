@@ -1,5 +1,5 @@
 import { Injectable, Inject, InjectionToken } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export const API_BASE_URL = new InjectionToken<string>('ApiBaseUrl');
@@ -53,12 +53,10 @@ export class ApiService {
     });
   }
 
-  get headers(): HttpHeaders {
-    const headersConfig = {
+  get headers() {
+    return {
       'Content-Type': 'application/json',
       Accept: 'application/json'
     };
-
-    return new HttpHeaders(headersConfig);
   }
 }

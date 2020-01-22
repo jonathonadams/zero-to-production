@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBarConfig, MatSnackBar } from '@angular/material/snack-bar';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class NotificationService {
   private config: MatSnackBarConfig;
 

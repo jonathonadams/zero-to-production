@@ -1,0 +1,17 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/zero-to-production/z2p-api',
+        '-f',
+        'docker/api.Dockerfile',
+        '--build-arg',
+        'PROJECT_DIRECTORY=apps/servers/api',
+        '.',
+      ]
+    timeout: 500s
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/zero-to-production/z2p-api']
+images: ['gcr.io/zero-to-production/z2p-api']

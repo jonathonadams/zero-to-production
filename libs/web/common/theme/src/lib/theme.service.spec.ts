@@ -10,7 +10,7 @@ describe('ThemeService', () => {
     TestBed.configureTestingModule({
       providers: [ThemeService, { provide: DOCUMENT, useValue: {} }]
     });
-    themeService = TestBed.get<ThemeService>(ThemeService);
+    themeService = TestBed.inject<ThemeService>(ThemeService);
   });
 
   it('should be created', () => {

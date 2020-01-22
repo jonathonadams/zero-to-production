@@ -1,23 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExampleDynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
-import { CommonUiCardModule } from '@uqt/common/ui/card';
 import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
-
-const COMPONENTS = [ExampleDynamicFormComponent];
+import { ExampleDynamicFormComponent } from './dynamic-form/dynamic-form.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CustomMaterialModule,
-    CommonUiCardModule,
-    DynamicFormModule.forChild()
-  ],
-  declarations: COMPONENTS
+  imports: [CommonModule, DynamicFormModule.forChild(), CustomMaterialModule],
+  declarations: [ExampleDynamicFormComponent],
+  exports: [ExampleDynamicFormComponent]
 })
-export class WebExamplesDynamicFormModule {
-  static get lazyEntryComponent() {
-    return ExampleDynamicFormComponent;
-  }
-}
+export class WebExamplesDynamicFormModule {}

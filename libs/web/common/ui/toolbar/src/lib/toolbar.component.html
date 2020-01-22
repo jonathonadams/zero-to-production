@@ -1,4 +1,5 @@
-<mat-toolbar color="primary" class="mat-elevation-z4">
+<!-- TODO -> Material elevation -->
+<header class="uqt-toolbar mat-elevation-z4">
   <button
     *ngIf="navButton"
     (click)="navToggle.emit()"
@@ -8,4 +9,4 @@
     <mat-icon>menu</mat-icon>
   </button>
   <ng-content></ng-content>
-</mat-toolbar>
+</header>

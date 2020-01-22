@@ -5,6 +5,8 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DynamicFormService } from '../dynamic-form.service';
+import { DynamicFormErrorsService } from '../form-errors/form-errors.service';
+import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade';
 
 // TODO -> TESTS
 describe('DynamicFormComponent', () => {
@@ -12,29 +14,21 @@ describe('DynamicFormComponent', () => {
   let fixture: ComponentFixture<DynamicFormComponent>;
   let debugEl: DebugElement;
   let facade: DynamicFormFacade;
-  const facadeSpy = {
-    structure$: jest.fn(),
-    data$: jest.fn(),
-    formIdx$: jest.fn(),
-    errors$: jest.fn(),
-    config$: jest.fn()
-  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       declarations: [DynamicFormComponent],
       providers: [
-        {
-          provide: DynamicFormFacade,
-          useValue: facadeSpy
-        },
-        { provide: DynamicFormService, useValue: {} }
+        { provide: DynamicFormService, useValue: {} },
+        { provide: DynamicFormErrorsService, useValue: {} },
+        { provide: DynamicFormFacade, useValue: {} },
+        { provide: PrivateDynamicFormFacade, useValue: {} }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    facade = TestBed.get<DynamicFormFacade>(DynamicFormFacade);
+    facade = TestBed.inject<DynamicFormFacade>(DynamicFormFacade);
   }));
 
   beforeEach(() => {

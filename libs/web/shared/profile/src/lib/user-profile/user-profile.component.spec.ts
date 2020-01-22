@@ -31,8 +31,8 @@ describe('UserProfileComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    userFacade = TestBed.get<UsersFacade>(UsersFacade);
-    themeService = TestBed.get<ThemeService>(ThemeService);
+    userFacade = TestBed.inject<UsersFacade>(UsersFacade);
+    themeService = TestBed.inject<ThemeService>(ThemeService);
   }));
 
   beforeEach(() => {

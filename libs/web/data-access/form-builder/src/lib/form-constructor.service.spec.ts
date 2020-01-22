@@ -1,16 +1,19 @@
 import { TestBed } from '@angular/core/testing';
-import { FormConstructorService } from './form-constructor.service';
+import { FormBuilderConstructorService } from './form-constructor.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
-describe('FormConstructorService', () => {
-  let service: FormConstructorService;
+describe('FormBuilderConstructorService', () => {
+  let service: FormBuilderConstructorService;
 
   beforeAll(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [FormConstructorService]
+      imports: [ReactiveFormsModule],
+      providers: [FormBuilderConstructorService]
     });
 
-    service = TestBed.get<FormConstructorService>(FormConstructorService);
+    service = TestBed.inject<FormBuilderConstructorService>(
+      FormBuilderConstructorService
+    );
   });
 
   it('should be truthy', () => {

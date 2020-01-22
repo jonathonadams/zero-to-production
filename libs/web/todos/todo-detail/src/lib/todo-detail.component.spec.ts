@@ -4,25 +4,24 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TodosFacade } from '@uqt/todos/data-access';
-import { Location } from '@angular/common';
 import { of } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '@app-testing/frontend/stubs/activated-router.stubs';
 import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
+import { RouterFacade } from '@uqt/data-access/router';
 
 // TODO -> TESTS -> Get from old
+
 describe('TodoDetailComponent', () => {
   let component: TodoDetailComponent;
   let fixture: ComponentFixture<TodoDetailComponent>;
   let todoFacade: TodosFacade;
-  let activatedRoute: ActivatedRoute;
-  let location: Location;
   let formsFacade: DynamicFormFacade;
+  let routerFacade: RouterFacade;
 
   const formsFacadSpy = {
-    submit$: of(jest.fn()),
-    setFormConfig: jest.fn(),
-    setStructure: jest.fn()
+    // submit$: of(jest.fn()),
+    // setFormConfig: jest.fn(),
+    // setStructure: jest.fn(),
+    createFormIfNotExist: jest.fn()
   };
 
   const todoFacadeSpy = {
@@ -30,29 +29,30 @@ describe('TodoDetailComponent', () => {
     todoIds$: of(jest.fn())
   };
 
+  const routerSpy = {
+    selectParam: () => of(jest.fn())
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, ReactiveFormsModule],
       providers: [
         { provide: TodosFacade, useValue: todoFacadeSpy },
-        { provide: ActivatedRoute, useClass: ActivatedRouteStub },
-        { provide: Location, userValue: {} },
+        { provide: RouterFacade, useValue: routerSpy },
         { provide: DynamicFormFacade, useValue: formsFacadSpy }
       ],
       declarations: [TodoDetailComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    todoFacade = TestBed.get<TodosFacade>(TodosFacade);
-    activatedRoute = TestBed.get<ActivatedRoute>(ActivatedRoute);
-    location = TestBed.get<Location>(Location);
-    formsFacade = TestBed.get<DynamicFormFacade>(DynamicFormFacade);
+    todoFacade = TestBed.inject<TodosFacade>(TodosFacade);
+    formsFacade = TestBed.inject<DynamicFormFacade>(DynamicFormFacade);
+    routerFacade = TestBed.inject<RouterFacade>(RouterFacade);
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TodoDetailComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -97,7 +97,7 @@ describe('TodoDetailComponent', () => {
 //       schemas: [NO_ERRORS_SCHEMA]
 //     }).compileComponents();
 
-//     todoFacade = TestBed.get(TodosFacade);
+//     todoFacade = TestBed.inject(TodosFacade);
 //   }));
 
 //   beforeEach(() => {

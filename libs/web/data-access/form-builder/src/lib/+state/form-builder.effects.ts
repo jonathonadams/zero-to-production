@@ -1,140 +1,75 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs';
-import {
-  catchError,
-  map,
-  exhaustMap,
-  mergeMap,
-  tap,
-  filter
-} from 'rxjs/operators';
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import { DynamicFormFacade } from '@uqt/data-access/dynamic-form';
-import * as FormActions from './form-builder.actions';
+import { catchError, map, exhaustMap, mergeMap } from 'rxjs/operators';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import * as FormBuilderActions from './form-builder.actions';
 import { FormBuilderService } from '../form-builder.service';
-import { FormBuilderConstructorService } from '../form-constructor.service';
 
 @Injectable()
-export class FormEffects {
+export class FormBuilderEffects {
   constructor(
     private actions$: Actions,
-    private formService: FormBuilderService,
-    private formConstructor: FormBuilderConstructorService,
-    private dynamicFormFacade: DynamicFormFacade
+    private formService: FormBuilderService
   ) {}
 
-  @Effect()
-  loadForms$ = this.actions$.pipe(
-    ofType(FormActions.loadForms),
-    exhaustMap(action =>
-      this.formService.getAllForms().pipe(
-        map(result => {
-          if (result.errors) {
-            return FormActions.loadFormsFail({
-              error: result.errors[0].message
-            });
-          } else if (result.data) {
-            return FormActions.loadFormsSuccess({
-              forms: result.data.allForms
-            });
-          }
-        }),
-        catchError((error: HttpErrorResponse) =>
-          of(FormActions.loadFormsFail({ error: error.message }))
+  loadForms$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FormBuilderActions.loadForms),
+      exhaustMap(action =>
+        this.formService.getAllForms().pipe(
+          map(forms => FormBuilderActions.loadFormsSuccess({ forms })),
+          catchError((error: HttpErrorResponse) =>
+            of(FormBuilderActions.loadFormsFail({ error: error.message }))
+          )
         )
       )
     )
   );
 
-  @Effect()
-  createForm$ = this.actions$.pipe(
-    ofType(FormActions.createForm),
-    mergeMap(({ form }) =>
-      this.formService.createForm(form).pipe(
-        map(result => {
-          if (result.errors) {
-            return FormActions.createFormFail({
-              error: result.errors[0].message
-            });
-          } else if (result.data) {
-            return FormActions.createFormSuccess({
-              form: result.data.newForm
-            });
-          }
-        }),
-        catchError((error: HttpErrorResponse) =>
-          of(FormActions.createFormFail({ error: error.message }))
+  createForm$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FormBuilderActions.createForm),
+      mergeMap(({ form: newForm }) =>
+        this.formService.createForm(newForm).pipe(
+          map(form => FormBuilderActions.createFormSuccess({ form })),
+          catchError((error: HttpErrorResponse) =>
+            of(FormBuilderActions.createFormFail({ error: error.message }))
+          )
         )
       )
     )
   );
 
-  @Effect()
-  updateForm$ = this.actions$.pipe(
-    ofType(FormActions.updateForm),
-    mergeMap(({ form }) =>
-      this.formService.updateForm(form).pipe(
-        map(result => {
-          if (result.errors) {
-            return FormActions.updateFormFail({
-              error: result.errors[0].message
-            });
-          } else if (result.data) {
-            return FormActions.updateFormSuccess({
-              form: { id: form.id, changes: result.data.updateForm }
-            });
-          }
-        }),
-
-        catchError((error: HttpErrorResponse) =>
-          of(FormActions.updateFormFail({ error: error.message }))
+  updateForm$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FormBuilderActions.updateForm),
+      mergeMap(({ form }) =>
+        this.formService.updateForm(form).pipe(
+          map(updatedForm =>
+            FormBuilderActions.updateFormSuccess({
+              form: { id: form.formName, changes: updatedForm }
+            })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(FormBuilderActions.updateFormFail({ error: error.message }))
+          )
         )
       )
     )
   );
 
-  @Effect()
-  deleteForm$ = this.actions$.pipe(
-    ofType(FormActions.deleteForm),
-    mergeMap(({ form }) =>
-      this.formService.deleteForm(form.id).pipe(
-        map(result => {
-          if (result.errors) {
-            return FormActions.deleteFormFail({
-              error: result.errors[0].message
-            });
-          } else if (result.data) {
-            return FormActions.deleteFormSuccess({ id: form.id });
-          }
-        }),
-        catchError((error: HttpErrorResponse) =>
-          of(FormActions.deleteFormFail({ error: error.message }))
+  deleteForm$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FormBuilderActions.deleteForm),
+      mergeMap(({ form }) =>
+        this.formService.deleteForm(form.formName).pipe(
+          map(name => FormBuilderActions.deleteFormSuccess({ formName: name })),
+          catchError((error: HttpErrorResponse) =>
+            of(FormBuilderActions.deleteFormFail({ error: error.message }))
+          )
         )
       )
-    )
-  );
-
-  @Effect({ dispatch: false })
-  createFormFromConfig$ = this.actions$.pipe(
-    ofType(FormActions.createFormFromBuilderConfig),
-    // switchMap(
-    //   () => this.facade.selectedForm$ as Observable<IFormBuilderStructure>
-    // ),
-    filter(config => config !== undefined),
-    map(action => {
-      return {
-        config: action.config,
-        structure: this.formConstructor.creteDyanmicFormStructureFromBuilderConfig(
-          action.config
-        )
-      };
-    }),
-    tap(({ config }) =>
-      this.dynamicFormFacade.createFormIfNotExist(config.config.formName)
-    ),
-    tap(({ config, structure }) =>
-      this.dynamicFormFacade.setStructure(config.config.formName, structure)
     )
   );
 }

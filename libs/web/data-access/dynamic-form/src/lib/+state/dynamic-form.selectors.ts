@@ -1,16 +1,16 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { DynamicFormEntityState, adapter } from './dynamic-form.reducer';
+import * as fromDynamicForm from './dynamic-form.reducer';
 
-const selectDynamicFormState = createFeatureSelector<DynamicFormEntityState>(
-  'dynamicForm'
-);
+const selectDynamicFormState = createFeatureSelector<
+  fromDynamicForm.DynamicFormEntityState
+>(fromDynamicForm.dynamicFormKey);
 
 export const {
   selectIds: selectFormNames,
   selectEntities: selectFormEntities,
   selectAll: selectAllForms,
   selectTotal
-} = adapter.getSelectors(selectDynamicFormState);
+} = fromDynamicForm.adapter.getSelectors(selectDynamicFormState);
 
 export function selectForm(formName: string) {
   return createSelector(selectFormEntities, forms => forms[formName]);
@@ -24,7 +24,7 @@ export function selectFormConfig(formName: string) {
 
 export function selectFormStructure(formName: string) {
   return createSelector(selectForm(formName), form =>
-    form ? form.structure : undefined
+    form ? form.config.structure : undefined
   );
 }
 
@@ -42,7 +42,7 @@ export function selectFormErrors(formName: string) {
 
 export function selectFormValidators(formName: string) {
   return createSelector(selectForm(formName), form =>
-    form ? form.formValidators : undefined
+    form ? form.config.formValidators : undefined
   );
 }
 

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -20,6 +20,7 @@ import { ExamplesFeatureShellModule } from '@uqt/examples';
 import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
 import { DynamicFormMaterialComponentsModule } from '@uqt/common/dynamic-form-material-components';
 import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
+import { themeProviderFactory, ThemeService } from '@uqt/common/theme';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,7 +40,7 @@ import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
       routerState: RouterState.Minimal
     }),
     DataAccessApiModule.forRoot(environment),
-    DataAccessAuthModule.forRoot(),
+    DataAccessAuthModule.forRoot({ authServerUrl: environment.serverUrl }),
     DataAccessUsersModule.forRoot(),
     DynamicFormMaterialComponentsModule,
     DynamicFormModule.forRoot({
@@ -48,6 +49,14 @@ import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
     }),
     AppRoutingModule.forRoot(),
     ExamplesFeatureShellModule
+  ],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: themeProviderFactory,
+      multi: true,
+      deps: [ThemeService]
+    }
   ],
   bootstrap: [AppComponent]
 })

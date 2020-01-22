@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController
@@ -10,7 +10,7 @@ interface TestData {
   data: string;
 }
 
-import { ApiService } from './api.service';
+import { ApiService, API_BASE_URL } from './api.service';
 import { Type } from '@angular/core';
 
 describe('ApiService', () => {
@@ -22,15 +22,15 @@ describe('ApiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ApiService, { provide: 'apiBaseUrl', useValue: 'api' }]
+      providers: [ApiService, { provide: API_BASE_URL, useValue: 'api' }]
     });
 
     // Inject the http service and test controller for each test
-    apiService = TestBed.get<ApiService>(ApiService);
-    httpClient = TestBed.get<HttpClient>(HttpClient);
-    httpTestingController = TestBed.get(HttpTestingController as Type<
-      HttpTestingController
-    >);
+    apiService = TestBed.inject<ApiService>(ApiService);
+    httpClient = TestBed.inject<HttpClient>(HttpClient);
+    httpTestingController = TestBed.inject(
+      HttpTestingController as Type<HttpTestingController>
+    );
   });
 
   it('should be created', () => {

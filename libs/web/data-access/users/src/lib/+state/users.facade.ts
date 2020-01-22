@@ -3,22 +3,18 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IUser } from '@uqt/interfaces';
 import * as UserActions from './users.actions';
-import {
-  selectAllUsers,
-  selectCurrentUser,
-  selectAuthUser
-} from './users.reducer';
+import * as fromUsers from './users.selectors';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UsersFacade {
   user$: Observable<IUser[]>;
   selectedUser$: Observable<IUser | undefined>;
   authUser$: Observable<IUser | undefined>;
 
   constructor(private store: Store<any>) {
-    this.user$ = this.store.pipe(select(selectAllUsers));
-    this.selectedUser$ = this.store.pipe(select(selectCurrentUser));
-    this.authUser$ = this.store.pipe(select(selectAuthUser));
+    this.user$ = this.store.pipe(select(fromUsers.selectAllUsers));
+    this.selectedUser$ = this.store.pipe(select(fromUsers.selectCurrentUser));
+    this.authUser$ = this.store.pipe(select(fromUsers.selectAuthUser));
   }
 
   loadAuthUser() {

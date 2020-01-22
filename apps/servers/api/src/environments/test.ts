@@ -1,30 +1,50 @@
 /* istanbul ignore file */
 
-import { EnvironnementConfig } from '@uqt/api/config';
-import { envToNumber } from './util';
+import {
+  DevOrTestConfig,
+  envToNumber,
+  getEnvVariableOrWarn
+} from '@uqt/api/config';
+
+const hostUrl = `http://localhost:${process.env.PORT}`;
+const authServerUrl = `http://localhost:${process.env.PORT}`;
+
+// TODO -> They keyId should be some sort of hash or something
+const keyId = 'some-random-key-id';
 
 /**
  * Test environment settings
  */
-const testConfig: EnvironnementConfig = {
+const testConfig: DevOrTestConfig = {
   production: false,
   logging: 'dev',
   docs: true,
   databaseOptions: {
-    loggerLevel: 'warn'
+    loggerLevel: 'warn',
+    dbName: process.env.MONGO_TEST_DB || 'test_database'
   },
-  expireTime: 1200,
-  apiKeys: {
-    sendGrid: process.env.SENDGRID_API_KEY || ''
-  },
-  secrets: {
-    accessToken: process.env.ACCESS_TOKEN_SECRET || 'test-secret',
-    refreshToken: process.env.REFRESH_TOKEN_SECRET || 'test-secret'
+  auth: {
+    authServerUrl,
+    accessToken: {
+      privateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
+      expireTime: 86400,
+      issuer: getEnvVariableOrWarn('ISSUER'),
+      audience: hostUrl,
+      keyId
+    },
+    refreshToken: {
+      privateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
+      issuer: getEnvVariableOrWarn('ISSUER'),
+      audience: hostUrl
+    },
+    email: {
+      hostUrl,
+      sendGridApiKey: process.env.SENDGRID_API_KEY || ''
+    }
   },
   database: {
     host: process.env.MONGO_TCP_ADDR || 'localhost',
     port: envToNumber(process.env.MONGO_TCP_PORT, 27017),
-    dbName: process.env.MONGO_TEST_DB || 'test_database',
     user: process.env.MONGO_TEST_USER || 'mongo',
     pass: process.env.MONGO_TEST_PASSWORD || 'mongo'
   }

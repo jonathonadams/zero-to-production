@@ -1,74 +1,45 @@
 import { TestBed } from '@angular/core/testing';
 import { GraphQLError } from 'graphql';
-import { createSpyObj } from '@app-testing/frontend/helpers';
+import { sign } from 'jsonwebtoken';
 import { GraphQLStub } from '@app-testing/frontend/stubs/graphql.stubs';
-import { HttpStub } from '@app-testing/frontend/stubs/http.stubs';
-import { GraphQLService, ApiService } from '@uqt/data-access/api';
-import { AuthService } from './auth.service';
-import { JWTAuthService } from './jwt-auth.service';
+import { GraphQLService } from '@uqt/data-access/api';
+import { AuthService, AUTH_SERVER_URL } from './auth.service';
 import {
   ILoginCredentials,
   ILoginResponse,
   IRegistrationDetails
 } from '../auth.interface';
 import { AuthenticationRoles, IUser } from '@uqt/interfaces';
+import { AuthFacade } from '../+state/auth.facade';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AuthService', () => {
+  const storageKey = 'access_token';
+  const sessionKey = 'expires_at';
+
   let authService: AuthService;
-  let graphQLStub: GraphQLStub;
-  let apiStub: HttpStub;
-  let jwtService: JWTAuthService;
-  const jwtServiceSpy = createSpyObj('JWTAuthService', [
-    'getAuthorizationToken',
-    'checkTokenIsValid'
-  ]);
+  let graphQLStub: GraphQLService;
+  let authFacade: AuthFacade;
+
+  const facadeStub = { setAuthenticated: jest.fn() };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
         AuthService,
-        { provide: JWTAuthService, useValue: jwtServiceSpy },
         { provide: GraphQLService, useClass: GraphQLStub },
-        { provide: ApiService, useValue: HttpStub }
+        { provide: AuthFacade, useValue: facadeStub },
+        { provide: AUTH_SERVER_URL, useValue: 'test-url' }
       ]
     });
-    authService = TestBed.get<AuthService>(AuthService);
-    graphQLStub = TestBed.get<GraphQLService>(GraphQLService);
-    apiStub = TestBed.get<ApiService>(ApiService);
-    jwtService = TestBed.get<JWTAuthService>(JWTAuthService);
+    authService = TestBed.inject<AuthService>(AuthService);
+    graphQLStub = TestBed.inject<GraphQLService>(GraphQLService);
+    authFacade = TestBed.inject<AuthFacade>(AuthFacade);
   });
 
   it('should be created', () => {
     expect(authService).toBeTruthy();
-  });
-
-  describe('checkUserIsLoggedIn', () => {
-    it('should return true if there is a token and it is valid', () => {
-      jwtService.getAuthorizationToken = jest.fn(() => 'some_token');
-      jwtService.checkTokenIsValid = jest.fn((token: string) => true);
-      const loggedIn = authService.checkUserIsLoggedIn();
-
-      expect(loggedIn).toEqual(true);
-    });
-
-    it('should return false if there is no token', () => {
-      jwtService.getAuthorizationToken = jest.fn(() => null);
-      const loggedIn = authService.checkUserIsLoggedIn();
-
-      expect(loggedIn).toEqual(false);
-    });
-
-    it('should return false if the token is invalid', () => {
-      // const token = sign({}, tokenSecret, { expiresIn: -10000, subject: '1' });
-      // localStorage.setItem(storageKey, token);
-
-      jwtService.getAuthorizationToken = jest.fn(() => 'some_token');
-      jwtService.checkTokenIsValid = jest.fn((token: string) => false);
-
-      const loggedIn = authService.checkUserIsLoggedIn();
-
-      expect(loggedIn).toEqual(false);
-    });
   });
 
   describe('login', () => {
@@ -80,10 +51,13 @@ describe('AuthService', () => {
         password: 'secret'
       };
       const expectedResponse: ILoginResponse = {
-        token: 'JWT'
+        token: 'JWT',
+        expiresIn: 1000
       };
       // Set the response from the the stub
-      graphQLStub.setExpectedResponse<{ login: ILoginResponse }>({
+      ((graphQLStub as unknown) as GraphQLStub).setExpectedResponse<{
+        login: ILoginResponse;
+      }>({
         login: expectedResponse
       });
       authService.login(loginCredentials).subscribe(response => {
@@ -104,7 +78,7 @@ describe('AuthService', () => {
         { name: 'Unauthorized Error', message: 'Unauthorized' }
       ] as GraphQLError[];
       // Set the response from the the stub
-      graphQLStub.setErrorResponse(graphErrors);
+      ((graphQLStub as unknown) as GraphQLStub).setErrorResponse(graphErrors);
       authService.login(loginCredentials).subscribe(response => {
         expect(response.data).toEqual(null);
         expect(response.errors).toBeDefined();
@@ -132,12 +106,14 @@ describe('AuthService', () => {
         id: 'some-id',
         role: AuthenticationRoles.User,
         active: true,
-        isValid: true,
+        isVerified: true,
         ...newUser
       };
 
       // Set the response from the the stub
-      graphQLStub.setExpectedResponse<{ user: IUser }>({
+      ((graphQLStub as unknown) as GraphQLStub).setExpectedResponse<{
+        user: IUser;
+      }>({
         user: expectedResponse
       });
 
@@ -165,7 +141,7 @@ describe('AuthService', () => {
       ] as GraphQLError[];
 
       // Set the response from the the stub
-      graphQLStub.setErrorResponse(graphErrors);
+      ((graphQLStub as unknown) as GraphQLStub).setErrorResponse(graphErrors);
       authService.register(newUser).subscribe(response => {
         expect(response.data).toEqual(null);
         expect(response.errors).toBeDefined();
@@ -176,32 +152,141 @@ describe('AuthService', () => {
         expect(spy.mock.calls[0][1]).toEqual(newUser);
       }, console.error);
     });
+  });
 
-    // REST spec
-    // it('should make a POST request with LoginCredentials to the /authorize route', () => {
-    //   const loginCredentials: LoginCredentials = {
-    //     username: 'admin',
-    //     password: 'secret'
-    //   };
-    //   const expectedResponse: LoginResponse = {
-    //     token: JWT
-    //   };
-    //   // Make an HTTP GET request
-    //   authService.login(loginCredentials).subscribe(data => {
-    //     // When observable resolves, result should match test data
-    //     expect(data).toEqual(expectedResponse);
-    //   });
-    //   // The following `expectOne()` will match the request's URL.
-    //   // If no requests or multiple requests matched that URL
-    //   // `expectOne()` would throw.
-    //   const req = httpTestingController.expectOne(`${environment.serverUrl}/authorize`);
-    //   // Assert that the request is a POST.
-    //   expect(req.request.method).toEqual('POST');
-    //   // Respond with mock data, causing Observable to resolve.
-    //   // Subscribe callback asserts that correct data was returned.
-    //   req.flush(expectedResponse);
-    //   // Finally, assert that there are no outstanding requests.
-    //   httpTestingController.verify();
-    // });
+  describe('setSession', () => {
+    it('should set access token and expiresAt in local storage', () => {
+      localStorage.removeItem(storageKey);
+      localStorage.removeItem(sessionKey);
+
+      const currentToken = localStorage.getItem(storageKey);
+      const currentSession = localStorage.getItem(sessionKey);
+
+      expect(currentToken).toBe(null);
+      expect(currentSession).toBe(null);
+
+      const token = 'SOME_TOKEN';
+      const expiresIn = 1234;
+
+      authService.setSession({ token, expiresIn });
+
+      const newToken = localStorage.getItem(storageKey);
+      const newSession = localStorage.getItem(sessionKey);
+
+      expect(newToken).toBe(token);
+      expect(newSession).not.toBe(null);
+    });
+  });
+
+  describe('removeSession', () => {
+    it('should remove the access token and expiresAa in local storage', () => {
+      const token = 'SOME_TOKEN';
+      const expiresIn = 1234;
+
+      localStorage.setItem(storageKey, token);
+      localStorage.setItem(sessionKey, expiresIn.toString());
+
+      const currentToken = localStorage.getItem(storageKey);
+      const currentSession = localStorage.getItem(sessionKey);
+
+      expect(currentToken).toBe(token);
+      expect(currentSession).toBe(expiresIn.toString());
+
+      authService.removeSession();
+
+      const newToken = localStorage.getItem(storageKey);
+      const newSession = localStorage.getItem(sessionKey);
+
+      expect(newToken).toBe(null);
+      expect(newSession).toBe(null);
+    });
+  });
+
+  describe('authToken', () => {
+    it('should return the access token if present', () => {
+      const JWT = 'SOME_TOKEN';
+      localStorage.setItem(storageKey, JWT);
+      const token = authService.authToken;
+
+      expect(token).toBeDefined();
+      expect(token).toEqual(JWT);
+    });
+
+    it('should return null if no token present', () => {
+      localStorage.removeItem(storageKey);
+      const token = authService.authToken;
+
+      expect(token).toEqual(null);
+    });
+  });
+
+  describe('authUserId', () => {
+    it('should return the user id of the authenticated user', () => {
+      const subject = '123';
+      const JWT = sign({}, 'secret', {
+        subject,
+        expiresIn: 1000
+      });
+
+      localStorage.setItem(storageKey, JWT);
+      const userId = authService.authUserId;
+
+      expect(userId).toEqual(subject);
+    });
+
+    it('should return null if no token present', () => {
+      localStorage.removeItem(storageKey);
+      const userId = authService.authUserId;
+
+      expect(userId).toEqual(null);
+    });
+  });
+
+  describe('isLoggedIn', () => {
+    it('should update the auth state with authenticated details if the session is valid', () => {
+      localStorage.removeItem(sessionKey);
+      const setAuthSpy = jest.spyOn(authFacade, 'setAuthenticated');
+      const removeSessionSpy = jest.spyOn(authService, 'removeSession');
+      jest.clearAllMocks();
+
+      const futureTime = new Date().valueOf() + 1000;
+      localStorage.setItem(sessionKey, futureTime.toString());
+
+      authService.isLoggedIn();
+
+      expect(setAuthSpy).toHaveBeenCalled();
+      expect(setAuthSpy).toHaveBeenCalledWith(true, futureTime);
+      expect(removeSessionSpy).not.toHaveBeenCalled();
+    });
+
+    it('should update the auth state with un-authenticated details if there is no session', () => {
+      localStorage.removeItem(sessionKey);
+
+      const setAuthSpy = jest.spyOn(authFacade, 'setAuthenticated');
+      const removeSessionSpy = jest.spyOn(authService, 'removeSession');
+      jest.clearAllMocks();
+
+      authService.isLoggedIn();
+
+      expect(setAuthSpy).toHaveBeenCalled();
+      expect(setAuthSpy).toHaveBeenCalledWith(false, null);
+      expect(removeSessionSpy).toHaveBeenCalled();
+    });
+
+    it('should update the auth state with un-authenticated details if the session is expired', () => {
+      localStorage.removeItem(sessionKey);
+      const pastTime = new Date().valueOf() - 1000;
+      localStorage.setItem(sessionKey, pastTime.toString());
+
+      const setAuthSpy = jest.spyOn(authFacade, 'setAuthenticated');
+      const removeSessionSpy = jest.spyOn(authService, 'removeSession');
+      jest.clearAllMocks();
+
+      authService.isLoggedIn();
+
+      expect(setAuthSpy).toHaveBeenCalled();
+      expect(setAuthSpy).toHaveBeenCalledWith(false, null);
+      expect(removeSessionSpy).toHaveBeenCalled();
+    });
   });
 });

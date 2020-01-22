@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormGroupTypes, IToggleField } from '@uqt/data-access/dynamic-form';
 
 @Component({
-  selector: 'app-toggle',
+  selector: 'uqt-app-toggle',
   templateUrl: './toggle.component.html',
   styles: [
     `
