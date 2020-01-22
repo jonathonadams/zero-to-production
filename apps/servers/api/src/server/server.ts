@@ -1,6 +1,6 @@
 import { createServer } from 'http';
 import Koa from 'koa';
-import Router from 'koa-router';
+import Router from '@koa/router';
 import { apolloServer } from './api/graphql';
 import { setupMiddleware } from '@uqt/api/config';
 import { applyApiEndpoints } from './api';
@@ -9,12 +9,12 @@ import { applyAuthRoutes } from './auth/demo.auth';
 // import { applyAuthRoutes } from './auth/auth';
 import { dbConnection } from './db/db-connection';
 import config from '../environments';
-import { Mongoose } from 'mongoose';
 
 /**
  * Crates a new API Server
  */
 export default class ApiServer {
+  constructor(private app: Koa) {}
   /**
    * Sets up all the server configuration and applies the routes
    * @param {Koa} app an instance of a koa server
@@ -26,18 +26,13 @@ export default class ApiServer {
    * @memberof ApiServer
    */
   async initializeServer(dbUrl?: string) {
-    const app = new Koa();
+    const app = this.app;
     const router = new Router();
-
-    // UQT_UPDATE -> This might not be appropriate for your specific needs
-    // Set the proxy to true if in production mode as it will be hosted behind a revers
-    // proxy such as Nginx or Traefik
-    app.proxy = config.production;
 
     /**
      * Start the db connection, optionally pass in the connection url
      */
-    const db: Mongoose = (await dbConnection(config, dbUrl)) as Mongoose;
+    await dbConnection(config, dbUrl);
 
     /**
      * Setup all the required middleware for the app

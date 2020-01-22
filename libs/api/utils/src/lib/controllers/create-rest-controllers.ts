@@ -1,5 +1,5 @@
 import { ParameterizedContext } from 'koa';
-import Router from 'koa-router';
+import Router from '@koa/router';
 import mongoose from 'mongoose';
 import { createControllers } from './create-controllers';
 

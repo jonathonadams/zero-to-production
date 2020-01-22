@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import Router from 'koa-router';
+import Router from '@koa/router';
 import { usersRouter } from './users';
 import { Todo } from './todos';
 import { verifyTokenRest } from '../auth/auth';

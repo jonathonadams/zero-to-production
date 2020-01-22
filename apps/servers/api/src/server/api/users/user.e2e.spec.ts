@@ -1,3 +1,4 @@
+import Koa from 'koa';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
 import { runQuery, setupTestDB } from '@app-testing/api/helpers';
@@ -13,7 +14,7 @@ import { Server } from 'http';
 //Need to import and run the server because
 // the server is also our "auth server"
 // and the Auth guard needs to be able to retrieve the JWKS
-const server = new ApiServer();
+const server = new ApiServer(new Koa());
 
 const tokenConfig = {
   ...config.auth.accessToken

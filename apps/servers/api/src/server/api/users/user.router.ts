@@ -1,4 +1,4 @@
-import Router from 'koa-router';
+import Router from '@koa/router';
 import * as controllers from './user.controllers';
 
 export const usersRouter = new Router();

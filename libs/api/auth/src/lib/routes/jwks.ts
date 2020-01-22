@@ -1,6 +1,6 @@
 import { createPublicKey } from 'crypto';
 import Koa from 'koa';
-import Router from 'koa-router';
+import Router from '@koa/router';
 // @ts-ignore
 import { pem2jwk } from 'pem-jwk';
 import { JWKSRouteConfig } from '../auth.interface';
