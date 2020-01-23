@@ -28,14 +28,14 @@
     "help": "nx help",
     "lint-staged": "lint-staged",
     "build:server": "node ./tools/scripts/build-server.js",
-    "build:libs": "tsc -b tsconfig.libs.json",
     "build:scripts": "tsc -p tools/scripts/tsconfig.json",
     "validate-packages": "node ./tools/scripts/validate-packages.js",
     "nx": "nx"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-staged"
+      "pre-commit": "npm run lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
@@ -155,6 +155,11 @@
     "tslint": "~5.11.0",
     "tspath": "^1.3.7",
     "typescript": "~3.6.4"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "config": {
     "commitizen": {
