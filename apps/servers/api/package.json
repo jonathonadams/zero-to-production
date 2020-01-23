@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/boom": "^9.0.0",
-    "@sendgrid/mail": "^6.4.0",
+    "@sendgrid/mail": "^6.5.0",
     "apollo-server-koa": "^2.9.16",
     "bcryptjs": "^2.4.3",
     "dataloader": "^2.0.0",
@@ -28,8 +28,8 @@
     "lodash.keyby": "^4.6.0",
     "lodash.merge": "^4.6.2",
     "lodash.omit": "^4.5.0",
-    "mongoose": "^5.8.1",
+    "mongoose": "^5.8.9",
     "pem-jwk": "^2.0.0",
-    "jwks-rsa": "^1.6.0"
+    "jwks-rsa": "^1.6.2"
   }
 }
