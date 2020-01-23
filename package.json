@@ -41,12 +41,10 @@
   },
   "lint-staged": {
     "*.json": [
-      "npm run validate-packages",
-      "git add"
+      "npm run validate-packages"
     ],
     "*.ts": [
-      "npm run format:fix",
-      "git add"
+      "npm run format:fix"
     ]
   },
   "dependencies": {
@@ -148,7 +146,7 @@
     "jest-extended": "^0.11.4",
     "jest-marbles": "^2.5.1",
     "jest-preset-angular": "^7.1.1",
-    "lint-staged": "^9.5.0",
+    "lint-staged": "^10.0.2",
     "minimist": "^1.2.0",
     "mongodb-memory-server": "^6.2.3",
     "prettier": "^1.19.1",
