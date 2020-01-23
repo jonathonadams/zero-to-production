@@ -36,10 +36,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run validate-packages && npm run lint-staged"
+      "pre-commit": "npm run lint-staged"
     }
   },
   "lint-staged": {
+    "*.json": [
+      "npm run validate-packages",
+      "git add"
+    ],
     "*.ts": [
       "npm run format:fix",
       "git add"

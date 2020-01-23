@@ -9,7 +9,7 @@
   "author": "Jonathon Adams",
   "license": "ISC",
   "dependencies": {
-    "@hapi/boom": "^8.0.1",
+    "@hapi/boom": "^9.0.0",
     "@sendgrid/mail": "^6.4.0",
     "apollo-server-koa": "^2.9.16",
     "bcryptjs": "^2.4.3",
@@ -25,7 +25,6 @@
     "koa-compress": "^3.0.0",
     "koa-helmet": "^5.2.0",
     "koa-morgan": "^1.0.1",
-    "koa-router": "^7.4.0",
     "lodash.keyby": "^4.6.0",
     "lodash.merge": "^4.6.2",
     "lodash.omit": "^4.5.0",
