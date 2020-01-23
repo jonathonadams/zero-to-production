@@ -31,6 +31,7 @@ import { graphql, GraphQLSchema } from 'graphql';
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
 }
+
 export const runQuery = function(schema: GraphQLSchema) {
   return async (
     query: string,

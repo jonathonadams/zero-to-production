@@ -151,6 +151,9 @@
     },
     "web-examples-dynamic-form": {
       "tags": []
+    },
+    "testing": {
+      "tags": []
     }
   }
 }

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Actions } from '@ngrx/effects';
 import { hot, Scheduler } from 'jest-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { createSpyObj } from '@app-testing/frontend/helpers';
+import { createSpyObj } from '@uqt/testing/frontend';
 import { AppEffects } from './app.effects';
 import { NotificationService } from '@uqt/utils/notifications';
 import { Router } from '@angular/router';

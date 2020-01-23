@@ -1,6 +1,7 @@
 module.exports = {
   name: 'api-utils',
   preset: '../../../jest.config.js',
+  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]sx?$': 'ts-jest'
   },

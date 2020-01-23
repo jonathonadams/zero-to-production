@@ -2,7 +2,7 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "@app-testing/*": ["testing/src/*"],
+      "@uqt/testing/*": ["libs/testing/src/lib/*"],
       "@uqt/common/ui/side-nav": ["libs/web/common/ui/side-nav/src/index.ts"],
       "@uqt/data-access/api": ["libs/web/data-access/api/src/index.ts"],
       "@uqt/data-access/auth": ["libs/web/data-access/auth/src/index.ts"],

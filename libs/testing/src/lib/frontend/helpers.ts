@@ -1,5 +1,4 @@
 import { defer } from 'rxjs';
-import { Store } from '@ngrx/store';
 import { DebugElement } from '@angular/core';
 
 /** Create async observable that emits-once and completes
