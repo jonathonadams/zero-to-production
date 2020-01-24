@@ -6,10 +6,6 @@ Note: You do not need to build your API server first
 
 1. `docker build -t <image-name> -f docker/api.Dockerfile --build-arg PROJECT_DIRECTORY=apps/<project-directory> .`
 
-## Optionals Build Via Npm Script
-
-11 `npm run build:server -- --projectDirectory=apps/<project-directory> --containerName=<container-name>`
-
 ## Test Production Angular Application
 
 1. `docker build -t <image-name> -f docker/web.Dockerfile --build-arg DISTRIBUTION_DIRECTORY=dist/apps/<dist-folder> .`
