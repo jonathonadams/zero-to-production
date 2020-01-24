@@ -10,9 +10,10 @@ import {
 export function isPasswordAllowed(password: string): boolean {
   return (
     !!password &&
-    password.length > 6 &&
+    password.length > 8 &&
     /\d/.test(password) &&
-    /\D/.test(password)
+    /\D/.test(password) &&
+    /[@$!%*#?&]/.test(password)
   );
 }
 

@@ -1,15 +1,16 @@
 import Koa from 'koa';
+import { User } from '@uqt/api/core-data';
 import {
   getAuthResolvers,
   getGraphQlGuards,
   getRestGuards,
   applyAuthRoutesWithRefreshTokens,
   createPublicJsonWebKeySetRouteFromPrivateKey,
-  AuthModuleConfig
+  AuthModuleConfig,
+  RefreshToken,
+  VerificationToken
 } from '@uqt/api/auth';
-import { RefreshToken } from './tokens.model';
 import config from '../../environments';
-import { User, VerificationToken } from '../api/users';
 
 const guardConfig = {
   User,

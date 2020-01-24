@@ -1,3 +1,4 @@
+export { RefreshToken, VerificationToken } from './lib/models';
 export { isPasswordAllowed } from './lib/auth-utils';
 export {
   AuthModuleConfig,

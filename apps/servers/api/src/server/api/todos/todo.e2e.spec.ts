@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import { Todo } from './todo.model';
+import { Todo } from '@uqt/api/core-data';
 import { ITodo } from '@uqt/interfaces';
 import config from '../../../environments/index';
 import { schema } from '../graphql';

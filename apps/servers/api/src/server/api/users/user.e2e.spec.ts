@@ -7,14 +7,14 @@ import {
   signTestAccessToken
 } from '@uqt/testing/backend';
 import { IUserDocument } from '@uqt/api/core-data';
-import { User } from './user.model';
+import { User } from '@uqt/api/core-data';
 import { schema } from '../graphql';
 import config from '../../../environments';
 import { IUser } from '@uqt/interfaces';
 import ApiServer from '../../server';
 import { Server } from 'http';
 
-//Need to import and run the server because
+// Need to import and run the server because
 // the server is also our "auth server"
 // and the Auth guard needs to be able to retrieve the JWKS
 const server = new ApiServer(new Koa());

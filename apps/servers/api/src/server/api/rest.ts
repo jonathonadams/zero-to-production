@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import Router from '@koa/router';
 import { usersRouter } from './users';
-import { Todo } from './todos';
+import { Todo } from '@uqt/api/core-data';
 import { verifyTokenRest } from '../auth/auth';
 import { ITodoDocument } from '@uqt/api/core-data';
 import { generateRestEndpoints } from '@uqt/api/utils';

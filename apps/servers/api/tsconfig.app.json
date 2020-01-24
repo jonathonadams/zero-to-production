@@ -11,6 +11,7 @@
     { "path": "../../../libs/interfaces/tsconfig.lib.json" },
     { "path": "../../../libs/api/auth/tsconfig.lib.json" },
     { "path": "../../../libs/api/utils/tsconfig.lib.json" },
-    { "path": "../../../libs/api/config/tsconfig.lib.json" }
+    { "path": "../../../libs/api/config/tsconfig.lib.json" },
+    { "path": "../../../libs/api/core-data/tsconfig.lib.json" }
   ]
 }

@@ -1,9 +1,16 @@
-import { isPasswordAllowed, userToJSON } from './auth-utils';
+import { isPasswordAllowed, userToJSON } from '../auth-utils';
 
 describe('Authentication Utils', () => {
   describe('isPasswordAllowed', () => {
-    const allowedPasswords = ['asF.s0f.s'];
-    const disallowedPasswords = ['', 'fffffffffff', '8888888888'];
+    const allowedPasswords = ['adf#jf3@#FD!'];
+    const disallowedPasswords = [
+      '',
+      'fffffffffff',
+      '8888888888',
+      'password',
+      'badPassword',
+      'asF.s0f.s'
+    ];
 
     allowedPasswords.forEach(pwd => {
       it(`${pwd} should be allowed`, () => {
@@ -30,6 +37,7 @@ describe('Authentication Utils', () => {
 
       const user = {
         ...safeUser,
+        password: 'unhashedPassword',
         hashedPassword: 'some really long hash'
       };
 

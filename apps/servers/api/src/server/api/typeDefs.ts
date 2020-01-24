@@ -1,16 +1,20 @@
 import { sync } from 'glob';
 import { readFileSync } from 'fs';
 import { authTypeDef } from '@uqt/api/auth';
+import { todoTypeDef } from '@uqt/api/core-data';
+import { resolve } from 'path';
 
 function loadGraphQLSchema(filePath: string) {
-  return readFileSync(`${process.cwd()}/${filePath}`, { encoding: 'utf-8' });
+  return readFileSync(resolve(__dirname, filePath), {
+    encoding: 'utf-8'
+  });
 }
 
 /**
- * Glob will return an array of all the files located in the dist/ director ending in .graphql
- * The Base schema (base.graphql) must be loaded first however it is the first element in the array
- * because it located at the highest directory level.
+ * Glob will return an array of all the files ending in .graphql from THIS FILE
  */
-const typeDefs = sync('**/*.graphql').map(loadGraphQLSchema);
+const typeDefs = sync('**/*.graphql', { cwd: __dirname }).map(
+  loadGraphQLSchema
+);
 
-export default [...typeDefs, authTypeDef];
+export default [authTypeDef, ...typeDefs, todoTypeDef];

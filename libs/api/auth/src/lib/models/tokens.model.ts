@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { defaultSchemaOptions } from '@uqt/api/utils';
-import { IRefreshTokenDocument, IRefreshTokenModel } from '@uqt/api/auth';
+import { IRefreshTokenDocument, IRefreshTokenModel } from '../auth.interface';
 
 /**
  * This resource is not publicly available but used to store all refresh tokens

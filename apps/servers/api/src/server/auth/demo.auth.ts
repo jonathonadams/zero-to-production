@@ -1,4 +1,5 @@
 import Koa from 'koa';
+import { User } from '@uqt/api/core-data';
 import {
   createPublicJsonWebKeySetRouteFromPrivateKey,
   applyDemoAuthRoutesWithRefreshTokens,
@@ -6,7 +7,6 @@ import {
   getDemoAuthResolvers
 } from '@uqt/api/auth';
 import config from '../../environments';
-import { User } from '../api/users';
 
 const authModuleConfig: DemoAuthModuleConfig = {
   login: { User, ...config.auth.accessToken },

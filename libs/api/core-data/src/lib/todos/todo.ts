@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import { ITodoDocument, ITodoModel } from '@uqt/api/core-data';
 import { defaultSchemaOptions } from '@uqt/api/utils';
 import { ITodo } from '@uqt/interfaces';
+export { todoTypeDef } from './todo.type';
 
 export const todoSchema = new mongoose.Schema<ITodo>(
   {
@@ -27,3 +27,18 @@ export const Todo = mongoose.model<ITodoDocument, ITodoModel>(
   'todo',
   todoSchema
 );
+
+export interface ITodoDocument extends ITodo, mongoose.Document {
+  id: string;
+}
+
+export interface ITodoModel extends mongoose.Model<ITodoDocument> {}
+
+// export const todoTypeDefs = () => {
+//   return todoTypeDef;
+
+//   // TODO -> Cli Builder to copy non TS Files?
+//   // return readFileSync(resolve(__dirname, './todo.graphql'), {
+//   // encoding: 'utf-8'
+//   // });
+// };

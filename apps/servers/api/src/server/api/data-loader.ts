@@ -3,8 +3,7 @@
 import DataLoader from 'dataloader';
 // @ts-ignore
 import keyBy from 'lodash.keyby';
-import { User } from './users';
-import { Todo } from './todos';
+import { User, Todo } from '@uqt/api/core-data';
 import { IUserDocument, ITodoDocument } from '@uqt/api/core-data';
 
 const createUsersLoader = () => {

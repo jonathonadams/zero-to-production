@@ -28,7 +28,6 @@ const userToRegister = ({
   lastName: 'user',
   emailAddress: 'unique@email.com',
   dateOfBirth: new Date(),
-  hashedPassword: 'asF.s0f.s',
   role: AuthenticationRoles.User,
   active: true,
   isVerified: false
@@ -36,7 +35,7 @@ const userToRegister = ({
 
 const userWithPassword = ({
   ...userToRegister,
-  password: 'asF.s0f.s123123'
+  password: 'adf#jf3@#FD!'
 } as any) as IUser;
 
 const issuer = 'some-issuer';

@@ -1,6 +1,6 @@
 import { IUserDocument } from '@uqt/api/core-data';
 import { generateResolvers } from '@uqt/api/utils';
-import { User } from './user.model';
+import { User } from '@uqt/api/core-data';
 import { verifyTokenGraphQL } from '../../auth/auth';
 
 const resolvers = generateResolvers<IUserDocument>(User);
