@@ -8,7 +8,7 @@ steps:
         '-f',
         'docker/api.Dockerfile',
         '--build-arg',
-        'PROJECT_DIRECTORY=apps/servers/api',
+        'PROJECT_DIRECTORY=apps/backend/api',
         '.',
       ]
     timeout: 500s

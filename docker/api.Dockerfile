@@ -82,14 +82,14 @@ RUN test -n "$PROJECT_DIRECTORY" || (echo "PROJECT_DIRECTORY  not set" && false)
 ENV NODE_ENV development
 
 # Copy all src files
-COPY $PROJECT_DIRECTORY/ /tmp/apps/servers/api
+COPY $PROJECT_DIRECTORY/ /tmp/apps/backend/api
 
 # Make out output directory
 RUN mkdir -p /tmp/dist
 
 # TODO - Don't copy frontend libs?
 # Copy all libs
-COPY libs/api /tmp/libs/api
+COPY libs/backend /tmp/libs/backend
 COPY libs/interfaces/ /tmp/libs/interfaces
 
 RUN cd /tmp/
