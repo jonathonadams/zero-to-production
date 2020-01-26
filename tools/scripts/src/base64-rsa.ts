@@ -1,5 +1,7 @@
+#!/usr/bin/env node
+import * as process from 'process';
 import { generateKeyPairSync } from 'crypto';
-// Must be one of 'pkcs1' (RSA only), 'pkcs8' or 'sec1' (EC only).
+
 const { publicKey, privateKey } = generateKeyPairSync('rsa', {
   modulusLength: 4096,
   publicKeyEncoding: {
@@ -9,10 +11,11 @@ const { publicKey, privateKey } = generateKeyPairSync('rsa', {
   privateKeyEncoding: {
     type: 'pkcs8',
     format: 'pem'
-    // cipher: 'aes-256-cbc',
-    // passphrase: 'top secret'
   }
 });
 
-console.log(privateKey);
-console.log(publicKey);
+process.stdout.write(base64(privateKey));
+
+function base64(string: string) {
+  return Buffer.from(string).toString('base64');
+}

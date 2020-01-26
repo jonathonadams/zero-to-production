@@ -28,7 +28,7 @@
     "help": "nx help",
     "lint-staged": "lint-staged",
     "build:scripts": "tsc -p tools/scripts/tsconfig.json",
-    "validate-packages": "node ./tools/scripts/validate-packages.js",
+    "validate-packages": "node ./tools/scripts/bin/validate-packages.js",
     "nx": "nx"
   },
   "husky": {
