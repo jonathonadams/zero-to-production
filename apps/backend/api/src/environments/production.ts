@@ -7,6 +7,7 @@ import {
 } from '@uqt/backend/config';
 
 const hostUrl = getEnvVariableOrWarn('HOST_URL');
+const authServerUrl = getEnvVariableOrWarn('AUTH_SERVER_URL');
 
 // TODO -> They keyId should be some sort of hash or something
 const keyId = 'some-random-key-id';
@@ -22,7 +23,7 @@ const prodConfig: ProductionConfig = {
     loggerLevel: 'error'
   },
   auth: {
-    authServerUrl: getEnvVariableOrWarn('AUTH_SERVER_URL'),
+    authServerUrl,
     accessToken: {
       privateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
       expireTime: envToNumber(
@@ -40,7 +41,7 @@ const prodConfig: ProductionConfig = {
     },
     email: {
       sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY'),
-      hostUrl
+      authServerUrl
     }
   },
   database: {

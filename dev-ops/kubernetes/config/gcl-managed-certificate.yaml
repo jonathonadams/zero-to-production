@@ -1,4 +1,4 @@
-# Google Managed Certificates error
+# Google Managed Certificates
 #
 # https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs
 #
@@ -10,4 +10,4 @@ metadata:
   name: z2p-managed-certificate
 spec:
   domains:
-    - api.jadams.dev
+    - api.zero-to-production.dev

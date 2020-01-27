@@ -38,7 +38,7 @@ const testConfig: DevOrTestConfig = {
       audience: hostUrl
     },
     email: {
-      hostUrl,
+      authServerUrl,
       sendGridApiKey: process.env.SENDGRID_API_KEY || ''
     }
   },

@@ -24,7 +24,7 @@ export interface AuthConfig {
     audience: string;
   };
   email: {
-    hostUrl: string;
+    authServerUrl: string;
     sendGridApiKey: string;
   };
 }

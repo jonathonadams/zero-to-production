@@ -29,3 +29,7 @@
 ### Accessability
 
 - [ ] Audit for a11y
+
+## Dev-Ops
+
+- [ ] Configure the build script to tag Docker images

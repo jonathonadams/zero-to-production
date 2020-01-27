@@ -21,6 +21,7 @@ spec:
           # Replace the image name with image you created from your API server
           image: gcr.io/zero-to-production/z2p-api
           imagePullPolicy: Always
+          # Configure all the environment variables
           env:
             - name: NODE_ENV
               valueFrom:
@@ -32,20 +33,35 @@ spec:
                 configMapKeyRef:
                   name: env-config
                   key: api.port
-            - name: JWT_EXPIRE_TIME
+            - name: ISSUER
               valueFrom:
                 configMapKeyRef:
                   name: env-config
-                  key: jwt.expire-time
-            - name: ACCESS_TOKEN_SECRET
+                  key: access.issuer
+            - name: HOST_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: host
+            - name: AUTH_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: auth-server
+            - name: ACCESS_TOKEN_EXPIRE_TIME
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: access.expire-time
+            - name: ACCESS_TOKEN_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
-                  name: privateKey
+                  name: private-key
                   key: access
-            - name: REFRESH_TOKEN_SECRET
+            - name: REFRESH_TOKEN_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
-                  name: privateKye
+                  name: private-key
                   key: refresh
             - name: DB_CONNECTION_STRING
               valueFrom:

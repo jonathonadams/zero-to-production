@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: traefik-external-config
+  name: traefik-config
 data:
   traefik.toml: |
     [providers]
@@ -19,8 +19,12 @@ data:
     [entryPoints]
       [entryPoints.http]
           address = ":80"
-        
-        # [entryPoints.https]
-        #     address = ":443"
-        # [entryPoints.https.tls]
-        #     minVersion = "VersionTLS12"
+
+    ## Dynamic configuration
+    [http.services]
+      [http.services.my-service]
+        # Sticky sessions for websocket connections
+        [http.services.my-service.loadBalancer.sticky.cookie]
+          name = "traefik-sticky-session"
+          secure = true
+          httpOnly = true
