@@ -9,7 +9,6 @@
 !tsconfig.base.json
 !tsconfig.json
 !docker/nginx.conf
-!tsconfig.libs.json
 !apps/
 !libs/
 !dist/apps/
