@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { TodosService } from './todos.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { IJWTPayload, AuthService } from '@uqt/data-access/auth';
+import { AuthService } from '@uqt/data-access/auth';
 import { GraphQLService } from '@uqt/data-access/api';
 import { ITodo } from '@uqt/interfaces';
-import { createSpyObj } from '@app-testing/frontend/helpers';
-import { GraphQLStub } from '@app-testing/frontend/stubs/graphql.stubs';
+import { createSpyObj, GraphQLStub } from '@uqt/testing/frontend';
 import {
   ALL_TODOS_QUERY,
   LOAD_TODO_QUERY,

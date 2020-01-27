@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { GraphQLError } from 'graphql';
 import { sign } from 'jsonwebtoken';
-import { GraphQLStub } from '@app-testing/frontend/stubs/graphql.stubs';
+import { GraphQLStub } from '@uqt/testing/frontend';
 import { GraphQLService } from '@uqt/data-access/api';
 import { AuthService, AUTH_SERVER_URL } from './auth.service';
 import {

@@ -65,10 +65,10 @@
     "web-shared-floating-menu": {
       "tags": []
     },
-    "servers-api": {
+    "backend-api": {
       "tags": []
     },
-    "api-auth": {
+    "backend-auth": {
       "tags": []
     },
     "web-shared-profile": {
@@ -83,10 +83,10 @@
     "web-data-access-service-worker": {
       "tags": []
     },
-    "api-config": {
+    "backend-config": {
       "tags": []
     },
-    "api-utils": {
+    "backend-utils": {
       "tags": []
     },
     "web-common-animations": {
@@ -125,7 +125,7 @@
     "web-common-ui-auth": {
       "tags": []
     },
-    "api-core-data": {
+    "backend-core-data": {
       "tags": []
     },
     "interfaces": {
@@ -150,6 +150,9 @@
       "tags": []
     },
     "web-examples-dynamic-form": {
+      "tags": []
+    },
+    "testing": {
       "tags": []
     }
   }

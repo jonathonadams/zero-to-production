@@ -2,7 +2,7 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "@app-testing/*": ["testing/src/*"],
+      "@uqt/testing/*": ["libs/testing/src/lib/*"],
       "@uqt/common/ui/side-nav": ["libs/web/common/ui/side-nav/src/index.ts"],
       "@uqt/data-access/api": ["libs/web/data-access/api/src/index.ts"],
       "@uqt/data-access/auth": ["libs/web/data-access/auth/src/index.ts"],
@@ -24,7 +24,7 @@
       "@uqt/shared/floating-menu": [
         "libs/web/shared/floating-menu/src/index.ts"
       ],
-      "@uqt/api/auth": ["libs/api/auth/src/index.ts"],
+      "@uqt/backend/auth": ["libs/backend/auth/src/index.ts"],
       "@uqt/shared/profile": ["libs/web/shared/profile/src/index.ts"],
       "@uqt/data-access/router": ["libs/web/data-access/router/src/index.ts"],
       "@uqt/data-access/dynamic-form": [
@@ -33,8 +33,8 @@
       "@uqt/data-access/service-worker": [
         "libs/web/data-access/service-worker/src/index.ts"
       ],
-      "@uqt/api/config": ["libs/api/config/src/index.ts"],
-      "@uqt/api/utils": ["libs/api/utils/src/index.ts"],
+      "@uqt/backend/config": ["libs/backend/config/src/index.ts"],
+      "@uqt/backend/utils": ["libs/backend/utils/src/index.ts"],
       "@uqt/common/animations": ["libs/web/common/animations/src/index.ts"],
       "@uqt/utils/storage": ["libs/web/utils/storage/src/index.ts"],
       "@uqt/data-access/form-builder": [
@@ -53,7 +53,7 @@
         "libs/web/common/dynamic-form-material-components/src/index.ts"
       ],
       "@uqt/web/common/ui/auth": ["libs/web/common/ui/auth/src/index.ts"],
-      "@uqt/api/core-data": ["libs/api/core-data/src/index.ts"],
+      "@uqt/backend/core-data": ["libs/backend/core-data/src/index.ts"],
       "@uqt/interfaces": ["libs/interfaces/src/index.ts"],
       "@uqt/web/examples/code-highlight": [
         "libs/web/examples/code-highlight/src/index.ts"

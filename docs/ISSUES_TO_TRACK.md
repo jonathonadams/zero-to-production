@@ -19,11 +19,6 @@ TS does not correctly infer the types when using filters, current typescript iss
 https://github.com/Microsoft/TypeScript/issues/10734
 https://github.com/Microsoft/TypeScript/issues/16069
 
-## Angular IVY and Strict Mode
-
-Generic template checking.
-https://github.com/angular/angular/issues/30235
-
 ## TS Path References are not inherited
 
 Once merged, remove references from the tsconfig.lib.json's
@@ -40,6 +35,5 @@ https://github.com/NativeScript/NativeScript/issues/7537
 
 ## Remove typing once merged
 
-@types/node-fetch
-https://github.com/apollographql/apollo-tooling/issues/1670
-https://github.com/apollographql/apollo-tooling/pull/1701
+@types/request
+https://github.com/sendgrid/sendgrid-nodejs/issues/1027

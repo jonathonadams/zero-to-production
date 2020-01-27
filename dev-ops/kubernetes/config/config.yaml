@@ -1,0 +1,12 @@
+# NON Sensitive configuration for your Kubernetes environment
+# Change these as necessary
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-config
+  labels:
+    name: env-config
+data:
+  api.port: 3000
+  jwt.expire-time: 86400
+  env: production
