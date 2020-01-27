@@ -1,17 +1,24 @@
+# The build file is generic and requires Substitution to build correctly and will
+# Error if not set.
+# $_IMAGE_NAME : The name of the image once build
+# $_PROJECT_DIRECTORY: The directory of src file
+# 
+# https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values
+# 
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
         'build',
         '-t',
-        'gcr.io/zero-to-production/z2p-api',
+        '$_IMAGE_NAME,
         '-f',
         'docker/api.Dockerfile',
         '--build-arg',
-        'PROJECT_DIRECTORY=apps/backend/api',
+        'PROJECT_DIRECTORY=$_PROJECT_DIRECTORY',
         '.',
       ]
     timeout: 500s
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/zero-to-production/z2p-api']
-images: ['gcr.io/zero-to-production/z2p-api']
+    args: ['push', '$_IMAGE_NAME']
+images: ['$_IMAGE_NAME']

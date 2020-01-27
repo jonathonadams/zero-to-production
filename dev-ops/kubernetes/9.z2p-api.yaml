@@ -18,6 +18,7 @@ spec:
       containers:
         - name: z2p-api
           # The image of the container on google cloud
+          # Replace the image name with image you created from your API server
           image: gcr.io/zero-to-production/z2p-api
           imagePullPolicy: Always
           env:
@@ -39,21 +40,20 @@ spec:
             - name: ACCESS_TOKEN_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: token
+                  name: privateKey
                   key: access
             - name: REFRESH_TOKEN_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: token
+                  name: privateKye
                   key: refresh
             - name: DB_CONNECTION_STRING
               valueFrom:
                 secretKeyRef:
                   name: db-credentials
                   key: connectionString
-
           readinessProbe:
-            ## The port must match the exposed port in the api container
+            # The URL and port must match the exposed port/url on the API container
             httpGet:
               path: /healthz
               port: 3000

@@ -7,6 +7,6 @@ metadata:
   labels:
     name: env-config
 data:
-  api.port: '3000'
-  jwt.expire-time: '86400'
+  api.port: 3000
+  jwt.expire-time: 86400
   env: production
