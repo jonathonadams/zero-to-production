@@ -2,16 +2,16 @@
 # Error if not set.
 # $_IMAGE_NAME : The name of the image once build
 # $_PROJECT_DIRECTORY: The directory of src file
-# 
+#
 # https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values
-# 
+#
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
         'build',
         '-t',
-        '$_IMAGE_NAME,
+        '$_IMAGE_NAME',
         '-f',
         'docker/api.Dockerfile',
         '--build-arg',
