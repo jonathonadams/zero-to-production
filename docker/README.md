@@ -22,3 +22,5 @@ Note: You do not need to build your API server first
 1. `docker stop <container-name>`
 2. `docker rm <container-name>`
 3. `docker rmi <image-name>`
+
+docker build -t test-api-image -f docker/api.Dockerfile --build-arg PROJECT_DIRECTORY=apps/backend-api .

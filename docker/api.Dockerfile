@@ -33,7 +33,7 @@ ENV NODE_ENV development
 WORKDIR /tmp
 
 # Copy all files required for the build container to run (do not copy source files)
-COPY angular.json package.json package-lock.json tsconfig.base.json tsconfig.json tsconfig.libs.json /tmp/
+COPY angular.json package.json package-lock.json tsconfig.base.json tsconfig.json /tmp/
 
 RUN cd /tmp 
 
@@ -87,15 +87,11 @@ COPY $PROJECT_DIRECTORY/ /tmp/apps/backend/api
 # Make out output directory
 RUN mkdir -p /tmp/dist
 
-# TODO - Don't copy frontend libs?
-# Copy all libs
+# Copy all libs associated with the backend
 COPY libs/backend /tmp/libs/backend
 COPY libs/interfaces/ /tmp/libs/interfaces
 
 RUN cd /tmp/
-
-# Build the libs
-RUN npm run build:libs
 
 # Run the production build task (from app specifig package.json)
 COPY $PROJECT_DIRECTORY/package.json  /tmp
