@@ -1,3 +1,5 @@
+# Deploy your API Server in Google Cloud Kubernetes
+
 ## Pre-reqs
 
 Make sure to have [Google Cloud SDK](https://cloud.google.com/sdk) and [Kubernetes CLI](https://kubernetes.io/docs/reference/kubectl/) installed.
@@ -62,6 +64,10 @@ NOTE: The image name that you build and push to the Google Cloud Registry here i
 ## Configure Your DNS Provider
 
 To access your cluster via your domain name, e.g. `api.zero-to-production.dev` you will have to configure your DNS records with your domain name provider. Assuming you are hosting your API at the subdomain `api.`, then create an A record (or AAAA if using IPv6) that directs your subdomain to the IP address. This will take time to update (up to 24 hours). Once updated, test your cluster is running correctly by visiting you `https://api.your-domain.com/api/healthz` (this is the readiness route). You should receive status 200 OK response back
+
+## Create VPC Network (if using Mongo Atlas)
+
+1. In mongo atlas
 
 ### Notes:
 
