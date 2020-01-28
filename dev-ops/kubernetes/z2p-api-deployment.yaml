@@ -66,7 +66,7 @@ spec:
             - name: DB_CONNECTION_STRING
               valueFrom:
                 secretKeyRef:
-                  name: db-credentials
+                  name: db
                   key: connectionString
           readinessProbe:
             # The URL and port must match the exposed port/url on the API container

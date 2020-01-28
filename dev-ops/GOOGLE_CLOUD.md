@@ -5,7 +5,10 @@
 - Make sure to have [Google Cloud SDK](https://cloud.google.com/sdk) and [Kubernetes CLI](https://kubernetes.io/docs/reference/kubectl/) installed.
 
 - You will need a Mongo DB for your the API to connect to. This is entirely up to you how/where you would like to host your DB but Mongo Atlas has a free tear that you can test with. Follow the instructions on [their website](https://www.mongodb.com/cloud/atlas) to get up and running.
-  **NOTE**: For initial setup, allow connections from all IP Addresses. This will later be configured to use a VPC Network to only whitelist the Kubernetes Cluster IP's
+
+  - For initial setup, allow connections from all IP Addresses. This will later be configured to use a VPC Network to only whitelist the Kubernetes Cluster IP's.
+  - When creating your first cluster on Mongo Atlas, once your cluster is up an running, click **collections** and create a database (remember the name) and the first collection i.e. the `users` collection.
+  - When you click **conect** -> **connect your application** and get your connection string, by default
 
 - An RS256 Private Key is required for singing your JWT access tokens. Depending on the Authentication Guard setup (see the [API Authentication Library](../libs/backend/auth/README.md)) you may or may not need the Public Key for Verifying the JWT. As the API is currently set up, the public key is auto generated from the private key at startup and served as a [JSON Web Key Set (JWKS)](https://tools.ietf.org/html/rfc7517) at the url `/.well-know/jwks.json`. See [Auth 0](https://auth0.com/docs/tokens/concepts/jwks) for further explanation and rational behind a JWKS.  
   There is a helper script in `tools/scripts/bin/generate-rsa.js` to generate an RSA256 Private Key (pkcs8).
@@ -69,7 +72,7 @@ NOTE: The image name that you build and push to the Google Cloud Registry here i
 
 ## Configure Your DNS Provider
 
-To access your cluster via your domain name, e.g. `api.zero-to-production.dev` you will have to configure your DNS records with your domain name provider. Assuming you are hosting your API at the subdomain `api.`, then create an A record (or AAAA if using IPv6) that directs your subdomain to the IP address. This will take time to update (up to 24 hours). Once updated, test your cluster is running correctly by visiting you `https://api.your-domain.com/api/healthz` (this is the readiness route). You should receive status 200 OK response back
+To access your cluster via your domain name, e.g. `api.zero-to-production.dev` you will have to configure your DNS records with your domain name provider. Assuming you are hosting your API at the subdomain `api.`, then create an A record (or AAAA if using IPv6) that directs your subdomain to the IP address. This will take time to update (up to 24 hours). Once updated, test your cluster is running correctly by visiting you `https://api.your-domain.com/healthz` (this is the readiness probe route). You should receive status 200 OK response back
 
 ## Create VPC Network (if using Mongo Atlas)
 

@@ -43,9 +43,6 @@ export const TODOS_ROUTES: Routes = [
       }
     ],
     canActivate: [AuthGuard],
-    resolve: {
-      user: AuthUsersResolver
-    },
     data: {
       animation: 'AppPages'
     }

@@ -9,14 +9,11 @@ const app = new Koa();
 // proxy such as Nginx or Traefik
 app.proxy = config.production;
 
-export const server = initServer(app);
+export const server = initServer();
 
 // TODO -> Replace with Top Level await once released.
 // Note minimum node version
-async function initServer(appInstance: Koa) {
-  const apiServer = new ApiServer(appInstance);
-
-  const httpServer = await apiServer.initializeServer();
-
-  return httpServer;
+async function initServer() {
+  const apiServer = new ApiServer(app);
+  return await apiServer.initializeServer();
 }
