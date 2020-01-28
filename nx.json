@@ -9,7 +9,8 @@
   },
   "projects": {
     "web-todos-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["web-todos"]
     },
     "web-todos": {
       "tags": ["scope:web", "type:app"]
@@ -99,7 +100,8 @@
       "tags": []
     },
     "web-examples-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["web-examples"]
     },
     "web-examples": {
       "tags": []
