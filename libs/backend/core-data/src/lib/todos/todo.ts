@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { defaultSchemaOptions } from '@uqt/backend/utils';
-import { ITodo } from '@uqt/interfaces';
+import { ITodo } from '@uqt/data';
 export { todoTypeDef } from './todo.type';
 
 export const todoSchema = new mongoose.Schema<ITodo>(

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import * as fromTodos from './todos.selectors';
 import * as TodoActions from './todos.actions';
-import { ITodo } from '@uqt/interfaces';
+import { ITodo } from '@uqt/data';
 import { TodoFilterStatus } from './todos.reducer';
 
 @Injectable()

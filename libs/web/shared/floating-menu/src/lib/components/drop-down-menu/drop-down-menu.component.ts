@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { take, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 import { UsersFacade } from '@uqt/data-access/users';
 
 @Component({

@@ -15,7 +15,7 @@ import {
   TodoFilterStatus,
   todosFeatureKey
 } from './todos.reducer';
-import { ITodo } from '@uqt/interfaces';
+import { ITodo } from '@uqt/data';
 import {
   equalsC,
   checkTodoCompleteStatusC,

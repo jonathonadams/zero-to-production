@@ -6,7 +6,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 
 @Component({
   selector: 'uqt-ui-user-profile',

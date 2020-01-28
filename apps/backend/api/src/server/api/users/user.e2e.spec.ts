@@ -10,7 +10,7 @@ import { IUserDocument } from '@uqt/backend/core-data';
 import { User } from '@uqt/backend/core-data';
 import { schema } from '../graphql';
 import config from '../../../environments';
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 import ApiServer from '../../server';
 import { Server } from 'http';
 

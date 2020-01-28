@@ -1,7 +1,7 @@
 import { createPublicKey } from 'crypto';
 import { sign, verify, decode } from 'jsonwebtoken';
 import { koaJwtSecret } from 'jwks-rsa';
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 import {
   AccessTokenConfig,
   RefreshTokenConfig,

@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import { Todo } from '@uqt/backend/core-data';
-import { ITodo } from '@uqt/interfaces';
+import { ITodo } from '@uqt/data';
 import config from '../../../environments/index';
 import { schema } from '../graphql';
 import ApiServer from '../../server';

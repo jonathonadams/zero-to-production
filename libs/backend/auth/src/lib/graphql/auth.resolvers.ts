@@ -8,7 +8,7 @@ import {
   RegistrationControllerConfig,
   AuthModuleConfig
 } from '../auth.interface';
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 import { setupEmailVerification } from '../send-email';
 
 // Verify can not be done via GraphQL because it will be a hyperlink in the

@@ -5,7 +5,7 @@ import {
   DemoLoginControllerConfig,
   DemoRegistrationControllerConfig
 } from './demo.interface';
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 import { isPasswordAllowed, userToJSON } from '../auth-utils';
 
 export function demoSetupRegisterController({

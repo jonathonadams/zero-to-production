@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 
 export const selectUser = createAction(
   '[User/UI] Select',

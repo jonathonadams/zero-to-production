@@ -9,7 +9,7 @@ import {
   ILoginResponse,
   IRegistrationDetails
 } from '../auth.interface';
-import { AuthenticationRoles, IUser } from '@uqt/interfaces';
+import { AuthenticationRoles, IUser } from '@uqt/data';
 import { AuthFacade } from '../+state/auth.facade';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 

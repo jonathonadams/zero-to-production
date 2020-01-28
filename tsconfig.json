@@ -4,6 +4,7 @@
     "paths": {
       "@uqt/testing/frontend": ["libs/testing/src/frontend.ts"],
       "@uqt/testing/backend": ["libs/testing/src/backend.ts"],
+      "@uqt/data": ["libs/data/src/index.ts"],
       "@uqt/common/ui/side-nav": ["libs/web/common/ui/side-nav/src/index.ts"],
       "@uqt/data-access/api": ["libs/web/data-access/api/src/index.ts"],
       "@uqt/data-access/auth": ["libs/web/data-access/auth/src/index.ts"],
@@ -54,7 +55,6 @@
       ],
       "@uqt/web/common/ui/auth": ["libs/web/common/ui/auth/src/index.ts"],
       "@uqt/backend/core-data": ["libs/backend/core-data/src/index.ts"],
-      "@uqt/interfaces": ["libs/interfaces/src/index.ts"],
       "@uqt/web/examples/code-highlight": [
         "libs/web/examples/code-highlight/src/index.ts"
       ],

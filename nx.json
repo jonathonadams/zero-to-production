@@ -125,9 +125,6 @@
     "backend-core-data": {
       "tags": []
     },
-    "interfaces": {
-      "tags": []
-    },
     "web-examples-code-highlight": {
       "tags": []
     },
@@ -150,6 +147,9 @@
       "tags": []
     },
     "testing": {
+      "tags": []
+    },
+    "data": {
       "tags": []
     }
   }
