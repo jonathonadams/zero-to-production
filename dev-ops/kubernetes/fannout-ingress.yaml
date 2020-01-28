@@ -7,12 +7,9 @@ metadata:
     # set the kubernetes.io/ingress.class annotation to traefik.
     # Google’s ingress controller will ignore any ingresses whose class is not set to gcp.
     kubernetes.io/ingress.class: traefik
-
-    # ingress.kubernetes.io/force-hsts: 'false'
-    # ingress.kubernetes.io/ssl-redirect: 'true'
 spec:
   rules:
-    - host: api.jadams.dev
+    - host: api.zero-to-production.dev
       http:
         paths:
           - path: /

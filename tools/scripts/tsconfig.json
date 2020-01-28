@@ -6,6 +6,7 @@
     "outDir": "./bin",
     "moduleResolution": "node",
     "module": "commonjs",
-    "sourceMap": false
+    "sourceMap": false,
+    "target": "ES2018"
   }
 }

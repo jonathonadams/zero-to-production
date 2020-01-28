@@ -10,7 +10,7 @@ import {
   RefreshControllerConfig,
   RevokeControllerConfig
 } from './auth.interface';
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 import { isPasswordAllowed, userToJSON } from './auth-utils';
 
 // TODO -> Refresh Token Model/Storage

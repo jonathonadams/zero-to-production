@@ -3,7 +3,7 @@ import { TodosService } from './todos.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from '@uqt/data-access/auth';
 import { GraphQLService } from '@uqt/data-access/api';
-import { ITodo } from '@uqt/interfaces';
+import { ITodo } from '@uqt/data';
 import { createSpyObj, GraphQLStub } from '@uqt/testing/frontend';
 import {
   ALL_TODOS_QUERY,

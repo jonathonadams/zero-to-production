@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
   Input
 } from '@angular/core';
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 
 /**
  * For the purpose of themeing, view encapsulation has been set to none.

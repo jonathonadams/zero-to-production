@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { ITodo } from '@uqt/interfaces';
+import { ITodo } from '@uqt/data';
 import { TodoFilterStatus } from './todos.reducer';
 
 export const selectTodo = createAction(

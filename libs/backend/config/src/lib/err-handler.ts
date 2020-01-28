@@ -10,6 +10,9 @@ export const errorHandler: Middleware = async (ctx, next) => {
   try {
     await next();
   } catch (err) {
+    console.log('TODO');
+    console.log('DELETE ME!!!!!!!!!!!!!!!');
+    console.error(err);
     const errPayload = handleError(err);
     ctx.status = errPayload.status;
     ctx.body = errPayload.body;
@@ -38,17 +41,23 @@ function handleError(err: any): { status: number; body: any } {
      * Note we are doing a positive look ahead and behind as well as capturing the matching group
      * as the property field
      */
-    const index = /(?<=index: )(?<field>\w+)(?=_)/.exec(
-      err.errmsg
-    ) as RegExpExecArray;
+    const index = /(?<=index: )(?<field>\w+)(?=_)/.exec(err.errmsg);
+    if (index && index.groups) {
+      const errorMessage = `${index.groups.field} must be unique`;
+      const error = Boom.badRequest(errorMessage);
 
-    const errorMessage = `${(index.groups as any).field} must be unique`;
-    const error = Boom.badRequest(errorMessage);
+      return {
+        status: error.output.statusCode,
+        body: error.output.payload
+      };
+    } else {
+      const error = Boom.badRequest();
 
-    return {
-      status: error.output.statusCode,
-      body: error.output.payload
-    };
+      return {
+        status: error.output.statusCode,
+        body: error.output.payload
+      };
+    }
   } else {
     const error = Boom.badImplementation(err.message);
     return {

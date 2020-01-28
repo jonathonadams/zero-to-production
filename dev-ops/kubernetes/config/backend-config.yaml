@@ -5,6 +5,9 @@
 # as the maximum amount of time that a WebSocket, idle or active, can remain open."
 # https://cloud.google.com/load-balancing/docs/backend-service#timeout-setting
 #
+# Enable cookies Stick Sessions so all websocket connections go to the same container
+# https://cloud.google.com/kubernetes-engine/docs/how-to/configure-backend-service#setting_generated_cookie_affinity
+#
 # How to configure a backend config
 # https://cloud.google.com/kubernetes-engine/docs/how-to/configure-backend-service
 #
@@ -17,3 +20,5 @@ metadata:
   name: config-http
 spec:
   timeoutSec: 6000
+  sessionAffinity:
+    affinityType: 'GENERATED_COOKIE'

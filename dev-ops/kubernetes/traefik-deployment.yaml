@@ -31,7 +31,6 @@ spec:
               containerPort: 80
             - name: https
               containerPort: 443
-          # TODO -> Reduce the readiness probe to be more realistic
           readinessProbe:
             httpGet:
               path: /ping
@@ -42,7 +41,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: traefik-external-config
+            name: traefik-config
 ---
 apiVersion: v1
 kind: Service
@@ -52,10 +51,7 @@ metadata:
     # Allow both http and https as a protocol
     # https://cloud.google.com/kubernetes-engine/docs/concepts/ingress
     cloud.google.com/app-protocols: '{"https":"HTTPS","http":"HTTP"}'
-    # Enable sticky sessions for websocket handshakes
-    # https://docs.traefik.io/configuration/backends/kubernetes/
-    traefik.ingress.kubernetes.io/affinity: 'true'
-    # Because of the Socket.io we need a custom config for increase timeout time
+    # To use WebSockets we need a custom config for increase timeout time
     # https://cloud.google.com/kubernetes-engine/docs/how-to/configure-backend-service
     beta.cloud.google.com/backend-config: '{"ports": {"http":"config-http", "https":"config-http"}}'
 spec:

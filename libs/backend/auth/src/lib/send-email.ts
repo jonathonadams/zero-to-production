@@ -11,7 +11,7 @@ export function setupEmailVerification({
   return async function sendVerificationEmail(to: string, token: string) {
     const msg = {
       to,
-      from: 'test@z2p.com',
+      from: 'register@zero-to-production.com',
       subject: 'Verify Your Email',
       text: `Click on this link to verify your email ${hostUrl}/authorize/verify?token=${token}&email=${to}`
     };

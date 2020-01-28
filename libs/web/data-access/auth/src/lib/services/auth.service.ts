@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 // @ts-ignore
 import jwtDecode from 'jwt-decode';
 import { GraphQLService } from '@uqt/data-access/api';
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 import {
   ILoginCredentials,
   ILoginResponse,

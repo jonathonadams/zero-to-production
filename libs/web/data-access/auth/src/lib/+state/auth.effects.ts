@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { exhaustMap, map, tap, catchError } from 'rxjs/operators';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 import * as AuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
 import { ILoginResponse } from '../auth.interface';

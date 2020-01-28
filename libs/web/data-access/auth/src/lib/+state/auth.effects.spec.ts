@@ -9,7 +9,7 @@ import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
 import * as AuthActions from './auth.actions';
 import { ILoginCredentials, IRegistrationDetails } from '../auth.interface';
-import { AuthenticationRoles, IUser } from '@uqt/interfaces';
+import { AuthenticationRoles, IUser } from '@uqt/data';
 
 describe('AuthEffects', () => {
   let effects: AuthEffects;

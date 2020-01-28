@@ -1,4 +1,4 @@
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 import { usersReducer, UsersEntityState } from './users.reducer';
 import * as UserActions from './users.actions';
 

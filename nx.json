@@ -9,7 +9,8 @@
   },
   "projects": {
     "web-todos-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["web-todos"]
     },
     "web-todos": {
       "tags": ["scope:web", "type:app"]
@@ -33,9 +34,6 @@
       "tags": []
     },
     "web-utils-notifications": {
-      "tags": []
-    },
-    "web-utils-errors": {
       "tags": []
     },
     "web-data-access-users": {
@@ -102,7 +100,8 @@
       "tags": []
     },
     "web-examples-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["web-examples"]
     },
     "web-examples": {
       "tags": []
@@ -128,9 +127,6 @@
     "backend-core-data": {
       "tags": []
     },
-    "interfaces": {
-      "tags": []
-    },
     "web-examples-code-highlight": {
       "tags": []
     },
@@ -153,6 +149,9 @@
       "tags": []
     },
     "testing": {
+      "tags": []
+    },
+    "data": {
       "tags": []
     }
   }

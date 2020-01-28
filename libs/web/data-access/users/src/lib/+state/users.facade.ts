@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 import * as UserActions from './users.actions';
 import * as fromUsers from './users.selectors';
 

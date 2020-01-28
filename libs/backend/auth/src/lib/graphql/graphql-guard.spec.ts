@@ -12,7 +12,7 @@ import {
 import { signAccessToken } from '../token';
 import { MockUserModel } from '../__tests__/user.mock';
 import { IUserDocument, IUserModel } from '@uqt/backend/core-data';
-import { AuthenticationRoles } from '@uqt/interfaces';
+import { AuthenticationRoles } from '@uqt/data';
 import {
   privateKey,
   invalidPrivateKey,

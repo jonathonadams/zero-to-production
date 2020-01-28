@@ -9,7 +9,7 @@ import {
   UPDATE_TODO_QUERY,
   REMOTE_TODO_QUERY
 } from './todos.queries';
-import { ITodo } from '@uqt/interfaces';
+import { ITodo } from '@uqt/data';
 import { FetchResult } from 'apollo-link';
 
 @Injectable()

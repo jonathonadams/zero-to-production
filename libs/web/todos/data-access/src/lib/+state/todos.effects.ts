@@ -18,7 +18,7 @@ import {
 } from '@ngrx/effects';
 import * as TodoActions from './todos.actions';
 import { TodosService } from '../todos.service';
-import { ITodo } from '@uqt/interfaces';
+import { ITodo } from '@uqt/data';
 
 // Note: when merging observable from multiple sources there are 4x operators tha can be uses
 // exhaustMap, mergeMap, switchMap and concatMap

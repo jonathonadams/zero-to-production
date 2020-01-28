@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { hash } from 'bcryptjs';
 import 'jest-extended';
-import { AuthenticationRoles, IUser } from '@uqt/interfaces';
+import { AuthenticationRoles, IUser } from '@uqt/data';
 import { IUserModel } from '@uqt/backend/core-data';
 import {
   setupRegisterController,

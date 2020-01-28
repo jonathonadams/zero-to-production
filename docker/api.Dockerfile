@@ -106,7 +106,7 @@ ENV NODE_ENV production
 
 RUN mkdir /app/api
 
-# Copy the distribution folder from the builder file
+# Copy the distribution folder from the builder container
 COPY --from=builder /tmp/dist /app
 
 RUN cd /app

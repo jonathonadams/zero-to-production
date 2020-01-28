@@ -8,7 +8,7 @@ import {
   DemoRegistrationControllerConfig,
   DemoAuthModuleConfig
 } from './demo.interface';
-import { IUser } from '@uqt/interfaces';
+import { IUser } from '@uqt/data';
 
 // Verify can not be done via GraphQL because it will be a hyperlink in the
 export function getDemoAuthResolvers(config: DemoAuthModuleConfig) {

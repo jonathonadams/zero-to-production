@@ -1,7 +1,7 @@
 import { verify } from 'jsonwebtoken';
 import Boom from '@hapi/boom';
 import { authenticateRequest } from './auth.graphql';
-import { AuthenticationRoles, IUser } from '@uqt/interfaces';
+import { AuthenticationRoles, IUser } from '@uqt/data';
 import {
   GuardConfig,
   JWKSGuarConfig,
