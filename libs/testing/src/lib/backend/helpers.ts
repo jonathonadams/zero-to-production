@@ -59,7 +59,7 @@ export async function setupTestDB(): Promise<{
   mongoServer: MongoMemoryServer;
 }> {
   const mongoServer = new MongoMemoryServer();
-  const mongoUri: string = await mongoServer.getConnectionString();
+  const mongoUri: string = await mongoServer.getUri();
   return {
     dbUri: mongoUri,
     mongoServer: mongoServer

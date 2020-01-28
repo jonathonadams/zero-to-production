@@ -2,7 +2,8 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "@uqt/testing/*": ["libs/testing/src/lib/*"],
+      "@uqt/testing/frontend": ["libs/testing/src/frontend.ts"],
+      "@uqt/testing/backend": ["libs/testing/src/backend.ts"],
       "@uqt/common/ui/side-nav": ["libs/web/common/ui/side-nav/src/index.ts"],
       "@uqt/data-access/api": ["libs/web/data-access/api/src/index.ts"],
       "@uqt/data-access/auth": ["libs/web/data-access/auth/src/index.ts"],
@@ -12,7 +13,6 @@
       "@uqt/common/ui/toolbar": ["libs/web/common/ui/toolbar/src/index.ts"],
       "@uqt/utils/overlay": ["libs/web/utils/overlay/src/index.ts"],
       "@uqt/utils/notifications": ["libs/web/utils/notifications/src/index.ts"],
-      "@uqt/utils/errors": ["libs/web/utils/errors/src/index.ts"],
       "@uqt/data-access/users": ["libs/web/data-access/users/src/index.ts"],
       "@uqt/common/theme": ["libs/web/common/theme/src/index.ts"],
       "@uqt/dashboard": ["libs/web/shared/dashboard/src/index.ts"],

@@ -13,10 +13,10 @@ export const server = initServer(app);
 
 // TODO -> Replace with Top Level await once released.
 // Note minimum node version
-async function initServer(app: Koa) {
-  const apiServer = new ApiServer(app);
+async function initServer(appInstance: Koa) {
+  const apiServer = new ApiServer(appInstance);
 
-  const server = await apiServer.initializeServer();
+  const httpServer = await apiServer.initializeServer();
 
-  return server;
+  return httpServer;
 }

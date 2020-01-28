@@ -457,37 +457,6 @@
         }
       }
     },
-    "web-utils-errors": {
-      "projectType": "library",
-      "root": "libs/web/utils/errors",
-      "sourceRoot": "libs/web/utils/errors/src",
-      "prefix": "todo",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/web/utils/errors/tsconfig.lib.json",
-              "libs/web/utils/errors/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/web/utils/errors/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/web/utils/errors/jest.config.js",
-            "tsConfig": "libs/web/utils/errors/tsconfig.spec.json",
-            "setupFile": "libs/web/utils/errors/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
     "web-data-access-users": {
       "projectType": "library",
       "root": "libs/web/data-access/users",
@@ -1614,10 +1583,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/testing/tsconfig.lib.json",
-              "libs/testing/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/testing/tsconfig.lib.json"],
             "exclude": ["**/node_modules/**", "!libs/testing/**"]
           }
         }
