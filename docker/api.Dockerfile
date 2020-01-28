@@ -89,7 +89,7 @@ RUN mkdir -p /tmp/dist
 
 # Copy all libs associated with the backend
 COPY libs/backend /tmp/libs/backend
-COPY libs/interfaces/ /tmp/libs/interfaces
+COPY libs/data/ /tmp/libs/data
 
 RUN cd /tmp/
 
