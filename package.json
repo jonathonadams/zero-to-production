@@ -39,7 +39,8 @@
   },
   "lint-staged": {
     "*.json": [
-      "npm run validate-packages"
+      "npm run validate-packages",
+      "npm run format:fix"
     ],
     "*.ts": [
       "npm run format:fix"

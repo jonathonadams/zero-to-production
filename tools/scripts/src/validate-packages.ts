@@ -2,6 +2,7 @@
 import glob from 'glob';
 import { promisify } from 'util';
 import fs from 'fs';
+import { exec } from 'child_process';
 const asyncGlob = promisify(glob);
 const fsPromise = fs.promises;
 
@@ -57,6 +58,9 @@ const fsPromise = fs.promises;
     )
   );
 
+  await Promise.all(
+    packagesToSave.map(toSave => addPackageToGitCommit(toSave.path))
+  );
   console.log('Finished validating package.json files');
 })();
 
@@ -66,4 +70,15 @@ async function readPackageJson(path: string) {
     dependencies: { [key: string]: string };
     devDependencies: { [key: string]: string };
   };
+}
+
+function addPackageToGitCommit(path: string) {
+  return new Promise((resolve, reject) => {
+    exec(`git add ${path}`, (err, stdout, stderr) => {
+      if (err) {
+        reject(err);
+      }
+      resolve('Success');
+    });
+  });
 }
