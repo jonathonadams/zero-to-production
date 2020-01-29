@@ -33,12 +33,3 @@ export interface ITodoDocument extends ITodo, mongoose.Document {
 }
 
 export interface ITodoModel extends mongoose.Model<ITodoDocument> {}
-
-// export const todoTypeDefs = () => {
-//   return todoTypeDef;
-
-//   // TODO -> Cli Builder to copy non TS Files?
-//   // return readFileSync(resolve(__dirname, './todo.graphql'), {
-//   // encoding: 'utf-8'
-//   // });
-// };

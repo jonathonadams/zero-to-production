@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { IUser, AuthenticationRoles } from '@uqt/data';
 import { defaultSchemaOptions } from '@uqt/backend/utils';
+export { userTypeDef } from './user.type';
 
 export const userSchema = new mongoose.Schema<IUser>(
   {

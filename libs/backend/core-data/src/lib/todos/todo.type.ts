@@ -1,34 +1,36 @@
-export const todoTypeDef = `
-type Todo {
-  id: ID!
-  userId: ID!
-  title: String!
-  description: String!
-  completed: Boolean!
-}
+import gql from 'graphql-tag';
 
-input NewTodoInput {
-  userId: ID!
-  title: String!
-  description: String!
-}
+export const todoTypeDef = gql`
+  type Todo {
+    id: ID!
+    userId: ID!
+    title: String!
+    description: String!
+    completed: Boolean!
+  }
 
-input UpdatedTodoInput {
-  id: ID!
-  userId: ID
-  title: String
-  description: String
-  completed: Boolean
-}
+  input NewTodoInput {
+    userId: ID!
+    title: String!
+    description: String!
+  }
 
-extend type Query {
-  Todo(id: ID!): Todo!
-  allTodos: [Todo]!
-}
+  input UpdatedTodoInput {
+    id: ID!
+    userId: ID
+    title: String
+    description: String
+    completed: Boolean
+  }
 
-extend type Mutation {
-  newTodo(input: NewTodoInput!): Todo!
-  updateTodo(input: UpdatedTodoInput!): Todo!
-  removeTodo(id: ID!): Todo!
-}
+  extend type Query {
+    Todo(id: ID!): Todo!
+    allTodos: [Todo]!
+  }
+
+  extend type Mutation {
+    newTodo(input: NewTodoInput!): Todo!
+    updateTodo(input: UpdatedTodoInput!): Todo!
+    removeTodo(id: ID!): Todo!
+  }
 `;

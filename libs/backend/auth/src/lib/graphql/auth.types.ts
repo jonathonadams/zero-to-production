@@ -1,30 +1,31 @@
-export const authTypeDef = `
-type AuthPayload {
-  token: String!
-  expiresIn: Int!
-}
+import gql from 'graphql-tag';
 
-input RegisterInput {
-  givenName: String!
-  surname: String!
-  username: String!
-  email: String!
-  dateOfBirth: String!
-  password: String!
-}
+export const authTypeDef = gql`
+  type AuthPayload {
+    token: String!
+    expiresIn: Int!
+  }
 
-type RegisterSuccess {
-  id: ID!
-  givenName: String!
-  surname: String!
-  username: String!
-  email: String!
-  dateOfBirth: String!
-}
+  input RegisterInput {
+    givenName: String!
+    surname: String!
+    username: String!
+    email: String!
+    dateOfBirth: String!
+    password: String!
+  }
 
+  type RegisterSuccess {
+    id: ID!
+    givenName: String!
+    surname: String!
+    username: String!
+    email: String!
+    dateOfBirth: String!
+  }
 
-extend type Mutation {
-  login(username: String!, password: String!): AuthPayload!
-  register(input: RegisterInput!): RegisterSuccess!
-}
+  extend type Mutation {
+    login(username: String!, password: String!): AuthPayload!
+    register(input: RegisterInput!): RegisterSuccess!
+  }
 `;
