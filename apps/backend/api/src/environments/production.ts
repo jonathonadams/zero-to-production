@@ -20,7 +20,8 @@ const prodConfig: ProductionConfig = {
   logging: false,
   docs: false,
   databaseOptions: {
-    loggerLevel: 'error'
+    loggerLevel: 'error',
+    autoIndex: true // TODO -> Don't auto index in production -> Create a K8's 'Job' (most probably an application)
   },
   auth: {
     authServerUrl,

@@ -73,7 +73,8 @@
       ],
       "@uqt/web/examples/dynamic-form": [
         "libs/web/examples/dynamic-form/src/index.ts"
-      ]
+      ],
+      "@uqt/backend/database": ["libs/backend/database/src/index.ts"]
     }
   }
 }

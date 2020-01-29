@@ -2,7 +2,7 @@ import Koa from 'koa';
 import { User } from '@uqt/backend/core-data';
 import {
   createPublicJsonWebKeySetRouteFromPrivateKey,
-  applyDemoAuthRoutesWithRefreshTokens,
+  applyDemoAuthRoutes,
   DemoAuthModuleConfig,
   getDemoAuthResolvers
 } from '@uqt/backend/auth';
@@ -22,7 +22,7 @@ const jwksRouteConfig = {
  * Applies all required auth routes
  */
 export function applyAuthRoutes(app: Koa) {
-  applyDemoAuthRoutesWithRefreshTokens(authModuleConfig)(app);
+  applyDemoAuthRoutes(authModuleConfig)(app);
   // JWKS route
   createPublicJsonWebKeySetRouteFromPrivateKey(jwksRouteConfig)(app);
 }

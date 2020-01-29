@@ -18,6 +18,6 @@ export { createPublicJsonWebKeySetRouteFromPrivateKey } from './lib/routes/jwks'
 // UQT_UPDATE -> Delete this once cloning
 export {
   DemoAuthModuleConfig,
-  applyDemoAuthRoutesWithRefreshTokens,
+  applyDemoAuthRoutes,
   getDemoAuthResolvers
 } from './lib/demo/index';

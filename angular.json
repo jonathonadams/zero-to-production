@@ -1595,6 +1595,31 @@
           }
         }
       }
+    },
+    "backend-database": {
+      "root": "libs/backend/database",
+      "sourceRoot": "libs/backend/database/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/backend/database/tsconfig.lib.json",
+              "libs/backend/database/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/backend/database/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/backend/database/jest.config.js",
+            "tsConfig": "libs/backend/database/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {

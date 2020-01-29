@@ -20,9 +20,7 @@ import {
  * '/authorize/available' -> return on object indicating the availability of a given username
  */
 
-export function applyDemoAuthRoutesWithRefreshTokens(
-  config: DemoAuthModuleConfig
-) {
+export function applyDemoAuthRoutes(config: DemoAuthModuleConfig) {
   return (app: Koa) => {
     const router = new Router();
     router.post('/authorize/login', login(config.login));
@@ -61,12 +59,18 @@ export function register(config: DemoRegistrationControllerConfig) {
 export function usernameAvailable(config: DemoAvailableControllerConfig) {
   const { User } = config;
   return async (ctx: Koa.ParameterizedContext) => {
-    const username: string = ctx.query.username;
+    const username: string | undefined = ctx.query.username;
 
-    const resource = await User.findOne({ $text: { $search: username } });
+    let isAvailable: boolean;
+    if (username) {
+      const resource = await User.findOne({ $text: { $search: username } });
+      isAvailable = !resource ? true : false;
+    } else {
+      isAvailable = false;
+    }
 
     ctx.status = 200;
-    ctx.body = { isAvailable: !resource ? true : false };
+    ctx.body = { isAvailable };
   };
 }
 

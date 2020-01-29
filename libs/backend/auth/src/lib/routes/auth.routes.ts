@@ -128,12 +128,18 @@ export function revokeRefreshToken(config: RevokeControllerConfig) {
 export function usernameAvailable(config: AvailableControllerConfig) {
   const { User } = config;
   return async (ctx: Koa.ParameterizedContext) => {
-    const username: string = ctx.query.username;
+    const username: string | undefined = ctx.query.username;
 
-    const resource = await User.findOne({ $text: { $search: username } });
+    let isAvailable: boolean;
+    if (username) {
+      const resource = await User.findOne({ $text: { $search: username } });
+      isAvailable = !resource ? true : false;
+    } else {
+      isAvailable = false;
+    }
 
     ctx.status = 200;
-    ctx.body = { isAvailable: !resource ? true : false };
+    ctx.body = { isAvailable };
   };
 }
 

@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../../dist/libs/backend/database",
+    "tsBuildInfoFile": "../../../dist/buildcache/database.tsbuildinfo",
+    "types": []
+  },
+  "exclude": ["**/*.spec.ts"],
+  "include": ["**/*.ts"],
+  "references": [{ "path": "../config/tsconfig.lib.json" }]
+}
