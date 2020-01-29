@@ -13,7 +13,7 @@
 # and uses the cached containers if there has been no changes to 
 # the build before that current step. Becuase of this, it is best
 # to install all dependencies at the start so that they are cached and 
-# any subsequent changes to source files will no require deps to be
+# any subsequent changes to source files, libs etc will no require deps to be
 # reinstalled. Only changes to your config files will cause reinstalling
 # of dependencies.
 # ----------------------------------------------------------
@@ -32,18 +32,19 @@ ENV NODE_ENV development
 # Create the tmp working directory
 WORKDIR /tmp
 
-# Copy all files required for the build container to run (do not copy source files)
-COPY angular.json package.json package-lock.json tsconfig.base.json tsconfig.json /tmp/
-
-RUN cd /tmp 
+# Copy all files required for dependencies to be installed 
+COPY package.json package-lock.json /tmp/
 
 # Disable the MongoMemoryServer Post Install & Cypress Binary Install
 ENV MONGOMS_DISABLE_POSTINSTALL=1
 ENV CYPRESS_INSTALL_BINARY=0
 
+RUN cd /tmp 
+
 # TODO -> Onlyd dev dependencies? And only for building the API
 # Install all deps
 RUN npm install
+
 
 # -----------------------------------------
 # Production Container - Initail Dependency Install 
@@ -57,10 +58,10 @@ ENV NODE_ENV production
 # Create the app working directory
 WORKDIR /app
 
-COPY package-lock.json /app
-
 # Copy the package.json from the app specific directory
 COPY $PROJECT_DIRECTORY/package.json  /app
+# And lock file from the project root
+COPY package-lock.json /app
 
 RUN cd /app
 
@@ -81,8 +82,11 @@ RUN test -n "$PROJECT_DIRECTORY" || (echo "PROJECT_DIRECTORY  not set" && false)
 
 ENV NODE_ENV development
 
+# Copy all files required to build hte projects
+COPY angular.json tsconfig.base.json tsconfig.json /tmp/
+
 # Copy all src files
-COPY $PROJECT_DIRECTORY/ /tmp/apps/backend/api
+COPY $PROJECT_DIRECTORY/ /tmp/$PROJECT_DIRECTORY
 
 # Make out output directory
 RUN mkdir -p /tmp/dist
