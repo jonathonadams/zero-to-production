@@ -1,13 +1,13 @@
 import { createServer } from 'http';
 import Koa from 'koa';
 import Router from '@koa/router';
-import { apolloServer } from './api/graphql';
 import { setupMiddleware } from '@uqt/backend/config';
+import { dbConnection } from '@uqt/backend/database';
+import { apolloServer } from './api/graphql';
 import { applyApiEndpoints } from './api';
 // UQT_UPDATE
 import { applyAuthRoutes } from './auth/demo.auth';
 // import { applyAuthRoutes } from './auth/auth';
-import { dbConnection } from './db/db-connection';
 import config from '../environments';
 
 /**
