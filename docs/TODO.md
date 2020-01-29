@@ -33,3 +33,5 @@
 ## Dev-Ops
 
 - [ ] Configure the build script to tag Docker images
+- [ ] Configure the Load Balance to uses HTTP2 from Load balancer through to Reverse Proxy
+  - Can the certificates be accessed from the ManagedCertificate Resource?

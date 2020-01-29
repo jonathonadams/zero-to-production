@@ -4,16 +4,29 @@ TODO
 
 - Finish user registration. NOTE -> For the demo, don't require unique emails
 
+- Sign up for a SendGrid account
+  -- Document to make a pretty template
+
 - Change the navigation section in the TODO app because of the relative path section
 
 COLOR PALLET
 
 ## Angular Client
 
-Delete firebase.json and firebaserc
+Delete firebase.json
 
 ## API
 
 ### AUTH MODULE
 
 Delete the 'demo' auth folder found here TODO and delete the `demo.auth.ts` file here TODO
+
+## Deploy your project
+
+Now that you have cloned, re-branded and cleaned up your Monorepo, it's time to deploy.
+
+First, deploy your API server. Follow the [Google Cloud](./GOOGLE_CLOUD.md) guide to deploy your API server on GC Kubernetes Engine. (AWS Lamda comming soon).
+
+Once your API is up and ready to go, you need a frontend to hit it. Follow the [Firebase Hosting](./FIREBASE_HOSTING.md) guide to deploy you Angular Todo's application.
+
+Enjoy!
