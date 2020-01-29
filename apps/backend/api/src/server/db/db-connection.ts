@@ -4,10 +4,13 @@ import { ServerConfig } from '@uqt/backend/config';
 export function dbConnection(config: ServerConfig, dbUrl?: string) {
   const url = dbUrl ? dbUrl : createMongoConnectionString(config);
 
-  return mongoose.connect(url, config.databaseOptions).catch((err: any) => {
-    console.error('There was an error connecting to the DataBase');
-    console.error(err);
-  });
+  return mongoose
+    .connect(url, config.databaseOptions)
+    .then(checkIndexes)
+    .catch((err: any) => {
+      console.error('There was an error connecting to the DataBase');
+      console.error(err);
+    });
 }
 
 function createMongoConnectionString(config: ServerConfig): string {
@@ -19,4 +22,11 @@ function createMongoConnectionString(config: ServerConfig): string {
   } else {
     return `mongodb://${config.database.user}:${config.database.pass}@${config.database.host}:${config.database.port}`;
   }
+}
+
+async function checkIndexes(mg: typeof mongoose) {
+  const modelNames = mg.modelNames();
+  const models = modelNames.map(n => mg.model(n));
+  const indexes = models.map(m => m.ensureIndexes());
+  Promise.all(indexes).then(evt => console.log(evt));
 }

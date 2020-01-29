@@ -14,13 +14,7 @@ import cors from 'kcors';
 import { errorHandler, errorLogger } from './err-handler';
 
 // Configure middleware to parse income requests
-export function setupMiddleware({
-  app,
-  logging
-}: {
-  app: Koa;
-  logging: string | false;
-}) {
+export function setupMiddleware(app: Koa, logging: string | false) {
   app.use(helmet());
   app.use(compress());
   app.use(bodyParser());

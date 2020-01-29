@@ -37,7 +37,7 @@ export default class ApiServer {
     /**
      * Setup all the required middleware for the app
      */
-    setupMiddleware({ app, logging: config.logging });
+    setupMiddleware(app, config.logging);
 
     /**
      * Apply the API endpoints

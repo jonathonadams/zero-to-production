@@ -27,7 +27,7 @@ const config: GlobalConfig = {
    * Global database options for Mongoose
    */
   databaseOptions: {
-    autoIndex: false,
+    autoIndex: false, // default for production, overridden in development
     useNewUrlParser: true,
     promiseLibrary: Promise,
     useUnifiedTopology: true,
