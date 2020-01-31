@@ -26,6 +26,6 @@ export const authTypeDef = gql`
 
   extend type Mutation {
     login(username: String!, password: String!): AuthPayload!
-    register(input: RegisterInput!): RegisterSuccess!
+    register(register: RegisterInput!): RegisterSuccess!
   }
 `;

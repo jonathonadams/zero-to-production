@@ -29,8 +29,8 @@ export const todoTypeDef = gql`
   }
 
   extend type Mutation {
-    newTodo(input: NewTodoInput!): Todo!
-    updateTodo(input: UpdatedTodoInput!): Todo!
+    newTodo(newTodo: NewTodoInput!): Todo!
+    updateTodo(updatedTodo: UpdatedTodoInput!): Todo!
     removeTodo(id: ID!): Todo!
   }
 `;
