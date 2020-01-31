@@ -1,3 +1,5 @@
+// UQT_UPDATE -> Delete this after cloned
+
 import { compare, hash } from 'bcryptjs';
 import Boom from '@hapi/boom';
 import { signAccessToken } from '../token';

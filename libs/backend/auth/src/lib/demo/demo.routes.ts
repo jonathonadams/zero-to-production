@@ -1,3 +1,5 @@
+// UQT_UPDATE -> Delete this once cloned
+
 import Koa from 'koa';
 import Router from '@koa/router';
 import Boom from '@hapi/boom';
@@ -15,7 +17,7 @@ import {
 /**
  * This will register 3 routes for authentication
  *
- * '/authorize/login' -> return access token only when user logs in
+ * '/authorize/login' -> return access token when user logs in
  * '/authorize/register' -> return access token when user successfully registers
  * '/authorize/available' -> return on object indicating the availability of a given username
  */

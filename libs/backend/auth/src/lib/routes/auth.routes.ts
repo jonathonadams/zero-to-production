@@ -23,12 +23,14 @@ import { setupEmailVerification } from '../send-email';
 import { isRefreshConfig } from '../auth-utils';
 
 /**
- * This will register 7 routes for authentication
+ * This will register 4 or 7 routes (depends on configuration)
  *
  * '/authorize/login' -> return access token only when user logs in
  * '/authorize/register' -> return access token when user successfully registers
  * '/authorize/available' -> return on object indicating the availability of a given username
  * '/authorize/verify' -> verify the newly registered user (via email)
+ *
+ * Optional
  * '/authorize' -> returns an access token and refresh token.
  * '/authorize/refresh' -> returns a new access token from a valid refresh token
  * '/authorize/revoke' -> revokes the provided refresh token.

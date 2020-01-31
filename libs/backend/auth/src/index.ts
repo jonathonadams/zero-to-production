@@ -15,7 +15,7 @@ export { applyAuthRoutesWithRefreshTokens } from './lib/routes/auth.routes';
 export { authTypeDef } from './lib/graphql/auth.types';
 export { createPublicJsonWebKeySetRouteFromPrivateKey } from './lib/routes/jwks';
 
-// UQT_UPDATE -> Delete this once cloning
+// UQT_UPDATE -> Delete this after cloned
 export {
   DemoAuthModuleConfig,
   applyDemoAuthRoutes,

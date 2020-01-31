@@ -2,6 +2,7 @@ import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 // @ts-ignore
 import jwtDecode from 'jwt-decode';
+import gql from 'graphql-tag';
 import { GraphQLService } from '@uqt/data-access/api';
 import { IUser } from '@uqt/data';
 import {
@@ -36,9 +37,9 @@ export class AuthService {
   // Login function that returns a user and JWT
   // This is a graphql login function
   login(credentials: ILoginCredentials) {
-    const query = `
-      mutation LoginUser($username: String!, $password: String!){
-        login(username: $username, password: $password){
+    const query = gql`
+      mutation LoginUser($username: String!, $password: String!) {
+        login(username: $username, password: $password) {
           token
           expiresIn
         }
@@ -53,7 +54,7 @@ export class AuthService {
   // }
 
   register(details: IRegistrationDetails) {
-    const query = `
+    const query = gql`
       mutation Register($input: RegisterInput!) {
         register(input: $input) {
           id

@@ -1,5 +1,13 @@
 TODO
 
+1. git clone https://github.com/unquenchablethyrst/zero-to-production.git
+2. Change package.json fields as required (name, license, version etc)
+3. Change the `uqt` component prefix as desired.
+
+   - your Using your IDE (or similar), search in all
+
+4. Optional, remove unused npm packages (Prism.js, CdkScroll/Overlay)
+
 ## uqt
 
 - Finish user registration. NOTE -> For the demo, don't require unique emails

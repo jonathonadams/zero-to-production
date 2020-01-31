@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
 import { Observable } from 'rxjs';
 import { ApolloQueryResult } from 'apollo-client';
 import { FetchResult } from 'apollo-link';
@@ -11,22 +10,18 @@ import { FetchResult } from 'apollo-link';
 export class GraphQLService {
   constructor(private apollo: Apollo) {}
 
-  query<T>(query: string, variables?: any): Observable<ApolloQueryResult<T>> {
+  query<T>(query: any, variables?: any): Observable<ApolloQueryResult<T>> {
     const cleanVariables = this.removeTypenameProperty(variables);
     return this.apollo.query<T>({
-      query: gql`
-        ${query}
-      `,
+      query,
       variables: cleanVariables
     });
   }
 
-  mutation<T>(query: string, variables: any): Observable<FetchResult<T>> {
+  mutation<T>(mutation: any, variables: any): Observable<FetchResult<T>> {
     const cleanVariables = this.removeTypenameProperty(variables);
     return this.apollo.mutate<T>({
-      mutation: gql`
-        ${query}
-      `,
+      mutation,
       variables: cleanVariables
     });
   }

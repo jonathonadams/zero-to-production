@@ -1,3 +1,5 @@
+// UQT_UPDATE -> Delete this after cloned
+
 import { IUserModel } from '@uqt/backend/core-data';
 import { GraphQLFieldResolver } from 'graphql';
 
