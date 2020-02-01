@@ -42,7 +42,7 @@ export interface RefreshTokenConfig {
 
 export interface EmailVerificationConfig {
   sendGridApiKey: string;
-  hostUrl: string;
+  authServerUrl: string;
 }
 
 export interface JWKSRouteConfig {

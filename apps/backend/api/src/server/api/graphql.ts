@@ -1,7 +1,5 @@
 /* istanbul ignore file */
-
-import { ApolloServer } from 'apollo-server-koa';
-import { makeExecutableSchema } from 'graphql-tools';
+import { ApolloServer, makeExecutableSchema } from 'apollo-server-koa';
 // @ts-ignore
 import { GraphQLDate, GraphQLTime, GraphQLDateTime } from 'graphql-iso-date';
 import config from '../../environments';
@@ -30,9 +28,13 @@ export const apolloServer = new ApolloServer({
     // if the connection exists, it is a subscription
     if (connection) {
       return {
+        // create an empty state object to store temporary data in the resolvers
         state: {},
-        model: {},
-        loaders: {}
+        // put the desired models on the context for quick access if needed
+        // Such as the user
+        model: { user: User },
+        // Add any necessary data loaders here if wanted
+        loaders: loaders()
       };
     }
     // if the ctx exists, it is a req/res
@@ -46,7 +48,7 @@ export const apolloServer = new ApolloServer({
         // Add any necessary data loaders here if wanted
         loaders: loaders(),
         // Add the JWT as the token property
-        token: (<any>ctx).request.token
+        token: ctx.request.token
       };
     }
   },
