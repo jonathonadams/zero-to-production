@@ -1,10 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { TodosService } from './todos.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@uqt/data-access/auth';
 import { GraphQLService } from '@uqt/data-access/api';
 import { ITodo } from '@uqt/data';
-import { createSpyObj, GraphQLStub } from '@uqt/testing/frontend';
+import { GraphQLStub } from '@uqt/testing/frontend';
 import {
   ALL_TODOS_QUERY,
   LOAD_TODO_QUERY,
@@ -15,22 +14,18 @@ import {
 
 describe('TodoService', () => {
   let service: TodosService;
-  let authService: AuthService;
   let graphQLService: GraphQLService;
-  const authSpy = createSpyObj('AuthService', ['authUserId']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       providers: [
         TodosService,
-        { provide: GraphQLService, useClass: GraphQLStub },
-        { provide: AuthService, useValue: authSpy }
+        { provide: GraphQLService, useClass: GraphQLStub }
       ]
     });
 
     service = TestBed.inject<TodosService>(TodosService);
-    authService = TestBed.inject<AuthService>(AuthService);
     graphQLService = TestBed.inject<GraphQLService>(GraphQLService);
   });
 
@@ -71,21 +66,13 @@ describe('TodoService', () => {
       const originalTodo: ITodo = {
         userId: '1',
         title: 'some title',
-        description: 'some description',
-        completed: false
+        description: 'some description'
       } as ITodo;
 
       const sentTodo = {
         ...originalTodo,
-        completed: false,
-        userId: '1'
+        completed: false
       } as ITodo;
-
-      Object.defineProperty(authService, 'authUserId', {
-        get: () => {
-          return '1';
-        }
-      });
 
       service.createTodo(originalTodo);
 

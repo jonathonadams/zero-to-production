@@ -10,14 +10,13 @@ export const todoTypeDef = gql`
   }
 
   input NewTodoInput {
-    userId: ID!
     title: String!
     description: String!
+    completed: Boolean
   }
 
   input UpdatedTodoInput {
     id: ID!
-    userId: ID
     title: String
     description: String
     completed: Boolean
@@ -29,8 +28,8 @@ export const todoTypeDef = gql`
   }
 
   extend type Mutation {
-    newTodo(newTodo: NewTodoInput!): Todo!
-    updateTodo(updatedTodo: UpdatedTodoInput!): Todo!
+    newTodo(input: NewTodoInput!): Todo!
+    updateTodo(input: UpdatedTodoInput!): Todo!
     removeTodo(id: ID!): Todo!
   }
 `;

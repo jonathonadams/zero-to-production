@@ -22,7 +22,6 @@ export class TodoFeatureShellComponent implements OnInit {
    *
    * https://github.com/angular/angular/issues/13011
    */
-
   // routes: ISideNaveRoute[] = [
   //   { path: '/home', icon: 'home', label: 'Home' },
   //   { path: '/todos', icon: 'list', label: 'Todos' }

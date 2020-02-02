@@ -1,24 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthActions } from '@uqt/data-access/auth';
-import { of, Observable } from 'rxjs';
-import {
-  catchError,
-  map,
-  exhaustMap,
-  mergeMap,
-  takeUntil
-} from 'rxjs/operators';
-import {
-  Actions,
-  ofType,
-  createEffect,
-  OnRunEffects,
-  EffectNotification
-} from '@ngrx/effects';
+import { of } from 'rxjs';
+import { catchError, map, exhaustMap, mergeMap } from 'rxjs/operators';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
+import { ITodo } from '@uqt/data';
 import * as TodoActions from './todos.actions';
 import { TodosService } from '../todos.service';
-import { ITodo } from '@uqt/data';
 
 // Note: when merging observable from multiple sources there are 4x operators tha can be uses
 // exhaustMap, mergeMap, switchMap and concatMap
@@ -36,20 +24,23 @@ import { ITodo } from '@uqt/data';
 // concatMap -> merges the observable in the correct order. No observable is ignored and everything runs sequentially. Use this when order matters.
 
 @Injectable()
-export class TodoEffects implements OnRunEffects {
+export class TodoEffects {
   loadTodos$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TodoActions.loadTodos),
-      exhaustMap(action => this.todoService.getAllTodos()),
-      map(({ errors, data }) =>
-        errors
-          ? TodoActions.loadTodosFail({ error: errors[0].message })
-          : TodoActions.loadTodosSuccess({
-              todos: (data as { allTodos: ITodo[] }).allTodos
-            })
-      ),
-      catchError((error: HttpErrorResponse) =>
-        of(TodoActions.loadTodosFail({ error: error.message }))
+      exhaustMap(action =>
+        this.service.getAllTodos().pipe(
+          map(({ errors, data }) =>
+            errors
+              ? TodoActions.loadTodosFail({ error: errors[0].message })
+              : TodoActions.loadTodosSuccess({
+                  todos: (data as { allTodos: ITodo[] }).allTodos
+                })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(TodoActions.loadTodosFail({ error: error.message }))
+          )
+        )
       )
     )
   );
@@ -58,7 +49,7 @@ export class TodoEffects implements OnRunEffects {
     this.actions$.pipe(
       ofType(TodoActions.createTodo),
       mergeMap(({ todo }) =>
-        this.todoService.createTodo(todo).pipe(
+        this.service.createTodo(todo).pipe(
           map(({ errors, data }) =>
             errors
               ? TodoActions.createTodoFail({ error: errors[0].message })
@@ -78,15 +69,12 @@ export class TodoEffects implements OnRunEffects {
     this.actions$.pipe(
       ofType(TodoActions.updateTodo),
       mergeMap(({ todo }) =>
-        this.todoService.updateTodo(todo).pipe(
+        this.service.updateTodo(todo).pipe(
           map(({ errors, data }) =>
             errors
               ? TodoActions.updateTodoFail({ error: errors[0].message })
               : TodoActions.updateTodoSuccess({
-                  todo: {
-                    id: todo.id,
-                    changes: (data as { updateTodo: ITodo }).updateTodo
-                  }
+                  todo: (data as { updateTodo: ITodo }).updateTodo
                 })
           ),
           catchError((error: HttpErrorResponse) =>
@@ -101,7 +89,7 @@ export class TodoEffects implements OnRunEffects {
     this.actions$.pipe(
       ofType(TodoActions.deleteTodo),
       mergeMap(({ todo }) =>
-        this.todoService.deleteTodo(todo.id).pipe(
+        this.service.deleteTodo(todo.id).pipe(
           map(({ errors, data }) =>
             errors
               ? TodoActions.deleteTodoFail({ error: errors[0].message })
@@ -116,23 +104,12 @@ export class TodoEffects implements OnRunEffects {
   );
 
   // Clear the user todos on logout
-  clearTodos$ = createEffect(() => {
-    return this.actions$.pipe(
+  clearTodos$ = createEffect(() =>
+    this.actions$.pipe(
       ofType(AuthActions.logout),
       map(() => TodoActions.clearTodos())
-    );
-  });
+    )
+  );
 
-  ngrxOnRunEffects(resolvedEffects$: Observable<EffectNotification>) {
-    return this.actions$.pipe(
-      ofType(AuthActions.loginSuccess),
-      exhaustMap(() =>
-        resolvedEffects$.pipe(
-          takeUntil(this.actions$.pipe(ofType(AuthActions.logout)))
-        )
-      )
-    );
-  }
-
-  constructor(private actions$: Actions, private todoService: TodosService) {}
+  constructor(private actions$: Actions, private service: TodosService) {}
 }

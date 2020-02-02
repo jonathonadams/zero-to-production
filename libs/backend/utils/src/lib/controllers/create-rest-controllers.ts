@@ -3,10 +3,13 @@ import Router from '@koa/router';
 import mongoose from 'mongoose';
 import { createControllers } from './create-controllers';
 
-export function generateRestEndpoints<T extends mongoose.Document>(
-  model: mongoose.Model<T>,
+export function generateRestEndpoints<T extends mongoose.Document>({
+  model,
   userResourcesOnly = false
-) {
+}: {
+  model: mongoose.Model<T>;
+  userResourcesOnly?: boolean;
+}) {
   const router = new Router();
   const controllers = generateRestControllers<T>(model, userResourcesOnly);
 
@@ -56,7 +59,10 @@ export function generateRestControllers<T extends mongoose.Document>(
     },
     createOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
       ctx.status = 201;
-      ctx.body = await controllers.createOne((ctx.request as any).body);
+      ctx.body = await controllers.createOne(
+        (ctx.request as any).body,
+        userResourcesOnly ? ctx.state.token.sub : undefined
+      );
     },
     updateOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
       try {

@@ -55,8 +55,8 @@ export class AuthService {
 
   register(details: IRegistrationDetails) {
     const query = gql`
-      mutation Register($register: RegisterInput!) {
-        register(register: $register) {
+      mutation Register($input: RegisterInput!) {
+        register(input: $register) {
           id
         }
       }

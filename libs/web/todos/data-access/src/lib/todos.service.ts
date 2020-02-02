@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GraphQLService } from '@uqt/data-access/api';
-import { AuthService } from '@uqt/data-access/auth';
 import {
   ALL_TODOS_QUERY,
   LOAD_TODO_QUERY,
@@ -14,7 +13,7 @@ import { FetchResult } from 'apollo-link';
 
 @Injectable()
 export class TodosService {
-  constructor(private graphQl: GraphQLService, private auth: AuthService) {}
+  constructor(private graphQl: GraphQLService) {}
 
   public getAllTodos(): Observable<FetchResult<{ allTodos: ITodo[] }>> {
     return this.graphQl.query<{ allTodos: ITodo[] }>(ALL_TODOS_QUERY);
@@ -25,11 +24,8 @@ export class TodosService {
   }
 
   public createTodo(todo: ITodo): Observable<FetchResult<{ newTodo: ITodo }>> {
-    // Set the user id of the current JWT id
-    const userId = this.auth.authUserId as string;
-    const newTodo: ITodo = { ...todo, userId };
+    const newTodo: ITodo = { ...todo, completed: false };
     // set the completed state to false
-    // todo.completed = false;
     const variables = { input: newTodo };
 
     return this.graphQl.mutation<{ newTodo: ITodo }>(
@@ -39,9 +35,9 @@ export class TodosService {
   }
 
   public updateTodo(
-    todo: ITodo
+    updatedTodo: ITodo
   ): Observable<FetchResult<{ updateTodo: ITodo }>> {
-    const variables = { input: todo };
+    const variables = { input: updatedTodo };
 
     return this.graphQl.mutation<{ updateTodo: ITodo }>(
       UPDATE_TODO_QUERY,

@@ -2,7 +2,7 @@ import Koa from 'koa';
 import Router from '@koa/router';
 import { usersRouter } from './users';
 import { Todo } from '@uqt/backend/core-data';
-import { verifyTokenRest } from '../auth/auth';
+import { verifyTokenRest } from '../auth/auth.guards';
 import { ITodoDocument } from '@uqt/backend/core-data';
 import { generateRestEndpoints } from '@uqt/backend/utils';
 
@@ -16,7 +16,13 @@ export function applyRestEndpoints(app: Koa) {
 
   // Apply all your routes here
   router.use('/users', usersRouter.routes());
-  router.use('/todos', generateRestEndpoints<ITodoDocument>(Todo));
+  router.use(
+    '/todos',
+    generateRestEndpoints<ITodoDocument>({
+      model: Todo,
+      userResourcesOnly: true
+    })
+  );
 
   app.use(router.routes());
 }

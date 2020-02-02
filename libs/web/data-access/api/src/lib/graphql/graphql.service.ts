@@ -6,11 +6,18 @@ import { FetchResult } from 'apollo-link';
 // import omit from 'lodash.omit';
 // import { omit } from 'lodash-es';
 
+interface QueryInputs {
+  [key: string]: any;
+}
+
 @Injectable()
 export class GraphQLService {
   constructor(private apollo: Apollo) {}
 
-  query<T>(query: any, variables?: any): Observable<ApolloQueryResult<T>> {
+  query<T>(
+    query: any,
+    variables?: QueryInputs
+  ): Observable<ApolloQueryResult<T>> {
     const cleanVariables = this.removeTypenameProperty(variables);
     return this.apollo.query<T>({
       query,
@@ -18,7 +25,10 @@ export class GraphQLService {
     });
   }
 
-  mutation<T>(mutation: any, variables: any): Observable<FetchResult<T>> {
+  mutation<T>(
+    mutation: any,
+    variables: QueryInputs
+  ): Observable<FetchResult<T>> {
     const cleanVariables = this.removeTypenameProperty(variables);
     return this.apollo.mutate<T>({
       mutation,

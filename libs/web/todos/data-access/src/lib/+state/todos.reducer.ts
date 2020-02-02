@@ -50,7 +50,7 @@ export const todosReducer = createReducer(
     return adapter.addOne(todo, state);
   }),
   on(TodoActions.updateTodoSuccess, (state, { todo }) => {
-    return adapter.updateOne(todo, state);
+    return adapter.updateOne({ id: todo.id, changes: todo }, state);
   }),
   on(TodoActions.deleteTodoSuccess, (state, { id }) => {
     return adapter.removeOne(id, state);

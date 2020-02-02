@@ -13,6 +13,13 @@ import { createControllers } from '../controllers/create-controllers';
 
 type Resolver<T> = GraphQLFieldResolver<any, any, T>;
 
+/**
+ * Generates generic CRUD resolvers for a given resource
+ *
+ * For this to work, the inputs to each resolver must have the name "$input"
+ * @param model
+ * @param userResourcesOnly
+ */
 export function generateResolvers<T extends mongoose.Document>(
   model: mongoose.Model<T>,
   userResourcesOnly: boolean = false
@@ -41,7 +48,10 @@ export function generateResolvers<T extends mongoose.Document>(
     ctx,
     info
   ) => {
-    return await controllers.createOne(input);
+    return await controllers.createOne(
+      input,
+      userResourcesOnly ? ctx.state.user.sub : undefined
+    );
   };
 
   const updateOne: Resolver<{

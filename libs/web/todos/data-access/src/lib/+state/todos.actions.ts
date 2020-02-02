@@ -52,7 +52,7 @@ export const updateTodo = createAction(
 );
 export const updateTodoSuccess = createAction(
   '[Todo/API] Update Success',
-  props<{ todo: Update<ITodo> }>()
+  props<{ todo: ITodo }>()
 );
 
 export const updateTodoFail = createAction(

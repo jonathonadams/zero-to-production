@@ -8,12 +8,14 @@ import { TodoFilterStatus } from './todos.reducer';
 
 @Injectable()
 export class TodosFacade {
+  allTodos$: Observable<ITodo[]>;
   filteredTodo$: Observable<ITodo[]>;
   selectedTodo$: Observable<ITodo | undefined>;
   allTodoFilter$: Observable<TodoFilterStatus>;
   todoIds$: Observable<string[]>;
 
   constructor(private store: Store<any>) {
+    this.allTodos$ = this.store.pipe(select(fromTodos.selectAllTodos));
     this.filteredTodo$ = this.store.pipe(select(fromTodos.selectFilteredTodos));
     this.selectedTodo$ = this.store.pipe(select(fromTodos.selectCurrentTodo));
     this.allTodoFilter$ = this.store.pipe(

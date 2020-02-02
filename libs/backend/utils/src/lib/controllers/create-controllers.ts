@@ -45,8 +45,9 @@ export function createControllers<T extends mongoose.Document>(
     },
 
     // Create a Resource
-    createOne: async (values: any) => {
-      return await model.create(values);
+    createOne: async (values: any, userId?: string | undefined) => {
+      const toCreate = userId ? { ...values, userId } : values;
+      return await model.create(toCreate);
     },
 
     // Update a resource
