@@ -14,5 +14,9 @@ export const LAZY_MODULES: ILazyModuleRegistry = {
   secure: () =>
     import('@uqt/web/examples/secure-todos').then(
       m => m.WebExamplesSecureTodosModule
+    ),
+  'make-it-your-own': () =>
+    import('@uqt/web/examples/make-it-your-own').then(
+      m => m.WebExamplesMakeItYourOwnModule
     )
 };

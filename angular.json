@@ -1620,6 +1620,40 @@
           }
         }
       }
+    },
+    "web-examples-make-it-your-own": {
+      "projectType": "library",
+      "root": "libs/web/examples/make-it-your-own",
+      "sourceRoot": "libs/web/examples/make-it-your-own/src",
+      "prefix": "uqt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web/examples/make-it-your-own/tsconfig.lib.json",
+              "libs/web/examples/make-it-your-own/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/web/examples/make-it-your-own/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web/examples/make-it-your-own/jest.config.js",
+            "tsConfig": "libs/web/examples/make-it-your-own/tsconfig.spec.json",
+            "setupFile": "libs/web/examples/make-it-your-own/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

@@ -48,11 +48,22 @@ export const EXAMPLES: IExample[] = [
   },
   {
     id: '5',
-    title: 'Todo App with Authentication',
-    summary: 'A demo fo the versatility of a well structured Monorepo.',
+    title: 'Todo App (with Auth)',
+    summary: 'A demo of the versatility of a well structured Monorepo.',
     description:
       'We have all seen a Todo App before but this demonstrates how a well structured monorepo ' +
       'can make your code highly reusable.',
     url: 'secure'
+  },
+  {
+    id: '6',
+    title: 'Make it Your Own',
+    summary:
+      'Make this Monorepo the starting of your own project (including deployment guides)',
+    description:
+      'Guides to help you re-brand this Monorepo to form the starting of your own, including ' +
+      'and depoloying your to We have all seen a Todo App before but this demonstrates how a well structured monorepo ' +
+      'can make your code highly reusable.',
+    url: 'make-it-your-own'
   }
 ];

@@ -27,6 +27,7 @@
 
       <ng-template #elseBlock>
         <uqt-example-detail
+          #example.url
           [example]="example"
           [factory]="selectFactory(example.url) | async"
         >
