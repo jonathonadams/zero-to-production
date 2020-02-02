@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  AfterViewInit
+} from '@angular/core';
+import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
+import { clone } from './guides.code';
 
 @Component({
   selector: 'uqt-guides',
@@ -6,8 +12,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./guides.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GuidesComponent implements OnInit {
-  constructor() {}
+export class GuidesComponent implements AfterViewInit {
+  clone = clone;
 
-  ngOnInit(): void {}
+  constructor(private highlight: CodeHighlightService) {}
+
+  ngAfterViewInit() {
+    this.highlight.highlightAll();
+  }
 }

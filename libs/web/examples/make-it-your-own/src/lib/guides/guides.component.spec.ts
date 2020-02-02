@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GuidesComponent } from './guides.component';
+import { CodeHighlightService } from '@uqt/web/examples/code-highlight';
 
 describe('GuidesComponent', () => {
   let component: GuidesComponent;
@@ -8,14 +9,14 @@ describe('GuidesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [GuidesComponent]
+      declarations: [GuidesComponent],
+      providers: [{ provide: CodeHighlightService, useValue: {} }]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GuidesComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

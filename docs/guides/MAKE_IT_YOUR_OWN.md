@@ -1,12 +1,11 @@
 TODO
 
-1. git clone https://github.com/unquenchablethyrst/zero-to-production.git
-2. Change package.json fields as required (name, license, version etc)
-3. Change the `uqt` component prefix as desired.
+1. Change package.json fields as required (name, license, version etc)
+2. Change the `uqt` component prefix as desired.
 
    - your Using your IDE (or similar), search in all
 
-4. Optional, remove unused npm packages (Prism.js, CdkScroll/Overlay)
+3. Optional, remove unused npm packages (Prism.js, CdkScroll/Overlay)
 
 ## uqt
 
@@ -18,6 +17,8 @@ TODO
 - Change the navigation section in the TODO app because of the relative path section
 
 COLOR PALLET
+
+PRISMJS (INCLUDING STYLESHEETS imports)
 
 ## Angular Client
 

@@ -780,14 +780,6 @@
       "projectType": "library",
       "schematics": {},
       "architect": {
-        "build": {
-          "builder": "@uqt/ng-node:build",
-          "options": {
-            "outputPath": "dist/libs/backend/auth",
-            "main": "libs/backend/auth/src/index.ts",
-            "tsConfig": "libs/backend/auth/tsconfig.json"
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {

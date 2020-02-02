@@ -29,6 +29,10 @@ https://github.com/angular/angular/issues/13011
 
 https://github.com/NativeScript/NativeScript/issues/7537
 
+## Configure Form Builder to scroll screens if out of view
+
+https://github.com/angular/components/issues/13588
+
 ## Remove typing once merged
 
 @types/request

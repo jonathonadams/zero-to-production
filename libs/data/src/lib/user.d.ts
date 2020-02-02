@@ -1,3 +1,5 @@
+import { AuthenticationRoles } from './roles';
+
 export interface IUser {
   id: string;
   username: string;
@@ -8,10 +10,4 @@ export interface IUser {
   active: boolean;
   isVerified: boolean;
   hashedPassword?: string;
-}
-
-export enum AuthenticationRoles {
-  Admin = 0,
-  User = 1,
-  Organization = 2
 }

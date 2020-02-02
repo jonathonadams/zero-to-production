@@ -1,7 +1,5 @@
 import { IExample } from '@uqt/examples/data-access';
 
-// TODO -> link to the correct github repo
-
 export const EXAMPLES: IExample[] = [
   // The Dynamic Form Component must be the first example to align with the lazy load modules
   // If this changes, ensure to correct the that component as well
@@ -59,11 +57,9 @@ export const EXAMPLES: IExample[] = [
     id: '6',
     title: 'Make it Your Own',
     summary:
-      'Make this Monorepo the starting of your own project (including deployment guides)',
+      'Clone, build, deploy! Make this repo the start of your own project.',
     description:
-      'Guides to help you re-brand this Monorepo to form the starting of your own, including ' +
-      'and depoloying your to We have all seen a Todo App before but this demonstrates how a well structured monorepo ' +
-      'can make your code highly reusable.',
+      'Follow the instructions listed below to make this repo the beginning of your own project.',
     url: 'make-it-your-own'
   }
 ];

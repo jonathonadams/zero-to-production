@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { IUserModel, IUserDocument } from '@uqt/backend/core-data';
 import { GraphQLFieldResolver } from 'graphql';
+import { IUserModel, IUserDocument } from '@uqt/backend/core-data';
 
 export type AuthMiddleware = GraphQLFieldResolver<any, any, any>;
 
