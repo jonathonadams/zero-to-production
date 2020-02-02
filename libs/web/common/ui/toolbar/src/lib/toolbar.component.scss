@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  overflow: visible;
+}
+
 .uqt-toolbar {
   height: 3.5em;
   @media screen and (min-width: 600px) {
@@ -5,7 +10,11 @@
   }
   background-color: var(--light-primary-color);
   display: flex;
+  flex-direction: row-reverse;
   padding: 0 1em;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+  .content {
+    height: 100%;
+  }
 }

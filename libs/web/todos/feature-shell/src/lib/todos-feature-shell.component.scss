@@ -4,10 +4,12 @@
 }
 
 .app-content {
+  z-index: 1;
   display: block;
   height: calc(100% - 4em);
 }
 
 .header {
   z-index: 2;
+  position: relative;
 }

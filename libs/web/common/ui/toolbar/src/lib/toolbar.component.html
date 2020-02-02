@@ -1,12 +1,12 @@
-<!-- TODO -> Material elevation -->
+<!-- TODO -> remove material elevation -->
 <header class="uqt-toolbar mat-elevation-z4">
+  <ng-content></ng-content>
   <button
-    *ngIf="navButton"
-    (click)="navToggle.emit()"
+    *ngIf="menuButton"
+    (click)="menuToggle.emit()"
     mat-mini-fab
     color="accent"
   >
     <mat-icon>menu</mat-icon>
   </button>
-  <ng-content></ng-content>
 </header>

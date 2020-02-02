@@ -31,7 +31,7 @@ export class TodoFeatureShellComponent implements OnInit {
     this.facade.setNavRoutes(this.routes);
   }
 
-  navToggle() {
+  menuToggle() {
     this.facade.toggle();
   }
 }

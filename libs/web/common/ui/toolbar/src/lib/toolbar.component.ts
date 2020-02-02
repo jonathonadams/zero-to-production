@@ -3,18 +3,16 @@ import {
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
-  Input,
-  ViewEncapsulation
+  Input
 } from '@angular/core';
 
 @Component({
   selector: 'uqt-ui-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonUiToolbarComponent {
-  @Input() navButton = false;
-  @Output() navToggle = new EventEmitter<void>();
+  @Input() menuButton = false;
+  @Output() menuToggle = new EventEmitter<void>();
 }
