@@ -126,7 +126,7 @@ describe('TodoEffects', () => {
     it('should return a UpdateTodoSuccess action with a payload of the updated Todo', () => {
       const action = TodoActions.updateTodo({ todo: mockTodo });
       const completion = TodoActions.updateTodoSuccess({
-        todo: { id: mockTodo.id, changes: mockTodo }
+        todo: mockTodo
       });
 
       action$ = hot('-a-', { a: action });

@@ -116,7 +116,7 @@ describe('TodoReducer', () => {
       } as ITodo;
 
       const action = TodoActions.updateTodoSuccess({
-        todo: { id: updateTodo.id, changes: updateTodo }
+        todo: updateTodo
       });
       const result = todosReducer(state, action);
       expect(result).toMatchSnapshot();

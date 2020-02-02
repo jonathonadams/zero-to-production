@@ -17,12 +17,16 @@ const tokenConfig = {
 
 const todo = {
   title: 'Some Todo',
-  description: 'A todo that needs to be done',
-  userId: newId()
+  description: 'A todo that needs to be done'
 } as ITodo;
 
 const updatedTodo = {
   completed: true
 };
 
-createGraphQLSpec(schema, tokenConfig, server)(Todo, 'Todo', todo, updatedTodo);
+createGraphQLSpec(schema, tokenConfig, server, /*userResource */ true)(
+  Todo,
+  'Todo',
+  todo,
+  updatedTodo
+);

@@ -27,7 +27,8 @@ export function createGraphQLSpec<T>(
     keyId: string;
     audience: string;
   },
-  authServer: any
+  authServer: any,
+  userResource = false
 ) {
   return function(
     model: any,
@@ -65,7 +66,9 @@ export function createGraphQLSpec<T>(
         testServer = await authServer.initializeServer(dbUri);
         jwt = signTestAccessToken(tokenConfig)({ id: userId });
 
-        resource = await model.create(resourceToCreate);
+        resource = await model.create(
+          userResource ? { ...resourceToCreate, userId } : resourceToCreate
+        );
       });
 
       afterAll(async () => {
@@ -99,7 +102,7 @@ export function createGraphQLSpec<T>(
           const queryName = `all${upperResourceName}s`;
           const result = await runQuery(schema)(
             `
-          {
+          query All${upperResourceName}{
             ${queryName} {
               id
               ${Object.keys(resourceToCreate)[0]}

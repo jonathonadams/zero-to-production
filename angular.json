@@ -1586,13 +1586,6 @@
             ],
             "exclude": ["**/node_modules/**", "!libs/data/**"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/data/jest.config.js",
-            "tsConfig": "libs/data/tsconfig.spec.json"
-          }
         }
       }
     },
