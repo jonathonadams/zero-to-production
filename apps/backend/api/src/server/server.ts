@@ -1,8 +1,8 @@
 import { createServer } from 'http';
 import Koa from 'koa';
 import Router from '@koa/router';
-import { setupMiddleware } from '@uqt/backend/config';
-import { dbConnection } from '@uqt/backend/database';
+import { setupMiddleware } from '@uqt/server/config';
+import { dbConnection } from '@uqt/server/database';
 import { apolloServer } from './api/graphql';
 import { applyApiEndpoints } from './api';
 // UQT_UPDATE

@@ -1,8 +1,8 @@
 import merge from 'lodash.merge';
-import { createTypeResolver } from '@uqt/backend/utils';
-import { ITodoDocument } from '@uqt/backend/core-data';
+import { createTypeResolver } from '@uqt/server/utils';
+import { ITodoDocument } from '@uqt/server/core-data';
 import { userResolvers } from './users/index';
-import { Todo } from '@uqt/backend/core-data';
+import { Todo } from '@uqt/server/core-data';
 // UQT_DEMO
 // import { verifyTokenGraphQL, authResolvers } from '../auth/auth';
 import { verifyTokenGraphQL } from '../auth/auth.guards';

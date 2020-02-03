@@ -1,5 +1,5 @@
-import { User } from '@uqt/backend/core-data';
-import { getGraphQlGuards, getRestGuards } from '@uqt/backend/auth';
+import { User } from '@uqt/server/core-data';
+import { getGraphQlGuards, getRestGuards } from '@uqt/server/auth';
 import config from '../../environments';
 
 const guardConfig = {

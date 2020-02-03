@@ -9,10 +9,10 @@
   "include": ["**/*.ts"],
   "references": [
     { "path": "../../../libs/data/tsconfig.lib.json" },
-    { "path": "../../../libs/backend/auth/tsconfig.lib.json" },
-    { "path": "../../../libs/backend/utils/tsconfig.lib.json" },
-    { "path": "../../../libs/backend/config/tsconfig.lib.json" },
-    { "path": "../../../libs/backend/database/tsconfig.lib.json" },
-    { "path": "../../../libs/backend/core-data/tsconfig.lib.json" }
+    { "path": "../../../libs/server/auth/tsconfig.lib.json" },
+    { "path": "../../../libs/server/utils/tsconfig.lib.json" },
+    { "path": "../../../libs/server/config/tsconfig.lib.json" },
+    { "path": "../../../libs/server/database/tsconfig.lib.json" },
+    { "path": "../../../libs/server/core-data/tsconfig.lib.json" }
   ]
 }

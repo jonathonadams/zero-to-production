@@ -1,10 +1,10 @@
 import Koa from 'koa';
-import { Todo } from '@uqt/backend/core-data';
+import { Todo } from '@uqt/server/core-data';
 import { ITodo } from '@uqt/data';
 import config from '../../../environments/index';
 import { schema } from '../graphql';
 import ApiServer from '../../server';
-import { newId, createGraphQLSpec } from '@uqt/testing/backend';
+import { newId, createGraphQLSpec } from '@uqt/tests/backend';
 
 // Need to import and run the server because
 // the server is also our "auth server"

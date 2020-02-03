@@ -1,7 +1,7 @@
 import { ParameterizedContext } from 'koa';
 import Boom from '@hapi/boom';
-import { swapId } from '@uqt/backend/utils';
-import { User } from '@uqt/backend/core-data';
+import { swapId } from '@uqt/server/utils';
+import { User } from '@uqt/server/core-data';
 import { IUser } from '@uqt/data';
 
 export async function params(

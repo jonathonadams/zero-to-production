@@ -1,0 +1,36 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AuthComponent } from './components/auth.component';
+import { LoginComponent } from './components/login/login.component';
+import { UiLoginComponent } from './components/login/ui/ui-login.component';
+import { UiRegisterComponent } from './components/register/ui/ui-register.component';
+import { CustomUsernameComponent } from './components/custom-username/custom-username.components';
+import { CustomUsernameInputComponent } from './components/custom-username/custom-username-input.component';
+import { RegisterComponent } from './components/register/register.component';
+import { RouterModule } from '@angular/router';
+import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonDynamicFormModule } from '@uqt/common/dynamic-form';
+
+const COMPONENTS = [
+  AuthComponent,
+  LoginComponent,
+  UiLoginComponent,
+  RegisterComponent,
+  UiRegisterComponent,
+  CustomUsernameComponent,
+  CustomUsernameInputComponent
+];
+
+@NgModule({
+  declarations: COMPONENTS,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    CustomMaterialModule,
+    CommonDynamicFormModule.forChild()
+  ],
+  exports: COMPONENTS
+})
+export class CommonUiAuthModule {}

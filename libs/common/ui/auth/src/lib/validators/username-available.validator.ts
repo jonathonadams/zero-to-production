@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import {
+  AsyncValidator,
+  AbstractControl,
+  ValidationErrors
+} from '@angular/forms';
+import { Observable, of, timer } from 'rxjs';
+import { map, catchError, tap, switchMap, take } from 'rxjs/operators';
+import { AuthService, AuthFacade } from '@uqt/shared/data-access/auth';
+
+@Injectable({ providedIn: 'root' })
+export class UsernameAvailableValidator implements AsyncValidator {
+  constructor(private auth: AuthService, private facade: AuthFacade) {}
+
+  validate(ctrl: AbstractControl): Observable<ValidationErrors | null> {
+    // Don't need to worry about using takeUntil(ctrl.valueChanges)
+    // because the form unsubscribes when the ctrl value changes
+    return timer(200).pipe(
+      tap(() => this.facade.usernamePending()),
+      take(1),
+      switchMap(() => this.auth.isUsernameAvailable(ctrl.value)),
+      tap(isAvailable => this.facade.usernameAvailable(isAvailable)), // set the available status
+      map(({ isAvailable }) => (isAvailable ? null : { notAvailable: true })),
+      catchError(() => of(null))
+    );
+  }
+}

@@ -1,11 +1,11 @@
 import Koa from 'koa';
-import { User } from '@uqt/backend/core-data';
+import { User } from '@uqt/server/core-data';
 import {
   createPublicJsonWebKeySetRouteFromPrivateKey,
   applyDemoAuthRoutes,
   DemoAuthModuleConfig,
   getDemoAuthResolvers
-} from '@uqt/backend/auth';
+} from '@uqt/server/auth';
 import config from '../../environments';
 
 const authModuleConfig: DemoAuthModuleConfig = {

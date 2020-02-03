@@ -3,11 +3,11 @@ import { Observable } from 'rxjs';
 import { Actions } from '@ngrx/effects';
 import { hot, Scheduler } from 'jest-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { createSpyObj } from '@uqt/testing/frontend';
+import { createSpyObj } from '@uqt/tests/frontend';
 import { AppEffects } from './app.effects';
 import { NotificationService } from '@uqt/utils/notifications';
 import { Router } from '@angular/router';
-import { AuthActions } from '@uqt/data-access/auth';
+import { AuthActions } from '@uqt/shared/data-access/auth';
 
 describe('AppEffects', () => {
   let effects: AppEffects;

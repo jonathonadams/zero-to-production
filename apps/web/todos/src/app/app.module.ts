@@ -10,14 +10,14 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { DataAccessApiModule } from '@uqt/data-access/api';
-import { DataAccessAuthModule } from '@uqt/data-access/auth';
-import { DataAccessUsersModule } from '@uqt/data-access/users';
+import { DataAccessApiModule } from '@uqt/shared/data-access/api';
+import { DataAccessAuthModule } from '@uqt/shared/data-access/auth';
+import { DataAccessUsersModule } from '@uqt/shared/users/data-access';
 import { TodosFeatureShellModule } from '@uqt/todos/feature-shell';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { AppEffects } from './+state/app.effects';
 import { AppState, appReducerMap } from './+state/app.state';
-import { DynamicFormModule } from '@uqt/data-access/dynamic-form';
+import { CommonDynamicFormModule } from '@uqt/common/dynamic-form';
 import { DynamicFormMaterialComponentsModule } from '@uqt/common/dynamic-form-material-components';
 import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
 
@@ -41,7 +41,7 @@ import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
     DataAccessApiModule.forRoot(environment),
     DataAccessAuthModule.forRoot({ authServerUrl: environment.serverUrl }),
     DataAccessUsersModule.forRoot(),
-    DynamicFormModule.forRoot({
+    CommonDynamicFormModule.forRoot({
       components: APP_COMPONENTS,
       errors: APP_ERRORS
     }),

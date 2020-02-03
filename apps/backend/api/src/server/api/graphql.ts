@@ -6,7 +6,7 @@ import config from '../../environments';
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
 import { loaders } from './data-loader';
-import { User } from '@uqt/backend/core-data';
+import { User } from '@uqt/server/core-data';
 
 // A function to add additional Scalar types.
 const resolveFunctions = {

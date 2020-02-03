@@ -1,6 +1,6 @@
 import { MATERIAL_COMPONENT_MAP } from '@uqt/common/dynamic-form-material-components';
-import { CustomUsernameComponent } from '@uqt/web/common/ui/auth';
-import { defaultErrorMessages } from '@uqt/data-access/dynamic-form';
+import { CustomUsernameComponent } from '@uqt/common/ui/auth';
+import { defaultErrorMessages } from '@uqt/common/dynamic-form';
 
 export const APP_COMPONENTS = {
   ...MATERIAL_COMPONENT_MAP,

@@ -1,10 +1,10 @@
 import Koa from 'koa';
 import Router from '@koa/router';
 import { usersRouter } from './users';
-import { Todo } from '@uqt/backend/core-data';
+import { Todo } from '@uqt/server/core-data';
 import { verifyTokenRest } from '../auth/auth.guards';
-import { ITodoDocument } from '@uqt/backend/core-data';
-import { generateRestEndpoints } from '@uqt/backend/utils';
+import { ITodoDocument } from '@uqt/server/core-data';
+import { generateRestEndpoints } from '@uqt/server/utils';
 
 export function applyRestEndpoints(app: Koa) {
   const router = new Router({

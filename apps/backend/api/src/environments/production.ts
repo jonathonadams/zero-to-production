@@ -1,10 +1,7 @@
 /* istanbul ignore file */
 
-import {
-  ProductionConfig,
-  getEnvVariableOrWarn,
-  envToNumber
-} from '@uqt/backend/config';
+import { getEnvVariableOrWarn, envToNumber } from '@uqt/server/config';
+import { ProductionConfig } from '@uqt/data';
 
 const hostUrl = getEnvVariableOrWarn('HOST_URL');
 const authServerUrl = getEnvVariableOrWarn('AUTH_SERVER_URL');

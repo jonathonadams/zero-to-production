@@ -1,7 +1,3 @@
-# data
+# Data
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `ng test data` to execute the unit tests via [Jest](https://jestjs.io).
+All common interfaces that shared across all applications.

@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import { User } from '@uqt/backend/core-data';
+import { User } from '@uqt/server/core-data';
 import {
   getAuthResolvers,
   applyAuthRoutesWithRefreshTokens,
@@ -7,7 +7,7 @@ import {
   AuthModuleConfig,
   RefreshToken,
   VerificationToken
-} from '@uqt/backend/auth';
+} from '@uqt/server/auth';
 import config from '../../environments';
 
 const authModuleConfig: AuthModuleConfig = {

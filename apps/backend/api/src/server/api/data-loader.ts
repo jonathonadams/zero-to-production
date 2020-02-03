@@ -3,8 +3,8 @@
 import DataLoader from 'dataloader';
 // @ts-ignore
 import keyBy from 'lodash.keyby';
-import { User, Todo } from '@uqt/backend/core-data';
-import { IUserDocument, ITodoDocument } from '@uqt/backend/core-data';
+import { User, Todo } from '@uqt/server/core-data';
+import { IUserDocument, ITodoDocument } from '@uqt/server/core-data';
 
 const createUsersLoader = () => {
   return new DataLoader<string, IUserDocument>(async usersIds => {

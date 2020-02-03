@@ -4,7 +4,7 @@ import {
   GlobalConfig,
   EnvironnementConfig,
   envToNumber
-} from '@uqt/backend/config';
+} from '@uqt/server/config';
 import devConfig from './development';
 import prodConfig from './production';
 import testConfig from './test';

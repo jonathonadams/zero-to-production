@@ -1,13 +1,9 @@
 import Koa from 'koa';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
-import {
-  runQuery,
-  setupTestDB,
-  signTestAccessToken
-} from '@uqt/testing/backend';
-import { IUserDocument } from '@uqt/backend/core-data';
-import { User } from '@uqt/backend/core-data';
+import { runQuery, setupTestDB, signTestAccessToken } from '@uqt/tests/backend';
+import { IUserDocument } from '@uqt/server/core-data';
+import { User } from '@uqt/server/core-data';
 import { schema } from '../graphql';
 import config from '../../../environments';
 import { IUser } from '@uqt/data';

@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../../dist/libs/server/auth",
+    "tsBuildInfoFile": "../../../dist/buildcache/backend-auth.tsbuildinfo",
+    "types": ["node"]
+  },
+  "exclude": ["**/*.spec.ts"],
+  "include": ["**/*.ts"],
+  "references": [
+    { "path": "../../data/tsconfig.lib.json" },
+    { "path": "../core-data/tsconfig.lib.json" },
+    { "path": "../utils/tsconfig.lib.json" }
+  ]
+}
