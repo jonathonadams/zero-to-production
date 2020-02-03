@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
 import { TodoLayoutComponent } from './ui/todos-layout.component';
 import { AuthGuard, LoggedInGuard } from '@uqt/shared/data-access/auth';
-import { AuthUsersResolver } from '@uqt/shared/users/data-access';
 import {
   LoginComponent,
   RegisterComponent,
@@ -18,7 +17,7 @@ export const TODOS_ROUTES: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('@uqt/shared/dashboard').then(m => m.DashboardModule),
+          import('@uqt/shared/dashboard').then(m => m.SharedDashboardModule),
         data: { animation: 'DashBoardPage' }
       },
       {

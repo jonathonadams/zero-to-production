@@ -9,7 +9,7 @@ import {
   ILoginResponse,
   IRegistrationDetails
 } from '../auth.interface';
-import { AuthenticationRoles, IUser } from '@uqt/data';
+import { IUser } from '@uqt/data';
 import { AuthFacade } from '../+state/auth.facade';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
@@ -104,7 +104,6 @@ describe('AuthService', () => {
 
       const expectedResponse: IUser = {
         id: 'some-id',
-        role: AuthenticationRoles.User,
         active: true,
         isVerified: true,
         ...newUser

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ServerConfig } from '@uqt/server/config';
+import { ServerConfig } from '@uqt/data';
 import { createMongoConnectionString } from './utils';
 
 export function dbConnection(config: ServerConfig, dbUrl?: string) {

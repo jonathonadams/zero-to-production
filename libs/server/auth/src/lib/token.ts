@@ -14,7 +14,6 @@ export function signAccessToken(config: AccessTokenConfig) {
     return sign(
       {
         // Enter additional payload info here
-        role: user.role
       },
       config.privateKey,
       {

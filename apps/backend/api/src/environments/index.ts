@@ -1,10 +1,7 @@
 /* istanbul ignore file */
 
-import {
-  GlobalConfig,
-  EnvironnementConfig,
-  envToNumber
-} from '@uqt/server/config';
+import { GlobalConfig, EnvironnementConfig } from '@uqt/data';
+import { envToNumber } from '@uqt/server/config';
 import devConfig from './development';
 import prodConfig from './production';
 import testConfig from './test';

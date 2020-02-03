@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ServerConfig } from '@uqt/server/config';
+import { ServerConfig } from '@uqt/data';
 
 export function createDbIndexes(config: ServerConfig, url: string) {
   return mongoose

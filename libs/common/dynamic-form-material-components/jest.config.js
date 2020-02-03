@@ -1,6 +1,6 @@
 module.exports = {
   name: 'common-dynamic-form-material-components',
-  preset: '../../../../jest.config.js',
+  preset: '../../../jest.config.js',
   coverageDirectory:
     '../../../coverage/libs/common/dynamic-form-material-components',
   snapshotSerializers: [

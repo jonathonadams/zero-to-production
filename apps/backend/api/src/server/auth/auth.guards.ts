@@ -23,6 +23,5 @@ export const {
  */
 export const {
   verifyToken: verifyTokenGraphQL,
-  verifyActiveUser: verifyActiveUserGraphQL,
-  verifyUserRole: verifyUserRoleGraphQL
+  verifyActiveUser: verifyActiveUserGraphQL
 } = getGraphQlGuards(guardConfig);

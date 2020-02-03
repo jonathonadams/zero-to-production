@@ -1,4 +1,4 @@
-import { ServerConfig } from '@uqt/server/config';
+import { ServerConfig } from '@uqt/data';
 
 export function createMongoConnectionString(config: ServerConfig): string {
   if (config.production) {
