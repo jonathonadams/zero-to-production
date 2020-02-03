@@ -829,7 +829,7 @@
         }
       }
     },
-    "web-todos-all-todos": {
+    "todos-all-todos": {
       "projectType": "library",
       "root": "libs/todos/all-todos",
       "sourceRoot": "libs/todos/all-todos/src",

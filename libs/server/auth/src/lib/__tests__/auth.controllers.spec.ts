@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { hash } from 'bcryptjs';
 import 'jest-extended';
-import { AuthenticationRoles, IUser } from '@uqt/data';
+import { IUser } from '@uqt/data';
 import { IUserModel } from '@uqt/server/core-data';
 import {
   setupRegisterController,
@@ -28,7 +28,6 @@ const userToRegister = ({
   lastName: 'user',
   emailAddress: 'unique@email.com',
   dateOfBirth: new Date(),
-  role: AuthenticationRoles.User,
   active: true,
   isVerified: false
 } as any) as IUser;
