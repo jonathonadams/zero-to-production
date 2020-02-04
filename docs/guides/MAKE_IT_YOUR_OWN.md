@@ -20,6 +20,8 @@ COLOR PALLET
 
 PRISMJS (INCLUDING STYLESHEETS imports)
 
+@angular/service-worker
+
 ## Angular Client
 
 Delete firebase.json

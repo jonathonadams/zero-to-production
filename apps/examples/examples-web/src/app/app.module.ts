@@ -21,6 +21,7 @@ import { CommonDynamicFormModule } from '@uqt/common/dynamic-form';
 import { CommonDynamicFormMaterialComponentsModule } from '@uqt/common/dynamic-form-material-components';
 import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
 import { themeProviderFactory, ThemeService } from '@uqt/common/theme';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -50,7 +51,10 @@ import { themeProviderFactory, ThemeService } from '@uqt/common/theme';
       errors: APP_ERRORS
     }),
     AppRoutingModule.forRoot(),
-    ExamplesFeatureShellModule
+    ExamplesFeatureShellModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production
+    })
   ],
   providers: [
     {

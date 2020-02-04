@@ -1,1 +1,1 @@
-export { ServiceWorkerService } from './lib/service-worker.service';
+export { CheckForUpdatesService } from './lib/check-for-updates.service';

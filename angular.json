@@ -194,7 +194,8 @@
             "aot": true,
             "assets": [
               "apps/examples/examples-web/src/favicon.ico",
-              "apps/examples/examples-web/src/assets"
+              "apps/examples/examples-web/src/assets",
+              "apps/examples/examples-web/src/manifest.webmanifest"
             ],
             "styles": ["apps/examples/examples-web/src/styles.scss"],
             "scripts": []
@@ -226,7 +227,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/examples/examples-web/ngsw-config.json"
             }
           }
         },
