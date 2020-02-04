@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
-import { getEnvVariableOrWarn, envToNumber } from '@uqt/server/config';
+import { getEnvVariableOrWarn, envToNumber } from '@uqt/server/utils';
 import { DevOrTestConfig } from '@uqt/data';
 
 const hostUrl = process.env.HOST_URL || `http://localhost:${process.env.PORT}`;
