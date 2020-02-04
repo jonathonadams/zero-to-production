@@ -8,5 +8,5 @@
     "types": ["node", "jest"]
   },
   "include": ["**/*.ts"],
-  "references": [{ "path": "../config/tsconfig.lib.json" }]
+  "references": [{ "path": "../../data/tsconfig.lib.json" }]
 }

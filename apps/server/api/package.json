@@ -4,7 +4,7 @@
   "description": "Todo API with GraphQL",
   "main": "jest.config.js",
   "scripts": {
-    "build": "ng build backend-api"
+    "build": "ng build server-api"
   },
   "author": "Jonathon Adams",
   "license": "ISC",

@@ -8,22 +8,22 @@
     "nx.json": "*"
   },
   "projects": {
-    "backend-api": {
+    "server-api": {
       "tags": ["scope:shared", "type:app", "platform:server"]
     },
-    "web-todos": {
+    "todos-web": {
       "tags": ["scope:todos", "type:app", "platform:web"]
     },
-    "web-todos-e2e": {
+    "todos-web-e2e": {
       "tags": ["scope:todos", "type:app", "platform:web"],
-      "implicitDependencies": ["web-todos"]
+      "implicitDependencies": ["todos-web"]
     },
-    "web-examples": {
+    "examples-web": {
       "tags": ["scope:examples", "type:app", "platform:web"]
     },
-    "web-examples-e2e": {
+    "examples-web-e2e": {
       "tags": ["scope:examples", "type:app", "platform:web"],
-      "implicitDependencies": ["web-examples"]
+      "implicitDependencies": ["examples-web"]
     },
     "testing": {
       "tags": ["scope:shared", "type:util", "platform:shared"]

@@ -20,7 +20,7 @@ If you do not already have a firebase account, create one at [Firebase](https://
    ```
 6. Choose `Hosting`
 7. Choose `Use an existing project` and select your desired project.
-8. Chose the desired output directory e.g. `dist/apps/web/todos`
+8. Chose the desired output directory e.g. `dist/apps/todos/todos-web`
 9. Select yest to configure as a single-page app
 10. Select **NO** to overwriting your existing index.html.
 11. Deploy your project

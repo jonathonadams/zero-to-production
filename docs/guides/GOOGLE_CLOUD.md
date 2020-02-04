@@ -35,7 +35,7 @@ The image name that you build and push to the Google Cloud Registry here is the 
 
   For this example site:  
   **\_IMAGE_NAME**: `gcr.io/zero-to-production/z2p-api`  
-  **\_PROJECT_DIRECTORY**: `apps/backend/api`
+  **\_PROJECT_DIRECTORY**: `apps/server/api`
 
 4. Manually trigger the build to test that the build runs and your container image is visible in the **Container Registry** once complete.
 

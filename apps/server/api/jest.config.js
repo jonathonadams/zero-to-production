@@ -1,10 +1,10 @@
-require('dotenv').config({ path: `${process.cwd()}/apps/backend/api/.env` });
+require('dotenv').config({ path: `${process.cwd()}/apps/server/api/.env` });
 
 module.exports = {
-  name: 'backend-api',
+  name: 'server-api',
   setupFilesAfterEnv: ['jest-extended'],
   runner: './single-thread.js',
   testEnvironment: 'node',
   preset: '../../../jest.config.js',
-  coverageDirectory: '../../../coverage/apps/backend/api'
+  coverageDirectory: '../../../coverage/apps/server/api'
 };
