@@ -1,7 +1,7 @@
-# backend-core-data
+# server-core-data
 
 This library was generated with [Nx](https://nx.dev).
 
 ## Running unit tests
 
-Run `ng test backend-core-data` to execute the unit tests via [Jest](https://jestjs.io).
+Run `ng test server-core-data` to execute the unit tests via [Jest](https://jestjs.io).

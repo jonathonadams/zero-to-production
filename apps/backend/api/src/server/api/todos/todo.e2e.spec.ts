@@ -4,7 +4,7 @@ import { ITodo } from '@uqt/data';
 import config from '../../../environments/index';
 import { schema } from '../graphql';
 import ApiServer from '../../server';
-import { newId, createGraphQLSpec } from '@uqt/tests/backend';
+import { newId, createGraphQLSpec } from '@uqt/tests/server';
 
 // Need to import and run the server because
 // the server is also our "auth server"

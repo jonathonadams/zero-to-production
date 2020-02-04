@@ -1,8 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/libs/server/config",
-    "tsBuildInfoFile": "../../../dist/buildcache/backend-config.tsbuildinfo",
+    "outDir": "../../../dist/libs/server/middleware",
+    "tsBuildInfoFile": "../../../dist/buildcache/server-middleware.tsbuildinfo",
     "types": []
   },
   "exclude": ["**/*.spec.ts"],

@@ -2,11 +2,11 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "@uqt/tests/frontend": ["libs/tests/src/frontend.ts"],
-      "@uqt/tests/backend": ["libs/tests/src/backend.ts"],
+      "@uqt/tests/client": ["libs/tests/src/client.ts"],
+      "@uqt/tests/server": ["libs/tests/src/server.ts"],
       "@uqt/data": ["libs/data/src/index.d.ts"],
       "@uqt/server/auth": ["libs/server/auth/src/index.ts"],
-      "@uqt/server/config": ["libs/server/config/src/index.ts"],
+      "@uqt/server/config": ["libs/server/middleware/src/index.ts"],
       "@uqt/server/core-data": ["libs/server/core-data/src/index.ts"],
       "@uqt/server/utils": ["libs/server/utils/src/index.ts"],
       "@uqt/server/database": ["libs/server/database/src/index.ts"],

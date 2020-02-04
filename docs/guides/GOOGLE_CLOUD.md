@@ -48,7 +48,7 @@ The image name that you build and push to the Google Cloud Registry here is the 
    - `config.yaml`: Contains non sensitive information and is `ConfigMap` resource. **No changes required**
    - `secrets.yaml`: A `Secret` resource that contains all sensitive information. All values here must be base64 encoded strings. **DO NOT COMMIT THIS INTO SOURCE CONTROL**. Rename `example.secrets.yaml` to `secrets.yaml`. **Changes required**
      - Replace the PLACEHOLDER entries with your respective encoded strings.
-   - The `backend-config.yaml` is a `BackendConfig` resource to change the default timeout for all connections. This is required for WebSocket connections, with a possible maximum time of 24 hours. **No changes required**
+   - The `server-middleware.yaml` is a `BackendConfig` resource to change the default timeout for all connections. This is required for WebSocket connections, with a possible maximum time of 24 hours. **No changes required**
    - `gcl-managed-certificate.yaml` configures a Google Managed Certificate for SSL/TLS for our domain. **Changes required**
      - Name of the managed certificate resource
      - Domain name to associated with the certificate.

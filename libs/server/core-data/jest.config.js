@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'backend-core-data',
+  name: 'server-core-data',
   preset: '../../../jest.config.js',
   testEnvironment: 'node',
   transform: {

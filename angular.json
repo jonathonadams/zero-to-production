@@ -327,7 +327,7 @@
         }
       }
     },
-    "backend-auth": {
+    "server-auth": {
       "root": "libs/server/auth",
       "sourceRoot": "libs/server/auth/src",
       "projectType": "library",
@@ -352,9 +352,9 @@
         }
       }
     },
-    "backend-config": {
-      "root": "libs/server/config",
-      "sourceRoot": "libs/server/config/src",
+    "server-middleware": {
+      "root": "libs/server/middleware",
+      "sourceRoot": "libs/server/middleware/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -362,22 +362,22 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/server/config/tsconfig.lib.json",
-              "libs/server/config/tsconfig.spec.json"
+              "libs/server/middleware/tsconfig.lib.json",
+              "libs/server/middleware/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/server/config/**"]
+            "exclude": ["**/node_modules/**", "!libs/server/middleware/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/server/config/jest.config.js",
-            "tsConfig": "libs/server/config/tsconfig.spec.json"
+            "jestConfig": "libs/server/middleware/jest.config.js",
+            "tsConfig": "libs/server/middleware/tsconfig.spec.json"
           }
         }
       }
     },
-    "backend-core-data": {
+    "server-core-data": {
       "root": "libs/server/core-data",
       "sourceRoot": "libs/server/core-data/src",
       "projectType": "library",
@@ -402,7 +402,7 @@
         }
       }
     },
-    "backend-utils": {
+    "server-utils": {
       "root": "libs/server/utils",
       "sourceRoot": "libs/server/utils/src",
       "projectType": "library",
@@ -427,7 +427,7 @@
         }
       }
     },
-    "backend-database": {
+    "server-database": {
       "root": "libs/server/database",
       "sourceRoot": "libs/server/database/src",
       "projectType": "library",

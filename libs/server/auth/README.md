@@ -18,4 +18,4 @@ With JWKS or without (for guards). With Refresh Token route or not
 
 ## Running unit tests
 
-Run `ng test backend-auth` to execute the unit tests via [Jest](https://jestjs.io).
+Run `ng test server-auth` to execute the unit tests via [Jest](https://jestjs.io).

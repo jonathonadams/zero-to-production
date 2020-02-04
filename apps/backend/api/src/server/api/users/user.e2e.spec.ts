@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
-import { runQuery, setupTestDB, signTestAccessToken } from '@uqt/tests/backend';
+import { runQuery, setupTestDB, signTestAccessToken } from '@uqt/tests/server';
 import { IUserDocument } from '@uqt/server/core-data';
 import { User } from '@uqt/server/core-data';
 import { schema } from '../graphql';

@@ -15,35 +15,35 @@
       "tags": ["scope:todos", "type:app", "platform:web"]
     },
     "web-todos-e2e": {
-      "tags": ["scope:todos", "type:e2e", "platform:web"],
+      "tags": ["scope:todos", "type:app", "platform:web"],
       "implicitDependencies": ["web-todos"]
     },
     "web-examples": {
       "tags": ["scope:examples", "type:app", "platform:web"]
     },
     "web-examples-e2e": {
-      "tags": ["scope:examples", "type:e2e", "platform:web"],
+      "tags": ["scope:examples", "type:app", "platform:web"],
       "implicitDependencies": ["web-examples"]
     },
     "testing": {
-      "tags": ["scope:shared", "type:utils", "platform:shared"]
+      "tags": ["scope:shared", "type:util", "platform:shared"]
     },
     "data": {
       "tags": ["scope:shared", "type:data", "platform:shared"]
     },
-    "backend-auth": {
+    "server-auth": {
+      "tags": ["scope:shared", "type:feature", "platform:server"]
+    },
+    "server-middleware": {
+      "tags": ["scope:shared", "type:util", "platform:server"]
+    },
+    "server-core-data": {
       "tags": ["scope:shared", "type:data-access", "platform:server"]
     },
-    "backend-config": {
-      "tags": ["scope:shared", "type:utils", "platform:server"]
+    "server-utils": {
+      "tags": ["scope:shared", "type:util", "platform:server"]
     },
-    "backend-core-data": {
-      "tags": ["scope:shared", "type:data-access", "platform:server"]
-    },
-    "backend-utils": {
-      "tags": ["scope:shared", "type:utils", "platform:server"]
-    },
-    "backend-database": {
+    "server-database": {
       "tags": ["scope:shared", "type:data-access", "platform:server"]
     },
     "shared-data-access-api": {

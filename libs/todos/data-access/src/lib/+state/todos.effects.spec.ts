@@ -7,7 +7,7 @@ import { hot, cold } from 'jest-marbles';
 import * as TodoActions from './todos.actions';
 import { TodosService } from '../todos.service';
 import { ITodo } from '@uqt/data';
-import { createSpyObj } from '@uqt/tests/frontend';
+import { createSpyObj } from '@uqt/tests/client';
 import { GraphQLError } from 'graphql';
 
 describe('TodoEffects', () => {

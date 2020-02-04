@@ -4,7 +4,7 @@ import { Actions } from '@ngrx/effects';
 import { GraphQLError } from 'graphql';
 import { cold, hot, Scheduler } from 'jest-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { createSpyObj } from '@uqt/tests/frontend';
+import { createSpyObj } from '@uqt/tests/client';
 import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
 import * as AuthActions from './auth.actions';

@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'backend-auth',
+  name: 'server-auth',
   preset: '../../../jest.config.js',
   testEnvironment: 'node',
   transform: {

@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 import Koa from 'koa';
 import Router from '@koa/router';
-import { setupMiddleware } from '@uqt/server/config';
+import { setupGlobalMiddleware } from '@uqt/server/config';
 import { dbConnection } from '@uqt/server/database';
 import { apolloServer } from './api/graphql';
 import { applyApiEndpoints } from './api';
@@ -37,7 +37,7 @@ export default class ApiServer {
     /**
      * Setup all the required middleware for the app
      */
-    setupMiddleware(app, config.logging);
+    setupGlobalMiddleware(app, config.logging);
 
     /**
      * Apply the API endpoints

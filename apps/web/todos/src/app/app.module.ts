@@ -10,15 +10,15 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { DataAccessApiModule } from '@uqt/shared/data-access/api';
-import { DataAccessAuthModule } from '@uqt/shared/data-access/auth';
-import { DataAccessUsersModule } from '@uqt/shared/users/data-access';
+import { SharedDataAccessApiModule } from '@uqt/shared/data-access/api';
+import { SharedDataAccessAuthModule } from '@uqt/shared/data-access/auth';
+import { SharedUsersDataAccessModule } from '@uqt/shared/users/data-access';
 import { TodosFeatureShellModule } from '@uqt/todos/feature-shell';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { AppEffects } from './+state/app.effects';
 import { AppState, appReducerMap } from './+state/app.state';
 import { CommonDynamicFormModule } from '@uqt/common/dynamic-form';
-import { DynamicFormMaterialComponentsModule } from '@uqt/common/dynamic-form-material-components';
+import { CommonDynamicFormMaterialComponentsModule } from '@uqt/common/dynamic-form-material-components';
 import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
 
 @NgModule({
@@ -38,14 +38,16 @@ import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
     StoreRouterConnectingModule.forRoot({
       routerState: RouterState.Minimal
     }),
-    DataAccessApiModule.forRoot(environment),
-    DataAccessAuthModule.forRoot({ authServerUrl: environment.serverUrl }),
-    DataAccessUsersModule.forRoot(),
+    SharedDataAccessApiModule.forRoot(environment),
+    SharedDataAccessAuthModule.forRoot({
+      authServerUrl: environment.serverUrl
+    }),
+    SharedUsersDataAccessModule.forRoot(),
     CommonDynamicFormModule.forRoot({
       components: APP_COMPONENTS,
       errors: APP_ERRORS
     }),
-    DynamicFormMaterialComponentsModule,
+    CommonDynamicFormMaterialComponentsModule,
     AppRoutingModule.forRoot(),
     TodosFeatureShellModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
