@@ -8,8 +8,6 @@ import {
 
 export const loginRedirect = createAction('[Auth] Login Redirect');
 
-export const logoutRedirect = createAction('[Auth] Logout Redirect');
-
 export const registerRedirect = createAction('[Auth] Register Redirect');
 
 export const login = createAction(
@@ -57,3 +55,5 @@ export const usernameAvailable = createAction(
 export const clearAvailable = createAction('[Auth/Api] Username Clear');
 
 export const logout = createAction('[Auth] Logout');
+
+export const logoutRedirect = createAction('[Auth] Logout Redirect');

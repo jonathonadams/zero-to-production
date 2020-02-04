@@ -6,19 +6,13 @@ export const GRAPHQL_URL = new InjectionToken<string>('GraphQLUrl');
 
 // Currently set cache to be ignored, change this as required
 export function createApollo(httpLink: HttpLink, uri: string) {
-  const cache = new InMemoryCache();
+  const cache = new InMemoryCache({
+    addTypename: true
+  });
+
   return {
     link: httpLink.create({ uri }),
     cache,
-    defaultOptions: {
-      watchQuery: {
-        fetchPolicy: 'no-cache',
-        errorPolicy: 'ignore'
-      },
-      query: {
-        fetchPolicy: 'no-cache',
-        errorPolicy: 'all'
-      }
-    }
+    connectToDevTools: false
   };
 }

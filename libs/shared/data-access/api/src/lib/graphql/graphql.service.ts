@@ -36,6 +36,14 @@ export class GraphQLService {
     });
   }
 
+  clearCache() {
+    this.apollo.getClient().clearStore();
+    this.apollo.getClient().cache.reset();
+
+    // reset store re-fetches active queries
+    // this.apollo.getClient().resetStore();
+  }
+
   /**
    * Utility function to remove the '__typename' property that apollo cache created
    * @param variables the query variables to cleanse
