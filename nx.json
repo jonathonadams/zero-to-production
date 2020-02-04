@@ -62,6 +62,9 @@
         "platform:mobile"
       ]
     },
+    "shared-data-access-router": {
+      "tags": ["scope:shared", "type:data-access", "platform:web"]
+    },
     "shared-users-data-access": {
       "tags": [
         "scope:shared",
@@ -70,13 +73,10 @@
         "platform:mobile"
       ]
     },
-    "common-ui-side-nav": {
-      "tags": []
+    "shared-users-profile": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
     },
-    "common-ui-custom-material": {
-      "tags": []
-    },
-    "common-ui-toolbar": {
+    "shared-dashboard": {
       "tags": []
     },
     "shared-utils-overlay": {
@@ -85,11 +85,25 @@
     "shared-utils-notifications": {
       "tags": []
     },
-
+    "shared-utils-service-worker": {
+      "tags": []
+    },
+    "shared-utils-dynamic-module-loading": {
+      "tags": []
+    },
+    "shared-utils-storage": {
+      "tags": []
+    },
     "common-theme": {
       "tags": []
     },
-    "shared-dashboard": {
+    "common-ui-side-nav": {
+      "tags": []
+    },
+    "common-ui-custom-material": {
+      "tags": []
+    },
+    "common-ui-toolbar": {
       "tags": []
     },
     "todos-feature-shell": {
@@ -110,25 +124,28 @@
     "common-ui-toolbar-menu": {
       "tags": []
     },
-    "shared-users-profile": {
-      "tags": []
-    },
-    "shared-data-access-router": {
-      "tags": []
-    },
     "common-dynamic-form": {
-      "tags": []
-    },
-    "shared-utils-service-worker": {
       "tags": []
     },
     "common-animations": {
       "tags": []
     },
-    "shared-utils-storage": {
+    "common-form-builder": {
       "tags": []
     },
-    "common-form-builder": {
+    "common-ui-card": {
+      "tags": []
+    },
+    "common-dynamic-form-material-components": {
+      "tags": []
+    },
+    "common-ui-auth": {
+      "tags": []
+    },
+    "common-ui-buttons": {
+      "tags": []
+    },
+    "examples-utils": {
       "tags": []
     },
     "examples-feature-shell": {
@@ -143,28 +160,10 @@
     "examples-theming": {
       "tags": []
     },
-    "common-ui-card": {
-      "tags": []
-    },
-    "common-dynamic-form-material-components": {
-      "tags": []
-    },
-    "common-ui-auth": {
-      "tags": []
-    },
-    "examples-utils": {
-      "tags": []
-    },
-    "shared-utils-dynamic-module-loading": {
-      "tags": []
-    },
     "examples-secure-todos": {
       "tags": []
     },
     "examples-lazy-load-scrolling": {
-      "tags": []
-    },
-    "common-ui-buttons": {
       "tags": []
     },
     "examples-live-demos": {
@@ -173,7 +172,6 @@
     "examples-dynamic-form": {
       "tags": []
     },
-
     "examples-make-it-your-own": {
       "tags": []
     }
