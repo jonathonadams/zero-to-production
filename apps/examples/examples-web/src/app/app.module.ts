@@ -30,7 +30,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'zero-to-production' }),
     BrowserAnimationsModule,
     StoreModule.forRoot<AppState>(appReducerMap, {
       runtimeChecks: {
