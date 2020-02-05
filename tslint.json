@@ -58,6 +58,59 @@
           {
             "sourceTag": "*",
             "onlyDependOnLibsWithTags": ["*"]
+          },
+          {
+            "sourceTag": "scope:shared",
+            "onlyDependOnLibsWithTags": ["scope:shared"]
+          },
+          {
+            "sourceTag": "scope:todos",
+            "onlyDependOnLibsWithTags": ["scope:todos", "scope:shared"]
+          },
+          {
+            "sourceTag": "scope:examples",
+            "onlyDependOnLibsWithTags": ["scope:examples", "scope:shared"]
+          },
+          {
+            "sourceTag": "type:feature",
+            "onlyDependOnLibsWithTags": [
+              "type:feature",
+              "type:data-access",
+              "type:ui",
+              "type:util"
+            ]
+          },
+          {
+            "sourceTag": "type:data-access",
+            "onlyDependOnLibsWithTags": [
+              "type:data",
+              "type:data-access",
+              "type:util"
+            ]
+          },
+          {
+            "sourceTag": "type:util",
+            "onlyDependOnLibsWithTags": ["type:data", "type:util"]
+          },
+          {
+            "sourceTag": "type:ui",
+            "onlyDependOnLibsWithTags": ["type:data", "type:util", "type:ui"]
+          },
+          {
+            "sourceTag": "type:data",
+            "onlyDependOnLibsWithTags": []
+          },
+          {
+            "sourceTag": "platform:server",
+            "onlyDependOnLibsWithTags": ["platform:server", "platform:shared"]
+          },
+          {
+            "sourceTag": "type:web",
+            "onlyDependOnLibsWithTags": ["platform:web", "platform:shared"]
+          },
+          {
+            "sourceTag": "type:mobile",
+            "onlyDependOnLibsWithTags": ["platform:mobile", "platform:shared"]
           }
         ],
         "enforceBuildableLibDependency": true
