@@ -1,5 +1,5 @@
-import { Injectable, OnDestroy, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 
 // Only want one instance of the theme service
@@ -15,7 +15,10 @@ export class ThemeService implements OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(@Inject(DOCUMENT) private document: Document) {
+  constructor(
+    @Inject(PLATFORM_ID) private platform: Object,
+    @Inject(DOCUMENT) private document: Document
+  ) {
     /**
      * listen to the changes of the theme service and add
      * the dark-theme to the body element so it sits above all elements
@@ -59,8 +62,10 @@ export class ThemeService implements OnDestroy {
   }
 
   loadAndApplyColors() {
-    const colors: any = localStorage.getItem(this.storageKey);
-    if (colors) this.applyColors(JSON.parse(colors));
+    if (isPlatformBrowser(this.platform)) {
+      const colors: any = localStorage.getItem(this.storageKey);
+      if (colors) this.applyColors(JSON.parse(colors));
+    }
   }
 
   setDarkThemeStatus(active: boolean): void {

@@ -1,4 +1,4 @@
-import { Injectable, InjectionToken, Inject } from '@angular/core';
+import { Injectable, InjectionToken, Inject, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 // @ts-ignore
 import jwtDecode from 'jwt-decode';
@@ -14,6 +14,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { secondsToExpiresAtMillis } from '../utils';
 import { AuthFacade } from '../+state/auth.facade';
+import { isPlatformBrowser } from '@angular/common';
 
 export const AUTH_SERVER_URL = new InjectionToken<string>(
   'forRoot() Auth Server Url'
@@ -25,6 +26,7 @@ export class AuthService {
   readonly sessionKey = 'expires_at';
 
   constructor(
+    @Inject(PLATFORM_ID) private platform: Object,
     @Inject(AUTH_SERVER_URL) private authServerUrl: string,
     private graphQL: GraphQLService,
     private facade: AuthFacade,
@@ -99,14 +101,16 @@ export class AuthService {
    * @memberof AuthService
    */
   public isLoggedIn(): void {
-    const expiration = this.expiration;
-    const auth = expiration ? this.isAuthenticated(expiration) : false;
+    if (isPlatformBrowser(this.platform)) {
+      const expiration = this.expiration;
+      const auth = expiration ? this.isAuthenticated(expiration) : false;
 
-    if (auth) {
-      this.facade.setAuthenticated(true, expiration);
-    } else {
-      this.removeSession();
-      this.facade.setAuthenticated(false, null);
+      if (auth) {
+        this.facade.setAuthenticated(true, expiration);
+      } else {
+        this.removeSession();
+        this.facade.setAuthenticated(false, null);
+      }
     }
   }
 
