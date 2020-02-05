@@ -1,5 +1,5 @@
 import { MATERIAL_COMPONENT_MAP } from '@uqt/common/dynamic-form-material-components';
-import { CustomUsernameComponent } from '@uqt/common/ui/auth';
+import { CustomUsernameComponent } from '@uqt/shared/auth/components';
 import { defaultErrorMessages } from '@uqt/common/dynamic-form';
 
 export const APP_COMPONENTS = {

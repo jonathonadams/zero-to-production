@@ -8,13 +8,16 @@ import { AppEffects } from './app.effects';
 import { NotificationService } from '@uqt/utils/notifications';
 import { Router } from '@angular/router';
 import { AuthActions } from '@uqt/shared/data-access/auth';
+import { GraphQLService } from '@uqt/shared/data-access/api';
 
 describe('AppEffects', () => {
   let effects: AppEffects;
   let actions$: Observable<any>;
   let router: Router;
   let ns: NotificationService;
+  let graphql: GraphQLService;
   const nsSpy = createSpyObj('NotificationService', ['emit']);
+  const graphQlSpy = createSpyObj('GraphQLService', ['clearCache']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -22,6 +25,7 @@ describe('AppEffects', () => {
         AppEffects,
         { provide: Router, useValue: { navigate: jest.fn() } },
         { provide: NotificationService, useValue: nsSpy },
+        { provide: GraphQLService, useValue: graphQlSpy },
         provideMockActions(() => actions$)
       ]
     });
@@ -30,6 +34,7 @@ describe('AppEffects', () => {
     actions$ = TestBed.inject<Actions>(Actions);
     router = TestBed.inject<Router>(Router);
     ns = TestBed.inject<NotificationService>(NotificationService);
+    graphql = TestBed.inject<GraphQLService>(GraphQLService);
   });
 
   describe('loginRedirect$', () => {
@@ -68,6 +73,20 @@ describe('AppEffects', () => {
   });
 
   describe('logoutRedirect$', () => {
+    it('should clear the GraphQL cache', () => {
+      const spy = jest.spyOn(graphql, 'clearCache');
+      spy.mockReset();
+      const action = AuthActions.logoutRedirect();
+
+      actions$ = hot('-a---', { a: action });
+
+      effects.logoutRedirect$.subscribe();
+
+      Scheduler.get().flush();
+
+      expect(spy).toHaveBeenCalled();
+    });
+
     it('should navigate to "/login"', () => {
       const spy = jest.spyOn(router, 'navigate');
       spy.mockReset();

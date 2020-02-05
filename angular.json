@@ -526,31 +526,31 @@
         }
       }
     },
-    "shared-data-access-auth": {
+    "shared-auth-data-access": {
       "projectType": "library",
-      "root": "libs/shared/data-access/auth",
-      "sourceRoot": "libs/shared/data-access/auth/src",
+      "root": "libs/shared/auth/data-access",
+      "sourceRoot": "libs/shared/auth/data-access/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/shared/data-access/auth/tsconfig.lib.json",
-              "libs/shared/data-access/auth/tsconfig.spec.json"
+              "libs/shared/auth/data-access/tsconfig.lib.json",
+              "libs/shared/auth/data-access/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/shared/data-access/auth/**"
+              "!libs/shared/auth/data-access/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/shared/data-access/auth/jest.config.js",
-            "tsConfig": "libs/shared/data-access/auth/tsconfig.spec.json",
-            "setupFile": "libs/shared/data-access/auth/src/test-setup.ts"
+            "jestConfig": "libs/shared/auth/data-access/jest.config.js",
+            "tsConfig": "libs/shared/auth/data-access/tsconfig.spec.json",
+            "setupFile": "libs/shared/auth/data-access/src/test-setup.ts"
           }
         }
       }
@@ -1374,28 +1374,28 @@
         }
       }
     },
-    "common-ui-auth": {
+    "shared-auth-components": {
       "projectType": "library",
-      "root": "libs/common/ui/auth",
-      "sourceRoot": "libs/common/ui/auth/src",
+      "root": "libs/shared/auth/components",
+      "sourceRoot": "libs/shared/auth/components/src",
       "prefix": "uqt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/common/ui/auth/tsconfig.lib.json",
-              "libs/common/ui/auth/tsconfig.spec.json"
+              "libs/shared/auth/components/tsconfig.lib.json",
+              "libs/shared/auth/components/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/ui/auth/**"]
+            "exclude": ["**/node_modules/**", "!libs/shared/auth/components/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/common/ui/auth/jest.config.js",
-            "tsConfig": "libs/common/ui/auth/tsconfig.spec.json",
-            "setupFile": "libs/common/ui/auth/src/test-setup.ts"
+            "jestConfig": "libs/shared/auth/components/jest.config.js",
+            "tsConfig": "libs/shared/auth/components/tsconfig.spec.json",
+            "setupFile": "libs/shared/auth/components/src/test-setup.ts"
           }
         }
       },

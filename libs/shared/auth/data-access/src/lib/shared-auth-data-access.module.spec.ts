@@ -1,14 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
-import { SharedDataAccessAuthModule } from './shared-data-access-auth.module';
+import { SharedAuthDataAccessModule } from './shared-auth-data-access.module';
 
 describe('DataAccessAuthModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedDataAccessAuthModule.forRoot()]
+      imports: [SharedAuthDataAccessModule.forRoot()]
     }).compileComponents();
   }));
 
   it('should create', () => {
-    expect(SharedDataAccessAuthModule).toBeDefined();
+    expect(SharedAuthDataAccessModule).toBeDefined();
   });
 });

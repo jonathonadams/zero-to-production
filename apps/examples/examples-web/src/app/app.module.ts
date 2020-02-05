@@ -12,7 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { SharedDataAccessApiModule } from '@uqt/shared/data-access/api';
 import {
-  SharedDataAccessAuthModule,
+  SharedAuthDataAccessModule,
   authProviderFactory,
   AuthService
 } from '@uqt/shared/data-access/auth';
@@ -45,7 +45,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       routerState: RouterState.Minimal
     }),
     SharedDataAccessApiModule.forRoot(environment),
-    SharedDataAccessAuthModule.forRoot({
+    SharedAuthDataAccessModule.forRoot({
       authServerUrl: environment.serverUrl
     }),
     SharedUsersDataAccessModule.forRoot(),

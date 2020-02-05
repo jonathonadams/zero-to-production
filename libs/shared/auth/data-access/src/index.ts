@@ -1,4 +1,4 @@
-export { SharedDataAccessAuthModule } from './lib/shared-data-access-auth.module';
+export { SharedAuthDataAccessModule } from './lib/shared-auth-data-access.module';
 export { AuthEffects } from './lib/+state/auth.effects';
 export { AuthGuard } from './lib/guards/auth.guard';
 export { LoggedInGuard } from './lib/guards/logged-in.guard';
@@ -11,5 +11,10 @@ export {
   IJWTPayload,
   IRegistrationDetails
 } from './lib/auth.interface';
+export {
+  passwordMatchValidator,
+  passwordValidator
+} from './lib/validators/auth.validators';
+export { UsernameAvailableValidator } from './lib/validators/username-available.validator';
 import * as AuthActions from './lib/+state/auth.actions';
 export { AuthActions };

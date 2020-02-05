@@ -7,7 +7,7 @@ import {
   LoginComponent,
   RegisterComponent,
   AuthComponent
-} from '@uqt/common/ui/auth';
+} from '@uqt/shared/auth/components';
 
 export const TODOS_ROUTES: Routes = [
   {

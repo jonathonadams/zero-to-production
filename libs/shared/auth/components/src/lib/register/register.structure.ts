@@ -6,8 +6,10 @@ import {
   TFormGroups,
   InputFieldTypes
 } from '@uqt/common/dynamic-form';
-import { UsernameAvailableValidator } from '../../validators/username-available.validator';
-import { passwordValidator } from '../../validators/auth.validators';
+import {
+  UsernameAvailableValidator,
+  passwordValidator
+} from '@uqt/shared/data-access/auth';
 
 const PASSWORD_GROUP: IFormGroup = {
   groupName: 'password',

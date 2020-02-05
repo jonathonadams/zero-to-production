@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthComponent } from './components/auth.component';
-import { LoginComponent } from './components/login/login.component';
-import { UiLoginComponent } from './components/login/ui/ui-login.component';
-import { UiRegisterComponent } from './components/register/ui/ui-register.component';
-import { CustomUsernameComponent } from './components/custom-username/custom-username.components';
-import { CustomUsernameInputComponent } from './components/custom-username/custom-username-input.component';
-import { RegisterComponent } from './components/register/register.component';
 import { RouterModule } from '@angular/router';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonDynamicFormModule } from '@uqt/common/dynamic-form';
+import { AuthComponent } from './auth.component';
+import { UiLoginComponent } from './ui/login/ui-login.component';
+import { UiRegisterComponent } from './ui/register/ui-register.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { CustomUsernameComponent } from './custom-username/custom-username.components';
+import { CustomUsernameInputComponent } from './custom-username/custom-username-input.component';
 
 const COMPONENTS = [
   AuthComponent,
@@ -33,4 +33,4 @@ const COMPONENTS = [
   ],
   exports: COMPONENTS
 })
-export class CommonUiAuthModule {}
+export class SharedAuthComponentsModule {}

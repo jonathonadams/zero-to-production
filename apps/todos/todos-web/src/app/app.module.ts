@@ -11,7 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { SharedDataAccessApiModule } from '@uqt/shared/data-access/api';
 import {
-  SharedDataAccessAuthModule,
+  SharedAuthDataAccessModule,
   authProviderFactory,
   AuthService
 } from '@uqt/shared/data-access/auth';
@@ -42,7 +42,7 @@ import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
       routerState: RouterState.Minimal
     }),
     SharedDataAccessApiModule.forRoot(environment),
-    SharedDataAccessAuthModule.forRoot({
+    SharedAuthDataAccessModule.forRoot({
       authServerUrl: environment.serverUrl
     }),
     SharedUsersDataAccessModule.forRoot(),

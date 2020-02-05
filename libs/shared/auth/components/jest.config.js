@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'common-ui-auth',
+  name: 'shared-auth-components',
   preset: '../../../../jest.config.js',
-  coverageDirectory: '../../../../coverage/libs/common/ui/auth',
+  coverageDirectory: '../../../../coverage/libs/shared/auth/components',
   snapshotSerializers: [
     'jest-preset-angular/AngularSnapshotSerializer.js',
     'jest-preset-angular/HTMLCommentSerializer.js'

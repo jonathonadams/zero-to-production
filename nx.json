@@ -55,13 +55,16 @@
         "platform:mobile"
       ]
     },
-    "shared-data-access-auth": {
+    "shared-auth-data-access": {
       "tags": [
         "scope:shared",
         "type:data-access",
         "platform:web",
         "platform:mobile"
       ]
+    },
+    "shared-auth-components": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
     },
     "shared-data-access-router": {
       "tags": ["scope:shared", "type:data-access", "platform:web"]
@@ -128,9 +131,7 @@
     "common-ui-card": {
       "tags": ["scope:shared", "type:ui", "platform:web"]
     },
-    "common-ui-auth": {
-      "tags": ["scope:shared", "type:ui", "platform:web"]
-    },
+
     "common-ui-buttons": {
       "tags": ["scope:shared", "type:ui", "platform:web"]
     },

@@ -17,14 +17,14 @@ import { ErrorInterceptor } from './interceptors/error-interceptor';
     EffectsModule.forFeature([AuthEffects])
   ]
 })
-export class RootSharedDataAccessAuthModule {}
+export class RootSharedAuthDataAccessModule {}
 
-export class SharedDataAccessAuthModule {
+export class SharedAuthDataAccessModule {
   static forRoot({ authServerUrl = '' } = {}): ModuleWithProviders<
-    SharedDataAccessAuthModule
+    SharedAuthDataAccessModule
   > {
     return {
-      ngModule: RootSharedDataAccessAuthModule,
+      ngModule: RootSharedAuthDataAccessModule,
       providers: [
         { provide: AUTH_SERVER_URL, useValue: authServerUrl },
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

@@ -5,10 +5,13 @@ import {
   OnDestroy
 } from '@angular/core';
 import { DynamicFormFacade } from '@uqt/common/dynamic-form';
-import { REGISTER_STRUCTURE } from './register.structure';
 import { Subscription } from 'rxjs';
-import { passwordMatchValidator } from '../../validators/auth.validators';
-import { AuthFacade, IRegistrationDetails } from '@uqt/shared/data-access/auth';
+import {
+  AuthFacade,
+  IRegistrationDetails,
+  passwordMatchValidator
+} from '@uqt/shared/data-access/auth';
+import { REGISTER_STRUCTURE } from './register.structure';
 
 interface IRegistrationFormStructure {
   details: {

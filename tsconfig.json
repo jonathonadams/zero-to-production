@@ -14,7 +14,7 @@
         "libs/shared/data-access/api/src/index.ts"
       ],
       "@uqt/shared/data-access/auth": [
-        "libs/shared/data-access/auth/src/index.ts"
+        "libs/shared/auth/data-access/src/index.ts"
       ],
       "@uqt/shared/users/data-access": [
         "libs/shared/users/data-access/src/index.ts"
@@ -57,7 +57,9 @@
       "@uqt/common/dynamic-form-material-components": [
         "libs/common/dynamic-form-material-components/src/index.ts"
       ],
-      "@uqt/common/ui/auth": ["libs/common/ui/auth/src/index.ts"],
+      "@uqt/shared/auth/components": [
+        "libs/shared/auth/components/src/index.ts"
+      ],
 
       "@uqt/examples/utils": ["libs/examples/utils/src/index.ts"],
       "@uqt/shared/utils/dynamic-module-loading": [
