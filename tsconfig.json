@@ -35,7 +35,7 @@
       "@uqt/todos/todo-detail": ["libs/todos/todo-detail/src/index.ts"],
       "@uqt/todos/all-todos": ["libs/todos/all-todos/src/index.ts"],
       "@uqt/common/ui/layouts": ["libs/common/ui/layouts/src/index.ts"],
-      "@uqt/shared/toolbar-menu": ["libs/common/ui/toolbar-menu/src/index.ts"],
+      "@uqt/shared/toolbar-menu": ["libs/common/toolbar-menu/src/index.ts"],
 
       "@uqt/shared/users/profile": ["libs/shared/users/profile/src/index.ts"],
       "@uqt/shared/data-access/router": [

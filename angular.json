@@ -939,28 +939,28 @@
         }
       }
     },
-    "common-ui-toolbar-menu": {
+    "common-toolbar-menu": {
       "projectType": "library",
-      "root": "libs/common/ui/toolbar-menu",
-      "sourceRoot": "libs/common/ui/toolbar-menu/src",
+      "root": "libs/common/toolbar-menu",
+      "sourceRoot": "libs/common/toolbar-menu/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/common/ui/toolbar-menu/tsconfig.lib.json",
-              "libs/common/ui/toolbar-menu/tsconfig.spec.json"
+              "libs/common/toolbar-menu/tsconfig.lib.json",
+              "libs/common/toolbar-menu/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/ui/toolbar-menu/**"]
+            "exclude": ["**/node_modules/**", "!libs/common/toolbar-menu/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/common/ui/toolbar-menu/jest.config.js",
-            "tsConfig": "libs/common/ui/toolbar-menu/tsconfig.spec.json",
-            "setupFile": "libs/common/ui/toolbar-menu/src/test-setup.ts"
+            "jestConfig": "libs/common/toolbar-menu/jest.config.js",
+            "tsConfig": "libs/common/toolbar-menu/tsconfig.spec.json",
+            "setupFile": "libs/common/toolbar-menu/src/test-setup.ts"
           }
         }
       },

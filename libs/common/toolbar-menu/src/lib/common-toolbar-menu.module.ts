@@ -23,4 +23,4 @@ import { UiDropDownMenuComponent } from './components/ui/ui-drop-down-menu.compo
   ],
   exports: [ToolbarMenuIconComponent]
 })
-export class CommonUiToolbarMenuModule {}
+export class CommonToolbarMenuModule {}

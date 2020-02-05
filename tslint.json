@@ -74,6 +74,7 @@
           {
             "sourceTag": "type:feature",
             "onlyDependOnLibsWithTags": [
+              "type:data",
               "type:feature",
               "type:data-access",
               "type:ui",
@@ -105,11 +106,11 @@
             "onlyDependOnLibsWithTags": ["platform:server", "platform:shared"]
           },
           {
-            "sourceTag": "type:web",
+            "sourceTag": "platform:web",
             "onlyDependOnLibsWithTags": ["platform:web", "platform:shared"]
           },
           {
-            "sourceTag": "type:mobile",
+            "sourceTag": "platform:mobile",
             "onlyDependOnLibsWithTags": ["platform:mobile", "platform:shared"]
           }
         ],

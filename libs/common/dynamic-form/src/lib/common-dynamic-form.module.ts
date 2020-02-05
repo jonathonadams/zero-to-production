@@ -1,8 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { DynamicFormComponent } from './form/form.component';
@@ -20,7 +19,7 @@ import {
 import * as fromDynamicForm from './+state/dynamic-form.reducer';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, CustomMaterialModule],
   declarations: [DynamicFormComponent, DynamicFormFieldDirective],
   exports: [DynamicFormComponent]
 })

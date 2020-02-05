@@ -4,6 +4,7 @@
     "angular.json": "*",
     "package.json": "*",
     "tsconfig.json": "*",
+    "tsconfig.base.json": "*",
     "tslint.json": "*",
     "nx.json": "*"
   },
@@ -98,16 +99,19 @@
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
     "common-dynamic-form": {
-      "tags": ["scope:shared", "type:data-access", "platform:web"]
-    },
-    "common-dynamic-form-material-components": {
-      "tags": ["scope:shared", "type:ui", "platform:web"]
+      "tags": ["scope:shared", "type:feature", "platform:web"]
     },
     "common-form-builder": {
-      "tags": ["scope:shared", "type:data-access", "platform:web"]
+      "tags": ["scope:shared", "type:feature", "platform:web"]
+    },
+    "common-dynamic-form-material-components": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
     },
     "common-theme": {
       "tags": ["scope:shared", "type:util", "platform:web"]
+    },
+    "common-toolbar-menu": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
     },
     "common-ui-side-nav": {
       "tags": ["scope:shared", "type:ui", "platform:web"]
@@ -119,9 +123,6 @@
       "tags": ["scope:shared", "type:ui", "platform:web"]
     },
     "common-ui-layouts": {
-      "tags": ["scope:shared", "type:ui", "platform:web"]
-    },
-    "common-ui-toolbar-menu": {
       "tags": ["scope:shared", "type:ui", "platform:web"]
     },
     "common-ui-card": {
@@ -173,7 +174,7 @@
       "tags": ["scope:examples", "type:feature", "platform:web"]
     },
     "examples-utils": {
-      "tags": ["scope:examples", "type:utils", "platform:web"]
+      "tags": ["scope:examples", "type:util", "platform:web"]
     }
   }
 }

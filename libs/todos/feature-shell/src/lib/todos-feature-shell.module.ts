@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TodosDataAccessModule } from '@uqt/todos/data-access';
 import { AllTodosModule } from '@uqt/todos/all-todos';
 import { TodosDetailModule } from '@uqt/todos/todo-detail';
-import { CommonUiToolbarMenuModule } from '@uqt/shared/toolbar-menu';
+import { CommonToolbarMenuModule } from '@uqt/shared/toolbar-menu';
 import { CommonUiToolbarModule } from '@uqt/common/ui/toolbar';
 import { CommonUiSideNavModule } from '@uqt/common/ui/side-nav';
 import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
@@ -22,7 +22,7 @@ import { CommonUiAuthModule } from '@uqt/common/ui/auth';
     CommonUiSideNavModule,
     CommonUiToolbarModule,
     TodosFeatureShellRoutingModule,
-    CommonUiToolbarMenuModule,
+    CommonToolbarMenuModule,
     CommonUiLayoutsModule,
     CommonUiAuthModule
   ]
