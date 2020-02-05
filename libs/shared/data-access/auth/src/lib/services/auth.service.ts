@@ -29,10 +29,7 @@ export class AuthService {
     private graphQL: GraphQLService,
     private facade: AuthFacade,
     private http: HttpClient
-  ) {
-    // On create (page refresh/load), update the redux store
-    this.isLoggedIn();
-  }
+  ) {}
 
   // Login function that returns a user and JWT
   // This is a graphql login function
@@ -133,4 +130,8 @@ export class AuthService {
       Accept: 'application/json'
     };
   }
+}
+
+export function authProviderFactory(service: AuthService) {
+  return () => service.isLoggedIn();
 }

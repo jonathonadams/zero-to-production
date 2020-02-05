@@ -68,8 +68,7 @@
             "tsConfig": "apps/todos/todos-web/tsconfig.app.json",
             "assets": [
               "apps/todos/todos-web/src/favicon.ico",
-              "apps/todos/todos-web/src/assets",
-              "apps/todos/todos-web/src/manifest.webmanifest"
+              "apps/todos/todos-web/src/assets"
             ],
             "styles": ["apps/todos/todos-web/src/styles.scss"],
             "scripts": [],
@@ -102,9 +101,7 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ],
-              "serviceWorker": true,
-              "ngswConfigPath": "apps/todos/todos-web/ngsw-config.json"
+              ]
             }
           }
         },

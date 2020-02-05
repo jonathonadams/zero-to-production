@@ -11,7 +11,11 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { SharedDataAccessApiModule } from '@uqt/shared/data-access/api';
-import { SharedDataAccessAuthModule } from '@uqt/shared/data-access/auth';
+import {
+  SharedDataAccessAuthModule,
+  authProviderFactory,
+  AuthService
+} from '@uqt/shared/data-access/auth';
 import { SharedUsersDataAccessModule } from '@uqt/shared/users/data-access';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { AppEffects } from './+state/app.effects';
@@ -62,6 +66,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       useFactory: themeProviderFactory,
       multi: true,
       deps: [ThemeService]
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: authProviderFactory,
+      multi: true,
+      deps: [AuthService]
     }
   ],
   bootstrap: [AppComponent]
