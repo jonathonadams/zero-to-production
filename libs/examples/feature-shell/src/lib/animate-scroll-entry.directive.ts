@@ -1,4 +1,11 @@
-import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  Inject,
+  PLATFORM_ID
+} from '@angular/core';
 import { ScrollDispatcher } from '@angular/cdk/overlay';
 import {
   AnimationPlayer,
@@ -9,6 +16,7 @@ import {
   keyframes
 } from '@angular/animations';
 import { Subscription } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 export enum ElementViewportPosition {
   Above = 'Above',
@@ -27,15 +35,17 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
   private sub: Subscription;
 
   constructor(
+    @Inject(PLATFORM_ID) private platform: Object,
     private el: ElementRef,
     private builder: AnimationBuilder,
     private scrollDispatcher: ScrollDispatcher
   ) {}
 
   ngOnInit() {
-    this.checkCurrentPosition();
-
-    this.registerScrollDispatcher();
+    if (isPlatformBrowser(this.platform)) {
+      this.checkCurrentPosition();
+      this.registerScrollDispatcher();
+    }
   }
 
   private checkCurrentPosition() {
@@ -44,7 +54,6 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
       this.el
     );
 
-    // console.log(scrollAncestor);
     if (scrollAncestor) {
       const elRef = scrollAncestor.getElementRef().nativeElement as HTMLElement;
 
