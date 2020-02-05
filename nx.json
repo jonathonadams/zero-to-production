@@ -106,18 +106,6 @@
     "common-ui-toolbar": {
       "tags": []
     },
-    "todos-feature-shell": {
-      "tags": []
-    },
-    "todos-data-access": {
-      "tags": []
-    },
-    "todos-todo-detail": {
-      "tags": []
-    },
-    "todos-all-todos": {
-      "tags": []
-    },
     "common-ui-layouts": {
       "tags": []
     },
@@ -143,6 +131,18 @@
       "tags": []
     },
     "common-ui-buttons": {
+      "tags": []
+    },
+    "todos-feature-shell": {
+      "tags": []
+    },
+    "todos-data-access": {
+      "tags": []
+    },
+    "todos-todo-detail": {
+      "tags": []
+    },
+    "todos-all-todos": {
       "tags": []
     },
     "examples-utils": {
