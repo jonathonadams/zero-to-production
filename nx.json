@@ -4,158 +4,178 @@
     "angular.json": "*",
     "package.json": "*",
     "tsconfig.json": "*",
+    "tsconfig.base.json": "*",
     "tslint.json": "*",
     "nx.json": "*"
   },
   "projects": {
-    "web-todos-e2e": {
-      "tags": [],
-      "implicitDependencies": ["web-todos"]
+    "server-api": {
+      "tags": ["scope:shared", "type:app", "platform:server"]
     },
-    "web-todos": {
-      "tags": ["scope:web", "type:app"]
+    "todos-web": {
+      "tags": ["scope:todos", "type:app", "platform:web"]
     },
-    "web-common-ui-side-nav": {
-      "tags": []
+    "todos-web-e2e": {
+      "tags": ["scope:todos", "type:app", "platform:web"],
+      "implicitDependencies": ["todos-web"]
     },
-    "web-data-access-api": {
-      "tags": []
+    "examples-web": {
+      "tags": ["scope:examples", "type:app", "platform:web"]
     },
-    "web-data-access-auth": {
-      "tags": []
-    },
-    "web-common-ui-custom-material": {
-      "tags": []
-    },
-    "web-common-ui-toolbar": {
-      "tags": []
-    },
-    "web-utils-overlay": {
-      "tags": []
-    },
-    "web-utils-notifications": {
-      "tags": []
-    },
-    "web-data-access-users": {
-      "tags": []
-    },
-    "web-common-theme": {
-      "tags": []
-    },
-    "web-shared-dashboard": {
-      "tags": []
-    },
-    "web-todos-feature-shell": {
-      "tags": []
-    },
-    "web-todos-data-access": {
-      "tags": []
-    },
-    "web-todos-todo-detail": {
-      "tags": []
-    },
-    "web-todos-all-todos": {
-      "tags": []
-    },
-    "web-common-ui-layouts": {
-      "tags": []
-    },
-    "web-shared-floating-menu": {
-      "tags": []
-    },
-    "backend-api": {
-      "tags": []
-    },
-    "backend-auth": {
-      "tags": []
-    },
-    "web-shared-profile": {
-      "tags": []
-    },
-    "web-data-access-router": {
-      "tags": []
-    },
-    "web-data-access-dynamic-form": {
-      "tags": []
-    },
-    "web-data-access-service-worker": {
-      "tags": []
-    },
-    "backend-config": {
-      "tags": []
-    },
-    "backend-utils": {
-      "tags": []
-    },
-    "web-common-animations": {
-      "tags": []
-    },
-    "web-utils-storage": {
-      "tags": []
-    },
-    "web-data-access-form-builder": {
-      "tags": []
-    },
-    "web-examples-feature-shell": {
-      "tags": []
-    },
-    "web-examples-e2e": {
-      "tags": [],
-      "implicitDependencies": ["web-examples"]
-    },
-    "web-examples": {
-      "tags": []
-    },
-    "web-examples-data-access": {
-      "tags": []
-    },
-    "web-examples-form-builder": {
-      "tags": []
-    },
-    "web-examples-theming": {
-      "tags": []
-    },
-    "web-common-ui-card": {
-      "tags": []
-    },
-    "web-common-dynamic-form-material-components": {
-      "tags": []
-    },
-    "web-common-ui-auth": {
-      "tags": []
-    },
-    "backend-core-data": {
-      "tags": []
-    },
-    "web-examples-code-highlight": {
-      "tags": []
-    },
-    "web-data-access-dynamic-module-loading": {
-      "tags": []
-    },
-    "web-examples-secure-todos": {
-      "tags": []
-    },
-    "web-examples-lazy-load-scrolling": {
-      "tags": []
-    },
-    "web-common-ui-buttons": {
-      "tags": []
-    },
-    "web-examples-live-demos": {
-      "tags": []
-    },
-    "web-examples-dynamic-form": {
-      "tags": []
+    "examples-web-e2e": {
+      "tags": ["scope:examples", "type:app", "platform:web"],
+      "implicitDependencies": ["examples-web"]
     },
     "testing": {
-      "tags": []
+      "tags": ["scope:shared", "type:util", "platform:shared"]
     },
     "data": {
-      "tags": []
+      "tags": ["scope:shared", "type:data", "platform:shared"]
     },
-    "backend-database": {
-      "tags": []
+    "server-auth": {
+      "tags": ["scope:shared", "type:feature", "platform:server"]
+    },
+    "server-middleware": {
+      "tags": ["scope:shared", "type:util", "platform:server"]
+    },
+    "server-core-data": {
+      "tags": ["scope:shared", "type:data-access", "platform:server"]
+    },
+    "server-utils": {
+      "tags": ["scope:shared", "type:util", "platform:server"]
+    },
+    "server-database": {
+      "tags": ["scope:shared", "type:data-access", "platform:server"]
+    },
+    "shared-data-access-api": {
+      "tags": [
+        "scope:shared",
+        "type:data-access",
+        "platform:web",
+        "platform:mobile"
+      ]
+    },
+    "shared-auth-data-access": {
+      "tags": [
+        "scope:shared",
+        "type:data-access",
+        "platform:web",
+        "platform:mobile"
+      ]
+    },
+    "shared-auth-components": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
+    },
+    "shared-data-access-router": {
+      "tags": ["scope:shared", "type:data-access", "platform:web"]
+    },
+    "shared-users-data-access": {
+      "tags": [
+        "scope:shared",
+        "type:data-access",
+        "platform:web",
+        "platform:mobile"
+      ]
+    },
+    "shared-users-profile": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
+    },
+    "shared-dashboard": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
+    },
+    "shared-utils-overlay": {
+      "tags": ["scope:shared", "type:util", "platform:web"]
+    },
+    "shared-utils-notifications": {
+      "tags": ["scope:shared", "type:util", "platform:web"]
+    },
+    "shared-utils-service-worker": {
+      "tags": ["scope:shared", "type:util", "platform:web"]
+    },
+    "shared-utils-dynamic-module-loading": {
+      "tags": ["scope:shared", "type:util", "platform:web"]
+    },
+    "shared-utils-storage": {
+      "tags": ["scope:shared", "type:util", "platform:web"]
+    },
+    "common-animations": {
+      "tags": ["scope:shared", "type:util", "platform:web"]
+    },
+    "common-dynamic-form": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
+    },
+    "common-form-builder": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
+    },
+    "common-dynamic-form-material-components": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
+    },
+    "common-theme": {
+      "tags": ["scope:shared", "type:util", "platform:web"]
+    },
+    "common-toolbar-menu": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
+    },
+    "common-ui-side-nav": {
+      "tags": ["scope:shared", "type:ui", "platform:web"]
+    },
+    "common-ui-custom-material": {
+      "tags": ["scope:shared", "type:ui", "platform:web"]
+    },
+    "common-ui-toolbar": {
+      "tags": ["scope:shared", "type:ui", "platform:web"]
+    },
+    "common-ui-layouts": {
+      "tags": ["scope:shared", "type:ui", "platform:web"]
+    },
+    "common-ui-card": {
+      "tags": ["scope:shared", "type:ui", "platform:web"]
+    },
+
+    "common-ui-buttons": {
+      "tags": ["scope:shared", "type:ui", "platform:web"]
+    },
+    "todos-feature-shell": {
+      "tags": ["scope:todos", "type:feature", "platform:web"]
+    },
+    "todos-data-access": {
+      "tags": ["scope:todos", "type:data-access", "platform:web"]
+    },
+    "todos-todo-detail": {
+      "tags": ["scope:todos", "type:feature", "platform:web"]
+    },
+    "todos-all-todos": {
+      "tags": ["scope:todos", "type:feature", "platform:web"]
+    },
+    "examples-feature-shell": {
+      "tags": ["scope:examples", "type:feature", "platform:web"]
+    },
+    "examples-live-demos": {
+      "tags": ["scope:examples", "type:feature", "platform:web"]
+    },
+    "examples-data-access": {
+      "tags": ["scope:examples", "type:data-access", "platform:web"]
+    },
+    "examples-form-builder": {
+      "tags": ["scope:examples", "type:feature", "platform:web"]
+    },
+    "examples-theming": {
+      "tags": ["scope:examples", "type:feature", "platform:web"]
+    },
+    "examples-secure-todos": {
+      "tags": ["scope:examples", "type:feature", "platform:web"]
+    },
+    "examples-lazy-load-scrolling": {
+      "tags": ["scope:examples", "type:feature", "platform:web"]
+    },
+    "examples-dynamic-form": {
+      "tags": ["scope:examples", "type:feature", "platform:web"]
+    },
+    "examples-make-it-your-own": {
+      "tags": ["scope:examples", "type:feature", "platform:web"]
+    },
+    "examples-utils": {
+      "tags": ["scope:examples", "type:util", "platform:web"]
     }
   }
 }

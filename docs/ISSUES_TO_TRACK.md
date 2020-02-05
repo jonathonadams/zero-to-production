@@ -1,7 +1,3 @@
-# Issues to track / tidy up before release.
-
-- Mongo DB - Sanitization [Warning](https://github.com/mongodb-js/mongodb-core/issues/453)
-
 ## Jest & ES6 Modules
 
 Currently Jest does not support es6 Modules, so modules can not be used in testing
@@ -32,6 +28,10 @@ https://github.com/angular/angular/issues/13011
 ## Nativescript does not currently support the monorepo design
 
 https://github.com/NativeScript/NativeScript/issues/7537
+
+## Configure Form Builder to scroll screens if out of view
+
+https://github.com/angular/components/issues/13588
 
 ## Remove typing once merged
 

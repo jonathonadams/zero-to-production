@@ -1,0 +1,55 @@
+// Normalize css
+@import '~normalize.css';
+// Muli font
+@import url('https://fonts.googleapis.com/css?family=Muli:400,500&display=swap');
+
+// Angular Material Themeing Mixins
+@import '~@angular/material/theming';
+
+// Themes for Prism.js syntax highlighting
+@import '~prismjs/themes/prism.css';
+// @import '~prismjs/themes/prism-tomorrow.css';
+
+// import the theming file
+@import 'libs/common/theme/styles/theme.scss';
+@import 'libs/common/theme/styles/material-theme.scss';
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+@include angular-material-theme($app-theme);
+
+.dark-theme {
+  @include angular-material-theme($dark-theme);
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body,
+examples-root {
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+body {
+  font-family: Muli, 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  font-size: 1em;
+  line-height: 1.3rem;
+}
+
+// ------------------------------------------------
+// Insert additional styles here
+// ------------------------------------------------
+
+.uqt-dynamic-form {
+  .uqt-navigation-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

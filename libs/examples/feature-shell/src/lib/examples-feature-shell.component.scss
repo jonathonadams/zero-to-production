@@ -1,0 +1,22 @@
+:host {
+  height: 100%;
+  display: block;
+}
+
+.app-content {
+  display: block;
+  height: calc(100% - 3.5em);
+  @media screen and (min-width: 600px) {
+    height: calc(100% - 4em);
+  }
+}
+
+.header {
+  .logo {
+    cursor: pointer;
+    height: 2.5em;
+    > * {
+      height: 100%;
+    }
+  }
+}

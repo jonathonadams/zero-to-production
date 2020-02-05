@@ -11,4 +11,3 @@
 !docker/nginx.conf
 !apps/
 !libs/
-!dist/apps/

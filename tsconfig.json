@@ -2,79 +2,80 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "@uqt/testing/frontend": ["libs/testing/src/frontend.ts"],
-      "@uqt/testing/backend": ["libs/testing/src/backend.ts"],
-      "@uqt/data": ["libs/data/src/index.ts"],
-      "@uqt/common/ui/side-nav": ["libs/web/common/ui/side-nav/src/index.ts"],
-      "@uqt/data-access/api": ["libs/web/data-access/api/src/index.ts"],
-      "@uqt/data-access/auth": ["libs/web/data-access/auth/src/index.ts"],
+      "@uqt/tests/client": ["libs/tests/src/client.ts"],
+      "@uqt/tests/server": ["libs/tests/src/server.ts"],
+      "@uqt/data": ["libs/data/src/index.d.ts"],
+      "@uqt/server/auth": ["libs/server/auth/src/index.ts"],
+      "@uqt/server/config": ["libs/server/middleware/src/index.ts"],
+      "@uqt/server/core-data": ["libs/server/core-data/src/index.ts"],
+      "@uqt/server/utils": ["libs/server/utils/src/index.ts"],
+      "@uqt/server/database": ["libs/server/database/src/index.ts"],
+      "@uqt/shared/data-access/api": [
+        "libs/shared/data-access/api/src/index.ts"
+      ],
+      "@uqt/shared/data-access/auth": [
+        "libs/shared/auth/data-access/src/index.ts"
+      ],
+      "@uqt/shared/users/data-access": [
+        "libs/shared/users/data-access/src/index.ts"
+      ],
+      "@uqt/common/ui/side-nav": ["libs/common/ui/side-nav/src/index.ts"],
       "@uqt/common/ui/custom-material": [
-        "libs/web/common/ui/custom-material/src/index.ts"
+        "libs/common/ui/custom-material/src/index.ts"
       ],
-      "@uqt/common/ui/toolbar": ["libs/web/common/ui/toolbar/src/index.ts"],
-      "@uqt/utils/overlay": ["libs/web/utils/overlay/src/index.ts"],
-      "@uqt/utils/notifications": ["libs/web/utils/notifications/src/index.ts"],
-      "@uqt/data-access/users": ["libs/web/data-access/users/src/index.ts"],
-      "@uqt/common/theme": ["libs/web/common/theme/src/index.ts"],
-      "@uqt/dashboard": ["libs/web/shared/dashboard/src/index.ts"],
-      "@uqt/todos/feature-shell": ["libs/web/todos/feature-shell/src/index.ts"],
-      "@uqt/todos/data-access": ["libs/web/todos/data-access/src/index.ts"],
-      "@uqt/todos/todo-detail": ["libs/web/todos/todo-detail/src/index.ts"],
-      "@uqt/todos/all-todos": ["libs/web/todos/all-todos/src/index.ts"],
-      "@uqt/common/ui/layouts": ["libs/web/common/ui/layouts/src/index.ts"],
-      "@uqt/shared/floating-menu": [
-        "libs/web/shared/floating-menu/src/index.ts"
+      "@uqt/common/ui/toolbar": ["libs/common/ui/toolbar/src/index.ts"],
+      "@uqt/utils/overlay": ["libs/shared/utils/overlay/src/index.ts"],
+      "@uqt/utils/notifications": [
+        "libs/shared/utils/notifications/src/index.ts"
       ],
-      "@uqt/backend/auth": ["libs/backend/auth/src/index.ts"],
-      "@uqt/shared/profile": ["libs/web/shared/profile/src/index.ts"],
-      "@uqt/data-access/router": ["libs/web/data-access/router/src/index.ts"],
-      "@uqt/data-access/dynamic-form": [
-        "libs/web/data-access/dynamic-form/src/index.ts"
+      "@uqt/common/theme": ["libs/common/theme/src/index.ts"],
+      "@uqt/shared/dashboard": ["libs/shared/dashboard/src/index.ts"],
+      "@uqt/todos/feature-shell": ["libs/todos/feature-shell/src/index.ts"],
+      "@uqt/todos/data-access": ["libs/todos/data-access/src/index.ts"],
+      "@uqt/todos/todo-detail": ["libs/todos/todo-detail/src/index.ts"],
+      "@uqt/todos/all-todos": ["libs/todos/all-todos/src/index.ts"],
+      "@uqt/common/ui/layouts": ["libs/common/ui/layouts/src/index.ts"],
+      "@uqt/shared/toolbar-menu": ["libs/common/toolbar-menu/src/index.ts"],
+
+      "@uqt/shared/users/profile": ["libs/shared/users/profile/src/index.ts"],
+      "@uqt/shared/data-access/router": [
+        "libs/shared/data-access/router/src/index.ts"
       ],
-      "@uqt/data-access/service-worker": [
-        "libs/web/data-access/service-worker/src/index.ts"
+      "@uqt/common/dynamic-form": ["libs/common/dynamic-form/src/index.ts"],
+      "@uqt/shared/utils/service-worker": [
+        "libs/shared/utils/service-worker/src/index.ts"
       ],
-      "@uqt/backend/config": ["libs/backend/config/src/index.ts"],
-      "@uqt/backend/utils": ["libs/backend/utils/src/index.ts"],
-      "@uqt/common/animations": ["libs/web/common/animations/src/index.ts"],
-      "@uqt/utils/storage": ["libs/web/utils/storage/src/index.ts"],
-      "@uqt/data-access/form-builder": [
-        "libs/web/data-access/form-builder/src/index.ts"
-      ],
-      "@uqt/examples": ["libs/web/examples/feature-shell/src/index.ts"],
-      "@uqt/examples/data-access": [
-        "libs/web/examples/data-access/src/index.ts"
-      ],
-      "@uqt/examples/form-builder": [
-        "libs/web/examples/form-builder/src/index.ts"
-      ],
-      "@uqt/examples/theming": ["libs/web/examples/theming/src/index.ts"],
-      "@uqt/web/common/ui/card": ["libs/web/common/ui/card/src/index.ts"],
+
+      "@uqt/common/animations": ["libs/common/animations/src/index.ts"],
+      "@uqt/shared/utils/storage": ["libs/shared/utils/storage/src/index.ts"],
+      "@uqt/common/form-builder": ["libs/common/form-builder/src/index.ts"],
+      "@uqt/examples": ["libs/examples/feature-shell/src/index.ts"],
+      "@uqt/examples/data-access": ["libs/examples/data-access/src/index.ts"],
+      "@uqt/examples/form-builder": ["libs/examples/form-builder/src/index.ts"],
+      "@uqt/examples/theming": ["libs/examples/theming/src/index.ts"],
+      "@uqt/common/ui/card": ["libs/common/ui/card/src/index.ts"],
       "@uqt/common/dynamic-form-material-components": [
-        "libs/web/common/dynamic-form-material-components/src/index.ts"
+        "libs/common/dynamic-form-material-components/src/index.ts"
       ],
-      "@uqt/web/common/ui/auth": ["libs/web/common/ui/auth/src/index.ts"],
-      "@uqt/backend/core-data": ["libs/backend/core-data/src/index.ts"],
-      "@uqt/web/examples/code-highlight": [
-        "libs/web/examples/code-highlight/src/index.ts"
+      "@uqt/shared/auth/components": [
+        "libs/shared/auth/components/src/index.ts"
       ],
-      "@uqt/data-access/dynamic-module-loading": [
-        "libs/web/data-access/dynamic-module-loading/src/index.ts"
+
+      "@uqt/examples/utils": ["libs/examples/utils/src/index.ts"],
+      "@uqt/shared/utils/dynamic-module-loading": [
+        "libs/shared/utils/dynamic-module-loading/src/index.ts"
       ],
-      "@uqt/web/examples/secure-todos": [
-        "libs/web/examples/secure-todos/src/index.ts"
+      "@uqt/examples/secure-todos": ["libs/examples/secure-todos/src/index.ts"],
+      "@uqt/examples/lazy-load-scrolling": [
+        "libs/examples/lazy-load-scrolling/src/index.ts"
       ],
-      "@uqt/web/examples/lazy-load-scrolling": [
-        "libs/web/examples/lazy-load-scrolling/src/index.ts"
-      ],
-      "@uqt/web/common/ui/buttons": ["libs/web/common/ui/buttons/src/index.ts"],
-      "@uqt/web/examples/live-demos": [
-        "libs/web/examples/live-demos/src/index.ts"
-      ],
-      "@uqt/web/examples/dynamic-form": [
-        "libs/web/examples/dynamic-form/src/index.ts"
-      ],
-      "@uqt/backend/database": ["libs/backend/database/src/index.ts"]
+      "@uqt/common/ui/buttons": ["libs/common/ui/buttons/src/index.ts"],
+      "@uqt/examples/live-demos": ["libs/examples/live-demos/src/index.ts"],
+      "@uqt/examples/dynamic-form": ["libs/examples/dynamic-form/src/index.ts"],
+
+      "@uqt/examples/make-it-your-own": [
+        "libs/examples/make-it-your-own/src/index.ts"
+      ]
     }
   }
 }
