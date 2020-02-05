@@ -183,7 +183,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/examples-web/browser",
+            "outputPath": "dist/examples/examples-web/browser",
             "index": "apps/examples/examples-web/src/index.html",
             "main": "apps/examples/examples-web/src/main.ts",
             "polyfills": "apps/examples/examples-web/src/polyfills.ts",
@@ -268,7 +268,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/examples-web/server",
+            "outputPath": "dist/examples/examples-web/server",
             "main": "apps/examples/examples-web/server.ts",
             "tsConfig": "apps/examples/examples-web/tsconfig.server.json"
           },
