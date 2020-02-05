@@ -1,12 +1,12 @@
 # Test and Build with Docker
 
-## Building API Server
+## Building Server Projects
 
-Note: You do not need to build your API server first, the Dockerfile will compile the project from the source files.
+Note: You do not need to build your server first, the Dockerfile will compile the project from the source files.
 
-The following command will build your backend project. Replace the `<image-name` and `<project-directory>` to you desired inputs
+The following command will build your server project. Replace the `<image-name` and `<project-directory>` to you desired inputs. Note the project directory is relative to the `apps/` directory so if you project is `apps/server/api` then the `PROJECT_DIRECTORY` is `server/api`. Then entry file points to `main.js` in the root directory.
 
-1. `docker build -t <image-name> -f docker/api.Dockerfile --build-arg PROJECT_DIRECTORY=apps/<project-directory> .`
+1. `docker build -t <image-name> -f docker/server.Dockerfile --build-arg PROJECT_DIRECTORY=<project-directory> .`
 
 ## Test Production Angular Application
 

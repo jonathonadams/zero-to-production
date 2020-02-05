@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const ALL_TODO_PROPERTIES = gql`
+export const ALL_TODO_FIELDS = gql`
   fragment allTodoProperties on Todo {
     id
     title
@@ -15,7 +15,7 @@ export const ALL_TODOS_QUERY = gql`
       ...allTodoProperties
     }
   }
-  ${ALL_TODO_PROPERTIES}
+  ${ALL_TODO_FIELDS}
 `;
 
 export const LOAD_TODO_QUERY = gql`
@@ -24,7 +24,7 @@ export const LOAD_TODO_QUERY = gql`
       ...allTodoProperties
     }
   }
-  ${ALL_TODO_PROPERTIES}
+  ${ALL_TODO_FIELDS}
 `;
 
 export const CREATE_TODO_QUERY = gql`
@@ -33,7 +33,7 @@ export const CREATE_TODO_QUERY = gql`
       ...allTodoProperties
     }
   }
-  ${ALL_TODO_PROPERTIES}
+  ${ALL_TODO_FIELDS}
 `;
 
 export const UPDATE_TODO_QUERY = gql`
@@ -42,10 +42,10 @@ export const UPDATE_TODO_QUERY = gql`
       ...allTodoProperties
     }
   }
-  ${ALL_TODO_PROPERTIES}
+  ${ALL_TODO_FIELDS}
 `;
 
-export const REMOTE_TODO_QUERY = gql`
+export const REMOVE_TODO_QUERY = gql`
   mutation DeleteTodo($id: ID!) {
     removeTodo(id: $id) {
       id

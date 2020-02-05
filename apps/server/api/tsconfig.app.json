@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "../../../dist/api",
+    "outDir": "../../../dist/server/api",
     "types": ["node"]
   },
   "exclude": ["**/*.spec.ts", "**/*.e2e.ts"],

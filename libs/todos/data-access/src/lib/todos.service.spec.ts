@@ -9,7 +9,7 @@ import {
   LOAD_TODO_QUERY,
   CREATE_TODO_QUERY,
   UPDATE_TODO_QUERY,
-  REMOTE_TODO_QUERY
+  REMOVE_TODO_QUERY
 } from './todos.queries';
 
 describe('TodoService', () => {
@@ -121,7 +121,7 @@ describe('TodoService', () => {
       service.deleteTodo(todo.id);
 
       expect(spy).toHaveBeenCalled();
-      expect(spy).toHaveBeenCalledWith(REMOTE_TODO_QUERY, { id: '1' });
+      expect(spy).toHaveBeenCalledWith(REMOVE_TODO_QUERY, { id: '1' });
 
       spy.mockReset();
     });

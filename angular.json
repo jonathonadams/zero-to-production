@@ -13,7 +13,7 @@
         "build": {
           "builder": "@uqt/ng-node:build",
           "options": {
-            "outputPath": "dist/api",
+            "outputPath": "dist/server/api",
             "src": "apps/server/api/src",
             "tsConfig": "apps/server/api/tsconfig.app.json"
           }
@@ -21,7 +21,7 @@
         "serve": {
           "builder": "@uqt/ng-node:execute",
           "options": {
-            "outputPath": "dist/api",
+            "outputPath": "dist/server/api",
             "src": "apps/server/api/src",
             "tsConfig": "apps/server/api/tsconfig.app.json",
             "main": "main.js",

@@ -6,7 +6,7 @@ import {
   LOAD_TODO_QUERY,
   CREATE_TODO_QUERY,
   UPDATE_TODO_QUERY,
-  REMOTE_TODO_QUERY
+  REMOVE_TODO_QUERY
 } from './todos.queries';
 import { ITodo } from '@uqt/data';
 import { FetchResult } from 'apollo-link';
@@ -51,7 +51,7 @@ export class TodosService {
     const variables = { id };
 
     return this.graphQl.mutation<{ removeTodo: { id: string } }>(
-      REMOTE_TODO_QUERY,
+      REMOVE_TODO_QUERY,
       variables
     );
   }
