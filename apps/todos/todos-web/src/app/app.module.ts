@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -10,7 +10,11 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { SharedDataAccessApiModule } from '@uqt/shared/data-access/api';
-import { SharedDataAccessAuthModule } from '@uqt/shared/data-access/auth';
+import {
+  SharedDataAccessAuthModule,
+  authProviderFactory,
+  AuthService
+} from '@uqt/shared/data-access/auth';
 import { SharedUsersDataAccessModule } from '@uqt/shared/users/data-access';
 import { TodosFeatureShellModule } from '@uqt/todos/feature-shell';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
@@ -50,6 +54,14 @@ import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
     AppRoutingModule.forRoot(),
     TodosFeatureShellModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: authProviderFactory,
+      multi: true,
+      deps: [AuthService]
+    }
+  ]
 })
 export class AppModule {}
