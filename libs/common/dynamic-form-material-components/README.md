@@ -1,6 +1,6 @@
 # common-dynamic-form-material-components
 
-This library was generated with [Nx](https://nx.dev).
+An Angular Material component map for the `CommonDynamicFormModule`
 
 ## Running unit tests
 

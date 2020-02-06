@@ -36,8 +36,7 @@ export const EXAMPLES: IExample[] = [
   {
     id: '4',
     title: 'Lazy Load Scrolling',
-    summary:
-      'A scrolling strategy to lazy load feature modules (thank you IVY __HEART__).',
+    summary: 'A scrolling strategy to manually lazy load feature modules.',
     description:
       'It is common practice to lazy load modules as child routes, but there are more ' +
       'ways to benefit from code splitting. Scrolling is just one example of how to ' +
@@ -55,7 +54,7 @@ export const EXAMPLES: IExample[] = [
   },
   {
     id: '6',
-    title: 'Make it Your Own',
+    title: 'Start Your Own Monorepo',
     summary:
       'Clone, build, deploy! Make this repo the start of your own project.',
     description:

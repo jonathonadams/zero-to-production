@@ -1,4 +1,4 @@
-// UQT_UPDATE -> Delete this after cloned
+// UQT_UPDATE -> Delete this file
 
 import { GraphQLFieldResolver } from 'graphql';
 import {

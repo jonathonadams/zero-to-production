@@ -5,7 +5,7 @@ import { GuidesComponent } from './guides/guides.component';
   imports: [],
   declarations: [GuidesComponent]
 })
-export class ExamplesMakeItYourOwnModule {
+export class ExamplesStartYourOwnModule {
   static get lazyEntryComponent() {
     return GuidesComponent;
   }

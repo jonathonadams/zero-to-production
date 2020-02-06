@@ -1,16 +1,20 @@
 # Backend Authentication Library
 
-TODO
+This library contains all modules and service to authenticate users and secure your REST or GraphQL API.
 
-## NOTE - Delete these first
+## UQT_UPDATE - Delete these after cloning the repo
 
-1. Delete the demo folder first. This is a simplified auth for the purpose of the demo website.
+1. Delete the demo folder first. These are simplified auth controllers for the purpose of the demo website, e.g. no email verification.
 2. Remove the references from the demo directory in the [index.ts](./src/index.ts) file.
 3. On the `User` model in the `core-date` library, change the unique value of the `email` property
 
+TODO
+
 ## Configuration Options
 
-With JWKS or without (for guards). With Refresh Token route or not
+TODO -> Document environment variables for Auth module
+TODO -> Sendgrid API Key, including template
+TODO -> With JWKS or without (for guards). With Refresh Token route or not
 
 ## Generate RS256 Private / Pub Key pair
 

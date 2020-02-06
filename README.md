@@ -6,14 +6,20 @@
 
 ## Deployment Guides
 
-- Follow the guide [here](./docs/guides/ANGULAR_DEPLOYMENT.md) for deploying your own Angular Frontend.
-- Follow the guide [here](./docs/guides/API_DEPLOYMENT.md) for deploying your own API on Google Cloud Kubernetes engine.
+- Follow the guide [here](./docs/guides/FIREBASE_HOSTING.md) for deploying your own Angular Frontend.
+- Follow the guide [here](./docs/guides/GOOGLE_CLOUD.md) for deploying your own API on Google Cloud Kubernetes engine.
 
-## Make it your own
+## Start Your Own Monorepo
 
-Follow [this guid](./docs/guides/MAKE_IT_YOU_OWN.md) on how to make this the foundation of your own monorepo.
+Follow [this guid](./docs/guides/START_YOUR_OWN.md) to make this the foundation of your own monorepo.
 
 ## Miscellaneous
 
 - See the road map [here](./docs/ROAD_MAP.md)
-- See Issues to follower [here](./docs/ISSUES_TO_TRACK.md)
+
+## Document Config Setup
+
+TODO
+
+- TS Strict Mode
+- TypeScript Project References

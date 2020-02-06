@@ -1,6 +1,6 @@
 # Deploy your Angular application on Firebase Hosting
 
-If you do not already have a firebase account, create one at [Firebase](https://firebase.google.com/) and create your project.
+If you do not already have a Firebase account, create one at [Firebase](https://firebase.google.com/) and create your project.
 
 ## Deploy on Firebase Hosting
 

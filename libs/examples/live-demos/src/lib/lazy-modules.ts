@@ -13,6 +13,6 @@ export const LAZY_MODULES: ILazyModuleRegistry = {
     import('@uqt/examples/secure-todos').then(m => m.ExamplesSecureTodosModule),
   'make-it-your-own': () =>
     import('@uqt/examples/make-it-your-own').then(
-      m => m.ExamplesMakeItYourOwnModule
+      m => m.ExamplesStartYourOwnModule
     )
 };

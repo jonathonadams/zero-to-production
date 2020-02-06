@@ -1,4 +1,4 @@
-// UQT_UPDATE -> Delete this once cloned
+// UQT_UPDATE -> Delete this file
 
 import Koa from 'koa';
 import Router from '@koa/router';

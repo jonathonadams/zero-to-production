@@ -1,4 +1,4 @@
-export const css = `// styles.(s)css
+export const css = `// styles.scss
 :root {
   --light-primary-color: #7b1fa2;
   --light-accent-color: #f0820f;

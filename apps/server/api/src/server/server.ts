@@ -5,9 +5,12 @@ import { setupGlobalMiddleware } from '@uqt/server/config';
 import { dbConnection } from '@uqt/server/database';
 import { apolloServer } from './api/graphql';
 import { applyApiEndpoints } from './api';
-// UQT_UPDATE
+
+// UQT_UPDATE -> delete the below import
 import { applyAuthRoutes } from './auth/demo.auth';
+// UQT_UPDATE -> uncomment the below import
 // import { applyAuthRoutes } from './auth/auth';
+
 import config from '../environments';
 
 /**

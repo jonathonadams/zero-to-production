@@ -730,28 +730,28 @@
       }
     },
 
-    "common-theme": {
+    "shared-utils-theme": {
       "projectType": "library",
-      "root": "libs/common/theme",
-      "sourceRoot": "libs/common/theme/src",
+      "root": "libs/shared/utils/theme",
+      "sourceRoot": "libs/shared/utils/theme/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/common/theme/tsconfig.lib.json",
-              "libs/common/theme/tsconfig.spec.json"
+              "libs/shared/utils/theme/tsconfig.lib.json",
+              "libs/shared/utils/theme/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/theme/**"]
+            "exclude": ["**/node_modules/**", "!libs/shared/utils/theme/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/common/theme/jest.config.js",
-            "tsConfig": "libs/common/theme/tsconfig.spec.json",
-            "setupFile": "libs/common/theme/src/test-setup.ts"
+            "jestConfig": "libs/shared/utils/theme/jest.config.js",
+            "tsConfig": "libs/shared/utils/theme/tsconfig.spec.json",
+            "setupFile": "libs/shared/utils/theme/src/test-setup.ts"
           }
         }
       },
@@ -1622,31 +1622,31 @@
       }
     },
 
-    "examples-make-it-your-own": {
+    "examples-start-your-own": {
       "projectType": "library",
-      "root": "libs/examples/make-it-your-own",
-      "sourceRoot": "libs/examples/make-it-your-own/src",
+      "root": "libs/examples/start-your-own",
+      "sourceRoot": "libs/examples/start-your-own/src",
       "prefix": "uqt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/examples/make-it-your-own/tsconfig.lib.json",
-              "libs/examples/make-it-your-own/tsconfig.spec.json"
+              "libs/examples/start-your-own/tsconfig.lib.json",
+              "libs/examples/start-your-own/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/examples/make-it-your-own/**"
+              "!libs/examples/start-your-own/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/examples/make-it-your-own/jest.config.js",
-            "tsConfig": "libs/examples/make-it-your-own/tsconfig.spec.json",
-            "setupFile": "libs/examples/make-it-your-own/src/test-setup.ts"
+            "jestConfig": "libs/examples/start-your-own/jest.config.js",
+            "tsConfig": "libs/examples/start-your-own/tsconfig.spec.json",
+            "setupFile": "libs/examples/start-your-own/src/test-setup.ts"
           }
         }
       },

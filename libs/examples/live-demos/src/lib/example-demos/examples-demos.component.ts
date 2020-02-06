@@ -33,6 +33,7 @@ export class ExamplesDemosComponent implements OnDestroy {
 
   loadModule(index: number) {
     const example = this.examples[index];
+    // The dynamic form module is NOT lazy loaded
     if (example && example.url !== 'dynamic-form') {
       this.moduleLoader.initLoadModule(example.url);
     }
