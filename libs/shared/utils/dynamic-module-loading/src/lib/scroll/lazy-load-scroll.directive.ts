@@ -4,28 +4,18 @@ import {
   Output,
   EventEmitter,
   Input,
-  ElementRef,
-  QueryList,
-  ContentChildren,
-  OnInit,
-  AfterViewInit,
   OnDestroy
 } from '@angular/core';
-
-// UQT_UPDATE
-// support for the api, remove the polyfill
-// https://github.com/Microsoft/TypeScript/issues/28502
-// https://caniuse.com/#search=Resize%20Observer
-import ResizeObserver from 'resize-observer-polyfill';
+import { Subscription } from 'rxjs';
+import { ModuleLoaderService } from '../module-loader.service';
 
 @Directive({
   selector: '[uqtLazyLoadScroll]'
 })
-export class LazyLoadScrollDirective
-  implements OnInit, AfterViewInit, OnDestroy {
-  private ro: ResizeObserver | undefined;
+export class LazyLoadScrollDirective implements OnDestroy {
   private index = 1;
-  private initLoad: boolean;
+  private initLoad = false;
+  private sub: Subscription;
 
   /**
    * @required
@@ -34,27 +24,14 @@ export class LazyLoadScrollDirective
   @Input() loadThreshold = 1000; // pixels until next load
   @Output() loadIndex = new EventEmitter<number>();
 
-  @ContentChildren('lazyItem') children: QueryList<ElementRef>;
-
-  ngOnInit() {
-    // load the first element when first loading
-    this.loadIndex.emit(0);
-
-    // The ResizeObserver will fire every time one of the observed elements changes size
-    // this can be from changes in screen dimensions, orientation or by dynamically adding elements.
-    // we don't care about anything other than the fact the dimensions have changed, normally
-    // from a lazy loaded component being inserted. It is still the scroll that will cause the
-    // loading of the next module
-    this.ro = new ResizeObserver(entries => {
+  constructor(private loadingService: ModuleLoaderService) {
+    this.sub = this.loadingService.moduleLoaded$.subscribe(moduleKey => {
       this.initLoad = false;
+      // Unsubscribe if there are no modules to load anymore
+      if (this.index === this.modules) {
+        this.sub.unsubscribe();
+      }
     });
-  }
-
-  ngAfterViewInit() {
-    // Observer each of hte children
-    this.children.forEach(child =>
-      (this.ro as ResizeObserver).observe(child.nativeElement)
-    );
   }
 
   /**
@@ -68,8 +45,6 @@ export class LazyLoadScrollDirective
   @HostListener('scroll', ['$event'])
   scroll(event: Event) {
     if (this.modules) {
-      // pixelsFromBottom = totalHeight - clientHeight - scrollTopPosition;
-
       const totalHeight = (event.target as HTMLElement).scrollHeight;
       const scrollTopPosition = (event.target as HTMLElement).scrollTop;
       const clientHeight = (event.target as HTMLElement).clientHeight;
@@ -89,6 +64,6 @@ export class LazyLoadScrollDirective
   }
 
   ngOnDestroy() {
-    (this.ro as ResizeObserver).disconnect();
+    this.sub.unsubscribe();
   }
 }

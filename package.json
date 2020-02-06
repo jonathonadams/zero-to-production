@@ -153,7 +153,6 @@
     "mongodb-memory-server": "^6.2.4",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
-    "resize-observer-polyfill": "^1.5.1",
     "testcafe": "^1.8.1",
     "testcafe-angular-selectors": "^0.3.2",
     "ts-jest": "^25.1.0",

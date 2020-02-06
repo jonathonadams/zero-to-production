@@ -35,26 +35,6 @@
   service produces an Observable of the component factory so the scrolling
   component can subscribe and render the entry component once loaded.
 </p>
-<p>
-  NOTE: A <em>LazyLoadScroll</em> Directive is used to create the component from
-  the factory. It makes use of the ResizeObserver API to listen to element size
-  changes. ResizeObserver is not currently widely supported and TypesScript does
-  not have a definition for it, hence A polyfill is currently being used. Once
-  supported you can remove the polyfill. See
-  <a
-    target="_blank"
-    rel="noreferrer noopener"
-    href="https://caniuse.com/#search=Resize%20Observer"
-    >Can I Use</a
-  >
-  and
-  <a
-    target="_blank"
-    rel="noreferrer noopener"
-    href="https://github.com/Microsoft/TypeScript/issues/28502"
-    >TypeScript</a
-  >
-</p>
 <h3>Try it Out</h3>
 <ol>
   <li>Open Developer Tools -> Networking Tab</li>
