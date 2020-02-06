@@ -8,7 +8,7 @@ import {
   InjectionToken,
   Inject
 } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, distinctUntilChanged, take } from 'rxjs/operators';
 
 export type TModuleImportPath = () => Promise<NgModuleFactory<any> | Type<any>>;
@@ -37,16 +37,14 @@ export const LAZY_MODULE_REGISTRY = new InjectionToken<ILazyModuleRegistry>(
 // In a lazy loaded module, hence not in root injector
 @Injectable()
 export class ModuleLoaderService {
+  private moduleLoaded = new Subject<string>();
+  public moduleLoaded$ = this.moduleLoaded.asObservable();
+
   private _registry: Map<string, IModuleRegistry> = new Map();
   private registry: BehaviorSubject<IFactoryRegistry> = new BehaviorSubject({});
 
   private registry$ = this.registry.asObservable();
 
-  /**
-   * TODO -> Investigate what the 'Compiler' is that is imported from '@angular/core'
-   * It is not the 'angular/compiler' however, in AOT compilation is not bundled unless we import it?
-   * It might be unnecessarily the Compiler... investigate further
-   */
   constructor(
     @Inject(LAZY_MODULE_REGISTRY)
     _lazyModuleRegistry: ILazyModuleRegistry,
@@ -145,6 +143,7 @@ export class ModuleLoaderService {
       const registryClone = { ...registry };
       registryClone[key] = { factory };
       this.registry.next(registryClone);
+      this.moduleLoaded.next(key);
     });
   }
 }
