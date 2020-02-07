@@ -29,9 +29,9 @@ export interface AuthConfig {
   };
 }
 
-export type EnvironnementConfig = ProductionConfig | DevOrTestConfig;
+export type EnvironnementConfig = ProductionConfig | DevConfig | TestConfig;
 
-export interface DevOrTestConfig {
+export interface DevConfig {
   production: false;
   logging: false | 'dev';
   docs: boolean;
@@ -43,6 +43,15 @@ export interface DevOrTestConfig {
     user: string;
     pass: string;
   };
+}
+
+export interface TestConfig {
+  port: number;
+  production: false;
+  logging: false | 'dev';
+  docs: boolean;
+  databaseOptions: ConnectionOptions;
+  auth: AuthConfig;
 }
 
 export interface ProductionConfig {

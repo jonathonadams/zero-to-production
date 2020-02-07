@@ -7,4 +7,4 @@ services:
   example-web:
     image: <name-of-web-image>
     ports:
-      - 80:80
+      - 8080:80

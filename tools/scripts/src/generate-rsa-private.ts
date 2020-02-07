@@ -4,7 +4,7 @@ import { generateKeyPairSync } from 'crypto';
 
 // Must be one of 'pkcs1' (RSA only), 'pkcs8' or 'sec1' (EC only).
 const { publicKey, privateKey } = generateKeyPairSync('rsa', {
-  modulusLength: 4096,
+  modulusLength: 2048,
   publicKeyEncoding: {
     type: 'spki',
     format: 'pem'
