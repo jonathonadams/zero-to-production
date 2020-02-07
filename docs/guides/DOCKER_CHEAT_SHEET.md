@@ -1,6 +1,4 @@
-# Docker basics
-
-## Docker build
+# Docker cheat-sheet
 
 Build a docker image from a Dockerfile
 
@@ -16,15 +14,13 @@ e.g.
 docker build -t api-server-image .
 ```
 
-## Create a docker container
-
 Create a docker container from an image.
 
 ```
 docker create --name <YOUR-CONTAINER-NAME> -p 3000:3000 <YOUR-IMAGE-NAME>;
 ```
 
-`--name` container name, `-p` map internal and external ports, `<YOUR-IMAGE-NAME>` specifies the image to create the container from.
+`--name` container name, `-p` map container to host ports, `<YOUR-IMAGE-NAME>` specifies the image to create the container from.
 
 Optional you can set environment variables, individually or from a file.
 
@@ -40,15 +36,11 @@ e.g.
 docker create --name api-server-container --env-file .env -p 3000:3000 api-server-image;
 ```
 
-## Docker commands
-
 `docker start` Start a docker container
 
 ```
 docker start <YOUR-CONTAINER-NAME>
 ```
-
-## Create a network
 
 `docker network` Create a docker network.
 
@@ -70,9 +62,7 @@ docker network create internal
 docker network rm proxy
 ```
 
-## Development Local Mongo Container
-
-Configuring a database can be difficult and time consuming. You can avoid this by running your database in a local docker container.
+## Local Mongo DB
 
 NOTE: A word of warning, if your delete your container instance all data will be lost. Containers are ephemeral. To help mitigate this during development use `docker create` then `docker start / stop`. The container will not be destroyed until you remove it.
 
@@ -112,18 +102,3 @@ docker stop local-mongo
 ```
 
 Read more about Mongo and Docker and how to configure it [here](https://hub.docker.com/_/mongo)
-
-## Local Redis Server
-
-Redis can be used in many ways, but the easiest way to get up and running locally is with [docker redis](https://hub.docker.com/_/redis).
-
-```
-docker pull redis
-
-docker create --name redis -p 6379:6379 redis
-
-docker start redis
-
-// To access the CLI
-$: redis-cli
-```

@@ -1,13 +1,11 @@
 ### Angular App
 
-- [ ] Add preloader spinner
+- [ ] Add AppShell & SSR
 - [ ] Feature Flag Service
 - [ ] Add following examples
   - Content Projection with layouts modules
-  - Users to create components and dynamically add routing to them
   - Dynamic Animation Timing
   - Using Web Components
-  - Charting and report generating (jsPdf)
 
 ## TestCafe E2E Builder
 
