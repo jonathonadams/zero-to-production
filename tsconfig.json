@@ -28,7 +28,7 @@
       "@uqt/utils/notifications": [
         "libs/shared/utils/notifications/src/index.ts"
       ],
-      "@uqt/common/theme": ["libs/common/theme/src/index.ts"],
+      "@uqt/common/theme": ["libs/shared/utils/theme/src/index.ts"],
       "@uqt/shared/dashboard": ["libs/shared/dashboard/src/index.ts"],
       "@uqt/todos/feature-shell": ["libs/todos/feature-shell/src/index.ts"],
       "@uqt/todos/data-access": ["libs/todos/data-access/src/index.ts"],
@@ -74,7 +74,7 @@
       "@uqt/examples/dynamic-form": ["libs/examples/dynamic-form/src/index.ts"],
 
       "@uqt/examples/make-it-your-own": [
-        "libs/examples/make-it-your-own/src/index.ts"
+        "libs/examples/start-your-own/src/index.ts"
       ]
     }
   }

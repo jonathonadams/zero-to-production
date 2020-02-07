@@ -11,12 +11,22 @@
   }
 }
 
-.header {
-  .logo {
-    cursor: pointer;
-    height: 2.5em;
-    > * {
-      height: 100%;
-    }
+.logo {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  > p {
+    font-size: 1.25em;
+    margin: 0;
+    margin-right: 0.5em;
+  }
+
+  cursor: pointer;
+  height: 2.5em;
+
+  > img {
+    height: 100%;
   }
 }

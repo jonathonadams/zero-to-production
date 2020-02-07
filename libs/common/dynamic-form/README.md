@@ -1,14 +1,18 @@
 # common-dynamic-form
 
-This library was generated with [Nx](https://nx.dev).
+A DynamicFormComponent that can be used application wide to take the hassle out of using form in Angular.
+
+## How to use
+
+TODO - Document
+
+## Creating Your Own Component Library
 
 ## Running unit tests
 
 Run `ng test common-dynamic-form` to execute the unit tests.
 
-TODO -> Maybe remove dependency on NgRx? Build own state store
-https://ultimatecourses.com/blog/redux-typescript-store
+## Outstanding (TODO)
 
-// TODO a11y Announcer
-
-// TODO Remove default values from the fields and update the data instead
+- a11y Announcer
+- Remove default values from the fields and update the data instead

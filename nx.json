@@ -110,7 +110,7 @@
     "common-dynamic-form-material-components": {
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
-    "common-theme": {
+    "shared-utils-theme": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
     "common-toolbar-menu": {
@@ -171,7 +171,7 @@
     "examples-dynamic-form": {
       "tags": ["scope:examples", "type:feature", "platform:web"]
     },
-    "examples-make-it-your-own": {
+    "examples-start-your-own": {
       "tags": ["scope:examples", "type:feature", "platform:web"]
     },
     "examples-utils": {

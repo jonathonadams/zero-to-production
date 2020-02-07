@@ -1,4 +1,4 @@
-// UQT_UPDATE -> Delete this after cloned
+// UQT_UPDATE -> Delete this file
 
 import { compare, hash } from 'bcryptjs';
 import Boom from '@hapi/boom';

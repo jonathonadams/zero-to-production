@@ -1,6 +1,6 @@
 # Deploy your API Server in Google Cloud Kubernetes
 
-**WARNING**: This guide is in no way a comprehensive guide to deploying your application, rather a starting point for you to test and get your feet wet with deploying your containers to the cloud.
+**WARNING**: This guide is in no way a comprehensive guide to deploying your application, rather a starting point for you to test and get your feet wet with deploying your containers to the cloud in Kubernetes.
 
 ## Before you Start
 
@@ -12,7 +12,7 @@
   - When creating your first cluster on Mongo Atlas, once your cluster is up an running, click **collections** and create a database (remember the name) and the first collection i.e. the `users` collection.
   - When you click **conect** -> **connect your application** and get your connection string, by default the connection string will not include the database name, so add the `dbName` option to the end of the query string, i.e. `mongodb+srv://.../test?retryWrites=true&w=majority&dbName=your-db-name`
 
-- An RS256 Private Key is required for singing your JWT access tokens. Depending on the Authentication Guard setup (see the [API Authentication Library](../libs/server/auth/README.md)) you may or may not need the Public Key for Verifying the JWT. As the API is currently set up, the public key is auto generated from the private key at startup and served as a [JSON Web Key Set (JWKS)](https://tools.ietf.org/html/rfc7517) at the url `/.well-know/jwks.json`. See [Auth 0](https://auth0.com/docs/tokens/concepts/jwks) for further explanation and rational behind a JWKS.  
+- An RS256 Private Key is required for singing your JWT access tokens. Depending on the Authentication Guard setup (see the [API Authentication Library](../../libs/server/auth/README.md)) you may or may not need the Public Key for Verifying the JWT. As the API is currently set up, the public key is auto generated from the private key at startup and served as a [JSON Web Key Set (JWKS)](https://tools.ietf.org/html/rfc7517) at the url `/.well-know/jwks.json`. See [Auth 0](https://auth0.com/docs/tokens/concepts/jwks) for further explanation and rational behind a JWKS.  
   There is a helper script in `tools/scripts/bin/generate-rsa.js` to generate an RSA256 Private Key (pkcs8).
 
 - To work through to completion you will need a domain name. For this example the domain name will be `zero-to-production.dev` and we will host our API server at the subdomain `api.zero-to-production.dev`
@@ -21,7 +21,7 @@
 
 As we are deploying our cluster on Google Cloud, we can make the most of the tools available and setup a cloud trigger to auto build our `Docker` image for us.
 
-A `Dockerfile` to build our API project from the source files is provided at `docker/api.Dockerfile`. Please see the [README](../docker/README.md) for further details.
+A `Dockerfile` to build our API project from the source files is provided at `docker/api.Dockerfile`. Please see the [README](../../docker/README.md) for further details.
 
 The image name that you build and push to the Google Cloud Registry here is the image you will uses in you Kubernestes cluster. The image name should follow  
 `<registry>/<cloud-project-name>/<image-name>`

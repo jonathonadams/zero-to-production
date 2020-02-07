@@ -79,7 +79,7 @@ export class ModuleLoaderService {
 
     if (!registeredModule) {
       throw new Error(
-        `Unrecognized component "${key}". Make sure it is registered in the component registry`
+        `Unrecognized module "${key}". Make sure it is registered in the module registry`
       );
     }
 

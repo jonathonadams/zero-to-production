@@ -15,7 +15,12 @@ export { applyAuthRoutesWithRefreshTokens } from './lib/routes/auth.routes';
 export { authTypeDef } from './lib/graphql/auth.types';
 export { createPublicJsonWebKeySetRouteFromPrivateKey } from './lib/routes/jwks';
 
-// UQT_UPDATE -> Delete this after cloned
+/**
+ * UQT_UPDATE -> Delete from this line onwards after cloning the repo
+ *
+ * For further details, see
+ * https://github.com/unquenchablethyrst/zero-to-production/tree/master/libs/server/auth/README.md
+ */
 export {
   DemoAuthModuleConfig,
   applyDemoAuthRoutes,
