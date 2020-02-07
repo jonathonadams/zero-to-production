@@ -13,14 +13,16 @@ The following command will build your server project. Replace the `<image-name` 
 1. `docker build -t <image-name> -f docker/web.Dockerfile --build-arg DISTRIBUTION_DIRECTORY=dist/apps/<dist-folder> .`
 2. `docker create --name <container-name> -p 8080:80 <image-name>`
 3. `docker start <container-name>`
-4. Run e2e Tests
-
-## Test with Docker Compose
-
-\$ docker-compose up -d
+4. your application can be accessed at `http://localhost:8080`
+5. test / run e2e Tests
+6. clean up
 
 ## Clean Up
 
 1. `docker stop <container-name>`
 2. `docker rm <container-name>`
 3. `docker rmi <image-name>`
+
+## Test with Docker Compose
+
+\$ docker-compose up -d

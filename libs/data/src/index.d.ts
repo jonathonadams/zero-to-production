@@ -5,5 +5,6 @@ export {
   EnvironnementConfig,
   GlobalConfig,
   ProductionConfig,
-  DevOrTestConfig
+  TestConfig,
+  DevConfig
 } from './lib/server';

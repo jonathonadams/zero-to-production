@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
 import { getEnvVariableOrWarn, envToNumber } from '@uqt/server/utils';
-import { DevOrTestConfig } from '@uqt/data';
+import { DevConfig } from '@uqt/data';
 
 const hostUrl = process.env.HOST_URL || `http://localhost:${process.env.PORT}`;
 const authServerUrl =
@@ -13,7 +13,7 @@ const keyId = 'some-random-key-id';
 /**
  * Development environment settings
  */
-const devConfig: DevOrTestConfig = {
+const devConfig: DevConfig = {
   production: false,
   logging: 'dev',
   docs: true,
