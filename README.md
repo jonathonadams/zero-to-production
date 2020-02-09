@@ -1,25 +1,29 @@
-# Zero to Production Monorepo Starter
+# Zero to Production - Monorepo Starter
 
-#### Ft. Angular Examples, GraphQL & REST API, deployment configuration for Kubernetes on Google Cloud
+### Clone... Build... Deploy...
 
-## ABOUT THIS PROJECT
+A full stack Monorepo starter with Angular, NgRx, Koa.js, GraphQL & Kubernetes.
 
-## Deployment Guides
+by Jonathon Adams
 
-- Follow the guide [here](./docs/guides/FIREBASE_HOSTING.md) for deploying your own Angular Frontend.
-- Follow the guide [here](./docs/guides/GOOGLE_CLOUD.md) for deploying your own API on Google Cloud Kubernetes engine.
+Visit the [demo site](https://zero-to-production.dev)
 
-## Start Your Own Monorepo
+## Start Your Own
 
-Follow [this guid](./docs/guides/START_YOUR_OWN.md) to make this the foundation of your own monorepo.
+Follow the [Start Your Own](./docs/guides/START_YOUR_OWN.md) guide to re-band, setup local development and make this monorepo the foundation of your own project.
 
-## Miscellaneous
+## Deploy
 
-- See the road map [here](./docs/ROAD_MAP.md)
+Follow the [Firebase Hosting](./docs/guides/FIREBASE_HOSTING.md) guide to build and deploy your own Angular application.
 
-## Document Config Setup
+Follow the [Google Cloud Kubernetes](./docs/guides/GOOGLE_CLOUD.md) guide to set up cloud build triggers and deploy your API on Google Cloud K8s.
 
-TODO
+## Tests
 
-- TS Strict Mode
-- TypeScript Project References
+```bash
+npm test
+```
+
+## Contributing
+
+Any and all PR's are welcome. If it's bug fixes, documentation improvements, security patches, improvements to Kubernetes deployments or even if you want to add a `React` app example, please submit a PR.

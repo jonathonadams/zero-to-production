@@ -18,7 +18,9 @@ The "Examples" project is all projects and libs corresponding to the demo websit
 7. delete all libs corresponding to the "Examples" application at `libs/examples/*`
 8. delete all projects and libraries in the `angular.json` that begin with `examples-`
 9. delete the same projects from the `nx.json` file.
-10. remove the `scope:examples` rule from `nx-enforce-module-boundaries` in `tslint.json`
+10. delete all TypeScript path `@aliases` referencing `examples` apps or libs in `tsconfig.json`
+11. remove the `scope:examples` rule from `nx-enforce-module-boundaries` in `tslint.json`
+
 
     ```JavaScript
     // tslint.json
@@ -32,7 +34,7 @@ The "Examples" project is all projects and libs corresponding to the demo websit
       }
     ```
 
-11. uninstall unused /unwanted npm packages
+12. uninstall unused /unwanted npm packages
 
     ```bash
     npm uninstall <package>
@@ -48,6 +50,20 @@ In some parts of the apps / libs they have been configured specifically for the 
 
 To find and configure them, in your IDE do a search for `UQT_UPDATE` and configure as per the comments.
 
+## Local Development
+
+Local development is relatively simple.
+
+To serve the Angular Todo application run `ng serve`.
+
+To get the API up and running follow the below.
+
+- crete a local MongoDB server. The [docker cheat-sheet](./DOCKER_CHEAT_SHEET.md) shows how to create with docker.
+- create a `.env` file for environment variables. Copy and rename `.sample.env` to `.env` located in `apps/server/api` and set your desired environment variables.
+- `ng serve server-api` will run the server
+
+**WARNING** - Do NOT use the `RSA256` private keys that are in `.sample.env` as they are public and not secure, they are just demonstrating how to set them in the `.env` file.
+
 ## Deploy your project
 
 Now that you have cloned, re-branded and cleaned up your Monorepo, it's time to deploy.
@@ -58,10 +74,10 @@ Once your API is up and ready to go, you need a frontend to hit it. Follow the [
 
 Enjoy!
 
-# Things to consider
+## Project Configuration
 
-TODO -> Document project configuration
+- TypeScript `strict` mode. This project has be configured to use `strict` mode (along with Angular full template checking). This is not for everyone. This can be configured in `tsconfig.base.json`. (`strictPropertyInitialization` has been set to `false` as compilation errors will be thrown for property inputs in Angular components, e.g `@Input() someProperty: string`,)
 
-- Server setup
-- env variables
-- why nested `package.json`
+- [TypeScript Project References](TODO_link) - The repo makes heavy use of project references for all server and shared libs as the server does not use `webpack` to bundle the server side code. For and example of configuring project references, see `apps/server/api/tsconfig.json` for referencing libs and `libs/server/auth/tsconfig.json` & `libs/server/auth/tsconfig.lib.json` for options for setting up a referenced project and setting its `buildInfoFile` (schematics to come!).
+
+- Server `package.json` - Although this is a Monorepo with a single version policy for packages managed by the root level `package.json`, within the API application directory there is also a local `package.json`. The `server.Dockerfile` build process will use the local `package.json` to install all its **Production** dependencies so that all packages not related to the server are not installed. If you add additional packages (via `npm install <package>` they will have to be added manually to local package. The version numbering of the packages will be validated and kept in sync automatically (on each git commit) by a script located in `tools/scripts/src/validate-packages.ts` and hence maintain the single version policy.
