@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
-import { TestConfig } from '@uqt/data';
+import { TestServerConfig } from '@uqt/data';
 
 const hostUrl = 'http://localhost:3000';
 const authServerUrl = hostUrl;
@@ -38,11 +38,12 @@ fb4sRct651qUxYPtLnYo2Gp7cioe+bZVNsKmKATW95Ipg+5TlJT1cKLGWh3gVV5Q
 /**
  * Test environment settings
  */
-const testConfig: TestConfig = {
+const TestServerConfig: TestServerConfig = {
   port: 3000,
   production: false,
   logging: 'dev',
   docs: true,
+  dbConnectionString: '', // These e2e test use mongodb-in-memory server, so the url is passed into 'init server' per test
   databaseOptions: {
     loggerLevel: 'warn',
     dbName: 'test_database'
@@ -68,4 +69,4 @@ const testConfig: TestConfig = {
   }
 };
 
-export default testConfig;
+export default TestServerConfig;

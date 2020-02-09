@@ -25,7 +25,7 @@ export default class ApiServer {
    *
    *
    * @param {string} [dbUrl]
-   * @returns
+   * @returns {Server}
    * @memberof ApiServer
    */
   async initializeServer(dbUrl?: string) {
@@ -35,7 +35,10 @@ export default class ApiServer {
     /**
      * Start the db connection, optionally pass in the connection url
      */
-    await dbConnection(config, dbUrl);
+    await dbConnection(
+      dbUrl ? dbUrl : config.dbConnectionString,
+      config.databaseOptions
+    );
 
     /**
      * Setup all the required middleware for the app
