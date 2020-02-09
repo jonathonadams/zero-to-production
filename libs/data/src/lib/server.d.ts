@@ -4,7 +4,7 @@ import { ConnectionOptions } from 'mongoose';
  * http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html
  */
 
-export interface GlobalConfig {
+export interface GlobalServerConfig {
   port: number;
   databaseOptions: ConnectionOptions;
 }
@@ -29,40 +29,37 @@ export interface AuthConfig {
   };
 }
 
-export type EnvironnementConfig = ProductionConfig | DevConfig | TestConfig;
+export type EnvironnementConfig =
+  | ProductionServerConfig
+  | DevServerConfig
+  | TestServerConfig;
 
-export interface DevConfig {
+export interface DevServerConfig {
   production: false;
   logging: false | 'dev';
   docs: boolean;
+  dbConnectionString: string;
   databaseOptions: ConnectionOptions;
   auth: AuthConfig;
-  database: {
-    host: string;
-    port: number;
-    user: string;
-    pass: string;
-  };
 }
 
-export interface TestConfig {
+export interface TestServerConfig {
   port: number;
   production: false;
   logging: false | 'dev';
   docs: boolean;
+  dbConnectionString: string;
   databaseOptions: ConnectionOptions;
   auth: AuthConfig;
 }
 
-export interface ProductionConfig {
+export interface ProductionServerConfig {
   production: true;
   logging: false;
   docs: false;
+  dbConnectionString: string;
   databaseOptions: ConnectionOptions;
   auth: AuthConfig;
-  database: {
-    connectionString: string;
-  };
 }
 
-export type ServerConfig = GlobalConfig & EnvironnementConfig;
+export type ServerConfig = GlobalServerConfig & EnvironnementConfig;

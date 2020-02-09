@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
 import { getEnvVariableOrWarn, envToNumber } from '@uqt/server/utils';
-import { ProductionConfig } from '@uqt/data';
+import { ProductionServerConfig } from '@uqt/data';
 
 const hostUrl = getEnvVariableOrWarn('HOST_URL');
 const authServerUrl = getEnvVariableOrWarn('AUTH_SERVER_URL');
@@ -12,10 +12,11 @@ const keyId = 'some-random-key-id';
 /**
  * Production environment settings
  */
-const prodConfig: ProductionConfig = {
+const prodConfig: ProductionServerConfig = {
   production: true,
   logging: false,
   docs: false,
+  dbConnectionString: getEnvVariableOrWarn('DB_CONNECTION_STRING'),
   databaseOptions: {
     loggerLevel: 'error',
     autoIndex: true // TODO -> Don't auto index in production -> Create a K8's 'Job' (most probably an application)
@@ -41,9 +42,6 @@ const prodConfig: ProductionConfig = {
       sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY'),
       authServerUrl
     }
-  },
-  database: {
-    connectionString: getEnvVariableOrWarn('DB_CONNECTION_STRING')
   }
 };
 

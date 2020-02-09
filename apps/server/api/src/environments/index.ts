@@ -1,10 +1,10 @@
 /* istanbul ignore file */
 
-import { GlobalConfig, EnvironnementConfig } from '@uqt/data';
+import { GlobalServerConfig, EnvironnementConfig } from '@uqt/data';
 import { envToNumber } from '@uqt/server/utils';
-import devConfig from './development';
+import DevServerConfig from './development';
 import prodConfig from './production';
-import testConfig from './test';
+import TestServerConfig from './test';
 
 /**
  * Config values common across all environments environments
@@ -14,7 +14,7 @@ import testConfig from './test';
  * NODE_ENV variable: development, production, and test.
  *
  */
-const config: GlobalConfig = {
+const config: GlobalServerConfig = {
   /**
    * The port the server will listen on
    */
@@ -35,6 +35,8 @@ const config: GlobalConfig = {
 
 /**
  * Assign values based on current execution environment
+ *
+ * TODO -> Top level await when ts is updated to 3.8
  */
 let environmentSettings: EnvironnementConfig;
 switch (process.env.NODE_ENV) {
@@ -44,11 +46,11 @@ switch (process.env.NODE_ENV) {
     break;
   case 'test':
   case 'testing':
-    environmentSettings = testConfig;
+    environmentSettings = TestServerConfig;
     break;
   case 'development':
   case 'dev':
-    environmentSettings = devConfig;
+    environmentSettings = DevServerConfig;
     break;
   default:
     environmentSettings = prodConfig;

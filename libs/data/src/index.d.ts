@@ -3,8 +3,8 @@ export * from './lib/todo';
 export {
   ServerConfig,
   EnvironnementConfig,
-  GlobalConfig,
-  ProductionConfig,
-  TestConfig,
-  DevConfig
+  GlobalServerConfig,
+  ProductionServerConfig,
+  TestServerConfig,
+  DevServerConfig
 } from './lib/server';
