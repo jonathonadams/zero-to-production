@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthComponent {
   public darkTheme$: Observable<boolean>;
+
   constructor(private theme: ThemeService) {
     this.darkTheme$ = this.theme.darkTheme$;
   }
