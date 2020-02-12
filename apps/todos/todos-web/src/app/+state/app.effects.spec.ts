@@ -8,16 +8,21 @@ import { AppEffects } from './app.effects';
 import { NotificationService } from '@uqt/utils/notifications';
 import { Router } from '@angular/router';
 import { AuthActions } from '@uqt/shared/data-access/auth';
-import { GraphQLService } from '@uqt/shared/data-access/api';
+import { Apollo } from 'apollo-angular';
 
 describe('AppEffects', () => {
   let effects: AppEffects;
   let actions$: Observable<any>;
   let router: Router;
   let ns: NotificationService;
-  let graphql: GraphQLService;
+  let apollo: Apollo;
   const nsSpy = createSpyObj('NotificationService', ['emit']);
-  const graphQlSpy = createSpyObj('GraphQLService', ['clearCache']);
+  const apolloSpy = {
+    getClient: () => ({
+      clearStore: jest.fn(),
+      cache: { reset: jest.fn() }
+    })
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,7 +30,7 @@ describe('AppEffects', () => {
         AppEffects,
         { provide: Router, useValue: { navigate: jest.fn() } },
         { provide: NotificationService, useValue: nsSpy },
-        { provide: GraphQLService, useValue: graphQlSpy },
+        { provide: Apollo, useValue: apolloSpy },
         provideMockActions(() => actions$)
       ]
     });
@@ -34,7 +39,7 @@ describe('AppEffects', () => {
     actions$ = TestBed.inject<Actions>(Actions);
     router = TestBed.inject<Router>(Router);
     ns = TestBed.inject<NotificationService>(NotificationService);
-    graphql = TestBed.inject<GraphQLService>(GraphQLService);
+    apollo = TestBed.inject<Apollo>(Apollo);
   });
 
   describe('loginRedirect$', () => {
@@ -74,16 +79,12 @@ describe('AppEffects', () => {
 
   describe('logoutRedirect$', () => {
     it('should clear the GraphQL cache', () => {
-      const spy = jest.spyOn(graphql, 'clearCache');
-      spy.mockReset();
+      const spy = jest.spyOn(apollo, 'getClient');
+      jest.resetAllMocks();
       const action = AuthActions.logoutRedirect();
-
       actions$ = hot('-a---', { a: action });
-
       effects.logoutRedirect$.subscribe();
-
       Scheduler.get().flush();
-
       expect(spy).toHaveBeenCalled();
     });
 
@@ -91,13 +92,9 @@ describe('AppEffects', () => {
       const spy = jest.spyOn(router, 'navigate');
       spy.mockReset();
       const action = AuthActions.logoutRedirect();
-
-      actions$ = hot('-a---', { a: action });
-
+      actions$ = hot('-a|--', { a: action });
       effects.logoutRedirect$.subscribe();
-
       Scheduler.get().flush();
-
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith(['login']);
     });

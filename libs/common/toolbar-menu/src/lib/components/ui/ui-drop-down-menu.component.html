@@ -1,19 +1,14 @@
 <div class="drop-down-menu-overlay-container mat-elevation-z6">
   <mat-list role="list">
     <mat-list-item role="listitem">
-      <p (click)="navigateToProfile.emit()" class="drop-down-user-profile">
-        {{ user?.username }}
+      <p class="name">
+        {{ user?.givenName }} {{ user?.surname }}
       </p></mat-list-item
-    >
-    <mat-list-item role="listitem"
-      ><mat-slide-toggle (change)="toggleDarkMode.emit($event.checked)"
-        >Dark Mode</mat-slide-toggle
-      ></mat-list-item
     >
     <mat-list-item role="listitem"
       ><button
         mat-button
-        class="drop-down-logout-button"
+        class="logout-button"
         type="button"
         (click)="logout.emit()"
       >

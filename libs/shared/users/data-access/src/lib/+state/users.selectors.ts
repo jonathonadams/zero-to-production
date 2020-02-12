@@ -20,13 +20,3 @@ export const selectCurrentUser = createSelector(
   selectCurrentUserId,
   (userEntities, userId) => userEntities[`${userId}`]
 );
-
-export const selectAuthUserId = createSelector(
-  selectUserState,
-  state => state.authUserId
-);
-export const selectAuthUser = createSelector(
-  selectUserEntities,
-  selectAuthUserId,
-  (userEntities, id) => userEntities[`${id}`]
-);

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs';
-import { exhaustMap, map, tap, catchError } from 'rxjs/operators';
+import { exhaustMap, map, tap, catchError, switchMap } from 'rxjs/operators';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { IUser } from '@uqt/data';
 import * as AuthActions from './auth.actions';
@@ -79,6 +79,40 @@ export class AuthEffects {
       ofType(AuthActions.logout),
       tap(() => this.authService.removeSession()),
       map(() => AuthActions.logoutRedirect())
+    )
+  );
+
+  loadAuthUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.loadAuthUser),
+      map(action => this.authService.authUserId),
+      switchMap(id => {
+        if (!id) {
+          return of(
+            AuthActions.loadAuthUserFail({ error: 'User is not logged in' })
+          );
+        } else {
+          return this.authService.loadUser(id).pipe(
+            map(({ errors, data }) =>
+              errors
+                ? AuthActions.loadAuthUserFail({ error: errors[0].message })
+                : AuthActions.loadAuthUserSuccess({
+                    user: (data as { User: IUser }).User
+                  })
+            ),
+            catchError((error: HttpErrorResponse) =>
+              of(AuthActions.loadAuthUserFail({ error: error.message }))
+            )
+          );
+        }
+      })
+    )
+  );
+
+  clearAuthenticatedUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.logout),
+      map(() => AuthActions.clearAuthUser())
     )
   );
 

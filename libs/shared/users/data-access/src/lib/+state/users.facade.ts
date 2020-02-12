@@ -9,16 +9,10 @@ import * as fromUsers from './users.selectors';
 export class UsersFacade {
   user$: Observable<IUser[]>;
   selectedUser$: Observable<IUser | undefined>;
-  authUser$: Observable<IUser | undefined>;
 
   constructor(private store: Store<any>) {
     this.user$ = this.store.pipe(select(fromUsers.selectAllUsers));
     this.selectedUser$ = this.store.pipe(select(fromUsers.selectCurrentUser));
-    this.authUser$ = this.store.pipe(select(fromUsers.selectAuthUser));
-  }
-
-  loadAuthUser() {
-    this.store.dispatch(UserActions.loadAuthUser());
   }
 
   loadUsers() {

@@ -2,7 +2,6 @@
 
 exports[`UsersReducer DeleteSuccess action should delete the existing user state 1`] = `
 Object {
-  "authUserId": null,
   "entities": Object {},
   "ids": Array [],
   "selectedUserId": null,
@@ -11,7 +10,6 @@ Object {
 
 exports[`UsersReducer LoadSuccess action should add the user to the user state 1`] = `
 Object {
-  "authUserId": null,
   "entities": Object {
     "2": Object {
       "email": "some@email.com",
@@ -28,7 +26,6 @@ Object {
 
 exports[`UsersReducer UpdateSuccess action should update the existing user state 1`] = `
 Object {
-  "authUserId": null,
   "entities": Object {
     "1": Object {
       "email": "some@email.com",
@@ -45,7 +42,6 @@ Object {
 
 exports[`UsersReducer undefined action should return the default state 1`] = `
 Object {
-  "authUserId": null,
   "entities": Object {},
   "ids": Array [],
   "selectedUserId": null,

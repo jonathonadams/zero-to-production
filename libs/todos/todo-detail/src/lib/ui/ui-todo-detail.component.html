@@ -1,7 +1,5 @@
 <mat-card>
-  <mat-card-header>
-    <mat-card-title>{{ selectedTodo ? 'Edit' : 'Create' }} Todo</mat-card-title>
-  </mat-card-header>
+  <h2>{{ selectedTodo ? 'Edit' : 'Create' }} Todo</h2>
   <mat-card-content>
     <app-dynamic-form [formName]="formName">
       <button mat-stroked-button type="submit" class="submit-button">

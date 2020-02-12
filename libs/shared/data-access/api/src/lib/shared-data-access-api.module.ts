@@ -1,5 +1,4 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { GraphQLService } from './graphql/graphql.service';
 import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
 import { createApollo, GRAPHQL_URL } from './graphql/createApollo';
 import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
@@ -25,7 +24,6 @@ export class SharedDataAccessApiModule {
       ngModule: SharedDataAccessApiModule,
       providers: [
         ApiService,
-        GraphQLService,
         {
           provide: APOLLO_OPTIONS,
           useFactory: createApollo,

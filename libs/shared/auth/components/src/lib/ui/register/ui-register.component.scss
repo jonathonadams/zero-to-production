@@ -9,11 +9,6 @@
   @include ui-register-theme($dark-theme);
 }
 
-:host {
-  display: block;
-  height: 100%;
-}
-
 .register-page-input {
   padding: 1em;
   width: 20em;

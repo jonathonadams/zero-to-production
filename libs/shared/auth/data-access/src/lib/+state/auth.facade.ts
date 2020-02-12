@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { IUser } from '@uqt/data';
 import * as AuthActions from './auth.actions';
 import * as fromAuth from './auth.selectors';
 import { ILoginCredentials, IRegistrationDetails } from '../auth.interface';
@@ -8,6 +9,7 @@ import { ILoginCredentials, IRegistrationDetails } from '../auth.interface';
 @Injectable({ providedIn: 'root' })
 export class AuthFacade {
   isAuthenticated$: Observable<boolean>;
+  user$: Observable<IUser | null>;
   // Username
   isAvailable$: Observable<boolean | null | 'pending'>;
 
@@ -16,6 +18,7 @@ export class AuthFacade {
       select(fromAuth.selectIsAuthenticated)
     );
     this.isAvailable$ = this.store.pipe(select(fromAuth.selectIsAvailable));
+    this.user$ = this.store.pipe(select(fromAuth.selectAuthUser));
   }
 
   login(credentials: ILoginCredentials): void {
@@ -36,6 +39,10 @@ export class AuthFacade {
 
   logout(): void {
     this.store.dispatch(AuthActions.logout());
+  }
+
+  loadLoggedInUser(): void {
+    this.store.dispatch(AuthActions.loadAuthUser());
   }
 
   setAuthenticated(isAuthenticated: boolean, expiresAt: number | null) {

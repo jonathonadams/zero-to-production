@@ -77,9 +77,6 @@
         "platform:mobile"
       ]
     },
-    "shared-users-profile": {
-      "tags": ["scope:shared", "type:feature", "platform:web"]
-    },
     "shared-dashboard": {
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
