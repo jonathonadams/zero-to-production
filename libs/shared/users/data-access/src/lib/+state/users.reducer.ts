@@ -7,14 +7,12 @@ export const usersEntityStateKey = 'usersState';
 
 export interface UsersEntityState extends EntityState<IUser> {
   selectedUserId: string | null;
-  authUserId: string | number | null;
 }
 
 export const adapter: EntityAdapter<IUser> = createEntityAdapter<IUser>();
 
 const initialSate: UsersEntityState = adapter.getInitialState({
-  selectedUserId: null,
-  authUserId: null
+  selectedUserId: null
 });
 
 export const usersReducer = createReducer(
@@ -24,12 +22,6 @@ export const usersReducer = createReducer(
   }),
   on(UserActions.clearSelected, state => {
     return { ...state, selectedUserId: null };
-  }),
-  on(UserActions.selectAuthUser, (state, { id }) => {
-    return { ...state, authUserId: id };
-  }),
-  on(UserActions.clearAuthUser, state => {
-    return { ...state, authUserId: null };
   }),
   on(UserActions.loadUsersSuccess, (state, { users }) => {
     return adapter.addAll(users, state);

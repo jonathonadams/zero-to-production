@@ -11,14 +11,14 @@
 
 .drop-down-menu-overlay-container {
   border-radius: 0.2em;
+  width: 10em;
 }
 
-.drop-down-user-profile {
+.name {
   display: block;
   margin: auto;
-  cursor: pointer;
 }
 
-.drop-down-logout-button {
-  width: 100%;
+.logout-button {
+  margin: 0 auto;
 }

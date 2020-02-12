@@ -37,6 +37,15 @@ const authReducer = createReducer(
   on(fromAuth.setAuthenticated, (state, { isAuthenticated, expiresAt }) => {
     return { ...state, isAuthenticated, expiresAt };
   }),
+  on(fromAuth.loadAuthUserSuccess, (state, { user }) => {
+    return { ...state, user };
+  }),
+  on(fromAuth.clearAuthUser, state => {
+    return { ...state, user: null };
+  }),
+  on(fromAuth.logout, state => {
+    return { ...state, isAuthenticated: false };
+  }),
   on(fromAuth.usernamePending, state => {
     return { ...state, isAvailable: 'pending' as 'pending' };
   }),

@@ -38,8 +38,7 @@ describe('UsersReducer', () => {
         entities: {
           [user.id]: user
         },
-        selectedUserId: null,
-        authUserId: null
+        selectedUserId: null
       };
 
       const userToUpdate = { id: '1', username: 'updatedName' } as IUser;
@@ -69,8 +68,7 @@ describe('UsersReducer', () => {
         entities: {
           [user.id]: user
         },
-        selectedUserId: null,
-        authUserId: null
+        selectedUserId: null
       };
 
       const userToDelete = { id: '1' } as IUser;

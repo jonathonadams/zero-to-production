@@ -57,3 +57,17 @@ export const clearAvailable = createAction('[Auth/Api] Username Clear');
 export const logout = createAction('[Auth] Logout');
 
 export const logoutRedirect = createAction('[Auth] Logout Redirect');
+
+export const clearAuthUser = createAction('[Auth] Clear User');
+
+export const loadAuthUser = createAction('[Auth/API] Load User');
+
+export const loadAuthUserSuccess = createAction(
+  '[Auth/API] Load User Success',
+  props<{ user: IUser }>()
+);
+
+export const loadAuthUserFail = createAction(
+  '[Auth/API] Load User Fail',
+  props<{ error: string }>()
+);

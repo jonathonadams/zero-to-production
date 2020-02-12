@@ -22,7 +22,7 @@ export const authRouterAnimations = trigger('authRouterAnimations', [
     query(':enter', [style({ top: '-100%' })]),
     query(':leave', animateChild()),
     group([
-      query(':leave', [animate('300ms ease-out', style({ top: '100%' }))]),
+      query(':leave', [animate('300ms ease-in', style({ top: '100%' }))]),
       query(':enter', [animate('300ms ease-out', style({ top: '0%' }))])
     ]),
     query(':enter', animateChild())
@@ -40,7 +40,7 @@ export const authRouterAnimations = trigger('authRouterAnimations', [
     query(':enter', [style({ top: '+100%' })]),
     query(':leave', animateChild()),
     group([
-      query(':leave', [animate('300ms ease-out', style({ top: '-100%' }))]),
+      query(':leave', [animate('300ms ease-in', style({ top: '-100%' }))]),
       query(':enter', [animate('300ms ease-out', style({ top: '0%' }))])
     ]),
     query(':enter', animateChild())

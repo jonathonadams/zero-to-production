@@ -47,11 +47,6 @@ export class AuthService {
     return this.graphQL.mutation<{ login: ILoginResponse }>(query, credentials);
   }
 
-  // swap out for a REST login function
-  // login(credentials: LoginCredentials): Observable<LoginResponse> {
-  //   return this.http.post<LoginResponse>(`${environment.serverUrl}/authorize`, credentials);
-  // }
-
   register(details: IRegistrationDetails) {
     const query = gql`
       mutation Register($input: RegisterInput!) {
@@ -65,8 +60,23 @@ export class AuthService {
     });
   }
 
-  // TODO -> Graphql?
+  loadUser(id: string) {
+    const query = gql`
+      query AuthUser($id: ID!) {
+        User(id: $id) {
+          id
+          givenName
+          surname
+          email
+          dateOfBirth
+        }
+      }
+    `;
 
+    return this.graphQL.query<{ User: IUser }>(query, { id });
+  }
+
+  // TODO -> Graphql?
   public isUsernameAvailable(
     username: string
   ): Observable<{ isAvailable: boolean }> {

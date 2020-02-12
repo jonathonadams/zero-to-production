@@ -4,10 +4,9 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { take, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { IUser } from '@uqt/data';
-import { UsersFacade } from '@uqt/shared/users/data-access';
+import { AuthFacade } from '@uqt/shared/data-access/auth';
 
 @Component({
   selector: 'uqt-drop-down-menu',
@@ -15,16 +14,10 @@ import { UsersFacade } from '@uqt/shared/users/data-access';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DropDownMenuComponent {
-  public user$: Observable<IUser | undefined>;
-
-  @Output() navigateToProfile = new EventEmitter();
+  public user$: Observable<IUser | null>;
   @Output() logout = new EventEmitter();
 
-  constructor(private userFacade: UsersFacade) {
-    this.user$ = this.userFacade.authUser$.pipe(
-      filter(user => user !== undefined)
-    );
+  constructor(private facade: AuthFacade) {
+    this.user$ = this.facade.user$;
   }
-
-  toggleDarkMode(darkMode: boolean) {}
 }

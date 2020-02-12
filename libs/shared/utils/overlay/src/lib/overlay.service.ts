@@ -26,7 +26,7 @@ export class OverlayService {
           {
             originX: 'end',
             originY: 'bottom',
-            overlayX: 'center',
+            overlayX: 'end',
             overlayY: 'top'
           }
         ])
