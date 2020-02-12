@@ -8,7 +8,6 @@
       "sourceRoot": "apps/server/api/src",
       "projectType": "application",
       "prefix": "server-api",
-      "schematics": {},
       "architect": {
         "build": {
           "builder": "@uqt/ng-node:build",
@@ -188,12 +187,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/examples/examples-web/browser",
+            "outputPath": "dist/examples/examples-web",
             "index": "apps/examples/examples-web/src/index.html",
             "main": "apps/examples/examples-web/src/main.ts",
             "polyfills": "apps/examples/examples-web/src/polyfills.ts",
             "tsConfig": "apps/examples/examples-web/tsconfig.app.json",
             "aot": true,
+            "baseHref": "/",
             "assets": [
               "apps/examples/examples-web/src/favicon.ico",
               "apps/examples/examples-web/src/assets",
@@ -210,6 +210,7 @@
                   "with": "apps/examples/examples-web/src/environments/environment.prod.ts"
                 }
               ],
+              "baseHref": "/",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -232,12 +233,18 @@
               ],
               "serviceWorker": true,
               "ngswConfigPath": "apps/examples/examples-web/ngsw-config.json"
+            },
+            "functions": {
+              "outputPath": "apps/examples/examples-web-functions/dist/browser",
+              "index": "apps/examples/examples-web/src/index.original.html",
+              "baseHref": "/zero-to-production-web/us-central1/universal/"
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+            "baseHref": "/",
             "browserTarget": "examples-web:build"
           },
           "configurations": {
@@ -273,7 +280,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/examples/examples-web/server",
+            "outputPath": "apps/examples/examples-web-functions/dist/server",
             "main": "apps/examples/examples-web/server.ts",
             "tsConfig": "apps/examples/examples-web/tsconfig.server.json"
           },
@@ -309,10 +316,63 @@
           "options": {
             "browserTarget": "examples-web:build:production",
             "serverTarget": "examples-web:server:production",
-            "routes": []
+            "routes": ["/", "/examples"]
           },
           "configurations": {
             "production": {}
+          }
+        }
+      }
+    },
+    "examples-web-functions": {
+      "root": "apps/examples/examples-web-functions",
+      "sourceRoot": "apps/examples/examples-web-functions/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@uqt/ng-node:build",
+          "options": {
+            "outputPath": "apps/examples/examples-web-functions/dist",
+            "src": "apps/examples/examples-web-functions/src",
+            "tsConfig": "apps/examples/examples-web-functions/tsconfig.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/examples/examples-web-functions/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/examples/examples-web-functions**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/examples/examples-web-functions/jest.config.js",
+            "tsConfig": "apps/examples/examples-web-functions/tsconfig.spec.json"
+          }
+        },
+        "build-all": {
+          "builder": "@angular-devkit/architect:concat",
+          "options": {
+            "targets": [
+              { "target": "examples-web:build:functions" },
+              { "target": "examples-web:server" },
+              { "target": "examples-web-functions:build" }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "targets": [
+                { "target": "examples-web:build:functions,production" },
+                { "target": "examples-web:server:production" },
+                { "target": "examples-web-functions:build" }
+              ]
+            }
           }
         }
       }
@@ -734,7 +794,6 @@
         }
       }
     },
-
     "shared-utils-theme": {
       "projectType": "library",
       "root": "libs/shared/utils/theme",
@@ -1379,7 +1438,6 @@
         }
       }
     },
-
     "examples-utils": {
       "projectType": "library",
       "root": "libs/examples/utils",
@@ -1595,7 +1653,6 @@
         }
       }
     },
-
     "examples-start-your-own": {
       "projectType": "library",
       "root": "libs/examples/start-your-own",

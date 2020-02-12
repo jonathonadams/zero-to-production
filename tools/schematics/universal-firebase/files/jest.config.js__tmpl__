@@ -1,0 +1,7 @@
+module.exports = {
+  name: '<%= name%>',
+  setupFilesAfterEnv: ['jest-extended'],
+  testEnvironment: 'node',
+  preset: '../../../jest.config.js',
+  coverageDirectory: '<%= relativePath%>/coverage/<%= projectDirectory%>'
+};

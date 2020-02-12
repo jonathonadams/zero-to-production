@@ -26,7 +26,7 @@ export class AuthService {
   readonly sessionKey = 'expires_at';
 
   constructor(
-    @Inject(PLATFORM_ID) private platform: Object,
+    @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(AUTH_SERVER_URL) private authServerUrl: string,
     private apollo: Apollo,
     private facade: AuthFacade,
@@ -53,7 +53,7 @@ export class AuthService {
   register(details: IRegistrationDetails) {
     const mutation = gql`
       mutation Register($input: RegisterInput!) {
-        register(input: $register) {
+        register(input: $input) {
           id
         }
       }
@@ -100,14 +100,18 @@ export class AuthService {
   }
 
   setSession({ token, expiresIn }: ILoginResponse): void {
-    const expiresAt = secondsToExpiresAtMillis(expiresIn);
-    localStorage.setItem(this.storageKey, token);
-    localStorage.setItem(this.sessionKey, expiresAt.toString());
+    if (isPlatformBrowser(this.platformId)) {
+      const expiresAt = secondsToExpiresAtMillis(expiresIn);
+      localStorage.setItem(this.storageKey, token);
+      localStorage.setItem(this.sessionKey, expiresAt.toString());
+    }
   }
 
   removeSession(): void {
-    localStorage.removeItem(this.storageKey);
-    localStorage.removeItem(this.sessionKey);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem(this.storageKey);
+      localStorage.removeItem(this.sessionKey);
+    }
   }
 
   /**
@@ -117,7 +121,7 @@ export class AuthService {
    * @memberof AuthService
    */
   public isLoggedIn(): void {
-    if (isPlatformBrowser(this.platform)) {
+    if (isPlatformBrowser(this.platformId)) {
       const expiration = this.expiration;
       const auth = expiration ? this.isAuthenticated(expiration) : false;
 

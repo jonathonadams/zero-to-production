@@ -1,5 +1,5 @@
 // UQT_UPDATE -> change the url to point to your own API server
-const serverUrl = 'http://localhost:3000';
+const serverUrl = 'https://api.zero-to-productions.dev';
 
 export const environment = {
   production: true,

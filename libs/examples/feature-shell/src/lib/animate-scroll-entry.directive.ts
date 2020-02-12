@@ -68,7 +68,7 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
       );
 
       if (currentPosition === ElementViewportPosition.On) {
-        this.playAnimation(this.spinInto());
+        this.playAnimation(this.flipInto());
       }
 
       this.previousPosition = currentPosition;
@@ -102,7 +102,7 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
               oldPosition === ElementViewportPosition.Below &&
               newPosition === ElementViewportPosition.On
             ) {
-              this.playAnimation(this.spinInto());
+              this.playAnimation(this.flipInto());
 
               // Only hide if the new position is below the viewport
               // if it is above, keep its current state
@@ -134,7 +134,7 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
     this.player.play();
   }
 
-  private spinInto(): AnimationMetadata[] {
+  private flipInto(): AnimationMetadata[] {
     // sudo random number between 0 and 0.5
     const delay = (Math.random() / 4).toFixed(2);
     const timing = (0.5 + Math.random() / 2).toFixed(2);

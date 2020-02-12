@@ -16,7 +16,7 @@ export class ThemeService implements OnDestroy {
   private subscription: Subscription;
 
   constructor(
-    @Inject(PLATFORM_ID) private platform: Object,
+    @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(DOCUMENT) private document: Document
   ) {
     /**
@@ -62,7 +62,7 @@ export class ThemeService implements OnDestroy {
   }
 
   loadAndApplyColors() {
-    if (isPlatformBrowser(this.platform)) {
+    if (isPlatformBrowser(this.platformId)) {
       const colors: any = localStorage.getItem(this.storageKey);
       if (colors) this.applyColors(JSON.parse(colors));
     }
