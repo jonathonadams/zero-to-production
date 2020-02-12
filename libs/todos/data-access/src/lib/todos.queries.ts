@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const ALL_TODO_FIELDS = gql`
-  fragment allTodoProperties on Todo {
+  fragment todoFields on Todo {
     id
     title
     description
@@ -12,7 +12,7 @@ export const ALL_TODO_FIELDS = gql`
 export const ALL_TODOS_QUERY = gql`
   query AllTodos {
     allTodos {
-      ...allTodoProperties
+      ...todoFields
     }
   }
   ${ALL_TODO_FIELDS}
@@ -21,7 +21,7 @@ export const ALL_TODOS_QUERY = gql`
 export const LOAD_TODO_QUERY = gql`
   query LoadTodo($id: ID!) {
     Todo(id: $id) {
-      ...allTodoProperties
+      ...todoFields
     }
   }
   ${ALL_TODO_FIELDS}
@@ -30,7 +30,7 @@ export const LOAD_TODO_QUERY = gql`
 export const CREATE_TODO_QUERY = gql`
   mutation CreateTodo($input: NewTodoInput!) {
     newTodo(input: $input) {
-      ...allTodoProperties
+      ...todoFields
     }
   }
   ${ALL_TODO_FIELDS}
@@ -39,7 +39,7 @@ export const CREATE_TODO_QUERY = gql`
 export const UPDATE_TODO_QUERY = gql`
   mutation UpdateTodo($input: UpdatedTodoInput!) {
     updateTodo(input: $input) {
-      ...allTodoProperties
+      ...todoFields
     }
   }
   ${ALL_TODO_FIELDS}

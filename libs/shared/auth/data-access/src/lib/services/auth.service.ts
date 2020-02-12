@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 // @ts-ignore
 import jwtDecode from 'jwt-decode';
 import gql from 'graphql-tag';
-import { GraphQLService } from '@uqt/shared/data-access/api';
+import { Apollo } from 'apollo-angular';
 import { IUser } from '@uqt/data';
 import {
   ILoginCredentials,
@@ -28,7 +28,7 @@ export class AuthService {
   constructor(
     @Inject(PLATFORM_ID) private platform: Object,
     @Inject(AUTH_SERVER_URL) private authServerUrl: string,
-    private graphQL: GraphQLService,
+    private apollo: Apollo,
     private facade: AuthFacade,
     private http: HttpClient
   ) {}
@@ -36,7 +36,7 @@ export class AuthService {
   // Login function that returns a user and JWT
   // This is a graphql login function
   login(credentials: ILoginCredentials) {
-    const query = gql`
+    const mutation = gql`
       mutation LoginUser($username: String!, $password: String!) {
         login(username: $username, password: $password) {
           token
@@ -44,19 +44,25 @@ export class AuthService {
         }
       }
     `;
-    return this.graphQL.mutation<{ login: ILoginResponse }>(query, credentials);
+    return this.apollo.mutate<{ login: ILoginResponse }>({
+      mutation,
+      variables: credentials
+    });
   }
 
   register(details: IRegistrationDetails) {
-    const query = gql`
+    const mutation = gql`
       mutation Register($input: RegisterInput!) {
         register(input: $register) {
           id
         }
       }
     `;
-    return this.graphQL.mutation<{ register: IUser }>(query, {
-      input: details
+    return this.apollo.mutate<{ register: IUser }>({
+      mutation,
+      variables: {
+        input: details
+      }
     });
   }
 
@@ -73,7 +79,7 @@ export class AuthService {
       }
     `;
 
-    return this.graphQL.query<{ User: IUser }>(query, { id });
+    return this.apollo.query<{ User: IUser }>({ query, variables: { id } });
   }
 
   // TODO -> Graphql?

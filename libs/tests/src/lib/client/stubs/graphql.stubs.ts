@@ -40,7 +40,7 @@ export class GraphQLStub {
     return of<ApolloQueryResult<T> | undefined>(this.expectedResponse);
   }
 
-  mutation<T>(
+  mutate<T>(
     query: string,
     variables: any
   ): Observable<FetchResult<T> | undefined> {

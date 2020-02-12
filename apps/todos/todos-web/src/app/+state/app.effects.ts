@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { AuthActions } from '@uqt/shared/data-access/auth';
 import { tap } from 'rxjs/operators';
+import { Apollo } from 'apollo-angular';
 import { Router } from '@angular/router';
 import { NotificationService } from '@uqt/utils/notifications';
-import { GraphQLService } from '@uqt/shared/data-access/api';
 
 @Injectable()
 export class AppEffects {
@@ -30,7 +30,10 @@ export class AppEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.logoutRedirect),
-        tap(action => this.graphql.clearCache()),
+        tap(action => {
+          this.apollo.getClient().clearStore();
+          this.apollo.getClient().cache.reset();
+        }),
         tap(action => this.router.navigate(['login']))
       ),
     { dispatch: false }
@@ -44,9 +47,7 @@ export class AppEffects {
           this.ns.emit('Provided credentials are incorrect. Please Try Again')
         )
       ),
-    {
-      dispatch: false
-    }
+    { dispatch: false }
   );
 
   registerSuccess$ = createEffect(
@@ -61,7 +62,7 @@ export class AppEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private graphql: GraphQLService,
+    private apollo: Apollo,
     private ns: NotificationService
   ) {}
 }

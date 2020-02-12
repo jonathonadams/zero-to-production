@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { GraphQLError } from 'graphql';
 import { sign } from 'jsonwebtoken';
 import { GraphQLStub } from '@uqt/tests/client';
-import { GraphQLService } from '@uqt/shared/data-access/api';
 import { AuthService, AUTH_SERVER_URL } from './auth.service';
 import {
   ILoginCredentials,
@@ -12,13 +11,14 @@ import {
 import { IUser } from '@uqt/data';
 import { AuthFacade } from '../+state/auth.facade';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Apollo } from 'apollo-angular';
 
 describe('AuthService', () => {
   const storageKey = 'access_token';
   const sessionKey = 'expires_at';
 
   let authService: AuthService;
-  let graphQLStub: GraphQLService;
+  let apollo: GraphQLStub;
   let authFacade: AuthFacade;
 
   const facadeStub = { setAuthenticated: jest.fn() };
@@ -28,13 +28,13 @@ describe('AuthService', () => {
       imports: [HttpClientTestingModule],
       providers: [
         AuthService,
-        { provide: GraphQLService, useClass: GraphQLStub },
+        { provide: Apollo, useClass: GraphQLStub },
         { provide: AuthFacade, useValue: facadeStub },
         { provide: AUTH_SERVER_URL, useValue: 'test-url' }
       ]
     });
     authService = TestBed.inject<AuthService>(AuthService);
-    graphQLStub = TestBed.inject<GraphQLService>(GraphQLService);
+    apollo = (TestBed.inject<Apollo>(Apollo) as unknown) as GraphQLStub;
     authFacade = TestBed.inject<AuthFacade>(AuthFacade);
   });
 
@@ -45,7 +45,7 @@ describe('AuthService', () => {
   describe('login', () => {
     // GraphQL login response check
     it('should return a LoginResponse if called with valid credentials', () => {
-      const spy = jest.spyOn(graphQLStub, 'mutation');
+      const spy = jest.spyOn(apollo, 'mutate');
       const loginCredentials: ILoginCredentials = {
         username: 'admin',
         password: 'secret'
@@ -55,7 +55,7 @@ describe('AuthService', () => {
         expiresIn: 1000
       };
       // Set the response from the the stub
-      ((graphQLStub as unknown) as GraphQLStub).setExpectedResponse<{
+      apollo.setExpectedResponse<{
         login: ILoginResponse;
       }>({
         login: expectedResponse
@@ -64,12 +64,12 @@ describe('AuthService', () => {
         expect(response.errors).toBeUndefined();
         expect((response.data as any).login).toBeDefined();
         expect((response.data as any).login).toEqual(expectedResponse);
-        expect(graphQLStub.mutation).toHaveBeenCalled();
+        expect(apollo.mutate).toHaveBeenCalled();
         expect(spy.mock.calls[0][1]).toEqual(loginCredentials);
       }, console.error);
     });
     it('should return an error if credentials are incorrect', () => {
-      const spy = jest.spyOn(graphQLStub, 'mutation');
+      const spy = jest.spyOn(apollo, 'mutate');
       const loginCredentials: ILoginCredentials = {
         username: 'unauthorized',
         password: 'noi dea'
@@ -78,12 +78,12 @@ describe('AuthService', () => {
         { name: 'Unauthorized Error', message: 'Unauthorized' }
       ] as GraphQLError[];
       // Set the response from the the stub
-      ((graphQLStub as unknown) as GraphQLStub).setErrorResponse(graphErrors);
+      apollo.setErrorResponse(graphErrors);
       authService.login(loginCredentials).subscribe(response => {
         expect(response.data).toEqual(null);
         expect(response.errors).toBeDefined();
         expect((response.errors as any[][0]).message).toEqual('Unauthorized');
-        expect(graphQLStub.mutation).toHaveBeenCalled();
+        expect(apollo.mutate).toHaveBeenCalled();
         expect(spy.mock.calls[0][1]).toEqual(loginCredentials);
       }, console.error);
     });
@@ -92,7 +92,7 @@ describe('AuthService', () => {
   describe('register', () => {
     // GraphQL login response check
     it('should return a User if registration is successfully', () => {
-      const spy = jest.spyOn(graphQLStub, 'mutation');
+      const spy = jest.spyOn(apollo, 'mutate');
       const newUser: IRegistrationDetails = {
         username: 'test user',
         givenName: 'test',
@@ -110,7 +110,7 @@ describe('AuthService', () => {
       };
 
       // Set the response from the the stub
-      ((graphQLStub as unknown) as GraphQLStub).setExpectedResponse<{
+      apollo.setExpectedResponse<{
         user: IUser;
       }>({
         user: expectedResponse
@@ -120,12 +120,12 @@ describe('AuthService', () => {
         expect(response.errors).toBeUndefined();
         expect((response.data as any).login).toBeDefined();
         expect((response.data as any).login).toEqual(expectedResponse);
-        expect(graphQLStub.mutation).toHaveBeenCalled();
+        expect(apollo.mutate).toHaveBeenCalled();
         expect(spy.mock.calls[0][1]).toEqual(newUser);
       }, console.error);
     });
     it('should return an error if registration is invalid', () => {
-      const spy = jest.spyOn(graphQLStub, 'mutation');
+      const spy = jest.spyOn(apollo, 'mutate');
 
       const newUser = ({
         username: 'test user',
@@ -140,14 +140,14 @@ describe('AuthService', () => {
       ] as GraphQLError[];
 
       // Set the response from the the stub
-      ((graphQLStub as unknown) as GraphQLStub).setErrorResponse(graphErrors);
+      apollo.setErrorResponse(graphErrors);
       authService.register(newUser).subscribe(response => {
         expect(response.data).toEqual(null);
         expect(response.errors).toBeDefined();
         expect((response.errors as any[][0]).message).toEqual(
           'No password provided'
         );
-        expect(graphQLStub.mutation).toHaveBeenCalled();
+        expect(apollo.mutate).toHaveBeenCalled();
         expect(spy.mock.calls[0][1]).toEqual(newUser);
       }, console.error);
     });
