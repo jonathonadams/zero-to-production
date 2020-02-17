@@ -21,30 +21,33 @@
 # -----------------------------------------
 # Build Container - Initail Dependency Install 
 # -----------------------------------------
-FROM node:alpine AS builder-setup
+FROM node:12-alpine AS build-setup
+USER node
 
 # Set the node environment
 ENV NODE_ENV development
 
+# Becuase user is Node, directory must be in /home/node for access
+RUN mkdir -p /home/node/tmp
 # Create the tmp working directory
-WORKDIR /tmp
+WORKDIR /home/node/tmp
 
 # Copy all files required for dependencies to be installed 
-COPY package.json package-lock.json /tmp/
+COPY --chown=node:node package.json package-lock.json ./
 
-# Disable the MongoMemoryServer Post Install & Cypress Binary Install
+# Disable the MongoMemoryServer Post Install
 ENV MONGOMS_DISABLE_POSTINSTALL=1
-# ENV CYPRESS_INSTALL_BINARY=0
 
-# TODO -> Onlyd dev dependencies? And only for building the API
+# TODO -> Only dev dependencies? And only for building the API
 # Install all deps
-RUN npm install
+RUN npm ci 
 
 
 # -----------------------------------------
 # Production Container - Initail Dependency Install 
 # -----------------------------------------
-FROM node:alpine AS production-setup
+FROM node:12-alpine AS deployment-setup
+USER node
 
 # Set the node environment
 # This also means only prodcution npm's are installaed
@@ -53,16 +56,18 @@ ENV NODE_ENV production
 ARG PROJECT_DIRECTORY
 RUN test -n "$PROJECT_DIRECTORY" || (echo "PROJECT_DIRECTORY  not set" && false)
 
+# Becuase user is Node, directory must be in /home/node for access
+RUN mkdir -p /home/node/app
 # Create the app working directory
-WORKDIR /app
+WORKDIR /home/node/app
 
 # Copy the package.json from the app specific directory
 # and hte lock file from the root directory
-COPY apps/$PROJECT_DIRECTORY/package.json  /app
-COPY package-lock.json /app
+COPY --chown=node:node apps/$PROJECT_DIRECTORY/package.json  ./
+COPY --chown=node:node package-lock.json ./
 
 # Install all production dependencies
-RUN npm install --only=prod --unsafe-perm || \
+RUN npm ci --only=prod --unsafe-perm || \
   ((if [ -f npm-debug.log ]; then \
   cat npm-debug.log; \
   fi) && false)
@@ -70,40 +75,44 @@ RUN npm install --only=prod --unsafe-perm || \
 # -----------------------------------------
 # Build Container - Build all required projects 
 # -----------------------------------------
-FROM builder-setup as builder
+FROM build-setup as build
+USER node
 
 ENV NODE_ENV development
 ARG PROJECT_DIRECTORY
 
+
+WORKDIR /home/node/tmp
+# Make the output directory
+RUN mkdir dist
+
+
 # Copy all files required to build the projects
-COPY angular.json tsconfig.base.json tsconfig.json /tmp/
+COPY --chown=node:node angular.json tsconfig.base.json tsconfig.json ./
 
 # Copy all src files
-COPY apps/$PROJECT_DIRECTORY/ /tmp/apps/$PROJECT_DIRECTORY
+COPY --chown=node:node apps/$PROJECT_DIRECTORY/ ./apps/$PROJECT_DIRECTORY
 
 # Copy all libs. 
 # Note: only the required libs will be build in the dist folder and coppied into production
-COPY libs /tmp/libs
+COPY --chown=node:node libs ./libs
 
 # Run the production build task (from app specifig package.json)
-COPY apps/$PROJECT_DIRECTORY/package.json  /tmp
-
-# Make the output directory
-RUN mkdir -p /tmp/dist
-WORKDIR /tmp
+COPY --chown=node:node apps/$PROJECT_DIRECTORY/package.json  ./
 
 RUN npm run build
 
 # -----------------------------------------
-# Production Container 
+# Final Production Container 
 # -----------------------------------------
-FROM production-setup as production
+FROM deployment-setup as deployment
+USER node
 
 ENV NODE_ENV production
 ARG PROJECT_DIRECTORY
 
 # Copy the distribution folder from the builder container
-COPY --from=builder /tmp/dist /app
+COPY --chown=node:node --from=build /home/node/tmp/dist /home/node/app
 
 WORKDIR $PROJECT_DIRECTORY
 
