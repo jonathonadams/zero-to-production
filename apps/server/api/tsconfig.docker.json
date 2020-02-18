@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "noImplicitAny": false
+  },
+  "references": [
+    { "path": "../../../libs/data/tsconfig.docker.json" },
+    { "path": "../../../libs/server/auth/tsconfig.docker.json" },
+    { "path": "../../../libs/server/utils/tsconfig.docker.json" },
+    { "path": "../../../libs/server/middleware/tsconfig.docker.json" },
+    { "path": "../../../libs/server/database/tsconfig.docker.json" },
+    { "path": "../../../libs/server/core-data/tsconfig.docker.json" }
+  ]
+}

@@ -27,21 +27,22 @@ USER node
 # Set the node environment
 ENV NODE_ENV development
 
-# Becuase user is Node, directory must be in /home/node for access
+ARG PROJECT_DIRECTORY
+RUN test -n "$PROJECT_DIRECTORY" || (echo "PROJECT_DIRECTORY  not set" && false)
+
+# Because user is Node, directory must be in /home/node for permission
 RUN mkdir -p /home/node/tmp
-# Create the tmp working directory
+# set the tmp working directory
 WORKDIR /home/node/tmp
 
 # Copy all files required for dependencies to be installed 
-COPY --chown=node:node package.json package-lock.json ./
+COPY --chown=node:node apps/$PROJECT_DIRECTORY/package.json  .
+COPY --chown=node:node package-lock.json ./
 
-# Disable the MongoMemoryServer Post Install
-ENV MONGOMS_DISABLE_POSTINSTALL=1
-
-# TODO -> Only dev dependencies? And only for building the API
-# Install all deps
-RUN npm ci 
-
+# IMPROVEMENT
+# current bug that `npm ci --only=dev` does not install anything
+RUN cat package.json
+RUN npm ci --ignore-scripts
 
 # -----------------------------------------
 # Production Container - Initail Dependency Install 
@@ -52,13 +53,11 @@ USER node
 # Set the node environment
 # This also means only prodcution npm's are installaed
 ENV NODE_ENV production
-
 ARG PROJECT_DIRECTORY
-RUN test -n "$PROJECT_DIRECTORY" || (echo "PROJECT_DIRECTORY  not set" && false)
 
-# Becuase user is Node, directory must be in /home/node for access
+# Becuase user is Node, directory must be in /home/node for permission
 RUN mkdir -p /home/node/app
-# Create the app working directory
+# Set
 WORKDIR /home/node/app
 
 # Copy the package.json from the app specific directory
@@ -72,6 +71,7 @@ RUN npm ci --only=prod --unsafe-perm || \
   cat npm-debug.log; \
   fi) && false)
 
+
 # -----------------------------------------
 # Build Container - Build all required projects 
 # -----------------------------------------
@@ -81,9 +81,7 @@ USER node
 ENV NODE_ENV development
 ARG PROJECT_DIRECTORY
 
-
 WORKDIR /home/node/tmp
-# Make the output directory
 RUN mkdir dist
 
 
@@ -100,7 +98,7 @@ COPY --chown=node:node libs ./libs
 # Run the production build task (from app specifig package.json)
 COPY --chown=node:node apps/$PROJECT_DIRECTORY/package.json  ./
 
-RUN npm run build
+RUN npm run build:docker
 
 # -----------------------------------------
 # Final Production Container 
