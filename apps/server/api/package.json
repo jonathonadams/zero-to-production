@@ -4,7 +4,7 @@
   "description": "Todo API with GraphQL",
   "main": "jest.config.js",
   "scripts": {
-    "build": "ng build server-api"
+    "build:docker": "ng run server-api:build:docker"
   },
   "author": "Jonathon Adams",
   "license": "ISC",
@@ -31,5 +31,11 @@
     "mongoose": "^5.8.11",
     "pem-jwk": "^2.0.0",
     "jwks-rsa": "^1.6.2"
+  },
+  "devDependencies": {
+    "@angular/cli": "^9.0.1",
+    "@uqt/ng-node": "0.0.6",
+    "typescript": "^3.7.5",
+    "@types/mongoose": "^5.7.0"
   }
 }

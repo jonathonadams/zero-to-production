@@ -16,6 +16,11 @@
             "outputPath": "dist/server/api",
             "src": "apps/server/api/src",
             "tsConfig": "apps/server/api/tsconfig.app.json"
+          },
+          "configurations": {
+            "docker": {
+              "tsConfig": "apps/server/api/tsconfig.docker.json"
+            }
           }
         },
         "serve": {
