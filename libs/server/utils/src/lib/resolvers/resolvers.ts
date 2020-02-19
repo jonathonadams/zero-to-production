@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 import { GraphQLFieldResolver } from 'graphql';
 import { generateResolvers } from './create-resolvers';
 
+export type TResolverAuthGuard = (
+  resolver: GraphQLFieldResolver<any, any, any>
+) => GraphQLFieldResolver<any, any, any>;
+
 export function createTypeResolver<T extends mongoose.Document>({
   model,
   name,
@@ -10,9 +14,7 @@ export function createTypeResolver<T extends mongoose.Document>({
 }: {
   model: mongoose.Model<T>;
   name: string;
-  resolverAuthentication?: (
-    resolver: GraphQLFieldResolver<any, any, any>
-  ) => GraphQLFieldResolver<any, any, any>;
+  resolverAuthentication?: TResolverAuthGuard;
   userResourcesOnly?: boolean;
 }): {
   Query: {

@@ -3,21 +3,17 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
 import { runQuery, setupTestDB, signTestAccessToken } from '@uqt/tests/server';
 import { IUserDocument } from '@uqt/server/core-data';
-import { User } from '@uqt/server/core-data';
 import { schema } from '../graphql';
-import config from '../../../environments';
+import { authConfig } from '../../../environments';
 import { IUser } from '@uqt/data';
 import ApiServer from '../../server';
 import { Server } from 'http';
+import { User } from '.';
 
 // Need to import and run the server because
 // the server is also our "auth server"
 // and the Auth guard needs to be able to retrieve the JWKS
 const server = new ApiServer(new Koa());
-
-const tokenConfig = {
-  ...config.auth.accessToken
-};
 
 const user: IUser = ({
   username: 'test user',
@@ -47,7 +43,7 @@ describe(`GraphQL / User`, () => {
 
     createdUser = await User.create(user);
     [createdUser.id, createdUser._id] = [createdUser._id, createdUser.id];
-    jwt = signTestAccessToken(tokenConfig)(createdUser);
+    jwt = signTestAccessToken(authConfig.accessToken)(createdUser);
   });
 
   afterAll(async () => {

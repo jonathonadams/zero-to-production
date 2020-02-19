@@ -17,11 +17,9 @@ export function getAuthResolvers(config: AuthModuleConfig) {
   const verificationEmail = setupEmailVerification(config.email);
   const registerConfig = { ...config.register, verificationEmail };
   return {
-    authResolvers: {
-      Mutation: {
-        login: loginResolver(config.login),
-        register: registerResolver(registerConfig)
-      }
+    Mutation: {
+      login: loginResolver(config.login),
+      register: registerResolver(registerConfig)
     }
   };
 }

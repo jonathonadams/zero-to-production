@@ -4,7 +4,7 @@ import { ExamplesHomeComponent } from './home.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ExamplesFacade } from '@uqt/examples/data-access';
 import { of } from 'rxjs';
-import { RouterModule, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ExamplesHomeComponent', () => {
   let component: ExamplesHomeComponent;
@@ -13,12 +13,9 @@ describe('ExamplesHomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterModule],
+      imports: [RouterTestingModule],
       declarations: [ExamplesHomeComponent],
-      providers: [
-        { provide: ExamplesFacade, useValue: facadeSpy },
-        { provide: Router, useValue: {} }
-      ],
+      providers: [{ provide: ExamplesFacade, useValue: facadeSpy }],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));

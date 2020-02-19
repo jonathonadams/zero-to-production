@@ -24,7 +24,7 @@ const ROUTES: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'start-your-own'
+        redirectTo: 'getting-started'
       }
     ]
   },

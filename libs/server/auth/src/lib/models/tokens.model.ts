@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import { Schema, Connection } from 'mongoose';
 import { defaultSchemaOptions } from '@uqt/server/utils';
 import { IRefreshTokenDocument, IRefreshTokenModel } from '../auth.interface';
 
@@ -6,11 +6,13 @@ import { IRefreshTokenDocument, IRefreshTokenModel } from '../auth.interface';
  * This resource is not publicly available but used to store all refresh tokens
  */
 
-export const refreshTokenSchema = new mongoose.Schema(
+export const refreshTokenDbKey = 'refreshToken';
+
+export const refreshTokenSchema = new Schema(
   {
     user: {
       required: true,
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'user'
     },
     token: {
@@ -31,7 +33,15 @@ refreshTokenSchema.statics.findByTokenWithUser = function(
     .exec();
 };
 
-export const RefreshToken = mongoose.model<
-  IRefreshTokenDocument,
-  IRefreshTokenModel
->('refresh-token', refreshTokenSchema);
+export function createRefreshTokenModel(con: Connection): IRefreshTokenModel {
+  return con.model<IRefreshTokenDocument, IRefreshTokenModel>(
+    refreshTokenDbKey,
+    refreshTokenSchema
+  );
+}
+
+export function getRefreshTokenModel(con: Connection): IRefreshTokenModel {
+  return con.model<IRefreshTokenDocument, IRefreshTokenModel>(
+    refreshTokenDbKey
+  );
+}

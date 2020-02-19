@@ -41,6 +41,12 @@ Thumbs.db
 .firebaserc
 .firebase
 
+# Serverless packages
+.serverless
+
 # Environment Config
 .env
-/**/.env
+**/.env.**
+!.env.example
+
+

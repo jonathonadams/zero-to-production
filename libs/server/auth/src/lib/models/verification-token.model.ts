@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import { Schema, Connection } from 'mongoose';
 import { defaultSchemaOptions } from '@uqt/server/utils';
 import {
   IVerificationToken,
@@ -6,10 +6,12 @@ import {
   IVerificationTokenModel
 } from '../auth.interface';
 
-export const verificationTokenSchema = new mongoose.Schema<IVerificationToken>(
+export const verificationTokenDbKey = 'verificationToken';
+
+export const verificationTokenSchema = new Schema<IVerificationToken>(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       required: true
     },
     token: {
@@ -22,7 +24,19 @@ export const verificationTokenSchema = new mongoose.Schema<IVerificationToken>(
   }
 );
 
-export const VerificationToken = mongoose.model<
-  IVerificationTokenDocument,
-  IVerificationTokenModel
->('verificationToken', verificationTokenSchema);
+export function createVerificationTokenModel(
+  con: Connection
+): IVerificationTokenModel {
+  return con.model<IVerificationTokenDocument, IVerificationTokenModel>(
+    verificationTokenDbKey,
+    verificationTokenSchema
+  );
+}
+
+export function getVerificationTokenModel(
+  con: Connection
+): IVerificationTokenModel {
+  return con.model<IVerificationTokenDocument, IVerificationTokenModel>(
+    verificationTokenDbKey
+  );
+}

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { MarkedPipe } from '@uqt/examples/utils';
-
 import { GuidesComponent } from './guides/guides.component';
 import { ExamplesGuidesRoutingModule } from './examples-guides-routing.module';
 import { MarkdownComponent } from './markdown/markdown.component';

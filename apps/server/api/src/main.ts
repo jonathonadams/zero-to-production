@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import config from './environments';
+import { config } from './environments';
 import ApiServer from './server/server';
 
 const app = new Koa();

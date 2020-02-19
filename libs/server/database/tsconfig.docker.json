@@ -1,7 +1,0 @@
-{
-  "extends": "./tsconfig.lib.json",
-  "compilerOptions": {
-    "noImplicitAny": false
-  },
-  "references": [{ "path": "../../data/tsconfig.docker.json" }]
-}

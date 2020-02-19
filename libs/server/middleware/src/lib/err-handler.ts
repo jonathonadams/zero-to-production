@@ -63,18 +63,3 @@ function handleError(err: any): { status: number; body: any } {
     };
   }
 }
-
-export function errorLogger(err: any, ctx: ParameterizedContext) {
-  const date = new Date();
-  console.error('There was an error.', {
-    timestamp: date.toISOString(),
-    status: err.status,
-    name: err.name,
-    text: err.statusText,
-    message: err.message,
-    code: err.code,
-    zone: err.zone,
-    task: err.task,
-    error: err
-  });
-}

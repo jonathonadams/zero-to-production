@@ -1,17 +1,19 @@
-# TODO
-
-## Before 'Release'
-
-- [ ] Make dynamic form use recursive field types (array/group)
-- [ ] Write tests for dynamic form
-- [ ] Add a settings section
 - Nrwl Repo - https://github.com/nrwl/nx/issues/259 & https://github.com/nrwl/nx/issues/1515
 
-## After Release
+### Docs
 
-### TODO App
+- [ ] Specify minium Node version,
+  - serverless deploy requires 12.10 for recursive rmdir
+
+### App
 
 - [ ] Move Todo detail to own component
+
+### Dynamic Form
+
+- [ ] Make dynamic form use recursive field types (array/group)
+- [ ] Documentation
+- [ ] Write tests for dynamic form
 
 ### Form Builder
 
@@ -23,6 +25,7 @@
 - [ ] Document the current completed tests
 - [ ] Complete Unit tests
 - [ ] Complete e2e tests
+- [ ] tests for Lambda API
 
 ### Accessability
 
@@ -33,3 +36,5 @@
 - [ ] Configure the build script to tag Docker images
 - [ ] Configure the Load Balance to uses HTTP2 from Load balancer through to Reverse Proxy
   - Can the certificates be accessed from the ManagedCertificate Resource?
+- [ ] Create a lambda / cron docker container to create database indexes
+- [ ] Change authentication for Lambda functions to use an authorizer? This means the servers will have to be separated

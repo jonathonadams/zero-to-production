@@ -1,13 +1,13 @@
 import { ParameterizedContext } from 'koa';
 import Router from '@koa/router';
-import mongoose from 'mongoose';
+import { Document, Model } from 'mongoose';
 import { createControllers } from './create-controllers';
 
-export function generateRestEndpoints<T extends mongoose.Document>({
+export function generateRestRouter<T extends Document>({
   model,
   userResourcesOnly = false
 }: {
-  model: mongoose.Model<T>;
+  model: Model<T>;
   userResourcesOnly?: boolean;
 }) {
   const router = new Router();
@@ -22,11 +22,11 @@ export function generateRestEndpoints<T extends mongoose.Document>({
     .put('/:id', controllers.updateOne)
     .delete('/:id', controllers.removeOne);
 
-  return router.routes();
+  return router;
 }
 
-export function generateRestControllers<T extends mongoose.Document>(
-  model: mongoose.Model<T>,
+export function generateRestControllers<T extends Document>(
+  model: Model<T>,
   userResourcesOnly: boolean
 ) {
   const controllers = createControllers<T>(model);
@@ -43,7 +43,7 @@ export function generateRestControllers<T extends mongoose.Document>(
     getAll: async (ctx: ParameterizedContext) => {
       ctx.status = 200;
       ctx.body = await controllers.getAll(
-        userResourcesOnly ? ctx.state.token.sub : undefined
+        userResourcesOnly ? ctx.state.user.sub : undefined
       );
     },
     getOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
@@ -51,7 +51,7 @@ export function generateRestControllers<T extends mongoose.Document>(
         ctx.status = 200;
         ctx.body = await controllers.getOne(
           ctx.state.id,
-          userResourcesOnly ? ctx.state.token.sub : undefined
+          userResourcesOnly ? ctx.state.user.sub : undefined
         );
       } catch (err) {
         throw err;
@@ -61,7 +61,7 @@ export function generateRestControllers<T extends mongoose.Document>(
       ctx.status = 201;
       ctx.body = await controllers.createOne(
         (ctx.request as any).body,
-        userResourcesOnly ? ctx.state.token.sub : undefined
+        userResourcesOnly ? ctx.state.user.sub : undefined
       );
     },
     updateOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
@@ -70,7 +70,7 @@ export function generateRestControllers<T extends mongoose.Document>(
         ctx.body = await controllers.updateOne(
           ctx.state.id,
           (ctx.request as any).body,
-          userResourcesOnly ? ctx.state.token.sub : undefined
+          userResourcesOnly ? ctx.state.user.sub : undefined
         );
       } catch (err) {
         throw err;
@@ -81,7 +81,7 @@ export function generateRestControllers<T extends mongoose.Document>(
         ctx.status = 200;
         ctx.body = await controllers.removeOne(
           ctx.state.id,
-          userResourcesOnly ? ctx.state.token.sub : undefined
+          userResourcesOnly ? ctx.state.user.sub : undefined
         );
       } catch (err) {
         throw err;

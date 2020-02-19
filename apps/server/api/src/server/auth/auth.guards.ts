@@ -1,14 +1,12 @@
-import { User } from '@uqt/server/core-data';
-import { getGraphQlGuards, getRestGuards } from '@uqt/server/auth';
-import config from '../../environments';
+import {
+  getGraphQlGuards,
+  getRestGuards,
+  generateAuthGuardConfig
+} from '@uqt/server/auth';
+import { config, authConfig } from '../../environments';
+import { User } from '../api/users';
 
-const guardConfig = {
-  User,
-  production: config.production,
-  authServerUrl: config.auth.authServerUrl,
-  issuer: config.auth.accessToken.issuer,
-  audience: config.auth.accessToken.audience
-};
+const guardConfig = generateAuthGuardConfig(config, authConfig, User);
 
 /**
  * Guards for use in Routes

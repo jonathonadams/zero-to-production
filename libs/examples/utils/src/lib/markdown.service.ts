@@ -17,6 +17,6 @@ export class MarkdownService {
           .get(`./assets/guides/${fileName}.md`, {
             responseType: 'text'
           })
-          .pipe(tap(md => (this.simpleCache[fileName] = md)));
+          .pipe(tap(mdString => (this.simpleCache[fileName] = mdString)));
   }
 }

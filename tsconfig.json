@@ -6,10 +6,9 @@
       "@uqt/tests/server": ["libs/tests/src/server.ts"],
       "@uqt/data": ["libs/data/src/index.d.ts"],
       "@uqt/server/auth": ["libs/server/auth/src/index.ts"],
-      "@uqt/server/config": ["libs/server/middleware/src/index.ts"],
+      "@uqt/server/middleware": ["libs/server/middleware/src/index.ts"],
       "@uqt/server/core-data": ["libs/server/core-data/src/index.ts"],
       "@uqt/server/utils": ["libs/server/utils/src/index.ts"],
-      "@uqt/server/database": ["libs/server/database/src/index.ts"],
       "@uqt/shared/data-access/api": [
         "libs/shared/data-access/api/src/index.ts"
       ],
@@ -72,7 +71,8 @@
         "libs/examples/start-your-own/src/index.ts"
       ],
       "@uqt/exampes/guides": ["libs/exampes/guides/src/index.ts"],
-      "@uqt/examples/guides": ["libs/examples/guides/src/index.ts"]
+      "@uqt/examples/guides": ["libs/examples/guides/src/index.ts"],
+      "@uqt/server/graphql": ["libs/server/graphql/src/index.ts"]
     }
   }
 }

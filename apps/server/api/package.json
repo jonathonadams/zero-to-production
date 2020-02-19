@@ -5,7 +5,6 @@
   "scripts": {
     "build:docker": "ng run server-api:build:docker"
   },
-  "author": "Jonathon Adams",
   "license": "ISC",
   "dependencies": {
     "@hapi/boom": "^9.0.0",
@@ -23,7 +22,6 @@
     "koa-bearer-token": "^1.0.0",
     "koa-compress": "^3.0.0",
     "koa-helmet": "^5.2.0",
-    "koa-morgan": "^1.0.1",
     "lodash.keyby": "^4.6.0",
     "lodash.merge": "^4.6.2",
     "lodash.omit": "^4.5.0",

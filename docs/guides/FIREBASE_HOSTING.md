@@ -1,6 +1,13 @@
 # Deploy your client app Firebase Hosting
 
-If you do not already have a Firebase account, create one at [Firebase] and create your project. Additionally, make sure that [firebase tools] is installed.
+## Before you Start
+
+Ensure you have all the [prerequisites] setup and ready prior to starting this guide.
+
+## Configure App
+
+The only configuration that is required is configure the API url to point to your cloud API (if you have not done so already).
+Change `serverUrl` in `apps/todos/todos-web/src/environments/environments.prod.ts` to point to your API server.
 
 ## Analyze your build (Optional)
 
@@ -58,8 +65,7 @@ Follow the firebase docs to configure your [custom domain].
 
 When your ready to add server side rendering follow [SSR and deploy on Firebase Functions] guide.
 
-[firebase]: https://firebase.google.com/
-[firebase tools]: https://www.npmjs.com/package/firebase-tools
+[prerequisites]: https://zero-to-prouction.dev/guides/getting-started
 [nginx & docker]: https://github.com/unquenchablethyrst/zero-to-production/docker/README.md
 [custom domain]: https://firebase.google.com/docs/hosting/custom-domain
 [ssr and deploy on firebase functions]: https://zerp-to-production/guides/ssr-firebase-functions

@@ -1,10 +1,15 @@
 /* istanbul ignore file */
 
-import { GlobalServerConfig, EnvironnementConfig } from '@uqt/data';
+import {
+  GlobalServerConfig,
+  EnvironnementConfig,
+  ServerConfig
+} from '@uqt/data';
 import { envToNumber } from '@uqt/server/utils';
-import DevServerConfig from './development';
-import prodConfig from './production';
-import TestServerConfig from './test';
+import { devConfig, devAuthConfig } from './development';
+import { prodConfig, prodAuthConfig } from './production';
+import { testConfig, testAuthConfig } from './test';
+import { AuthEnvironnementConfig } from '@uqt/server/auth';
 
 /**
  * Config values common across all environments environments
@@ -14,7 +19,7 @@ import TestServerConfig from './test';
  * NODE_ENV variable: development, production, and test.
  *
  */
-const config: GlobalServerConfig = {
+const globalConfig: GlobalServerConfig = {
   /**
    * The port the server will listen on
    */
@@ -39,33 +44,38 @@ const config: GlobalServerConfig = {
  * TODO -> Top level await when ts is updated to 3.8
  */
 let environmentSettings: EnvironnementConfig;
+export let authConfig: AuthEnvironnementConfig;
 switch (process.env.NODE_ENV) {
   case 'prod':
   case 'production':
     environmentSettings = prodConfig;
+    authConfig = prodAuthConfig;
     break;
   case 'test':
   case 'testing':
-    environmentSettings = TestServerConfig;
+    environmentSettings = testConfig;
+    authConfig = testAuthConfig;
     break;
   case 'development':
   case 'dev':
-    environmentSettings = DevServerConfig;
+    environmentSettings = devConfig;
+    authConfig = devAuthConfig;
     break;
   default:
     environmentSettings = prodConfig;
+    authConfig = prodAuthConfig;
     break;
 }
 
 /**
  * Merge overrides the global settings with the appropriate environment settings
  */
-export default {
-  ...config,
+export const config: ServerConfig = {
+  ...globalConfig,
   ...environmentSettings,
   ...{
     databaseOptions: {
-      ...config.databaseOptions,
+      ...globalConfig.databaseOptions,
       ...environmentSettings.databaseOptions
     }
   }

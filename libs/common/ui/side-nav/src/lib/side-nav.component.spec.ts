@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { CommonUiSideNavComponent } from './side-nav.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 // TODO -> TESTS
 
@@ -13,6 +14,7 @@ describe('CommonUiSideNavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       declarations: [CommonUiSideNavComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

@@ -1,12 +1,14 @@
-import mongoose from 'mongoose';
+import { Connection, Model, Schema, Document } from 'mongoose';
 import { defaultSchemaOptions } from '@uqt/server/utils';
 import { ITodo } from '@uqt/data';
 export { todoTypeDef } from './todo.type';
 
-export const todoSchema = new mongoose.Schema<ITodo>(
+export const todoDbKey = 'todo';
+
+export const todoSchema = new Schema<ITodo>(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       required: true,
       ref: 'user'
     },
@@ -23,13 +25,16 @@ export const todoSchema = new mongoose.Schema<ITodo>(
   }
 );
 
-export const Todo = mongoose.model<ITodoDocument, ITodoModel>(
-  'todo',
-  todoSchema
-);
+export function createTodoModel(con: Connection): ITodoModel {
+  return con.model<ITodoDocument, ITodoModel>(todoDbKey, todoSchema);
+}
 
-export interface ITodoDocument extends ITodo, mongoose.Document {
+export function getTodoModel(con: Connection): ITodoModel {
+  return con.model<ITodoDocument, ITodoModel>(todoDbKey);
+}
+
+export interface ITodoDocument extends ITodo, Document {
   id: string;
 }
 
-export interface ITodoModel extends mongoose.Model<ITodoDocument> {}
+export interface ITodoModel extends Model<ITodoDocument> {}

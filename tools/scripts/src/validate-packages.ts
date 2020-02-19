@@ -10,7 +10,6 @@ const fsPromise = fs.promises;
   console.log('Validating package.json files');
 
   const workSpaceDir = process.cwd();
-  const collectedErrors: string[] = [];
   const rootPackage = `${workSpaceDir}/package.json`;
 
   const { dependencies, devDependencies } = await readPackageJson(rootPackage);

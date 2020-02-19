@@ -6,11 +6,15 @@ export interface IGuide {
 
 export const GUIDES: IGuide[] = [
   {
-    label: 'Start Your Own',
-    guide: 'START_YOUR_OWN',
-    path: 'start-your-own'
+    label: 'Getting Started',
+    guide: 'GETTING_STARTED',
+    path: 'getting-started'
   },
-
+  {
+    label: 'Serverless with AWS Lambda',
+    guide: 'LAMBDA_FUNCTIONS',
+    path: 'aws-lambda'
+  },
   {
     label: 'Firebase Hosting',
     guide: 'FIREBASE_HOSTING',

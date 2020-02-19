@@ -1,5 +1,11 @@
 # Angular Universal with Firebase Functions
 
+## Before you Start
+
+Ensure you have all the [prerequisites] setup and ready prior to starting this guide.
+
+## Firebase Tools
+
 While deploying your SSR application is pretty straight forward there are a couple of gotchas that need to be understood and configured.
 
 As it stands, Firebase tools is not really built to work nicely with Monorepos. By default if you run `firebase init` and select cloud functions (TS or JS), it will create a `functions/` directory at the root of your project. It will also create a `package.json` that lists build scrips, dependencies and most importantly the entry point to your functions via the `main` field. It will also prompt you to install dependencies that will be installed **INSIDE** the `functions/` directory, which you do **NOT** want.
@@ -284,6 +290,7 @@ Refresh the browser with hte network turned off and you should still get the sam
 
 Not every applications will benefit from all aspects of server side rendering, specifically the time to first paint. Depending on the traffic load, cloud functions will go to sleep/idle if infrequently used and the the "cold start" time may cause your app to load slower.
 
+[prerequisites]: https://zero-to-prouction.dev/guides/getting-started
 [#590]: https://github.com/firebase/firebase-tools/issues/590
 [#1115]: https://github.com/firebase/firebase-tools/issues/1115
 [angular universal]: https://angular.io/guide/universal

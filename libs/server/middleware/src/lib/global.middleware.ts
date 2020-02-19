@@ -1,32 +1,24 @@
 import Koa from 'koa';
-// @ts-ignore - deceleration file
+// @ts-ignore
 import helmet from 'koa-helmet';
-// @ts-ignore - deceleration file
-import morgan from 'koa-morgan';
-// @ts-ignore - deceleration file
+// @ts-ignore
 import bearerToken from 'koa-bearer-token';
-// @ts-ignore - deceleration file
+// @ts-ignore
 import compress from 'koa-compress';
-// @ts-ignore - deceleration file
+// @ts-ignore
 import bodyParser from 'koa-bodyparser';
-// @ts-ignore - deceleration file
+// @ts-ignore
 import cors from 'kcors';
-import { errorHandler, errorLogger } from './err-handler';
+import { errorHandler } from './err-handler';
 
 // Configure middleware to parse income requests
-export function setupGlobalMiddleware(app: Koa, logging: string | false) {
+export function setupGlobalMiddleware(app: Koa) {
   app.use(helmet());
   app.use(compress());
   app.use(bodyParser());
   app.use(cors());
   app.use(bearerToken());
 
-  if (logging) {
-    app.use(morgan(logging)); // configure the logging based on node environment
-  }
-
   // Custom error handling
   app.use(errorHandler);
-
-  app.on('error', errorLogger);
 }

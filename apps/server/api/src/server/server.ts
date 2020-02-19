@@ -1,17 +1,17 @@
 import { createServer } from 'http';
 import Koa from 'koa';
 import Router from '@koa/router';
-import { setupGlobalMiddleware } from '@uqt/server/config';
-import { dbConnection } from '@uqt/server/database';
-import { apolloServer } from './api/graphql';
-import { applyApiEndpoints } from './api';
+import { setupGlobalMiddleware } from '@uqt/server/middleware';
+import { apolloServer, applyGraphQLEndpoint } from './api/graphql';
 
 // UQT_UPDATE -> delete the below import
 import { applyAuthRoutes } from './auth/demo.auth';
 // UQT_UPDATE -> uncomment the below import
 // import { applyAuthRoutes } from './auth/auth';
 
-import config from '../environments';
+import { config } from '../environments';
+import { connect } from 'mongoose';
+import { applyRestEndpoints } from './api/rest';
 
 /**
  * Crates a new API Server
@@ -29,26 +29,27 @@ export default class ApiServer {
    * @memberof ApiServer
    */
   async initializeServer(dbUrl?: string) {
+    /**
+     * Start the db connection, optionally pass in the connection url
+     */
+    const connection = await connect(
+      dbUrl ? dbUrl : config.dbConnectionString,
+      config.databaseOptions
+    ).catch(console.error);
+
     const app = this.app;
     const router = new Router();
 
     /**
-     * Start the db connection, optionally pass in the connection url
-     */
-    await dbConnection(
-      dbUrl ? dbUrl : config.dbConnectionString,
-      config.databaseOptions
-    );
-
-    /**
      * Setup all the required middleware for the app
      */
-    setupGlobalMiddleware(app, config.logging);
+    setupGlobalMiddleware(app);
 
     /**
-     * Apply the API endpoints
+     * Apply the REST & GraphQL endpoints
      */
-    applyApiEndpoints(app);
+    applyRestEndpoints(app);
+    applyGraphQLEndpoint(app);
 
     /**
      * apply all authorization routes
@@ -74,16 +75,16 @@ export default class ApiServer {
     const server = createServer(app.callback());
 
     /**
+     * Add the subscription options, this is a websocket connection
+     */
+    apolloServer.installSubscriptionHandlers(server);
+
+    /**
      * Listen on the desired port
      */
     server.listen({ port: config.port }, () => {
       console.log(`Server listening on port ${config.port}.`);
     });
-
-    /**
-     * Add the subscription options, this is a websocket connection
-     */
-    apolloServer.installSubscriptionHandlers(server);
 
     return server;
   }

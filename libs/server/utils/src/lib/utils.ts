@@ -7,10 +7,15 @@ export function swapId<T>(object: any): T {
 
 export function getEnvVariableOrWarn(envVariable: string): string {
   const env: string | undefined = process.env[envVariable];
+  let _env: string | undefined;
   if (!env) {
     console.warn(`Warning: ${envVariable} environment variable is not set`);
+  } else {
+    // In AWS, multi line environment variables have double backslash as the separator
+    // Split, the string, then join back up with new line
+    _env = env.split(/\\n/g).join('\n');
   }
-  return env as string;
+  return _env as string;
 }
 
 export function envToNumber(

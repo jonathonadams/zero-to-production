@@ -46,7 +46,7 @@ export interface EmailVerificationConfig {
 }
 
 export interface JWKSRouteConfig {
-  privateKey: string;
+  publicKey: string;
   keyId: string;
 }
 
@@ -120,6 +120,10 @@ export interface VerifyActiveUserConfig {
   User: IUserModel;
 }
 
+export type TResolverAuthGuard = (
+  resolver: GraphQLFieldResolver<any, any, any>
+) => GraphQLFieldResolver<any, any, any>;
+
 // -------------------------------------
 // Interfaces for each Model
 // -------------------------------------
@@ -152,3 +156,28 @@ export interface IVerificationTokenDocument
 
 export interface IVerificationTokenModel
   extends mongoose.Model<IVerificationTokenDocument> {}
+
+// -------------------------------------
+// Interfaces for the auth environment config
+// -------------------------------------
+export interface AuthEnvironnementConfig {
+  authServerUrl: string;
+  accessToken: {
+    privateKey: string;
+    publicKey?: string;
+    expireTime: number;
+    issuer: string;
+    keyId: string;
+    audience: string;
+  };
+  refreshToken: {
+    privateKey: string;
+    publicKey?: string;
+    issuer: string;
+    audience: string;
+  };
+  email: {
+    authServerUrl: string;
+    sendGridApiKey: string;
+  };
+}
