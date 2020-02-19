@@ -24,6 +24,7 @@
 
 .dark-theme {
   @include angular-material-theme($dark-theme);
+  color: white;
 }
 
 /* You can add global styles to this file, and also import other style files */

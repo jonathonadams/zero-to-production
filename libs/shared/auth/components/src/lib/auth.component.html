@@ -1,7 +1,3 @@
-<div
-  class="page-content"
-  [ngClass]="{ 'dark-theme': darkTheme$ | async }"
-  [@authRouterAnimations]="prepareRoute(auth)"
->
+<div class="page-content" [@authRouterAnimations]="prepareRoute(auth)">
   <router-outlet class="pag-input" #auth="outlet"></router-outlet>
 </div>

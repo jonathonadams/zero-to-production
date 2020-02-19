@@ -1,11 +1,10 @@
 export const css = `// styles.scss
 :root {
-  --light-primary-color: #7b1fa2;
-  --light-accent-color: #f0820f;
+  --light-primary-color: #ffaa00;
+  --light-accent-color: #7c09b3;
   --dark-primary-color: #20eff0;
   --dark-accent-color: #d33685;
 }
-
 
 // If you are using a custom material theme you can provide them to your pallet
 $light-primary-pallet: (

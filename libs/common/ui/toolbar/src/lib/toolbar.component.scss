@@ -17,4 +17,21 @@
   .content {
     height: 100%;
   }
+
+  // // Dark theme
+  // &.dark-theme {
+  //   background-color: var(--dark-primary-color);
+  // }
 }
+
+.dark-theme {
+  .uqt-toolbar {
+    background-color: var(--dark-primary-color);
+  }
+}
+
+// .dark-theme {
+//   .uqt-toolbar {
+
+//   }
+// }

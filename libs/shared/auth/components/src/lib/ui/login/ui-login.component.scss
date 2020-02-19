@@ -1,8 +1,8 @@
 @import 'libs/common/theme/material-theme.scss';
 @import 'ui-login.theme';
 
-// Light theme
-@include ui-login-theme($app-theme);
+// // Light theme
+// @include ui-login-theme($app-theme);
 
 // Dark theme
 .dark-theme {

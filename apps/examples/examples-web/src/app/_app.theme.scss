@@ -1,6 +1,6 @@
 @import '~@angular/material/theming';
 
-@mixin auth-theme($theme) {
+@mixin app-theme($theme) {
   $background: map-get($theme, background);
 
   & {
