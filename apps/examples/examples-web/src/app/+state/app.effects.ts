@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { Apollo } from 'apollo-angular';
 import { NotificationService } from '@uqt/utils/notifications';
 import { AuthActions } from '@uqt/shared/data-access/auth';
-import { GraphQLService } from '@uqt/shared/data-access/api';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class AppEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.loginRedirect),
-        tap(() => this.router.navigate(['examples', 'demos', 'secure', 'home']))
+        tap(() => this.router.navigate(['examples', 'secure', 'home']))
       ),
     { dispatch: false }
   );
@@ -23,9 +23,7 @@ export class AppEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.registerRedirect),
-        tap(() =>
-          this.router.navigate(['examples', 'demos', 'secure', 'register'])
-        )
+        tap(() => this.router.navigate(['examples', 'secure', 'register']))
       ),
     { dispatch: false }
   );
@@ -34,10 +32,11 @@ export class AppEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.logoutRedirect),
-        tap(action => this.graphql.clearCache()),
-        tap(() =>
-          this.router.navigate(['examples', 'demos', 'secure', 'login'])
-        )
+        tap(action => {
+          this.apollo.getClient().clearStore();
+          this.apollo.getClient().cache.reset();
+        }),
+        tap(action => this.router.navigate(['examples', 'secure', 'login']))
       ),
     { dispatch: false }
   );
@@ -67,7 +66,7 @@ export class AppEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private graphql: GraphQLService,
+    private apollo: Apollo,
     private ns: NotificationService
   ) {}
 }

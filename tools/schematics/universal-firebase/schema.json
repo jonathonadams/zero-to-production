@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "universal-firebase",
+  "type": "object",
+  "properties": {
+    "clientProject": {
+      "type": "string",
+      "description": "Client Project Name"
+    },
+    "firebaseProject": {
+      "type": "string",
+      "description": "Firebase Project"
+    }
+  },
+  "required": ["clientProject", "firebaseProject"]
+}

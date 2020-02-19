@@ -1,0 +1,4 @@
+{
+  "extends": "<%= relativePath%>/tslint.json",
+  "rules": {}
+}

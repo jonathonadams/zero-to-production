@@ -1,12 +1,27 @@
 {
   "hosting": {
-    "public": "dist/apps/examples/examples-web",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "public": "apps/examples/examples-web-functions/dist/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "src/",
+      "tslint.json",
+      "tsconfig.json",
+      "tsconfig.spec.json"
+    ],
     "rewrites": [
       {
-        "source": "**",
+        "source": "**/*.@(js|css|svg)",
         "destination": "/index.html"
+      },
+      {
+        "source": "**",
+        "function": "universal"
       }
     ]
+  },
+  "functions": {
+    "source": "apps/examples/examples-web-functions"
   }
 }

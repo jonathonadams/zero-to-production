@@ -27,9 +27,9 @@ export class TodosService {
   }
 
   public createTodo(todo: ITodo): Observable<FetchResult<{ newTodo: ITodo }>> {
-    const newTodo: ITodo = { ...todo, completed: false };
+    const todoToSave: ITodo = { ...todo, completed: false };
     // set the completed state to false
-    const variables = { input: newTodo };
+    const variables = { input: todoToSave };
 
     // Add the new Todo to the Apollo Cache 'allTodos' after create
     return this.apollo.mutate<{ newTodo: ITodo }>({

@@ -7,7 +7,7 @@ import { CommonUiCardModule } from '@uqt/common/ui/card';
 import { ExampleComponent } from './example/example.component';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { ExamplesDataAccessModule } from '@uqt/examples/data-access';
-import { AboutComponent } from './about/about.component';
+import { ExamplesHomeComponent } from './home/home.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AnimateScrollEntryDirective } from './animate-scroll-entry.directive';
 
@@ -23,7 +23,7 @@ import { AnimateScrollEntryDirective } from './animate-scroll-entry.directive';
   ],
   declarations: [
     ExamplesFeatureShellComponent,
-    AboutComponent,
+    ExamplesHomeComponent,
     ExampleComponent,
     AnimateScrollEntryDirective
   ]

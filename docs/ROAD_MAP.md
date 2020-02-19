@@ -1,6 +1,5 @@
 ### Angular App
 
-- [ ] Add AppShell & SSR
 - [ ] Feature Flag Service
 - [ ] Add following examples
   - Content Projection with layouts modules
@@ -18,3 +17,8 @@
 ### DevOps
 
 - [ ] Cloud Functions, and make library's reusable
+
+### Schematics
+
+- [ ] API Schematic
+- [x] Firebase Functions schematic

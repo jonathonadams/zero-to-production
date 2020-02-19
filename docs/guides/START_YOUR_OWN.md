@@ -22,7 +22,7 @@ The "Examples" project is all projects and libs corresponding to the demo websit
 11. remove the `scope:examples` rule from `nx-enforce-module-boundaries` in `tslint.json`
 
 
-    ```JavaScript
+    ```json
     // tslint.json
 
     "nx-enforce-module-boundaries": [
@@ -34,7 +34,7 @@ The "Examples" project is all projects and libs corresponding to the demo websit
       }
     ```
 
-12. uninstall unused /unwanted npm packages
+12. uninstall unused / unwanted npm packages. Note that some of these will be reinstalled if you follow all the deployment guides.
 
     ```bash
     npm uninstall <package>
@@ -43,6 +43,11 @@ The "Examples" project is all projects and libs corresponding to the demo websit
     - `prismjs`
     - `@angular/service-worker`
     - `@angular/platform-server`
+    - `@nguniversal/express-engine`
+    - `express`
+    - `@types/express`
+    - `firebase-admin`
+    - `firebase-functions`
 
 ## Configure the Application (Important)
 
@@ -58,7 +63,7 @@ To serve the Angular Todo application run `ng serve`.
 
 To get the API up and running follow the below.
 
-- crete a local MongoDB server. The [docker cheat-sheet](./DOCKER_CHEAT_SHEET.md) shows how to create with docker.
+- crete a local MongoDB server. The [docker cheat-sheet](./DOCKER_CHEAT_SHEET.md) demonstates how to create with docker.
 - create a `.env` file for environment variables. Copy and rename `.sample.env` to `.env` located in `apps/server/api` and set your desired environment variables.
 - `ng serve server-api` will run the server
 
@@ -66,13 +71,13 @@ To get the API up and running follow the below.
 
 ## Deploy your project
 
-Now that you have cloned, re-branded and cleaned up your Monorepo, it's time to deploy.
+Once cloned, re-branded and cleaned up, it's time to deploy.
 
-First, deploy your API server. Follow the [Google Cloud](./GOOGLE_CLOUD.md) guide to deploy your API server on GC Kubernetes Engine. (AWS Lamda coming soon).
+Deploy your API server on Kubernetes. Follow the [Google Cloud](./GOOGLE_CLOUD.md) guide to deploy your API server on GC Kubernetes Engine. (AWS Lamda coming soon).
 
-Once your API is up and ready to go, you need a frontend to hit it. Follow the [Firebase Hosting](./FIREBASE_HOSTING.md) guide to deploy you Angular Todos application.
+Once your API is up and ready to go, deploy your frontend to hit it. Follow the [Firebase Hosting](./FIREBASE_HOSTING.md) guide to deploy you Angular Todos application.
 
-Enjoy!
+When you application warrants it, add server side rendering and deploy on Firebase Functions following the [Firebase SSR](./FIREBASE_SSR.md) guide.
 
 ## Project Configuration
 

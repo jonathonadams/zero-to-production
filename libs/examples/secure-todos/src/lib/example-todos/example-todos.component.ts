@@ -13,6 +13,6 @@ export class ExampleTodosComponent {
 
   showTodos() {
     this.showApplication = true;
-    this.router.navigate(['examples', 'demos', 'secure']);
+    this.router.navigate(['examples', 'secure']);
   }
 }

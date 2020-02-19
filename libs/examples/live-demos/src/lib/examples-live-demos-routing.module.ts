@@ -8,7 +8,7 @@ import { ExamplesDemosComponent } from './example-demos/examples-demos.component
 // and it only lazy loads the todos feature shell
 const ROUTES: Routes = [
   {
-    path: 'demos',
+    path: '',
     component: ExamplesDemosComponent,
     children: [
       {
@@ -23,7 +23,7 @@ const ROUTES: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'demos'
+    redirectTo: 'examples'
   }
 ];
 

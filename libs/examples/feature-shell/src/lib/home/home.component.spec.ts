@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AboutComponent } from './about.component';
+import { ExamplesHomeComponent } from './home.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ExamplesFacade } from '@uqt/examples/data-access';
 import { of } from 'rxjs';
 import { RouterModule, Router } from '@angular/router';
 
-describe('AboutComponent', () => {
-  let component: AboutComponent;
-  let fixture: ComponentFixture<AboutComponent>;
+describe('ExamplesHomeComponent', () => {
+  let component: ExamplesHomeComponent;
+  let fixture: ComponentFixture<ExamplesHomeComponent>;
   const facadeSpy = { examples$: of(jest.fn) };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterModule],
-      declarations: [AboutComponent],
+      declarations: [ExamplesHomeComponent],
       providers: [
         { provide: ExamplesFacade, useValue: facadeSpy },
         { provide: Router, useValue: {} }
@@ -24,7 +24,7 @@ describe('AboutComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AboutComponent);
+    fixture = TestBed.createComponent(ExamplesHomeComponent);
     component = fixture.componentInstance;
   });
 

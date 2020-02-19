@@ -1,8 +1,7 @@
 {
   "name": "uqt-k8s-api",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Todo API with GraphQL",
-  "main": "jest.config.js",
   "scripts": {
     "build:docker": "ng run server-api:build:docker"
   },

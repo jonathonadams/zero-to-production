@@ -4,19 +4,19 @@ import { Observable } from 'rxjs';
 import { IExample, ExamplesFacade } from '@uqt/examples/data-access';
 
 @Component({
-  selector: 'uqt-about',
-  templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss'],
+  selector: 'uqt-examples-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AboutComponent {
+export class ExamplesHomeComponent {
   examples$: Observable<IExample[]>;
   constructor(private facade: ExamplesFacade, private router: Router) {
     this.examples$ = this.facade.examples$;
   }
 
   showExamples() {
-    this.router.navigate(['examples', 'demos']);
+    this.router.navigate(['examples']);
   }
 
   trackExample(i: number, e: IExample) {

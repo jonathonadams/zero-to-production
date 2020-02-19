@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
-import { AboutComponent } from './about/about.component';
+import { ExamplesHomeComponent } from './home/home.component';
 
 export const EXAMPLES_ROUTES: Routes = [
   {
@@ -9,9 +9,9 @@ export const EXAMPLES_ROUTES: Routes = [
     component: ExamplesFeatureShellComponent,
     children: [
       {
-        path: 'about',
+        path: '',
         pathMatch: 'full',
-        component: AboutComponent
+        component: ExamplesHomeComponent
       },
       {
         path: 'examples',
@@ -20,22 +20,12 @@ export const EXAMPLES_ROUTES: Routes = [
             m => m.ExamplesLiveDemosModule
           ),
         data: { preload: true } // Preload this route
-      },
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'about'
       }
     ]
   },
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'about'
-  },
-  {
     path: '**',
-    redirectTo: 'about' // TODO -> 404 page
+    redirectTo: '/' // TODO -> 404 page
   }
 ];
 

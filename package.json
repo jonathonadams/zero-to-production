@@ -29,11 +29,7 @@
     "bundle:analyze": "webpack-bundle-analyzer",
     "build:scripts": "tsc -p tools/scripts/tsconfig.json",
     "validate-packages": "node ./tools/scripts/bin/validate-packages.js",
-    "nx": "nx",
-    "dev:ssr": "ng run examples-web:serve-ssr",
-    "serve:ssr": "node dist/examples-web/server/main.js",
-    "build:ssr": "ng build examples-web --prod && ng run examples-web:server:production",
-    "prerender": "ng run examples-web:prerender"
+    "nx": "nx"
   },
   "husky": {
     "hooks": {
@@ -83,6 +79,8 @@
     "bcryptjs": "^2.4.3",
     "dataloader": "^2.0.0",
     "express": "^4.15.2",
+    "firebase-admin": "^8.9.2",
+    "firebase-functions": "^3.3.0",
     "glob": "^7.1.6",
     "graphql": "^14.6.0",
     "graphql-iso-date": "^3.6.1",

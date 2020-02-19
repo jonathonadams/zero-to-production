@@ -1,4 +1,4 @@
-const serverUrl = 'https://api.jadams.dev';
+const serverUrl = 'https://api.zero-to-production.dev';
 
 export const environment = {
   production: true,

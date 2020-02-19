@@ -26,6 +26,10 @@
       "tags": ["scope:examples", "type:app", "platform:web"],
       "implicitDependencies": ["examples-web"]
     },
+    "examples-web-functions": {
+      "tags": ["scope:examples", "type:app", "platform:web"],
+      "implicitDependencies": ["examples-web"]
+    },
     "testing": {
       "tags": ["scope:shared", "type:util", "platform:shared"]
     },
