@@ -9,9 +9,9 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/boom": "^9.0.0",
-    "@koa/router": "^8.0.6",
-    "@sendgrid/mail": "^6.5.1",
-    "apollo-server-koa": "^2.9.16",
+    "@koa/router": "^8.0.8",
+    "@sendgrid/mail": "^6.5.2",
+    "apollo-server-koa": "^2.10.1",
     "bcryptjs": "^2.4.3",
     "dataloader": "^2.0.0",
     "graphql": "^14.6.0",
@@ -27,14 +27,14 @@
     "lodash.keyby": "^4.6.0",
     "lodash.merge": "^4.6.2",
     "lodash.omit": "^4.5.0",
-    "mongoose": "^5.8.11",
+    "mongoose": "^5.9.1",
     "pem-jwk": "^2.0.0",
-    "jwks-rsa": "^1.6.2"
+    "jwks-rsa": "^1.7.0"
   },
   "devDependencies": {
     "@angular/cli": "^9.0.2",
     "@uqt/ng-node": "0.0.6",
     "typescript": "^3.7.5",
-    "@types/mongoose": "^5.7.0"
+    "@types/mongoose": "^5.7.1"
   }
 }

@@ -29,10 +29,6 @@
 - Configure Form Builder to scroll screens if out of view
   https://github.com/angular/components/issues/13588
 
-- Remove typing once merged
-  @types/request
-  https://github.com/sendgrid/sendgrid-nodejs/issues/1027
-
-- TypeScript `-b` command does not allow additional flags.
+* TypeScript `-b` command does not allow additional flags.
   once this is implemented, then there will be no need for the `tsconfig.docker.json` files for the building of docker
   https://github.com/microsoft/TypeScript/issues/25613
