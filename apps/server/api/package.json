@@ -32,7 +32,7 @@
     "jwks-rsa": "^1.6.2"
   },
   "devDependencies": {
-    "@angular/cli": "^9.0.1",
+    "@angular/cli": "^9.0.2",
     "@uqt/ng-node": "0.0.6",
     "typescript": "^3.7.5",
     "@types/mongoose": "^5.7.0"
