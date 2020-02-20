@@ -1,27 +1,10 @@
-@import 'libs/common/theme/material-theme.scss';
-@import 'ui-login.theme';
-
-// // Light theme
-// @include ui-login-theme($app-theme);
-
-// Dark theme
-.dark-theme {
-  @include ui-login-theme($dark-theme);
-}
-
-.login-page-input {
-  padding: 1em;
+.login-page {
+  display: block;
   width: 20em;
-  border-radius: 0.5em;
   text-align: center;
 
   @media (max-width: 599px) {
     width: 16em;
-  }
-
-  .login-page-form {
-    display: flex;
-    flex-direction: column;
   }
 
   .submit-button {

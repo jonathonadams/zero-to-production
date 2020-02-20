@@ -35,10 +35,9 @@ export class LazyLoadScrollDirective implements OnDestroy {
   }
 
   /**
-   * On each scroll event, we determine how many pixels from the bottom of the scroll
-   * container you are. If we are less than the load threshold, emit the loadIndex event,
-   * and the resize observer will reset the initLoad flag once the content has been loaded
-   * and inserted into the scroll container
+   * On each scroll event determine how many pixels from the bottom of the scroll
+   * container. If less than the 'load threshold' emit the loadIndex event. The loading
+   * service will emit once loaded and the initLoad flag will be flicked.
    *
    * @param event
    */

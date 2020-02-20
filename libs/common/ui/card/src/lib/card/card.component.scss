@@ -1,6 +1,13 @@
-// :host {
-//   display: block;
-// }
+@import 'libs/common/theme/material-theme.scss';
+@import 'card.theme';
+
+// Light theme
+@include card-theme($app-theme);
+
+// Dark theme
+.dark-theme {
+  @include card-theme($dark-theme);
+}
 
 .uqt-card {
   display: block;
