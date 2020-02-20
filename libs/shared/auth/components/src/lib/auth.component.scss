@@ -1,6 +1,3 @@
-@import 'libs/common/theme/material-theme.scss';
-@import 'auth.theme';
-
 :host {
   display: block;
   height: 100%;
@@ -10,12 +7,4 @@
 .page-content {
   // overflow-x: hidden;
   height: 100%;
-
-  // Light theme
-  @include auth-theme($app-theme);
-
-  // Dark theme
-  &.dark-theme {
-    @include auth-theme($dark-theme);
-  }
 }

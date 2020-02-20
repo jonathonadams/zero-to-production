@@ -1,8 +1,15 @@
-:host,
+@import 'libs/common/theme/material-theme.scss';
+@import 'app.theme';
+
+// :host,
 .main-app-content {
   height: inherit;
-  // display: flex;
-  // flex-direction: column;
-  // flex: 1;
-  // overflow: hidden;
+
+  // Light theme
+  @include app-theme($app-theme);
+
+  // Dark theme
+  &.dark-theme {
+    @include app-theme($dark-theme);
+  }
 }

@@ -1,9 +1,5 @@
-:host {
-  display: block;
-  overflow: visible;
-}
-
 .uqt-toolbar {
+  overflow: visible;
   height: 3.5em;
   @media screen and (min-width: 600px) {
     height: 4em;
@@ -16,5 +12,11 @@
   align-items: center;
   .content {
     height: 100%;
+  }
+}
+
+.dark-theme {
+  .uqt-toolbar {
+    background-color: var(--dark-primary-color);
   }
 }

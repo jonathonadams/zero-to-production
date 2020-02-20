@@ -2,12 +2,11 @@
 
 @import '~@angular/material/theming';
 
-// https://github.com/angular/material2/blob/master/src/lib/core/theming/_palette.scss
 /* 
  The below hard-coded colors have been taken from the source code below.
  https://github.com/angular/material2/blob/master/src/lib/core/theming/_palette.scss
 
- Normally you do not need to redeclare all these variables, however to change any of them
+ Normally you do not redeclare all these variables, however to change any of them
  (i.e the disabled form field text then you need to redeclare them
 
  Un comment below to access / modify the colors

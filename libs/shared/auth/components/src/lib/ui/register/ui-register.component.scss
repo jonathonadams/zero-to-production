@@ -1,31 +1,14 @@
-@import 'libs/common/theme/material-theme.scss';
-@import 'ui-register.theme';
-
-// Light theme
-@include ui-register-theme($app-theme);
-
-// Dark theme
-.dark-theme {
-  @include ui-register-theme($dark-theme);
-}
-
-.register-page-input {
-  padding: 1em;
+.register-page {
+  display: block;
   width: 20em;
-  border-radius: 0.5em;
   text-align: center;
 
   @media (max-width: 599px) {
     width: 16em;
   }
 
-  .register-page-form {
-    display: flex;
-    flex-direction: column;
-
-    .register-button {
-      width: 40%;
-      margin: auto;
-    }
+  .register-button {
+    width: 40%;
+    margin: auto;
   }
 }

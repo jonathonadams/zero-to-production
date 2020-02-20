@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonDynamicFormModule } from '@uqt/common/dynamic-form';
+import { CommonUiCardModule } from '@uqt/common/ui/card';
 import { AuthComponent } from './auth.component';
 import { UiLoginComponent } from './ui/login/ui-login.component';
 import { UiRegisterComponent } from './ui/register/ui-register.component';
@@ -28,6 +29,7 @@ const COMPONENTS = [
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
+    CommonUiCardModule,
     CustomMaterialModule,
     CommonDynamicFormModule.forChild()
   ],

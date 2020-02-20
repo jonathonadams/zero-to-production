@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ThemeService } from '@uqt/common/theme';
 import { CodeHighlightService } from '@uqt/examples/utils';
 import { css, ts, appInit } from './css-theming.code';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ex-css-theming',
@@ -16,6 +18,7 @@ import { css, ts, appInit } from './css-theming.code';
 })
 export class CssThemingComponent implements AfterViewInit {
   form: FormGroup;
+  dark$: Observable<boolean>;
 
   css = css;
   ts = ts;
@@ -26,12 +29,10 @@ export class CssThemingComponent implements AfterViewInit {
     private themeService: ThemeService,
     private highlightService: CodeHighlightService
   ) {
-    this.form = this.fb.group({
-      lightPrimary: ['#7b1fa2'],
-      lightAccent: ['#f0820f'],
-      darkPrimary: ['#20eff0'],
-      darkAccent: ['#d33685']
-    });
+    this.dark$ = this.themeService.darkTheme$;
+    this.form = this.fb.group(this.baseTheme);
+
+    this.form.reset(this.themeService.themeSettings);
 
     this.form.valueChanges.subscribe(themeSettings => {
       this.themeService.setThemeColors(themeSettings);
@@ -39,12 +40,20 @@ export class CssThemingComponent implements AfterViewInit {
   }
 
   resetTheme() {
-    this.form.reset({
-      lightPrimary: '#7b1fa2',
-      lightAccent: '#f0820f',
-      darkPrimary: '#20eff0',
-      darkAccent: '#d33685'
-    });
+    this.form.reset(this.baseTheme);
+  }
+
+  get baseTheme() {
+    return {
+      lightPrimary: ['#ffaa00'],
+      lightAccent: ['#7c09b3'],
+      darkPrimary: ['#20eff0'],
+      darkAccent: ['#d33685']
+    };
+  }
+
+  darkThemeChanged(change: MatCheckboxChange) {
+    this.themeService.setDarkThemeStatus(change.checked);
   }
 
   ngAfterViewInit() {

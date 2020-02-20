@@ -20,7 +20,9 @@
         >libs/common/dynamic-form-material-components</a
       >, but go ahead and make your own (and let me know how it goes).
     </p>
-    <pre><code class="language-ts">{{ moduleRegistry }}</code></pre>
+    <pre
+      class="code"
+    ><code class="language-ts">{{ moduleRegistry }}</code></pre>
     <p>
       Each instance of the dynamic form is unique application wide identified by
       the <em>formName</em> property.
@@ -29,19 +31,21 @@
       Create a new form instance, then define and set the structure to render
       your form.
     </p>
-    <pre><code class="language-ts">{{ setStructureMarkup }}</code></pre>
+    <pre
+      class="code"
+    ><code class="language-ts">{{ setStructureMarkup }}</code></pre>
     <p>
       In you markup include the dynamic form component and set the
       <em>formName</em>
       property.
     </p>
-    <pre><code class="language-html">{{ markup }}</code></pre>
+    <pre class="code"><code class="language-html">{{ markup }}</code></pre>
 
     <p>
       The output of submitting the form is provided via an observable from the
       <em>DynamicFormsFacade</em>.
     </p>
-    <pre><code class="language-ts">{{ submitSyntax }}</code></pre>
+    <pre class="code"><code class="language-ts">{{ submitSyntax }}</code></pre>
 
     <p>
       For a complete guide on how to make your own components, provide custom

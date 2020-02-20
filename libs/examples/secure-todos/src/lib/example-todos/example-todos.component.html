@@ -11,7 +11,12 @@
   <a target="_blank" rel="noreferrer noopener" href="https://nrwl.io/">Nrwl</a>
   provide.
 </p>
-<button *ngIf="!showApplication" mat-stroked-button (click)="showTodos()">
+<button
+  class="show-button"
+  *ngIf="!showApplication"
+  mat-stroked-button
+  (click)="showTodos()"
+>
   Show Me the Money!!!
 </button>
 <ng-container *ngIf="showApplication">

@@ -1,15 +1,13 @@
 // Normalize css
 @import '~normalize.css';
 // Muli font
-@import url('https://fonts.googleapis.com/css?family=Muli:400,500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Muli:300,400,500&display=swap');
 
 // Angular Material Themeing Mixins
 @import '~@angular/material/theming';
 
 // Themes for Prism.js syntax highlighting
-@import '~prismjs/themes/prism.css';
-@import '~prismjs/themes/prism-solarizedlight.css';
-// @import '~prismjs/themes/prism-tomorrow.css';
+@import '~prismjs/themes/prism-tomorrow.css';
 
 // import the theming file
 @import 'libs/common/theme/theme.scss';
@@ -24,6 +22,7 @@
 
 .dark-theme {
   @include angular-material-theme($dark-theme);
+  color: rgba(white, 0.74);
 }
 
 /* You can add global styles to this file, and also import other style files */
@@ -37,8 +36,8 @@ examples-root {
 }
 
 body {
-  font-family: Muli, 'Helvetica Neue', sans-serif;
-  font-weight: 500;
+  font-family: Muli, sans-serif;
+  font-weight: 400;
   font-size: 1em;
   line-height: 1.3rem;
 }

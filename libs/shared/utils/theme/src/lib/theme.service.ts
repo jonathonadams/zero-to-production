@@ -19,17 +19,6 @@ export class ThemeService implements OnDestroy {
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(DOCUMENT) private document: Document
   ) {
-    /**
-     * listen to the changes of the theme service and add
-     * the dark-theme to the body element so it sits above all elements
-     */
-    this.subscription = this.darkTheme$.subscribe(active => {
-      const body = this.document.querySelector('body') as HTMLElement;
-      active
-        ? body.classList.add('dark-theme')
-        : body.classList.remove('dark-theme');
-    });
-
     // overlayContainer: OverlayContainer
     // this.subscription = this.darkTheme$.subscribe(active => {
     //   active
@@ -40,7 +29,7 @@ export class ThemeService implements OnDestroy {
 
   setThemeColors(colors: any): void {
     this.applyColors(colors);
-    this.saveColorsToLocalStorage(colors);
+    this.setThemeSettings(colors);
   }
 
   private applyColors({
@@ -57,19 +46,31 @@ export class ThemeService implements OnDestroy {
     rootElement.style.setProperty('--dark-accent-color', darkAccent);
   }
 
-  private saveColorsToLocalStorage(colors: any) {
-    localStorage.setItem(this.storageKey, JSON.stringify(colors));
+  private setThemeSettings(theme: { [key: string]: string | boolean }) {
+    const savedTheme = this.themeSettings;
+    const newTheme = savedTheme ? { ...savedTheme, ...theme } : theme;
+    localStorage.setItem(this.storageKey, JSON.stringify(newTheme));
   }
 
   loadAndApplyColors() {
     if (isPlatformBrowser(this.platformId)) {
-      const colors: any = localStorage.getItem(this.storageKey);
-      if (colors) this.applyColors(JSON.parse(colors));
+      const theme = this.themeSettings;
+      if (theme) {
+        const { darkMode } = theme;
+        this.darkTheme.next(darkMode as boolean);
+        this.applyColors(theme);
+      }
     }
   }
 
-  setDarkThemeStatus(active: boolean): void {
-    this.darkTheme.next(active);
+  get themeSettings(): { [key: string]: string | boolean } | null {
+    const theme = localStorage.getItem(this.storageKey);
+    return theme ? JSON.parse(theme) : null;
+  }
+
+  setDarkThemeStatus(darkMode: boolean): void {
+    this.darkTheme.next(darkMode);
+    this.setThemeSettings({ darkMode });
   }
 
   ngOnDestroy() {

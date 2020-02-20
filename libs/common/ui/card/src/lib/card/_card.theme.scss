@@ -1,9 +1,9 @@
 @import '~@angular/material/theming';
 
-@mixin ui-login-theme($theme) {
+@mixin card-theme($theme) {
   $background: map-get($theme, background);
 
-  .login-page-input {
+  .uqt-card {
     background-color: mat-color($background, card);
   }
 }
