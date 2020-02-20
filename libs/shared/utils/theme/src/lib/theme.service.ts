@@ -6,10 +6,7 @@ import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class ThemeService implements OnDestroy {
   storageKey = 'theme-settings';
-  /**
-   * Use a behavior subject as the state needs to be emitted
-   * when a components subscribes to it
-   */
+
   private darkTheme = new BehaviorSubject<boolean>(false);
   public darkTheme$: Observable<boolean> = this.darkTheme.asObservable();
 
@@ -37,7 +34,7 @@ export class ThemeService implements OnDestroy {
     lightAccent = null,
     darkPrimary = null,
     darkAccent = null
-  }) {
+  } = {}) {
     const rootElement = this.document.querySelector(':root') as HTMLElement;
 
     rootElement.style.setProperty('--light-primary-color', lightPrimary);

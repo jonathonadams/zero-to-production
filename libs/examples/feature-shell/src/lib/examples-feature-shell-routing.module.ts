@@ -20,6 +20,12 @@ export const EXAMPLES_ROUTES: Routes = [
             m => m.ExamplesLiveDemosModule
           ),
         data: { preload: true } // Preload this route
+      },
+      {
+        path: 'guides',
+        loadChildren: () =>
+          import('@uqt/examples/guides').then(m => m.ExamplesGuidesModule),
+        data: { preload: true } // Preload this route
       }
     ]
   },

@@ -101,4 +101,6 @@ Stop the container
 docker stop local-mongo
 ```
 
-Read more about Mongo and Docker and how to configure it [here](https://hub.docker.com/_/mongo)
+Read more about Mongo and Docker and how to configure it on [docker hub - mongo]
+
+[docker hub - mongo]: https://hub.docker.com/_/mongo

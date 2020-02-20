@@ -9,7 +9,6 @@ import { clone } from './guides.code';
 @Component({
   selector: 'uqt-guides',
   templateUrl: './guides.component.html',
-  styleUrls: ['./guides.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GuidesComponent implements AfterViewInit {

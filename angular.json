@@ -199,7 +199,12 @@
             "assets": [
               "apps/examples/examples-web/src/favicon.ico",
               "apps/examples/examples-web/src/assets",
-              "apps/examples/examples-web/src/manifest.webmanifest"
+              "apps/examples/examples-web/src/manifest.webmanifest",
+              {
+                "glob": "**/*.md",
+                "input": "./docs/guides/",
+                "output": "./assets/guides/"
+              }
             ],
             "styles": ["apps/examples/examples-web/src/styles.scss"],
             "scripts": []
@@ -364,17 +369,29 @@
           "builder": "@angular-devkit/architect:concat",
           "options": {
             "targets": [
-              { "target": "examples-web:build:functions" },
-              { "target": "examples-web:server" },
-              { "target": "examples-web-functions:build" }
+              {
+                "target": "examples-web:build:functions"
+              },
+              {
+                "target": "examples-web:server"
+              },
+              {
+                "target": "examples-web-functions:build"
+              }
             ]
           },
           "configurations": {
             "production": {
               "targets": [
-                { "target": "examples-web:build:functions,production" },
-                { "target": "examples-web:server:production" },
-                { "target": "examples-web-functions:build" }
+                {
+                  "target": "examples-web:build:functions,production"
+                },
+                {
+                  "target": "examples-web:server:production"
+                },
+                {
+                  "target": "examples-web-functions:build"
+                }
               ]
             }
           }
@@ -1721,6 +1738,38 @@
             "tsConfig": "libs/examples/start-your-own/tsconfig.spec.json",
             "setupFile": "libs/examples/start-your-own/src/test-setup.ts",
             "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "examples-guides": {
+      "projectType": "library",
+      "root": "libs/examples/guides",
+      "sourceRoot": "libs/examples/guides/src",
+      "prefix": "uqt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/examples/guides/tsconfig.lib.json",
+              "libs/examples/guides/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/examples/guides/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/examples/guides/jest.config.js",
+            "tsConfig": "libs/examples/guides/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/examples/guides/src/test-setup.ts"
           }
         }
       },

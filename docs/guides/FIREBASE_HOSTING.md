@@ -1,6 +1,6 @@
 # Deploy your client app Firebase Hosting
 
-If you do not already have a Firebase account, create one at [Firebase](https://firebase.google.com/) and create your project. Additionally, make sure that firebase tools is installed. Follow the instructions [here](https://www.npmjs.com/package/firebase-tools)
+If you do not already have a Firebase account, create one at [Firebase] and create your project. Additionally, make sure that [firebase tools] is installed.
 
 ## Analyze your build (Optional)
 
@@ -26,7 +26,7 @@ Prior to deploying your application, it is recommended to analyze the production
    ng build <target> --prod
    ```
 
-2. test the production build with (optional), guide can be found [here](../../docker/README.md)
+2. **optional**: test the production build with [Nginx & Docker]
 3. authenticate with Firebase
 
    ```bash
@@ -52,8 +52,14 @@ Prior to deploying your application, it is recommended to analyze the production
 
 ## Setup Custom Domain
 
-Follow the Firebase [documentation](https://firebase.google.com/docs/hosting/custom-domain) to configure your custom domain.
+Follow the firebase docs to configure your [custom domain].
 
 ## Add Server Side Rendering & Service Worker
 
-When the you ready to add server side rendering follow [this guide](./FIREBASE_SSR.md) to add SSR and deploy on Firebase Functions.
+When your ready to add server side rendering follow [SSR and deploy on Firebase Functions] guide.
+
+[firebase]: https://firebase.google.com/
+[firebase tools]: https://www.npmjs.com/package/firebase-tools
+[nginx & docker]: https://github.com/unquenchablethyrst/zero-to-production/docker/README.md
+[custom domain]: https://firebase.google.com/docs/hosting/custom-domain
+[ssr and deploy on firebase functions]: https://zerp-to-production/guides/ssr-firebase-functions

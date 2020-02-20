@@ -132,7 +132,6 @@
     "common-ui-card": {
       "tags": ["scope:shared", "type:ui", "platform:web"]
     },
-
     "common-ui-buttons": {
       "tags": ["scope:shared", "type:ui", "platform:web"]
     },
@@ -177,6 +176,9 @@
     },
     "examples-utils": {
       "tags": ["scope:examples", "type:util", "platform:web"]
+    },
+    "examples-guides": {
+      "tags": []
     }
   }
 }

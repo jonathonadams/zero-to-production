@@ -9,7 +9,6 @@ import { moduleLoadingService, moduleProviders } from './scrolling.code';
 @Component({
   selector: 'uqt-scrolling',
   templateUrl: './scrolling.component.html',
-  styleUrls: ['./scrolling.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScrollingComponent implements AfterViewInit {

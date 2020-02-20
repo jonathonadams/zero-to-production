@@ -6,11 +6,11 @@ As it stands, Firebase tools is not really built to work nicely with Monorepos. 
 
 It is important to understand that the reason the `package.json` is added inside the `functions` directory is that when you deploy you functions with `firebase deploy`, firebase tools will deploy the entire contends of the `functions/` directory to firebase (including the `package.json`), install dependencies with `npm i`, run any commands listed under the `predeploy` field under the `functions` field in `firebase.json` then run the entry file designated in the `main` field in the `package.json`. Note that the scripts listed in the `predeploy` are those listed in the `package.json` file inside of the `functions/` directory.
 
-Although by default the directory that is deployed is the `functions/` directory, this can be configured in `firebase.json` (see below). Currently only one deployment directory can be specified and only one `firebase.json` file is supported so if you had more than one project in the repo that was to be deployed then you may have to create a build script that swaps out `firebase.json` files based on targets. See [here](https://github.com/firebase/firebase-tools/issues/590) & [here](https://github.com/firebase/firebase-tools/issues/1115) for further details. Effectively if you want anything to be deployed to Firebase functions it must be inside of the specified directory.
+Although by default the directory that is deployed is the `functions/` directory, this can be configured in `firebase.json` (see below). Currently only one deployment directory can be specified and only one `firebase.json` file is supported so if you had more than one project in the repo that was to be deployed then you may have to create a build script that swaps out `firebase.json` files based on targets. See [#590] & [#1115] for further details. Effectively if you want anything to be deployed to Firebase functions it must be inside of the specified directory.
 
 ## Add Angular Universal
 
-With all that being said, for this example we are going to deploy the `todos` application using Angular Universal SSR. It is advised to read through the [Angular Universal guide](https://angular.io/guide/universal) to help understand the complexity and Angular Universal is hiding for you. You will learn along the way that the some of the limitations of using SSR are obvious with the `todos` app and the decision to use SSR is not always straight forward.
+With all that being said, for this example we are going to deploy the `todos` application using Angular Universal SSR. It is advised to read through the [Angular Universal] guide to help understand the complexity and Angular Universal is hiding for you. You will learn along the way that the some of the limitations of using SSR are obvious with the `todos` app and the decision to use SSR is not always straight forward.
 
 ### 1. Add & Configure Angular Universal for the Todo Application
 
@@ -20,18 +20,21 @@ Add angular universal to the Todos Application with the express engine schematic
 ng add @nguniversal/express-engine --clientProject todos-web
 ```
 
-A number of files are created and edited as per [Angular Universal guide](https://angular.io/guide/universal) however note the following:
+A number of files are created and edited as per [Angular Universal however note the following:
 
 - `AppModule`: the imported `BrowserModule` now calls `withServerTransition({appId: 'serverApp'})`. Change `serverApp` to something like `todoApp`.
 - `server.ts`: there will be some errors, one because of our typescript configuration and a type definition mismatch. Change the following two statements.
 
-  ```ts
+  ```typescript
   // change
   import * as express from 'express';
   // to
   import express from 'express';
 
-  // At the time of writing, the express engine had a type definition mismatch and 'strict' mode was showing as an error. This may have been fixed and may not be needed. If so, ignore the next part and let me know.
+  // At the time of writing, the express engine had a type definition
+  // mismatch and 'strict' mode was showing as an error.
+  // This may have been fixed and may not be needed.
+  // If so, ignore the next part and let me know.
 
   // change
   server.engin(
@@ -54,8 +57,8 @@ Some additional build targets in `angular.json` and scripts in `package.json` ha
 
 In the `server.ts` file, take note of the currently set distribution folder
 
-```TS
-const distFolder = join(process.cwd(), 'dist/todos-web/browser')
+```typescript
+const distFolder = join(process.cwd(), 'dist/todos-web/browser');
 ```
 
 Note that it is pointing to the output directory of the browser build and that it is in relation to current working directory. While fine for testing, the will be altered later when configuring for Firebase functions.
@@ -72,11 +75,11 @@ Once compiled visit `http://localhost:4200` to access your App. The normal `logi
 
 Now open another incognito window and try again. All functionality should work as normal. Locally it will almost be too quick to notice but once the `.js` bundles loaded and the client application bootstrapped in transitions from the server rendered. You can tell by checking `inspect source` and the see that the original response the the server rendered markup.
 
-The todo application might not be benefit hugely from SSR in some aspects (JS disabled, your site might). Eg the [example site](https://zero-to-production.dev) mostly will work without JS enabled, try it out.
+The todo application might not be benefit hugely from SSR in some aspects (JS disabled, your site might). Eg the [demo site] mostly will work without JS enabled, try it out.
 
 Word of warning - If you access browser API's (such as `localStorage`) these may throw errors in the server rendered application depending on when you access them. Ensure to check what platform the application is currently running on when the API is accessed.
 
-```TS
+```typescript
 constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
 someMethod() {
@@ -98,7 +101,7 @@ npx nx workspace-schematic universal-firebase --clientProject=todos-web --fireba
 
 This will create a new project in `apps/todos/todos-web-functions`. Copy and paste the following into the `firebase.json` file.
 
-```Json
+```json
 {
   "hosting": {
     "public": "apps/todos/todos-web-functions/dist/browser",
@@ -134,7 +137,7 @@ The schematic has taken care of scaffolding and configuring the Universal Applic
 
 When you deploy the functions only resources packaged inside the projects directory, `apps/todos/todos-web-functions`, are pushed so the project is configured to build into a `dist` directory **inside** the project directory, i.e. `apps/todos/todos-web-functions`. This means the **current working directory** of the server process will be different when hosted on cloud functions and the `distFolder` has been altered to reflect.
 
-```ts
+```typescript
 // this
 const distFolder = join(process.cwd(), 'dist/todos-web/browser');
 
@@ -222,11 +225,11 @@ firebase deploy
 
 ## Setup Custom Domain
 
-If you have not set up a custom domain your functions will most probably not serve properly due to the `baseHref` as described earlier. If you have not all ready, follow the Firebase [documentation](https://firebase.google.com/docs/hosting/custom-domain) to configure your custom domain.
+If you have not set up a custom domain your functions will most probably not serve properly due to the `baseHref` as described earlier. If you have not all ready, follow the Firebase docs to configure your [custom domain].
 
 ## Add a Service Worker (Optional)
 
-While not directly associated with server side rendering, a Service Worker plays nicely with a server rendered application. The SSR application is rendered first and the client application bootstraps once all resources are loaded. Once the client application bootstraps it will activate the service worker and cache all resources. On next visit the service worker will serve the cached client files before any request are made and the application will load instantly. In the background go and check for updated resources and update as necessary. See here for more details on the [Angular Service Worker](https://angular.io/guide/service-worker-intro)
+While not directly associated with server side rendering, a Service Worker plays nicely with a server rendered application. The SSR application is rendered first and the client application bootstraps once all resources are loaded. Once the client application bootstraps it will activate the service worker and cache all resources. On next visit the service worker will serve the cached client files before any request are made and the application will load instantly. In the background go and check for updated resources and update as necessary. See here for more details on the [Angular Service Worker].
 
 ```bash
 ng add @angular/pwa --project todos-web
@@ -277,10 +280,17 @@ Visit the locally hosted url to test your app. The server side app should load a
 
 Refresh the browser and the app should load almost instantly as the service worker served the locally cached files. Now turn the network off and see what happens:
 
-`Dev Tools -> Network -> Online/Offline`
+`Dev Tools` &rarr; `Network` &rarr; `Online/Offline`
 
 Refresh the browser with hte network turned off and you should still get the same result and the application will now work offline.
 
 ### Considerations
 
 Not every applications will benefit from all aspects of server side rendering, specifically the time to first paint. Depending on the traffic load, cloud functions will go to sleep/idle if infrequently used and the the "cold start" time may cause your app to load slower.
+
+[#590]: https://github.com/firebase/firebase-tools/issues/590
+[#1115]: https://github.com/firebase/firebase-tools/issues/1115
+[angular universal]: https://angular.io/guide/universal
+[demo site]: https://zero-to-production.dev
+[custom domain]: https://firebase.google.com/docs/hosting/custom-domain
+[angular service worker]: https://angular.io/guide/service-worker-intro

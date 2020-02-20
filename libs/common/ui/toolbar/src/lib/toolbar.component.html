@@ -1,6 +1,9 @@
 <!-- TODO -> remove material elevation -->
 <header class="uqt-toolbar mat-elevation-z4">
-  <ng-content></ng-content>
+  <span class="projection">
+    <ng-content></ng-content>
+  </span>
+
   <button
     *ngIf="menuButton"
     (click)="menuToggle.emit()"

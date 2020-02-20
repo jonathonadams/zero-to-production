@@ -11,22 +11,25 @@
   }
 }
 
-.logo {
-  text-decoration: none;
+.git-logo {
+  // text-decoration: none;
   color: black;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  > p {
-    font-size: 1.25em;
-    margin: 0;
-    margin-right: 0.5em;
-  }
-
-  cursor: pointer;
-  height: 2.5em;
+  // display: flex;
+  // flex-direction: row;
+  // align-items: center;
+  // > p {
+  //   font-size: 1.25em;
+  //   margin: 0;
+  //   margin-right: 0.5em;
+  // }
 
   > img {
     height: 100%;
   }
+}
+
+.icon {
+  height: 1.75em;
+  width: 1.75em;
+  cursor: pointer;
 }

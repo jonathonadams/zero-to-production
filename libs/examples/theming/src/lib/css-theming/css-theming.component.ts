@@ -1,7 +1,8 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  AfterViewInit
+  AfterViewInit,
+  OnInit
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ThemeService } from '@uqt/common/theme';
@@ -16,7 +17,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./css-theming.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CssThemingComponent implements AfterViewInit {
+export class CssThemingComponent implements OnInit, AfterViewInit {
   form: FormGroup;
   dark$: Observable<boolean>;
 
@@ -32,11 +33,14 @@ export class CssThemingComponent implements AfterViewInit {
     this.dark$ = this.themeService.darkTheme$;
     this.form = this.fb.group(this.baseTheme);
 
-    this.form.reset(this.themeService.themeSettings);
-
     this.form.valueChanges.subscribe(themeSettings => {
       this.themeService.setThemeColors(themeSettings);
     });
+  }
+
+  ngOnInit() {
+    const theme = this.themeService.themeSettings;
+    this.form.reset(theme ? theme : this.baseTheme);
   }
 
   resetTheme() {
