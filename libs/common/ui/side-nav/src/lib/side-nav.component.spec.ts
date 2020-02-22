@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { CommonUiSideNavComponent } from './side-nav.component';
-import { SideNavFacade } from './+state/side-nav.facade';
 
 // TODO -> TESTS
 
@@ -15,12 +14,6 @@ describe('CommonUiSideNavComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [CommonUiSideNavComponent],
-      providers: [
-        {
-          provide: SideNavFacade,
-          useValue: { opened$: jest.fn(), route$: jest.fn() }
-        }
-      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));

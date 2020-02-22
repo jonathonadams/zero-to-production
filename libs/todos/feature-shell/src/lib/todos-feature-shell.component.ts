@@ -1,5 +1,5 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { SideNavFacade, ISideNaveRoute } from '@uqt/common/ui/side-nav';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ISideNaveRoute } from '@uqt/common/ui/side-nav';
 
 @Component({
   selector: 'todo-feature-shell',
@@ -7,9 +7,7 @@ import { SideNavFacade, ISideNaveRoute } from '@uqt/common/ui/side-nav';
   styleUrls: ['./todos-feature-shell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoFeatureShellComponent implements OnInit {
-  constructor(private facade: SideNavFacade) {}
-
+export class TodoFeatureShellComponent {
   /*
    * UQT_UPDATE -> Use absolute routes when you build the Todo application by itself.
    * Currently a bug where if the relative route matches on a an empty path at the root
@@ -28,12 +26,4 @@ export class TodoFeatureShellComponent implements OnInit {
   //   { path: '/home', icon: 'home', label: 'Home' },
   //   { path: '/todos', icon: 'list', label: 'Todos' }
   // ];
-
-  ngOnInit() {
-    this.facade.setNavRoutes(this.routes);
-  }
-
-  menuToggle() {
-    this.facade.toggle();
-  }
 }
