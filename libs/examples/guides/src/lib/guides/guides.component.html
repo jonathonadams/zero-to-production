@@ -1,0 +1,17 @@
+<layout-center-page class="container">
+  <nav mat-tab-nav-bar>
+    <a
+      mat-tab-link
+      *ngFor="let link of guides"
+      [routerLink]="link.path"
+      routerLinkActive
+      #rla="routerLinkActive"
+      [active]="rla.isActive"
+    >
+      {{ link.label }}
+    </a>
+  </nav>
+  <section class="guide">
+    <router-outlet></router-outlet>
+  </section>
+</layout-center-page>

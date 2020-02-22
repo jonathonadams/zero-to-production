@@ -101,6 +101,7 @@
     "lodash.keyby": "^4.6.0",
     "lodash.merge": "^4.6.2",
     "lodash.omit": "^4.5.0",
+    "marked": "^0.8.0",
     "mongoose": "^5.9.1",
     "normalize.css": "^8.0.1",
     "pem-jwk": "^2.0.0",

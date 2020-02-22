@@ -7,18 +7,12 @@
       <h3>About</h3>
 
       <p>
-        An example of a full stack Monorepo with Angular, GraphQL & Kubernetes.
+        A full stack Monorepo starter with Angular, GraphQL & Kubernetes.
       </p>
 
       <p>
-        Instructions to re-brand and get you up an running with your own
-        deployed client and server can be found
-        <a
-          target="_blank"
-          rel="noreferrer noopener"
-          href="https://github.com/unquenchablethyrst/zero-to-production/blob/master/docs/guides/START_YOUR_OWN.md"
-          >here</a
-        >.
+        Guides to clone, re-brand and deploy your own can be found
+        <a routerLink="guides">here</a>
       </p>
 
       <h3>Whats in the box?</h3>
@@ -43,7 +37,7 @@
           including user registration and authentication.
         </li>
         <li>
-          Node API with
+          Node GraphQL API with
           <a
             target="_blank"
             class="logo"
@@ -65,26 +59,24 @@
             rel="noreferrer noopener"
             href="https://www.mongodb.com"
             >MongoDB</a
-          >
-          (including a custom Angular CLI Builder).
+          >.
         </li>
         <li>
-          Guides to deploy you server with
-          <a
-            target="_blank"
-            class="logo"
-            rel="noreferrer noopener"
-            href="https://docs.traefik.io"
-            >Traefik</a
+          Guides to deploying your Angular App with
+          <a routerLink="/guides/firebase-hosting">Firebase Hosting</a> or
+          <a routerLink="/guides/ssr-firebase-functions"
+            >SSR with Firebase Functions</a
           >
-          revers proxy Google Cloud Kubernetes engine.
+          & your API on
+          <a routerLink="/guides/google-cloud-k8s">Google Cloud Kubernetes</a>
+          engine.
         </li>
-        <li>More coming soon</li>
+        <li>More coming soon!</li>
       </ul>
 
-      <h3>Bonus</h3>
       <p>
-        Demonstrations of some less common/more advanced Angular techniques
+        <b>Bonus</b>: examples of some less common/more advanced Angular
+        techniques
       </p>
     </div>
     <div class="examples">

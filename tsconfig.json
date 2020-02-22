@@ -43,7 +43,6 @@
       "@uqt/shared/utils/service-worker": [
         "libs/shared/utils/service-worker/src/index.ts"
       ],
-
       "@uqt/common/animations": ["libs/common/animations/src/index.ts"],
       "@uqt/shared/utils/storage": ["libs/shared/utils/storage/src/index.ts"],
       "@uqt/common/form-builder": ["libs/common/form-builder/src/index.ts"],
@@ -58,7 +57,6 @@
       "@uqt/shared/auth/components": [
         "libs/shared/auth/components/src/index.ts"
       ],
-
       "@uqt/examples/utils": ["libs/examples/utils/src/index.ts"],
       "@uqt/shared/utils/dynamic-module-loading": [
         "libs/shared/utils/dynamic-module-loading/src/index.ts"
@@ -70,10 +68,11 @@
       "@uqt/common/ui/buttons": ["libs/common/ui/buttons/src/index.ts"],
       "@uqt/examples/live-demos": ["libs/examples/live-demos/src/index.ts"],
       "@uqt/examples/dynamic-form": ["libs/examples/dynamic-form/src/index.ts"],
-
       "@uqt/examples/make-it-your-own": [
         "libs/examples/start-your-own/src/index.ts"
-      ]
+      ],
+      "@uqt/exampes/guides": ["libs/exampes/guides/src/index.ts"],
+      "@uqt/examples/guides": ["libs/examples/guides/src/index.ts"]
     }
   }
 }

@@ -7,9 +7,9 @@ import {
   SharedUtilsDynamicModuleLoadingModule,
   LAZY_MODULE_REGISTRY
 } from '@uqt/shared/utils/dynamic-module-loading';
-import { CodeHighlightService } from '@uqt/examples/utils';
 import { LAZY_MODULES } from './lazy-modules';
 import { ExamplesDynamicFormModule } from '@uqt/examples/dynamic-form';
+import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
 
 const COMPONENTS = [ExamplesDemosComponent, ExampleDetailComponent];
 
@@ -17,12 +17,12 @@ const COMPONENTS = [ExamplesDemosComponent, ExampleDetailComponent];
   imports: [
     CommonModule,
     ExamplesLiveDemosRoutingModule,
+    CommonUiLayoutsModule,
     SharedUtilsDynamicModuleLoadingModule,
     ExamplesDynamicFormModule
   ],
   declarations: COMPONENTS,
   providers: [
-    CodeHighlightService,
     {
       provide: LAZY_MODULE_REGISTRY,
       useValue: LAZY_MODULES

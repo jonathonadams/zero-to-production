@@ -10,8 +10,17 @@
   padding: 0 1em;
   justify-content: space-between;
   align-items: center;
-  .content {
+  .projection {
+    display: flex;
+    flex-direction: row;
     height: 100%;
+    align-items: center;
+    & > * {
+      margin-right: 0.5em;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 }
 
