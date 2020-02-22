@@ -1,4 +1,12 @@
-<uqt-ui-toolbar [menuButton]="true" (menuToggle)="menuToggle()" class="header">
+<uqt-ui-toolbar
+  [menuButton]="true"
+  (menuToggle)="sidenav.toggle()"
+  class="header"
+>
   <uqt-toolbar-menu-icon></uqt-toolbar-menu-icon>
 </uqt-ui-toolbar>
-<uqt-common-side-nav class="app-content"></uqt-common-side-nav>
+<uqt-common-ui-sidenav
+  class="app-content"
+  #sidenav
+  [routes]="routes"
+></uqt-common-ui-sidenav>

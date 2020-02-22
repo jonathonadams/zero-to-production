@@ -3,13 +3,13 @@
   height: 100%;
 }
 
-.app-content {
-  z-index: 1;
-  display: block;
-  height: calc(100% - 4em);
-}
-
 .header {
   z-index: 2;
+  display: block;
   position: relative;
+}
+
+.app-content {
+  display: block;
+  height: calc(100% - 4em);
 }
