@@ -136,7 +136,13 @@ function updateOutputPathsAndBaserHref(name: string): Rule {
   };
 }
 
-function addProjectToAngularJson(name: string): Rule {
+// FUTURE_UPDATE
+// https://github.com/firebase/firebase-tools/issues/590
+// function addProjectToFirebaseJson() {
+
+// }
+
+function addProjectToNxJson(name: string): Rule {
   return (host: Tree) => {
     const nxJson = JSON.parse((host.read('nx.json') as Buffer).toString());
 
@@ -153,7 +159,7 @@ function addProjectToAngularJson(name: string): Rule {
   };
 }
 
-function addProjectToNxJson(name: string): Rule {
+function addProjectToAngularJson(name: string): Rule {
   return (host: Tree) => {
     const angularJson = JSON.parse(
       (host.read('angular.json') as Buffer).toString()
@@ -174,6 +180,21 @@ function addProjectToNxJson(name: string): Rule {
             outputPath: `${functionsDirectory}/dist`,
             src: `${functionsDirectory}/src`,
             tsConfig: `${functionsDirectory}/tsconfig.json`
+          }
+        },
+        serve: {
+          builder: '@angular-devkit/architect:concat',
+          options: {
+            targets: [
+              { target: `${projectName}:build-all` },
+              { target: `${projectName}:run` }
+            ]
+          }
+        },
+        run: {
+          builder: '@nrwl/workspace:run-commands',
+          options: {
+            commands: [{ command: 'firebase serve' }]
           }
         },
         lint: {

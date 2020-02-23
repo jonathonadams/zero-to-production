@@ -29,6 +29,9 @@
 - Configure Form Builder to scroll screens if out of view
   https://github.com/angular/components/issues/13588
 
-* TypeScript `-b` command does not allow additional flags.
+- TypeScript `-b` command does not allow additional flags.
   once this is implemented, then there will be no need for the `tsconfig.docker.json` files for the building of docker
   https://github.com/microsoft/TypeScript/issues/25613
+
+- Improve firebase function schematic to point to local firebase.json once implemented
+  https://github.com/firebase/firebase-tools/issues/590

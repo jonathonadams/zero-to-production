@@ -2,7 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 // @ts-ignore
-import Prism from 'prismjs';
+import { highlightAll, highlight, languages } from 'prismjs';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-json';
@@ -14,16 +14,15 @@ export class CodeHighlightService {
 
   highlightAll() {
     if (isPlatformBrowser(this.platformId)) {
-      Prism.highlightAll();
+      highlightAll();
     }
   }
 
   highlight(code: string, lang: string) {
-    const tokens = Prism.languages[lang];
+    const tokens = languages[lang];
     if (tokens) {
-      return Prism.highlight(code, tokens, lang);
+      return highlight(code, tokens, lang);
     } else {
-      console.log(lang);
       return code;
     }
   }

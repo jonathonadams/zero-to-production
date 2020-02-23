@@ -1,16 +1,13 @@
-import { Injectable, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
-// Only want one instance of the theme service
 @Injectable({ providedIn: 'root' })
-export class ThemeService implements OnDestroy {
+export class ThemeService {
   storageKey = 'theme-settings';
 
   private darkTheme = new BehaviorSubject<boolean>(false);
   public darkTheme$: Observable<boolean> = this.darkTheme.asObservable();
-
-  private subscription: Subscription;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -68,10 +65,6 @@ export class ThemeService implements OnDestroy {
   setDarkThemeStatus(darkMode: boolean): void {
     this.darkTheme.next(darkMode);
     this.setThemeSettings({ darkMode });
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }
 
