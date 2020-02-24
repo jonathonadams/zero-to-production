@@ -345,6 +345,21 @@
             "tsConfig": "apps/examples/examples-web-functions/tsconfig.json"
           }
         },
+        "serve": {
+          "builder": "@angular-devkit/architect:concat",
+          "options": {
+            "targets": [
+              { "target": "examples-web-functions:build-all" },
+              { "target": "examples-web-functions:run" }
+            ]
+          }
+        },
+        "run": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [{ "command": "firebase serve" }]
+          }
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {

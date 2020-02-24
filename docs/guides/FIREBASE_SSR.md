@@ -135,7 +135,7 @@ This will create a new project in `apps/todos/todos-web-functions`. Copy and pas
 
 The schematic has taken care of scaffolding and configuring the Universal Application and has configured the following. A new `todos-web-functions` project has been added to the `angular.json`.
 
-When you deploy the functions only resources packaged inside the projects directory, `apps/todos/todos-web-functions`, are pushed so the project is configured to build into a `dist` directory **inside** the project directory, i.e. `apps/todos/todos-web-functions`. This means the **current working directory** of the server process will be different when hosted on cloud functions and the `distFolder` has been altered to reflect.
+When you deploy the functions only resources packaged inside the projects directory (`apps/todos/todos-web-functions`) are pushed so the project is configured to build into a `dist` directory **inside** the project directory, i.e. `apps/todos/todos-web-functions`. This means the **current working directory** of the server process will be different when hosted on cloud functions and the `distFolder` has been altered to reflect.
 
 ```typescript
 // this
@@ -199,19 +199,15 @@ The `functions` build target looks like the below:
 
 ## Try it out
 
-Build for local testing:
+Serve the Firebase function locally:
 
 ```bash
-ng run todos-web-functions:build-all
+ng serve todos-web-functions
 ```
 
-test your Universal App locally:
+Note: this is a combination of building all projects for local serving, `ng run todos-web-functions:build-all`, and serving with `firebase serve`
 
-```bash
-firebase serve
-```
-
-Make a production build for deployment:
+When ready for deployment, make a production build:
 
 ```bash
 ng run todos-web-functions:build-all:production
