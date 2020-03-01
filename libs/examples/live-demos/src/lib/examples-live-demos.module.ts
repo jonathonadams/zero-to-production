@@ -11,8 +11,6 @@ import { LAZY_MODULES } from './lazy-modules';
 import { ExamplesDynamicFormModule } from '@uqt/examples/dynamic-form';
 import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
 
-const COMPONENTS = [ExamplesDemosComponent, ExampleDetailComponent];
-
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +19,7 @@ const COMPONENTS = [ExamplesDemosComponent, ExampleDetailComponent];
     SharedUtilsDynamicModuleLoadingModule,
     ExamplesDynamicFormModule
   ],
-  declarations: COMPONENTS,
+  declarations: [ExamplesDemosComponent, ExampleDetailComponent],
   providers: [
     {
       provide: LAZY_MODULE_REGISTRY,

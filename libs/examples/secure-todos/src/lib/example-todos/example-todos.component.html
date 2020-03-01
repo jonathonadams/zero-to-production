@@ -11,15 +11,10 @@
   <a target="_blank" rel="noreferrer noopener" href="https://nrwl.io/">Nrwl</a>
   provide.
 </p>
-<button
-  class="show-button"
-  *ngIf="!showApplication"
-  mat-stroked-button
-  (click)="showTodos()"
->
-  Show Me the Money!!!
+<button class="show" *ngIf="!show" mat-stroked-button (click)="showTodos()">
+  Show me to the App!!
 </button>
-<ng-container *ngIf="showApplication">
+<ng-container *ngIf="show">
   <h3>NOTE</h3>
   <p>
     The application below is a complete working application with a live GraphQL
@@ -40,7 +35,7 @@
     The Database will be wiped regularly so don't be surprised if you come back
     next week and its all gone.
   </p>
+  <section class="app">
+    <router-outlet></router-outlet>
+  </section>
 </ng-container>
-<section class="app" *ngIf="showApplication">
-  <router-outlet></router-outlet>
-</section>

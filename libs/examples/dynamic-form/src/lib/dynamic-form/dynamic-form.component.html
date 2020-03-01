@@ -74,7 +74,9 @@
     </section>
     <h4>Submit Output</h4>
     <div class="output">
-      <pre><code>{{ submit$ | async | json }}</code></pre>
+      <pre
+        class="language-json"
+      ><code class="language=json" [innerHtml]="submit$ | async | json | codeHighlight"></code></pre>
     </div>
   </aside>
 </article>
