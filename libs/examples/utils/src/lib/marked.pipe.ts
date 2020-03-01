@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform, SecurityContext } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 // @ts-ignore
 import marked from 'marked';
-import { CodeHighlightService } from '@uqt/examples/utils';
-import { DomSanitizer } from '@angular/platform-browser';
+import { CodeHighlightService } from './highlight.service';
 
 @Pipe({
   name: 'marked'

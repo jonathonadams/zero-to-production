@@ -9,7 +9,7 @@ import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { ExamplesDataAccessModule } from '@uqt/examples/data-access';
 import { ExamplesHomeComponent } from './home/home.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { AnimateScrollEntryDirective } from './animate-scroll-entry.directive';
+import { AnimateScrollEntryDirective } from '@uqt/examples/utils';
 
 @NgModule({
   imports: [

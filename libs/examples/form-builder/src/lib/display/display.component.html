@@ -14,8 +14,9 @@
       </button>
     </app-dynamic-form>
   </div>
-
   <div>
-    <pre>{{ submit$ | async | json }}</pre>
+    <pre
+      class="language-json"
+    ><code class="language=json" [innerHtml]="submit$ | async | json | codeHighlight"></code></pre>
   </div>
 </ng-container>

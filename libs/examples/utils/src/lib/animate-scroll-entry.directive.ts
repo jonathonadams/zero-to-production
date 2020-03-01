@@ -6,7 +6,7 @@ import {
   Inject,
   PLATFORM_ID
 } from '@angular/core';
-import { ScrollDispatcher } from '@angular/cdk/overlay';
+import { isPlatformBrowser } from '@angular/common';
 import {
   AnimationPlayer,
   AnimationMetadata,
@@ -15,8 +15,8 @@ import {
   animate,
   keyframes
 } from '@angular/animations';
+import { ScrollDispatcher } from '@angular/cdk/overlay';
 import { Subscription } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
 
 export enum ElementViewportPosition {
   Above = 'Above',
