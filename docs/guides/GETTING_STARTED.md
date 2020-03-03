@@ -7,11 +7,11 @@ If you want to use this monorepo as the starting point for your next project or 
 Clone and install all dependencies.
 
 ```bash
-git clone https://github.com/unquenchablethyrst/zero-to-production.git workspace
+$ git clone https://github.com/unquenchablethyrst/zero-to-production.git workspace
 
-cd workspace
+$ cd workspace
 
-npm i
+$ npm i
 ```
 
 ### Housekeeping

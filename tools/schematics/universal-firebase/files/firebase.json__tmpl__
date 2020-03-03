@@ -1,0 +1,28 @@
+{
+  "hosting": {
+    "public": "dist/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "src/",
+      "tslint.json",
+      "firebase.json",
+      "tsconfig.json",
+      "tsconfig.spec.json"
+    ],
+    "rewrites": [
+      {
+        "source": "**/*.@(js|css|svg)",
+        "destination": "/index.html"
+      },
+      {
+        "source": "**",
+        "function": "universal"
+      }
+    ]
+  },
+  "functions": {
+    "source": "/"
+  }
+}

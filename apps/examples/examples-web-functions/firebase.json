@@ -1,12 +1,13 @@
 {
   "hosting": {
-    "public": "apps/examples/examples-web-functions/dist/browser",
+    "public": "dist/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**",
       "src/",
       "tslint.json",
+      "firebase.json",
       "tsconfig.json",
       "tsconfig.spec.json"
     ],
@@ -22,6 +23,6 @@
     ]
   },
   "functions": {
-    "source": "apps/examples/examples-web-functions"
+    "source": "/"
   }
 }

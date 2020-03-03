@@ -16,13 +16,13 @@ Prior to deploying your application, it is recommended to analyze the production
 1. make a production build of your application with and `stats.json`
 
    ```bash
-   ng build <target> --prod --stats-json
+   $ ng build <target> --prod --stats-json
    ```
 
 2. analyze the bundle with `webpack-bundle-analyzer`
 
    ```bash
-   npm run bundle:analyze -- path/to/distribution/directory/stats.json
+   $ npm run bundle:analyze -- path/to/distribution/directory/stats.json
    ```
 
 ## Deploy on Firebase Hosting
@@ -30,20 +30,20 @@ Prior to deploying your application, it is recommended to analyze the production
 1. make a production build of your application
 
    ```bash
-   ng build <target> --prod
+   $ ng build <target> --prod
    ```
 
 2. **optional**: test the production build with [Nginx & Docker]
 3. authenticate with Firebase
 
    ```bash
-   firebase login
+   $ firebase login
    ```
 
 4. instantiate a new firebase project
 
    ```bash
-   firebase init
+   $ firebase init
    ```
 
 5. choose **Hosting**
@@ -54,7 +54,7 @@ Prior to deploying your application, it is recommended to analyze the production
 10. deploy your project
 
     ```bash
-    firebase deploy
+    $ firebase deploy
     ```
 
 ## Setup Custom Domain

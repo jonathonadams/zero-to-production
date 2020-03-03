@@ -21,7 +21,7 @@ export default function(schema: FireBaseFunctionsSchema): Rule {
     addProjectFiles(schema.clientProject),
     updateServerDistributionPath(schema.clientProject),
     createOriginalIndexAndChangePath(schema.clientProject),
-    addProjectToAngularJson(schema.clientProject),
+    addProjectToAngularJson(schema.clientProject, schema.firebaseProject),
     addProjectToNxJson(schema.clientProject),
     updateOutputPathsAndBaserHref(schema.clientProject),
     addTestFirebaseConfiguration(schema.clientProject, schema.firebaseProject),
@@ -36,7 +36,10 @@ function addProjectFiles(name: string): Rule {
     );
     const projectRoot: string = angularJson.projects[name].root;
     const projectDirectory = join(projectRoot, '../', `${name}-functions`);
-    const relativePath = relative(projectDirectory, process.cwd());
+    const relativePath = relative(projectDirectory, process.cwd()).replace(
+      /\\/g,
+      '/'
+    );
 
     return mergeWith(
       apply(url('./files'), [
@@ -159,7 +162,7 @@ function addProjectToNxJson(name: string): Rule {
   };
 }
 
-function addProjectToAngularJson(name: string): Rule {
+function addProjectToAngularJson(name: string, firebaseProject: string): Rule {
   return (host: Tree) => {
     const angularJson = JSON.parse(
       (host.read('angular.json') as Buffer).toString()
@@ -182,6 +185,37 @@ function addProjectToAngularJson(name: string): Rule {
             tsConfig: `${functionsDirectory}/tsconfig.json`
           }
         },
+        'build-all': {
+          builder: '@angular-devkit/architect:concat',
+          options: {
+            targets: [
+              {
+                target: `${name}:build:functions`
+              },
+              {
+                target: `${name}:server`
+              },
+              {
+                target: `${projectName}:build`
+              }
+            ]
+          },
+          configurations: {
+            production: {
+              targets: [
+                {
+                  target: `${name}:build:functions, production`
+                },
+                {
+                  target: `${name}:server:production`
+                },
+                {
+                  target: `${projectName}:build`
+                }
+              ]
+            }
+          }
+        },
         serve: {
           builder: '@angular-devkit/architect:concat',
           options: {
@@ -194,7 +228,30 @@ function addProjectToAngularJson(name: string): Rule {
         run: {
           builder: '@nrwl/workspace:run-commands',
           options: {
-            commands: [{ command: 'firebase serve' }]
+            commands: [
+              {
+                command: `firebase serve --project ${firebaseProject}`
+              }
+            ],
+            cwd: functionsDirectory
+          }
+        },
+        deploy: {
+          builder: '@nrwl/workspace:run-commands',
+          options: {
+            commands: [
+              { command: `firebase deploy --project ${firebaseProject}` }
+            ],
+            cwd: functionsDirectory
+          }
+        },
+        'build-and-deploy': {
+          builder: '@angular-devkit/architect:concat',
+          options: {
+            targets: [
+              { target: `${projectName}:build-all:production` },
+              { target: `${projectName}:deploy` }
+            ]
           }
         },
         lint: {
