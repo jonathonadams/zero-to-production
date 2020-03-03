@@ -6,14 +6,15 @@ import {
   JWKSGuarConfig,
   VerifyActiveUserConfig,
   VerifyTokenJWKSConfig,
-  AuthMiddleware,
-  VerifyTokenConfig
+  VerifyTokenConfig,
+  AuthMiddleware
 } from '../auth.interface';
 import { isJWKS } from '../auth-utils';
 import { retrievePublicKeyFormJWKS } from '../token';
 
 export function getGraphQlGuards(config: GuardConfig | JWKSGuarConfig) {
   // Check if using JWKS or if public key is provided
+
   const verifyToken = isJWKS(config)
     ? checkTokenJWKS(config)
     : checkToken(config);

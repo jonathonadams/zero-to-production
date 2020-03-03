@@ -1,4 +1,3 @@
-import { createPublicKey } from 'crypto';
 import Koa from 'koa';
 import Router from '@koa/router';
 // @ts-ignore
@@ -11,15 +10,16 @@ import { JWKSRouteConfig } from '../auth.interface';
 const END_POINT = '/.well-known/jwks.json';
 
 export function createPublicJsonWebKeySetRouteFromPrivateKey({
-  privateKey,
+  publicKey,
   keyId
 }: JWKSRouteConfig) {
+  const jwk: object = pem2jwk(publicKey, {
+    alg: 'RS256',
+    use: 'sig',
+    kid: keyId
+  });
+
   return (app: Koa) => {
-    const publicPem = createPublicKey(privateKey);
-
-    const pem = publicPem.export({ format: 'pem', type: 'spki' });
-    const jwk: object = pem2jwk(pem, { alg: 'RS256', use: 'sig', kid: keyId });
-
     const router = new Router();
 
     router.get(END_POINT, async ctx => {

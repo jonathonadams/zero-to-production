@@ -1,21 +1,10 @@
 # Deploy your API Server in Google Cloud Kubernetes
 
-**WARNING**: This guide is in no way a comprehensive guide to deploying your application, rather a starting point for you to test and get your feet wet with deploying your containers to the cloud in Kubernetes.
+**WARNING**: This guide is in no way a comprehensive or 'production grade' guide to deploying your application in Kubernetes, rather a starting point for you to test and get your feet wet with deploying your containers to the cloud. This examples deploys the single node **API** with [traefik] as a reveres proxy, hardly an application that warrants a complex micro-service infrastructure. That being said the kubernetes resource configurations should give you an idea of how to add additional services to you cluster e.g. separate the Auth module.
 
 ## Before you Start
 
-- Make sure to have [Google Cloud SDK] and [Kubernetes CLI] installed.
-
-- You will need a Mongo Database for your the API to connect to. It is entirely up to you how & where you host your DB but [Mongo Atlas] has a free tear that you can test with. A couple of notes on setting up Mongo Atlas.
-
-  - For this testing setup, allow connections from all IP Addresses. See the notes later about setting up VPC Network Peering in production.
-  - Once your cluster is up an running, click **collections** and create a database (note the name) and the first collection i.e. the `users` collection.
-  - Click **conect** &rarr; **connect your application** and get your connection string, by default the connection string will not include the database name, so add the `dbName` option to the end of the query string, i.e. `mongodb+srv://.../test?retryWrites=true&w=majority&dbName=your-db-name`
-
-- An RS256 Private Key is required for singing your JWT access tokens. Depending on the Authentication Guard setup (see the [API Authentication Library]) you may or may not need the Public Key for Verifying the JWT. As the API is currently set up, the public key is auto generated from the private key at startup and served as a [JSON Web Key Set (JWKS)] at the url `/.well-know/jwks.json`. See [Auth 0] for further explanation and rational behind a JWKS.  
-  There is a helper script in `tools/scripts/bin/generate-rsa.js` to generate an RSA256 Private Key (pkcs8).
-
-- To work through to completion you will need a domain name. For this example the domain name will be `zero-to-production.dev` and we will host our API server at the subdomain `api.zero-to-production.dev`
+Ensure you have all the [prerequisites] setup and ready prior to starting this guide.
 
 ## Google Cloud - Build Trigger
 
@@ -89,18 +78,13 @@ The image name that you build and push to the Google Cloud Registry here is the 
 
 To access your cluster via your domain name, e.g. `api.zero-to-production.dev` you will have to configure your DNS records with your domain name provider. Assuming you are hosting your API at the subdomain `api.`, then create an **A** record (or **AAAA** if using **IPv6**) that directs your subdomain to the static IP address reserved at **1**. This will take time to update (up to 24 hours). Once updated, test your cluster is running correctly by visiting the `/healthz` url for your domain (this is the readiness probe route). You should receive status **200** OK response back.
 
-### VPC Network Peering (if using Mongo Atlas)
+## VPC Network Peering (if using Mongo Atlas)
 
 In a real production server you would setup VPC Network Peering between your Mongo Atlas Project and your Google Cloud Project and only whitelist the Google Cloud CIDR range, however this feature is not available for the free tier cluster.
 
-See the [Mongo VPC Peering] docs on how to set up Network Peering
+See the [Mongo VPC Peering] docs on how to set up VPC Network Peering
 
-[google cloud sdk]: https://cloud.google.com/sdk
-[kubernetes cli]: https://kubernetes.io/docs/reference/kubectl/
-[mongo atlas]: https://www.mongodb.com/cloud/atlas
-[api authentication library]: https://github.com/unquenchablethyrst/zero-to-production/libs/server/auth/README.md
-[json web key set (jwks)]: https://tools.ietf.org/html/rfc7517
-[auth 0]: https://auth0.com/docs/tokens/concepts/jwks
+[prerequisites]: https://zero-to-prouction.dev/guides/getting-started
 [docker readme]: https://github.com/unquenchablethyrst/zero-to-production/docker/README.md
 [traefik]: https://docs.traefik.io/
 [mongo vpc peering]: https://docs.atlas.mongodb.com/security-vpc-peering

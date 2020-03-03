@@ -1,14 +1,11 @@
 ### Angular App
 
+- [ ] Add a settings section
 - [ ] Feature Flag Service
 - [ ] Add following examples
   - Content Projection with layouts modules
   - Dynamic Animation Timing
   - Using Web Components
-
-## TestCafe E2E Builder
-
-- [ ] Create a TestCafe Angular CLI Builder
 
 ### Mobile App
 
@@ -16,9 +13,13 @@
 
 ### DevOps
 
-- [ ] Cloud Functions, and make library's reusable
+- [x] Cloud Functions, and make library's reusable
 
 ### Schematics
 
 - [ ] API Schematic
 - [x] Firebase Functions schematic
+
+### @uqt/ng-node
+
+- [] schematics for new project and library

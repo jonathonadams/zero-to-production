@@ -1,64 +1,34 @@
 /* istanbul ignore file */
-import { ApolloServer, makeExecutableSchema } from 'apollo-server-koa';
-// @ts-ignore
-import { GraphQLDate, GraphQLTime, GraphQLDateTime } from 'graphql-iso-date';
-import config from '../../environments';
-import typeDefs from './typeDefs';
-import resolvers from './resolvers';
-import { loaders } from './data-loader';
-import { User } from '@uqt/server/core-data';
+import Koa from 'koa';
+import {
+  createResolvers,
+  createApollo,
+  createLoaders,
+  createTypeDefs,
+  createSchema
+} from '@uqt/server/graphql';
+import { config } from '../../environments';
+import { userResolvers, User } from './users';
+import { todosResolvers, Todo } from './todos';
 
-// A function to add additional Scalar types.
-const resolveFunctions = {
-  Date: GraphQLDate,
-  Time: GraphQLTime,
-  DateTime: GraphQLDateTime
-};
+import { authTypeDef } from '@uqt/server/auth';
+import { todoTypeDef, userTypeDef } from '@uqt/server/core-data';
+import { authResolvers } from '../auth/demo.auth';
 
-// Make the schema model
-export const schema = makeExecutableSchema({
-  typeDefs: typeDefs,
-  resolvers: [resolveFunctions, resolvers],
-  allowUndefinedInResolve: false
+const typeDefs = createTypeDefs(authTypeDef, userTypeDef, todoTypeDef);
+const resolvers = createResolvers(authResolvers, userResolvers, todosResolvers);
+const loaders = createLoaders({ users: User, todos: Todo });
+export const schema = createSchema({
+  typeDefs,
+  resolvers
 });
 
-export const apolloServer = new ApolloServer({
-  schema: schema,
-  context: async ({ ctx, connection }) => {
-    // if the connection exists, it is a subscription
-    if (connection) {
-      return {
-        // create an empty state object to store temporary data in the resolvers
-        state: {},
-        // put the desired models on the context for quick access if needed
-        // Such as the user
-        model: { user: User },
-        // Add any necessary data loaders here if wanted
-        loaders: loaders()
-      };
-    }
-    // if the ctx exists, it is a req/res
-    if (ctx) {
-      return {
-        // create an empty state object to store temporary data in the resolvers
-        state: {},
-        // put the desired models on the context for quick access if needed
-        // Such as the user
-        model: { user: User },
-        // Add any necessary data loaders here if wanted
-        loaders: loaders(),
-        // Add the JWT as the token property
-        token: ctx.request.token
-      };
-    }
-  },
-  playground: config.docs,
-  tracing: config.docs,
-  debug: config.docs,
-  uploads: false
+export const apolloServer = createApollo({
+  schema,
+  production: config.production,
+  loaders
 });
-
 // A function that applies the middleware to the app.
-export function applyGraphQLEndpoints(app: any) {
+export function applyGraphQLEndpoint(app: Koa) {
   apolloServer.applyMiddleware({ app });
 }

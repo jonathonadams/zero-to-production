@@ -11,7 +11,6 @@ const fsPromise = fs_1.default.promises;
 (async function validatePackageJson() {
   console.log('Validating package.json files');
   const workSpaceDir = process.cwd();
-  const collectedErrors = [];
   const rootPackage = `${workSpaceDir}/package.json`;
   const { dependencies, devDependencies } = await readPackageJson(rootPackage);
   const packagePaths = await asyncGlob(`${workSpaceDir}/apps/**/package.json`);

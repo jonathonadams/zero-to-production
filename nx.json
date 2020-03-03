@@ -12,6 +12,9 @@
     "server-api": {
       "tags": ["scope:shared", "type:app", "platform:server"]
     },
+    "server-lambda": {
+      "tags": ["scope:shared", "type:app", "platform:server"]
+    },
     "todos-web": {
       "tags": ["scope:todos", "type:app", "platform:web"]
     },
@@ -45,11 +48,11 @@
     "server-core-data": {
       "tags": ["scope:shared", "type:data-access", "platform:server"]
     },
+    "server-graphql": {
+      "tags": ["scope:shared", "type:data-access", "platform:server"]
+    },
     "server-utils": {
       "tags": ["scope:shared", "type:util", "platform:server"]
-    },
-    "server-database": {
-      "tags": ["scope:shared", "type:data-access", "platform:server"]
     },
     "shared-data-access-api": {
       "tags": [
@@ -178,7 +181,7 @@
       "tags": ["scope:examples", "type:util", "platform:web"]
     },
     "examples-guides": {
-      "tags": []
+      "tags": ["scope:examples", "type:feature", "platform:web"]
     }
   }
 }

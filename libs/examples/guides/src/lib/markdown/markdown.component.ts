@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { MarkdownService } from '@uqt/examples/utils';
 import { Observable } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./markdown.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MarkdownComponent {
+export class MarkdownComponent implements OnInit {
   markdown$: Observable<string>;
   constructor(
     private mdService: MarkdownService,

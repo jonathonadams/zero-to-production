@@ -2,8 +2,9 @@
 
 import { getEnvVariableOrWarn, envToNumber } from '@uqt/server/utils';
 import { DevServerConfig } from '@uqt/data';
+import { AuthEnvironnementConfig } from '@uqt/server/auth';
 
-const hostUrl = process.env.HOST_URL || `http://localhost:${process.env.PORT}`;
+const audience = process.env.AUDIENCE || `http://localhost:${process.env.PORT}`;
 const authServerUrl =
   process.env.AUTH_SERVER_URL || `http://localhost:${process.env.PORT}`;
 
@@ -13,35 +14,34 @@ const keyId = 'some-random-key-id';
 /**
  * Development environment settings
  */
-const DevServerConfig: DevServerConfig = {
+export const devConfig: DevServerConfig = {
   production: false,
-  logging: 'dev',
-  docs: true,
   dbConnectionString: getEnvVariableOrWarn('DB_CONNECTION_STRING'),
   databaseOptions: {
     autoIndex: true,
     loggerLevel: 'warn',
     dbName: process.env.MONGO_DEV_DB || 'development_database'
-  },
-  auth: {
-    authServerUrl,
-    accessToken: {
-      privateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
-      expireTime: envToNumber(process.env.ACCESS_TOKEN_EXPIRE_TIME, 86400),
-      issuer: getEnvVariableOrWarn('ISSUER'),
-      audience: hostUrl,
-      keyId
-    },
-    refreshToken: {
-      privateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
-      issuer: getEnvVariableOrWarn('ISSUER'),
-      audience: hostUrl
-    },
-    email: {
-      authServerUrl,
-      sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY')
-    }
   }
 };
 
-export default DevServerConfig;
+export const devAuthConfig: AuthEnvironnementConfig = {
+  authServerUrl,
+  accessToken: {
+    privateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
+    publicKey: getEnvVariableOrWarn('ACCESS_TOKEN_PUBLIC_KEY'),
+    expireTime: envToNumber(process.env.ACCESS_TOKEN_EXPIRE_TIME, 86400),
+    issuer: getEnvVariableOrWarn('ISSUER'),
+    audience,
+    keyId
+  },
+  refreshToken: {
+    privateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
+    publicKey: getEnvVariableOrWarn('REFRESH_TOKEN_PUBLIC_KEY'),
+    issuer: getEnvVariableOrWarn('ISSUER'),
+    audience
+  },
+  email: {
+    authServerUrl,
+    sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY')
+  }
+};

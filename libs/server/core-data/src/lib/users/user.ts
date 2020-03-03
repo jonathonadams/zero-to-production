@@ -1,9 +1,11 @@
-import mongoose from 'mongoose';
+import { Connection, Schema, Document, Model } from 'mongoose';
 import { IUser } from '@uqt/data';
 import { defaultSchemaOptions } from '@uqt/server/utils';
 export { userTypeDef } from './user.type';
 
-export const userSchema = new mongoose.Schema<IUser>(
+export const userDbKey = 'user';
+
+export const userSchema = new Schema<IUser>(
   {
     username: {
       type: String,
@@ -64,12 +66,15 @@ userSchema.statics.findByUsername = function(
     .exec();
 };
 
-export const User = mongoose.model<IUserDocument, IUserModel>(
-  'user',
-  userSchema
-);
+export function createUserModel(con: Connection): IUserModel {
+  return con.model<IUserDocument, IUserModel>(userDbKey, userSchema);
+}
 
-export interface IUserDocument extends IUser, mongoose.Document {
+export function getUserModel(con: Connection): IUserModel {
+  return con.model<IUserDocument, IUserModel>(userDbKey);
+}
+
+export interface IUserDocument extends IUser, Document {
   id: string;
 }
 
@@ -78,5 +83,5 @@ export interface IFindByUsername<T> {
 }
 
 export interface IUserModel
-  extends mongoose.Model<IUserDocument>,
+  extends Model<IUserDocument>,
     IFindByUsername<IUserDocument> {}

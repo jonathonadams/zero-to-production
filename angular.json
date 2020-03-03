@@ -52,6 +52,94 @@
         }
       }
     },
+    "server-lambda": {
+      "root": "apps/server/lambda",
+      "sourceRoot": "apps/server/lambda/src",
+      "projectType": "application",
+      "prefix": "server-lambda",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "apps/server/lambda/dist",
+            "tsConfig": "apps/server/lambda/tsconfig.app.json",
+            "main": "apps/server/lambda/src/main.ts",
+            "assets": []
+          },
+          "configurations": {
+            "production": {
+              "externalDependencies": "none",
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "sourceMap": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/server/lambda/src/environments/environment.ts",
+                  "with": "apps/server/lambda/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/architect:concat",
+          "options": {
+            "targets": [
+              { "target": "server-lambda:build" },
+              {
+                "target": "server-lambda:run"
+              }
+            ]
+          }
+        },
+        "deploy": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [{ "command": "serverless deploy --env production" }],
+            "cwd": "apps/server/lambda"
+          }
+        },
+        "build-and-deploy": {
+          "builder": "@angular-devkit/architect:concat",
+          "options": {
+            "targets": [
+              { "target": "server-lambda:build:production" },
+              { "target": "server-lambda:deploy" }
+            ]
+          }
+        },
+        "run": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "serverless offline start --httpPort=3000 --env development"
+              }
+            ],
+            "cwd": "apps/server/lambda"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/server/lambda/tsconfig.app.json",
+              "apps/server/lambda/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/server/lambda/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/server/lambda/jest.config.js",
+            "tsConfig": "apps/server/lambda/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "todos-web": {
       "projectType": "application",
       "schematics": {
@@ -349,15 +437,23 @@
           "builder": "@angular-devkit/architect:concat",
           "options": {
             "targets": [
-              { "target": "examples-web-functions:build-all" },
-              { "target": "examples-web-functions:run" }
+              {
+                "target": "examples-web-functions:build-all"
+              },
+              {
+                "target": "examples-web-functions:run"
+              }
             ]
           }
         },
         "run": {
           "builder": "@nrwl/workspace:run-commands",
           "options": {
-            "commands": [{ "command": "firebase serve" }]
+            "commands": [
+              {
+                "command": "firebase serve"
+              }
+            ]
           }
         },
         "lint": {
@@ -575,32 +671,6 @@
           "options": {
             "jestConfig": "libs/server/utils/jest.config.js",
             "tsConfig": "libs/server/utils/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "server-database": {
-      "root": "libs/server/database",
-      "sourceRoot": "libs/server/database/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/server/database/tsconfig.lib.json",
-              "libs/server/database/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/server/database/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/server/database/jest.config.js",
-            "tsConfig": "libs/server/database/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -1791,6 +1861,32 @@
       "schematics": {
         "@nrwl/angular:component": {
           "styleext": "scss"
+        }
+      }
+    },
+    "server-graphql": {
+      "root": "libs/server/graphql",
+      "sourceRoot": "libs/server/graphql/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/server/graphql/tsconfig.lib.json",
+              "libs/server/graphql/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/server/graphql/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/server/graphql/jest.config.js",
+            "tsConfig": "libs/server/graphql/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
         }
       }
     }

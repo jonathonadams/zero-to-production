@@ -1,5 +1,5 @@
 // UQT_UPDATE -> change the url to point to your own API server
-const serverUrl = 'https://api.zero-to-productions.dev';
+const serverUrl = 'https://fns.zero-to-production.dev';
 
 export const environment = {
   production: true,

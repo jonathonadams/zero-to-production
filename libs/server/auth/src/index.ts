@@ -1,12 +1,22 @@
-export { RefreshToken, VerificationToken } from './lib/models';
-export { isPasswordAllowed } from './lib/auth-utils';
+export * from './lib/models';
+export {
+  isPasswordAllowed,
+  generateAuthGuardConfig,
+  generateAuthModuleConfig,
+  createPublicPemFromPrivate
+} from './lib/auth-utils';
 export {
   AuthModuleConfig,
   IRefreshTokenModel,
   IRefreshTokenDocument,
   IVerificationToken,
   IVerificationTokenDocument,
-  IVerificationTokenModel
+  IVerificationTokenModel,
+  TResolverAuthGuard,
+  AuthEnvironnementConfig,
+  JWKSGuarConfig,
+  GuardConfig,
+  JWKSRouteConfig
 } from './lib/auth.interface';
 export { getRestGuards } from './lib/routes/route.guards';
 export { getGraphQlGuards } from './lib/graphql/graphql.guards';
@@ -24,5 +34,6 @@ export { createPublicJsonWebKeySetRouteFromPrivateKey } from './lib/routes/jwks'
 export {
   DemoAuthModuleConfig,
   applyDemoAuthRoutes,
-  getDemoAuthResolvers
+  getDemoAuthResolvers,
+  generateDemoAuthModuleConfig
 } from './lib/demo/index';

@@ -1,39 +1,29 @@
 import Koa from 'koa';
-import { User } from '@uqt/server/core-data';
+import { User } from '../api/users';
 import {
   getAuthResolvers,
   applyAuthRoutesWithRefreshTokens,
   createPublicJsonWebKeySetRouteFromPrivateKey,
-  AuthModuleConfig,
-  RefreshToken,
-  VerificationToken
+  JWKSRouteConfig,
+  generateAuthModuleConfig,
+  createPublicPemFromPrivate
 } from '@uqt/server/auth';
-import config from '../../environments';
+import { authConfig } from '../../environments';
+import { VerificationToken, RefreshToken } from './models';
 
-const authModuleConfig: AuthModuleConfig = {
-  login: { User, ...config.auth.accessToken },
-  register: { User, VerificationToken, ...config.auth.accessToken },
-  verify: { User, VerificationToken, ...config.auth.accessToken },
-  authorize: {
-    User,
-    RefreshToken,
-    ...config.auth.accessToken,
-    ...config.auth.refreshToken
-  },
-  refresh: {
-    RefreshToken,
-    ...config.auth.accessToken,
-    ...config.auth.refreshToken
-  },
-  revoke: {
-    RefreshToken
-  },
-  email: config.auth.email
-};
+const authModuleConfig = generateAuthModuleConfig(
+  User,
+  VerificationToken,
+  RefreshToken,
+  authConfig
+);
 
-const jwksRouteConfig = {
-  privateKey: config.auth.accessToken.privateKey,
-  keyId: config.auth.accessToken.keyId
+const publicKey = authConfig.accessToken.publicKey;
+const jwksRouteConfig: JWKSRouteConfig = {
+  publicKey: publicKey
+    ? publicKey
+    : createPublicPemFromPrivate(authConfig.accessToken.privateKey),
+  keyId: authConfig.accessToken.keyId
 };
 
 /**
@@ -48,4 +38,4 @@ export function applyAuthRoutes(app: Koa) {
 /**
  * Auth Resolvers
  */
-export const { authResolvers } = getAuthResolvers(authModuleConfig);
+export const authResolvers = getAuthResolvers(authModuleConfig);

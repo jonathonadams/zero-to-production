@@ -1,9 +1,10 @@
 /* istanbul ignore file */
 
 import { TestServerConfig } from '@uqt/data';
+import { AuthEnvironnementConfig } from '@uqt/server/auth';
 
-const hostUrl = 'http://localhost:3000';
-const authServerUrl = hostUrl;
+const audience = 'http://localhost:3000';
+const authServerUrl = audience;
 const keyId = 'some-random-key-id';
 
 const privateKey = `-----BEGIN PRIVATE KEY-----
@@ -35,38 +36,46 @@ fb4sRct651qUxYPtLnYo2Gp7cioe+bZVNsKmKATW95Ipg+5TlJT1cKLGWh3gVV5Q
 1ZM4kO9FKoV3dL8obhcl2vi5
 -----END PRIVATE KEY-----`;
 
+const publicKey = `-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwF3/mQE5WwbvjgoUX1/3
+KqFa4jzDrtTFSxhI2BtzAU+b7TTleJqU+GXW7EnnqFR2jYZtqYtWeVqbMsedra8n
+79TrgfaKYnkg3pccJyJmsPTWcHn6N0/pCbYLrs6maYueuI4Kvqub1Ns2/iT1bYWw
+0/Op8X6ryfturk51QE19xZBQwhMpLvFIsVlg+N2Ub/PT1G2nWzLOuvn4eZj0zAha
+AqfuPD3JO0EVGGoGSpkTzzjSLfZRTQRFQoZ5T7wFyX8QRmc0X76/r/GpRzkQ9xB6
+W0qvzqPLhOHKZWJtTBbBdf9/5KStGh3oIijCY1lzpryJP50ss6XJZUpEkXrcyQmE
+LQIDAQAB
+-----END PUBLIC KEY-----`;
+
 /**
  * Test environment settings
  */
-const TestServerConfig: TestServerConfig = {
-  port: 3000,
+export const testConfig: TestServerConfig = {
   production: false,
-  logging: 'dev',
-  docs: true,
   dbConnectionString: '', // These e2e test use mongodb-in-memory server, so the url is passed into 'init server' per test
   databaseOptions: {
     loggerLevel: 'warn',
     dbName: 'test_database'
-  },
-  auth: {
-    authServerUrl,
-    accessToken: {
-      privateKey,
-      expireTime: 86400,
-      issuer: 'ISSUER',
-      audience: hostUrl,
-      keyId
-    },
-    refreshToken: {
-      privateKey,
-      issuer: 'ISSUER',
-      audience: hostUrl
-    },
-    email: {
-      authServerUrl,
-      sendGridApiKey: ''
-    }
   }
 };
 
-export default TestServerConfig;
+export const testAuthConfig: AuthEnvironnementConfig = {
+  authServerUrl,
+  accessToken: {
+    privateKey,
+    publicKey,
+    expireTime: 86400,
+    issuer: 'ISSUER',
+    audience,
+    keyId
+  },
+  refreshToken: {
+    privateKey,
+    publicKey,
+    issuer: 'ISSUER',
+    audience
+  },
+  email: {
+    authServerUrl,
+    sendGridApiKey: ''
+  }
+};

@@ -6,7 +6,7 @@ import { AuthMiddleware } from '../auth.interface';
  * that takes a resolver function as an argument each of the auth middleware functions are called with the
  * resolver arguments. An error is thrown if any authentication process fails.D
  */
-export function authenticateRequest(authMiddlewares: AuthMiddleware[]) {
+export function authenticateRequest(authMiddleware: AuthMiddleware[]) {
   return function resolverFn(
     resolverFunction: GraphQLFieldResolver<any, any, any>
   ): GraphQLFieldResolver<any, any, any> {
@@ -20,7 +20,7 @@ export function authenticateRequest(authMiddlewares: AuthMiddleware[]) {
        * loop over there auth functions if any
        * errors occurs they will throw bubble up
        */
-      for (const middleware of authMiddlewares) {
+      for (const middleware of authMiddleware) {
         await middleware(parent, args, ctx, info);
       }
 
