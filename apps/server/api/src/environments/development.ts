@@ -25,6 +25,7 @@ export const devConfig: DevServerConfig = {
 };
 
 export const devAuthConfig: AuthEnvironnementConfig = {
+  jwksRoute: true,
   authServerUrl,
   accessToken: {
     privateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),

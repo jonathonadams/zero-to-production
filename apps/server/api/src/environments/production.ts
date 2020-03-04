@@ -23,6 +23,7 @@ export const prodConfig: ProductionServerConfig = {
 };
 
 export const prodAuthConfig: AuthEnvironnementConfig = {
+  jwksRoute: true,
   authServerUrl,
   accessToken: {
     privateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),

@@ -59,6 +59,7 @@ export const testConfig: TestServerConfig = {
 };
 
 export const testAuthConfig: AuthEnvironnementConfig = {
+  jwksRoute: true,
   authServerUrl,
   accessToken: {
     privateKey,

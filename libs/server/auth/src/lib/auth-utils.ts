@@ -31,7 +31,7 @@ export function userToJSON<T>(user: T): T {
 export function isJWKS(
   config: JWKSGuarConfig | GuardConfig
 ): config is JWKSGuarConfig {
-  return (config as JWKSGuarConfig).production !== undefined;
+  return (config as GuardConfig).publicKey === undefined;
 }
 
 export function isRefreshConfig(
@@ -70,7 +70,16 @@ export function generateAuthModuleConfig(
   RefreshToken: IRefreshTokenModel,
   config: AuthEnvironnementConfig
 ): AuthModuleConfig {
+  const { publicKey, privateKey } = config.accessToken;
   return {
+    jwks: config.jwksRoute
+      ? {
+          publicKey: publicKey
+            ? publicKey
+            : createPublicPemFromPrivate(privateKey),
+          keyId: config.accessToken.keyId
+        }
+      : undefined,
     login: { User, ...config.accessToken },
     register: { User, VerificationToken, ...config.accessToken },
     verify: { User, VerificationToken, ...config.accessToken },

@@ -21,6 +21,7 @@ import {
 } from '../auth.interface';
 import { setupEmailVerification } from '../send-email';
 import { isRefreshConfig } from '../auth-utils';
+import { createJsonWebKeySetRoute } from './jwks';
 
 /**
  * This will register 4 or 7 routes (depends on configuration)
@@ -34,30 +35,35 @@ import { isRefreshConfig } from '../auth-utils';
  * '/authorize' -> returns an access token and refresh token.
  * '/authorize/refresh' -> returns a new access token from a valid refresh token
  * '/authorize/revoke' -> revokes the provided refresh token.
+ *
+ * Option
+ * JWKS Route at '/.well-known/jwks.json' that hosts the public key
  */
+export function applyAuthRoutes(config: AuthModuleConfig) {
+  const verificationEmail = setupEmailVerification(config.email);
 
-export function applyAuthRoutesWithRefreshTokens(config: AuthModuleConfig) {
-  return (app: Koa) => {
-    const verificationEmail = setupEmailVerification(config.email);
+  const router = new Router();
+  router.post('/authorize/login', login(config.login));
+  router.post(
+    '/authorize/register',
+    register({ ...config.register, verificationEmail })
+  );
+  router.get('/authorize/verify', verify(config.verify));
+  router.get('/authorize/available', usernameAvailable(config.login));
 
-    const router = new Router();
-    router.post('/authorize/login', login(config.login));
-    router.post(
-      '/authorize/register',
-      register({ ...config.register, verificationEmail })
-    );
-    router.get('/authorize/verify', verify(config.verify));
-    router.get('/authorize/available', usernameAvailable(config.login));
+  // Only if the config requires everything for refresh tokens as well
+  if (isRefreshConfig(config)) {
+    router.post('/authorize', authorize(config.authorize));
+    router.post('/authorize/refresh', refreshAccessToken(config.refresh));
+    router.post('/authorize/token/revoke', revokeRefreshToken(config.revoke));
+  }
 
-    // Only if the config requires everything for refresh tokens as well
-    if (isRefreshConfig(config)) {
-      router.post('/authorize', authorize(config.authorize));
-      router.post('/authorize/refresh', refreshAccessToken(config.refresh));
-      router.post('/authorize/token/revoke', revokeRefreshToken(config.revoke));
-    }
+  // Only crete the JWKS if the config is specified
+  if (config.jwks) {
+    createJsonWebKeySetRoute(config.jwks, router);
+  }
 
-    return app.use(router.routes());
-  };
+  return router.routes();
 }
 
 /**

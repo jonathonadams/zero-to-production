@@ -21,7 +21,7 @@ export function applyGraphQLEndpoint(app: Koa, conn: Connection) {
 
   const typeDefs = createTypeDefs(authTypeDef, userTypeDef, todoTypeDef);
   const resolvers = createResolvers(
-    authResolvers(app, conn),
+    authResolvers(conn),
     usersResolvers(conn, verifyToken),
     todosResolvers(conn, verifyToken)
   );

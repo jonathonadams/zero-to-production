@@ -3,17 +3,17 @@ import { Connection } from 'mongoose';
 import { getUserModel } from '@uqt/server/core-data';
 import {
   getAuthResolvers,
-  applyAuthRoutesWithRefreshTokens,
   getVerificationTokenModel,
   getRefreshTokenModel,
-  generateAuthModuleConfig
+  generateAuthModuleConfig,
+  applyAuthRoutes
 } from '@uqt/server/auth';
 import { authConfig } from '../../environments/environment';
 
 /**
  * Applies all required auth routes
  */
-export function applyAuthRoutes(app: Koa, conn: Connection) {
+export function applyLambdaAuthRoutes(app: Koa, conn: Connection) {
   const User = getUserModel(conn);
   const VerificationToken = getVerificationTokenModel(conn);
   const RefreshToken = getRefreshTokenModel(conn);
@@ -24,13 +24,13 @@ export function applyAuthRoutes(app: Koa, conn: Connection) {
     authConfig
   );
 
-  applyAuthRoutesWithRefreshTokens(config)(app);
+  app.use(applyAuthRoutes(config));
 }
 
 /**
  * Auth Resolvers
  */
-export function authResolvers(app: Koa, conn: Connection) {
+export function authResolvers(conn: Connection) {
   const User = getUserModel(conn);
   const VerificationToken = getVerificationTokenModel(conn);
   const RefreshToken = getRefreshTokenModel(conn);

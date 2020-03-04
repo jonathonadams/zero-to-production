@@ -3,12 +3,10 @@
 import { compare, hash } from 'bcryptjs';
 import Boom from '@hapi/boom';
 import { signAccessToken } from '../token';
-import {
-  DemoLoginControllerConfig,
-  DemoRegistrationControllerConfig
-} from './demo.interface';
+import { DemoRegistrationControllerConfig } from './demo.interface';
 import { IUser } from '@uqt/data';
 import { isPasswordAllowed, userToJSON } from '../auth-utils';
+import { LoginControllerConfig } from '../auth.interface';
 
 export function demoSetupRegisterController({
   User
@@ -33,7 +31,7 @@ export function demoSetupRegisterController({
   };
 }
 
-export function demoSetupLoginController(config: DemoLoginControllerConfig) {
+export function demoSetupLoginController(config: LoginControllerConfig) {
   const { User } = config;
   const accessToken = signAccessToken(config);
 

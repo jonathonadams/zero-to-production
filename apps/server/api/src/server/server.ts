@@ -7,7 +7,7 @@ import { apolloServer, applyGraphQLEndpoint } from './api/graphql';
 // UQT_UPDATE -> delete the below import
 import { applyAuthRoutes } from './auth/demo.auth';
 // UQT_UPDATE -> uncomment the below import
-// import { applyAuthRoutes } from './auth/auth';
+// import { applyApiAuthRoutes } from './auth/auth';
 
 import { config } from '../environments';
 import { connect } from 'mongoose';

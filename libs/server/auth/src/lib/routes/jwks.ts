@@ -9,23 +9,17 @@ import { JWKSRouteConfig } from '../auth.interface';
 
 const END_POINT = '/.well-known/jwks.json';
 
-export function createPublicJsonWebKeySetRouteFromPrivateKey({
-  publicKey,
-  keyId
-}: JWKSRouteConfig) {
+export function createJsonWebKeySetRoute(
+  { publicKey, keyId }: JWKSRouteConfig,
+  router: Router
+) {
   const jwk: object = pem2jwk(publicKey, {
     alg: 'RS256',
     use: 'sig',
     kid: keyId
   });
 
-  return (app: Koa) => {
-    const router = new Router();
-
-    router.get(END_POINT, async ctx => {
-      ctx.body = { keys: [jwk] };
-    });
-
-    app.use(router.routes());
-  };
+  router.get(END_POINT, async ctx => {
+    ctx.body = { keys: [jwk] };
+  });
 }

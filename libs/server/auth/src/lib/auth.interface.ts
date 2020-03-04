@@ -11,6 +11,7 @@ export type AuthModuleConfig =
   | AuthWithRefreshTokenConfig;
 
 export interface LoginAndRegisterConfig {
+  jwks?: JWKSRouteConfig;
   login: LoginControllerConfig;
   verify: VerifyControllerConfig;
   register: VerifyControllerConfig; // This is the same as verify because setting up the SendGrid email happens in the controller
@@ -26,6 +27,7 @@ export interface AuthWithRefreshTokenConfig extends LoginAndRegisterConfig {
 // -------------------------------------
 // For signing access and refresh tokens
 // -------------------------------------
+
 export interface AccessTokenConfig {
   privateKey: string;
   expireTime: number;
@@ -162,6 +164,7 @@ export interface IVerificationTokenModel
 // -------------------------------------
 export interface AuthEnvironnementConfig {
   authServerUrl: string;
+  jwksRoute?: boolean;
   accessToken: {
     privateKey: string;
     publicKey?: string;

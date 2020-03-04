@@ -6,11 +6,11 @@ import {
   demoSetupRegisterController
 } from './demo.controllers';
 import {
-  DemoLoginControllerConfig,
   DemoRegistrationControllerConfig,
   DemoAuthModuleConfig
 } from './demo.interface';
 import { IUser } from '@uqt/data';
+import { LoginControllerConfig } from '../auth.interface';
 
 // Verify can not be done via GraphQL because it will be a hyperlink in the
 export function getDemoAuthResolvers(config: DemoAuthModuleConfig) {
@@ -28,7 +28,7 @@ export function getDemoAuthResolvers(config: DemoAuthModuleConfig) {
  * @returns { Object } A User and signed JWT.
  */
 export function loginResolver(
-  config: DemoLoginControllerConfig
+  config: LoginControllerConfig
 ): GraphQLFieldResolver<any, { username: string; password: string }, any> {
   const loginController = demoSetupLoginController(config);
 

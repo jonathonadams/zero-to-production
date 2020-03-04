@@ -9,10 +9,13 @@ import {
 } from './demo.controllers';
 import {
   DemoRegistrationControllerConfig,
-  DemoLoginControllerConfig,
-  DemoAvailableControllerConfig,
   DemoAuthModuleConfig
 } from './demo.interface';
+import {
+  LoginControllerConfig,
+  AvailableControllerConfig
+} from '../auth.interface';
+import { createJsonWebKeySetRoute } from '../routes/jwks';
 
 /**
  * This will register 3 routes for authentication
@@ -23,14 +26,17 @@ import {
  */
 
 export function applyDemoAuthRoutes(config: DemoAuthModuleConfig) {
-  return (app: Koa) => {
-    const router = new Router();
-    router.post('/authorize/login', login(config.login));
-    router.post('/authorize/register', register(config.register));
-    router.get('/authorize/available', usernameAvailable(config.login));
+  const router = new Router();
+  router.post('/authorize/login', login(config.login));
+  router.post('/authorize/register', register(config.register));
+  router.get('/authorize/available', usernameAvailable(config.login));
 
-    return app.use(router.routes());
-  };
+  // Only crete the JWKS if the config is specified
+  if (config.jwks) {
+    createJsonWebKeySetRoute(config.jwks, router);
+  }
+
+  return router.routes();
 }
 
 /**
@@ -38,7 +44,7 @@ export function applyDemoAuthRoutes(config: DemoAuthModuleConfig) {
  *
  * @returns A signed JWT.
  */
-export function login(config: DemoLoginControllerConfig) {
+export function login(config: LoginControllerConfig) {
   // Set up the controller with the config
   const loginController = demoSetupLoginController(config);
 
@@ -58,7 +64,7 @@ export function register(config: DemoRegistrationControllerConfig) {
   };
 }
 
-export function usernameAvailable(config: DemoAvailableControllerConfig) {
+export function usernameAvailable(config: AvailableControllerConfig) {
   const { User } = config;
   return async (ctx: Koa.ParameterizedContext) => {
     const username: string | undefined = ctx.query.username;
