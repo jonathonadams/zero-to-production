@@ -33,41 +33,53 @@ spec:
                 configMapKeyRef:
                   name: env-config
                   key: api.port
-            - name: ISSUER
-              valueFrom:
-                configMapKeyRef:
-                  name: env-config
-                  key: access.issuer
-            - name: HOST_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: env-config
-                  key: host
-            - name: AUTH_SERVER_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: env-config
-                  key: auth-server
-            - name: ACCESS_TOKEN_EXPIRE_TIME
-              valueFrom:
-                configMapKeyRef:
-                  name: env-config
-                  key: access.expire-time
-            - name: ACCESS_TOKEN_PRIVATE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: private-key
-                  key: access
-            - name: REFRESH_TOKEN_PRIVATE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: private-key
-                  key: refresh
             - name: DB_CONNECTION_STRING
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: connectionString
+            - name: ISSUER
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: access.issuer
+            - name: AUDIENCE
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: auth.audience
+            - name: AUTH_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: auth.server
+            - name: ACCESS_TOKEN_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: auth
+                  key: access.privateKey
+            - name: REFRESH_TOKEN_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: auth
+                  key: refresh.privateKey
+            - name: SENDGRID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: auth
+                  key: sendGridApiKey
+            #  Optional -> generated at start up if not exist
+            #  For an always live server this is not an issue
+            # - name: ACCESS_TOKEN_PUBLIC_KEY
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: auth
+            #       key: access.publicKey
+            # - name: REFRESH_TOKEN_PUBLIC_KEY
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: auth
+            #       key: refresh.publicKey
           readinessProbe:
             # The URL and port must match the exposed port/url on the API container
             httpGet:
