@@ -41,7 +41,6 @@ COPY --chown=node:node package-lock.json ./
 
 # IMPROVEMENT
 # current bug that `npm ci --only=dev` does not install anything
-RUN cat package.json
 RUN npm ci --ignore-scripts
 
 # -----------------------------------------
