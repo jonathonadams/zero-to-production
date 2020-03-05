@@ -10,7 +10,7 @@ Ensure you have all the [prerequisites] setup and ready prior to starting this g
 
 As we are deploying our cluster on Google Cloud, we can make the most of the tools available and setup a cloud trigger to auto build our `Docker` image for us.
 
-A `Dockerfile` to build our API project from the source files is provided at `docker/api.Dockerfile`. Please see the [Docker README] for further details.
+A `Dockerfile` to build our API project from the source files is provided at `docker/server.Dockerfile`. Please see the [Docker README] for further details.
 
 The image name that you build and push to the Google Cloud Registry here is the image you will uses in you Kubernestes cluster. The image name should follow  
 `<registry>/<cloud-project-name>/<image-name>`
@@ -20,11 +20,11 @@ The image name that you build and push to the Google Cloud Registry here is the 
 3. Once your repo is authenticated, create a _Push Trigger_ by following the wizard. It is entirely up to you what rules you configure (branch, tag etc.), but be mindful this is a Monorepo and not all commits should re-trigger the build.
 
 - When selecting the `Build Configuration`, select the `Cloud Build Configuration File` and point it at `/dev-ops/cloudbuild.yaml`
-- The build file is set up to use _substitutions_ for the image name and the source directory of the project. The **\_IMAGE_NAME** and **\_PROJECT_DIRECTORY** variables must be set.
+- The build file is set up to use _substitutions_ for the image name and the source directory of the project. The **\_IMAGE_NAME** and **\_PROJECT_DIRECTORY** variables must be set. The project directory is relative to the `apps/` directory.
 
   For this example site:  
   **\_IMAGE_NAME**: `gcr.io/zero-to-production/z2p-api`  
-  **\_PROJECT_DIRECTORY**: `apps/server/api`
+  **\_PROJECT_DIRECTORY**: `server/api`
 
 4. Manually trigger the build to test that the build runs and your container image is visible in the **Container Registry** once complete.
 
