@@ -332,7 +332,7 @@
             "functions": {
               "outputPath": "apps/examples/examples-web-functions/dist/browser",
               "index": "apps/examples/examples-web/src/index.original.html",
-              "baseHref": "/zero-to-production-web/us-central1/universal/"
+              "baseHref": "/z2p-firebase/us-central1/universal/"
             }
           }
         },
@@ -482,7 +482,7 @@
           "options": {
             "commands": [
               {
-                "command": "firebase serve --project zero-to-production-web"
+                "command": "firebase serve --project z2p-firebase"
               }
             ],
             "cwd": "apps/examples/examples-web-functions"
@@ -492,7 +492,7 @@
           "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
-              { "command": "firebase deploy --project zero-to-production-web" }
+              { "command": "firebase deploy --project z2p-firebase" }
             ],
             "cwd": "apps/examples/examples-web-functions"
           }
