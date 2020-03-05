@@ -50,7 +50,7 @@ export class CssThemingComponent implements OnInit, AfterViewInit {
   get baseTheme() {
     return {
       lightPrimary: ['#ffaa00'],
-      lightAccent: ['#6ec8ff'],
+      lightAccent: ['#588be8'],
       darkPrimary: ['#20eff0'],
       darkAccent: ['#d33685']
     };
