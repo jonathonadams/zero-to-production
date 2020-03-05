@@ -8,8 +8,7 @@ metadata:
     name: env-config
 data:
   env: production
-  api.port: '3000'
-  access.expire-time: '86400'
-  access.issuer: 'zero-to-production.dev'
-  host: 'zero-to-production.dev'
-  auth-server: 'api.zero-to-production.dev'
+  api.port: "3000"
+  access.issuer: "ZTP"
+  auth.audience: "zero-to-production.dev"
+  auth.server: "api.zero-to-production.dev"

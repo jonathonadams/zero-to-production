@@ -22,6 +22,5 @@ export const createRestGuards = (conn: Connection) => {
 export const createGraphQLGuards = (conn: Connection) => {
   const User = getUserModel(conn);
   const guardConfig = generateAuthGuardConfig(config, authConfig, User);
-
   return getGraphQlGuards(guardConfig);
 };

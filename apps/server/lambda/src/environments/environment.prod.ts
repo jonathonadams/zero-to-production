@@ -26,6 +26,7 @@ export const config: ServerConfig = {
 };
 
 export const authConfig: AuthEnvironnementConfig = {
+  jwksRoute: false,
   authServerUrl,
   accessToken: {
     privateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),

@@ -17,13 +17,13 @@ export function applyAuthRoutes(app: Koa, conn: Connection) {
   const User = getUserModel(conn);
   const config = generateDemoAuthModuleConfig(User, authConfig);
 
-  applyDemoAuthRoutes(config)(app);
+  app.use(applyDemoAuthRoutes(config));
 }
 
 /**
  * Auth Resolvers
  */
-export function authResolvers(app: Koa, conn: Connection) {
+export function authResolvers(conn: Connection) {
   const User = getUserModel(conn);
   const config = generateDemoAuthModuleConfig(User, authConfig);
 

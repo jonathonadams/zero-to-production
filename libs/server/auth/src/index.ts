@@ -21,9 +21,8 @@ export {
 export { getRestGuards } from './lib/routes/route.guards';
 export { getGraphQlGuards } from './lib/graphql/graphql.guards';
 export { getAuthResolvers } from './lib/graphql/auth.resolvers';
-export { applyAuthRoutesWithRefreshTokens } from './lib/routes/auth.routes';
+export { applyAuthRoutes } from './lib/routes/auth.routes';
 export { authTypeDef } from './lib/graphql/auth.types';
-export { createPublicJsonWebKeySetRouteFromPrivateKey } from './lib/routes/jwks';
 
 /**
  * UQT_UPDATE -> Delete from this line onwards after cloning the repo
