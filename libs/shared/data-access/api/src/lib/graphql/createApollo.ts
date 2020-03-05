@@ -1,6 +1,7 @@
 import { InjectionToken } from '@angular/core';
 import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloLink, concat } from 'apollo-link';
 
 export const GRAPHQL_URL = new InjectionToken<string>('GraphQLUrl');
 
@@ -11,9 +12,41 @@ export function createApollo(httpLink: HttpLink, uri: string) {
     addTypename: true
   });
 
+  const http = httpLink.create({ uri });
+
+  const removeTypenameMiddleware = new ApolloLink((operation, forward) => {
+    if (operation.variables) {
+      operation.variables = removeTypenameProperty(operation.variables);
+    }
+    return forward ? forward(operation) : null;
+  });
+
   return {
-    link: httpLink.create({ uri }),
+    link: concat(removeTypenameMiddleware, http),
     cache,
     connectToDevTools: false
   };
+}
+
+/**
+ * Utility function to remove the '__typename' property that apollo cache created
+ * @param variables the query variables to cleanse
+ *
+ * https://github.com/apollographql/apollo-feature-requests/issues/6
+ */
+function removeTypenameProperty(value: any): any {
+  if (value === null || value === undefined) {
+    return value;
+  } else if (Array.isArray(value)) {
+    return value.map(v => removeTypenameProperty(v));
+  } else if (typeof value === 'object') {
+    const newObj: any = {};
+    Object.entries(value).forEach(([key, v]) => {
+      if (key !== '__typename') {
+        newObj[key] = removeTypenameProperty(v);
+      }
+    });
+    return newObj;
+  }
+  return value;
 }
