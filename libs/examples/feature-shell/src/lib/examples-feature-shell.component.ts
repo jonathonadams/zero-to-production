@@ -11,4 +11,10 @@ export class ExamplesFeatureShellComponent {
   constructor(private facade: ExamplesFacade) {
     this.facade.addExamples(EXAMPLES);
   }
+
+  navButtons = [
+    { label: 'Home', link: '/' },
+    { label: 'Examples', link: '/examples' },
+    { label: 'Guides', link: '/guides' }
+  ];
 }
