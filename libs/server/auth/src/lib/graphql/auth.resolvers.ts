@@ -1,12 +1,14 @@
 import { GraphQLFieldResolver } from 'graphql';
 import {
   setupLoginController,
-  setupRegisterController
+  setupRegisterController,
+  setupUsernameAvailableController
 } from '../auth.controllers';
 import {
   LoginControllerConfig,
   RegistrationControllerConfig,
-  AuthModuleConfig
+  AuthModuleConfig,
+  AvailableControllerConfig
 } from '../auth.interface';
 import { IUser } from '@uqt/data';
 import { setupEmailVerification } from '../send-email';
@@ -17,6 +19,9 @@ export function getAuthResolvers(config: AuthModuleConfig) {
   const verificationEmail = setupEmailVerification(config.email);
   const registerConfig = { ...config.register, verificationEmail };
   return {
+    Query: {
+      usernameAvailable: usernameAvailableResolver(config.login)
+    },
     Mutation: {
       login: loginResolver(config.login),
       register: registerResolver(registerConfig)
@@ -48,5 +53,14 @@ export function registerResolver(
   const registerController = setupRegisterController(config);
   return function register(root, args, ctx, i) {
     return registerController(args.input);
+  };
+}
+
+export function usernameAvailableResolver(
+  config: AvailableControllerConfig
+): GraphQLFieldResolver<any, { input: IUser }, any> {
+  const usernameAvailableController = setupUsernameAvailableController(config);
+  return (root, args, ctx, i) => {
+    return usernameAvailableController(args.username);
   };
 }

@@ -3,7 +3,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
 import { runQuery, setupTestDB, signTestAccessToken } from '@uqt/tests/server';
 import { IUserDocument } from '@uqt/server/core-data';
-import { schema } from '../graphql';
+import { schema } from '../../graphql';
 import { authConfig } from '../../../environments';
 import { IUser } from '@uqt/data';
 import ApiServer from '../../server';

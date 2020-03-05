@@ -9,7 +9,8 @@ import {
   setupAuthorizeController,
   setupRefreshAccessTokenController,
   setupRevokeRefreshTokenController,
-  setupVerifyController
+  setupVerifyController,
+  setupUsernameAvailableController
 } from '../auth.controllers';
 import { MockUserModel } from './user.mock';
 import { MockRefreshTokenModel } from './refresh-token.mock';
@@ -96,6 +97,12 @@ function mockRevokeController() {
   });
 }
 
+function mockUsernameAvailableController() {
+  return setupUsernameAvailableController({
+    User: (MockUserModel as unknown) as IUserModel
+  });
+}
+
 describe(`Authentication Controllers`, () => {
   describe('register', () => {
     it('should register a new user', async () => {
@@ -137,19 +144,19 @@ describe(`Authentication Controllers`, () => {
         ...userWithPassword
       });
 
-      expect((createdUser as any).password).not.toBeDefined();
-      expect((createdUser as any).hashedPassword).not.toBeDefined();
+      expect(createdUser.password).not.toBeDefined();
+      expect(createdUser.hashedPassword).not.toBeDefined();
 
       MockUserModel.reset();
       MockVerificationToken.reset();
     });
 
     it('should not not allow a user to register if the username is taken', async () => {
-      const userWithUniqueDetails = ({
+      const userWithUniqueDetails = {
         ...userWithPassword,
         username: 'anotherUsername',
         emailAddress: 'anotherUnique@email.com'
-      } as any) as IUser;
+      } as IUser;
 
       MockUserModel.userToRespondWith = null;
 
@@ -540,6 +547,37 @@ describe(`Authentication Controllers`, () => {
 
       MockUserModel.reset();
       MockRefreshTokenModel.reset();
+    });
+  });
+
+  describe('usernameAvailable', () => {
+    it('isAvailable should be true if a user with that username can not be found', async () => {
+      MockUserModel.userToRespondWith = null;
+
+      const { isAvailable } = await mockUsernameAvailableController()(
+        'mockUsername'
+      );
+
+      expect(isAvailable).toBe(true);
+
+      MockUserModel.reset();
+    });
+
+    it('isAvailable should be false if a user with that username is found', async () => {
+      const takenUsername = 'takenUsername';
+      const user = {
+        username: takenUsername
+      } as IUser;
+
+      MockUserModel.userToRespondWith = user;
+
+      const { isAvailable } = await mockUsernameAvailableController()(
+        takenUsername
+      );
+
+      expect(isAvailable).toBe(false);
+
+      MockUserModel.reset();
     });
   });
 });

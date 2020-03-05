@@ -7,13 +7,15 @@ import {
   createTypeDefs,
   createSchema
 } from '@uqt/server/graphql';
-import { config } from '../../environments';
-import { userResolvers, User } from './users';
-import { todosResolvers, Todo } from './todos';
-
 import { authTypeDef } from '@uqt/server/auth';
 import { todoTypeDef, userTypeDef } from '@uqt/server/core-data';
-import { authResolvers } from '../auth/demo.auth';
+import { config } from '../environments';
+// UQT_UPDATE -> delete the below import
+import { authResolvers } from './auth/demo.auth';
+// UQT_UPDATE -> uncomment the below import
+// import { authResolvers } from './auth/auth'
+
+import { userResolvers, todosResolvers, User, Todo } from './api';
 
 const typeDefs = createTypeDefs(authTypeDef, userTypeDef, todoTypeDef);
 const resolvers = createResolvers(authResolvers, userResolvers, todosResolvers);

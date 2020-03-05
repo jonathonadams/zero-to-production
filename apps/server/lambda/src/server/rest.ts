@@ -1,9 +1,8 @@
 import Koa from 'koa';
 import Router from '@koa/router';
 import { Connection } from 'mongoose';
-import { createRestGuards } from '../auth/auth.guards';
-import { usersRouter } from './users';
-import { todosRouter } from './todos';
+import { createRestGuards } from './auth/auth.guards';
+import { usersRouter, todosRouter } from './api';
 
 export function applyRestEndpoints(app: Koa, conn: Connection) {
   const { verifyToken } = createRestGuards(conn);

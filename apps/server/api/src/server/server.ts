@@ -2,16 +2,16 @@ import { createServer } from 'http';
 import Koa from 'koa';
 import Router from '@koa/router';
 import { setupGlobalMiddleware } from '@uqt/server/middleware';
-import { apolloServer, applyGraphQLEndpoint } from './api/graphql';
+import { apolloServer, applyGraphQLEndpoint } from './graphql';
 
 // UQT_UPDATE -> delete the below import
-import { applyAuthRoutes } from './auth/demo.auth';
+import { applyApiAuthRoutes } from './auth/demo.auth';
 // UQT_UPDATE -> uncomment the below import
 // import { applyApiAuthRoutes } from './auth/auth';
 
 import { config } from '../environments';
 import { connect } from 'mongoose';
-import { applyRestEndpoints } from './api/rest';
+import { applyRestEndpoints } from './rest';
 
 /**
  * Crates a new API Server
@@ -54,7 +54,7 @@ export default class ApiServer {
     /**
      * apply all authorization routes
      */
-    applyAuthRoutes(app);
+    applyApiAuthRoutes(app);
 
     /**
      * Health check for kubernetes on google cloud
