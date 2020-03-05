@@ -1,9 +1,9 @@
 .container {
   height: 100%;
-  overflow-y: auto;
+  overflow-y: scroll;
 
   .guide {
     padding: 0 0.5em;
-    overflow-y: auto;
+    margin-bottom: 4em;
   }
 }
