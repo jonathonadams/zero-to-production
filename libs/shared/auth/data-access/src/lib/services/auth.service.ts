@@ -1,5 +1,4 @@
 import { Injectable, InjectionToken, Inject, PLATFORM_ID } from '@angular/core';
-import { Observable } from 'rxjs';
 // @ts-ignore
 import jwtDecode from 'jwt-decode';
 import gql from 'graphql-tag';
@@ -11,7 +10,6 @@ import {
   IRegistrationDetails,
   IJWTPayload
 } from '../auth.interface';
-import { HttpClient } from '@angular/common/http';
 import { secondsToExpiresAtMillis } from '../utils';
 import { AuthFacade } from '../+state/auth.facade';
 import { isPlatformBrowser } from '@angular/common';
@@ -27,10 +25,8 @@ export class AuthService {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    @Inject(AUTH_SERVER_URL) private authServerUrl: string,
     private apollo: Apollo,
-    private facade: AuthFacade,
-    private http: HttpClient
+    private facade: AuthFacade
   ) {}
 
   // Login function that returns a user and JWT
@@ -82,17 +78,19 @@ export class AuthService {
     return this.apollo.query<{ User: IUser }>({ query, variables: { id } });
   }
 
-  // TODO -> Graphql?
-  public isUsernameAvailable(
-    username: string
-  ): Observable<{ isAvailable: boolean }> {
-    return this.http.get<{ isAvailable: boolean }>(
-      `${this.authServerUrl}/authorize/available`,
-      {
-        headers: this.headers,
-        params: { username }
+  public isUsernameAvailable(username: string) {
+    const query = gql`
+      query IsUsernameAvailable($username: String!) {
+        usernameAvailable(username: $username) {
+          isAvailable
+        }
       }
-    );
+    `;
+
+    return this.apollo.query<{ usernameAvailable: { isAvailable: boolean } }>({
+      query,
+      variables: { username }
+    });
   }
 
   get authToken(): string | null {
@@ -146,13 +144,6 @@ export class AuthService {
   get authUserId(): string | null {
     const token = this.authToken;
     return token !== null ? jwtDecode<IJWTPayload>(token).sub : null;
-  }
-
-  get headers() {
-    return {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    };
   }
 }
 

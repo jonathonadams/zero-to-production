@@ -24,7 +24,13 @@ export class UsernameAvailableValidator implements AsyncValidator {
         val ? this.facade.usernamePending() : this.facade.clearAvailable()
       ),
       switchMap(val => this.auth.isUsernameAvailable(val)),
-      tap(isAvailable => this.facade.usernameAvailable(isAvailable)), // set the available status
+      map(
+        mutationResponse =>
+          (mutationResponse.data as {
+            usernameAvailable: { isAvailable: boolean };
+          }).usernameAvailable
+      ),
+      tap(available => this.facade.usernameAvailable(available)), // set the available status
       map(({ isAvailable }) => (isAvailable ? null : { notAvailable: true })),
       catchError(() => of(null))
     );

@@ -7,7 +7,8 @@ import {
   setupAuthorizeController,
   setupRefreshAccessTokenController,
   setupRevokeRefreshTokenController,
-  setupVerifyController
+  setupVerifyController,
+  setupUsernameAvailableController
 } from '../auth.controllers';
 import {
   RegistrationControllerConfig,
@@ -134,20 +135,11 @@ export function revokeRefreshToken(config: RevokeControllerConfig) {
 }
 
 export function usernameAvailable(config: AvailableControllerConfig) {
-  const { User } = config;
+  const usernameAvailableController = setupUsernameAvailableController(config);
   return async (ctx: Koa.ParameterizedContext) => {
     const username: string | undefined = ctx.query.username;
-
-    let isAvailable: boolean;
-    if (username) {
-      const resource = await User.findOne({ $text: { $search: username } });
-      isAvailable = !resource ? true : false;
-    } else {
-      isAvailable = false;
-    }
-
     ctx.status = 200;
-    ctx.body = { isAvailable };
+    ctx.body = await usernameAvailableController(username);
   };
 }
 

@@ -1,12 +1,10 @@
 // UQT_UPDATE -> Delete this file
 
-import { compare, hash } from 'bcryptjs';
+import { hash } from 'bcryptjs';
 import Boom from '@hapi/boom';
-import { signAccessToken } from '../token';
 import { DemoRegistrationControllerConfig } from './demo.interface';
 import { IUser } from '@uqt/data';
 import { isPasswordAllowed, userToJSON } from '../auth-utils';
-import { LoginControllerConfig } from '../auth.interface';
 
 export function demoSetupRegisterController({
   User
@@ -28,27 +26,5 @@ export function demoSetupRegisterController({
     await newUser.save();
 
     return userToJSON(newUser.toJSON());
-  };
-}
-
-export function demoSetupLoginController(config: LoginControllerConfig) {
-  const { User } = config;
-  const accessToken = signAccessToken(config);
-
-  return async (username: string, password: string) => {
-    const user = await User.findByUsername(username);
-
-    if (!user) throw Boom.unauthorized(null, 'Bearer');
-
-    const valid = await compare(password, user.hashedPassword as string);
-
-    if (!valid) throw Boom.unauthorized(null, 'Bearer');
-
-    const token = accessToken(user);
-
-    return {
-      token,
-      expiresIn: config.expireTime
-    };
   };
 }

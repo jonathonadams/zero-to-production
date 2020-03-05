@@ -9,11 +9,14 @@ import {
 } from '@uqt/server/graphql';
 import { authTypeDef } from '@uqt/server/auth';
 import { todoTypeDef, userTypeDef } from '@uqt/server/core-data';
-import { config } from '../../environments/environment';
-import { usersResolvers } from './users';
-import { todosResolvers } from './todos';
-import { createGraphQLGuards } from '../auth/auth.guards';
-import { authResolvers } from '../auth/demo.auth';
+import { config } from '../environments/environment';
+import { createGraphQLGuards } from './auth/auth.guards';
+import { usersResolvers, todosResolvers } from './api';
+
+// UQT_UPDATE -> delete the below import
+import { authResolvers } from './auth/demo.auth';
+// UQT_UPDATE -> uncomment the below import
+// import { authResolvers } from './auth/auth'
 
 // A function that applies the middleware to the app.
 export function applyGraphQLEndpoint(app: Koa, conn: Connection) {

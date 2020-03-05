@@ -32,7 +32,7 @@
   "devDependencies": {
     "@angular/cli": "^9.0.4",
     "@uqt/ng-node": "0.0.6",
-    "typescript": "^3.8.3",
+    "typescript": "~3.7.5",
     "@types/mongoose": "^5.7.3"
   }
 }

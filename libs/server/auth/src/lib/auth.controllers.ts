@@ -8,7 +8,8 @@ import {
   VerifyControllerConfig,
   AuthorizeControllerConfig,
   RefreshControllerConfig,
-  RevokeControllerConfig
+  RevokeControllerConfig,
+  AvailableControllerConfig
 } from './auth.interface';
 import { IUser } from '@uqt/data';
 import { isPasswordAllowed, userToJSON } from './auth-utils';
@@ -209,5 +210,23 @@ export function setupRevokeRefreshTokenController({
     await refreshToken.remove();
 
     return { success: true };
+  };
+}
+
+export function setupUsernameAvailableController(
+  config: AvailableControllerConfig
+) {
+  const { User } = config;
+
+  return async (username: string | undefined) => {
+    let isAvailable: boolean;
+    if (username) {
+      const resource = await User.findByUsername(username);
+      isAvailable = !resource ? true : false;
+    } else {
+      isAvailable = false;
+    }
+
+    return { isAvailable };
   };
 }

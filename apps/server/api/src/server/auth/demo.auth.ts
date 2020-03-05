@@ -14,7 +14,7 @@ const authModuleConfig = generateDemoAuthModuleConfig(User, authConfig);
 /**
  * Applies all required auth routes
  */
-export function applyAuthRoutes(app: Koa) {
+export function applyApiAuthRoutes(app: Koa) {
   app.use(applyDemoAuthRoutes(authModuleConfig));
 }
 

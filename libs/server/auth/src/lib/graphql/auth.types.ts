@@ -24,6 +24,14 @@ export const authTypeDef = gql`
     dateOfBirth: String!
   }
 
+  type UsernameAvailable {
+    isAvailable: Boolean!
+  }
+
+  extend type Query {
+    usernameAvailable(username: String!): UsernameAvailable!
+  }
+
   extend type Mutation {
     login(username: String!, password: String!): AuthPayload!
     register(input: RegisterInput!): RegisterSuccess!
