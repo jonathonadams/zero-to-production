@@ -35,3 +35,6 @@
 
 - Improve firebase function schematic to point to local firebase.json once implemented
   https://github.com/firebase/firebase-tools/issues/590
+
+- remove utility middleware once this is supported natively
+  https://github.com/apollographql/apollo-feature-requests/issues/6
