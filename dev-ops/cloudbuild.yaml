@@ -6,19 +6,19 @@
 # https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values
 #
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
+  - name: "gcr.io/cloud-builders/docker"
     args:
       [
-        'build',
-        '-t',
-        '$_IMAGE_NAME',
-        '-f',
-        'docker/api.Dockerfile',
-        '--build-arg',
-        'PROJECT_DIRECTORY=$_PROJECT_DIRECTORY',
-        '.',
+        "build",
+        "-t",
+        "$_IMAGE_NAME",
+        "-f",
+        "docker/server.Dockerfile",
+        "--build-arg",
+        "PROJECT_DIRECTORY=$_PROJECT_DIRECTORY",
+        ".",
       ]
     timeout: 500s
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', '$_IMAGE_NAME']
-images: ['$_IMAGE_NAME']
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "$_IMAGE_NAME"]
+images: ["$_IMAGE_NAME"]
