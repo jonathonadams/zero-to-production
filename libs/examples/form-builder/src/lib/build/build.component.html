@@ -1,11 +1,9 @@
-<ng-container *ngIf="selectedForm$ | async">
-  <p>
-    Drag form sections and form inputs onto the form. Click on each field to
-    configure it. Save your form once finished.
-  </p>
+<p>
+  Drag form sections and form inputs onto the form. Click on each field to
+  configure it. Save your form once finished.
+</p>
 
-  <section class="container" @expand>
-    <uqt-form-builder-toolbox class="toolbox"></uqt-form-builder-toolbox>
-    <uqt-form-builder class="form-builder"></uqt-form-builder>
-  </section>
-</ng-container>
+<section class="container">
+  <uqt-form-builder-toolbox class="toolbox"></uqt-form-builder-toolbox>
+  <uqt-form-builder class="form-builder"></uqt-form-builder>
+</section>

@@ -9,7 +9,7 @@
   "dependencies": {
     "@hapi/boom": "^9.0.0",
     "@koa/router": "^8.0.8",
-    "@sendgrid/mail": "^6.5.3",
+    "@sendgrid/mail": "^6.5.4",
     "apollo-server-koa": "^2.11.0",
     "bcryptjs": "^2.4.3",
     "dataloader": "^2.0.0",
@@ -30,7 +30,7 @@
     "jwks-rsa": "^1.7.0"
   },
   "devDependencies": {
-    "@angular/cli": "^9.0.4",
+    "@angular/cli": "^9.0.5",
     "@uqt/ng-node": "0.0.6",
     "typescript": "~3.7.5",
     "@types/mongoose": "^5.7.3"
