@@ -1,3 +1,5 @@
+$darkColor: rgba(white, 0.74);
+
 .nav-button {
   margin-right: 0.1;
   @media screen and (min-width: 600px) {
@@ -12,11 +14,18 @@
 .git-logo {
   text-decoration: none;
   height: 1.75em;
-  // color: black;
   display: flex;
   flex-direction: row;
   align-items: center;
   cursor: pointer;
+
+  > svg {
+    height: 100%;
+    * > path {
+      fill: black;
+    }
+  }
+
   > p {
     color: black;
     display: none;
@@ -27,21 +36,17 @@
       display: inline;
     }
   }
-
-  img {
-    height: 100%;
-  }
-  // > svg {
-  //   height: 100%;
-
-  //   * > path {
-  //     fill: black;
-  //   }
-  // }
 }
 
 .dark-theme {
-  .git-logo p {
-    color: white;
+  .git-logo {
+    p {
+      color: $darkColor;
+    }
+    > svg {
+      * > path {
+        fill: $darkColor;
+      }
+    }
   }
 }

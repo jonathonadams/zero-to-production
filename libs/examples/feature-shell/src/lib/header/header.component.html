@@ -17,12 +17,14 @@
     rel="noreferrer noopener"
     href="https://github.com/unquenchablethyrst/zero-to-production"
   >
-    <!-- <svg
+    <svg
+      aria-labelledby="title"
       version="1.1"
       viewBox="0 0 161.04 157.06"
       xml:space="preserve"
       xmlns="http://www.w3.org/2000/svg"
     >
+      <title id="title" lang="en">GitHub log</title>
       <g transform="matrix(1.3333 0 0 -1.3333 -380.02 666.75)">
         <g transform="translate(-35.801 4.5565)">
           <path
@@ -52,16 +54,7 @@
           />
         </g>
       </g>
-    </svg> -->
-
-    <img
-      [src]="
-        (darkTheme$ | async)
-          ? './assets/images/github-white.svg'
-          : './assets/images/github-black.svg'
-      "
-      alt="(opens GitHub repo)"
-    />
+    </svg>
     <p>GitHub</p>
   </a>
 </uqt-ui-toolbar>
