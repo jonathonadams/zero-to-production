@@ -58,7 +58,7 @@ export const EXAMPLES: IExample[] = [
     summary:
       'Clone, build, deploy! Make this repo the start of your own project.',
     description:
-      'Follow the instructions listed below to make this repo the beginning of your own project.',
+      'Follow the guides to make this repo the beginning of your own project.',
     url: 'make-it-your-own'
   }
 ];

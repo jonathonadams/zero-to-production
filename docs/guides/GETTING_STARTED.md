@@ -135,7 +135,7 @@ To complete the guides you will need to complete the following
 
   - For this testing setup, allow connections from all IP Addresses. See the notes later about setting up **VPC Network Peering** in production.
   - Once your cluster is up an running, click **collections** and create a database (note the name) and the first collection i.e. the `users` collection.
-  - Click **connect** &rarr; **connect your application** and get your connection string, by default the connection string will point to the `test` database. Replace the test database with the desired database, i.e. `mongodb+srv://.../my-database-name?retryWrites=true&w=majority`
+  - Click **connect > connect your application** and get your connection string, by default the connection string will point to the `test` database. Replace the test database with the desired database, i.e. `mongodb+srv://.../my-database-name?retryWrites=true&w=majority`
 
 [zero-to-production.dev]: https://zero-to-production.dev
 [docker cheat-sheet]: https://github.com/unquenchablethyrst/zero-to-production/docker/DOCKER_CHEAT_SHEET.md

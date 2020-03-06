@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import { MarkdownService } from '@uqt/examples/utils';
 import { Observable } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
@@ -8,7 +13,8 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'uqt-examples-markdown',
   templateUrl: './markdown.component.html',
   styleUrls: ['./markdown.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class MarkdownComponent implements OnInit {
   markdown$: Observable<string>;

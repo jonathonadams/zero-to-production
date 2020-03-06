@@ -11,6 +11,7 @@ import { TodosFeatureShellRoutingModule } from './todos-feature-shell-routing.mo
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
 import { TodoLayoutComponent } from './ui/todos-layout.component';
 import { SharedAuthComponentsModule } from '@uqt/shared/auth/components';
+import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 
 @NgModule({
   declarations: [TodoFeatureShellComponent, TodoLayoutComponent],
@@ -24,6 +25,7 @@ import { SharedAuthComponentsModule } from '@uqt/shared/auth/components';
     TodosFeatureShellRoutingModule,
     CommonToolbarMenuModule,
     CommonUiLayoutsModule,
+    CustomMaterialModule,
     SharedAuthComponentsModule
   ]
 })

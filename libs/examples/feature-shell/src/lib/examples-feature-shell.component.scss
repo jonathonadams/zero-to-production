@@ -5,31 +5,9 @@
 
 .app-content {
   display: block;
+  height: 100%; // fallback
   height: calc(100% - 3.5em);
   @media screen and (min-width: 600px) {
     height: calc(100% - 4em);
   }
-}
-
-.git-logo {
-  // text-decoration: none;
-  color: black;
-  // display: flex;
-  // flex-direction: row;
-  // align-items: center;
-  // > p {
-  //   font-size: 1.25em;
-  //   margin: 0;
-  //   margin-right: 0.5em;
-  // }
-
-  > img {
-    height: 100%;
-  }
-}
-
-.icon {
-  height: 1.75em;
-  width: 1.75em;
-  cursor: pointer;
 }
