@@ -24,11 +24,16 @@
     >
       <h3 matLine>{{ form.formName }}</h3>
 
-      <button type="button" uqt-icon-button (click)="edit(form)">
-        <fa-icon [icon]="faPen"></fa-icon>
+      <button mat-stroked-button type="button" (click)="edit(form)">
+        Edit Form
       </button>
 
-      <button type="button" uqt-icon-button (click)="delete(form)">
+      <button
+        class="trash-button"
+        type="button"
+        uqt-icon-button
+        (click)="delete(form)"
+      >
         <fa-icon [icon]="faTrash"></fa-icon>
       </button>
 

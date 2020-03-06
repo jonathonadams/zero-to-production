@@ -2,7 +2,7 @@
   Must be wrapped in and ngIf because if a FormGroup has
   not being created errors will be thrown
 -->
-<ng-container *ngIf="builderForm">
+<ng-container *ngIf="builderForm; else elseBlock">
   <form [formGroup]="builderForm" (ngSubmit)="onSubmit(builderForm)">
     <div formGroupName="config">
       <div class="form-config">
@@ -78,3 +78,9 @@
     </div>
   </form>
 </ng-container>
+
+<ng-template #elseBlock>
+  <div class="warning">
+    <p>Select a form to start building</p>
+  </div>
+</ng-template>

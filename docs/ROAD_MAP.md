@@ -1,6 +1,7 @@
 ### Angular App
 
 - [ ] Add a settings section
+- [ ] Rail navigation component
 - [ ] Feature Flag Service
 - [ ] Add following examples
   - Content Projection with layouts modules
@@ -17,7 +18,6 @@
 
 ### Schematics
 
-- [ ] API Schematic
 - [x] Firebase Functions schematic
 
 ### @uqt/ng-node
