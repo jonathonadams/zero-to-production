@@ -42,6 +42,7 @@
     justify-content: center;
     flex-wrap: wrap;
     align-items: stretch;
+    padding-bottom: 2em;
 
     .example {
       cursor: pointer;
@@ -49,7 +50,6 @@
       height: auto;
       min-height: 8em;
       width: 19em;
-      // min-width: 19em;
       transform-style: preserve-3d;
       perspective: 400rem;
       // transform-origin: bottom;

@@ -51,8 +51,8 @@ export class CssThemingComponent implements OnInit, AfterViewInit {
     return {
       lightPrimary: ['#ffaa00'],
       lightAccent: ['#0047B3'],
-      darkPrimary: ['#20eff0'],
-      darkAccent: ['#d33685']
+      darkPrimary: ['#d33685'],
+      darkAccent: ['#20eff0']
     };
   }
 

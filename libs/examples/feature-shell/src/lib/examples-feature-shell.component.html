@@ -1,27 +1,4 @@
-<uqt-ui-toolbar class="header">
-  <ng-container toolbarLeft>
-    <a
-      class="nav-button"
-      mat-button
-      *ngFor="let button of navButtons"
-      [routerLink]="button.link"
-    >
-      {{ button.label }}
-    </a>
-  </ng-container>
-
-  <a
-    toolbarRight
-    target="_blank"
-    class="git-logo"
-    rel="noreferrer noopener"
-    href="https://github.com/unquenchablethyrst/zero-to-production"
-  >
-    <img src="./assets/images/github-white.svg" alt="(opens GitHub repo)" />
-    <p>GitHub</p>
-  </a>
-</uqt-ui-toolbar>
-
+<uqt-examples-header></uqt-examples-header>
 <main class="app-content">
   <router-outlet></router-outlet>
 </main>
