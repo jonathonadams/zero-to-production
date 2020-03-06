@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ExamplesLiveDemosRoutingModule } from './examples-live-demos-routing.module';
 import { ExamplesDemosComponent } from './example-demos/examples-demos.component';
 import { ExampleDetailComponent } from './example-demos/example-detail/example-detail.component';
@@ -17,7 +18,8 @@ import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
     ExamplesLiveDemosRoutingModule,
     CommonUiLayoutsModule,
     SharedUtilsDynamicModuleLoadingModule,
-    ExamplesDynamicFormModule
+    ExamplesDynamicFormModule,
+    ScrollingModule // only needed for drag & drop form builder
   ],
   declarations: [ExamplesDemosComponent, ExampleDetailComponent],
   providers: [

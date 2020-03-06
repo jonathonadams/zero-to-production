@@ -1,7 +1,13 @@
 <layout-center-page class="container">
+  <!-- Note, the cdkScrollable directive is only uses for scrolling the viewport for teh form builder
+     when dragging sections/fields
+     In a future version, this package will most probably not be necessary. see
+     https://github.com/angular/components/pull/18082
+  -->
   <div
     class="content"
     uqtLazyLoadScroll
+    cdkScrollable
     (loadIndex)="loadModule($event)"
     [modules]="examples?.length"
   >
