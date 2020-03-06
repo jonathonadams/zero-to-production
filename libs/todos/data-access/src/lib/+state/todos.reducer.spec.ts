@@ -23,6 +23,8 @@ describe('TodoReducer', () => {
     userId: '1',
     title: 'some title',
     description: 'some description',
+    dueDate: ('2020-01-01' as unknown) as Date,
+    notes: [],
     completed: true
   };
   const initialState: TodosEntityState = {
@@ -32,7 +34,8 @@ describe('TodoReducer', () => {
     },
     selectedTodoId: null,
     statusFilter: TodoFilterStatus.InCompleted,
-    searchFilter: ''
+    searchFilter: '',
+    loaded: false
   };
 
   beforeEach(() => {
@@ -55,6 +58,8 @@ describe('TodoReducer', () => {
           userId: '1',
           title: 'some title',
           description: 'some description',
+          dueDate: ('2020-01-01' as unknown) as Date,
+          notes: [],
           completed: true
         },
         {
@@ -62,6 +67,8 @@ describe('TodoReducer', () => {
           userId: '1',
           title: 'another title',
           description: 'another description',
+          dueDate: ('2020-01-01' as unknown) as Date,
+          notes: [],
           completed: false
         }
       ];
@@ -74,11 +81,13 @@ describe('TodoReducer', () => {
 
   describe('CreateSuccess', () => {
     it('should add a todo to the todo state', () => {
-      const newTodo = {
+      const newTodo: ITodo = {
         id: '2',
         userId: '1',
         title: 'another title',
         description: 'another description',
+        dueDate: ('2020-01-01' as unknown) as Date,
+        notes: [],
         completed: false
       };
 
@@ -95,6 +104,8 @@ describe('TodoReducer', () => {
         userId: '1',
         title: 'some title',
         description: 'some description',
+        dueDate: ('2020-01-01' as unknown) as Date,
+        notes: [],
         completed: false
       };
       const todo2 = { ...todo1, id: '2', title: 'anotherTodo' };
@@ -107,7 +118,8 @@ describe('TodoReducer', () => {
         },
         selectedTodoId: null,
         statusFilter: TodoFilterStatus.InCompleted,
-        searchFilter: ''
+        searchFilter: '',
+        loaded: true
       };
 
       const updateTodo = {
@@ -130,6 +142,8 @@ describe('TodoReducer', () => {
         userId: '1',
         title: 'some title',
         description: 'some description',
+        dueDate: ('2020-01-01' as unknown) as Date,
+        notes: [],
         completed: true
       };
       const todo2 = { ...todo1, id: '2', title: 'anotherTodo' };
@@ -142,7 +156,8 @@ describe('TodoReducer', () => {
         },
         selectedTodoId: null,
         statusFilter: TodoFilterStatus.InCompleted,
-        searchFilter: ''
+        searchFilter: '',
+        loaded: true
       };
 
       const todoToDelete = {

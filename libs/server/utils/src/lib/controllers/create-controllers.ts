@@ -1,6 +1,6 @@
-import Boom from '@hapi/boom';
 import mongoose from 'mongoose';
 import { ObjectId } from 'mongodb';
+import { notFound } from '@hapi/boom';
 import { swapId } from '../utils';
 
 /**
@@ -37,9 +37,7 @@ export function createControllers<T extends mongoose.Document>(
         .exec();
 
       if (!resource)
-        throw Boom.notFound(
-          'Cannot find a resource with the supplied parameters.'
-        );
+        throw notFound('Cannot find a resource with the supplied parameters.');
 
       return swapId<T>(resource);
     },
@@ -58,24 +56,21 @@ export function createControllers<T extends mongoose.Document>(
         .lean()
         .exec();
       if (!resource)
-        throw Boom.notFound(
-          'Cannot find a resource with the supplied parameters.'
-        );
+        throw notFound('Cannot find a resource with the supplied parameters.');
       return swapId<T>(resource);
     },
 
     // Remove one
     removeOne: async (id: ObjectId, userId?: string) => {
+      // Don't use lean for this, pre/post hooks might require 'mongoose' object
+      // to delete/update etc other resources
       const resource = await model
         .findByIdAndRemove(id)
         .where(userId ? { userId } : {})
-        .lean()
         .exec();
 
       if (!resource)
-        throw Boom.notFound(
-          'Cannot find a resource with the supplied parameters.'
-        );
+        throw notFound('Cannot find a resource with the supplied parameters.');
       return swapId<T>(resource);
     }
   };

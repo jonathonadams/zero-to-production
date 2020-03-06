@@ -3,21 +3,19 @@ import {
   ChangeDetectionStrategy,
   Input,
   OnDestroy,
-  Injectable
+  Injectable,
+  OnInit
 } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import {
   MAT_DATE_FORMATS,
   NativeDateAdapter,
   DateAdapter
 } from '@angular/material/core';
 import { Subscription } from 'rxjs';
-import { debounceTime, filter } from 'rxjs/operators';
-import {
-  FormGroupTypes,
-  DynamicFormService,
-  IDatePickerField
-} from '@uqt/common/dynamic-form';
+import { debounceTime, filter, distinctUntilChanged } from 'rxjs/operators';
+import format from 'date-fns/format';
+import { FormGroupTypes, IDatePickerField } from '@uqt/common/dynamic-form';
 
 function isValidDate(date: Date): Boolean {
   return date instanceof Date && !isNaN(date as any);
@@ -35,6 +33,8 @@ const APP_DATE_FORMATS = {
   }
 };
 
+// TODO -> i18n localTimeformat
+// https://angular.io/guide/i18n#i18n-pipes
 @Injectable()
 export class MyDateAdapter extends NativeDateAdapter {
   format(date: Date, displayFormat: Object): string {
@@ -47,12 +47,10 @@ export class MyDateAdapter extends NativeDateAdapter {
     // return date.toLocaleDateString();
     // }
 
-    return date.toLocaleDateString();
+    return format(date, 'dd/MM/yyyy');
   }
 
   parse(value: string): Date | null {
-    // TODO -> i18n localTimeformat
-    // https://angular.io/guide/i18n#i18n-pipes
     const [day, month, year] = value.split(/\/|-/g);
     const date = new Date(Number(year), Number(month) - 1, Number(day));
     if (isValidDate(date)) {
@@ -65,7 +63,7 @@ export class MyDateAdapter extends NativeDateAdapter {
 
 /**
  * Dynamic form date picker component. Not as simple as the other input field because the value returned is a Date object.
- * The date object is not serializable, so need to create an internal form group and intercept the changing value and then
+ * The date object is not serializable, so need to create an internal form control and intercept the changing value and then
  * format, then set the stringified format of the top level group.
  *
  * The date format could be customized, or dynamic if you choose
@@ -92,59 +90,45 @@ export class MyDateAdapter extends NativeDateAdapter {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FormDatePickerComponent implements OnDestroy {
+export class FormDatePickerComponent implements OnInit, OnDestroy {
+  date = new FormControl();
+  private _group: FormGroup | undefined;
   private sub: Subscription = new Subscription();
-
-  dateField: IDatePickerField;
-  dateGroup: FormGroup;
-  dateControl: FormControl;
-  _group: FormGroup | undefined;
 
   @Input() idx: number; // Only accessed if it is a FormArrayGroup
   @Input() type: FormGroupTypes;
+  @Input() field: IDatePickerField;
 
   @Input()
   set group(fg: FormGroup | undefined) {
     if (fg) {
+      const controlValue = fg.controls[this.field.name].value;
+      this.date.patchValue(controlValue);
+
+      if (fg.disabled) this.date.disable();
       this.listenToStatusChanges(fg);
     }
+
     this._group = fg;
   }
 
-  @Input()
-  set field(f: IDatePickerField) {
-    const ctrl = this.addControlToGroup(f);
-    this.dateGroup.addControl(f.name, ctrl);
-    this.dateField = f;
-    this.listenToControlChange(ctrl);
-  }
-
-  constructor(private fb: FormBuilder, private service: DynamicFormService) {
-    this.dateGroup = this.fb.group({});
-  }
-
-  addControlToGroup(f: IDatePickerField) {
-    return this.service.createControl(f);
-  }
-
   /**
-   * Listen to the change of the date adapter and set the value of the control on the top level form group
-   *
-   * @param {FormControl} control
-   * @memberof DatePickerComponent
+   * Listen to the change of the date adapter and set the value of
+   * the control on the top level form group
    */
-  listenToControlChange(control: FormControl) {
+  ngOnInit() {
     this.sub.add(
-      control.valueChanges
+      this.date.valueChanges
         .pipe(
           debounceTime(200),
-          filter(val => val !== null)
+          filter(val => val !== null),
+          distinctUntilChanged()
         )
         .subscribe((date: Date) => {
           // There would be no chance for the group to no be set by the time
           // it is rendered on the DOM, but just in case.
           if (this._group !== undefined && isValidDate(date)) {
-            const groupCtrl = this._group.controls[this.dateField.name];
+            const groupCtrl = this._group.controls[this.field.name];
             groupCtrl.setValue(this.formatDateToString(date));
             groupCtrl.markAsDirty();
           }
@@ -156,16 +140,16 @@ export class FormDatePickerComponent implements OnDestroy {
     this.sub.add(
       formGroup.statusChanges.subscribe(status => {
         if (status === 'DISABLED') {
-          this.dateGroup.disable();
-        } else {
-          this.dateGroup.enable();
+          this.date.disable();
+        } else if (this.date.disabled) {
+          this.date.enable();
         }
       })
     );
   }
 
   formatDateToString(date: Date): string {
-    return date.toLocaleDateString();
+    return format(date, 'yyyy-MM-dd');
   }
 
   ngOnDestroy() {

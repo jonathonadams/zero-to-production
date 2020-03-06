@@ -2,11 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthActions } from '@uqt/shared/data-access/auth';
 import { of } from 'rxjs';
-import { catchError, map, exhaustMap, mergeMap } from 'rxjs/operators';
+import {
+  catchError,
+  map,
+  exhaustMap,
+  mergeMap,
+  withLatestFrom
+} from 'rxjs/operators';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { ITodo } from '@uqt/data';
+import { ITodo, ITodoNote } from '@uqt/data';
 import * as TodoActions from './todos.actions';
 import { TodosService } from '../todos.service';
+import { TodosFacade } from './todos.facade';
 
 // Note: when merging observable from multiple sources there are 4x operators tha can be uses
 // exhaustMap, mergeMap, switchMap and concatMap
@@ -39,6 +46,26 @@ export class TodoEffects {
           ),
           catchError((error: HttpErrorResponse) =>
             of(TodoActions.loadTodosFail({ error: error.message }))
+          )
+        )
+      )
+    )
+  );
+
+  loadTodo$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TodoActions.loadTodo),
+      exhaustMap(({ id }) =>
+        this.service.getOneTodo(id).pipe(
+          map(({ errors, data }) =>
+            errors
+              ? TodoActions.loadTodoFail({ error: errors[0].message })
+              : TodoActions.loadTodoSuccess({
+                  todo: (data as { Todo: ITodo }).Todo
+                })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(TodoActions.loadTodoFail({ error: error.message }))
           )
         )
       )
@@ -103,6 +130,58 @@ export class TodoEffects {
     )
   );
 
+  createTodoNote$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TodoActions.createTodoNote),
+      withLatestFrom(this.facade.selectedTodo$),
+      mergeMap(([{ body }, todo]) => {
+        if (!todo) {
+          return of(
+            TodoActions.createTodoNoteFail({ error: 'No todo selected' })
+          );
+        }
+        return this.service.createTodoNote(body, todo.id).pipe(
+          map(({ errors, data }) =>
+            errors
+              ? TodoActions.createTodoFail({ error: errors[0].message })
+              : TodoActions.createTodoNoteSuccess({
+                  note: (data as { newTodoNote: ITodoNote }).newTodoNote
+                })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(TodoActions.createTodoNoteFail({ error: error.message }))
+          )
+        );
+      })
+    )
+  );
+
+  deleteTodoNote$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TodoActions.deleteTodoNote),
+      withLatestFrom(this.facade.selectedTodo$),
+      mergeMap(([{ id }, todo]) => {
+        if (!todo) {
+          return of(
+            TodoActions.deleteTodoNoteFail({ error: 'No todo selected' })
+          );
+        }
+        return this.service.deleteTodoNote(id, todo.id).pipe(
+          map(({ errors, data }) =>
+            errors
+              ? TodoActions.deleteTodoNoteFail({ error: errors[0].message })
+              : TodoActions.deleteTodoNoteSuccess({
+                  note: (data as { removeTodoNote: ITodoNote }).removeTodoNote
+                })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(TodoActions.deleteTodoNoteFail({ error: error.message }))
+          )
+        );
+      })
+    )
+  );
+
   // Clear the user todos on logout
   clearTodos$ = createEffect(() =>
     this.actions$.pipe(
@@ -111,5 +190,9 @@ export class TodoEffects {
     )
   );
 
-  constructor(private actions$: Actions, private service: TodosService) {}
+  constructor(
+    private actions$: Actions,
+    private service: TodosService,
+    private facade: TodosFacade
+  ) {}
 }

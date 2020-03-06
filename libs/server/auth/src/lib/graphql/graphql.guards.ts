@@ -1,5 +1,5 @@
 import { verify } from 'jsonwebtoken';
-import Boom from '@hapi/boom';
+import { unauthorized } from '@hapi/boom';
 import { authenticateRequest } from './auth.graphql';
 import {
   GuardConfig,
@@ -49,7 +49,7 @@ export function checkToken(config: VerifyTokenConfig): AuthMiddleware {
         audience: config.audience
       });
     } catch (err) {
-      throw Boom.unauthorized(null, 'Bearer');
+      throw unauthorized(null, 'Bearer');
     }
   };
 }
@@ -67,7 +67,7 @@ export function checkTokenJWKS(config: VerifyTokenJWKSConfig): AuthMiddleware {
         audience: config.audience
       });
     } catch (err) {
-      throw Boom.unauthorized(null, 'Bearer');
+      throw unauthorized(null, 'Bearer');
     }
   };
 }
@@ -84,7 +84,7 @@ export function checkUserIsActive({
   return async (parent, args, context, info) => {
     const id = context.state.user.sub;
     const user = await User.findById(id);
-    if (!user || !user.active) throw Boom.unauthorized(null, 'Bearer');
+    if (!user || !user.active) throw unauthorized(null, 'Bearer');
     context.state.user = user;
   };
 }

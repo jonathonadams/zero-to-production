@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TodoFeatureShellComponent } from './todos-feature-shell.component';
-import { TodoLayoutComponent } from './ui/todos-layout.component';
 import { AuthGuard, LoggedInGuard } from '@uqt/shared/data-access/auth';
 import {
   LoginComponent,
   RegisterComponent,
   AuthComponent
 } from '@uqt/shared/auth/components';
+import { AllTodosComponent } from '@uqt/todos/all-todos';
+import { TodoDetailComponent } from '@uqt/todos/todo-detail';
+import { TodoFeatureShellComponent } from './todos-feature-shell.component';
+import { TodoResolver } from '@uqt/todos/data-access';
 
 export const TODOS_ROUTES: Routes = [
   {
@@ -17,23 +19,31 @@ export const TODOS_ROUTES: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('@uqt/shared/dashboard').then(m => m.SharedDashboardModule),
-        data: { animation: 'DashBoardPage' }
+          import('@uqt/shared/dashboard').then(m => m.SharedDashboardModule)
       },
       {
         path: 'todos',
         children: [
           {
             path: '',
-            component: TodoLayoutComponent,
-            pathMatch: 'full'
+            component: AllTodosComponent,
+            pathMatch: 'full',
+            data: {
+              animation: 'AllTodos'
+            }
           },
           {
             path: ':todoId',
-            component: TodoLayoutComponent
+            component: TodoDetailComponent,
+            pathMatch: 'full',
+            resolve: {
+              todo: TodoResolver
+            },
+            data: {
+              animation: 'TodoDetail'
+            }
           }
-        ],
-        data: { animation: 'TodosPage' }
+        ]
       },
       {
         path: '',

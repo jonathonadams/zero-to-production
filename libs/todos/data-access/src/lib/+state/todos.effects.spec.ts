@@ -9,11 +9,13 @@ import { TodosService } from '../todos.service';
 import { ITodo } from '@uqt/data';
 import { createSpyObj } from '@uqt/tests/client';
 import { GraphQLError } from 'graphql';
+import { TodosFacade } from './todos.facade';
 
 describe('TodoEffects', () => {
   let effects: TodoEffects;
   let action$: Observable<any>;
   let todoService: TodosService;
+  let facade: TodosFacade;
   let mockTodo: ITodo;
   const todoServiceSpy = createSpyObj('TodoService', [
     'loadTodos',
@@ -28,17 +30,21 @@ describe('TodoEffects', () => {
       providers: [
         TodoEffects,
         { provide: TodosService, useValue: todoServiceSpy },
+        { provide: TodosFacade, useValue: {} },
         provideMockActions(() => action$)
       ]
     });
     effects = TestBed.inject<TodoEffects>(TodoEffects);
     action$ = TestBed.inject<Actions>(Actions);
     todoService = TestBed.inject<TodosService>(TodosService);
+    facade = TestBed.inject<TodosFacade>(TodosFacade);
     mockTodo = {
       id: '1',
       userId: '1',
       title: 'some title',
       description: 'some description',
+      dueDate: ('2020-01-01' as unknown) as Date,
+      notes: [],
       completed: true
     };
   });
@@ -55,6 +61,8 @@ describe('TodoEffects', () => {
           userId: '1',
           title: 'some title',
           description: 'some description',
+          dueDate: ('2020-01-01' as unknown) as Date,
+          notes: [],
           completed: true
         },
         {
@@ -62,6 +70,8 @@ describe('TodoEffects', () => {
           userId: '1',
           title: 'another title',
           description: 'another description',
+          dueDate: ('2020-01-01' as unknown) as Date,
+          notes: [],
           completed: false
         }
       ];
@@ -180,19 +190,5 @@ describe('TodoEffects', () => {
 
       expect(effects.deleteTodo$).toBeObservable(expected);
     });
-  });
-
-  /**
-   * TODO -> Tidy up error
-   */
-  describe('todoSaveError$', () => {
-    // it('should return a HttpError action with the error if the effect throw', () => {
-    //   const error = new Error('An error occured');
-    //   const action = new CreateTodoFail(error);
-    //   const completion = new HttpErrorAction(error);
-    //   action$ = hot('-a--', { a: action });
-    //   const expected = cold('-a', { a: completion });
-    //   expect(effects.todoSaveError$).toBeObservable(expected);
-    // });
   });
 });

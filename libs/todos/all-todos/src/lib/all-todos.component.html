@@ -1,13 +1,19 @@
-<todo-ui-filter-todos
-  [todoFilter]="todoFilter$ | async"
-  [filterOptions]="filterOptions"
-  (selectFilterChanged)="selectFilterChanged($event)"
-  (searchStringChanged)="searchStringChanged($event)"
-></todo-ui-filter-todos>
-<todo-ui-todo-list
-  class="list-items"
-  [todos]="filteredTodo$ | async"
-  (selected)="selectTodo($event)"
-  (delete)="deleteTodo($event)"
-  (update)="update($event)"
-></todo-ui-todo-list>
+<layout-two-column class="todos-content">
+  <article twoColumnLeft>
+    <todo-ui-create-todo [formName]="formName"></todo-ui-create-todo>
+  </article>
+  <section twoColumnRight>
+    <todo-ui-filter-todos
+      [todoFilter]="todoFilter$ | async"
+      [filterOptions]="filterOptions"
+      (selectFilterChanged)="selectFilterChanged($event)"
+      (searchStringChanged)="searchStringChanged($event)"
+    ></todo-ui-filter-todos>
+    <todo-ui-todo-list
+      [todos]="filteredTodo$ | async"
+      (selected)="selectTodo($event)"
+      (delete)="deleteTodo($event)"
+      (update)="update($event)"
+    ></todo-ui-todo-list>
+  </section>
+</layout-two-column>

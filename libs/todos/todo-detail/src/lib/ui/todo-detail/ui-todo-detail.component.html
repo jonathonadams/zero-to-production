@@ -1,0 +1,34 @@
+<uqt-card [routerAnimate]="true">
+  <span class="header">
+    <h3>Todo: {{ todo?.title }}</h3>
+    <span class="navigate" routerLink="..">
+      <p>
+        Todos
+      </p>
+      <button type="button" mat-icon-button>
+        <mat-icon>list</mat-icon>
+      </button>
+    </span>
+  </span>
+  <app-dynamic-form [formName]="formName">
+    <button
+      [disabled]="!enabled"
+      mat-stroked-button
+      type="submit"
+      class="button"
+    >
+      Update
+    </button>
+    <button mat-button [disabled]="!enabled" type="reset" class="button">
+      Cancel
+    </button>
+
+    <button
+      mat-icon-button
+      type="button"
+      (click)="enabled = !enabled; toggleEdit.emit(enabled)"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+  </app-dynamic-form>
+</uqt-card>

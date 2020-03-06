@@ -1,9 +1,11 @@
 import { Connection, Model, Schema, Document } from 'mongoose';
 import { defaultSchemaOptions } from '@uqt/server/utils';
 import { ITodo } from '@uqt/data';
-export { todoTypeDef } from './todo.type';
+import { ITodoNoteDocument } from './notes';
 
+// both keys need to be defined here for circular reference reasons
 export const todoDbKey = 'todo';
+export const todoNoteDbKey = 'todonote';
 
 export const todoSchema = new Schema<ITodo>(
   {
@@ -18,12 +20,28 @@ export const todoSchema = new Schema<ITodo>(
       type: Boolean,
       required: true,
       default: false
-    }
+    },
+    dueDate: Date,
+    notes: [{ type: Schema.Types.ObjectId, ref: todoNoteDbKey }]
   },
   {
     ...defaultSchemaOptions
   }
 );
+
+// the hook 'findOneAndRemove' must line up with the method that is used
+// in the create controllers method
+todoSchema.pre('findOneAndRemove', async function(doc) {
+  // populate the 'notes' field so that they can be delete in the post hook
+  this.populate('notes');
+});
+
+todoSchema.post('findOneAndRemove', async function(doc: ITodoDocument) {
+  // delete all the associated notes as well
+  await Promise.all(
+    doc.notes.map(note => (note as ITodoNoteDocument).remove())
+  );
+});
 
 export function createTodoModel(con: Connection): ITodoModel {
   return con.model<ITodoDocument, ITodoModel>(todoDbKey, todoSchema);

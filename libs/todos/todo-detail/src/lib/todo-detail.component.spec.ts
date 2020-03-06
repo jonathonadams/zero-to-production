@@ -3,7 +3,7 @@ import { TodoDetailComponent } from './todo-detail.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TodosFacade } from '@uqt/todos/data-access';
+import { TodosFacade, TodosService } from '@uqt/todos/data-access';
 import { of } from 'rxjs';
 import { DynamicFormFacade } from '@uqt/common/dynamic-form';
 import { RouterFacade } from '@uqt/shared/data-access/router';
@@ -14,6 +14,7 @@ describe('TodoDetailComponent', () => {
   let component: TodoDetailComponent;
   let fixture: ComponentFixture<TodoDetailComponent>;
   let todoFacade: TodosFacade;
+  let todoService: TodosService;
   let formsFacade: DynamicFormFacade;
   let routerFacade: RouterFacade;
 
@@ -29,6 +30,11 @@ describe('TodoDetailComponent', () => {
     todoIds$: of(jest.fn())
   };
 
+  const todoServiceSpy = {
+    allTodoNotesQueryRef: jest.fn(),
+    todoIds$: of(jest.fn())
+  };
+
   const routerSpy = {
     selectParam: () => of(jest.fn())
   };
@@ -38,6 +44,7 @@ describe('TodoDetailComponent', () => {
       imports: [RouterTestingModule, ReactiveFormsModule],
       providers: [
         { provide: TodosFacade, useValue: todoFacadeSpy },
+        { provide: TodosService, useValue: todoServiceSpy },
         { provide: RouterFacade, useValue: routerSpy },
         { provide: DynamicFormFacade, useValue: formsFacadSpy }
       ],
@@ -46,6 +53,7 @@ describe('TodoDetailComponent', () => {
     }).compileComponents();
 
     todoFacade = TestBed.inject<TodosFacade>(TodosFacade);
+    todoService = TestBed.inject<TodosService>(TodosService);
     formsFacade = TestBed.inject<DynamicFormFacade>(DynamicFormFacade);
     routerFacade = TestBed.inject<RouterFacade>(RouterFacade);
   }));

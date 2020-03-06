@@ -11,10 +11,9 @@ import {
 export const appRouterAnimations = trigger('appRouterAnimations', [
   transition('AuthPages => AppPages', [
     style({ position: 'relative' }),
-    query(':enter', [style({ position: 'absolute' })]),
 
     // Move the newly entered element off screen
-    query(':enter', [style({ left: '100%' })]),
+    query(':enter', [style({ position: 'absolute', left: '100%' })]),
     query(':leave', [style({ position: 'relative' })]),
 
     // complete all animations in order
@@ -23,7 +22,7 @@ export const appRouterAnimations = trigger('appRouterAnimations', [
       query(':leave uqt-login', [
         style({ opacity: 1, transform: 'none' }),
         animate(
-          `200ms ease-in`,
+          `100ms ease-in`,
           keyframes([
             style({
               opacity: 0.75,
@@ -51,7 +50,7 @@ export const appRouterAnimations = trigger('appRouterAnimations', [
           left: 0,
           opacity: 0
         }),
-        animate(`200ms ease-out`, style({ opacity: 1 }))
+        animate(`100ms ease-out`, style({ opacity: 1 }))
       ])
     ])
   ])

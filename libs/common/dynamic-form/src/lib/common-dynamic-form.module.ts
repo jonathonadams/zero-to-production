@@ -53,6 +53,7 @@ export class CommonDynamicFormModule {
 @NgModule({
   imports: [
     CommonModule,
+    CustomMaterialModule,
     StoreModule.forFeature<fromDynamicForm.DynamicFormEntityState>(
       fromDynamicForm.dynamicFormKey,
       fromDynamicForm.reducer

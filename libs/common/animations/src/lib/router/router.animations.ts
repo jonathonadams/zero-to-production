@@ -1,48 +1,7 @@
-import {
-  trigger,
-  transition,
-  query,
-  style,
-  animateChild,
-  group,
-  animate
-} from '@angular/animations';
+import { trigger } from '@angular/animations';
+import { ROUTER_TRIGGER } from './symbols';
+import { WATERFALL_ANIMATION } from './waterfall.animation';
 
-export const slideInAnimation = trigger('routeAnimations', [
-  transition('DashBoardPage <=> TodosPage', [
-    style({ position: 'relative' }),
-    query(':enter, :leave', [
-      style({
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%'
-      })
-    ]),
-    query(':enter', [style({ left: '-100%' })]),
-    query(':leave', animateChild()),
-    group([
-      query(':leave', [animate('300ms ease-out', style({ left: '100%' }))]),
-      query(':enter', [animate('300ms ease-out', style({ left: '0%' }))])
-    ]),
-    query(':enter', animateChild())
-  ]),
-  transition('* <=> ProfilePage', [
-    style({ position: 'relative' }),
-    query(':enter, :leave', [
-      style({
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%'
-      })
-    ]),
-    query(':enter', [style({ left: '-100%' })]),
-    query(':leave', animateChild()),
-    group([
-      query(':leave', [animate('200ms ease-out', style({ left: '100%' }))]),
-      query(':enter', [animate('300ms ease-out', style({ left: '0%' }))])
-    ]),
-    query(':enter', animateChild())
-  ])
+export const ROUTER_ANIMATIONS = trigger(ROUTER_TRIGGER, [
+  ...WATERFALL_ANIMATION
 ]);

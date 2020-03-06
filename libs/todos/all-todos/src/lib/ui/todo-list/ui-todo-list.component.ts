@@ -12,6 +12,13 @@ import { LIST_ANIMATION } from './todo-list.animation';
 @Component({
   selector: 'todo-ui-todo-list',
   templateUrl: './ui-todo-list.component.html',
+  styles: [
+    `
+      .record {
+        cursor: pointer;
+      }
+    `
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [LIST_ANIMATION]
 })

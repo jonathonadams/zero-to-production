@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
-import { ITodo } from '@uqt/data';
+import { ITodo, ITodoNote } from '@uqt/data';
 import { TodoFilterStatus } from './todos.reducer';
 
 export const selectTodo = createAction(
@@ -23,12 +22,27 @@ export const searchFilter = createAction(
 export const loadTodos = createAction('[Todo/API] Load Todos');
 
 export const loadTodosSuccess = createAction(
-  '[Todo/API] Load Success',
+  '[Todo/API] Load Todos Success',
   props<{ todos: ITodo[] }>()
 );
 
 export const loadTodosFail = createAction(
-  '[Todo/API] Load Fail',
+  '[Todo/API] Load Todos Fail',
+  props<{ error: string }>()
+);
+
+export const loadTodo = createAction(
+  '[Todo/API] Load Todo Notes',
+  props<{ id: string }>()
+);
+
+export const loadTodoSuccess = createAction(
+  '[Todo/API] Load Todo Success',
+  props<{ todo: ITodo }>()
+);
+
+export const loadTodoFail = createAction(
+  '[Todo/API] Load Todo Fail',
   props<{ error: string }>()
 );
 
@@ -76,3 +90,31 @@ export const deleteTodoFail = createAction(
 );
 
 export const clearTodos = createAction('[Todo/API] Clear');
+
+export const createTodoNote = createAction(
+  '[Todo Note/API] Create Note',
+  props<{ body: string }>()
+);
+export const createTodoNoteSuccess = createAction(
+  '[Todo Note/API] Create Note Success',
+  props<{ note: ITodoNote }>()
+);
+
+export const createTodoNoteFail = createAction(
+  '[Todo Note/API] Create Note Fail',
+  props<{ error: string }>()
+);
+
+export const deleteTodoNote = createAction(
+  '[Todo Note/API] Delete Note',
+  props<{ id: string }>()
+);
+export const deleteTodoNoteSuccess = createAction(
+  '[Todo Note/API] Delete Note Success',
+  props<{ note: ITodoNote }>()
+);
+
+export const deleteTodoNoteFail = createAction(
+  '[Todo Note/API] Delete Note Fail',
+  props<{ error: string }>()
+);

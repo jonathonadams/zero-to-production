@@ -13,6 +13,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { Subscription, fromEvent } from 'rxjs';
 import { debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
 import { TodoFilterStatus } from '@uqt/todos/data-access';
+import { ANIMATE_CLASS } from '@uqt/common/animations';
 
 @Component({
   selector: 'todo-ui-filter-todos',
@@ -21,6 +22,8 @@ import { TodoFilterStatus } from '@uqt/todos/data-access';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiFilterTodosComponent implements OnInit, OnDestroy {
+  animate = ANIMATE_CLASS;
+
   subscription: Subscription | undefined;
   @Input()
   todoFilter: TodoFilterStatus | null | undefined;
@@ -31,7 +34,7 @@ export class UiFilterTodosComponent implements OnInit, OnDestroy {
   @Output()
   searchStringChanged = new EventEmitter<string>();
 
-  @ViewChild('todoSearch', { static: true }) searchInput!: ElementRef<
+  @ViewChild('todoSearch', { static: true }) searchInput: ElementRef<
     HTMLInputElement
   >;
 

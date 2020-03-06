@@ -1,0 +1,9 @@
+<uqt-card [routerAnimate]="true">
+  <mat-form-field class="input">
+    <mat-label>Create Note</mat-label>
+    <textarea matInput cdkTextareaAutosize [(ngModel)]="text"></textarea>
+  </mat-form-field>
+  <button type="button" mat-stroked-button (click)="createNote.emit(text)">
+    Save
+  </button>
+</uqt-card>

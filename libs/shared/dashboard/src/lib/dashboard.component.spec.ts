@@ -4,7 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardComponent } from './dashboard.component';
 import { Store } from '@ngrx/store';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { CommonUiCardModule } from '@uqt/common/ui/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -20,7 +20,7 @@ describe('DashboardComponent', () => {
         NoopAnimationsModule,
         LayoutModule,
         MatButtonModule,
-        MatCardModule,
+        CommonUiCardModule,
         MatGridListModule,
         MatIconModule,
         MatMenuModule

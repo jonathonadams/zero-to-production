@@ -39,6 +39,11 @@ export const selectCurrentTodoId = createSelector(
   (state: TodosEntityState) => state.selectedTodoId
 );
 
+export const selectLoaded = createSelector(
+  selectTodoState,
+  (state: TodosEntityState) => state.loaded
+);
+
 export const selectTodoFilterStatus = createSelector(
   selectTodoState,
   (state: TodosEntityState) => state.statusFilter

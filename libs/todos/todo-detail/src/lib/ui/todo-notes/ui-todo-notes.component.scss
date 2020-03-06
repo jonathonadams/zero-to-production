@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+.notes {
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+
+  .header-row,
+  .table-row {
+    height: 2em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+    & > * {
+      text-align: left;
+      padding: 0 0.25em;
+    }
+  }
+
+  .delete {
+    text-align: center;
+    width: 10%;
+  }
+
+  .table-row {
+    .date {
+      width: 20%;
+    }
+    .body {
+      width: 70%;
+      white-space: pre-wrap;
+    }
+  }
+}

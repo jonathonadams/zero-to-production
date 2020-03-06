@@ -1,9 +1,7 @@
-import { Injectable, ComponentRef, Inject, Type } from '@angular/core';
+import { Injectable, ComponentRef, Inject } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 import { OverlayConfig, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
-import mapR from 'ramda/src/map';
-// import mapR from 'ramda/es/map';
 import { FormErrorsComponent } from './form-errors.component';
 import {
   DYNAMIC_FORM_ERRORS,
@@ -30,6 +28,11 @@ export class DynamicFormErrorsService {
     componentRef.instance.dismiss.subscribe(() => {
       overlayRef.dispose();
     });
+
+    // Dispose the overlay ref if the backdrop is clicked
+    overlayRef.backdropClick().subscribe(click => {
+      overlayRef.dispose();
+    });
   }
 
   private createOverlayConfig(): OverlayConfig {
@@ -54,11 +57,6 @@ export class DynamicFormErrorsService {
     const componentPortal = new ComponentPortal<T>(component);
 
     const componentRef: ComponentRef<T> = overlayRef.attach(componentPortal);
-
-    // Dispose the overlay ref if the backdrop is clicked
-    overlayRef.backdropClick().subscribe(click => {
-      overlayRef.dispose();
-    });
 
     return {
       overlayRef,
@@ -98,12 +96,11 @@ function reduceErrorKeysToMessages(
   field: string,
   keys: string[]
 ): string[] {
-  return mapR(
+  return keys.map(
     key =>
       `${splitCamelCaseAndUppercaseFirst(field)} ${
         formErrors[key as keyof typeof FormErrorTypes]
-      }`,
-    keys
+      }`
   );
 }
 

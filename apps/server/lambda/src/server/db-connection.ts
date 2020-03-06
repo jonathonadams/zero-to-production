@@ -1,5 +1,6 @@
 import { createConnection, Connection } from 'mongoose';
 import { config } from '../environments/environment';
+import { initDbSchemasModels } from './db-schemas';
 
 let connection: Connection;
 
@@ -24,6 +25,9 @@ export async function connectToDatabase(dbUri: string) {
   connection = (await createConnection(dbUri, config.databaseOptions).catch(
     console.error
   )) as Connection;
+
+  // define DD schemas
+  initDbSchemasModels(connection);
 
   return connection;
 }

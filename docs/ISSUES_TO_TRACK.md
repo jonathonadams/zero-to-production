@@ -1,6 +1,6 @@
 - Jest & ES6 Modules
   Currently Jest does not support es6 Modules, so modules can not be used in testing
-  lodash-es is tree shakeable, however fails tests at the moment so install individual common lodash libraries for now then remove them when
+  lodash-es is tree shakeable, as it date-fn/esm/, however fails tests at the moment so install individual common lodash libraries for now then remove them when
   the below issue is resolved.
 
   https://github.com/facebook/jest/issues/4842
@@ -8,6 +8,8 @@
 
   Change Ramda imports after jest allows native modules
   https://github.com/ramda/ramda/issues/2406
+
+  date-fns/esm/modules
 
 - RXJS & TypeScript Filter Issues
   TS does not correctly infer the types when using filters, this means you need to explicitly type the observable current typescript issues

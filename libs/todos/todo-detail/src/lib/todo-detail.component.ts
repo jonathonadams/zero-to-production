@@ -5,17 +5,15 @@ import {
   OnInit
 } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { Observable, Subject, combineLatest } from 'rxjs';
-import { filter, withLatestFrom, takeUntil, first, skip } from 'rxjs/operators';
-import { ITodo } from '@uqt/data';
-import { TodosFacade } from '@uqt/todos/data-access';
+import { Observable, Subscription } from 'rxjs';
+import { ITodo, ITodoNote } from '@uqt/data';
+import { TodosFacade, TodosService } from '@uqt/todos/data-access';
 import {
   DynamicFormFacade,
   TFormStructure,
   FormGroupTypes,
   FormFieldTypes
 } from '@uqt/common/dynamic-form';
-import { RouterFacade } from '@uqt/shared/data-access/router';
 
 const STRUCTURE: TFormStructure = [
   {
@@ -33,6 +31,11 @@ const STRUCTURE: TFormStructure = [
         name: 'description',
         label: 'Description',
         validators: [Validators.required]
+      },
+      {
+        type: FormFieldTypes.DatePicker,
+        name: 'dueDate',
+        label: 'Due Date'
       }
     ]
   }
@@ -41,80 +44,70 @@ const STRUCTURE: TFormStructure = [
 @Component({
   selector: 'todo-detail',
   templateUrl: './todo-detail.component.html',
+  styleUrls: ['./todo-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoDetailComponent implements OnInit, OnDestroy {
   readonly formName = 'todo-detail';
-  public selectedTodo$: Observable<ITodo | undefined>;
-  private unsubscribe = new Subject();
+  public todo: ITodo;
+  private sub: Subscription;
+
+  notes$: Observable<ITodoNote[]>;
 
   constructor(
     private facade: TodosFacade,
-    private formFacade: DynamicFormFacade,
-    private routerFacade: RouterFacade
+    private service: TodosService,
+    private formFacade: DynamicFormFacade
   ) {
-    this.selectedTodo$ = this.facade.selectedTodo$;
+    // This route is protected by a route resolver
+    // It is guaranteed that the a todo has been selected.
+    // You could access the data from the Activated Route, however
+    // you  need to inject the TodosFacade anyway
+    // The below operation is synchronous and guaranteed
+    // to have set the 'todo' before anything else runs
+    (this.facade.selectedTodo$ as Observable<ITodo>).subscribe(
+      todo => (this.todo = todo)
+    );
 
-    (this.selectedTodo$ as Observable<ITodo>)
-      .pipe(
-        filter(todo => todo !== undefined),
-        takeUntil(this.unsubscribe)
-      )
-      .subscribe(todo => {
-        this.formFacade.setData(this.formName, { todo });
-        this.updateTodoUrl(todo.id);
-      });
+    this.notes$ = this.service.allTodoNotesQueryRef(this.todo.id);
 
     this.formFacade.createFormIfNotExist(this.formName);
-
-    // TODO -> move this to a resolver?
-    combineLatest([
-      this.routerFacade.selectParam('todoId') as Observable<string>,
-      this.selectedTodo$,
-      this.facade.todoIds$.pipe(skip(1)) // Skip first because ngrx initial state is an empty array
-    ])
-      .pipe(
-        first(), // After the first emit, complete
-        filter(([id, todo]) => id !== undefined || !todo || id !== todo.id)
-      )
-      .subscribe(([id, todo, ids]) => {
-        if (ids.indexOf(id) !== -1) {
-          this.facade.selectTodo(id);
-        } else {
-          this.facade.clearSelected();
-          this.updateTodoUrl();
-        }
-      });
   }
 
   ngOnInit() {
-    this.formFacade
-      .formSubmits$(this.formName)
-      .pipe(withLatestFrom(this.selectedTodo$), takeUntil(this.unsubscribe))
-      .subscribe(([{ todo }, selectedTodo]) => {
-        const todoToSave = { ...selectedTodo, ...todo };
-        this.facade.saveTodo(todoToSave);
-        this.clearTodo();
-      });
-
     this.formFacade.setFormConfig(this.formName, {
       animations: true,
-      structure: STRUCTURE
+      structure: STRUCTURE,
+      enabled: false
     });
+
+    this.formFacade.setData(this.formName, { todo: this.todo });
+
+    this.sub = this.formFacade
+      .formSubmits$(this.formName)
+      .subscribe(({ todo }) => {
+        // all field might not be present in the form
+        // only add the id field to the submitted value
+        const todoToSave = { ...todo, id: this.todo.id };
+        this.facade.updateTodo(todoToSave);
+      });
   }
 
-  clearTodo() {
-    this.facade.clearSelected();
-    this.updateTodoUrl();
+  createTodoNote(value: string) {
+    if (value !== '') {
+      this.facade.createTodoNote(value);
+    }
   }
 
-  updateTodoUrl(id?: string) {
-    const url = id ? `/todos/${id}` : '/todos';
-    // this.routerFacade.updateUrl(url);
+  deleteTodoNote(id: string) {
+    this.facade.deleteTodoNote(id);
+  }
+
+  toggleEdit(enabled: boolean) {
+    this.formFacade.setFormConfig(this.formName, { enabled });
   }
 
   ngOnDestroy() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
+    if (this.sub) this.sub.unsubscribe();
   }
 }

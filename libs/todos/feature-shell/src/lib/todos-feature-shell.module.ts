@@ -9,12 +9,11 @@ import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
 import { CommonDynamicFormModule } from '@uqt/common/dynamic-form';
 import { TodosFeatureShellRoutingModule } from './todos-feature-shell-routing.module';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
-import { TodoLayoutComponent } from './ui/todos-layout.component';
 import { SharedAuthComponentsModule } from '@uqt/shared/auth/components';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 
 @NgModule({
-  declarations: [TodoFeatureShellComponent, TodoLayoutComponent],
+  declarations: [TodoFeatureShellComponent],
   imports: [
     TodosDataAccessModule,
     AllTodosModule,
