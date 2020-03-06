@@ -38,3 +38,6 @@
 
 - remove utility middleware once this is supported natively
   https://github.com/apollographql/apollo-feature-requests/issues/6
+
+- when the small scroll package is available, use this for the drag & drop
+  https://github.com/angular/components/pull/18082
