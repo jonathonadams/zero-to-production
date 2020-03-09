@@ -25,14 +25,14 @@
     "lodash.keyby": "^4.6.0",
     "lodash.merge": "^4.6.2",
     "lodash.omit": "^4.5.0",
-    "mongoose": "^5.9.3",
+    "mongoose": "^5.9.4",
     "pem-jwk": "^2.0.0",
     "jwks-rsa": "^1.7.0"
   },
   "devDependencies": {
-    "@angular/cli": "^9.0.5",
+    "@angular/cli": "^9.0.6",
     "@uqt/ng-node": "0.0.6",
     "typescript": "~3.7.5",
-    "@types/mongoose": "^5.7.3"
+    "@types/mongoose": "^5.7.6"
   }
 }

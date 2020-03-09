@@ -44,7 +44,7 @@ export const todosReducer = createReducer(
     return { ...state, statusFilter: filter };
   }),
   on(TodoActions.loadTodosSuccess, (state, { todos }) => {
-    return adapter.addAll(todos, state);
+    return adapter.setAll(todos, state);
   }),
   on(TodoActions.createTodoSuccess, (state, { todo }) => {
     return adapter.addOne(todo, state);

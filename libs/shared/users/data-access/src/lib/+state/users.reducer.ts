@@ -24,7 +24,7 @@ export const usersReducer = createReducer(
     return { ...state, selectedUserId: null };
   }),
   on(UserActions.loadUsersSuccess, (state, { users }) => {
-    return adapter.addAll(users, state);
+    return adapter.setAll(users, state);
   }),
   on(UserActions.loadUserSuccess, (state, { user }) => {
     return adapter.addOne(user, state);

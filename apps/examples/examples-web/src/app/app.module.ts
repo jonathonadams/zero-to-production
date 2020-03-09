@@ -32,18 +32,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
   imports: [
     BrowserModule.withServerTransition({ appId: 'zeroToProduction' }),
     BrowserAnimationsModule,
-    StoreModule.forRoot<AppState>(appReducerMap, {
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-        strictStateSerializability: true,
-        strictActionSerializability: true
-      }
-    }),
+    StoreModule.forRoot<AppState>(appReducerMap),
     EffectsModule.forRoot([AppEffects]),
-    StoreRouterConnectingModule.forRoot({
-      routerState: RouterState.Minimal
-    }),
+    StoreRouterConnectingModule.forRoot(),
     SharedDataAccessApiModule.forRoot(environment),
     SharedAuthDataAccessModule.forRoot({
       authServerUrl: environment.serverUrl

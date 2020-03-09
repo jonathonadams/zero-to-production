@@ -29,7 +29,7 @@ export const formsReducer = createReducer(
     return { ...state, selectedFormName: null };
   }),
   on(FormActions.loadFormsSuccess, (state, { forms }) => {
-    return adapter.addAll(forms, state);
+    return adapter.setAll(forms, state);
   }),
   on(FormActions.createFormSuccess, (state, { form }) => {
     return adapter.addOne(form, state);
