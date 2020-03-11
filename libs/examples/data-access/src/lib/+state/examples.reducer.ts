@@ -14,7 +14,7 @@ export const initialExampleState: ExamplesEntityState = adapter.getInitialState(
 export const examplesReducer = createReducer(
   initialExampleState,
   on(ExampleActions.addExamples, (state, { examples }) => {
-    return adapter.addAll(examples, state);
+    return adapter.setAll(examples, state);
   })
 );
 

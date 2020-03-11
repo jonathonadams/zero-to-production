@@ -32,7 +32,7 @@ export class AuthEffects {
           )
         )
       ),
-    { resubscribeOnError: false }
+    { useEffectsErrorHandler: false }
   );
 
   loginSuccess$ = createEffect(() =>
@@ -64,7 +64,7 @@ export class AuthEffects {
           )
         )
       ),
-    { resubscribeOnError: false }
+    { useEffectsErrorHandler: false }
   );
 
   registerSuccess$ = createEffect(() =>
