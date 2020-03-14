@@ -6,13 +6,13 @@ import {
 } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import {
   DynamicFormFacade,
-  TFormGroups,
+  TFormStructure,
   FormGroupTypes,
   FormFieldTypes,
-  InputFieldTypes
+  InputFieldTypes,
+  FormArrayTypes
 } from '@uqt/common/dynamic-form';
 import { CodeHighlightService } from '@uqt/examples/utils';
 import { IExample, ExamplesFacade } from '@uqt/examples/data-access';
@@ -22,78 +22,87 @@ import {
   moduleRegistry,
   setStructureMarkup
 } from './dynamic-form.code';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
-const SIMPLE_FORM: TFormGroups = [
+const SIMPLE_FORM: TFormStructure = [
   {
-    groupName: 'contactDetails',
+    displayName: 'Core Details',
+    groupName: 'coreDetails',
     groupType: FormGroupTypes.Group,
     fields: [
       {
         type: FormFieldTypes.Input,
-        name: 'contactNumber',
-        label: 'Contact Number',
-        validators: [Validators.required]
-      },
-      {
-        type: FormFieldTypes.Input,
-        inputType: InputFieldTypes.Email,
-        name: 'emailAddress',
-        label: 'Email Address',
-        validators: [Validators.required, Validators.email]
-      }
-    ]
-  }
-];
-
-const COMPLEX_FORM: TFormGroups = [
-  {
-    groupName: 'userDetails',
-    groupType: FormGroupTypes.Group,
-    fields: [
-      {
-        type: FormFieldTypes.Input,
-        name: 'givenName',
-        label: 'Given Name',
-        autocomplete: 'given-name',
+        name: 'firstName',
+        label: 'First Name',
         validators: [Validators.required]
       },
       {
         type: FormFieldTypes.Input,
         name: 'surname',
-        autocomplete: 'family-name',
-        label: 'Email Address'
+        label: 'Surname',
+        validators: [Validators.required]
       }
     ]
   }
-  // {
-  //   groupName: 'contactDetails',
-  //   groupType: FormGroupTypes.Array,
-  //   arrayType: FormArrayTypes.Field,
-  //   initialNumber: 3,
-  //   field: {
-  //     type: FormFieldTypes.Input,
-  //     name: 'contactDetails',
-  //     label: 'Contact Details'
-  //   }
-  // },
-  // {
-  //   groupName: 'someMoreDetails',
-  //   groupType: FormGroupTypes.Array,
-  //   arrayType: FormArrayTypes.Group,
-  //   initialNumber: 3,
-  //   fields: [
-  //     {
-  //       type: FormFieldTypes.Input,
-  //       name: 'phone',
-  //       label: 'Phone Number'
-  //     },
-  //     {
-  //       type: FormFieldTypes.Input,
-  //       name: 'email',
-  //       label: 'Email Address'
-  //     }
-  //   ]
-  // }
+];
+
+const COMPLEX_FORM: TFormStructure = [
+  {
+    displayName: 'Core Details',
+    groupName: 'coreDetails',
+    groupType: FormGroupTypes.Group,
+    fields: [
+      {
+        type: FormFieldTypes.Input,
+        name: 'firstName',
+        label: 'First Name',
+        validators: [Validators.required]
+      },
+      {
+        type: FormFieldTypes.Input,
+        name: 'surname',
+        label: 'Surname',
+        validators: [Validators.required]
+      },
+      {
+        type: FormFieldTypes.DatePicker,
+        name: 'dob',
+        label: 'Date Of Birth'
+      },
+      {
+        type: FormFieldTypes.Input,
+        inputType: InputFieldTypes.Email,
+        name: 'email',
+        label: 'Email Address',
+        validators: [Validators.email]
+      }
+    ]
+  },
+  {
+    displayName: 'Dependents',
+    groupName: 'dependents',
+    groupType: FormGroupTypes.Array,
+    arrayType: FormArrayTypes.Group,
+    classes: ['example-dependents'],
+    number: 2,
+    fields: [
+      {
+        type: FormFieldTypes.Input,
+        name: 'name',
+        label: 'Name'
+      },
+      {
+        type: FormFieldTypes.DatePicker,
+        name: 'dob',
+        label: 'Date Of Birth'
+      },
+      {
+        type: FormFieldTypes.CheckBox,
+        name: 'dependent',
+        label: 'Financially Dependent'
+      }
+    ]
+  }
 ];
 
 @Component({
@@ -105,7 +114,6 @@ const COMPLEX_FORM: TFormGroups = [
 export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
   readonly formName = 'dynamic-form-example';
   example$: Observable<IExample | undefined>;
-  simpleStructure = true;
   submit$: Observable<any>;
 
   setStructureMarkup = setStructureMarkup;
@@ -124,31 +132,39 @@ export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.formFacade.setFormConfig(this.formName, { structure: SIMPLE_FORM });
+    this.formFacade.setFormConfig(this.formName, {
+      classes: ['example-form'],
+      structure: SIMPLE_FORM
+    });
   }
 
   ngAfterViewInit() {
     this.highlight.highlightAll();
   }
 
-  setStructure(simpleForm: boolean) {
-    if (simpleForm) {
-      this.formFacade.setFormConfig(this.formName, { structure: SIMPLE_FORM });
-    } else {
+  complexForm(complex: boolean) {
+    if (complex) {
       this.formFacade.setFormConfig(this.formName, { structure: COMPLEX_FORM });
+    } else {
+      this.formFacade.setFormConfig(this.formName, { structure: SIMPLE_FORM });
     }
-    this.simpleStructure = simpleForm;
   }
 
-  toggleAnimations(change: MatSlideToggleChange) {
+  toggleAnimations(change: MatCheckboxChange) {
     this.formFacade.setFormConfig(this.formName, {
       animations: change.checked
     });
   }
 
-  togglePagination(change: MatSlideToggleChange) {
+  togglePagination(change: MatCheckboxChange) {
     this.formFacade.setFormConfig(this.formName, {
       paginateSections: change.checked
+    });
+  }
+
+  toggleDisabled(change: MatCheckboxChange) {
+    this.formFacade.setFormConfig(this.formName, {
+      enabled: !change.checked
     });
   }
 }

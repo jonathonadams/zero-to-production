@@ -55,19 +55,24 @@
 
     <h3>Try it below</h3>
     <section class="form-config">
-      <h4>Form Config</h4>
       <aside class="config">
-        <button mat-raised-button (click)="setStructure(!simpleStructure)">
-          {{ simpleStructure ? 'Form with Sections' : 'Simple Form' }}
-        </button>
-        <mat-slide-toggle (change)="toggleAnimations($event)"
-          >Animations</mat-slide-toggle
-        >
-        <mat-slide-toggle (change)="togglePagination($event)"
-          >Section Pagination</mat-slide-toggle
-        >
+        <mat-checkbox (change)="complexForm($event.checked)">
+          Complex Form
+        </mat-checkbox>
+
+        <mat-checkbox (change)="toggleAnimations($event)">
+          Animations
+        </mat-checkbox>
+
+        <mat-checkbox (change)="togglePagination($event)">
+          Section Pagination
+        </mat-checkbox>
+
+        <mat-checkbox (change)="toggleDisabled($event)">
+          Disabled
+        </mat-checkbox>
       </aside>
-      <h4>Rendered Form</h4>
+
       <app-dynamic-form [formName]="formName">
         <button mat-raised-button type="submit">Submit</button>
       </app-dynamic-form>

@@ -4,6 +4,7 @@
   the below issue is resolved.
 
   https://github.com/facebook/jest/issues/4842
+  https://github.com/facebook/jest/issues/9430
 
   Change Ramda imports after jest allows native modules
   https://github.com/ramda/ramda/issues/2406
@@ -16,7 +17,6 @@
 
 - TS Path References are not inherited
   Once merged, remove references from the tsconfig.lib.json's
-
   https://github.com/Microsoft/TypeScript/issues/27098
 
 - RouterLink directive is broken for relative paths with empty strings
@@ -26,18 +26,21 @@
 - Nativescript does not currently support the monorepo design
   https://github.com/NativeScript/NativeScript/issues/7537
 
-- Configure Form Builder to scroll screens if out of view
-  https://github.com/angular/components/issues/13588
-
-- TypeScript `-b` command does not allow additional flags.
+* TypeScript `-b` command does not allow additional flags.
   once this is implemented, then there will be no need for the `tsconfig.docker.json` files for the building of docker
   https://github.com/microsoft/TypeScript/issues/25613
 
-- Improve firebase function schematic to point to local firebase.json once implemented
+* Improve firebase function schematic to point to local firebase.json once implemented
   https://github.com/firebase/firebase-tools/issues/590
 
-- remove utility middleware once this is supported natively
+* remove utility middleware once this is supported natively
   https://github.com/apollographql/apollo-feature-requests/issues/6
 
-- when the small scroll package is available, use this for the drag & drop
+* when the small scroll package is available, use this for the drag & drop
   https://github.com/angular/components/pull/18082
+
+* Currently the todos query manually removes a todo from the cache on the all todos query ONLY
+  This is not an issue in the Todo App because there is only one query, however this would not work
+  If different queries quried todos.
+  When Apollo Client v3 (apollo-angular 2) is released, use the cache.evict /.release /.gc etc
+  https://github.com/apollographql/apollo-feature-requests/issues/5

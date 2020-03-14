@@ -5,10 +5,8 @@ import helmet from 'koa-helmet';
 import bearerToken from 'koa-bearer-token';
 // @ts-ignore
 import compress from 'koa-compress';
-// @ts-ignore
 import bodyParser from 'koa-bodyparser';
-// @ts-ignore
-import cors from 'kcors';
+import cors from '@koa/cors';
 import { errorHandler } from './err-handler';
 
 // Configure middleware to parse income requests

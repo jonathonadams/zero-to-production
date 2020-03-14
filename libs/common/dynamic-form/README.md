@@ -12,7 +12,15 @@ TODO - Document
 
 Run `ng test common-dynamic-form` to execute the unit tests.
 
-## Outstanding (TODO)
+## Requirements
+
+formGroup names need to be unique
+
+## Outstanding
 
 - a11y Announcer
-- Remove default values from the fields and update the data instead
+
+## Potential updates
+
+- allow field of a form group to be an array
+- allow fields to be conditionally dependent on each other

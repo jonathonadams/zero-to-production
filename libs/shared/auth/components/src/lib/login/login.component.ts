@@ -8,14 +8,14 @@ import { Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import {
   DynamicFormFacade,
-  TFormGroups,
+  TFormStructure,
   FormGroupTypes,
   FormFieldTypes,
   InputFieldTypes
 } from '@uqt/common/dynamic-form';
 import { AuthFacade, ILoginCredentials } from '@uqt/shared/data-access/auth';
 
-const STRUCTURE: TFormGroups = [
+const STRUCTURE: TFormStructure = [
   {
     groupName: 'credentials',
     groupType: FormGroupTypes.Group,

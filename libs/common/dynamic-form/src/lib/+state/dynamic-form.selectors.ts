@@ -16,23 +16,14 @@ export function selectForm(formName: string) {
   return createSelector(selectFormEntities, forms => forms[formName]);
 }
 
-export function selectFormConfig(formName: string) {
-  return createSelector(selectForm(formName), form =>
-    form ? form.config : undefined
-  );
-}
-
-export function selectFormStructure(formName: string) {
-  return createSelector(selectForm(formName), form =>
-    form ? form.config.structure : undefined
-  );
-}
-
-export function selectFormData(formName: string) {
-  return createSelector(selectForm(formName), form =>
-    form ? form.data : undefined
-  );
-}
+/**
+ * selectors only trigger when changes occur
+ *
+ * DO NOT DELETE, if you only select the top level state,
+ * each time the store is updated with values it will cause
+ * all other selectors to trigger.
+ * this means the form will be build each time!!!
+ */
 
 export function selectFormErrors(formName: string) {
   return createSelector(selectForm(formName), form =>
@@ -40,14 +31,25 @@ export function selectFormErrors(formName: string) {
   );
 }
 
-export function selectFormValidators(formName: string) {
+export function selectFormConfig(formName: string) {
   return createSelector(selectForm(formName), form =>
-    form ? form.config.formValidators : undefined
+    form ? form.config : undefined
   );
 }
 
 export function selectFormIndex(formName: string) {
   return createSelector(selectForm(formName), form =>
     form ? form.index : undefined
+  );
+}
+export function selectFormStructure(formName: string) {
+  return createSelector(selectFormConfig(formName), config =>
+    config ? config.structure : undefined
+  );
+}
+
+export function selectFormValidators(formName: string) {
+  return createSelector(selectFormConfig(formName), config =>
+    config ? config.formValidators : undefined
   );
 }

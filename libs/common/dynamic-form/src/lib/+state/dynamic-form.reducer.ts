@@ -34,16 +34,17 @@ export const formReducer = createReducer(
   }),
   on(DynamicFormActions.setFormConfig, (state, { formName, config }) => {
     const currentState = state.entities[formName] as DynamicFormState;
-    checkEntityAndThrow(currentState, formName);
-    return adapter.updateOne(
-      {
-        id: formName,
-        changes: { config: { ...currentState.config, ...config } }
-      },
-      state
-    );
+    if (currentState) {
+      const newState = { ...currentState.config, ...config };
+      return adapter.updateOne(
+        { id: formName, changes: { config: newState } },
+        state
+      );
+    } else {
+      return state;
+    }
   }),
-  on(DynamicFormActions.updateFormData, (state, { formName, data }) => {
+  on(DynamicFormActions.updateFormDataState, (state, { formName, data }) => {
     return adapter.updateOne({ id: formName, changes: { data } }, state);
   }),
   on(DynamicFormActions.formErrorsComplete, (state, { formName, errors }) => {
@@ -100,10 +101,13 @@ export function reducer(
   return formReducer(state, action);
 }
 
-export function generateInitialFormConfig(config: Partial<IDynamicFormConfig>) {
+export function generateInitialFormConfig(
+  config: Partial<IDynamicFormConfig>
+): IDynamicFormConfig {
   return {
     ...{
       formName: '',
+      enabled: true,
       animations: false,
       paginateSections: false,
       structure: [],

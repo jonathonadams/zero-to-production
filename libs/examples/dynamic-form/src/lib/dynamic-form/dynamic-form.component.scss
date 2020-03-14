@@ -16,7 +16,10 @@
 
     @media (max-width: 599px) {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
+      & > * {
+        margin-top: 0.5em;
+      }
     }
   }
 }

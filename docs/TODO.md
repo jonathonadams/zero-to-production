@@ -4,6 +4,7 @@
 
 - [ ] Specify minium Node version,
   - serverless deploy requires 12.10 for recursive rmdir
+- [ ] Thoroughly document the API Auth module
 
 ### App
 
@@ -11,7 +12,7 @@
 
 ### Dynamic Form
 
-- [ ] Make dynamic form use recursive field types (array/group)
+- [x] allow form to use form array fields or array groups
 - [ ] Documentation
 - [ ] Write tests for dynamic form
 

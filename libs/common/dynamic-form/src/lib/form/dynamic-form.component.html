@@ -7,18 +7,17 @@ is currently configured.
  -->
 <form
   *ngIf="form"
-  class="uqt-dynamic-form"
+  class="uqt-form"
+  [ngClass]="config.classes ? config.classes : []"
   [formGroup]="form"
   autocomplete="off"
   (ngSubmit)="onSubmit(form)"
-  [@.disabled]="!(config$ | async)?.animations"
+  [@.disabled]="!config?.animations"
 >
   <!-- Pagination is the main top level config.  -->
   <ng-container
     [ngTemplateOutlet]="
-      (config$ | async)?.paginateSections
-        ? formWithPagination
-        : formWithoutPagination
+      config?.paginateSections ? formWithPagination : formWithoutPagination
     "
     [ngTemplateOutletContext]="topLevelContext"
   ></ng-container>
@@ -40,7 +39,7 @@ is currently configured.
       <ng-container *ngIf="$any(formIdx$ | async) === idx">
         <ng-container
           [ngTemplateOutlet]="
-            isGroupFields(structure.groupType) ? formFields : arrayGroup
+            isGroupFields(structure.groupType) ? formFieldsGroup : arrayGroup
           "
           [ngTemplateOutletContext]="
             createTemplateOutletContext(formGroup, structure)
@@ -52,7 +51,7 @@ is currently configured.
 
   <!-- selection buttons -->
   <ng-container *ngIf="structure$ | async as str">
-    <div class="uqt-navigation-buttons" *ngIf="str && str.length > 1">
+    <div class="uqt-nav-buttons" *ngIf="str && str.length > 1">
       <button
         type="button"
         mat-icon-button
@@ -75,13 +74,13 @@ is currently configured.
 </ng-template>
 
 <!-- ######################################################### -->
-<!-- Template outlet if the form doe not have pagination and all sections are shown at once-->
+<!-- Template outlet if the form does not have pagination and all sections are shown at once-->
 <ng-template #formWithoutPagination let-formGroup="formGroup">
   <ng-container [formGroup]="formGroup">
     <ng-container *ngFor="let structure of structure$ | async; let idx = index">
       <ng-container
         [ngTemplateOutlet]="
-          isGroupFields(structure.groupType) ? formFields : arrayGroup
+          isGroupFields(structure.groupType) ? formFieldsGroup : arrayGroup
         "
         [ngTemplateOutletContext]="
           createTemplateOutletContext(formGroup, structure)
@@ -95,14 +94,19 @@ is currently configured.
 <!-- Individual form sections -->
 
 <!-- Is the form group type is a 'group', then render all the fields in the group (via directive) -->
-<ng-template #formFields let-structure="structure" let-formGroup="formGroup">
+<ng-template
+  #formFieldsGroup
+  let-structure="structure"
+  let-formGroup="formGroup"
+>
   <ng-container [formGroup]="formGroup">
-    <section
-      class="uqt-dynamic-form-section"
-      [ngClass]="structure.cssClasses ? structure.cssClasses : []"
+    <article
+      class="uqt-form-section"
+      [ngClass]="structure.classes ? structure.classes : []"
       [formGroupName]="structure.groupName"
       @centerExpand
     >
+      <h4 *ngIf="structure.displayName">{{ structure.displayName }}</h4>
       <ng-container
         *ngFor="let field of structure.fields"
         appDynamicFormField
@@ -111,7 +115,7 @@ is currently configured.
         [group]="getFormGroup(formGroup, structure.groupName)"
       >
       </ng-container>
-    </section>
+    </article>
   </ng-container>
 </ng-template>
 
@@ -139,12 +143,22 @@ is currently configured.
 >
   <ng-container [formGroup]="formGroup">
     <!-- The array group is a collection of form controls -->
-    <section
-      class="uqt-dynamic-form-section"
-      [ngClass]="structure.cssClasses ? structure.cssClasses : []"
+    <article
+      class="uqt-form-section uqt-field-array"
+      [ngClass]="structure.classes ? structure.classes : []"
       [formArrayName]="structure.groupName"
       @centerExpand
     >
+      <span class="uqt-form-header">
+        <h4 *ngIf="structure.displayName">{{ structure.displayName }}</h4>
+        <button
+          type="button"
+          mat-icon-button
+          (click)="addFieldToFormArray(formGroup, structure)"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </span>
       <ng-container
         *ngFor="
           let field of getArrayGroupControls(formGroup, structure.groupName);
@@ -156,8 +170,16 @@ is currently configured.
         [field]="structure.field"
         [group]="getFormGroup(formGroup, structure.groupName)"
       >
+        <button
+          class="uqt-remove-button"
+          mat-icon-button
+          type="button"
+          (click)="removeArrayField(formGroup, i, structure.groupName)"
+        >
+          <mat-icon>clear</mat-icon>
+        </button>
       </ng-container>
-    </section>
+    </article>
   </ng-container>
 </ng-template>
 
@@ -168,11 +190,22 @@ is currently configured.
   let-formGroup="formGroup"
 >
   <ng-container [formGroup]="formGroup">
-    <section
-      [ngClass]="structure.cssClasses ? structure.cssClasses : []"
+    <article
+      class="uqt-form-section"
+      [ngClass]="structure.classes ? structure.classes : []"
       [formArrayName]="structure.groupName"
       @centerExpand
     >
+      <span class="uqt-form-header">
+        <h4 *ngIf="structure.displayName">{{ structure.displayName }}</h4>
+        <button
+          type="button"
+          mat-icon-button
+          (click)="addGroupToFormArray(formGroup, structure)"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </span>
       <ng-container
         *ngFor="
           let arrayGroup of getFormArrayFormGroups(
@@ -191,8 +224,16 @@ is currently configured.
             [group]="arrayGroup"
           >
           </ng-container>
+          <button
+            class="uqt-remove-button"
+            mat-icon-button
+            type="button"
+            (click)="removeArrayField(formGroup, i, structure.groupName)"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
         </div>
       </ng-container>
-    </section>
+    </article>
   </ng-container>
 </ng-template>

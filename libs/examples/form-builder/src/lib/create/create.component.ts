@@ -7,7 +7,7 @@ import {
 import { Observable, Subscription } from 'rxjs';
 import { FormBuilderFacade } from '@uqt/common/form-builder';
 import {
-  TFormGroups,
+  TFormStructure,
   FormGroupTypes,
   FormFieldTypes,
   DynamicFormFacade,
@@ -16,11 +16,11 @@ import {
 import { Validators } from '@angular/forms';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
-const STRUCTURE: TFormGroups = [
+const STRUCTURE: TFormStructure = [
   {
     groupName: 'config',
     groupType: FormGroupTypes.Group,
-    cssClasses: ['form-builder-create'],
+    classes: ['form-builder-create'],
     fields: [
       {
         type: FormFieldTypes.Input,

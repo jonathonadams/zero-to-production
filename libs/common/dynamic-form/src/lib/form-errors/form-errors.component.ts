@@ -9,7 +9,7 @@ import {
 import { timer, Observable, Subscription } from 'rxjs';
 import { formErrorsAnimations } from './form-errors.animations';
 import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 // TODO a11y Announcer
 
@@ -27,7 +27,7 @@ export class FormErrorsComponent implements OnDestroy {
 
   @Input()
   set formName(name: string) {
-    this.errors$ = this.facade.selectErrors(name);
+    this.errors$ = this.facade.selectForm(name).pipe(map(form => form?.errors));
   }
 
   @Output() dismiss = new EventEmitter<void>();

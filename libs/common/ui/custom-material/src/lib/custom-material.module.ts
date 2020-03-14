@@ -12,7 +12,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
@@ -34,7 +33,6 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
-    MatSlideToggleModule,
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -58,7 +56,6 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
-    MatSlideToggleModule,
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,

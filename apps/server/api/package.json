@@ -8,6 +8,7 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/boom": "^9.0.0",
+    "@koa/cors": "^3.0.0",
     "@koa/router": "^8.0.8",
     "@sendgrid/mail": "^6.5.4",
     "apollo-server-koa": "^2.11.0",
@@ -17,9 +18,9 @@
     "graphql-iso-date": "^3.6.1",
     "graphql-tools": "^4.0.7",
     "jsonwebtoken": "^8.5.1",
-    "kcors": "^2.2.2",
     "koa": "^2.11.0",
     "koa-bearer-token": "^1.0.0",
+    "koa-bodyparser": "^4.2.1",
     "koa-compress": "^3.0.0",
     "koa-helmet": "^5.2.0",
     "lodash.keyby": "^4.6.0",

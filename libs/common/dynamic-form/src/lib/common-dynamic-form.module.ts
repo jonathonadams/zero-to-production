@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { DynamicFormComponent } from './form/form.component';
+import { DynamicFormComponent } from './form/dynamic-form.component';
 import {
   DynamicFormFieldDirective,
   DYNAMIC_FORM_COMPONENTS
