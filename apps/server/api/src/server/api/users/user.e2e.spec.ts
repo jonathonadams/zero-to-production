@@ -8,7 +8,7 @@ import { authConfig } from '../../../environments';
 import { IUser } from '@uqt/data';
 import ApiServer from '../../server';
 import { Server } from 'http';
-import { User } from '.';
+import { User } from './user.model';
 
 // Need to import and run the server because
 // the server is also our "auth server"

@@ -7,7 +7,7 @@ export const todoTypeDef = gql`
     title: String!
     description: String!
     completed: Boolean!
-    dueDate: Date
+    dueDate: String @formatDate
     notes: [TodoNote]!
   }
 

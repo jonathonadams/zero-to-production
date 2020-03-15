@@ -12,10 +12,10 @@ let connection: Connection;
  */
 export async function connectToDatabase(dbUri: string) {
   if (connection) {
-    console.log('=> using cached database instance');
+    // console.log('=> using cached database instance');
     return connection;
   }
-  console.log('=> connecting to database');
+  // console.log('=> connecting to database');
 
   /**
    * Because the environnement is as cloud function,

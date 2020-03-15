@@ -5,12 +5,11 @@ import {
   createTodosRouter,
   getTodoNoteModel
 } from '@uqt/server/core-data';
-import { TResolverAuthGuard } from '@uqt/server/auth';
 
-export const todosResolvers = (con: Connection, guard: TResolverAuthGuard) => {
+export const todosResolvers = (con: Connection) => {
   const Todo = getTodoModel(con);
   const TodoNote = getTodoNoteModel(con);
-  return createTodosResolver(Todo, TodoNote, guard);
+  return createTodosResolver(Todo, TodoNote);
 };
 
 export const todosRouter = (con: Connection) => {

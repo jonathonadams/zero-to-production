@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import Router from '@koa/router';
-import { verifyTokenRest } from './auth/auth.guards';
+import { authenticateRest } from './auth/auth.guards';
 import { usersRouter, todosRouter } from './api';
 
 export function applyRestEndpoints(app: Koa) {
@@ -9,7 +9,7 @@ export function applyRestEndpoints(app: Koa) {
   });
 
   // Global check to ensure token is valid
-  router.use(verifyTokenRest);
+  router.use(authenticateRest);
 
   // Apply all your routes here
   router.use('/users', usersRouter.routes());

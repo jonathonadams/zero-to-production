@@ -43,7 +43,7 @@ export function generateRestControllers<T extends Document>(
     getAll: async (ctx: ParameterizedContext) => {
       ctx.status = 200;
       ctx.body = await controllers.getAll(
-        userResourcesOnly ? ctx.state.user.sub : undefined
+        userResourcesOnly ? ctx.user.sub : undefined
       );
     },
     getOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
@@ -51,7 +51,7 @@ export function generateRestControllers<T extends Document>(
         ctx.status = 200;
         ctx.body = await controllers.getOne(
           ctx.state.id,
-          userResourcesOnly ? ctx.state.user.sub : undefined
+          userResourcesOnly ? ctx.user.sub : undefined
         );
       } catch (err) {
         throw err;
@@ -61,7 +61,7 @@ export function generateRestControllers<T extends Document>(
       ctx.status = 201;
       ctx.body = await controllers.createOne(
         (ctx.request as any).body,
-        userResourcesOnly ? ctx.state.user.sub : undefined
+        userResourcesOnly ? ctx.user.sub : undefined
       );
     },
     updateOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
@@ -70,7 +70,7 @@ export function generateRestControllers<T extends Document>(
         ctx.body = await controllers.updateOne(
           ctx.state.id,
           (ctx.request as any).body,
-          userResourcesOnly ? ctx.state.user.sub : undefined
+          userResourcesOnly ? ctx.user.sub : undefined
         );
       } catch (err) {
         throw err;
@@ -81,7 +81,7 @@ export function generateRestControllers<T extends Document>(
         ctx.status = 200;
         ctx.body = await controllers.removeOne(
           ctx.state.id,
-          userResourcesOnly ? ctx.state.user.sub : undefined
+          userResourcesOnly ? ctx.user.sub : undefined
         );
       } catch (err) {
         throw err;

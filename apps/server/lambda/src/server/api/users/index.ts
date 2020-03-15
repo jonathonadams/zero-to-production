@@ -4,11 +4,10 @@ import {
   createUsersRouter
 } from '@uqt/server/core-data';
 import { Connection } from 'mongoose';
-import { TResolverAuthGuard } from '@uqt/server/auth';
 
-export const usersResolvers = (con: Connection, guard: TResolverAuthGuard) => {
+export const usersResolvers = (con: Connection) => {
   const User = getUserModel(con);
-  return createUsersResolver(User, guard);
+  return createUsersResolver(User);
 };
 
 export const usersRouter = (con: Connection) => {

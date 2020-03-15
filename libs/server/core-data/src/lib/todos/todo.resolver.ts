@@ -1,18 +1,15 @@
-import { createTypeResolver, swapId } from '@uqt/server/utils';
-import { TResolverAuthGuard } from '../interface';
+import { createTypeResolver } from '@uqt/server/utils';
 import { ITodoModel, ITodoDocument } from './todo';
 import { ITodoNoteModel } from './notes';
 import { createTodoControllers } from './todo.controllers';
 
 export const createTodosResolver = (
   Todo: ITodoModel,
-  TodoNote: ITodoNoteModel,
-  guard: TResolverAuthGuard
+  TodoNote: ITodoNoteModel
 ) => {
   const baseResolver = createTypeResolver<ITodoDocument>({
     model: Todo,
     name: 'Todo',
-    resolverAuthentication: guard,
     userResourcesOnly: true
   });
 
@@ -39,9 +36,9 @@ export const createTodosResolver = (
     return todoNoteControllers.removeTodoNoteController(id, userId);
   };
 
-  baseResolver.Query.allTodoNotes = guard(todoNotesResolver);
-  baseResolver.Mutation.newTodoNote = guard(newTodoNoteResolver);
-  baseResolver.Mutation.removeTodoNote = guard(removeTodoNoteResolver);
+  baseResolver.Query.allTodoNotes = todoNotesResolver;
+  baseResolver.Mutation.newTodoNote = newTodoNoteResolver;
+  baseResolver.Mutation.removeTodoNote = removeTodoNoteResolver;
   // field level resolvers
   baseResolver.Todo = {
     notes: todoNoteControllers.todoNotesFieldController

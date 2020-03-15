@@ -9,12 +9,10 @@ export type TResolverAuthGuard = (
 export function createTypeResolver<T extends mongoose.Document>({
   model,
   name,
-  resolverAuthentication,
   userResourcesOnly = false
 }: {
   model: mongoose.Model<T>;
   name: string;
-  resolverAuthentication?: TResolverAuthGuard;
   userResourcesOnly?: boolean;
 }): {
   Query: {
@@ -32,31 +30,15 @@ export function createTypeResolver<T extends mongoose.Document>({
   const resolvers = generateResolvers<T>(model, userResourcesOnly);
 
   const typeResolver = {
-    Query: {} as any,
-    Mutation: {} as any
+    Query: {
+      [`${name}`]: resolvers.getOne,
+      [`all${name}s`]: resolvers.getAll
+    },
+    Mutation: {
+      [`new${name}`]: resolvers.createOne,
+      [`update${name}`]: resolvers.updateOne,
+      [`remove${name}`]: resolvers.removeOne
+    }
   };
-
-  if (resolverAuthentication) {
-    typeResolver.Query[`${name}`] = resolverAuthentication(resolvers.getOne);
-    typeResolver.Query[`all${name}s`] = resolverAuthentication(
-      resolvers.getAll
-    );
-    typeResolver.Mutation[`new${name}`] = resolverAuthentication(
-      resolvers.createOne
-    );
-    typeResolver.Mutation[`update${name}`] = resolverAuthentication(
-      resolvers.updateOne
-    );
-    typeResolver.Mutation[`remove${name}`] = resolverAuthentication(
-      resolvers.removeOne
-    );
-  } else {
-    typeResolver.Query[`${name}`] = resolvers.getOne;
-    typeResolver.Query[`all${name}s`] = resolvers.getAll;
-    typeResolver.Mutation[`new${name}`] = resolvers.createOne;
-    typeResolver.Mutation[`update${name}`] = resolvers.updateOne;
-    typeResolver.Mutation[`remove${name}`] = resolvers.removeOne;
-  }
-
   return typeResolver;
 }

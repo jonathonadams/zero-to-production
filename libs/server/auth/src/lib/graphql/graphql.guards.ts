@@ -1,90 +1,96 @@
-import { verify } from 'jsonwebtoken';
-import { unauthorized } from '@hapi/boom';
-import { authenticateRequest } from './auth.graphql';
 import {
   GuardConfig,
   JWKSGuarConfig,
-  VerifyActiveUserConfig,
+  VerifyUserConfig,
   VerifyTokenJWKSConfig,
   VerifyTokenConfig,
-  AuthMiddleware
+  TResolver
 } from '../auth.interface';
 import { isJWKS } from '../auth-utils';
-import { retrievePublicKeyFormJWKS } from '../token';
+import {
+  verifyToken,
+  verifyUser,
+  verifyUserRole,
+  retrievePublicKeyFormJWKS
+} from '../authenticate';
 
-export function getGraphQlGuards(config: GuardConfig | JWKSGuarConfig) {
-  // Check if using JWKS or if public key is provided
+export function getGraphQLGuards(config: GuardConfig | JWKSGuarConfig) {
+  const { authenticate, authenticateUser, authorize } = createGraphQLGuards(
+    config
+  );
 
-  const verifyToken = isJWKS(config)
-    ? checkTokenJWKS(config)
-    : checkToken(config);
-
-  const verifyActiveUser = checkUserIsActive(config);
-
-  return createResolvers(verifyToken, verifyActiveUser);
+  return {
+    authenticate,
+    authenticateUser(next: TResolver) {
+      return authenticate(authenticateUser(next));
+    },
+    authorize(role: string, next: TResolver) {
+      return authenticate(authenticateUser(authorize(role, next)));
+    }
+  };
 }
 
-function createResolvers(
-  verifyToken: AuthMiddleware,
-  verifyActiveUser: AuthMiddleware
-) {
+export function createGraphQLGuards(config: GuardConfig | JWKSGuarConfig) {
+  // Check if using JWKS or if public key is provided
+  const authenticate = isJWKS(config)
+    ? authenticatedJWKS(config)
+    : authenticated(config);
+
+  const authenticateUser = authenticatedUser(config);
+
   return {
-    verifyToken: authenticateRequest([verifyToken]),
-    verifyActiveUser: authenticateRequest([verifyToken, verifyActiveUser])
+    authenticate,
+    authenticateUser,
+    authorize: authorized
+  };
+}
+
+/**
+ * verify the token signature
+ */
+export function authenticated(config: VerifyTokenConfig) {
+  return (next: TResolver): TResolver => async (root, args, ctx, info) => {
+    ctx.user = verifyToken(ctx.token, config.publicKey, config);
+    return await next(root, args, ctx, info);
   };
 }
 
 /**
  * Verify the token signature
- * Throws an error if the token is invalid
- *
- * @param secret access token secret
  */
-export function checkToken(config: VerifyTokenConfig): AuthMiddleware {
-  return async (parent, args, ctx, info) => {
-    try {
-      ctx.state.user = verify(ctx.token, config.publicKey, {
-        algorithms: ['RS256'],
-        issuer: config.issuer,
-        audience: config.audience
-      });
-    } catch (err) {
-      throw unauthorized(null, 'Bearer');
-    }
-  };
-}
-
-export function checkTokenJWKS(config: VerifyTokenJWKSConfig): AuthMiddleware {
+export function authenticatedJWKS(config: VerifyTokenJWKSConfig) {
   const getPublicKey = retrievePublicKeyFormJWKS(config);
 
-  return async (parent, args, ctx, info) => {
-    try {
-      const publicKey = await getPublicKey(ctx.token);
+  return (next: TResolver): TResolver => async (root, args, ctx, info) => {
+    const publicKey = await getPublicKey(ctx.token);
+    ctx.user = verifyToken(ctx.token, publicKey, config);
 
-      ctx.state.user = verify(ctx.token, publicKey, {
-        algorithms: ['RS256'],
-        issuer: config.issuer,
-        audience: config.audience
-      });
-    } catch (err) {
-      throw unauthorized(null, 'Bearer');
-    }
+    return await next(root, args, ctx, info);
   };
 }
 
 /**
  * Verify the user is a valid user in the database
- * Throws an error if the user is invalid
  *
- * @param User
  */
-export function checkUserIsActive({
-  User
-}: VerifyActiveUserConfig): AuthMiddleware {
-  return async (parent, args, context, info) => {
-    const id = context.state.user.sub;
-    const user = await User.findById(id);
-    if (!user || !user.active) throw unauthorized(null, 'Bearer');
-    context.state.user = user;
+export function authenticatedUser({ User }: VerifyUserConfig) {
+  const authUser = verifyUser(User);
+  return (next: TResolver): TResolver => async (root, args, ctx, info) => {
+    ctx.user = await authUser(ctx.user.sub);
+
+    return await next(root, args, ctx, info);
+  };
+}
+
+/**
+ * Verify the user role
+ */
+export function authorized(role: string, next: TResolver): TResolver {
+  const verifyRole = verifyUserRole(role);
+
+  return async (root, args, ctx, info) => {
+    // This does not return anything, it just throws if unauthorized
+    verifyRole(ctx.user.role);
+    return await next(root, args, ctx, info);
   };
 }

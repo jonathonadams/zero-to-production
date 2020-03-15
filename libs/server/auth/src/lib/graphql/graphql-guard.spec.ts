@@ -4,11 +4,11 @@ import mongoose from 'mongoose';
 jest.mock('jwks-rsa');
 import { koaJwtSecret } from 'jwks-rsa';
 import {
-  checkToken,
-  checkUserIsActive,
-  checkTokenJWKS
+  authenticated,
+  authenticatedJWKS,
+  authenticatedUser
 } from './graphql.guards';
-import { signAccessToken } from '../token';
+import { signAccessToken } from '../sign-tokens';
 import { MockUserModel } from '../__tests__/user.mock';
 import { IUserDocument, IUserModel } from '@uqt/server/core-data';
 import {
@@ -17,10 +17,13 @@ import {
   publicKey,
   invalidPublicKey
 } from '../__tests__/rsa-keys';
+import { TResolver } from '../auth.interface';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
 }
+
+const noOpNext: TResolver = async (src, args, ctx, info) => {};
 
 const issuer = 'some-issuer';
 const audience = 'say-hello!!!';
@@ -52,10 +55,10 @@ describe('GraphQL Auth Guards', () => {
     } as IUserDocument);
   });
 
-  describe('checkToken', () => {
+  describe('authenticated', () => {
     it('should not throw an error if a JWT is provided and is valid', async () => {
       await expect(
-        checkToken({ publicKey, issuer, audience })(
+        authenticated({ publicKey, issuer, audience })(noOpNext)(
           {},
           {},
           { state: {}, token: jwt },
@@ -66,7 +69,7 @@ describe('GraphQL Auth Guards', () => {
 
     it('should throw 401 Unauthorized if the JWT is not provided', async () => {
       await expect(
-        checkToken({ publicKey, issuer, audience })(
+        authenticated({ publicKey, issuer, audience })(noOpNext)(
           {},
           {},
           {},
@@ -77,7 +80,7 @@ describe('GraphQL Auth Guards', () => {
 
     it('should throw 401 Unauthorized if the JWT signature is not correct', async () => {
       await expect(
-        checkToken({ publicKey, issuer, audience })(
+        authenticated({ publicKey, issuer, audience })(noOpNext)(
           {},
           {},
           { token: invalidJwt },
@@ -88,38 +91,43 @@ describe('GraphQL Auth Guards', () => {
 
     it('should throw 401 Unauthorized if the JWT issuer is not correct', async () => {
       await expect(
-        checkToken({
+        authenticated({
           publicKey,
           issuer: 'some-different-issuer',
           audience
-        })({}, {}, { token: invalidJwt }, {} as GraphQLResolveInfo)
+        })(noOpNext)({}, {}, { token: invalidJwt }, {} as GraphQLResolveInfo)
       ).rejects.toThrowError();
     });
 
     it('should throw 401 Unauthorized if the JWT audience is not correct', async () => {
       await expect(
-        checkToken({
+        authenticated({
           publicKey,
           issuer,
           audience: 'wrong-audience'
-        })({}, {}, { token: invalidJwt }, {} as GraphQLResolveInfo)
+        })(noOpNext)({}, {}, { token: invalidJwt }, {} as GraphQLResolveInfo)
       ).rejects.toThrowError();
     });
   });
 
-  describe('checkTokenJWKS', () => {
+  describe('authenticatedJWKS', () => {
     it('should call the next handler if a valid JWT is provided and signed by the JWKS', async () => {
       (koaJwtSecret as any).mockReturnValueOnce(
         async (token: string) => publicKey
       );
 
       await expect(
-        checkTokenJWKS({
+        authenticatedJWKS({
           production: false,
           authServerUrl: 'http://some-url',
           issuer: issuer,
           audience
-        })({}, {}, { state: {}, token: jwt }, {} as GraphQLResolveInfo)
+        })(noOpNext)(
+          {},
+          {},
+          { state: {}, token: jwt },
+          {} as GraphQLResolveInfo
+        )
       ).resolves.not.toThrowError();
 
       (koaJwtSecret as any).mockReset();
@@ -131,12 +139,12 @@ describe('GraphQL Auth Guards', () => {
       );
 
       await expect(
-        checkTokenJWKS({
+        authenticatedJWKS({
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
           audience
-        })({}, {}, {}, {} as GraphQLResolveInfo)
+        })(noOpNext)({}, {}, {}, {} as GraphQLResolveInfo)
       ).rejects.toThrowError('Unauthorized');
 
       (koaJwtSecret as any).mockReset();
@@ -148,12 +156,17 @@ describe('GraphQL Auth Guards', () => {
       });
 
       await expect(
-        checkTokenJWKS({
+        authenticatedJWKS({
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
           audience
-        })({}, {}, { state: {}, token: jwt }, {} as GraphQLResolveInfo)
+        })(noOpNext)(
+          {},
+          {},
+          { state: {}, token: jwt },
+          {} as GraphQLResolveInfo
+        )
       ).rejects.toThrowError('Unauthorized');
 
       (koaJwtSecret as any).mockReset();
@@ -165,12 +178,17 @@ describe('GraphQL Auth Guards', () => {
       );
 
       await expect(
-        checkTokenJWKS({
+        authenticatedJWKS({
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
           audience
-        })({}, {}, { state: {}, token: jwt }, {} as GraphQLResolveInfo)
+        })(noOpNext)(
+          {},
+          {},
+          { state: {}, token: jwt },
+          {} as GraphQLResolveInfo
+        )
       ).rejects.toThrowError('Unauthorized');
 
       (koaJwtSecret as any).mockReset();
@@ -182,12 +200,17 @@ describe('GraphQL Auth Guards', () => {
       );
 
       await expect(
-        checkTokenJWKS({
+        authenticatedJWKS({
           production: false,
           authServerUrl: 'http://some-url',
           issuer: 'some-wrong-issuer',
           audience
-        })({}, {}, { state: {}, token: jwt }, {} as GraphQLResolveInfo)
+        })(noOpNext)(
+          {},
+          {},
+          { state: {}, token: jwt },
+          {} as GraphQLResolveInfo
+        )
       ).rejects.toThrowError('Unauthorized');
 
       (koaJwtSecret as any).mockReset();
@@ -199,19 +222,24 @@ describe('GraphQL Auth Guards', () => {
       );
 
       await expect(
-        checkTokenJWKS({
+        authenticatedJWKS({
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
           audience: 'wrong-audience'
-        })({}, {}, { state: {}, token: jwt }, {} as GraphQLResolveInfo)
+        })(noOpNext)(
+          {},
+          {},
+          { state: {}, token: jwt },
+          {} as GraphQLResolveInfo
+        )
       ).rejects.toThrowError('Unauthorized');
 
       (koaJwtSecret as any).mockReset();
     });
   });
 
-  describe('checkUserIsActive', () => {
+  describe('authenticatedUser', () => {
     it('should not throw an error if the user is present and active.', async () => {
       const id = newId();
       const mockUser = {
@@ -221,21 +249,18 @@ describe('GraphQL Auth Guards', () => {
 
       const spy = jest.spyOn(MockUserModel, 'findById');
 
-      const ctx = { state: { user: { sub: id } } };
+      const ctx = { user: { sub: id } };
       MockUserModel.userToRespondWith = mockUser;
 
       await expect(
-        checkUserIsActive({ User: (MockUserModel as unknown) as IUserModel })(
-          {},
-          {},
-          ctx,
-          {} as GraphQLResolveInfo
-        )
+        authenticatedUser({ User: (MockUserModel as unknown) as IUserModel })(
+          noOpNext
+        )({}, {}, ctx, {} as GraphQLResolveInfo)
       ).resolves.not.toThrowError();
 
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith(id);
-      expect((ctx.state as any).user).toEqual(mockUser);
+      expect(ctx.user).toEqual(mockUser);
 
       MockUserModel.reset();
     });
@@ -244,20 +269,18 @@ describe('GraphQL Auth Guards', () => {
       const id = newId();
       const spy = jest.spyOn(MockUserModel, 'findById');
 
-      const ctx = { state: { user: { sub: id } } };
+      const ctx = { user: { sub: id } };
       MockUserModel.userToRespondWith = null;
 
       await expect(
-        checkUserIsActive({ User: (MockUserModel as unknown) as IUserModel })(
-          {},
-          {},
-          ctx,
-          {} as GraphQLResolveInfo
-        )
+        authenticatedUser({ User: (MockUserModel as unknown) as IUserModel })(
+          noOpNext
+        )({}, {}, ctx, {} as GraphQLResolveInfo)
       ).rejects.toThrowError('Unauthorized');
 
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith(id);
+      expect((ctx.user as any).id).not.toBeDefined();
 
       MockUserModel.reset();
     });
@@ -271,21 +294,18 @@ describe('GraphQL Auth Guards', () => {
 
       const spy = jest.spyOn(MockUserModel, 'findById');
 
-      const ctx = { state: { user: { sub: id } } };
+      const ctx = { user: { sub: id } };
       MockUserModel.userToRespondWith = mockUser;
 
       await expect(
-        checkUserIsActive({ User: (MockUserModel as unknown) as IUserModel })(
-          {},
-          {},
-          ctx,
-          {} as GraphQLResolveInfo
-        )
+        authenticatedUser({ User: (MockUserModel as unknown) as IUserModel })(
+          noOpNext
+        )({}, {}, ctx, {} as GraphQLResolveInfo)
       ).rejects.toThrowError('Unauthorized');
 
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith(id);
-      expect((ctx.state as any).user).not.toEqual(mockUser);
+      expect(ctx.user).not.toEqual(mockUser);
 
       MockUserModel.reset();
     });

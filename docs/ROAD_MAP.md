@@ -8,6 +8,10 @@
   - Dynamic Animation Timing
   - Using Web Components
 
+### API
+
+- [ ] GraphQL: migrate from schema stitching to Apollo Federation?
+
 ### Mobile App
 
 - [ ] Create a Nativescript mobile app (see issues regarding monorepo support)

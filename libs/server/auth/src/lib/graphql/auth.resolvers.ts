@@ -1,4 +1,6 @@
 import { GraphQLFieldResolver } from 'graphql';
+import { IResolvers } from 'graphql-tools';
+import { IUser } from '@uqt/data';
 import {
   setupLoginController,
   setupRegisterController,
@@ -10,12 +12,11 @@ import {
   AuthModuleConfig,
   AvailableControllerConfig
 } from '../auth.interface';
-import { IUser } from '@uqt/data';
 import { setupEmailVerification } from '../send-email';
 
 // Verify can not be done via GraphQL because it will be a hyperlink in the
 // email they receive
-export function getAuthResolvers(config: AuthModuleConfig) {
+export function getAuthResolvers(config: AuthModuleConfig): IResolvers {
   const verificationEmail = setupEmailVerification(config.email);
   const registerConfig = { ...config.register, verificationEmail };
   return {

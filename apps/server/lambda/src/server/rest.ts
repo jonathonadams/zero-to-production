@@ -5,14 +5,14 @@ import { createRestGuards } from './auth/auth.guards';
 import { usersRouter, todosRouter } from './api';
 
 export function applyRestEndpoints(app: Koa, conn: Connection) {
-  const { verifyToken } = createRestGuards(conn);
+  const { authenticate } = createRestGuards(conn);
 
   const router = new Router({
     prefix: '/api'
   });
 
   // Global check to ensure token is valid
-  router.use(verifyToken);
+  router.use(authenticate);
 
   // Apply all your routes here
   router.use('/users', usersRouter(conn).routes());

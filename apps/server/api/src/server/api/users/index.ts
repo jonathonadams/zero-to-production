@@ -1,16 +1,8 @@
-import { model } from 'mongoose';
-import {
-  userDbKey,
-  userSchema,
-  IUserDocument,
-  IUserModel,
-  createUsersResolver,
-  createUsersRouter
-} from '@uqt/server/core-data';
-import { verifyTokenGraphQL } from '../../auth/auth.guards';
+import { User } from './user.model';
+import { createUsersResolver, createUsersRouter } from '@uqt/server/core-data';
 
-export const User = model<IUserDocument, IUserModel>(userDbKey, userSchema);
+export { User };
 
-export const userResolvers = createUsersResolver(User, verifyTokenGraphQL);
+export const userResolvers = createUsersResolver(User);
 
 export const usersRouter = createUsersRouter(User);
