@@ -5,7 +5,11 @@ import { tap, filter, take, map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import * as DynamicFormActions from './dynamic-form.actions';
 import * as fromDynamicForm from './dynamic-form.selectors';
-import { TFormGroups, IDynamicFormConfig } from '../dynamic-form.interface';
+import {
+  TFormStructure,
+  IDynamicFormConfig,
+  DynamicFormState
+} from '../dynamic-form.interface';
 
 @Injectable({ providedIn: 'root' })
 export class PrivateDynamicFormFacade {
@@ -14,32 +18,22 @@ export class PrivateDynamicFormFacade {
   }> = new Subject();
   submit$ = this.submitSubject.asObservable();
 
-  private triggerSubmitSubject = new Subject<string>();
-  submitTriggers$ = this.triggerSubmitSubject.asObservable();
+  triggerSubmit = new Subject<string>();
+  submitTriggers$ = this.triggerSubmit.asObservable();
 
   setDataSubject = new BehaviorSubject<{ [key: string]: any }>({});
 
   constructor(protected store: Store<any>) {}
 
-  checkExistsAndThrow(formName: string) {
-    return this.store
-      .pipe(
-        select(fromDynamicForm.selectForm(formName)),
-        take(1),
-        tap(form => {
-          if (!form) {
-            throw new Error(`${formName} form has not been initialized.`);
-          }
-        })
-      )
-      .subscribe(() => {});
+  selectForm(formName: string): Observable<DynamicFormState | undefined> {
+    return this.store.pipe(select(fromDynamicForm.selectForm(formName)));
   }
 
   selectConfig(formName: string): Observable<IDynamicFormConfig | undefined> {
     return this.store.pipe(select(fromDynamicForm.selectFormConfig(formName)));
   }
 
-  selectStructure(formName: string): Observable<TFormGroups | undefined> {
+  selectStructure(formName: string): Observable<TFormStructure | undefined> {
     return this.store.pipe(
       select(fromDynamicForm.selectFormStructure(formName))
     );
@@ -66,18 +60,20 @@ export class PrivateDynamicFormFacade {
     );
   }
 
+  updateDataState(formName: string, data: any) {
+    this.store.dispatch(
+      DynamicFormActions.updateFormDataState({ formName, data })
+    );
+  }
+
   setErrors(formName: string, errors: ValidationErrors) {
     this.store.dispatch(DynamicFormActions.setFormErrors({ formName, errors }));
   }
 
-  // This is only triggered from from either a valid form submit within the form component
+  // This is only triggered from either a valid form submit within the form component
   // or after a remotely triggered submit and passes validation
   internalSubmit(formName: string, data: any) {
     this.submitSubject.next({ [formName]: data });
-  }
-
-  triggerSubmit(formName: string) {
-    this.triggerSubmitSubject.next(formName);
   }
 
   submitTriggers(formName: string) {

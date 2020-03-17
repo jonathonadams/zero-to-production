@@ -11,13 +11,13 @@ import { ITodo } from '@uqt/data';
 import { TodosFacade } from '@uqt/todos/data-access';
 import {
   DynamicFormFacade,
-  TFormGroups,
+  TFormStructure,
   FormGroupTypes,
   FormFieldTypes
 } from '@uqt/common/dynamic-form';
 import { RouterFacade } from '@uqt/shared/data-access/router';
 
-const STRUCTURE: TFormGroups = [
+const STRUCTURE: TFormStructure = [
   {
     groupName: 'todo',
     groupType: FormGroupTypes.Group,

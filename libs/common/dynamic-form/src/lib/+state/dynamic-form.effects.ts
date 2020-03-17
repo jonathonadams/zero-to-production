@@ -23,7 +23,7 @@ export class DynamicFormsEffects {
 
   clearErrors$ = createEffect(() =>
     this.actions.pipe(
-      ofType(fromActions.updateFormData),
+      ofType(fromActions.updateFormDataState),
       map(({ formName }) => fromActions.clearFormErrors({ formName }))
     )
   );

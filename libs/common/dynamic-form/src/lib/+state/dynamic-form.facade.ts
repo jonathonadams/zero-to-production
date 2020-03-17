@@ -28,19 +28,14 @@ export class DynamicFormFacade {
     this.store.dispatch(fromActions.setFormConfig({ formName, config }));
   }
 
-  updateData(formName: string, data: any) {
-    this.store.dispatch(fromActions.updateFormData({ formName, data }));
-  }
-
-  triggerSubmit(formName: string) {
-    this.facade.triggerSubmit(formName);
+  triggerFormSubmit(formName: string) {
+    this.facade.triggerSubmit.next(formName);
   }
 
   /**
    * The set data method does not update the store, it resets the form with the data
    *
    * When the form resets, it will emit a value changed event and subsequently will update the store
-   * @param data
    */
   setData(formName: string, data: any) {
     this.facade.setDataSubject.next({ [formName]: data });

@@ -14,37 +14,34 @@ export interface DynamicFormState {
  */
 export interface IDynamicFormConfig {
   formName: string;
+  enabled: boolean;
   animations: boolean;
   paginateSections: boolean;
-  structure: TFormGroups;
+  classes?: string[];
+  structure: TFormStructure;
   formValidators: ValidatorFn[];
 }
 
-export type TField =
-  | IInputField
-  | ISelectField
-  | IToggleField
-  | IDatePickerField
-  | ITextArea
-  | ICustomInput;
-
-export type TFormGroups = TFormGroup[];
+// structure is either an array of form groups for form array
+export type TFormStructure = TFormGroup[];
 export type TFormGroup = IFormGroup | TFormArray;
 
-export interface IFormGroup {
+export interface IBaseFormGroupAndArray {
   groupName: string;
-  groupType: FormGroupTypes.Group;
-  fields: TField[];
-  cssClasses?: string[];
+  displayName?: string;
+  classes?: string[];
 }
 
-// export type TFormArray = IFormGroupArray;
+export interface IFormGroup extends IBaseFormGroupAndArray {
+  groupType: FormGroupTypes.Group;
+  fields: TField[];
+}
+
 export type TFormArray = IFormGroupArray | IFormFieldArray;
 
-export interface IBaseFormArray {
-  groupName: string;
+export interface IBaseFormArray extends IBaseFormGroupAndArray {
   groupType: FormGroupTypes.Array;
-  initialNumber?: number;
+  number: number;
 }
 
 export interface IFormGroupArray extends IBaseFormArray {
@@ -96,6 +93,14 @@ export interface ISelectOption {
 export interface ICustomInput extends IBaseField {
   type: string;
 }
+
+export type TField =
+  | IInputField
+  | ISelectField
+  | IToggleField
+  | IDatePickerField
+  | ITextArea
+  | ICustomInput;
 
 // There are more to complete here
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete

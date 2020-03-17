@@ -15,7 +15,7 @@ export const setFormConfig = createAction(
   }>()
 );
 
-export const updateFormData = createAction(
+export const updateFormDataState = createAction(
   '[Dynamic Form] Update Data',
   props<{ formName: string; data: any }>()
 );

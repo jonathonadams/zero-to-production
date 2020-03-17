@@ -3,7 +3,7 @@ import {
   IFormGroup,
   FormGroupTypes,
   FormFieldTypes,
-  TFormGroups,
+  TFormStructure,
   InputFieldTypes
 } from '@uqt/common/dynamic-form';
 import {
@@ -77,4 +77,7 @@ export const DETAILS_GROUP: IFormGroup = {
   ]
 };
 
-export const REGISTER_STRUCTURE: TFormGroups = [DETAILS_GROUP, PASSWORD_GROUP];
+export const REGISTER_STRUCTURE: TFormStructure = [
+  DETAILS_GROUP,
+  PASSWORD_GROUP
+];

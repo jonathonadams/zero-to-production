@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExampleFormBuilderDisplayComponent } from './display.component';
-import { FormBuilderFacade } from '@uqt/common/form-builder';
-import { DynamicFormFacade } from '@uqt/common/dynamic-form';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
-import { CodeHighlightPipe } from 'libs/examples/utils/src/lib/highlight.pipe';
+import { FormBuilderFacade } from '@uqt/common/form-builder';
+import { DynamicFormFacade } from '@uqt/common/dynamic-form';
+import { ExamplesUtilsModule } from '@uqt/examples/utils';
+import { ExampleFormBuilderDisplayComponent } from './display.component';
 
 describe('ExampleFormBuilderDisplayComponent', () => {
   let component: ExampleFormBuilderDisplayComponent;
@@ -17,7 +17,8 @@ describe('ExampleFormBuilderDisplayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ExampleFormBuilderDisplayComponent, CodeHighlightPipe],
+      imports: [ExamplesUtilsModule],
+      declarations: [ExampleFormBuilderDisplayComponent],
       providers: [
         { provide: FormBuilderFacade, useValue: builderSpy },
         { provide: DynamicFormFacade, useValue: {} }

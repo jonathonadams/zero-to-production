@@ -13,7 +13,7 @@ export class AppModule {}
 `;
 
 export const setStructureMarkup = `// example.component.ts
-const CONTACT_DETAILS: TFormGroups = [
+const CONTACT_DETAILS: TFormStructure = [
   {
     formGroup: 'contactDetails',
     groupType: FormGroupTypes.Group,

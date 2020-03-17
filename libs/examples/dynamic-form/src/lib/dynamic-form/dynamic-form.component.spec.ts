@@ -6,7 +6,7 @@ import { ExamplesFacade } from '@uqt/examples/data-access';
 import { of } from 'rxjs';
 import { DynamicFormFacade } from '@uqt/common/dynamic-form';
 import { CodeHighlightService } from '@uqt/examples/utils';
-import { CodeHighlightPipe } from 'libs/examples/utils/src/lib/highlight.pipe';
+import { ExamplesUtilsModule } from '@uqt/examples/utils';
 
 describe('ExampleDynamicFormComponent', () => {
   let component: ExampleDynamicFormComponent;
@@ -19,7 +19,8 @@ describe('ExampleDynamicFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ExampleDynamicFormComponent, CodeHighlightPipe],
+      imports: [ExamplesUtilsModule],
+      declarations: [ExampleDynamicFormComponent],
       providers: [
         { provide: ExamplesFacade, useValue: facadeSpy },
         { provide: DynamicFormFacade, useValue: dynamicFormSpy },

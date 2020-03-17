@@ -19,6 +19,10 @@ import {
   IDatePickerField
 } from '@uqt/common/dynamic-form';
 
+function isValidDate(date: Date): Boolean {
+  return date instanceof Date && !isNaN(date as any);
+}
+
 const APP_DATE_FORMATS = {
   parse: {
     dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
@@ -34,20 +38,28 @@ const APP_DATE_FORMATS = {
 @Injectable()
 export class MyDateAdapter extends NativeDateAdapter {
   format(date: Date, displayFormat: Object): string {
-    if (displayFormat === 'input') {
-      const day = date.getDate();
-      const month = date.getMonth() + 1;
-      const year = date.getFullYear();
+    // if (displayFormat === 'input') {
+    // const day = date.getDate();
+    // const month = date.getMonth() + 1;
+    // const year = date.getFullYear();
 
-      return `${day}-${month}-${year}`;
-    }
+    // return `${day}-${month}-${year}`;
+    // return date.toLocaleDateString();
+    // }
 
-    return date.toDateString();
+    return date.toLocaleDateString();
   }
 
-  parse(value: string): Date {
+  parse(value: string): Date | null {
+    // TODO -> i18n localTimeformat
+    // https://angular.io/guide/i18n#i18n-pipes
     const [day, month, year] = value.split(/\/|-/g);
-    return new Date(Number(year), Number(month) - 1, Number(day));
+    const date = new Date(Number(year), Number(month) - 1, Number(day));
+    if (isValidDate(date)) {
+      return date;
+    } else {
+      return null;
+    }
   }
 }
 
@@ -81,15 +93,24 @@ export class MyDateAdapter extends NativeDateAdapter {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormDatePickerComponent implements OnDestroy {
-  private subscription: Subscription | undefined;
+  private sub: Subscription = new Subscription();
 
   dateField: IDatePickerField;
   dateGroup: FormGroup;
   dateControl: FormControl;
+  _group: FormGroup | undefined;
 
   @Input() idx: number; // Only accessed if it is a FormArrayGroup
   @Input() type: FormGroupTypes;
-  @Input() group: FormGroup | undefined;
+
+  @Input()
+  set group(fg: FormGroup | undefined) {
+    if (fg) {
+      this.listenToStatusChanges(fg);
+    }
+    this._group = fg;
+  }
+
   @Input()
   set field(f: IDatePickerField) {
     const ctrl = this.addControlToGroup(f);
@@ -113,40 +134,41 @@ export class FormDatePickerComponent implements OnDestroy {
    * @memberof DatePickerComponent
    */
   listenToControlChange(control: FormControl) {
-    this.subscription = control.valueChanges
-      .pipe(
-        debounceTime(200),
-        filter(val => val !== null)
-      )
-      .subscribe((date: Date) => {
-        // There would be no chance for the group to no be set by the time
-        // it is rendered on the DOM, but just in case.
-        if (this.group !== undefined) {
-          const groupCtrl = this.group.controls[this.dateField.name];
-          groupCtrl.setValue(this.formatDateToString(date));
-          groupCtrl.markAsDirty();
-        }
-      });
+    this.sub.add(
+      control.valueChanges
+        .pipe(
+          debounceTime(200),
+          filter(val => val !== null)
+        )
+        .subscribe((date: Date) => {
+          // There would be no chance for the group to no be set by the time
+          // it is rendered on the DOM, but just in case.
+          if (this._group !== undefined && isValidDate(date)) {
+            const groupCtrl = this._group.controls[this.dateField.name];
+            groupCtrl.setValue(this.formatDateToString(date));
+            groupCtrl.markAsDirty();
+          }
+        })
+    );
   }
 
-  /**
-   * This could be made dynamic/changed to your needs
-   *
-   * @param {Date} date formControl value
-   * @returns {string} formatted date string
-   * @memberof DatePickerComponent
-   */
-  formatDateToString(date: Date): string {
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
+  listenToStatusChanges(formGroup: FormGroup) {
+    this.sub.add(
+      formGroup.statusChanges.subscribe(status => {
+        if (status === 'DISABLED') {
+          this.dateGroup.disable();
+        } else {
+          this.dateGroup.enable();
+        }
+      })
+    );
+  }
 
-    return `${day}-${month}-${year}`;
+  formatDateToString(date: Date): string {
+    return date.toLocaleDateString();
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.sub.unsubscribe();
   }
 }
