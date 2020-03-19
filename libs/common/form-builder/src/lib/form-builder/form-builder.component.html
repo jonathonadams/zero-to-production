@@ -15,7 +15,7 @@
         cdkDropList
         (cdkDropListDropped)="formGroupDropped($event)"
       >
-        <mat-card
+        <uqt-card
           cdkDrag
           class="group-section"
           *ngFor="let group of structure.controls; let groupIndex = index"
@@ -73,7 +73,7 @@
               </div>
             </div>
           </div>
-        </mat-card>
+        </uqt-card>
       </div>
     </div>
   </form>

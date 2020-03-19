@@ -3,8 +3,10 @@
 ### Docs
 
 - [ ] Specify minium Node version,
-  - serverless deploy requires 12.10 for recursive rmdir
 - [ ] Thoroughly document the API Auth module
+- [ ] Document File Replacement for router animations
+- [ ] Document animations
+- [ ] List other projects in readme
 
 ### App
 
@@ -14,7 +16,7 @@
 
 - [x] allow form to use form array fields or array groups
 - [ ] Documentation
-- [ ] Write tests for dynamic form
+- [ ] tests
 
 ### Form Builder
 

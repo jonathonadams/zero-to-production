@@ -84,10 +84,10 @@ If you look at the source code for our Lambda API (`apps/server/lambda`) you wil
 Defining the schema directly on the mongoose default import will cause errors if the schema model will try to 'recompile' each place it is imported throughout the application. Rather than define schemas on the mongoose import, connect to the db and then define them on the connection once connected. The connection object is used to grab a reference to a given model.
 
 ```typescript
-// regular node server
+// Regular node server
 import mongoose from 'mongoose';
 
-// Doing this will cause errors in a serverless environment
+// doing this will cause errors in a serverless environment
 const schema = new mongoose.Schema({ name: 'string' });
 const User = mongoose.model('User', schema);
 

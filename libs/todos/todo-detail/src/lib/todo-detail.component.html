@@ -1,5 +1,16 @@
-<todo-ui-todo-detail
-  [formName]="formName"
-  [selectedTodo]="selectedTodo$ | async"
-  (cancelled)="clearTodo()"
-></todo-ui-todo-detail>
+<div class="container">
+  <todo-ui-todo-detail
+    [todo]="todo"
+    [formName]="formName"
+    (toggleEdit)="toggleEdit($event)"
+  ></todo-ui-todo-detail>
+
+  <todo-ui-create-todo-note
+    (createNote)="createTodoNote($event)"
+  ></todo-ui-create-todo-note>
+
+  <todo-ui-todo-notes
+    [notes]="notes$ | async"
+    (delete)="deleteTodoNote($event)"
+  ></todo-ui-todo-notes>
+</div>

@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
-import { slideInAnimation } from '@uqt/common/animations';
+import { ROUTER_ANIMATIONS } from '@uqt/common/animations';
 
 export interface ISideNaveRoute {
   path: string;
@@ -24,7 +24,7 @@ export interface ISideNaveRoute {
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [slideInAnimation]
+  animations: [ROUTER_ANIMATIONS]
 })
 export class CommonUiSideNavComponent {
   @ViewChild('sidenav') sidenav: MatSidenav;
@@ -34,7 +34,7 @@ export class CommonUiSideNavComponent {
 
   public toggle() {
     this.sidenav.toggle();
-    this.cd.detectChanges();
+    this.cd.markForCheck();
   }
 
   prepareRoute(outlet: RouterOutlet) {

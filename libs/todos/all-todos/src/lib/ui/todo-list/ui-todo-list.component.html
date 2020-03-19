@@ -1,34 +1,28 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>
-      <h3>Todos</h3>
-    </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-list [@listAnimation]="prepareListState()">
-      <mat-list-item
-        *ngFor="let todo of todos; trackBy: trackTodos; last as last"
-        (click)="selected.emit(todo)"
-        class="record"
+<uqt-card [routerAnimate]="true">
+  <h3>Todos</h3>
+  <mat-list [@listAnimation]="prepareListState()">
+    <mat-list-item
+      *ngFor="let todo of todos; trackBy: trackTodos; last as last"
+      (click)="selected.emit(todo)"
+      class="record"
+    >
+      <mat-checkbox
+        [checked]="todo.completed"
+        (change)="toggleChange(todo, $event)"
+        (click)="$event.stopPropagation()"
+        >Done</mat-checkbox
       >
-        <mat-checkbox
-          [checked]="todo.completed"
-          (change)="toggleChange(todo, $event)"
-          (click)="$event.stopPropagation()"
-          >Done</mat-checkbox
-        >
-        <h3 matLine>{{ todo.title }}</h3>
-        <p matLine>
-          {{ todo.description }}
-        </p>
-        <button
-          mat-icon-button
-          (click)="delete.emit(todo); $event.stopImmediatePropagation()"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
-        <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
-      </mat-list-item>
-    </mat-list>
-  </mat-card-content>
-</mat-card>
+      <h3 matLine>{{ todo.title }}</h3>
+      <p matLine>
+        {{ todo.description }}
+      </p>
+      <button
+        mat-icon-button
+        (click)="delete.emit(todo); $event.stopImmediatePropagation()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+    </mat-list-item>
+  </mat-list>
+</uqt-card>

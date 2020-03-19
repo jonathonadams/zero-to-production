@@ -1,9 +1,9 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  Input,
   Output,
-  EventEmitter,
-  Input
+  EventEmitter
 } from '@angular/core';
 import { ITodo } from '@uqt/data';
 
@@ -14,8 +14,8 @@ import { ITodo } from '@uqt/data';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiTodoDetailComponent {
+  enabled = false;
+  @Input() todo: ITodo;
   @Input() formName: string;
-  @Input() selectedTodo: ITodo | null | undefined;
-  @Output()
-  cancelled = new EventEmitter<void>();
+  @Output() toggleEdit = new EventEmitter<boolean>();
 }

@@ -1,5 +1,9 @@
 import { Connection } from 'mongoose';
-import { createUserModel, createTodoModel } from '@uqt/server/core-data';
+import {
+  createUserModel,
+  createTodoModel,
+  createTodoNoteModel
+} from '@uqt/server/core-data';
 import {
   createRefreshTokenModel,
   createVerificationTokenModel
@@ -17,4 +21,5 @@ export function initDbSchemasModels(conn: Connection) {
   createRefreshTokenModel(conn);
   createVerificationTokenModel(conn);
   createTodoModel(conn);
+  createTodoNoteModel(conn);
 }

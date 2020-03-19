@@ -21,8 +21,11 @@ is currently configured.
     "
     [ngTemplateOutletContext]="topLevelContext"
   ></ng-container>
-  <ng-content select='button[type="submit"]'></ng-content>
-  <ng-content select='button[type="reset"]'></ng-content>
+  <span class="uqt-action-buttons">
+    <ng-content select='button[type="submit"]'></ng-content>
+    <ng-content select='button[type="reset"]'></ng-content>
+  </span>
+  <ng-content></ng-content>
 </form>
 
 <!-- 

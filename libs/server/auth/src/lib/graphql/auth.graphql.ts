@@ -1,5 +1,6 @@
 import { GraphQLResolveInfo, GraphQLFieldResolver } from 'graphql';
 import { AuthMiddleware } from '../auth.interface';
+import { unauthorized } from '@hapi/boom';
 
 /**
  * The authenticate request function takes an array of authentication middleware, and returns a function
@@ -29,3 +30,31 @@ export function authenticateRequest(authMiddleware: AuthMiddleware[]) {
     };
   };
 }
+
+// const getUserFromToken = token => {
+//   try {
+//     const user = jwt.verify(token, secret)
+//     return models.User.findOne({id: user.id})
+//   } catch (e) {
+//     return null
+//   }
+
+// const authenticated = (
+//   next: GraphQLFieldResolver<any, any, any>
+// ): GraphQLFieldResolver<any, any, any> => (root, args, ctx, info) => {
+//   if (!ctx.user) {
+//     throw unauthorized(null, 'Bearer');
+//   }
+
+//   return next(root, args, ctx, info);
+// };
+
+// const authorized = (
+//   role: string,
+//   next: GraphQLFieldResolver<any, any, any>
+// ): GraphQLFieldResolver<any, any, any> => (root, args, ctx, info) => {
+//   if (ctx.user.role !== role) {
+//     throw unauthorized(`you must have ${role} role`);
+//   }
+//   return next(root, args, ctx, info);
+// };

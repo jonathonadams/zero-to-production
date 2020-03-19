@@ -104,6 +104,8 @@ describe('TodoService', () => {
         userId: '1',
         title: 'some title',
         description: 'some description',
+        dueDate: ('2020-01-01' as unknown) as Date,
+        notes: [],
         completed: true
       };
 
@@ -130,6 +132,8 @@ describe('TodoService', () => {
         userId: '1',
         title: 'some title',
         description: 'some description',
+        dueDate: ('2020-01-01' as unknown) as Date,
+        notes: [],
         completed: true
       };
 

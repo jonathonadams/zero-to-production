@@ -23,6 +23,11 @@ export function createTypeResolver<T extends mongoose.Document>({
   Mutation: {
     [mutationName: string]: GraphQLFieldResolver<any, any, any> | undefined;
   };
+  [name: string]: {
+    [queryOrMutationName: string]:
+      | GraphQLFieldResolver<any, any, any>
+      | undefined;
+  };
 } {
   const resolvers = generateResolvers<T>(model, userResourcesOnly);
 

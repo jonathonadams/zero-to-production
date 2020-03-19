@@ -165,7 +165,13 @@
             ],
             "styles": ["apps/todos/todos-web/src/styles.scss"],
             "scripts": [],
-            "aot": true
+            "aot": true,
+            "fileReplacements": [
+              {
+                "replace": "libs/common/animations/src/lib/router/router.animations.ts",
+                "with": "libs/common/animations/src/lib/router/todos.router.animations.ts"
+              }
+            ]
           },
           "configurations": {
             "production": {
@@ -295,7 +301,12 @@
               }
             ],
             "styles": ["apps/examples/examples-web/src/styles.scss"],
-            "scripts": []
+            "fileReplacements": [
+              {
+                "replace": "libs/common/animations/src/lib/router/router.animations.ts",
+                "with": "libs/common/animations/src/lib/router/todos.router.animations.ts"
+              }
+            ]
           },
           "configurations": {
             "production": {

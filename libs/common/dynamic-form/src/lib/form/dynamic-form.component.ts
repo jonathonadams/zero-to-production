@@ -97,6 +97,10 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
           // Add the form validators
           form.setValidators(formValidators);
 
+          if (this.config && !this.config.enabled) {
+            form.disable();
+          }
+
           // Set the internal form property with the new form
           this.form = form;
 
@@ -125,7 +129,9 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
       .setData$(name)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(data => {
-        (this.form as FormGroup).reset(data);
+        if (this.form) {
+          this.form.reset(data);
+        }
       });
 
     this.pFacade

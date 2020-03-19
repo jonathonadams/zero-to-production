@@ -1,0 +1,26 @@
+<uqt-card [routerAnimate]="true">
+  <table class="notes">
+    <thead>
+      <tr class="header-row">
+        <th>Created</th>
+        <th>Note</th>
+        <th class="delete">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-row" *ngFor="let note of notes">
+        <td class="date">
+          <p>{{ note.createdOn | date }}</p>
+        </td>
+        <td class="body">
+          <p>{{ note.body }}</p>
+        </td>
+        <td class="delete">
+          <button type="button" mat-icon-button (click)="delete.emit(note.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</uqt-card>

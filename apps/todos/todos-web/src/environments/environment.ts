@@ -3,6 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 const serverUrl = 'http://localhost:3000';
+// serverless-offline url
+// const serverUrl = 'http://localhost:3000/dev';
 
 export const environment = {
   production: false,

@@ -1,7 +1,6 @@
 import { config } from './environments/environment';
 import { connectToDatabase } from './server/db-connection';
 import { createHandler } from './server/handler';
-import { initDbSchemasModels } from './server/db-schemas';
 
 export const handler = async (event: any, ctx: any) => {
   // Set to false to send the response back right away
@@ -10,8 +9,6 @@ export const handler = async (event: any, ctx: any) => {
 
   // initialize the db connection
   const con = await connectToDatabase(config.dbConnectionString);
-  // define DD schemas
-  initDbSchemasModels(con);
   // create the server
   const http = await createHandler(con);
 

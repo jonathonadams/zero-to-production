@@ -6,16 +6,16 @@
   storage and will not persist once you clear your browser cache.
 </p>
 
-<mat-card>
+<uqt-card>
   <h3>Create New Form</h3>
   <app-dynamic-form [formName]="formName">
     <button type="submit" mat-raised-button class="submit-button">
       create Form
     </button>
   </app-dynamic-form>
-</mat-card>
+</uqt-card>
 
-<mat-card class="list">
+<uqt-card class="list">
   <h4>Forms</h4>
   <mat-list>
     <mat-list-item
@@ -40,4 +40,4 @@
       <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
     </mat-list-item>
   </mat-list>
-</mat-card>
+</uqt-card>

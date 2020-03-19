@@ -1,0 +1,21 @@
+:host {
+  display: block;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigate {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.button {
+  margin: 1em 1em 0 0;
+}

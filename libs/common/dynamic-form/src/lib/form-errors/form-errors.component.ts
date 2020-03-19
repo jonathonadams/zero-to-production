@@ -4,12 +4,15 @@ import {
   OnDestroy,
   Output,
   EventEmitter,
-  Input
+  Input,
+  ViewChild,
+  AfterViewInit
 } from '@angular/core';
 import { timer, Observable, Subscription } from 'rxjs';
 import { formErrorsAnimations } from './form-errors.animations';
 import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade';
-import { first, map } from 'rxjs/operators';
+import { first, map, take } from 'rxjs/operators';
+import { MatButton } from '@angular/material/button';
 
 // TODO a11y Announcer
 
@@ -20,7 +23,9 @@ import { first, map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [formErrorsAnimations]
 })
-export class FormErrorsComponent implements OnDestroy {
+export class FormErrorsComponent implements OnDestroy, AfterViewInit {
+  @ViewChild('dismissButton', { static: true }) button: MatButton;
+
   private autoClose = 5000; // ms until close
   errors$: Observable<string[] | undefined>;
   private sub: Subscription;
@@ -37,6 +42,14 @@ export class FormErrorsComponent implements OnDestroy {
       .pipe(first())
       .subscribe(() => {
         this.dismiss.emit();
+      });
+  }
+
+  ngAfterViewInit() {
+    timer(100)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.button.focus();
       });
   }
 

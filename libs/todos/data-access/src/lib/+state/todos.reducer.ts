@@ -17,6 +17,7 @@ export interface TodosEntityState extends EntityState<ITodo> {
   selectedTodoId: string | null;
   statusFilter: TodoFilterStatus;
   searchFilter: string;
+  loaded: boolean;
 }
 
 // 2. Create entity adapter
@@ -26,7 +27,8 @@ export const adapter: EntityAdapter<ITodo> = createEntityAdapter<ITodo>();
 export const initialTodoState: TodosEntityState = adapter.getInitialState({
   selectedTodoId: null,
   statusFilter: TodoFilterStatus.InCompleted,
-  searchFilter: ''
+  searchFilter: '',
+  loaded: false
 });
 
 export const todosReducer = createReducer(
@@ -44,7 +46,13 @@ export const todosReducer = createReducer(
     return { ...state, statusFilter: filter };
   }),
   on(TodoActions.loadTodosSuccess, (state, { todos }) => {
-    return adapter.setAll(todos, state);
+    return { ...adapter.setAll(todos, state), loaded: true };
+  }),
+  on(TodoActions.loadTodoSuccess, (state, { todo }) => {
+    return adapter.upsertOne(todo, state);
+  }),
+  on(TodoActions.loadTodoSuccess, (state, { todo }) => {
+    return adapter.upsertOne(todo, state);
   }),
   on(TodoActions.createTodoSuccess, (state, { todo }) => {
     return adapter.addOne(todo, state);
@@ -56,7 +64,7 @@ export const todosReducer = createReducer(
     return adapter.removeOne(id, state);
   }),
   on(TodoActions.clearTodos, state => {
-    return adapter.removeAll(state);
+    return { ...adapter.removeAll(state), loaded: false };
   })
 );
 

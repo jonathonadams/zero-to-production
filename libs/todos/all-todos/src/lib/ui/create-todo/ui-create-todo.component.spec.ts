@@ -1,22 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UiTodoDetailComponent } from './ui-todo-detail.component';
+import { UiCreateTodoComponent } from './ui-create-todo.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 // TODO -> Tests
-describe('UiTodoDetailComponent', () => {
-  let component: UiTodoDetailComponent;
-  let fixture: ComponentFixture<UiTodoDetailComponent>;
+describe('UiCreateTodoComponent', () => {
+  let component: UiCreateTodoComponent;
+  let fixture: ComponentFixture<UiCreateTodoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [UiTodoDetailComponent],
+      declarations: [UiCreateTodoComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UiTodoDetailComponent);
+    fixture = TestBed.createComponent(UiCreateTodoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

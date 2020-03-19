@@ -10,6 +10,7 @@ import { ExampleFormBuilderCreateComponent } from './create/create.component';
 import { ExampleFormBuilderDisplayComponent } from './display/display.component';
 import { ExampleFormBuilderBuildComponent } from './build/build.component';
 import { ExampleFormBuilderOverviewComponent } from './overview/overview.component';
+import { CommonUiCardModule } from '@uqt/common/ui/card';
 
 const COMPONENTS = [
   ExampleFormBuilderCreateComponent,
@@ -23,6 +24,7 @@ const COMPONENTS = [
   imports: [
     CommonModule,
     CommonUiButtonsModule,
+    CommonUiCardModule,
     FontAwesomeModule,
     CustomMaterialModule,
     CommonDynamicFormModule,
