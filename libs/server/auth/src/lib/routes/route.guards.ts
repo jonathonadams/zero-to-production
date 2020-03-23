@@ -1,21 +1,25 @@
 import koa from 'koa';
-import Boom from '@hapi/boom';
-import { verify } from 'jsonwebtoken';
-import { retrievePublicKeyFormJWKS } from '../token';
+import { isJWKS } from '../auth-utils';
+import {
+  verifyToken,
+  verifyUser,
+  retrievePublicKeyFormJWKS
+} from '../authenticate';
 import {
   JWKSGuarConfig,
   GuardConfig,
   VerifyTokenConfig,
   VerifyTokenJWKSConfig,
-  VerifyActiveUserConfig
+  VerifyUserConfig
 } from '../auth.interface';
-import { isJWKS } from '../auth-utils';
 
 export function getRestGuards(config: GuardConfig | JWKSGuarConfig) {
   // Check if using JWKS guards or if public key is provided
   return {
-    verifyToken: isJWKS(config) ? verifyTokenJWKS(config) : verifyToken(config),
-    verifyActiveUser: verifyActiveUser(config)
+    authenticate: isJWKS(config)
+      ? authenticateJWKS(config)
+      : authenticate(config),
+    authenticateUser: authenticateUser(config)
   };
 }
 
@@ -24,23 +28,14 @@ export function getRestGuards(config: GuardConfig | JWKSGuarConfig) {
  * and add it to ctx.request.token. Note this is not decoded
  */
 
-export function verifyToken(config: VerifyTokenConfig) {
+export function authenticate(config: VerifyTokenConfig) {
   return async (ctx: any, next: () => Promise<any>) => {
     /**
      * the encoded token is set at ctx.request.token if the verification
      * passes, replace the encoded token with the decoded token note that the verify function operates synchronously
      */
-    try {
-      ctx.state.user = verify(ctx.request.token, config.publicKey, {
-        algorithms: ['RS256'],
-        issuer: config.issuer,
-        audience: config.audience
-      });
-
-      return next();
-    } catch (err) {
-      throw Boom.unauthorized(null, 'Bearer');
-    }
+    ctx.user = verifyToken(ctx.request.token, config.publicKey, config);
+    return next();
   };
 }
 
@@ -49,27 +44,14 @@ export function verifyToken(config: VerifyTokenConfig) {
  *
  * Returns the payload decoded if the signature is valid and optional expiration, audience, or issuer are valid. If not, it will throw the error.
  */
-export function verifyTokenJWKS(config: VerifyTokenJWKSConfig) {
+export function authenticateJWKS(config: VerifyTokenJWKSConfig) {
   const getPublicKey = retrievePublicKeyFormJWKS(config);
 
   return async (ctx: any, next: () => Promise<any>) => {
-    /**
-     * the encoded token is set at ctx.request.token if the verification
-     * passes, replace the encoded token with the decoded token note that the verify function operates synchronously
-     */
-    try {
-      const publicKey = await getPublicKey(ctx.request.token);
+    const publicKey = await getPublicKey(ctx.request.token);
 
-      ctx.state.user = verify(ctx.request.token, publicKey, {
-        algorithms: ['RS256'],
-        issuer: config.issuer,
-        audience: config.audience
-      });
-
-      return next();
-    } catch (err) {
-      throw Boom.unauthorized(null, 'Bearer');
-    }
+    ctx.user = verifyToken(ctx.request.token, publicKey, config);
+    return next();
   };
 }
 
@@ -81,17 +63,11 @@ export function verifyTokenJWKS(config: VerifyTokenJWKSConfig) {
  * will contain the decoded token, and hence the 'sub' property will be the id
  *
  */
-export function verifyActiveUser({ User }: VerifyActiveUserConfig) {
+export function authenticateUser({ User }: VerifyUserConfig) {
+  const authUser = verifyUser(User);
   return async (ctx: koa.ParameterizedContext, next: () => Promise<any>) => {
-    try {
-      const user = await User.findById(ctx.state.user.sub);
-      if (!user || !user.active) throw Boom.unauthorized(null, 'Bearer');
-
-      // Set the user on the ctx.state.user property
-      ctx.state.user = user;
-      return next();
-    } catch (err) {
-      throw err;
-    }
+    // Set the user on the ctx.user property
+    ctx.user = await authUser(ctx.user.sub);
+    return next();
   };
 }

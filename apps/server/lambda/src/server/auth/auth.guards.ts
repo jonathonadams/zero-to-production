@@ -1,9 +1,10 @@
 import { Connection } from 'mongoose';
 import { getUserModel } from '@uqt/server/core-data';
 import {
-  getGraphQlGuards,
+  getGraphQLGuards,
   getRestGuards,
-  generateAuthGuardConfig
+  generateAuthGuardConfig,
+  createAuthDirectives
 } from '@uqt/server/auth';
 import { config, authConfig } from '../../environments/environment';
 
@@ -22,5 +23,11 @@ export const createRestGuards = (conn: Connection) => {
 export const createGraphQLGuards = (conn: Connection) => {
   const User = getUserModel(conn);
   const guardConfig = generateAuthGuardConfig(config, authConfig, User);
-  return getGraphQlGuards(guardConfig);
+  return getGraphQLGuards(guardConfig);
+};
+
+export const authDirectives = (conn: Connection) => {
+  const User = getUserModel(conn);
+  const guardConfig = generateAuthGuardConfig(config, authConfig, User);
+  return createAuthDirectives(guardConfig);
 };

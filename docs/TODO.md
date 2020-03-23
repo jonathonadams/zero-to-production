@@ -7,21 +7,12 @@
 - [ ] Document File Replacement for router animations
 - [ ] Document animations
 - [ ] List other projects in readme
+- [ ] Dynamic Form API
+- [ ] Form Builder API
 
 ### App
 
-- [ ] Move Todo detail to own component
-
-### Dynamic Form
-
-- [x] allow form to use form array fields or array groups
-- [ ] Documentation
-- [ ] tests
-
-### Form Builder
-
-- [ ] Document
-- [ ] Tests
+- [x] Move Todo detail to own component
 
 ### Tests
 
@@ -29,6 +20,8 @@
 - [ ] Complete Unit tests
 - [ ] Complete e2e tests
 - [ ] tests for Lambda API
+- [ ] Dynamic Form
+- [ ] From Builder
 
 ### Accessability
 

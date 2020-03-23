@@ -8,10 +8,10 @@ let handler: Handler;
 
 export async function createHandler(conn: Connection) {
   if (handler) {
-    console.log('=> using cached handler instance');
+    // console.log('=> using cached handler instance');
     return handler;
   }
-  console.log('=> creating new handler');
+  // console.log('=> creating new handler');
   const koa = new Koa();
 
   setupGlobalMiddleware(koa);

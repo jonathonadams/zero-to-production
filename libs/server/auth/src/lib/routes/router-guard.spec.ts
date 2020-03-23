@@ -3,8 +3,12 @@ jest.mock('jwks-rsa');
 import { koaJwtSecret } from 'jwks-rsa';
 import * as Koa from 'koa';
 import mongoose from 'mongoose';
-import { verifyToken, verifyActiveUser, verifyTokenJWKS } from './route.guards';
-import { signAccessToken } from '../token';
+import {
+  authenticate,
+  authenticateUser,
+  authenticateJWKS
+} from './route.guards';
+import { signAccessToken } from '../sign-tokens';
 import { MockUserModel } from '../__tests__/user.mock';
 import { IUserDocument, IUserModel } from '@uqt/server/core-data';
 import {
@@ -47,12 +51,12 @@ describe('Rest Auth Guards', () => {
     } as IUserDocument);
   });
 
-  describe('verifyToken', () => {
+  describe('authenticate', () => {
     it('should call the next handler if a JWT is provided and is valid', async () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken({ publicKey, issuer, audience })(
+        authenticate({ publicKey, issuer, audience })(
           { request: { token: jwt }, state: {} },
           nextSpy
         )
@@ -65,7 +69,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken({ publicKey, issuer, audience })(
+        authenticate({ publicKey, issuer, audience })(
           { request: {}, state: {} },
           nextSpy
         )
@@ -78,7 +82,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken({ publicKey, issuer, audience })(
+        authenticate({ publicKey, issuer, audience })(
           { request: { token: invalidJwt }, state: {} },
           nextSpy
         )
@@ -91,7 +95,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken({ publicKey, issuer: 'some-different-issuer', audience })(
+        authenticate({ publicKey, issuer: 'some-different-issuer', audience })(
           { request: { token: invalidJwt }, state: {} },
           nextSpy
         )
@@ -104,7 +108,7 @@ describe('Rest Auth Guards', () => {
       const nextSpy = jest.fn();
 
       await expect(
-        verifyToken({ publicKey, issuer, audience: 'wrong-audience' })(
+        authenticate({ publicKey, issuer, audience: 'wrong-audience' })(
           { request: { token: invalidJwt }, state: {} },
           nextSpy
         )
@@ -114,7 +118,7 @@ describe('Rest Auth Guards', () => {
     });
   });
 
-  describe('verifyTokenJWKS', () => {
+  describe('authenticateJWKS', () => {
     it('should call the next handler if a valid JWT is provided and signed by the JWKS', async () => {
       const nextSpy = jest.fn();
 
@@ -123,7 +127,7 @@ describe('Rest Auth Guards', () => {
       );
 
       await expect(
-        verifyTokenJWKS({
+        authenticateJWKS({
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
@@ -143,7 +147,7 @@ describe('Rest Auth Guards', () => {
       );
 
       await expect(
-        verifyTokenJWKS({
+        authenticateJWKS({
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
@@ -163,7 +167,7 @@ describe('Rest Auth Guards', () => {
       });
 
       await expect(
-        verifyTokenJWKS({
+        authenticateJWKS({
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
@@ -183,7 +187,7 @@ describe('Rest Auth Guards', () => {
       );
 
       await expect(
-        verifyTokenJWKS({
+        authenticateJWKS({
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
@@ -203,7 +207,7 @@ describe('Rest Auth Guards', () => {
       );
 
       await expect(
-        verifyTokenJWKS({
+        authenticateJWKS({
           production: false,
           authServerUrl: 'http://some-url',
           issuer: 'some-wrong-issuer',
@@ -223,7 +227,7 @@ describe('Rest Auth Guards', () => {
       );
 
       await expect(
-        verifyTokenJWKS({
+        authenticateJWKS({
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
@@ -236,7 +240,7 @@ describe('Rest Auth Guards', () => {
     });
   });
 
-  describe('verifyActiveUser', () => {
+  describe('authenticateUser', () => {
     it('should call the next handler if a JWT is provided and is valid', async () => {
       const nextSpy = jest.fn();
 
@@ -250,10 +254,8 @@ describe('Rest Auth Guards', () => {
 
       MockUserModel.userToRespondWith = mockUser;
       await expect(
-        verifyActiveUser({ User: (MockUserModel as unknown) as IUserModel })(
-          ({
-            state: { user: { sub: id } }
-          } as unknown) as Koa.ParameterizedContext,
+        authenticateUser({ User: (MockUserModel as unknown) as IUserModel })(
+          ({ user: { sub: id } } as unknown) as Koa.ParameterizedContext,
           nextSpy
         )
       ).resolves.not.toThrowError();
@@ -280,10 +282,8 @@ describe('Rest Auth Guards', () => {
       MockUserModel.userToRespondWith = mockUser;
 
       await expect(
-        verifyActiveUser({ User: (MockUserModel as unknown) as IUserModel })(
-          ({
-            state: { user: { sub: wrongId } }
-          } as unknown) as Koa.ParameterizedContext,
+        authenticateUser({ User: (MockUserModel as unknown) as IUserModel })(
+          ({ user: { sub: wrongId } } as unknown) as Koa.ParameterizedContext,
           nextSpy
         )
       ).rejects.toThrowError('Unauthorized');
@@ -306,10 +306,8 @@ describe('Rest Auth Guards', () => {
 
       MockUserModel.userToRespondWith = mockUser;
       await expect(
-        verifyActiveUser({ User: (MockUserModel as unknown) as IUserModel })(
-          ({
-            state: { user: { sub: id } }
-          } as unknown) as Koa.ParameterizedContext,
+        authenticateUser({ User: (MockUserModel as unknown) as IUserModel })(
+          ({ user: { sub: id } } as unknown) as Koa.ParameterizedContext,
           nextSpy
         )
       ).rejects.toThrowError('Unauthorized');

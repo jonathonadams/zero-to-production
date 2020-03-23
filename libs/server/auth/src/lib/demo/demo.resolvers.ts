@@ -1,6 +1,7 @@
 // UQT_UPDATE -> Delete this file
 
 import { GraphQLFieldResolver } from 'graphql';
+import { IResolvers } from 'graphql-tools';
 import { IUser } from '@uqt/data';
 import { demoSetupRegisterController } from './demo.controllers';
 import {
@@ -13,7 +14,7 @@ import {
 } from '../graphql/auth.resolvers';
 
 // Verify can not be done via GraphQL because it will be a hyperlink in the
-export function getDemoAuthResolvers(config: DemoAuthModuleConfig) {
+export function getDemoAuthResolvers(config: DemoAuthModuleConfig): IResolvers {
   return {
     Query: {
       usernameAvailable: usernameAvailableResolver(config.login)

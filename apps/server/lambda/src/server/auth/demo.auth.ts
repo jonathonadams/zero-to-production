@@ -1,14 +1,14 @@
 // UQT_UPDATE -> delete this file
-
 import Koa from 'koa';
+import { Connection } from 'mongoose';
 import { getUserModel } from '@uqt/server/core-data';
 import {
   applyDemoAuthRoutes,
   generateDemoAuthModuleConfig,
-  getDemoAuthResolvers
+  getDemoAuthResolvers,
+  createDemoAuthSchema
 } from '@uqt/server/auth';
 import { authConfig } from '../../environments/environment';
-import { Connection } from 'mongoose';
 
 /**
  * Applies all required auth routes
@@ -28,4 +28,9 @@ export function authResolvers(conn: Connection) {
   const config = generateDemoAuthModuleConfig(User, authConfig);
 
   return getDemoAuthResolvers(config);
+}
+
+export function createAuthSchemaFromConnection(conn: Connection) {
+  const resolvers = authResolvers(conn);
+  return createDemoAuthSchema(resolvers);
 }

@@ -130,6 +130,7 @@ export function revokeRefreshToken(config: RevokeControllerConfig) {
   const revokeTokenController = setupRevokeRefreshTokenController(config);
   return async (ctx: Koa.ParameterizedContext) => {
     const token: string = (ctx.request as any).body.refreshToken;
+    ctx.status = 200;
     ctx.body = await revokeTokenController(token);
   };
 }

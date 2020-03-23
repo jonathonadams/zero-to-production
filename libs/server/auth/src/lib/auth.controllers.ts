@@ -1,7 +1,7 @@
 import { randomBytes } from 'crypto';
 import { compare, hash } from 'bcryptjs';
 import Boom from '@hapi/boom';
-import { signAccessToken, signRefreshToken, verifyRefreshToken } from './token';
+import { signAccessToken, signRefreshToken } from './sign-tokens';
 import {
   LoginControllerConfig,
   RegistrationControllerConfig,
@@ -13,8 +13,9 @@ import {
 } from './auth.interface';
 import { IUser } from '@uqt/data';
 import { isPasswordAllowed, userToJSON } from './auth-utils';
+import { verifyRefreshToken } from './authenticate';
 
-// TODO -> Refresh Token Model/Storage
+// TODO -> Does mongoose create the ID on save or on crete, might be able to refactor the controllers to use Promise.all() instead
 
 export function setupRegisterController({
   User,

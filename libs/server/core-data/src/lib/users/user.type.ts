@@ -19,17 +19,13 @@ export const userTypeDef = gql`
     dateOfBirth: String
   }
 
-  type Query {
+  extend type Query {
     User(id: ID!): User!
     allUsers: [User]!
   }
 
-  type Mutation {
+  extend type Mutation {
     updateUser(input: UpdatedUserInput!): User!
     removeUser(id: ID!): User!
-  }
-
-  type Subscription {
-    User: User
   }
 `;

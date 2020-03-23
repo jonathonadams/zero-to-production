@@ -6,7 +6,8 @@ import {
   getVerificationTokenModel,
   getRefreshTokenModel,
   generateAuthModuleConfig,
-  applyAuthRoutes
+  applyAuthRoutes,
+  createAuthSchema
 } from '@uqt/server/auth';
 import { authConfig } from '../../environments/environment';
 
@@ -42,4 +43,9 @@ export function authResolvers(conn: Connection) {
   );
 
   return getAuthResolvers(config);
+}
+
+export function createAuthSchemaFromConnection(conn: Connection) {
+  const resolvers = authResolvers(conn);
+  return createAuthSchema(resolvers);
 }

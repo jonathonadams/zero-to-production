@@ -1,5 +1,8 @@
+import { createPublicKey } from 'crypto';
 // @ts-ignore
 import omit from 'lodash.omit';
+import { IUserModel } from '@uqt/server/core-data';
+import { ServerConfig } from '@uqt/data';
 import {
   JWKSGuarConfig,
   GuardConfig,
@@ -8,11 +11,9 @@ import {
   AuthEnvironnementConfig,
   IVerificationTokenModel,
   IRefreshTokenModel,
-  AuthModuleConfig
+  AuthModuleConfig,
+  JWKSGuardConfig
 } from './auth.interface';
-import { ServerConfig } from '@uqt/data';
-import { IUserModel } from '@uqt/server/core-data';
-import { createPublicKey } from 'crypto';
 
 export function isPasswordAllowed(password: string): boolean {
   return (

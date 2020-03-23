@@ -3,8 +3,9 @@
 import Koa from 'koa';
 import {
   applyDemoAuthRoutes,
-  getDemoAuthResolvers,
-  generateDemoAuthModuleConfig
+  generateDemoAuthModuleConfig,
+  createDemoAuthSchema,
+  getDemoAuthResolvers
 } from '@uqt/server/auth';
 import { authConfig } from '../../environments';
 import { User } from '../api/users';
@@ -18,7 +19,9 @@ export function applyApiAuthRoutes(app: Koa) {
   app.use(applyDemoAuthRoutes(authModuleConfig));
 }
 
+const resolvers = getDemoAuthResolvers(authModuleConfig);
+
 /**
- * Auth Resolvers
+ * Auth Schema: all queries and mutation do NOT require to be authorized
  */
-export const authResolvers = getDemoAuthResolvers(authModuleConfig);
+export const authSchema = createDemoAuthSchema(resolvers);

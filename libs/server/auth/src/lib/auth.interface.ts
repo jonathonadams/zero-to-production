@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 import { GraphQLFieldResolver } from 'graphql';
 import { IUserModel, IUserDocument } from '@uqt/server/core-data';
 
-export type AuthMiddleware = GraphQLFieldResolver<any, any, any>;
-
+export type TResolver = GraphQLFieldResolver<any, any, any>;
+export type TResolverFactory = (next: TResolver) => TResolver;
 export type VerifyEmail = (to: string, token: string) => Promise<[any, {}]>;
 
 export type AuthModuleConfig =
@@ -97,34 +97,29 @@ export interface RevokeControllerConfig {
 // Interfaces for the Auth Guards
 // -------------------------------------
 
-export interface GuardConfig
-  extends VerifyTokenConfig,
-    VerifyActiveUserConfig {}
+export interface GuardConfig extends VerifyTokenConfig, VerifyUserConfig {}
 
 export interface JWKSGuarConfig
   extends VerifyTokenJWKSConfig,
-    VerifyActiveUserConfig {}
+    VerifyUserConfig {}
 
-export interface VerifyTokenJWKSConfig {
-  issuer: string;
-  audience: string;
+export interface VerifyTokenJWKSConfig extends VerifyTokenBaseConfig {
   authServerUrl: string;
   production: boolean;
 }
 
-export interface VerifyTokenConfig {
-  issuer: string;
-  audience: string;
+export interface VerifyTokenConfig extends VerifyTokenBaseConfig {
   publicKey: string;
 }
 
-export interface VerifyActiveUserConfig {
-  User: IUserModel;
+export interface VerifyTokenBaseConfig {
+  issuer: string;
+  audience: string;
 }
 
-export type TResolverAuthGuard = (
-  resolver: GraphQLFieldResolver<any, any, any>
-) => GraphQLFieldResolver<any, any, any>;
+export interface VerifyUserConfig {
+  User: IUserModel;
+}
 
 // -------------------------------------
 // Interfaces for each Model

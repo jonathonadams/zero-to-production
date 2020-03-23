@@ -14,10 +14,10 @@ import {
 } from '../auth.controllers';
 import { MockUserModel } from './user.mock';
 import { MockRefreshTokenModel } from './refresh-token.mock';
-import { signRefreshToken } from '../token';
+import { signRefreshToken } from '../sign-tokens';
 import { MockVerificationToken } from './verification.mock';
-import { IVerificationTokenModel, IRefreshTokenModel } from '../auth.interface';
 import { privateKey } from './rsa-keys';
+import { IVerificationTokenModel, IRefreshTokenModel } from '../auth.interface';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();

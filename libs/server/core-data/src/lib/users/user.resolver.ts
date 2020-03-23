@@ -1,21 +1,17 @@
 import { IUserDocument } from '@uqt/server/core-data';
 import { generateResolvers } from '@uqt/server/utils';
-import { TResolverAuthGuard } from '../interface';
 import { IUserModel } from './user';
 
-export const createUsersResolver = (
-  User: IUserModel,
-  guard: TResolverAuthGuard
-) => {
+export const createUsersResolver = (User: IUserModel) => {
   const resolvers = generateResolvers<IUserDocument>(User);
   return {
     Query: {
-      User: guard(resolvers.getOne),
-      allUsers: guard(resolvers.getAll)
+      User: resolvers.getOne,
+      allUsers: resolvers.getAll
     },
     Mutation: {
-      updateUser: guard(resolvers.updateOne),
-      removeUser: guard(resolvers.removeOne)
+      updateUser: resolvers.updateOne,
+      removeUser: resolvers.removeOne
     }
   };
 };
