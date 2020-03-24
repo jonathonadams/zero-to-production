@@ -5,7 +5,7 @@ import * as Koa from 'koa';
 import mongoose from 'mongoose';
 import {
   authenticate,
-  authenticateUser,
+  verifyActiveUser,
   authenticateJWKS
 } from './route.guards';
 import { signAccessToken } from '../sign-tokens';
@@ -240,7 +240,7 @@ describe('Rest Auth Guards', () => {
     });
   });
 
-  describe('authenticateUser', () => {
+  describe('verifyActiveUser', () => {
     it('should call the next handler if a JWT is provided and is valid', async () => {
       const nextSpy = jest.fn();
 
@@ -254,7 +254,7 @@ describe('Rest Auth Guards', () => {
 
       MockUserModel.userToRespondWith = mockUser;
       await expect(
-        authenticateUser({ User: (MockUserModel as unknown) as IUserModel })(
+        verifyActiveUser({ User: (MockUserModel as unknown) as IUserModel })(
           ({ user: { sub: id } } as unknown) as Koa.ParameterizedContext,
           nextSpy
         )
@@ -282,7 +282,7 @@ describe('Rest Auth Guards', () => {
       MockUserModel.userToRespondWith = mockUser;
 
       await expect(
-        authenticateUser({ User: (MockUserModel as unknown) as IUserModel })(
+        verifyActiveUser({ User: (MockUserModel as unknown) as IUserModel })(
           ({ user: { sub: wrongId } } as unknown) as Koa.ParameterizedContext,
           nextSpy
         )
@@ -306,7 +306,7 @@ describe('Rest Auth Guards', () => {
 
       MockUserModel.userToRespondWith = mockUser;
       await expect(
-        authenticateUser({ User: (MockUserModel as unknown) as IUserModel })(
+        verifyActiveUser({ User: (MockUserModel as unknown) as IUserModel })(
           ({ user: { sub: id } } as unknown) as Koa.ParameterizedContext,
           nextSpy
         )

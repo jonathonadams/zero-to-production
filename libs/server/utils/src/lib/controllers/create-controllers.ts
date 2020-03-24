@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import { Model, Document } from 'mongoose';
 import { ObjectId } from 'mongodb';
 import { notFound } from '@hapi/boom';
 import { swapId } from '../utils';
@@ -13,28 +13,23 @@ import { swapId } from '../utils';
  * This means we have to manually deal with the swapping of ._id and .id
  * This is manually done with a Utils helper method
  */
-export function createControllers<T extends mongoose.Document>(
-  model: mongoose.Model<T>
-) {
+export function createControllers<T extends Document>(model: Model<T>) {
   return {
     // Get All
     getAll: async (userId?: string) => {
-      const resources: T[] = await model
-        .find()
-        .where(userId ? { userId } : {})
-        .lean<T>()
-        .exec();
+      const query = model.find();
+      if (userId) query.where({ userId });
+      const resources: T[] = await query.lean<T>().exec();
 
       return resources.map<T>(swapId);
     },
 
     // Get an individual resource
     getOne: async (id: ObjectId, userId?: string) => {
-      const resource = await model
-        .findById(id)
-        .where(userId ? { userId } : {})
-        .lean<T | null>()
-        .exec();
+      const query = model.findById(id);
+      if (userId) query.where({ userId });
+
+      const resource = await query.lean<T | null>().exec();
 
       if (!resource)
         throw notFound('Cannot find a resource with the supplied parameters.');
@@ -50,11 +45,10 @@ export function createControllers<T extends mongoose.Document>(
 
     // Update a resource
     updateOne: async (id: ObjectId, values: any, userId?: string) => {
-      const resource = await model
-        .findByIdAndUpdate(id, values, { new: true })
-        .where(userId ? { userId } : {})
-        .lean()
-        .exec();
+      const query = model.findByIdAndUpdate(id, values, { new: true });
+      if (userId) query.where({ userId });
+      const resource = await query.lean().exec();
+
       if (!resource)
         throw notFound('Cannot find a resource with the supplied parameters.');
       return swapId<T>(resource);
@@ -62,12 +56,12 @@ export function createControllers<T extends mongoose.Document>(
 
     // Remove one
     removeOne: async (id: ObjectId, userId?: string) => {
+      const query = model.findByIdAndRemove(id);
+      if (userId) query.where({ userId });
+
       // Don't use lean for this, pre/post hooks might require 'mongoose' object
       // to delete/update etc other resources
-      const resource = await model
-        .findByIdAndRemove(id)
-        .where(userId ? { userId } : {})
-        .exec();
+      const resource = await query.exec();
 
       if (!resource)
         throw notFound('Cannot find a resource with the supplied parameters.');

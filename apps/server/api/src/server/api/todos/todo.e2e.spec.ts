@@ -4,7 +4,8 @@ import { authConfig } from '../../../environments/index';
 import { schema } from '../../graphql';
 import ApiServer from '../../server';
 import { createGraphQLSpec } from '@uqt/tests/server';
-import { Todo } from '.';
+import { Todo } from './todo.model';
+import { User } from '../users';
 
 // Need to import and run the server because
 // the server is also our "auth server"
@@ -25,4 +26,4 @@ createGraphQLSpec(
   authConfig.accessToken,
   server,
   /*userResource */ true
-)(Todo, 'Todo', todo, updatedTodo);
+)(Todo, 'Todo', todo, updatedTodo, User);

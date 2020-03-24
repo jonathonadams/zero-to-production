@@ -18,7 +18,7 @@ export const baseTypeDef = gql`
 
   directive @formatDate(format: String = "yyyy-mm-dd") on FIELD_DEFINITION
   directive @authenticated on OBJECT | FIELD_DEFINITION
-  directive @authenticateUser on OBJECT | FIELD_DEFINITION
+  directive @activeUser on OBJECT | FIELD_DEFINITION
 
   type File {
     id: ID!
@@ -29,7 +29,7 @@ export const baseTypeDef = gql`
   }
 
   type Query @authenticated
-  type Mutation @authenticated
+  type Mutation @activeUser
   # type Subscription
 
   schema {

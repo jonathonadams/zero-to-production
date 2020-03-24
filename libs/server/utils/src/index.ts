@@ -4,6 +4,6 @@ export { defaultSchemaOptions } from './lib/db/schema-options';
 export {
   generateRestRouter,
   generateRestControllers
-} from './lib/controllers/create-rest-controllers';
+} from './lib/controllers/create-rest-router';
 export { generateResolvers } from './lib/resolvers/create-resolvers';
 export { createTypeResolver } from './lib/resolvers/resolvers';

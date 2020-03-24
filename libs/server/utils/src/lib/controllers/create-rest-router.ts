@@ -2,6 +2,7 @@ import { ParameterizedContext } from 'koa';
 import Router from '@koa/router';
 import { Document, Model } from 'mongoose';
 import { createControllers } from './create-controllers';
+import { retrieveUserId } from './utils';
 
 export function generateRestRouter<T extends Document>({
   model,
@@ -41,51 +42,33 @@ export function generateRestControllers<T extends Document>(
       await next();
     },
     getAll: async (ctx: ParameterizedContext) => {
+      const userId = userResourcesOnly ? retrieveUserId(ctx) : undefined;
       ctx.status = 200;
-      ctx.body = await controllers.getAll(
-        userResourcesOnly ? ctx.user.sub : undefined
-      );
+      ctx.body = await controllers.getAll(userId);
     },
     getOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
-      try {
-        ctx.status = 200;
-        ctx.body = await controllers.getOne(
-          ctx.state.id,
-          userResourcesOnly ? ctx.user.sub : undefined
-        );
-      } catch (err) {
-        throw err;
-      }
+      const userId = userResourcesOnly ? retrieveUserId(ctx) : undefined;
+      ctx.status = 200;
+      ctx.body = await controllers.getOne(ctx.state.id, userId);
     },
     createOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
+      const userId = userResourcesOnly ? retrieveUserId(ctx) : undefined;
       ctx.status = 201;
-      ctx.body = await controllers.createOne(
-        (ctx.request as any).body,
-        userResourcesOnly ? ctx.user.sub : undefined
-      );
+      ctx.body = await controllers.createOne((ctx.request as any).body, userId);
     },
     updateOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
-      try {
-        ctx.status = 201;
-        ctx.body = await controllers.updateOne(
-          ctx.state.id,
-          (ctx.request as any).body,
-          userResourcesOnly ? ctx.user.sub : undefined
-        );
-      } catch (err) {
-        throw err;
-      }
+      const userId = userResourcesOnly ? retrieveUserId(ctx) : undefined;
+      ctx.status = 201;
+      ctx.body = await controllers.updateOne(
+        ctx.state.id,
+        (ctx.request as any).body,
+        userId
+      );
     },
     removeOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
-      try {
-        ctx.status = 200;
-        ctx.body = await controllers.removeOne(
-          ctx.state.id,
-          userResourcesOnly ? ctx.user.sub : undefined
-        );
-      } catch (err) {
-        throw err;
-      }
+      const userId = userResourcesOnly ? retrieveUserId(ctx) : undefined;
+      ctx.status = 200;
+      ctx.body = await controllers.removeOne(ctx.state.id, userId);
     }
   };
 }

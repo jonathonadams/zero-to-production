@@ -2,7 +2,7 @@ import koa from 'koa';
 import { isJWKS } from '../auth-utils';
 import {
   verifyToken,
-  verifyUser,
+  isActiveUser,
   retrievePublicKeyFormJWKS
 } from '../authenticate';
 import {
@@ -19,7 +19,7 @@ export function getRestGuards(config: GuardConfig | JWKSGuarConfig) {
     authenticate: isJWKS(config)
       ? authenticateJWKS(config)
       : authenticate(config),
-    authenticateUser: authenticateUser(config)
+    verifyUser: verifyActiveUser(config)
   };
 }
 
@@ -63,11 +63,11 @@ export function authenticateJWKS(config: VerifyTokenJWKSConfig) {
  * will contain the decoded token, and hence the 'sub' property will be the id
  *
  */
-export function authenticateUser({ User }: VerifyUserConfig) {
-  const authUser = verifyUser(User);
+export function verifyActiveUser({ User }: VerifyUserConfig) {
+  const activeUser = isActiveUser(User);
   return async (ctx: koa.ParameterizedContext, next: () => Promise<any>) => {
     // Set the user on the ctx.user property
-    ctx.user = await authUser(ctx.user.sub);
+    ctx.user = await activeUser(ctx.user.sub);
     return next();
   };
 }

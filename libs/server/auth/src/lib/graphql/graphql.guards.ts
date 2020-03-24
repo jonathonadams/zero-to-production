@@ -9,23 +9,21 @@ import {
 import { isJWKS } from '../auth-utils';
 import {
   verifyToken,
-  verifyUser,
+  isActiveUser,
   verifyUserRole,
   retrievePublicKeyFormJWKS
 } from '../authenticate';
 
 export function getGraphQLGuards(config: GuardConfig | JWKSGuarConfig) {
-  const { authenticate, authenticateUser, authorize } = createGraphQLGuards(
-    config
-  );
+  const { authenticate, verifyUser, authorize } = createGraphQLGuards(config);
 
   return {
     authenticate,
-    authenticateUser(next: TResolver) {
-      return authenticate(authenticateUser(next));
+    verifyUser(next: TResolver) {
+      return authenticate(verifyUser(next));
     },
     authorize(role: string, next: TResolver) {
-      return authenticate(authenticateUser(authorize(role, next)));
+      return authenticate(verifyUser(authorize(role, next)));
     }
   };
 }
@@ -36,11 +34,9 @@ export function createGraphQLGuards(config: GuardConfig | JWKSGuarConfig) {
     ? authenticatedJWKS(config)
     : authenticated(config);
 
-  const authenticateUser = authenticatedUser(config);
-
   return {
     authenticate,
-    authenticateUser,
+    verifyUser: verifyActiveUser(config),
     authorize: authorized
   };
 }
@@ -73,10 +69,10 @@ export function authenticatedJWKS(config: VerifyTokenJWKSConfig) {
  * Verify the user is a valid user in the database
  *
  */
-export function authenticatedUser({ User }: VerifyUserConfig) {
-  const authUser = verifyUser(User);
+export function verifyActiveUser({ User }: VerifyUserConfig) {
+  const activeUser = isActiveUser(User);
   return (next: TResolver): TResolver => async (root, args, ctx, info) => {
-    ctx.user = await authUser(ctx.user.sub);
+    ctx.user = await activeUser(ctx.user.sub);
 
     return await next(root, args, ctx, info);
   };
