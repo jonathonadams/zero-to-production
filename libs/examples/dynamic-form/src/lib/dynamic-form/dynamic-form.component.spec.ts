@@ -14,7 +14,7 @@ describe('ExampleDynamicFormComponent', () => {
   const facadeSpy = { selectExampleById: jest.fn() };
   const dynamicFormSpy = {
     createFormIfNotExist: jest.fn(),
-    formSubmits$: () => of(jest.fn())
+    formSubmits$: () => of(jest.fn()),
   };
 
   beforeEach(async(() => {
@@ -24,9 +24,9 @@ describe('ExampleDynamicFormComponent', () => {
       providers: [
         { provide: ExamplesFacade, useValue: facadeSpy },
         { provide: DynamicFormFacade, useValue: dynamicFormSpy },
-        { provide: CodeHighlightService, useValue: {} }
+        { provide: CodeHighlightService, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

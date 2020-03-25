@@ -4,7 +4,7 @@ import { ExamplesStartYourOwnModule } from './examples-start-your-own.module';
 describe('ExamplesStartYourOwnModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ExamplesStartYourOwnModule]
+      imports: [ExamplesStartYourOwnModule],
     }).compileComponents();
   }));
 

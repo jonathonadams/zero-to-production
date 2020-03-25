@@ -21,7 +21,7 @@ const COMPONENTS = [
   FormToggleComponent,
   FormDatePickerComponent,
   FormTextAreaComponent,
-  FormCheckBoxComponent
+  FormCheckBoxComponent,
 ];
 
 @NgModule({
@@ -35,8 +35,8 @@ const COMPONENTS = [
     MatDatepickerModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    TextFieldModule
+    TextFieldModule,
   ],
-  exports: COMPONENTS
+  exports: COMPONENTS,
 })
 export class CommonDynamicFormMaterialComponentsModule {}

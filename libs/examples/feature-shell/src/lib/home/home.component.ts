@@ -7,7 +7,7 @@ import { IExample, ExamplesFacade } from '@uqt/examples/data-access';
   selector: 'uqt-examples-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamplesHomeComponent {
   examples$: Observable<IExample[]>;

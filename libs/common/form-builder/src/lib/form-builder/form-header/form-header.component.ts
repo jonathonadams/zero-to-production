@@ -8,7 +8,7 @@ import { expandAnimation } from '../../form.animation';
   templateUrl: './form-header.component.html',
   styleUrls: ['./form-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [expandAnimation]
+  animations: [expandAnimation],
 })
 export class FormBuilderHeaderComponent {
   save = faSave;

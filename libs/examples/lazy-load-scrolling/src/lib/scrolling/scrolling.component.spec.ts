@@ -12,7 +12,7 @@ describe('ScrollingComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ScrollingComponent],
       providers: [{ provide: CodeHighlightService, useValue: {} }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

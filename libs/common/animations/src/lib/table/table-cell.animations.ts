@@ -8,16 +8,16 @@ import { trigger, animate, transition, style } from '@angular/animations';
 export const CELL_HIGHLIGHT_ANIMATIONS = trigger('cellHighlightAnimation', [
   transition(':increment', [
     style({
-      boxShadow: '0 0 2em #009882'
+      boxShadow: '0 0 2em #009882',
     }),
-    animate('2s ease', style({ boxShadow: '0 0 2em rgba(0,0,0,0)' }))
+    animate('2s ease', style({ boxShadow: '0 0 2em rgba(0,0,0,0)' })),
   ]),
   transition(':decrement', [
     style({
-      boxShadow: '0 0 2em #ff4181'
+      boxShadow: '0 0 2em #ff4181',
     }),
-    animate('2s ease', style({ boxShadow: '0 0 2em rgba(0,0,0,0)' }))
-  ])
+    animate('2s ease', style({ boxShadow: '0 0 2em rgba(0,0,0,0)' })),
+  ]),
   // transition('* => *', [
   //   style({
   //     boxShadow: '0 0 2em #009882',

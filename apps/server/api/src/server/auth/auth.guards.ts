@@ -2,7 +2,7 @@ import {
   getGraphQLGuards,
   getRestGuards,
   generateAuthGuardConfig,
-  createAuthDirectives
+  createAuthDirectives,
 } from '@uqt/server/auth';
 import { config, authConfig } from '../../environments';
 import { User } from '../api/users';
@@ -14,7 +14,7 @@ const guardConfig = generateAuthGuardConfig(config, authConfig, User);
  */
 export const {
   authenticate: authenticateRest,
-  verifyUser: authenticateUserRest
+  verifyUser: authenticateUserRest,
 } = getRestGuards(guardConfig);
 
 /**
@@ -22,7 +22,7 @@ export const {
  */
 export const {
   authenticate: authenticateGraphQL,
-  verifyUser: authenticateUserGraphQL
+  verifyUser: authenticateUserGraphQL,
 } = getGraphQLGuards(guardConfig);
 
 export const authDirectives = createAuthDirectives(guardConfig);

@@ -2,14 +2,14 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { DynamicFormFacade } from '@uqt/common/dynamic-form';
 import { Subscription } from 'rxjs';
 import {
   AuthFacade,
   IRegistrationDetails,
-  passwordMatchValidator
+  passwordMatchValidator,
 } from '@uqt/shared/data-access/auth';
 import { REGISTER_STRUCTURE } from './register.structure';
 
@@ -31,7 +31,7 @@ interface IRegistrationFormStructure {
   selector: 'uqt-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   readonly formName = 'register';
@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       animations: true,
       paginateSections: true,
       structure: REGISTER_STRUCTURE,
-      formValidators: [passwordCheck]
+      formValidators: [passwordCheck],
     });
   }
 
@@ -70,7 +70,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     const settings: IRegistrationDetails = {
       username: details.password.username,
       password: details.password.password,
-      ...details.details
+      ...details.details,
     };
 
     this.facade.register(settings);

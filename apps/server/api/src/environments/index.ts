@@ -3,7 +3,7 @@
 import {
   GlobalServerConfig,
   EnvironnementConfig,
-  ServerConfig
+  ServerConfig,
 } from '@uqt/data';
 import { envToNumber } from '@uqt/server/utils';
 import { devConfig, devAuthConfig } from './development';
@@ -34,8 +34,8 @@ const globalConfig: GlobalServerConfig = {
     promiseLibrary: Promise,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    useFindAndModify: false
-  }
+    useFindAndModify: false,
+  },
 };
 
 /**
@@ -76,7 +76,7 @@ export const config: ServerConfig = {
   ...{
     databaseOptions: {
       ...globalConfig.databaseOptions,
-      ...environmentSettings.databaseOptions
-    }
-  }
+      ...environmentSettings.databaseOptions,
+    },
+  },
 };

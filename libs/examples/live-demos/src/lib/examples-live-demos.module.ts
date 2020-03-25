@@ -6,7 +6,7 @@ import { ExamplesDemosComponent } from './example-demos/examples-demos.component
 import { ExampleDetailComponent } from './example-demos/example-detail/example-detail.component';
 import {
   SharedUtilsDynamicModuleLoadingModule,
-  LAZY_MODULE_REGISTRY
+  LAZY_MODULE_REGISTRY,
 } from '@uqt/shared/utils/dynamic-module-loading';
 import { LAZY_MODULES } from './lazy-modules';
 import { ExamplesDynamicFormModule } from '@uqt/examples/dynamic-form';
@@ -19,14 +19,14 @@ import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
     CommonUiLayoutsModule,
     SharedUtilsDynamicModuleLoadingModule,
     ExamplesDynamicFormModule,
-    ScrollingModule // only needed for drag & drop form builder
+    ScrollingModule, // only needed for drag & drop form builder
   ],
   declarations: [ExamplesDemosComponent, ExampleDetailComponent],
   providers: [
     {
       provide: LAZY_MODULE_REGISTRY,
-      useValue: LAZY_MODULES
-    }
-  ]
+      useValue: LAZY_MODULES,
+    },
+  ],
 })
 export class ExamplesLiveDemosModule {}

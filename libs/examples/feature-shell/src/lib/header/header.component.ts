@@ -1,7 +1,7 @@
 import {
   Component,
   ViewEncapsulation,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ThemeService } from '@uqt/common/theme';
@@ -11,7 +11,7 @@ import { ThemeService } from '@uqt/common/theme';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamplesHeaderComponent {
   darkTheme$: Observable<boolean>;
@@ -23,6 +23,6 @@ export class ExamplesHeaderComponent {
   navButtons = [
     { label: 'Home', link: '/' },
     { label: 'Examples', link: '/examples' },
-    { label: 'Guides', link: '/guides' }
+    { label: 'Guides', link: '/guides' },
   ];
 }

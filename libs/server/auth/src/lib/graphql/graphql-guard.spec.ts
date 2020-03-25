@@ -6,7 +6,7 @@ import { koaJwtSecret } from 'jwks-rsa';
 import {
   authenticated,
   authenticatedJWKS,
-  verifyActiveUser
+  verifyActiveUser,
 } from './graphql.guards';
 import { signAccessToken } from '../sign-tokens';
 import { MockUserModel } from '../__tests__/user.mock';
@@ -15,7 +15,7 @@ import {
   privateKey,
   invalidPrivateKey,
   publicKey,
-  invalidPublicKey
+  invalidPublicKey,
 } from '../__tests__/rsa-keys';
 import { TResolver } from '../auth.interface';
 
@@ -40,18 +40,18 @@ describe('GraphQL Auth Guards', () => {
       expireTime,
       issuer,
       audience,
-      keyId
+      keyId,
     })({
-      id: '1'
+      id: '1',
     } as IUserDocument);
     invalidJwt = signAccessToken({
       privateKey: invalidPrivateKey,
       expireTime,
       issuer,
       audience,
-      keyId
+      keyId,
     })({
-      id: '1'
+      id: '1',
     } as IUserDocument);
   });
 
@@ -94,7 +94,7 @@ describe('GraphQL Auth Guards', () => {
         authenticated({
           publicKey,
           issuer: 'some-different-issuer',
-          audience
+          audience,
         })(noOpNext)({}, {}, { token: invalidJwt }, {} as GraphQLResolveInfo)
       ).rejects.toThrowError();
     });
@@ -104,7 +104,7 @@ describe('GraphQL Auth Guards', () => {
         authenticated({
           publicKey,
           issuer,
-          audience: 'wrong-audience'
+          audience: 'wrong-audience',
         })(noOpNext)({}, {}, { token: invalidJwt }, {} as GraphQLResolveInfo)
       ).rejects.toThrowError();
     });
@@ -121,7 +121,7 @@ describe('GraphQL Auth Guards', () => {
           production: false,
           authServerUrl: 'http://some-url',
           issuer: issuer,
-          audience
+          audience,
         })(noOpNext)(
           {},
           {},
@@ -143,7 +143,7 @@ describe('GraphQL Auth Guards', () => {
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
-          audience
+          audience,
         })(noOpNext)({}, {}, {}, {} as GraphQLResolveInfo)
       ).rejects.toThrowError('Unauthorized');
 
@@ -160,7 +160,7 @@ describe('GraphQL Auth Guards', () => {
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
-          audience
+          audience,
         })(noOpNext)(
           {},
           {},
@@ -182,7 +182,7 @@ describe('GraphQL Auth Guards', () => {
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
-          audience
+          audience,
         })(noOpNext)(
           {},
           {},
@@ -204,7 +204,7 @@ describe('GraphQL Auth Guards', () => {
           production: false,
           authServerUrl: 'http://some-url',
           issuer: 'some-wrong-issuer',
-          audience
+          audience,
         })(noOpNext)(
           {},
           {},
@@ -226,7 +226,7 @@ describe('GraphQL Auth Guards', () => {
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
-          audience: 'wrong-audience'
+          audience: 'wrong-audience',
         })(noOpNext)(
           {},
           {},
@@ -244,7 +244,7 @@ describe('GraphQL Auth Guards', () => {
       const id = newId();
       const mockUser = {
         id,
-        active: true
+        active: true,
       } as IUserDocument;
 
       const spy = jest.spyOn(MockUserModel, 'findById');
@@ -289,7 +289,7 @@ describe('GraphQL Auth Guards', () => {
       const id = newId();
       const mockUser = {
         id,
-        active: false
+        active: false,
       } as IUserDocument;
 
       const spy = jest.spyOn(MockUserModel, 'findById');

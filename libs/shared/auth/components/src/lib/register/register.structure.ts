@@ -4,11 +4,11 @@ import {
   FormGroupTypes,
   FormFieldTypes,
   TFormStructure,
-  InputFieldTypes
+  InputFieldTypes,
 } from '@uqt/common/dynamic-form';
 import {
   UsernameAvailableValidator,
-  passwordValidator
+  passwordValidator,
 } from '@uqt/shared/data-access/auth';
 
 const PASSWORD_GROUP: IFormGroup = {
@@ -20,7 +20,7 @@ const PASSWORD_GROUP: IFormGroup = {
       name: 'username',
       label: 'Username',
       validators: [Validators.required],
-      asyncValidators: [UsernameAvailableValidator]
+      asyncValidators: [UsernameAvailableValidator],
     },
     {
       type: FormFieldTypes.Input,
@@ -28,7 +28,7 @@ const PASSWORD_GROUP: IFormGroup = {
       name: 'password',
       label: 'Select Password',
       autocomplete: 'new-password',
-      validators: [Validators.required, passwordValidator]
+      validators: [Validators.required, passwordValidator],
     },
     {
       type: FormFieldTypes.Input,
@@ -36,9 +36,9 @@ const PASSWORD_GROUP: IFormGroup = {
       name: 'passwordCheck',
       label: 'Verify Password',
       autocomplete: 'new-password',
-      validators: [Validators.required]
-    }
-  ]
+      validators: [Validators.required],
+    },
+  ],
 };
 
 export const DETAILS_GROUP: IFormGroup = {
@@ -50,14 +50,14 @@ export const DETAILS_GROUP: IFormGroup = {
       name: 'givenName',
       label: 'Given Name',
       autocomplete: 'given-name',
-      validators: [Validators.required]
+      validators: [Validators.required],
     },
     {
       type: FormFieldTypes.Input,
       name: 'surname',
       label: 'Surname',
       autocomplete: 'family-name',
-      validators: [Validators.required]
+      validators: [Validators.required],
     },
     {
       type: FormFieldTypes.Input,
@@ -65,19 +65,19 @@ export const DETAILS_GROUP: IFormGroup = {
       name: 'email',
       label: 'Email',
       autocomplete: 'email',
-      validators: [Validators.required, Validators.email]
+      validators: [Validators.required, Validators.email],
     },
     {
       type: FormFieldTypes.DatePicker,
       name: 'dateOfBirth',
       label: 'Date Of Birth',
       autocomplete: 'bday',
-      validators: [Validators.required]
-    }
-  ]
+      validators: [Validators.required],
+    },
+  ],
 };
 
 export const REGISTER_STRUCTURE: TFormStructure = [
   DETAILS_GROUP,
-  PASSWORD_GROUP
+  PASSWORD_GROUP,
 ];

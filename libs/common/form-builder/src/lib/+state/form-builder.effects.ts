@@ -16,9 +16,9 @@ export class FormBuilderEffects {
   loadForms$ = createEffect(() =>
     this.actions$.pipe(
       ofType(FormBuilderActions.loadForms),
-      exhaustMap(action =>
+      exhaustMap((action) =>
         this.formService.getAllForms().pipe(
-          map(forms => FormBuilderActions.loadFormsSuccess({ forms })),
+          map((forms) => FormBuilderActions.loadFormsSuccess({ forms })),
           catchError((error: HttpErrorResponse) =>
             of(FormBuilderActions.loadFormsFail({ error: error.message }))
           )
@@ -32,7 +32,7 @@ export class FormBuilderEffects {
       ofType(FormBuilderActions.createForm),
       mergeMap(({ form: newForm }) =>
         this.formService.createForm(newForm).pipe(
-          map(form => FormBuilderActions.createFormSuccess({ form })),
+          map((form) => FormBuilderActions.createFormSuccess({ form })),
           catchError((error: HttpErrorResponse) =>
             of(FormBuilderActions.createFormFail({ error: error.message }))
           )
@@ -46,9 +46,9 @@ export class FormBuilderEffects {
       ofType(FormBuilderActions.updateForm),
       mergeMap(({ form }) =>
         this.formService.updateForm(form).pipe(
-          map(updatedForm =>
+          map((updatedForm) =>
             FormBuilderActions.updateFormSuccess({
-              form: { id: form.formName, changes: updatedForm }
+              form: { id: form.formName, changes: updatedForm },
             })
           ),
           catchError((error: HttpErrorResponse) =>
@@ -64,7 +64,9 @@ export class FormBuilderEffects {
       ofType(FormBuilderActions.deleteForm),
       mergeMap(({ form }) =>
         this.formService.deleteForm(form.formName).pipe(
-          map(name => FormBuilderActions.deleteFormSuccess({ formName: name })),
+          map((name) =>
+            FormBuilderActions.deleteFormSuccess({ formName: name })
+          ),
           catchError((error: HttpErrorResponse) =>
             of(FormBuilderActions.deleteFormFail({ error: error.message }))
           )

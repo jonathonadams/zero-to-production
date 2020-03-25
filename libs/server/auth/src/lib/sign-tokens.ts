@@ -16,7 +16,7 @@ export function signAccessToken(config: AccessTokenConfig) {
         expiresIn: config.expireTime,
         issuer: config.issuer,
         keyid: config.keyId,
-        audience: config.audience
+        audience: config.audience,
       }
     );
   };
@@ -33,7 +33,7 @@ export function signRefreshToken(config: RefreshTokenConfig) {
         algorithm: 'RS256',
         subject: user.id,
         issuer: config.issuer,
-        audience: config.audience
+        audience: config.audience,
       }
     );
   };

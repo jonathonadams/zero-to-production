@@ -5,7 +5,7 @@ import {
   IResolvers,
   ITypeDefinitions,
   SchemaDirectiveVisitor,
-  mergeSchemas
+  mergeSchemas,
 } from 'apollo-server-koa';
 import { ILoaders } from './data-loader';
 import { GraphQLSchema } from 'graphql';
@@ -14,7 +14,7 @@ import { FormatDateDirective } from './directives';
 export function createSchema({
   typeDefs,
   resolvers,
-  directives
+  directives,
 }: {
   typeDefs: ITypeDefinitions;
   resolvers: IResolvers[];
@@ -24,7 +24,7 @@ export function createSchema({
 }): GraphQLSchema {
   const defaultDirectives = {
     // log: LogDirective,
-    formatDate: FormatDateDirective
+    formatDate: FormatDateDirective,
   };
 
   return makeExecutableSchema({
@@ -33,14 +33,14 @@ export function createSchema({
     allowUndefinedInResolve: false,
     schemaDirectives: directives
       ? { ...defaultDirectives, ...directives }
-      : defaultDirectives
+      : defaultDirectives,
   });
 }
 
 export function createApollo({
   schemas,
   production,
-  loaders
+  loaders,
 }: {
   schemas: GraphQLSchema[];
   production: boolean;
@@ -56,7 +56,7 @@ export function createApollo({
           // create an empty state object to store temporary data in the resolvers
           state: {},
           // Add any necessary data loaders here if wanted
-          loaders: loaders ? loaders() : undefined
+          loaders: loaders ? loaders() : undefined,
         };
       }
       // if the ctx exists, it is a req/res
@@ -67,13 +67,13 @@ export function createApollo({
           // Add any necessary data loaders here if wanted
           loaders: loaders ? loaders() : undefined,
           // Add the JWT as the token property
-          token: ctx.request.token
+          token: ctx.request.token,
         };
       }
     },
     playground: !production,
     tracing: !production,
     debug: !production,
-    uploads: false
+    uploads: false,
   });
 }

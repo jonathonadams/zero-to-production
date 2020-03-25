@@ -3,14 +3,14 @@ import { Observable, Subscription } from 'rxjs';
 import { FormBuilderFacade } from '@uqt/common/form-builder';
 import {
   DynamicFormFacade,
-  IDynamicFormConfig
+  IDynamicFormConfig,
 } from '@uqt/common/dynamic-form';
 
 @Component({
   selector: 'ex-example-form-builder-display',
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleFormBuilderDisplayComponent implements OnDestroy {
   selectedForm$: Observable<IDynamicFormConfig | undefined>;
@@ -24,7 +24,7 @@ export class ExampleFormBuilderDisplayComponent implements OnDestroy {
   ) {
     this.selectedForm$ = this.builderFacade.selectedForm$;
 
-    this.sub = this.selectedForm$.subscribe(form => {
+    this.sub = this.selectedForm$.subscribe((form) => {
       if (form) {
         this.formsFacade.createFormIfNotExist(form.formName);
         this.formsFacade.setFormConfig(form.formName, form);

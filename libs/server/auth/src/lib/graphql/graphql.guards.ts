@@ -4,14 +4,14 @@ import {
   VerifyUserConfig,
   VerifyTokenJWKSConfig,
   VerifyTokenConfig,
-  TResolver
+  TResolver,
 } from '../auth.interface';
 import { isJWKS } from '../auth-utils';
 import {
   verifyToken,
   isActiveUser,
   verifyUserRole,
-  retrievePublicKeyFormJWKS
+  retrievePublicKeyFormJWKS,
 } from '../authenticate';
 
 export function getGraphQLGuards(config: GuardConfig | JWKSGuarConfig) {
@@ -24,7 +24,7 @@ export function getGraphQLGuards(config: GuardConfig | JWKSGuarConfig) {
     },
     authorize(role: string, next: TResolver) {
       return authenticate(verifyUser(authorize(role, next)));
-    }
+    },
   };
 }
 
@@ -37,7 +37,7 @@ export function createGraphQLGuards(config: GuardConfig | JWKSGuarConfig) {
   return {
     authenticate,
     verifyUser: verifyActiveUser(config),
-    authorize: authorized
+    authorize: authorized,
   };
 }
 

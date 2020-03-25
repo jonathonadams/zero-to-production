@@ -10,7 +10,7 @@ export const environment = {
   production: false,
   serverUrl: serverUrl,
   apiBaseUrl: `${serverUrl}/api`,
-  graphQLUrl: `${serverUrl}/graphql`
+  graphQLUrl: `${serverUrl}/graphql`,
 };
 
 /*

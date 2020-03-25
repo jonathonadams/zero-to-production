@@ -6,7 +6,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
   selector: 'uqt-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
   constructor(private breakpointObserver: BreakpointObserver) {}
@@ -18,7 +18,7 @@ export class DashboardComponent {
           { title: 'Card 1', cols: 1, rows: 1 },
           { title: 'Card 2', cols: 1, rows: 1 },
           { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
+          { title: 'Card 4', cols: 1, rows: 1 },
         ];
       }
 
@@ -26,7 +26,7 @@ export class DashboardComponent {
         { title: 'Card 1', cols: 2, rows: 1 },
         { title: 'Card 2', cols: 1, rows: 1 },
         { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
+        { title: 'Card 4', cols: 1, rows: 1 },
       ];
     })
   );

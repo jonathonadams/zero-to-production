@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import {
   IDynamicFormConfig,
-  generateInitialFormConfig
+  generateInitialFormConfig,
 } from '@uqt/common/dynamic-form';
 
 /**
@@ -42,7 +42,7 @@ export class FormBuilderService {
 
     if (formS) {
       const forms = JSON.parse(formS) as IDynamicFormConfig[];
-      const newForms = forms.map(f =>
+      const newForms = forms.map((f) =>
         f.formName === form.formName ? { ...f, ...form } : f
       );
 
@@ -56,7 +56,7 @@ export class FormBuilderService {
 
     if (formS) {
       const forms = JSON.parse(formS) as IDynamicFormConfig[];
-      const newForms = forms.filter(f => f.formName !== formName);
+      const newForms = forms.filter((f) => f.formName !== formName);
 
       localStorage.setItem(this.key, JSON.stringify(newForms));
     }

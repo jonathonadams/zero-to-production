@@ -10,7 +10,7 @@ describe('TodoFeatureShellComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TodoFeatureShellComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

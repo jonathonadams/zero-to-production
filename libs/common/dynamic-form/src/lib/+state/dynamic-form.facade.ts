@@ -15,8 +15,8 @@ export class DynamicFormFacade {
 
   formSubmits$(formName: string): Observable<any> {
     return this.facade.submit$.pipe(
-      map(submits => submits[formName]),
-      filter(submit => submit !== undefined)
+      map((submits) => submits[formName]),
+      filter((submit) => submit !== undefined)
     );
   }
 

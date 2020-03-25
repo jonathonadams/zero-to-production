@@ -4,7 +4,7 @@ import { TodosFeatureShellModule } from './todos-feature-shell.module';
 describe('TodosFeatureShellModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TodosFeatureShellModule]
+      imports: [TodosFeatureShellModule],
     }).compileComponents();
   }));
 

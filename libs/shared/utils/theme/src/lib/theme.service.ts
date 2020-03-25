@@ -30,7 +30,7 @@ export class ThemeService {
     lightPrimary = null,
     lightAccent = null,
     darkPrimary = null,
-    darkAccent = null
+    darkAccent = null,
   } = {}) {
     const rootElement = this.document.querySelector(':root') as HTMLElement;
 

@@ -4,7 +4,7 @@ import { ExamplesGuidesModule } from './examples-guides.module';
 describe('ExamplesGuidesModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ExamplesGuidesModule]
+      imports: [ExamplesGuidesModule],
     }).compileComponents();
   }));
 

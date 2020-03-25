@@ -4,7 +4,7 @@ import { CommonUiCardModule } from './common-ui-card.module';
 describe('CommonUiCardModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonUiCardModule]
+      imports: [CommonUiCardModule],
     }).compileComponents();
   }));
 

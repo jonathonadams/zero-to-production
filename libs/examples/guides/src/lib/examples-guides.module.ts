@@ -12,8 +12,8 @@ import { MarkdownComponent } from './markdown/markdown.component';
     CommonModule,
     ExamplesGuidesRoutingModule,
     CommonUiLayoutsModule,
-    CustomMaterialModule
+    CustomMaterialModule,
   ],
-  declarations: [GuidesComponent, MarkedPipe, MarkdownComponent]
+  declarations: [GuidesComponent, MarkedPipe, MarkdownComponent],
 })
 export class ExamplesGuidesModule {}

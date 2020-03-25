@@ -20,7 +20,7 @@ const COMPONENTS = [
   RegisterComponent,
   UiRegisterComponent,
   CustomUsernameComponent,
-  CustomUsernameInputComponent
+  CustomUsernameInputComponent,
 ];
 
 @NgModule({
@@ -31,8 +31,8 @@ const COMPONENTS = [
     RouterModule,
     CommonUiCardModule,
     CustomMaterialModule,
-    CommonDynamicFormModule.forChild()
+    CommonDynamicFormModule.forChild(),
   ],
-  exports: COMPONENTS
+  exports: COMPONENTS,
 })
 export class SharedAuthComponentsModule {}

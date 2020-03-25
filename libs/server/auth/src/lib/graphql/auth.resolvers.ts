@@ -4,13 +4,13 @@ import { IUser } from '@uqt/data';
 import {
   setupLoginController,
   setupRegisterController,
-  setupUsernameAvailableController
+  setupUsernameAvailableController,
 } from '../auth.controllers';
 import {
   LoginControllerConfig,
   RegistrationControllerConfig,
   AuthModuleConfig,
-  AvailableControllerConfig
+  AvailableControllerConfig,
 } from '../auth.interface';
 import { setupEmailVerification } from '../send-email';
 
@@ -21,12 +21,12 @@ export function getAuthResolvers(config: AuthModuleConfig): IResolvers {
   const registerConfig = { ...config.register, verificationEmail };
   return {
     Query: {
-      usernameAvailable: usernameAvailableResolver(config.login)
+      usernameAvailable: usernameAvailableResolver(config.login),
     },
     Mutation: {
       login: loginResolver(config.login),
-      register: registerResolver(registerConfig)
-    }
+      register: registerResolver(registerConfig),
+    },
   };
 }
 

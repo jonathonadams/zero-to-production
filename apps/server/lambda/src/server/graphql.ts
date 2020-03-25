@@ -5,7 +5,7 @@ import {
   createResolvers,
   createApollo,
   createTypeDefs,
-  createSchema
+  createSchema,
 } from '@uqt/server/graphql';
 import { todoTypeDef, userTypeDef } from '@uqt/server/core-data';
 import { config } from '../environments/environment';
@@ -24,14 +24,14 @@ export function applyGraphQLEndpoint(app: Koa, conn: Connection) {
   const schema = createSchema({
     typeDefs,
     resolvers,
-    directives: authDirectives(conn)
+    directives: authDirectives(conn),
   });
 
   const authSchema = createAuthSchemaFromConnection(conn);
 
   const apolloServer = createApollo({
     schemas: [schema, authSchema],
-    production: config.production
+    production: config.production,
   });
 
   apolloServer.applyMiddleware({ app });

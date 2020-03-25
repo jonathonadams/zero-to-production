@@ -3,7 +3,7 @@ import { generateKeyPairSync } from 'crypto';
 export const { publicKey, privateKey } = generateKeyPairs();
 export const {
   privateKey: invalidPrivateKey,
-  publicKey: invalidPublicKey
+  publicKey: invalidPublicKey,
 } = generateKeyPairs();
 
 function generateKeyPairs() {
@@ -11,13 +11,13 @@ function generateKeyPairs() {
     modulusLength: 4096,
     publicKeyEncoding: {
       type: 'spki',
-      format: 'pem'
+      format: 'pem',
     },
     privateKeyEncoding: {
       type: 'pkcs8',
-      format: 'pem'
+      format: 'pem',
       // cipher: 'aes-256-cbc',
       // passphrase: 'top secret'
-    }
+    },
   });
 }

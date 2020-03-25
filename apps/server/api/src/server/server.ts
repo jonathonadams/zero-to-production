@@ -62,7 +62,7 @@ export default class ApiServer {
      * Container must return status 200 on a designated health route. In k8's the default route is '/'
      * Must be configured on the deployment object to use this route for checking
      */
-    router.get('/healthz', ctx => {
+    router.get('/healthz', (ctx) => {
       ctx.status = 200;
     });
 

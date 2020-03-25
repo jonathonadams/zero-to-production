@@ -5,5 +5,5 @@ module.exports = {
   setupFilesAfterEnv: ['jest-extended'],
   testEnvironment: 'node',
   preset: '../../../jest.config.js',
-  coverageDirectory: '../../../coverage/apps/server/lambda'
+  coverageDirectory: '../../../coverage/apps/server/lambda',
 };

@@ -13,7 +13,7 @@ export class UsersEffects {
       ofType(UserActions.loadUser),
       switchMap(({ id }) =>
         this.usersService.getOneUser(id).pipe(
-          map(user => UserActions.loadUserSuccess({ user })),
+          map((user) => UserActions.loadUserSuccess({ user })),
           catchError((error: HttpErrorResponse) =>
             of(UserActions.loadUserFail({ error: error.message }))
           )
@@ -27,12 +27,12 @@ export class UsersEffects {
       ofType(UserActions.updateUser),
       mergeMap(({ user }) =>
         this.usersService.updateUser(user).pipe(
-          map(updatedUser =>
+          map((updatedUser) =>
             UserActions.updateUserSuccess({
               user: {
                 id: updatedUser.id,
-                changes: updatedUser
-              }
+                changes: updatedUser,
+              },
             })
           ),
           catchError((error: HttpErrorResponse) =>

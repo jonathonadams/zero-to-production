@@ -22,7 +22,7 @@ describe('TodoEffects', () => {
     'getTodo',
     'createTodo',
     'updateTodo',
-    'deleteTodo'
+    'deleteTodo',
   ]);
 
   beforeEach(() => {
@@ -31,8 +31,8 @@ describe('TodoEffects', () => {
         TodoEffects,
         { provide: TodosService, useValue: todoServiceSpy },
         { provide: TodosFacade, useValue: {} },
-        provideMockActions(() => action$)
-      ]
+        provideMockActions(() => action$),
+      ],
     });
     effects = TestBed.inject<TodoEffects>(TodoEffects);
     action$ = TestBed.inject<Actions>(Actions);
@@ -45,7 +45,7 @@ describe('TodoEffects', () => {
       description: 'some description',
       dueDate: ('2020-01-01' as unknown) as Date,
       notes: [],
-      completed: true
+      completed: true,
     };
   });
 
@@ -63,7 +63,7 @@ describe('TodoEffects', () => {
           description: 'some description',
           dueDate: ('2020-01-01' as unknown) as Date,
           notes: [],
-          completed: true
+          completed: true,
         },
         {
           id: '2',
@@ -72,8 +72,8 @@ describe('TodoEffects', () => {
           description: 'another description',
           dueDate: ('2020-01-01' as unknown) as Date,
           notes: [],
-          completed: false
-        }
+          completed: false,
+        },
       ];
 
       const action = TodoActions.loadTodos();
@@ -136,7 +136,7 @@ describe('TodoEffects', () => {
     it('should return a UpdateTodoSuccess action with a payload of the updated Todo', () => {
       const action = TodoActions.updateTodo({ todo: mockTodo });
       const completion = TodoActions.updateTodoSuccess({
-        todo: mockTodo
+        todo: mockTodo,
       });
 
       action$ = hot('-a-', { a: action });

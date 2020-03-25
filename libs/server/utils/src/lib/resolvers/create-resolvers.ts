@@ -73,6 +73,6 @@ export function generateResolvers<T extends mongoose.Document>(
     getOne,
     createOne,
     updateOne,
-    removeOne
+    removeOne,
   };
 }

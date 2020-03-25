@@ -14,7 +14,7 @@ export class GraphQLStub {
       data: data,
       loading: false,
       stale: false,
-      networkStatus: 7
+      networkStatus: 7,
     };
   }
 
@@ -24,7 +24,7 @@ export class GraphQLStub {
       errors: errors,
       loading: false,
       stale: false,
-      networkStatus: 7
+      networkStatus: 7,
     };
   }
 

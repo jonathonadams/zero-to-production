@@ -11,32 +11,32 @@ export const EXAMPLES_ROUTES: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        component: ExamplesHomeComponent
+        component: ExamplesHomeComponent,
       },
       {
         path: 'examples',
         loadChildren: () =>
           import('@uqt/examples/live-demos').then(
-            m => m.ExamplesLiveDemosModule
+            (m) => m.ExamplesLiveDemosModule
           ),
-        data: { preload: true } // Preload this route
+        data: { preload: true }, // Preload this route
       },
       {
         path: 'guides',
         loadChildren: () =>
-          import('@uqt/examples/guides').then(m => m.ExamplesGuidesModule),
-        data: { preload: true } // Preload this route
-      }
-    ]
+          import('@uqt/examples/guides').then((m) => m.ExamplesGuidesModule),
+        data: { preload: true }, // Preload this route
+      },
+    ],
   },
   {
     path: '**',
-    redirectTo: '/' // TODO -> 404 page
-  }
+    redirectTo: '/', // TODO -> 404 page
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(EXAMPLES_ROUTES)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class ExamplesFeatureShellRoutingModule {}

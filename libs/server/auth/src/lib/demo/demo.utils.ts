@@ -14,10 +14,10 @@ export function generateDemoAuthModuleConfig(
           publicKey: publicKey
             ? publicKey
             : createPublicPemFromPrivate(privateKey),
-          keyId: config.accessToken.keyId
+          keyId: config.accessToken.keyId,
         }
       : undefined,
     login: { User, ...config.accessToken },
-    register: { User, ...config.accessToken }
+    register: { User, ...config.accessToken },
   };
 }

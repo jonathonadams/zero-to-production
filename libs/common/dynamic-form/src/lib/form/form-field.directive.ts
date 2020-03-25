@@ -7,13 +7,13 @@ import {
   OnInit,
   ViewContainerRef,
   Inject,
-  InjectionToken
+  InjectionToken,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
   FormGroupTypes,
   TField,
-  DynamicFormComponentMap
+  DynamicFormComponentMap,
 } from '../dynamic-form.interface';
 
 export interface IDynamicFormField {
@@ -28,7 +28,7 @@ export const DYNAMIC_FORM_COMPONENTS = new InjectionToken<
 >('DYNAMIC_FORM_COMPONENTS');
 
 @Directive({
-  selector: '[appDynamicFormField]'
+  selector: '[appDynamicFormField]',
 })
 export class DynamicFormFieldDirective implements OnInit, OnChanges {
   @Input() idx: number | undefined;

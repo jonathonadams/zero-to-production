@@ -5,10 +5,10 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forRoot([], {
       initialNavigation: 'enabled',
-      relativeLinkResolution: 'corrected'
-    })
+      relativeLinkResolution: 'corrected',
+    }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class RootAppRoutingModule {}
 
@@ -16,7 +16,7 @@ export class RootAppRoutingModule {}
 export class AppRoutingModule {
   static forRoot(): ModuleWithProviders<RootAppRoutingModule> {
     return {
-      ngModule: RootAppRoutingModule
+      ngModule: RootAppRoutingModule,
     };
   }
 }

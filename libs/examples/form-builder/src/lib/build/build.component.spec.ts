@@ -9,14 +9,14 @@ describe('ExampleFormBuilderBuildComponent', () => {
   let fixture: ComponentFixture<ExampleFormBuilderBuildComponent>;
 
   const builderSpy = {
-    selectedForm$: jest.fn()
+    selectedForm$: jest.fn(),
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ExampleFormBuilderBuildComponent],
       providers: [{ provide: FormBuilderFacade, useValue: builderSpy }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -5,12 +5,12 @@ import { createGraphQLGuards } from './graphql.guards';
 
 export enum AuthDirectiveName {
   authenticated = 'authenticated',
-  activeUser = 'activeUser'
+  activeUser = 'activeUser',
 }
 
 enum DirectiveWrapped {
   auth = '_authFieldWrapped',
-  authUser = '_authUserFieldWrapped'
+  authUser = '_authUserFieldWrapped',
 }
 
 /**
@@ -49,7 +49,7 @@ export function createAuthDirectives(
 
       // For each field, call the 'visitFieldDefinition'
       const fields = type.getFields();
-      Object.keys(fields).forEach(fieldName => {
+      Object.keys(fields).forEach((fieldName) => {
         const field: GraphQLField<any, any> = fields[fieldName];
         this.visitFieldDefinition(field);
       });
@@ -84,7 +84,7 @@ export function createAuthDirectives(
 
       // For each field, call the 'visitFieldDefinition'
       const fields = type.getFields();
-      Object.keys(fields).forEach(fieldName => {
+      Object.keys(fields).forEach((fieldName) => {
         const field: GraphQLField<any, any> = fields[fieldName];
         this.visitFieldDefinition(field);
       });
@@ -106,7 +106,7 @@ export function createAuthDirectives(
 
   return {
     [AuthDirectiveName.authenticated]: AuthenticateDirective,
-    [AuthDirectiveName.activeUser]: ActiveUserDirective
+    [AuthDirectiveName.activeUser]: ActiveUserDirective,
   };
 }
 

@@ -20,8 +20,8 @@ describe('AppEffects', () => {
   const apolloSpy = {
     getClient: () => ({
       clearStore: jest.fn(),
-      cache: { reset: jest.fn() }
-    })
+      cache: { reset: jest.fn() },
+    }),
   };
 
   beforeEach(() => {
@@ -31,8 +31,8 @@ describe('AppEffects', () => {
         { provide: Router, useValue: { navigate: jest.fn() } },
         { provide: NotificationService, useValue: nsSpy },
         { provide: Apollo, useValue: apolloSpy },
-        provideMockActions(() => actions$)
-      ]
+        provideMockActions(() => actions$),
+      ],
     });
 
     effects = TestBed.inject<AppEffects>(AppEffects);

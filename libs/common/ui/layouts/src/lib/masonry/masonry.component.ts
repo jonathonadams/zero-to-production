@@ -3,14 +3,14 @@ import {
   ChangeDetectionStrategy,
   Input,
   ContentChild,
-  TemplateRef
+  TemplateRef,
 } from '@angular/core';
 
 @Component({
   selector: 'layout-masonry',
   templateUrl: './masonry.component.html',
   styleUrls: ['./masonry.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MasonryComponent {
   @Input() columns: number | undefined;

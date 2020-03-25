@@ -12,7 +12,7 @@ import {
   IVerificationTokenModel,
   IRefreshTokenModel,
   AuthModuleConfig,
-  JWKSGuardConfig
+  JWKSGuardConfig,
 } from './auth.interface';
 
 export function isPasswordAllowed(password: string): boolean {
@@ -52,7 +52,7 @@ export function generateAuthGuardConfig(
       User,
       issuer: authConfig.accessToken.issuer,
       audience: authConfig.accessToken.audience,
-      publicKey: authConfig.accessToken.publicKey
+      publicKey: authConfig.accessToken.publicKey,
     };
   } else {
     return {
@@ -60,7 +60,7 @@ export function generateAuthGuardConfig(
       production: config.production,
       authServerUrl: authConfig.authServerUrl,
       issuer: authConfig.accessToken.issuer,
-      audience: authConfig.accessToken.audience
+      audience: authConfig.accessToken.audience,
     };
   }
 }
@@ -78,7 +78,7 @@ export function generateAuthModuleConfig(
           publicKey: publicKey
             ? publicKey
             : createPublicPemFromPrivate(privateKey),
-          keyId: config.accessToken.keyId
+          keyId: config.accessToken.keyId,
         }
       : undefined,
     login: { User, ...config.accessToken },
@@ -88,15 +88,15 @@ export function generateAuthModuleConfig(
       User,
       RefreshToken,
       ...config.accessToken,
-      ...config.refreshToken
+      ...config.refreshToken,
     },
     refresh: {
       RefreshToken,
       ...config.accessToken,
-      ...config.refreshToken
+      ...config.refreshToken,
     },
     revoke: { RefreshToken },
-    email: config.email
+    email: config.email,
   };
 }
 

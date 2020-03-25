@@ -3,7 +3,7 @@ import { defaultSchemaOptions } from '@uqt/server/utils';
 import {
   IVerificationToken,
   IVerificationTokenDocument,
-  IVerificationTokenModel
+  IVerificationTokenModel,
 } from '../auth.interface';
 
 export const verificationTokenDbKey = 'verificationToken';
@@ -12,15 +12,15 @@ export const verificationTokenSchema = new Schema<IVerificationToken>(
   {
     userId: {
       type: Schema.Types.ObjectId,
-      required: true
+      required: true,
     },
     token: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   {
-    ...defaultSchemaOptions
+    ...defaultSchemaOptions,
   }
 );
 

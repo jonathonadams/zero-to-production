@@ -8,7 +8,7 @@ describe('ThemeService', () => {
   let themeService: ThemeService;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ThemeService, { provide: DOCUMENT, useValue: {} }]
+      providers: [ThemeService, { provide: DOCUMENT, useValue: {} }],
     });
     themeService = TestBed.inject<ThemeService>(ThemeService);
   });

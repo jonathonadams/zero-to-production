@@ -5,7 +5,7 @@ import { usersRouter, todosRouter } from './api';
 
 export function applyRestEndpoints(app: Koa) {
   const router = new Router({
-    prefix: '/api'
+    prefix: '/api',
   });
 
   // Global check to ensure token is valid

@@ -16,7 +16,7 @@ export class CheckForUpdatesService {
   ) {
     // Allow the app to stabilize first, before starting polling for updates with `interval()`.
     const appIsStable$ = appRef.isStable.pipe(
-      first(isStable => isStable === true)
+      first((isStable) => isStable === true)
     );
     const everySixHours$ = interval(6 * 60 * 60 * 1000);
     const everySixHoursOnceAppIsStable$ = concat(appIsStable$, everySixHours$);
@@ -28,7 +28,7 @@ export class CheckForUpdatesService {
     //   console.log('new version is', event.current);
     // });
 
-    updates.available.subscribe(event => {
+    updates.available.subscribe((event) => {
       // if (promptUser(event)) {
       //   updates.activateUpdate().then(() => document.location.reload());
       // }

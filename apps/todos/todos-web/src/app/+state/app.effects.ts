@@ -12,7 +12,7 @@ export class AppEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.loginRedirect),
-        tap(action => this.router.navigate(['home']))
+        tap((action) => this.router.navigate(['home']))
       ),
     { dispatch: false }
   );
@@ -21,7 +21,7 @@ export class AppEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.registerRedirect),
-        tap(action => this.router.navigate(['register']))
+        tap((action) => this.router.navigate(['register']))
       ),
     { dispatch: false }
   );
@@ -30,11 +30,11 @@ export class AppEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.logoutRedirect),
-        tap(action => {
+        tap((action) => {
           this.apollo.getClient().clearStore();
           this.apollo.getClient().cache.reset();
         }),
-        tap(action => this.router.navigate(['login']))
+        tap((action) => this.router.navigate(['login']))
       ),
     { dispatch: false }
   );

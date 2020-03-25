@@ -9,11 +9,11 @@ export const {
   selectIds: selectFormNames,
   selectEntities: selectFormEntities,
   selectAll: selectAllForms,
-  selectTotal
+  selectTotal,
 } = fromDynamicForm.adapter.getSelectors(selectDynamicFormState);
 
 export function selectForm(formName: string) {
-  return createSelector(selectFormEntities, forms => forms[formName]);
+  return createSelector(selectFormEntities, (forms) => forms[formName]);
 }
 
 /**
@@ -26,30 +26,30 @@ export function selectForm(formName: string) {
  */
 
 export function selectFormErrors(formName: string) {
-  return createSelector(selectForm(formName), form =>
+  return createSelector(selectForm(formName), (form) =>
     form ? form.errors : undefined
   );
 }
 
 export function selectFormConfig(formName: string) {
-  return createSelector(selectForm(formName), form =>
+  return createSelector(selectForm(formName), (form) =>
     form ? form.config : undefined
   );
 }
 
 export function selectFormIndex(formName: string) {
-  return createSelector(selectForm(formName), form =>
+  return createSelector(selectForm(formName), (form) =>
     form ? form.index : undefined
   );
 }
 export function selectFormStructure(formName: string) {
-  return createSelector(selectFormConfig(formName), config =>
+  return createSelector(selectFormConfig(formName), (config) =>
     config ? config.structure : undefined
   );
 }
 
 export function selectFormValidators(formName: string) {
-  return createSelector(selectFormConfig(formName), config =>
+  return createSelector(selectFormConfig(formName), (config) =>
     config ? config.formValidators : undefined
   );
 }

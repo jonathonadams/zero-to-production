@@ -9,11 +9,11 @@ export {
   ILoginCredentials,
   ILoginResponse,
   IJWTPayload,
-  IRegistrationDetails
+  IRegistrationDetails,
 } from './lib/auth.interface';
 export {
   passwordMatchValidator,
-  passwordValidator
+  passwordValidator,
 } from './lib/validators/auth.validators';
 export { UsernameAvailableValidator } from './lib/validators/username-available.validator';
 import * as AuthActions from './lib/+state/auth.actions';

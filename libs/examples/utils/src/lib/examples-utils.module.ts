@@ -3,6 +3,6 @@ import { CodeHighlightPipe } from './highlight.pipe';
 
 @NgModule({
   declarations: [CodeHighlightPipe],
-  exports: [CodeHighlightPipe]
+  exports: [CodeHighlightPipe],
 })
 export class ExamplesUtilsModule {}

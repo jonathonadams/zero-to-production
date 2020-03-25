@@ -14,8 +14,8 @@ export class LoggedInGuard implements CanActivate {
     this.auth.isLoggedIn();
 
     return this.facade.isAuthenticated$.pipe(
-      tap(loggedIn => (loggedIn ? this.facade.loginRedirect() : undefined)),
-      map(loggedIn => !loggedIn)
+      tap((loggedIn) => (loggedIn ? this.facade.loginRedirect() : undefined)),
+      map((loggedIn) => !loggedIn)
     );
   }
 }

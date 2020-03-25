@@ -7,11 +7,11 @@ export const createUsersResolver = (User: IUserModel) => {
   return {
     Query: {
       User: resolvers.getOne,
-      allUsers: resolvers.getAll
+      allUsers: resolvers.getAll,
     },
     Mutation: {
       updateUser: resolvers.updateOne,
-      removeUser: resolvers.removeOne
-    }
+      removeUser: resolvers.removeOne,
+    },
   };
 };

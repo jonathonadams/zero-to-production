@@ -4,15 +4,17 @@ import {
   style,
   animate,
   state,
-  group
+  group,
 } from '@angular/animations';
 
 export const flyInOutTransition = trigger('flyInOut', [
   transition(':enter', [
     style({ transform: 'translateX(-100%)' }),
-    animate(100)
+    animate(100),
   ]),
-  transition(':leave', [animate(100, style({ transform: 'translateX(100%)' }))])
+  transition(':leave', [
+    animate(100, style({ transform: 'translateX(100%)' })),
+  ]),
 ]);
 
 export const flyInOutWithDifferentEasing = trigger('flyInOut', [
@@ -23,16 +25,16 @@ export const flyInOutWithDifferentEasing = trigger('flyInOut', [
         '0.3s 0.1s ease',
         style({
           transform: 'translateX(0)',
-          width: 120
+          width: 120,
         })
       ),
       animate(
         '0.3s ease',
         style({
-          opacity: 1
+          opacity: 1,
         })
-      )
-    ])
+      ),
+    ]),
   ]),
   transition(':leave', [
     group([
@@ -40,15 +42,15 @@ export const flyInOutWithDifferentEasing = trigger('flyInOut', [
         '0.3s ease',
         style({
           transform: 'translateX(50px)',
-          width: 10
+          width: 10,
         })
       ),
       animate(
         '0.3s 0.2s ease',
         style({
-          opacity: 0
+          opacity: 0,
         })
-      )
-    ])
-  ])
+      ),
+    ]),
+  ]),
 ]);

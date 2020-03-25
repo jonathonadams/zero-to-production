@@ -10,7 +10,7 @@ describe('GuidesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [GuidesComponent],
-      providers: [{ provide: CodeHighlightService, useValue: {} }]
+      providers: [{ provide: CodeHighlightService, useValue: {} }],
     }).compileComponents();
   }));
 

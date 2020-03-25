@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   Input,
   EventEmitter,
-  Output
+  Output,
 } from '@angular/core';
 import { ITodoNote } from '@uqt/data';
 
@@ -11,7 +11,7 @@ import { ITodoNote } from '@uqt/data';
   selector: 'todo-ui-todo-notes',
   templateUrl: './ui-todo-notes.component.html',
   styleUrls: ['./ui-todo-notes.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UiTodoNotesComponent {
   displayedColumns: string[] = ['date', 'body', 'delete'];

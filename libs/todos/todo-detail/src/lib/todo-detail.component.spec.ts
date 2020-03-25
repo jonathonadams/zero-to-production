@@ -22,21 +22,21 @@ describe('TodoDetailComponent', () => {
     // submit$: of(jest.fn()),
     // setFormConfig: jest.fn(),
     // setStructure: jest.fn(),
-    createFormIfNotExist: jest.fn()
+    createFormIfNotExist: jest.fn(),
   };
 
   const todoFacadeSpy = {
     selectedTodo$: of(jest.fn()),
-    todoIds$: of(jest.fn())
+    todoIds$: of(jest.fn()),
   };
 
   const todoServiceSpy = {
     allTodoNotesQueryRef: jest.fn(),
-    todoIds$: of(jest.fn())
+    todoIds$: of(jest.fn()),
   };
 
   const routerSpy = {
-    selectParam: () => of(jest.fn())
+    selectParam: () => of(jest.fn()),
   };
 
   beforeEach(async(() => {
@@ -46,10 +46,10 @@ describe('TodoDetailComponent', () => {
         { provide: TodosFacade, useValue: todoFacadeSpy },
         { provide: TodosService, useValue: todoServiceSpy },
         { provide: RouterFacade, useValue: routerSpy },
-        { provide: DynamicFormFacade, useValue: formsFacadSpy }
+        { provide: DynamicFormFacade, useValue: formsFacadSpy },
       ],
       declarations: [TodoDetailComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     todoFacade = TestBed.inject<TodosFacade>(TodosFacade);

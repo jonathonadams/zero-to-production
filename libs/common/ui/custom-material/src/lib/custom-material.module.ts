@@ -40,7 +40,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatDividerModule,
     MatCheckboxModule,
     MatTabsModule,
-    LayoutModule
+    LayoutModule,
   ],
   declarations: [],
   exports: [
@@ -63,7 +63,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatDividerModule,
     MatCheckboxModule,
     MatTabsModule,
-    LayoutModule
-  ]
+    LayoutModule,
+  ],
 })
 export class CustomMaterialModule {}

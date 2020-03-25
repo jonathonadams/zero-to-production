@@ -10,7 +10,7 @@ describe('TwoColumnComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TwoColumnComponent]
+      declarations: [TwoColumnComponent],
     }).compileComponents();
   }));
 

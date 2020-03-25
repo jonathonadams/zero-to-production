@@ -8,7 +8,7 @@ export const selectFormState = createFeatureSelector<
 export const {
   selectIds: selectFormIds,
   selectEntities: selectFormEntities,
-  selectAll: selectAllForms
+  selectAll: selectAllForms,
 } = fromFormBuilder.adapter.getSelectors(selectFormState);
 
 export const selectCurrentFormName = createSelector(

@@ -20,8 +20,8 @@ export const devConfig: DevServerConfig = {
   databaseOptions: {
     autoIndex: true,
     loggerLevel: 'warn',
-    dbName: process.env.MONGO_DEV_DB || 'development_database'
-  }
+    dbName: process.env.MONGO_DEV_DB || 'development_database',
+  },
 };
 
 export const devAuthConfig: AuthEnvironnementConfig = {
@@ -33,16 +33,16 @@ export const devAuthConfig: AuthEnvironnementConfig = {
     expireTime: envToNumber(process.env.ACCESS_TOKEN_EXPIRE_TIME, 86400),
     issuer: getEnvVariableOrWarn('ISSUER'),
     audience,
-    keyId
+    keyId,
   },
   refreshToken: {
     privateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
     publicKey: getEnvVariableOrWarn('REFRESH_TOKEN_PUBLIC_KEY'),
     issuer: getEnvVariableOrWarn('ISSUER'),
-    audience
+    audience,
   },
   email: {
     authServerUrl,
-    sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY')
-  }
+    sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY'),
+  },
 };

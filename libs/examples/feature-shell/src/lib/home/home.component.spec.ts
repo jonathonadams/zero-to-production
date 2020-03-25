@@ -16,7 +16,7 @@ describe('ExamplesHomeComponent', () => {
       imports: [RouterTestingModule],
       declarations: [ExamplesHomeComponent],
       providers: [{ provide: ExamplesFacade, useValue: facadeSpy }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

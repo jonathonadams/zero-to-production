@@ -5,7 +5,7 @@ import {
   Input,
   ViewEncapsulation,
   OnChanges,
-  ChangeDetectorRef
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormGroup, FormArray, ValidatorFn } from '@angular/forms';
 import { Observable, Subject, combineLatest } from 'rxjs';
@@ -19,7 +19,7 @@ import {
   IDynamicFormConfig,
   TFormStructure,
   IFormGroupArray,
-  IFormFieldArray
+  IFormFieldArray,
 } from '../dynamic-form.interface';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade';
@@ -29,7 +29,7 @@ import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade'
   templateUrl: './dynamic-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  animations: [expandFromCenter]
+  animations: [expandFromCenter],
 })
 export class DynamicFormComponent implements OnChanges, OnDestroy {
   @Input()
@@ -71,7 +71,7 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
     this.pFacade
       .selectConfig(name)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(config => {
+      .subscribe((config) => {
         if (!config) throw new Error(`${name} form has not been initialized.`);
         this.config = config;
         if (this.form) {
@@ -107,7 +107,7 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
           return form;
         }),
         // Switch to the observable of the change in form values
-        switchMap(form =>
+        switchMap((form) =>
           form.valueChanges.pipe(
             // Wait 100ms before updating the store
             // NOTE: This needs to be relatively fast
@@ -118,7 +118,7 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
         ),
         takeUntil(this.unsubscribe)
       )
-      .subscribe(data => {
+      .subscribe((data) => {
         // Update the store
         this.pFacade.updateDataState(name, data);
       });
@@ -128,7 +128,7 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
     this.pFacade
       .setData$(name)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(data => {
+      .subscribe((data) => {
         if (this.form) {
           this.form.reset(data);
         }

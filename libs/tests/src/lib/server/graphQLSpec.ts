@@ -33,7 +33,7 @@ export function createGraphQLSpec<T>(
   authServer: any,
   userResource = false
 ) {
-  return function(
+  return function (
     model: typeof Model,
     resourceName: string,
     resourceToCreate: any,
@@ -64,7 +64,7 @@ export function createGraphQLSpec<T>(
       surname: 'user',
       email: 'test@domain.com',
       dateOfBirth: '2019-01-01',
-      hashedPassword: 'some-password-hash'
+      hashedPassword: 'some-password-hash',
     };
 
     // GraphQL schemas are designed written with UpperCase names

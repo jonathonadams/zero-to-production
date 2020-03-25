@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import {
   authenticate,
   verifyActiveUser,
-  authenticateJWKS
+  authenticateJWKS,
 } from './route.guards';
 import { signAccessToken } from '../sign-tokens';
 import { MockUserModel } from '../__tests__/user.mock';
@@ -15,7 +15,7 @@ import {
   privateKey,
   publicKey,
   invalidPrivateKey,
-  invalidPublicKey
+  invalidPublicKey,
 } from '../__tests__/rsa-keys';
 
 export function newId() {
@@ -36,18 +36,18 @@ describe('Rest Auth Guards', () => {
       expireTime,
       issuer,
       audience,
-      keyId
+      keyId,
     })({
-      id: '1'
+      id: '1',
     } as IUserDocument);
     invalidJwt = signAccessToken({
       privateKey: invalidPrivateKey,
       expireTime,
       issuer,
       keyId,
-      audience
+      audience,
     })({
-      id: '1'
+      id: '1',
     } as IUserDocument);
   });
 
@@ -131,7 +131,7 @@ describe('Rest Auth Guards', () => {
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
-          audience
+          audience,
         })({ request: { token: jwt }, state: {} }, nextSpy)
       ).resolves.not.toThrowError();
 
@@ -151,7 +151,7 @@ describe('Rest Auth Guards', () => {
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
-          audience
+          audience,
         })({ request: {}, state: {} }, nextSpy)
       ).rejects.toThrowError('Unauthorized');
 
@@ -171,7 +171,7 @@ describe('Rest Auth Guards', () => {
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
-          audience
+          audience,
         })({ request: { token: jwt }, state: {} }, nextSpy)
       ).rejects.toThrowError('Unauthorized');
 
@@ -191,7 +191,7 @@ describe('Rest Auth Guards', () => {
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
-          audience
+          audience,
         })({ request: { token: jwt }, state: {} }, nextSpy)
       ).rejects.toThrowError('Unauthorized');
 
@@ -211,7 +211,7 @@ describe('Rest Auth Guards', () => {
           production: false,
           authServerUrl: 'http://some-url',
           issuer: 'some-wrong-issuer',
-          audience
+          audience,
         })({ request: { token: jwt }, state: {} }, nextSpy)
       ).rejects.toThrowError('Unauthorized');
 
@@ -231,7 +231,7 @@ describe('Rest Auth Guards', () => {
           production: false,
           authServerUrl: 'http://some-url',
           issuer,
-          audience: 'wrong-audience'
+          audience: 'wrong-audience',
         })({ request: { token: jwt }, state: {} }, nextSpy)
       ).rejects.toThrowError('Unauthorized');
 
@@ -247,7 +247,7 @@ describe('Rest Auth Guards', () => {
       const id = newId();
       const mockUser = {
         id,
-        active: true
+        active: true,
       } as IUserDocument;
 
       const spy = jest.spyOn(MockUserModel, 'findById');
@@ -274,7 +274,7 @@ describe('Rest Auth Guards', () => {
 
       const mockUser = {
         id: newId(),
-        active: true
+        active: true,
       } as IUserDocument;
 
       const spy = jest.spyOn(MockUserModel, 'findById');
@@ -299,7 +299,7 @@ describe('Rest Auth Guards', () => {
       const id = newId();
       const mockUser = {
         id,
-        active: false
+        active: false,
       } as IUserDocument;
 
       const spy = jest.spyOn(MockUserModel, 'findById');

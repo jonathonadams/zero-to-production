@@ -13,7 +13,7 @@ import { SharedDataAccessApiModule } from '@uqt/shared/data-access/api';
 import {
   SharedAuthDataAccessModule,
   authProviderFactory,
-  AuthService
+  AuthService,
 } from '@uqt/shared/data-access/auth';
 import { SharedUsersDataAccessModule } from '@uqt/shared/users/data-access';
 import { TodosFeatureShellModule } from '@uqt/todos/feature-shell';
@@ -34,16 +34,16 @@ import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
     StoreRouterConnectingModule.forRoot(),
     SharedDataAccessApiModule.forRoot(environment),
     SharedAuthDataAccessModule.forRoot({
-      authServerUrl: environment.serverUrl
+      authServerUrl: environment.serverUrl,
     }),
     SharedUsersDataAccessModule.forRoot(),
     CommonDynamicFormModule.forRoot({
       components: APP_COMPONENTS,
-      errors: APP_ERRORS
+      errors: APP_ERRORS,
     }),
     CommonDynamicFormMaterialComponentsModule,
     AppRoutingModule.forRoot(),
-    TodosFeatureShellModule
+    TodosFeatureShellModule,
   ],
   bootstrap: [AppComponent],
   providers: [
@@ -51,8 +51,8 @@ import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
       provide: APP_INITIALIZER,
       useFactory: authProviderFactory,
       multi: true,
-      deps: [AuthService]
-    }
-  ]
+      deps: [AuthService],
+    },
+  ],
 })
 export class AppModule {}

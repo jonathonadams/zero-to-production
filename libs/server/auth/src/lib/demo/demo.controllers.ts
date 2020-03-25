@@ -7,7 +7,7 @@ import { IUser } from '@uqt/data';
 import { isPasswordAllowed, userToJSON } from '../auth-utils';
 
 export function demoSetupRegisterController({
-  User
+  User,
 }: DemoRegistrationControllerConfig) {
   return async (user: IUser) => {
     const password: string = (user as any).password;

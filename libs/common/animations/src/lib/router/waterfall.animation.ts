@@ -5,7 +5,7 @@ import {
   style,
   transition,
   sequence,
-  AnimationMetadata
+  AnimationMetadata,
 } from '@angular/animations';
 import { ANIMATE_CLASS } from './symbols';
 
@@ -36,7 +36,7 @@ export const WATERFALL_ANIMATION: AnimationMetadata[] = [
           animate(
             '300ms cubic-bezier(.35,0,.25,1)',
             style({ transform: 'translateY(+200%)', opacity: 0 })
-          )
+          ),
         ]),
         { optional: true }
       ),
@@ -46,10 +46,10 @@ export const WATERFALL_ANIMATION: AnimationMetadata[] = [
           animate(
             '300ms cubic-bezier(.35,0,.25,1)',
             style({ opacity: 1, transform: 'translateY(0%)' })
-          )
+          ),
         ]),
         { optional: true }
-      )
-    ])
-  ])
+      ),
+    ]),
+  ]),
 ];

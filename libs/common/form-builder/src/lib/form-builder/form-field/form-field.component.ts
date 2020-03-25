@@ -4,7 +4,7 @@ import {
   Input,
   Output,
   EventEmitter,
-  HostListener
+  HostListener,
 } from '@angular/core';
 import { FormGroup, AbstractControl, FormArray } from '@angular/forms';
 import { FormFieldTypes, InputFieldTypes } from '@uqt/common/dynamic-form';
@@ -17,7 +17,7 @@ import {
   faAlignJustify,
   IconDefinition,
   faTrash,
-  faPlus
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { expandAnimation } from '../../form.animation';
 
@@ -26,7 +26,7 @@ import { expandAnimation } from '../../form.animation';
   templateUrl: './form-field.component.html',
   styleUrls: ['./form-field.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [expandAnimation]
+  animations: [expandAnimation],
 })
 export class FormBuilderFieldComponent {
   faTrash = faTrash;
@@ -39,7 +39,7 @@ export class FormBuilderFieldComponent {
     { display: 'Password', value: InputFieldTypes.Password },
     { display: 'Tel', value: InputFieldTypes.Tel },
     { display: 'Time', value: InputFieldTypes.Time },
-    { display: 'Url', value: InputFieldTypes.Url }
+    { display: 'Url', value: InputFieldTypes.Url },
   ];
 
   @Input() form: FormGroup;

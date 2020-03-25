@@ -12,16 +12,16 @@ describe('FormBuilderToolboxComponent', () => {
   const constructorSpy = {
     toolBoxFieldId: jest.fn(),
     toolBoxGroupId: jest.fn(),
-    dropListIds$: jest.fn()
+    dropListIds$: jest.fn(),
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [FormBuilderToolboxComponent],
       providers: [
-        { provide: FormBuilderConstructorService, useValue: constructorSpy }
+        { provide: FormBuilderConstructorService, useValue: constructorSpy },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     constructorService = TestBed.inject<FormBuilderConstructorService>(

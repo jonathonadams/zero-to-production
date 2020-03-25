@@ -13,7 +13,7 @@ describe('FormSelectComponent', () => {
     TestBed.configureTestingModule({
       imports: [MatFormFieldModule, MatSelectModule],
       declarations: [FormSelectComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

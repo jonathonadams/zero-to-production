@@ -9,7 +9,7 @@ export enum FormErrorTypes {
   max = 'max',
   minlength = 'minlength',
   maxlength = 'maxlength',
-  pattern = 'pattern'
+  pattern = 'pattern',
 }
 
 export type DynamicFormErrorsMap = {
@@ -23,7 +23,7 @@ export const defaultErrorMessages: DynamicFormErrorsMap = {
   max: 'is greater than the maximum allowed',
   minlength: 'is less than the minimum length allowed',
   maxlength: 'is greater than the maximum length allowed',
-  pattern: 'does not meet the required pattern'
+  pattern: 'does not meet the required pattern',
 };
 
 export const DYNAMIC_FORM_ERRORS = new InjectionToken<DynamicFormErrorsMap>(

@@ -12,7 +12,7 @@ describe('UiRegisterComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UiRegisterComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

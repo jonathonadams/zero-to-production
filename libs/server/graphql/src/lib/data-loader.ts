@@ -24,9 +24,9 @@ export function createLoaders(models: IModels) {
   const loaders = Object.keys(models).reduce((allLoaders, key) => {
     const Model = models[key];
     allLoaders[key] = () => {
-      return new DataLoader<string, Document>(async resourcesIds => {
+      return new DataLoader<string, Document>(async (resourcesIds) => {
         const resources = await Model.find({
-          _id: { $in: resourcesIds }
+          _id: { $in: resourcesIds },
         })
           .lean()
           .exec();

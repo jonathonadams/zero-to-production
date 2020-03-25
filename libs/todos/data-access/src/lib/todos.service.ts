@@ -13,7 +13,7 @@ import {
   REMOVE_TODO_QUERY,
   ALL_TODO_NOTES,
   NEW_TODO_NOTE,
-  DELETE_TODO_NOTE
+  DELETE_TODO_NOTE,
 } from './todos.queries';
 
 @Injectable({ providedIn: 'root' })
@@ -27,7 +27,7 @@ export class TodosService {
   public getOneTodo(id: string): Observable<FetchResult<{ Todo: ITodo }>> {
     return this.apollo.query<{ Todo: ITodo }>({
       query: LOAD_TODO_QUERY,
-      variables: { id }
+      variables: { id },
     });
   }
 
@@ -40,7 +40,11 @@ export class TodosService {
     return this.apollo.mutate<{ newTodo: ITodo }>({
       mutation: CREATE_TODO_QUERY,
       variables,
-      update: this.utils.addToQueryCache(ALL_TODOS_QUERY, 'newTodo', 'allTodos')
+      update: this.utils.addToQueryCache(
+        ALL_TODOS_QUERY,
+        'newTodo',
+        'allTodos'
+      ),
     });
   }
 
@@ -51,7 +55,7 @@ export class TodosService {
 
     return this.apollo.mutate<{ updateTodo: ITodo }>({
       mutation: UPDATE_TODO_QUERY,
-      variables
+      variables,
     });
   }
 
@@ -68,7 +72,7 @@ export class TodosService {
         ALL_TODOS_QUERY,
         'removeTodo',
         'allTodos'
-      )
+      ),
     });
   }
 
@@ -76,9 +80,9 @@ export class TodosService {
     return this.apollo
       .watchQuery<{ allTodoNotes: ITodoNote[] }>({
         query: ALL_TODO_NOTES,
-        variables: { todoId }
+        variables: { todoId },
       })
-      .valueChanges.pipe(map(result => result.data.allTodoNotes));
+      .valueChanges.pipe(map((result) => result.data.allTodoNotes));
   }
 
   public createTodoNote(
@@ -88,8 +92,8 @@ export class TodosService {
     const variables = {
       input: {
         todoId,
-        body
-      }
+        body,
+      },
     };
     // Add the new Todo to the Apollo Cache 'allTodos' after create
     return this.apollo.mutate<{ newTodoNote: ITodoNote }>({
@@ -101,7 +105,7 @@ export class TodosService {
         'allTodoNotes',
         { todoId },
         /*front*/ true
-      )
+      ),
     });
   }
 
@@ -119,7 +123,7 @@ export class TodosService {
         'removeTodoNote',
         'allTodoNotes',
         { todoId }
-      )
+      ),
     });
   }
 }

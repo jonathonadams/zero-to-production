@@ -25,7 +25,7 @@ import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
     CommonToolbarMenuModule,
     CommonUiLayoutsModule,
     CustomMaterialModule,
-    SharedAuthComponentsModule
-  ]
+    SharedAuthComponentsModule,
+  ],
 })
 export class TodosFeatureShellModule {}

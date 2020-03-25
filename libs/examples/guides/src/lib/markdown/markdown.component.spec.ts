@@ -15,10 +15,10 @@ describe('MarkdownComponent', () => {
       providers: [
         {
           provide: MarkdownService,
-          useValue: {}
-        }
+          useValue: {},
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

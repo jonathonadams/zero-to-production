@@ -7,7 +7,7 @@ import {
   map,
   exhaustMap,
   mergeMap,
-  withLatestFrom
+  withLatestFrom,
 } from 'rxjs/operators';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { ITodo, ITodoNote } from '@uqt/data';
@@ -35,13 +35,13 @@ export class TodoEffects {
   loadTodos$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TodoActions.loadTodos),
-      exhaustMap(action =>
+      exhaustMap((action) =>
         this.service.getAllTodos().pipe(
           map(({ errors, data }) =>
             errors
               ? TodoActions.loadTodosFail({ error: errors[0].message })
               : TodoActions.loadTodosSuccess({
-                  todos: (data as { allTodos: ITodo[] }).allTodos
+                  todos: (data as { allTodos: ITodo[] }).allTodos,
                 })
           ),
           catchError((error: HttpErrorResponse) =>
@@ -61,7 +61,7 @@ export class TodoEffects {
             errors
               ? TodoActions.loadTodoFail({ error: errors[0].message })
               : TodoActions.loadTodoSuccess({
-                  todo: (data as { Todo: ITodo }).Todo
+                  todo: (data as { Todo: ITodo }).Todo,
                 })
           ),
           catchError((error: HttpErrorResponse) =>
@@ -81,7 +81,7 @@ export class TodoEffects {
             errors
               ? TodoActions.createTodoFail({ error: errors[0].message })
               : TodoActions.createTodoSuccess({
-                  todo: (data as { newTodo: ITodo }).newTodo
+                  todo: (data as { newTodo: ITodo }).newTodo,
                 })
           ),
           catchError((error: HttpErrorResponse) =>
@@ -101,7 +101,7 @@ export class TodoEffects {
             errors
               ? TodoActions.updateTodoFail({ error: errors[0].message })
               : TodoActions.updateTodoSuccess({
-                  todo: (data as { updateTodo: ITodo }).updateTodo
+                  todo: (data as { updateTodo: ITodo }).updateTodo,
                 })
           ),
           catchError((error: HttpErrorResponse) =>
@@ -145,7 +145,7 @@ export class TodoEffects {
             errors
               ? TodoActions.createTodoFail({ error: errors[0].message })
               : TodoActions.createTodoNoteSuccess({
-                  note: (data as { newTodoNote: ITodoNote }).newTodoNote
+                  note: (data as { newTodoNote: ITodoNote }).newTodoNote,
                 })
           ),
           catchError((error: HttpErrorResponse) =>
@@ -171,7 +171,7 @@ export class TodoEffects {
             errors
               ? TodoActions.deleteTodoNoteFail({ error: errors[0].message })
               : TodoActions.deleteTodoNoteSuccess({
-                  note: (data as { removeTodoNote: ITodoNote }).removeTodoNote
+                  note: (data as { removeTodoNote: ITodoNote }).removeTodoNote,
                 })
           ),
           catchError((error: HttpErrorResponse) =>

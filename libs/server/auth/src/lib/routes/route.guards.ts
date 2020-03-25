@@ -3,14 +3,14 @@ import { isJWKS } from '../auth-utils';
 import {
   verifyToken,
   isActiveUser,
-  retrievePublicKeyFormJWKS
+  retrievePublicKeyFormJWKS,
 } from '../authenticate';
 import {
   JWKSGuarConfig,
   GuardConfig,
   VerifyTokenConfig,
   VerifyTokenJWKSConfig,
-  VerifyUserConfig
+  VerifyUserConfig,
 } from '../auth.interface';
 
 export function getRestGuards(config: GuardConfig | JWKSGuarConfig) {
@@ -19,7 +19,7 @@ export function getRestGuards(config: GuardConfig | JWKSGuarConfig) {
     authenticate: isJWKS(config)
       ? authenticateJWKS(config)
       : authenticate(config),
-    verifyUser: verifyActiveUser(config)
+    verifyUser: verifyActiveUser(config),
   };
 }
 

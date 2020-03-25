@@ -14,8 +14,8 @@ import { ErrorInterceptor } from './interceptors/error-interceptor';
       fromAuth.authStateKey,
       fromAuth.reducer
     ),
-    EffectsModule.forFeature([AuthEffects])
-  ]
+    EffectsModule.forFeature([AuthEffects]),
+  ],
 })
 export class RootSharedAuthDataAccessModule {}
 
@@ -28,8 +28,8 @@ export class SharedAuthDataAccessModule {
       providers: [
         { provide: AUTH_SERVER_URL, useValue: authServerUrl },
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
-      ]
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+      ],
     };
   }
 }

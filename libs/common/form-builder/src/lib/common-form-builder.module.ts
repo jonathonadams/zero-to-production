@@ -21,7 +21,7 @@ import { FormBuilderToolboxComponent } from './form-builder-toolbox/form-builder
     FormBuilderComponent,
     FormBuilderHeaderComponent,
     FormBuilderFieldComponent,
-    FormBuilderToolboxComponent
+    FormBuilderToolboxComponent,
   ],
   imports: [
     CommonModule,
@@ -36,8 +36,8 @@ import { FormBuilderToolboxComponent } from './form-builder-toolbox/form-builder
       fromFormBuilder.formBuilderKey,
       fromFormBuilder.reducer
     ),
-    EffectsModule.forFeature([FormBuilderEffects])
+    EffectsModule.forFeature([FormBuilderEffects]),
   ],
-  exports: [FormBuilderComponent, FormBuilderToolboxComponent]
+  exports: [FormBuilderComponent, FormBuilderToolboxComponent],
 })
 export class CommonFormBuilderModule {}

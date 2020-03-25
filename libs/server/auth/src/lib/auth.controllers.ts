@@ -9,7 +9,7 @@ import {
   AuthorizeControllerConfig,
   RefreshControllerConfig,
   RevokeControllerConfig,
-  AvailableControllerConfig
+  AvailableControllerConfig,
 } from './auth.interface';
 import { IUser } from '@uqt/data';
 import { isPasswordAllowed, userToJSON } from './auth-utils';
@@ -20,7 +20,7 @@ import { verifyRefreshToken } from './authenticate';
 export function setupRegisterController({
   User,
   VerificationToken,
-  verificationEmail
+  verificationEmail,
 }: RegistrationControllerConfig) {
   return async (user: IUser) => {
     const password: string = (user as any).password;
@@ -40,7 +40,7 @@ export function setupRegisterController({
 
     const verificationToken = new VerificationToken({
       userId: newUser.id,
-      token: randomBytes(16).toString('hex')
+      token: randomBytes(16).toString('hex'),
     });
 
     await await verificationToken.save();
@@ -60,7 +60,7 @@ export function setupRegisterController({
  */
 export function setupVerifyController({
   User,
-  VerificationToken
+  VerificationToken,
 }: VerifyControllerConfig) {
   return async (email: string, token: string) => {
     /**
@@ -124,7 +124,7 @@ export function setupLoginController(config: LoginControllerConfig) {
 
     return {
       token,
-      expiresIn: config.expireTime
+      expiresIn: config.expireTime,
     };
   };
 }
@@ -148,13 +148,13 @@ export function setupAuthorizeController(config: AuthorizeControllerConfig) {
 
     await RefreshToken.create({
       user: user.id,
-      token: refreshToken
+      token: refreshToken,
     });
 
     return {
       token: accessToken,
       expiresIn: config.expireTime,
-      refreshToken: refreshToken
+      refreshToken: refreshToken,
     };
   };
 }
@@ -194,14 +194,14 @@ export function setupRefreshAccessTokenController(
     const accessToken = createAccessToken(savedToken.user);
 
     return {
-      token: accessToken
+      token: accessToken,
     };
   };
 }
 
 // a controller to revoke a refresh token
 export function setupRevokeRefreshTokenController({
-  RefreshToken
+  RefreshToken,
 }: RevokeControllerConfig) {
   return async (token: string) => {
     const refreshToken = await RefreshToken.findOne({ token }).exec();

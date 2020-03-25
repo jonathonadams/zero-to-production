@@ -12,13 +12,13 @@ describe('AllTodosComponent', () => {
   let formFacade: DynamicFormFacade;
   const todosFacadeSpy = {
     filteredTodo$: jest.fn(),
-    allTodoFilter$: jest.fn()
+    allTodoFilter$: jest.fn(),
   };
   const formFacadeSpy = {
     createFormIfNotExist: jest.fn(),
     formSubmits$() {
       return { subscribe: jest.fn() };
-    }
+    },
   };
 
   beforeEach(async(() => {
@@ -27,9 +27,9 @@ describe('AllTodosComponent', () => {
       declarations: [AllTodosComponent],
       providers: [
         { provide: TodosFacade, useValue: todosFacadeSpy },
-        { provide: DynamicFormFacade, useValue: formFacadeSpy }
+        { provide: DynamicFormFacade, useValue: formFacadeSpy },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     todosFacade = TestBed.inject<TodosFacade>(TodosFacade);

@@ -8,7 +8,7 @@ describe('FormBuilderConstructorService', () => {
   beforeAll(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
-      providers: [FormBuilderConstructorService]
+      providers: [FormBuilderConstructorService],
     });
 
     service = TestBed.inject<FormBuilderConstructorService>(

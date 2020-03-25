@@ -2,7 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   ComponentFactory,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { ModuleLoaderService } from '@uqt/shared/utils/dynamic-module-loading';
@@ -12,7 +12,7 @@ import { ExamplesFacade, IExample } from '@uqt/examples/data-access';
   selector: 'uqt-examples-demos',
   templateUrl: './examples-demos.component.html',
   styleUrls: ['./examples-demos.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamplesDemosComponent implements OnDestroy {
   examples: IExample[];
@@ -22,7 +22,7 @@ export class ExamplesDemosComponent implements OnDestroy {
     private facade: ExamplesFacade,
     private moduleLoader: ModuleLoaderService
   ) {
-    this.sub = this.facade.examples$.subscribe(examples => {
+    this.sub = this.facade.examples$.subscribe((examples) => {
       this.examples = examples;
     });
   }

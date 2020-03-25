@@ -7,7 +7,7 @@ import * as fromExamples from './+state/examples.reducer';
     StoreModule.forFeature<fromExamples.ExamplesEntityState>(
       fromExamples.exampleEntityStateKey,
       fromExamples.reducer
-    )
-  ]
+    ),
+  ],
 })
 export class ExamplesDataAccessModule {}

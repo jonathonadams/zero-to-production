@@ -2,7 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   Output,
-  EventEmitter
+  EventEmitter,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IUser } from '@uqt/data';
@@ -11,7 +11,7 @@ import { AuthFacade } from '@uqt/shared/data-access/auth';
 @Component({
   selector: 'uqt-drop-down-menu',
   templateUrl: './drop-down-menu.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropDownMenuComponent {
   public user$: Observable<IUser | null>;

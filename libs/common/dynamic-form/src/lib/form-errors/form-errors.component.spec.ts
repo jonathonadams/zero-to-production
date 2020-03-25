@@ -11,14 +11,14 @@ describe('FormErrorsComponent', () => {
   let facade: PrivateDynamicFormFacade;
 
   const facadeSpy = {
-    selectErrors: of(jest.fn())
+    selectErrors: of(jest.fn()),
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [FormErrorsComponent],
       providers: [{ provide: PrivateDynamicFormFacade, useValue: facadeSpy }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     facade = TestBed.inject<PrivateDynamicFormFacade>(PrivateDynamicFormFacade);

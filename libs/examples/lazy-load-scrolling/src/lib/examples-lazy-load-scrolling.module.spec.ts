@@ -4,7 +4,7 @@ import { ExamplesLazyLoadScrollingModule } from './examples-lazy-load-scrolling.
 describe('ExamplesLazyLoadScrollingModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ExamplesLazyLoadScrollingModule]
+      imports: [ExamplesLazyLoadScrollingModule],
     }).compileComponents();
   }));
 

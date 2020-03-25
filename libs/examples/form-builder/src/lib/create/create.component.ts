@@ -2,7 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   OnInit,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { FormBuilderFacade } from '@uqt/common/form-builder';
@@ -11,7 +11,7 @@ import {
   FormGroupTypes,
   FormFieldTypes,
   DynamicFormFacade,
-  IDynamicFormConfig
+  IDynamicFormConfig,
 } from '@uqt/common/dynamic-form';
 import { Validators } from '@angular/forms';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -26,27 +26,27 @@ const STRUCTURE: TFormStructure = [
         type: FormFieldTypes.Input,
         name: 'formName',
         label: 'Form Name',
-        validators: [Validators.required]
+        validators: [Validators.required],
       },
       {
         type: FormFieldTypes.CheckBox,
         name: 'animations',
-        label: 'Animations'
+        label: 'Animations',
       },
       {
         type: FormFieldTypes.CheckBox,
         name: 'paginateSections',
-        label: 'Section Pages'
-      }
-    ]
-  }
+        label: 'Section Pages',
+      },
+    ],
+  },
 ];
 
 @Component({
   selector: 'ex-example-form-builder-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleFormBuilderCreateComponent implements OnInit, OnDestroy {
   faTrash = faTrash;
@@ -73,13 +73,13 @@ export class ExampleFormBuilderCreateComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.dynamicFormFacade.setFormConfig(this.formName, {
-      structure: STRUCTURE
+      structure: STRUCTURE,
     });
     this.dynamicFormFacade.setData(this.formName, {
       config: {
         animations: false,
-        paginateSections: false
-      }
+        paginateSections: false,
+      },
     });
     this.formsFacade.loadForms();
   }

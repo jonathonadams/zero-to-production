@@ -18,8 +18,8 @@ describe('AuthGuard', () => {
       providers: [
         AuthGuard,
         { provide: AuthService, useValue: authServiceSpy },
-        { provide: AuthFacade, useValue: authFacadeSpy }
-      ]
+        { provide: AuthFacade, useValue: authFacadeSpy },
+      ],
     });
 
     authGuard = TestBed.inject<AuthGuard>(AuthGuard);

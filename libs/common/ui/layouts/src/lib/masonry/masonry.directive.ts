@@ -4,12 +4,12 @@ import {
   ElementRef,
   QueryList,
   ContentChildren,
-  AfterContentChecked
+  AfterContentChecked,
 } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 @Directive({
-  selector: '[layoutMasonry]'
+  selector: '[layoutMasonry]',
 })
 export class MasonryLayoutDirective implements AfterContentChecked {
   @Input() columns: number | undefined;

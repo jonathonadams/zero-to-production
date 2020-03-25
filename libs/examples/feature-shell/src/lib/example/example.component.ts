@@ -5,7 +5,7 @@ import { IExample } from '@uqt/examples/data-access';
   selector: 'uqt-example',
   templateUrl: './example.component.html',
   styleUrls: ['./example.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleComponent {
   @Input() example: IExample;

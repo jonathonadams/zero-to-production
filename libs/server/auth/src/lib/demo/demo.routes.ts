@@ -5,7 +5,7 @@ import Router from '@koa/router';
 import { demoSetupRegisterController } from './demo.controllers';
 import {
   DemoRegistrationControllerConfig,
-  DemoAuthModuleConfig
+  DemoAuthModuleConfig,
 } from './demo.interface';
 import { createJsonWebKeySetRoute } from '../routes/jwks';
 import { login, usernameAvailable } from '../routes/auth.routes';

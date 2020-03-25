@@ -11,7 +11,7 @@ describe('UiTodoDetailComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UiTodoDetailComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

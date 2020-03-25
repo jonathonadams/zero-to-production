@@ -25,11 +25,11 @@ interface MulterUpload {
 
 // hex buffer removes the spacing // 25 50 44 66 for .pdf
 const MAGIC_NUMBER = {
-  pdf: '25504446'
+  pdf: '25504446',
 };
 
 const MIME_TYPE = {
-  pdf: 'application/pdf'
+  pdf: 'application/pdf',
 };
 
 export function checkUploadedFile(file: MulterUpload) {
@@ -76,7 +76,9 @@ export function saveFileBufferToUploads(file: MulterUpload) {
     file.fileName = fileName;
     file.filePath = filePath;
 
-    fs.writeFile('./uploads/' + filePath, file.buffer, 'binary', function(err) {
+    fs.writeFile('./uploads/' + filePath, file.buffer, 'binary', function (
+      err
+    ) {
       if (err) {
         reject(err);
       } else {

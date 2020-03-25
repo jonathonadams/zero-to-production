@@ -1,7 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
@@ -9,6 +9,6 @@ import {
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class CommonUiToolbarComponent {}

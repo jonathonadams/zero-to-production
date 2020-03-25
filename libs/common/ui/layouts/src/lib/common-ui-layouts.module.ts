@@ -11,8 +11,8 @@ import { CenterPageComponent } from './center-page/center-page.component';
     TwoColumnComponent,
     MasonryComponent,
     MasonryLayoutDirective,
-    CenterPageComponent
+    CenterPageComponent,
   ],
-  exports: [TwoColumnComponent, MasonryComponent, CenterPageComponent]
+  exports: [TwoColumnComponent, MasonryComponent, CenterPageComponent],
 })
 export class CommonUiLayoutsModule {}

@@ -20,7 +20,7 @@ export class ExamplesFacade {
   }
 
   selectExampleById(id: string): Observable<IExample | undefined> {
-    return this.entities$.pipe(map(dictionary => dictionary[id]));
+    return this.entities$.pipe(map((dictionary) => dictionary[id]));
   }
 
   addExamples(examples: IExample[]): void {

@@ -31,4 +31,6 @@ export const getPageUrl = ClientFunction(() => window.location.href);
 export const localStorageSet = ClientFunction((key, val) =>
   localStorage.setItem(key, val)
 );
-export const localStorageGet = ClientFunction(key => localStorage.getItem(key));
+export const localStorageGet = ClientFunction((key) =>
+  localStorage.getItem(key)
+);

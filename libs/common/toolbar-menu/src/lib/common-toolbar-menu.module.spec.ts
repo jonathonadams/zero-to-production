@@ -4,7 +4,7 @@ import { CommonToolbarMenuModule } from './common-toolbar-menu.module';
 describe('CommonToolbarMenuModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonToolbarMenuModule]
+      imports: [CommonToolbarMenuModule],
     }).compileComponents();
   }));
 

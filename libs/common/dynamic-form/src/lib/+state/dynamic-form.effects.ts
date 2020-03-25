@@ -9,10 +9,10 @@ export class DynamicFormsEffects {
   setErrors$ = createEffect(() =>
     this.actions.pipe(
       ofType(fromActions.setFormErrors),
-      map(action => {
+      map((action) => {
         return {
           errors: this.errorService.createFieldErrors(action.errors),
-          formName: action.formName
+          formName: action.formName,
         };
       }),
       map(({ formName, errors }) =>

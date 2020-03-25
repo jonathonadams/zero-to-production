@@ -5,7 +5,7 @@ import {
   stagger,
   style,
   transition,
-  trigger
+  trigger,
 } from '@angular/animations';
 
 export const LIST_ANIMATION = trigger('listAnimation', [
@@ -19,8 +19,8 @@ export const LIST_ANIMATION = trigger('listAnimation', [
         [
           style({ opacity: 0, height: '0px' }),
           stagger('50ms', [
-            animate('500ms cubic-bezier(.35,0,.25,1)', style('*'))
-          ])
+            animate('500ms cubic-bezier(.35,0,.25,1)', style('*')),
+          ]),
         ],
         { optional: true }
       ),
@@ -35,13 +35,13 @@ export const LIST_ANIMATION = trigger('listAnimation', [
                 opacity: 0,
                 height: '0px',
                 borderTop: 0,
-                borderBottom: 0
+                borderBottom: 0,
               })
-            )
-          ])
+            ),
+          ]),
         ],
         { optional: true }
-      )
-    ])
-  ])
+      ),
+    ]),
+  ]),
 ]);

@@ -66,6 +66,6 @@ export function createControllers<T extends Document>(model: Model<T>) {
       if (!resource)
         throw notFound('Cannot find a resource with the supplied parameters.');
       return swapId<T>(resource);
-    }
+    },
   };
 }

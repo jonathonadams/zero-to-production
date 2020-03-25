@@ -5,7 +5,7 @@ import {
   createApollo,
   createLoaders,
   createTypeDefs,
-  createSchema
+  createSchema,
 } from '@uqt/server/graphql';
 import { todoTypeDef, userTypeDef } from '@uqt/server/core-data';
 import { config } from '../environments';
@@ -23,13 +23,13 @@ const loaders = createLoaders({ users: User, todos: Todo });
 export const schema = createSchema({
   typeDefs,
   resolvers,
-  directives: authDirectives
+  directives: authDirectives,
 });
 
 export const apolloServer = createApollo({
   schemas: [schema, authSchema],
   production: config.production,
-  loaders
+  loaders,
 });
 // A function that applies the middleware to the app.
 export function applyGraphQLEndpoint(app: Koa) {

@@ -6,7 +6,7 @@ import {
   applyDemoAuthRoutes,
   generateDemoAuthModuleConfig,
   getDemoAuthResolvers,
-  createDemoAuthSchema
+  createDemoAuthSchema,
 } from '@uqt/server/auth';
 import { authConfig } from '../../environments/environment';
 

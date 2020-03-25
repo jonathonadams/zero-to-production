@@ -1,7 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  AfterViewInit
+  AfterViewInit,
 } from '@angular/core';
 import { CodeHighlightService } from '@uqt/examples/utils';
 import { clone } from './guides.code';
@@ -9,7 +9,7 @@ import { clone } from './guides.code';
 @Component({
   selector: 'uqt-guides',
   templateUrl: './guides.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GuidesComponent implements AfterViewInit {
   clone = clone;

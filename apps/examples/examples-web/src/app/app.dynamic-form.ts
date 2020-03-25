@@ -4,11 +4,11 @@ import { defaultErrorMessages } from '@uqt/common/dynamic-form';
 
 export const APP_COMPONENTS = {
   ...MATERIAL_COMPONENT_MAP,
-  USERNAME: CustomUsernameComponent
+  USERNAME: CustomUsernameComponent,
 };
 
 export const APP_ERRORS = {
   ...defaultErrorMessages,
   missMatchPasswords: 'Passwords do not match',
-  doesNotMeetRequirements: 'does note satisfy requirements'
+  doesNotMeetRequirements: 'does note satisfy requirements',
 };

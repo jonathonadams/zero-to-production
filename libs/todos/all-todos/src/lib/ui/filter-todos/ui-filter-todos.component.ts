@@ -7,7 +7,7 @@ import {
   ViewChild,
   ElementRef,
   OnDestroy,
-  OnInit
+  OnInit,
 } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { Subscription, fromEvent } from 'rxjs';
@@ -19,7 +19,7 @@ import { ANIMATE_CLASS } from '@uqt/common/animations';
   selector: 'todo-ui-filter-todos',
   templateUrl: './ui-filter-todos.component.html',
   styleUrls: ['./ui-filter-todos.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UiFilterTodosComponent implements OnInit, OnDestroy {
   animate = ANIMATE_CLASS;
@@ -48,7 +48,7 @@ export class UiFilterTodosComponent implements OnInit, OnDestroy {
         map((event: KeyboardEvent) => (<HTMLInputElement>event.target).value),
         distinctUntilChanged()
       )
-      .subscribe(searchString => {
+      .subscribe((searchString) => {
         this.searchStringChanged.emit(searchString);
       });
   }

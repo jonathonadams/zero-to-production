@@ -12,7 +12,7 @@ describe('ExamplesHeaderComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [ExamplesHeaderComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -3,7 +3,7 @@ import {
   state,
   style,
   transition,
-  animate
+  animate,
 } from '@angular/animations';
 
 /*
@@ -23,7 +23,7 @@ export const openCloseAnimation = trigger('openClose', [
     'open',
     style({
       backGround: 'red',
-      opacity: 1
+      opacity: 1,
     })
   ),
   // the 'closed' state
@@ -31,14 +31,14 @@ export const openCloseAnimation = trigger('openClose', [
     'closed',
     style({
       backGround: 'green',
-      opacity: 0
+      opacity: 0,
     })
   ),
 
   // define the transition between the states.
   transition('open => closed' /*state 1 => state 2 */, [
     // define the animation for the transition
-    animate('200ms 100ms ease-in-out' /*timing, delay(o), easing(o) */)
+    animate('200ms 100ms ease-in-out' /*timing, delay(o), easing(o) */),
   ]),
-  transition('closed => open', [animate('1s')])
+  transition('closed => open', [animate('1s')]),
 ]);

@@ -54,8 +54,8 @@ export const testConfig: TestServerConfig = {
   dbConnectionString: '', // These e2e test use mongodb-in-memory server, so the url is passed into 'init server' per test
   databaseOptions: {
     loggerLevel: 'warn',
-    dbName: 'test_database'
-  }
+    dbName: 'test_database',
+  },
 };
 
 export const testAuthConfig: AuthEnvironnementConfig = {
@@ -67,16 +67,16 @@ export const testAuthConfig: AuthEnvironnementConfig = {
     expireTime: 86400,
     issuer: 'ISSUER',
     audience,
-    keyId
+    keyId,
   },
   refreshToken: {
     privateKey,
     publicKey,
     issuer: 'ISSUER',
-    audience
+    audience,
   },
   email: {
     authServerUrl,
-    sendGridApiKey: ''
-  }
+    sendGridApiKey: '',
+  },
 };

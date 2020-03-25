@@ -21,7 +21,7 @@ const fsPromise = fs_1.default.promises;
     // Iterate over each dependency and check the main one
     // Check there are dependencies
     if (childPackage.dependencies !== undefined) {
-      Object.keys(childPackage.dependencies).forEach(packageName => {
+      Object.keys(childPackage.dependencies).forEach((packageName) => {
         if (
           childPackage.dependencies[packageName] !== dependencies[packageName]
         ) {
@@ -31,7 +31,7 @@ const fsPromise = fs_1.default.promises;
       });
     }
     if (childPackage.devDependencies !== undefined) {
-      Object.keys(childPackage.devDependencies).forEach(packageName => {
+      Object.keys(childPackage.devDependencies).forEach((packageName) => {
         if (
           childPackage.devDependencies[packageName] !==
           devDependencies[packageName]
@@ -47,12 +47,12 @@ const fsPromise = fs_1.default.promises;
     }
   });
   await Promise.all(
-    packagesToSave.map(toSave =>
+    packagesToSave.map((toSave) =>
       fsPromise.writeFile(toSave.path, JSON.stringify(toSave.package, null, 2))
     )
   );
   await Promise.all(
-    packagesToSave.map(toSave => addPackageToGitCommit(toSave.path))
+    packagesToSave.map((toSave) => addPackageToGitCommit(toSave.path))
   );
   console.log('Finished validating package.json files');
 })();

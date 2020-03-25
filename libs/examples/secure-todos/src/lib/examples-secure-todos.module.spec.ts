@@ -4,7 +4,7 @@ import { ExamplesSecureTodosModule } from './examples-secure-todos.module';
 describe('ExamplesSecureTodosModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ExamplesSecureTodosModule]
+      imports: [ExamplesSecureTodosModule],
     }).compileComponents();
   }));
 

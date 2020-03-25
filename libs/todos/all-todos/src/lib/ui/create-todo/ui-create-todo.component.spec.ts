@@ -11,7 +11,7 @@ describe('UiCreateTodoComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UiCreateTodoComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

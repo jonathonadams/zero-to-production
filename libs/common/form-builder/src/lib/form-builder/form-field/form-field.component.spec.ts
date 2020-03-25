@@ -12,7 +12,7 @@ describe('FormBuilderFieldComponent', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       declarations: [FormBuilderFieldComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

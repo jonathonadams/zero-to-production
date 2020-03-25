@@ -12,7 +12,7 @@ describe('UiFilterTodosComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UiFilterTodosComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

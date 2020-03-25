@@ -90,8 +90,8 @@ $light-primary-pallet: (
     A100: $dark-primary-text,
     A200: $light-primary-text,
     A400: $light-primary-text,
-    A700: $light-primary-text
-  )
+    A700: $light-primary-text,
+  ),
 );
 $light-accent-pallet: (
   50: #e0f2f1,
@@ -122,8 +122,8 @@ $light-accent-pallet: (
     A100: $dark-primary-text,
     A200: $light-primary-text,
     A400: $light-primary-text,
-    A700: $light-primary-text
-  )
+    A700: $light-primary-text,
+  ),
 );
 $dark-primary-pallet: (
   50: #ffe6ec,
@@ -154,8 +154,8 @@ $dark-primary-pallet: (
     A100: $dark-primary-text,
     A200: $light-primary-text,
     A400: $light-primary-text,
-    A700: $light-primary-text
-  )
+    A700: $light-primary-text,
+  ),
 );
 $dark-accent-pallet: (
   50: #dafff4,
@@ -186,8 +186,8 @@ $dark-accent-pallet: (
     A100: $dark-primary-text,
     A200: $light-primary-text,
     A400: $light-primary-text,
-    A700: $light-primary-text
-  )
+    A700: $light-primary-text,
+  ),
 );
 $light-background: (
   50: #fafafa,
@@ -218,8 +218,8 @@ $light-background: (
     A100: $dark-primary-text,
     A200: $light-primary-text,
     A400: $light-primary-text,
-    A700: $light-primary-text
-  )
+    A700: $light-primary-text,
+  ),
 );
 $dark-background: (
   50: #fafafa,
@@ -250,8 +250,8 @@ $dark-background: (
     A100: $dark-primary-text,
     A200: $light-primary-text,
     A400: $light-primary-text,
-    A700: $light-primary-text
-  )
+    A700: $light-primary-text,
+  ),
 );
 // --------------------------------------------------------------------
 $app-primary: mat-palette($light-primary-pallet);

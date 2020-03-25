@@ -20,14 +20,14 @@ import { ExamplesHeaderComponent } from './header/header.component';
     CommonUiCardModule,
     ScrollingModule,
     ExamplesDataAccessModule,
-    ExamplesFeatureShellRoutingModule
+    ExamplesFeatureShellRoutingModule,
   ],
   declarations: [
     ExamplesFeatureShellComponent,
     ExamplesHomeComponent,
     ExampleComponent,
     ExamplesHeaderComponent,
-    AnimateScrollEntryDirective
-  ]
+    AnimateScrollEntryDirective,
+  ],
 })
 export class ExamplesFeatureShellModule {}

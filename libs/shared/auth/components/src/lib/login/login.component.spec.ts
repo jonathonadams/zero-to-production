@@ -22,18 +22,18 @@ describe('LoginComponent', () => {
       providers: [
         {
           provide: AuthFacade,
-          useValue: {}
+          useValue: {},
         },
         {
           provide: DynamicFormFacade,
           useValue: {
             createFormIfNotExist: jest.fn(),
-            formSubmits$: () => of(jest.fn())
-          }
-        }
+            formSubmits$: () => of(jest.fn()),
+          },
+        },
       ],
       declarations: [LoginComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     authFacade = TestBed.inject<AuthFacade>(AuthFacade);

@@ -6,7 +6,7 @@ import { retrieveUserId } from '../utils';
 
 export function generateRestRouter<T extends Document>({
   model,
-  userResourcesOnly = false
+  userResourcesOnly = false,
 }: {
   model: Model<T>;
   userResourcesOnly?: boolean;
@@ -69,6 +69,6 @@ export function generateRestControllers<T extends Document>(
       const userId = userResourcesOnly ? retrieveUserId(ctx) : undefined;
       ctx.status = 200;
       ctx.body = await controllers.removeOne(ctx.state.id, userId);
-    }
+    },
   };
 }

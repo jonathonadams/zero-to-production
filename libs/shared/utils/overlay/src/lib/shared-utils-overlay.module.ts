@@ -6,6 +6,6 @@ import { OverlayService } from './overlay.service';
 @NgModule({
   imports: [OverlayModule, PortalModule],
   exports: [OverlayModule, PortalModule],
-  providers: [OverlayService]
+  providers: [OverlayService],
 })
 export class SharedUtilsOverlayModule {}

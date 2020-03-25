@@ -3,7 +3,7 @@ import {
   Resolve,
   ActivatedRouteSnapshot,
   Router,
-  RouterStateSnapshot
+  RouterStateSnapshot,
 } from '@angular/router';
 import { Observable, EMPTY } from 'rxjs';
 import {
@@ -12,7 +12,7 @@ import {
   tap,
   switchMap,
   timeout,
-  catchError
+  catchError,
 } from 'rxjs/operators';
 import { ITodo } from '@uqt/data';
 import { TodosFacade } from './+state/todos.facade';
@@ -29,9 +29,9 @@ export class TodoResolver implements Resolve<ITodo> {
     this.facade.selectTodo(todoId);
 
     return this.facade.todosLoaded$.pipe(
-      tap(loaded => (!loaded ? this.facade.loadTodos() : undefined)),
+      tap((loaded) => (!loaded ? this.facade.loadTodos() : undefined)),
       switchMap(() => this.facade.selectedTodo$ as Observable<ITodo>),
-      filter(user => user !== undefined),
+      filter((user) => user !== undefined),
       take(1),
       timeout(500),
       catchError((err: any) => {

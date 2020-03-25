@@ -3,7 +3,7 @@ import { DocumentNode } from 'graphql';
 import { MutationUpdaterFn } from 'apollo-client';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApolloUtilsService {
   addToQueryCache = (
@@ -19,7 +19,7 @@ export class ApolloUtilsService {
 
         const cache = store.readQuery({
           query,
-          variables
+          variables,
         }) as any;
 
         if (cache && cache[queryName]) {
@@ -30,7 +30,7 @@ export class ApolloUtilsService {
           store.writeQuery({
             query,
             variables,
-            data: { [queryName]: update }
+            data: { [queryName]: update },
           });
         }
       }
@@ -49,18 +49,18 @@ export class ApolloUtilsService {
 
         const cache = store.readQuery({
           query,
-          variables
+          variables,
         }) as any;
 
         if (cache && cache[queryName]) {
           const newCache = (cache[queryName] as any[]).filter(
-            val => val.id !== queryDate.id
+            (val) => val.id !== queryDate.id
           );
 
           store.writeQuery({
             query,
             variables,
-            data: { [queryName]: newCache }
+            data: { [queryName]: newCache },
           });
         }
       }

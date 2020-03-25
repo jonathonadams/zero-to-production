@@ -10,7 +10,7 @@ describe('ExampleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ExampleComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -10,9 +10,9 @@ import { FormGroupTypes, IToggleField } from '@uqt/common/dynamic-form';
       :host {
         display: block;
       }
-    `
+    `,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormToggleComponent {
   @Input() idx: number; // Only accessed if it is a FormArrayGroup

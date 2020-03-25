@@ -1,7 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  AfterViewInit
+  AfterViewInit,
 } from '@angular/core';
 import { CodeHighlightService } from '@uqt/examples/utils';
 import { moduleLoadingService, moduleProviders } from './scrolling.code';
@@ -9,7 +9,7 @@ import { moduleLoadingService, moduleProviders } from './scrolling.code';
 @Component({
   selector: 'uqt-scrolling',
   templateUrl: './scrolling.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScrollingComponent implements AfterViewInit {
   constructor(private highlightService: CodeHighlightService) {}

@@ -18,8 +18,8 @@ export const prodConfig: ProductionServerConfig = {
   dbConnectionString: getEnvVariableOrWarn('DB_CONNECTION_STRING'),
   databaseOptions: {
     loggerLevel: 'error',
-    autoIndex: true // TODO -> Don't auto index in production -> Create a K8's 'Job' (most probably an application)
-  }
+    autoIndex: true, // TODO -> Don't auto index in production -> Create a K8's 'Job' (most probably an application)
+  },
 };
 
 export const prodAuthConfig: AuthEnvironnementConfig = {
@@ -34,16 +34,16 @@ export const prodAuthConfig: AuthEnvironnementConfig = {
     ),
     issuer: getEnvVariableOrWarn('ISSUER'),
     audience,
-    keyId
+    keyId,
   },
   refreshToken: {
     privateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
     publicKey: getEnvVariableOrWarn('REFRESH_TOKEN_PUBLIC_KEY'),
     issuer: getEnvVariableOrWarn('ISSUER'),
-    audience
+    audience,
   },
   email: {
     sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY'),
-    authServerUrl
-  }
+    authServerUrl,
+  },
 };

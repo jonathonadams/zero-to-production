@@ -7,7 +7,7 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [authRouterAnimations]
+  animations: [authRouterAnimations],
 })
 export class AuthComponent {
   prepareRoute(outlet: RouterOutlet) {

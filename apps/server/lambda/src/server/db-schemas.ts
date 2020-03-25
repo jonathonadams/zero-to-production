@@ -2,11 +2,11 @@ import { Connection } from 'mongoose';
 import {
   createUserModel,
   createTodoModel,
-  createTodoNoteModel
+  createTodoNoteModel,
 } from '@uqt/server/core-data';
 import {
   createRefreshTokenModel,
-  createVerificationTokenModel
+  createVerificationTokenModel,
 } from '@uqt/server/auth';
 
 /**

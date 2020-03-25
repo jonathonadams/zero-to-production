@@ -4,7 +4,7 @@ import { SharedUtilsStorageModule } from './shared-utils-storage.module';
 describe('SharedUtilsStorageModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedUtilsStorageModule]
+      imports: [SharedUtilsStorageModule],
     }).compileComponents();
   }));
 

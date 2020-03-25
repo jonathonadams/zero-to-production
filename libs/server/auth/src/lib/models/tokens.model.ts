@@ -13,24 +13,22 @@ export const refreshTokenSchema = new Schema(
     user: {
       required: true,
       type: Schema.Types.ObjectId,
-      ref: 'user'
+      ref: 'user',
     },
     token: {
       required: true,
-      type: String
-    }
+      type: String,
+    },
   },
   {
-    ...defaultSchemaOptions
+    ...defaultSchemaOptions,
   }
 );
 
-refreshTokenSchema.statics.findByTokenWithUser = function(
+refreshTokenSchema.statics.findByTokenWithUser = function (
   token: string
 ): Promise<IRefreshTokenDocument | null> {
-  return this.findOne({ token })
-    .populate('user')
-    .exec();
+  return this.findOne({ token }).populate('user').exec();
 };
 
 export function createRefreshTokenModel(con: Connection): IRefreshTokenModel {

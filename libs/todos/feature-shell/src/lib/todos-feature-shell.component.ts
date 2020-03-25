@@ -5,7 +5,7 @@ import { ISideNaveRoute } from '@uqt/common/ui/side-nav';
   selector: 'todo-feature-shell',
   templateUrl: './todos-feature-shell.component.html',
   styleUrls: ['./todos-feature-shell.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoFeatureShellComponent {
   /*
@@ -18,7 +18,7 @@ export class TodoFeatureShellComponent {
   // DELETE
   routes: ISideNaveRoute[] = [
     { path: 'home', icon: 'home', label: 'Home' },
-    { path: 'todos', icon: 'list', label: 'Todos' }
+    { path: 'todos', icon: 'list', label: 'Todos' },
   ];
 
   // UNCOMMENT

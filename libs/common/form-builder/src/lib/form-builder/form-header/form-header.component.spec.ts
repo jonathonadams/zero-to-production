@@ -10,7 +10,7 @@ describe('FormBuilderHeaderComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [FormBuilderHeaderComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

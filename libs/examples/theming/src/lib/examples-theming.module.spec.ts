@@ -4,7 +4,7 @@ import { ExamplesThemingModule } from './examples-theming.module';
 describe('ExamplesThemingModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ExamplesThemingModule]
+      imports: [ExamplesThemingModule],
     }).compileComponents();
   }));
 

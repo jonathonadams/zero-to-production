@@ -3,5 +3,5 @@ module.exports = {
   setupFilesAfterEnv: ['jest-extended'],
   testEnvironment: 'node',
   preset: '../../../jest.config.js',
-  coverageDirectory: '../../../coverage/apps/examples/examples-web-functions'
+  coverageDirectory: '../../../coverage/apps/examples/examples-web-functions',
 };

@@ -12,17 +12,13 @@ export function createTodoControllers(
   // from the AST as to what to query?
 
   const todoNotesFieldController = async (todo: ITodo) => {
-    const newTodo = await Todo.findById(todo.id)
-      .populate('notes')
-      .exec();
+    const newTodo = await Todo.findById(todo.id).populate('notes').exec();
 
     return newTodo?.notes;
   };
 
   const todoNotesController = async (todoId: ITodo, userId: string) => {
-    const todo = await Todo.findById(todoId)
-      .populate('notes')
-      .exec();
+    const todo = await Todo.findById(todoId).populate('notes').exec();
 
     if (!todo) throw notFound();
     if (todo.userId.toString() !== userId) throw unauthorized();
@@ -42,7 +38,7 @@ export function createTodoControllers(
         { _id: todoId, userId },
         { $push: { notes: todoNote.id } }
       ).exec(),
-      todoNote.save()
+      todoNote.save(),
     ]);
 
     return todoNote;
@@ -50,9 +46,7 @@ export function createTodoControllers(
 
   const removeTodoNoteController = async (id: string, userId: string) => {
     // Populate the 'todoId' field so that we can check parent properties, i.e. userId
-    const note = await TodoNote.findById(id)
-      .populate('todoId')
-      .exec();
+    const note = await TodoNote.findById(id).populate('todoId').exec();
 
     if (!note) throw notFound();
 
@@ -68,7 +62,7 @@ export function createTodoControllers(
         { _id: todoId, userId },
         { $pullAll: { notes: [id] } }
       ).exec(),
-      note.remove()
+      note.remove(),
     ]);
 
     // The remove method will remove the id field, but is queryable from the GraphQL schema
@@ -83,7 +77,7 @@ export function createTodoControllers(
     todoNotesController,
     todoNotesFieldController,
     newTodoNoteController,
-    removeTodoNoteController
+    removeTodoNoteController,
   };
 
   return public_api;

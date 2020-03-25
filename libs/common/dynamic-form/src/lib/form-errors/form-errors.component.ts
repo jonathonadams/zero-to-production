@@ -6,7 +6,7 @@ import {
   EventEmitter,
   Input,
   ViewChild,
-  AfterViewInit
+  AfterViewInit,
 } from '@angular/core';
 import { timer, Observable, Subscription } from 'rxjs';
 import { formErrorsAnimations } from './form-errors.animations';
@@ -21,7 +21,7 @@ import { MatButton } from '@angular/material/button';
   templateUrl: './form-errors.component.html',
   styleUrls: ['./form-errors.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [formErrorsAnimations]
+  animations: [formErrorsAnimations],
 })
 export class FormErrorsComponent implements OnDestroy, AfterViewInit {
   @ViewChild('dismissButton', { static: true }) button: MatButton;
@@ -32,7 +32,9 @@ export class FormErrorsComponent implements OnDestroy, AfterViewInit {
 
   @Input()
   set formName(name: string) {
-    this.errors$ = this.facade.selectForm(name).pipe(map(form => form?.errors));
+    this.errors$ = this.facade
+      .selectForm(name)
+      .pipe(map((form) => form?.errors));
   }
 
   @Output() dismiss = new EventEmitter<void>();

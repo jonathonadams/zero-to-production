@@ -45,7 +45,7 @@ export class MockUserModel {
     return {
       exec: async () => {
         return user;
-      }
+      },
     };
   }
 

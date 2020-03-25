@@ -10,7 +10,7 @@ export const createTodosRouter = (
 ) => {
   const router = generateRestRouter<ITodoDocument>({
     model: Todo,
-    userResourcesOnly: true
+    userResourcesOnly: true,
   });
 
   const todoNoteControllers = createTodoControllers(Todo, TodoNote);
@@ -19,7 +19,7 @@ export const createTodosRouter = (
 
     ctx.status = 200;
     ctx.body = await todoNoteControllers.todoNotesFieldController({
-      id: todoId
+      id: todoId,
     } as ITodoDocument);
   };
 

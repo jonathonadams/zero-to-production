@@ -6,7 +6,7 @@ import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, CustomMaterialModule],
-  declarations: [CssThemingComponent]
+  declarations: [CssThemingComponent],
 })
 export class ExamplesThemingModule {
   static get lazyEntryComponent() {

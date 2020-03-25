@@ -13,8 +13,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     {
       provide: HTTP_INTERCEPTORS,
       multi: true,
-      useClass: UniversalInterceptor
-    }
-  ]
+      useClass: UniversalInterceptor,
+    },
+  ],
 })
 export class AppServerModule {}

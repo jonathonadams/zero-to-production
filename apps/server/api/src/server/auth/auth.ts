@@ -3,7 +3,7 @@ import {
   applyAuthRoutes,
   generateAuthModuleConfig,
   createAuthSchema,
-  getAuthResolvers
+  getAuthResolvers,
 } from '@uqt/server/auth';
 import { authConfig } from '../../environments';
 import { User } from '../api/users';

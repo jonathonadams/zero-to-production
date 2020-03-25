@@ -7,7 +7,7 @@ import { appRouterAnimations } from './app-routing.animations';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [appRouterAnimations]
+  animations: [appRouterAnimations],
 })
 export class AppComponent {
   prepareRoute(outlet: RouterOutlet) {

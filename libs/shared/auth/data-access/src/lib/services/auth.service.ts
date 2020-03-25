@@ -8,7 +8,7 @@ import {
   ILoginCredentials,
   ILoginResponse,
   IRegistrationDetails,
-  IJWTPayload
+  IJWTPayload,
 } from '../auth.interface';
 import { secondsToExpiresAtMillis } from '../utils';
 import { AuthFacade } from '../+state/auth.facade';
@@ -42,7 +42,7 @@ export class AuthService {
     `;
     return this.apollo.mutate<{ login: ILoginResponse }>({
       mutation,
-      variables: credentials
+      variables: credentials,
     });
   }
 
@@ -57,8 +57,8 @@ export class AuthService {
     return this.apollo.mutate<{ register: IUser }>({
       mutation,
       variables: {
-        input: details
-      }
+        input: details,
+      },
     });
   }
 
@@ -89,7 +89,7 @@ export class AuthService {
 
     return this.apollo.query<{ usernameAvailable: { isAvailable: boolean } }>({
       query,
-      variables: { username }
+      variables: { username },
     });
   }
 

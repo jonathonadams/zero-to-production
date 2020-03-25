@@ -23,9 +23,9 @@ describe('DynamicFormComponent', () => {
         { provide: DynamicFormService, useValue: {} },
         { provide: DynamicFormErrorsService, useValue: {} },
         { provide: DynamicFormFacade, useValue: {} },
-        { provide: PrivateDynamicFormFacade, useValue: {} }
+        { provide: PrivateDynamicFormFacade, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     facade = TestBed.inject<DynamicFormFacade>(DynamicFormFacade);

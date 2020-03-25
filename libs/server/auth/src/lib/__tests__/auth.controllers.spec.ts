@@ -10,7 +10,7 @@ import {
   setupRefreshAccessTokenController,
   setupRevokeRefreshTokenController,
   setupVerifyController,
-  setupUsernameAvailableController
+  setupUsernameAvailableController,
 } from '../auth.controllers';
 import { MockUserModel } from './user.mock';
 import { MockRefreshTokenModel } from './refresh-token.mock';
@@ -30,12 +30,12 @@ const userToRegister = ({
   emailAddress: 'unique@email.com',
   dateOfBirth: new Date(),
   active: true,
-  isVerified: false
+  isVerified: false,
 } as any) as IUser;
 
 const userWithPassword = ({
   ...userToRegister,
-  password: 'adf#jf3@#FD!'
+  password: 'adf#jf3@#FD!',
 } as any) as IUser;
 
 const issuer = 'some-issuer';
@@ -46,14 +46,14 @@ function mockRegistrationController(email: jest.Mock<any, any> = jest.fn()) {
   return setupRegisterController({
     User: (MockUserModel as unknown) as IUserModel,
     VerificationToken: (MockVerificationToken as unknown) as IVerificationTokenModel,
-    verificationEmail: email
+    verificationEmail: email,
   });
 }
 
 function mockVerificationController() {
   return setupVerifyController({
     User: (MockUserModel as unknown) as IUserModel,
-    VerificationToken: (MockVerificationToken as unknown) as IVerificationTokenModel
+    VerificationToken: (MockVerificationToken as unknown) as IVerificationTokenModel,
   });
 }
 
@@ -64,7 +64,7 @@ function mockLoginController() {
     expireTime: 100000,
     issuer,
     audience,
-    keyId
+    keyId,
   });
 }
 
@@ -76,7 +76,7 @@ function mockAuthorizeController() {
     issuer,
     audience,
     keyId,
-    RefreshToken: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
+    RefreshToken: (MockRefreshTokenModel as unknown) as IRefreshTokenModel,
   });
 }
 
@@ -87,19 +87,19 @@ function mockRefreshTokenController() {
     keyId,
     expireTime: 100000,
     issuer,
-    RefreshToken: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
+    RefreshToken: (MockRefreshTokenModel as unknown) as IRefreshTokenModel,
   });
 }
 
 function mockRevokeController() {
   return setupRevokeRefreshTokenController({
-    RefreshToken: (MockRefreshTokenModel as unknown) as IRefreshTokenModel
+    RefreshToken: (MockRefreshTokenModel as unknown) as IRefreshTokenModel,
   });
 }
 
 function mockUsernameAvailableController() {
   return setupUsernameAvailableController({
-    User: (MockUserModel as unknown) as IUserModel
+    User: (MockUserModel as unknown) as IUserModel,
   });
 }
 
@@ -111,7 +111,7 @@ describe(`Authentication Controllers`, () => {
       const createdUser = await setupRegisterController({
         User: (MockUserModel as unknown) as IUserModel,
         VerificationToken: (MockVerificationToken as unknown) as IVerificationTokenModel,
-        verificationEmail: jest.fn()
+        verificationEmail: jest.fn(),
       })({ ...userWithPassword });
 
       expect(createdUser).toBeTruthy();
@@ -127,7 +127,7 @@ describe(`Authentication Controllers`, () => {
       const spy = jest.fn();
 
       const createdUser = await mockRegistrationController(spy)({
-        ...userWithPassword
+        ...userWithPassword,
       });
 
       expect(spy).toHaveBeenCalled();
@@ -141,7 +141,7 @@ describe(`Authentication Controllers`, () => {
       MockUserModel.userToRespondWith = null;
 
       const createdUser = await mockRegistrationController()({
-        ...userWithPassword
+        ...userWithPassword,
       });
 
       expect(createdUser.password).not.toBeDefined();
@@ -155,7 +155,7 @@ describe(`Authentication Controllers`, () => {
       const userWithUniqueDetails = {
         ...userWithPassword,
         username: 'anotherUsername',
-        emailAddress: 'anotherUnique@email.com'
+        emailAddress: 'anotherUnique@email.com',
       } as IUser;
 
       MockUserModel.userToRespondWith = null;
@@ -185,12 +185,12 @@ describe(`Authentication Controllers`, () => {
       MockUserModel.userToRespondWith = {
         id: userId,
         ...userToRegister,
-        ...{ set: setMock, save: jest.fn() }
+        ...{ set: setMock, save: jest.fn() },
       };
       MockVerificationToken.tokenToRespondWith = {
         token,
         userId,
-        ...{ remove: removeMock }
+        ...{ remove: removeMock },
       };
 
       expect((MockUserModel._user as IUser).isVerified).toBe(false);
@@ -225,7 +225,7 @@ describe(`Authentication Controllers`, () => {
 
       MockUserModel.userToRespondWith = {
         ...userToRegister,
-        isVerified: true
+        isVerified: true,
       };
 
       await expect(
@@ -257,11 +257,11 @@ describe(`Authentication Controllers`, () => {
       const removeMock = jest.fn();
       MockUserModel.userToRespondWith = {
         id: '1',
-        ...userToRegister
+        ...userToRegister,
       };
       MockVerificationToken.tokenToRespondWith = {
         token,
-        userId: '2'
+        userId: '2',
       };
 
       await expect(
@@ -277,7 +277,7 @@ describe(`Authentication Controllers`, () => {
     it('should return an access token if correct credentials are provided', async () => {
       const userWithId = {
         ...userWithPassword,
-        id: newId()
+        id: newId(),
       };
 
       // Set the hashed password to be correct
@@ -299,7 +299,7 @@ describe(`Authentication Controllers`, () => {
     it('should throw unauthorized errors if the credentials are incorrect', async () => {
       const userWithId = {
         ...userWithPassword,
-        id: newId()
+        id: newId(),
       };
 
       // Set the hashed password to be correct
@@ -319,7 +319,7 @@ describe(`Authentication Controllers`, () => {
     it('should throw an unauthorized error if the user is not active', async () => {
       const userWithId = {
         ...userWithPassword,
-        id: newId()
+        id: newId(),
       };
 
       // Set the hashed password to be correct
@@ -327,7 +327,7 @@ describe(`Authentication Controllers`, () => {
 
       const inactiveUser = {
         ...userWithId,
-        active: false
+        active: false,
       };
       MockUserModel.userToRespondWith = inactiveUser;
 
@@ -341,7 +341,7 @@ describe(`Authentication Controllers`, () => {
     it('should return an accessToken and refreshToken if the credentials correct', async () => {
       const userWithId = {
         ...userWithPassword,
-        id: newId()
+        id: newId(),
       };
 
       // Set the hashed password to be correct
@@ -366,7 +366,7 @@ describe(`Authentication Controllers`, () => {
     it('should throw unauthorized errors if the credentials are incorrect', async () => {
       const userWithId = {
         ...userWithPassword,
-        id: newId()
+        id: newId(),
       };
 
       // Set the hashed password to be correct
@@ -390,7 +390,7 @@ describe(`Authentication Controllers`, () => {
       const inactiveUser = {
         ...userWithPassword,
         id: newId(),
-        active: false
+        active: false,
       };
 
       // Set the hashed password to be correct
@@ -417,21 +417,21 @@ describe(`Authentication Controllers`, () => {
     it('should return a new access token when the a valid refresh token is provided', async () => {
       const userWithId = {
         ...userWithPassword,
-        id: newId()
+        id: newId(),
       };
 
       const refreshTokenString = signRefreshToken({
         privateKey,
         audience,
-        issuer
+        issuer,
       })(userWithId);
 
       const refreshToken = await MockRefreshTokenModel.create({
         user: {
           id: userWithId.id,
-          username: userWithId.username
+          username: userWithId.username,
         } as IUser,
-        token: refreshTokenString
+        token: refreshTokenString,
       });
 
       MockRefreshTokenModel.findByTokenWithUserResponse = refreshToken.toJSON();
@@ -451,21 +451,21 @@ describe(`Authentication Controllers`, () => {
     it('should throw a unauthorized errors if invalid username or token provided', async () => {
       const userWithId = {
         ...userWithPassword,
-        id: newId()
+        id: newId(),
       };
 
       const refreshTokenString = signRefreshToken({
         privateKey,
         audience,
-        issuer
+        issuer,
       })(userWithId);
 
       const refreshToken = await MockRefreshTokenModel.create({
         user: {
           id: userWithId.id,
-          username: userWithId.username
+          username: userWithId.username,
         } as IUser,
-        token: refreshTokenString
+        token: refreshTokenString,
       });
 
       MockRefreshTokenModel.findByTokenWithUserResponse = refreshToken.toJSON();
@@ -490,21 +490,21 @@ describe(`Authentication Controllers`, () => {
     it('should revoke the refresh token provided', async () => {
       const userWithId = {
         ...userWithPassword,
-        id: newId()
+        id: newId(),
       };
 
       const refreshTokenString = signRefreshToken({
         privateKey,
         audience,
-        issuer
+        issuer,
       })(userWithId);
 
       const refreshToken = await MockRefreshTokenModel.create({
         user: {
           id: userWithId.id,
-          username: userWithId.username
+          username: userWithId.username,
         } as IUser,
-        token: refreshTokenString
+        token: refreshTokenString,
       });
 
       MockRefreshTokenModel.findByTokenWithUserResponse = refreshToken.toJSON();
@@ -522,21 +522,21 @@ describe(`Authentication Controllers`, () => {
     it('should throw a bad request if the token can not be found', async () => {
       const userWithId = {
         ...userWithPassword,
-        id: newId()
+        id: newId(),
       };
 
       const refreshTokenString = signRefreshToken({
         privateKey,
         audience,
-        issuer
+        issuer,
       })(userWithId);
 
       const refreshToken = await MockRefreshTokenModel.create({
         user: {
           id: userWithId.id,
-          username: userWithId.username
+          username: userWithId.username,
         } as IUser,
-        token: refreshTokenString
+        token: refreshTokenString,
       });
 
       MockRefreshTokenModel.findByTokenWithUserResponse = refreshToken.toJSON();
@@ -566,7 +566,7 @@ describe(`Authentication Controllers`, () => {
     it('isAvailable should be false if a user with that username is found', async () => {
       const takenUsername = 'takenUsername';
       const user = {
-        username: takenUsername
+        username: takenUsername,
       } as IUser;
 
       MockUserModel.userToRespondWith = user;

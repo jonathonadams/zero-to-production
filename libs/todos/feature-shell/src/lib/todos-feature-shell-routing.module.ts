@@ -4,7 +4,7 @@ import { AuthGuard, LoggedInGuard } from '@uqt/shared/data-access/auth';
 import {
   LoginComponent,
   RegisterComponent,
-  AuthComponent
+  AuthComponent,
 } from '@uqt/shared/auth/components';
 import { AllTodosComponent } from '@uqt/todos/all-todos';
 import { TodoDetailComponent } from '@uqt/todos/todo-detail';
@@ -19,7 +19,7 @@ export const TODOS_ROUTES: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('@uqt/shared/dashboard').then(m => m.SharedDashboardModule)
+          import('@uqt/shared/dashboard').then((m) => m.SharedDashboardModule),
       },
       {
         path: 'todos',
@@ -29,32 +29,32 @@ export const TODOS_ROUTES: Routes = [
             component: AllTodosComponent,
             pathMatch: 'full',
             data: {
-              animation: 'AllTodos'
-            }
+              animation: 'AllTodos',
+            },
           },
           {
             path: ':todoId',
             component: TodoDetailComponent,
             pathMatch: 'full',
             resolve: {
-              todo: TodoResolver
+              todo: TodoResolver,
             },
             data: {
-              animation: 'TodoDetail'
-            }
-          }
-        ]
+              animation: 'TodoDetail',
+            },
+          },
+        ],
       },
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'home'
-      }
+        redirectTo: 'home',
+      },
     ],
     canActivate: [AuthGuard],
     data: {
-      animation: 'AppPages'
-    }
+      animation: 'AppPages',
+    },
   },
   {
     path: '',
@@ -65,31 +65,31 @@ export const TODOS_ROUTES: Routes = [
         pathMatch: 'full',
         component: LoginComponent,
         canActivate: [LoggedInGuard],
-        data: { animation: 'LoginPage' }
+        data: { animation: 'LoginPage' },
       },
       {
         path: 'register',
         pathMatch: 'full',
         component: RegisterComponent,
-        data: { animation: 'RegisterPage' }
-      }
+        data: { animation: 'RegisterPage' },
+      },
     ],
     data: {
-      animation: 'AuthPages'
-    }
+      animation: 'AuthPages',
+    },
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home'
+    redirectTo: 'home',
   },
   {
     path: '**',
-    redirectTo: 'home'
-  }
+    redirectTo: 'home',
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(TODOS_ROUTES)]
+  imports: [RouterModule.forChild(TODOS_ROUTES)],
 })
 export class TodosFeatureShellRoutingModule {}

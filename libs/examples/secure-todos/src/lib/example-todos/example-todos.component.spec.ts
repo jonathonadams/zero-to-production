@@ -13,7 +13,7 @@ describe('ExampleTodosComponent', () => {
       imports: [RouterModule],
       declarations: [ExampleTodosComponent],
       providers: [{ provide: Router, useValue: {} }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

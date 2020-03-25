@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
 } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ITodo } from '@uqt/data';
@@ -17,10 +17,10 @@ import { LIST_ANIMATION } from './todo-list.animation';
       .record {
         cursor: pointer;
       }
-    `
+    `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [LIST_ANIMATION]
+  animations: [LIST_ANIMATION],
 })
 export class UiTodoListComponent {
   @Input()

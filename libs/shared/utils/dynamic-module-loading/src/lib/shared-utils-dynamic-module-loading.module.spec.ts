@@ -4,7 +4,7 @@ import { SharedUtilsDynamicModuleLoadingModule } from './shared-utils-dynamic-mo
 describe('SharedUtilsDynamicModuleLoadingModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedUtilsDynamicModuleLoadingModule]
+      imports: [SharedUtilsDynamicModuleLoadingModule],
     }).compileComponents();
   }));
 

@@ -3,7 +3,7 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as DynamicFormActions from './dynamic-form.actions';
 import {
   DynamicFormState,
-  IDynamicFormConfig
+  IDynamicFormConfig,
 } from '../dynamic-form.interface';
 
 export const dynamicFormKey = 'dynamicForm';
@@ -17,7 +17,7 @@ export function selectFormName(a: DynamicFormState): string {
 export const adapter: EntityAdapter<DynamicFormState> = createEntityAdapter<
   DynamicFormState
 >({
-  selectId: selectFormName
+  selectId: selectFormName,
 });
 
 export const initialEntityFormState: DynamicFormEntityState = adapter.getInitialState();
@@ -87,7 +87,7 @@ export const formReducer = createReducer(
     return adapter.updateOne(
       {
         id: formName,
-        changes: resetFormState(currentState.config)
+        changes: resetFormState(currentState.config),
       },
       state
     );
@@ -111,9 +111,9 @@ export function generateInitialFormConfig(
       animations: false,
       paginateSections: false,
       structure: [],
-      formValidators: []
+      formValidators: [],
     },
-    ...config
+    ...config,
   };
 }
 
@@ -122,7 +122,7 @@ function generateInitialFormState(formName: string): DynamicFormState {
     config: generateInitialFormConfig({ formName }),
     index: 0,
     data: {},
-    errors: []
+    errors: [],
   };
 }
 
@@ -131,7 +131,7 @@ function resetFormState(config: IDynamicFormConfig): DynamicFormState {
     config: generateInitialFormConfig(config),
     index: 0,
     data: {},
-    errors: []
+    errors: [],
   };
 }
 
