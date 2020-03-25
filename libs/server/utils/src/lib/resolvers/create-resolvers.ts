@@ -2,7 +2,7 @@ import { GraphQLFieldResolver } from 'graphql';
 import mongoose from 'mongoose';
 import { ObjectId } from 'mongodb';
 import { createControllers } from '../controllers/create-controllers';
-import { retrieveUserId } from '../controllers/utils';
+import { retrieveUserId } from '../utils';
 
 // const resolver = async (rootValue, args, context, info) => {
 //   -> place logic here

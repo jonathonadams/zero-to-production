@@ -1,4 +1,4 @@
-import { generateRestRouter } from '@uqt/server/utils';
+import { generateRestRouter, retrieveUserId } from '@uqt/server/utils';
 import { ITodoModel, ITodoDocument } from './todo';
 import { createTodoControllers } from './todo.controllers';
 import { ITodoNoteModel } from './notes';
@@ -25,7 +25,7 @@ export const createTodosRouter = (
 
   const newNoteController = async (ctx: ParameterizedContext) => {
     const todoId = ctx.state.id;
-    const userId = ctx.state.user.sub;
+    const userId = retrieveUserId(ctx) as string;
     const { body } = ctx.request;
     body.todoId = todoId;
 
@@ -39,7 +39,7 @@ export const createTodosRouter = (
 
   const removeNoteController = async (ctx: ParameterizedContext) => {
     const noteId = ctx.state.noteId;
-    const userId = ctx.state.user.sub;
+    const userId = retrieveUserId(ctx) as string;
 
     ctx.status = 200;
     ctx.body = await todoNoteControllers.removeTodoNoteController(

@@ -2,7 +2,7 @@ import { ParameterizedContext } from 'koa';
 import Router from '@koa/router';
 import { Document, Model } from 'mongoose';
 import { createControllers } from './create-controllers';
-import { retrieveUserId } from './utils';
+import { retrieveUserId } from '../utils';
 
 export function generateRestRouter<T extends Document>({
   model,

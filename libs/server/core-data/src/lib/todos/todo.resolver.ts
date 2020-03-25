@@ -1,4 +1,4 @@
-import { createTypeResolver } from '@uqt/server/utils';
+import { createTypeResolver, retrieveUserId } from '@uqt/server/utils';
 import { ITodoModel, ITodoDocument } from './todo';
 import { ITodoNoteModel } from './notes';
 import { createTodoControllers } from './todo.controllers';
@@ -16,13 +16,13 @@ export const createTodosResolver = (
   const todoNoteControllers = createTodoControllers(Todo, TodoNote);
 
   const todoNotesResolver = async (root: any, args: any, ctx: any) => {
-    const userId = ctx.state.user.sub;
+    const userId = retrieveUserId(ctx) as string;
     const todoId = args.todoId;
     return todoNoteControllers.todoNotesController(todoId, userId);
   };
 
   const newTodoNoteResolver = async (root: any, args: any, ctx: any) => {
-    const userId = ctx.state.user.sub;
+    const userId = retrieveUserId(ctx) as string;
     const todoId = args.input.todoId;
     const values = args.input;
 
@@ -30,7 +30,7 @@ export const createTodosResolver = (
   };
 
   const removeTodoNoteResolver = async (root: any, args: any, ctx: any) => {
-    const userId = ctx.state.user.sub;
+    const userId = retrieveUserId(ctx) as string;
     const id = args.id;
 
     return todoNoteControllers.removeTodoNoteController(id, userId);

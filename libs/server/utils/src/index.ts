@@ -1,4 +1,9 @@
-export { swapId, getEnvVariableOrWarn, envToNumber } from './lib/utils';
+export {
+  swapId,
+  getEnvVariableOrWarn,
+  envToNumber,
+  retrieveUserId
+} from './lib/utils';
 export { createControllers } from './lib/controllers/create-controllers';
 export { defaultSchemaOptions } from './lib/db/schema-options';
 export {

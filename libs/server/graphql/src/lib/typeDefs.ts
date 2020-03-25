@@ -29,7 +29,7 @@ export const baseTypeDef = gql`
   }
 
   type Query @authenticated
-  type Mutation @activeUser
+  type Mutation @authenticated
   # type Subscription
 
   schema {

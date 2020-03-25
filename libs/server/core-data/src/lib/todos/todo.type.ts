@@ -40,16 +40,16 @@ export const todoTypeDef = gql`
   }
 
   extend type Query {
-    Todo(id: ID!): Todo! @activeUser
-    allTodos: [Todo]! @activeUser
-    allTodoNotes(todoId: ID!): [TodoNote]! @activeUser
+    Todo(id: ID!): Todo!
+    allTodos: [Todo]!
+    allTodoNotes(todoId: ID!): [TodoNote]!
   }
 
   extend type Mutation {
-    newTodo(input: NewTodoInput!): Todo! @activeUser
-    updateTodo(input: UpdatedTodoInput!): Todo! @activeUser
-    removeTodo(id: ID!): Todo! @activeUser
-    newTodoNote(input: NewTodoNoteInput!): TodoNote! @activeUser
-    removeTodoNote(id: ID!): TodoNote! @activeUser
+    newTodo(input: NewTodoInput!): Todo!
+    updateTodo(input: UpdatedTodoInput!): Todo!
+    removeTodo(id: ID!): Todo!
+    newTodoNote(input: NewTodoNoteInput!): TodoNote!
+    removeTodoNote(id: ID!): TodoNote!
   }
 `;
