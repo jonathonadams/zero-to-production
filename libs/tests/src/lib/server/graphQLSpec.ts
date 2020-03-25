@@ -6,6 +6,9 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { runQuery, setupTestDB, newId } from './helpers';
 import { signTestAccessToken } from './auth';
 import { Server } from 'http';
+import { Model } from 'mongoose';
+
+// TODO -> completely refactor this
 
 /**
  * Object.keys(object) is used to return an array of the names of object properties.
@@ -31,10 +34,11 @@ export function createGraphQLSpec<T>(
   userResource = false
 ) {
   return function(
-    model: any,
+    model: typeof Model,
     resourceName: string,
     resourceToCreate: any,
-    resourceToUpdate: any
+    resourceToUpdate: any,
+    userModel?: typeof Model
   ) {
     if (!resourceToCreate || Object.keys(resourceToCreate).length === 0) {
       throw new Error(
@@ -50,6 +54,19 @@ export function createGraphQLSpec<T>(
 
     const userId = resourceToCreate.userId ? resourceToCreate.userId : newId();
 
+    const user = {
+      id: userId,
+      _id: userId,
+      active: true,
+      isVerified: true,
+      username: 'test user',
+      givenName: 'test',
+      surname: 'user',
+      email: 'test@domain.com',
+      dateOfBirth: '2019-01-01',
+      hashedPassword: 'some-password-hash'
+    };
+
     // GraphQL schemas are designed written with UpperCase names
     const upperResourceName =
       resourceName.charAt(0).toUpperCase() + resourceName.slice(1);
@@ -64,10 +81,16 @@ export function createGraphQLSpec<T>(
       beforeAll(async () => {
         ({ dbUri, mongoServer } = await setupTestDB());
         testServer = await authServer.initializeServer(dbUri);
-        jwt = signTestAccessToken(tokenConfig)({ id: userId });
+        jwt = signTestAccessToken(tokenConfig)(user);
+
+        if (userModel) {
+          await userModel.create(user);
+        }
 
         resource = await model.create(
-          userResource ? { ...resourceToCreate, userId } : resourceToCreate
+          userResource
+            ? { ...resourceToCreate, userId: user.id }
+            : resourceToCreate
         );
       });
 

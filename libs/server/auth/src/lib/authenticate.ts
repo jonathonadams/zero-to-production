@@ -25,11 +25,10 @@ export function verifyToken(
   }
 }
 
-export function verifyUser(User: IUserModel) {
+export function isActiveUser(User: IUserModel) {
   return async (id: string | undefined) => {
     const user = await User.findById(id);
     if (!user || !user.active) throw unauthorized(null, 'Bearer');
-
     return user;
   };
 }

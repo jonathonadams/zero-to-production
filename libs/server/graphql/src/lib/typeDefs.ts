@@ -16,9 +16,9 @@ export const baseTypeDef = gql`
   scalar DateTime
   scalar Upload
 
-  directive @formatDate(format: String = "yyyy-mm-dd") on FIELD_DEFINITION
+  directive @formatDate(format: String = "yyyy-MM-dd") on FIELD_DEFINITION
   directive @authenticated on OBJECT | FIELD_DEFINITION
-  directive @authenticateUser on OBJECT | FIELD_DEFINITION
+  directive @activeUser on OBJECT | FIELD_DEFINITION
 
   type File {
     id: ID!

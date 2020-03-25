@@ -10,18 +10,15 @@
 - [ ] Dynamic Form API
 - [ ] Form Builder API
 
-### App
-
-- [x] Move Todo detail to own component
-
 ### Tests
 
+- [ ] Refactor GraphQL Test to use Apollo Mock Client
 - [ ] Document the current completed tests
 - [ ] Complete Unit tests
 - [ ] Complete e2e tests
 - [ ] tests for Lambda API
 - [ ] Dynamic Form
-- [ ] From Builder
+- [ ] Form Builder
 
 ### Accessability
 

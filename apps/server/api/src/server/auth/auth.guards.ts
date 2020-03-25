@@ -14,7 +14,7 @@ const guardConfig = generateAuthGuardConfig(config, authConfig, User);
  */
 export const {
   authenticate: authenticateRest,
-  authenticateUser: authenticateUserRest
+  verifyUser: authenticateUserRest
 } = getRestGuards(guardConfig);
 
 /**
@@ -22,7 +22,7 @@ export const {
  */
 export const {
   authenticate: authenticateGraphQL,
-  authenticateUser: authenticateUserGraphQL
+  verifyUser: authenticateUserGraphQL
 } = getGraphQLGuards(guardConfig);
 
 export const authDirectives = createAuthDirectives(guardConfig);

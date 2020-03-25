@@ -6,7 +6,7 @@ import { koaJwtSecret } from 'jwks-rsa';
 import {
   authenticated,
   authenticatedJWKS,
-  authenticatedUser
+  verifyActiveUser
 } from './graphql.guards';
 import { signAccessToken } from '../sign-tokens';
 import { MockUserModel } from '../__tests__/user.mock';
@@ -239,7 +239,7 @@ describe('GraphQL Auth Guards', () => {
     });
   });
 
-  describe('authenticatedUser', () => {
+  describe('verifyActiveUser', () => {
     it('should not throw an error if the user is present and active.', async () => {
       const id = newId();
       const mockUser = {
@@ -253,7 +253,7 @@ describe('GraphQL Auth Guards', () => {
       MockUserModel.userToRespondWith = mockUser;
 
       await expect(
-        authenticatedUser({ User: (MockUserModel as unknown) as IUserModel })(
+        verifyActiveUser({ User: (MockUserModel as unknown) as IUserModel })(
           noOpNext
         )({}, {}, ctx, {} as GraphQLResolveInfo)
       ).resolves.not.toThrowError();
@@ -273,7 +273,7 @@ describe('GraphQL Auth Guards', () => {
       MockUserModel.userToRespondWith = null;
 
       await expect(
-        authenticatedUser({ User: (MockUserModel as unknown) as IUserModel })(
+        verifyActiveUser({ User: (MockUserModel as unknown) as IUserModel })(
           noOpNext
         )({}, {}, ctx, {} as GraphQLResolveInfo)
       ).rejects.toThrowError('Unauthorized');
@@ -298,7 +298,7 @@ describe('GraphQL Auth Guards', () => {
       MockUserModel.userToRespondWith = mockUser;
 
       await expect(
-        authenticatedUser({ User: (MockUserModel as unknown) as IUserModel })(
+        verifyActiveUser({ User: (MockUserModel as unknown) as IUserModel })(
           noOpNext
         )({}, {}, ctx, {} as GraphQLResolveInfo)
       ).rejects.toThrowError('Unauthorized');
