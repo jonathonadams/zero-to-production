@@ -5,7 +5,7 @@ import {
   EventEmitter,
   Output,
 } from '@angular/core';
-import { ITodoNote } from '@uqt/data';
+import { ITodoNote } from '@ztp/data';
 
 @Component({
   selector: 'todo-ui-todo-notes',

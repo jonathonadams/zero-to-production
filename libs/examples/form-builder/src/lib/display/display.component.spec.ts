@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
-import { FormBuilderFacade } from '@uqt/common/form-builder';
-import { DynamicFormFacade } from '@uqt/common/dynamic-form';
-import { ExamplesUtilsModule } from '@uqt/examples/utils';
+import { FormBuilderFacade } from '@ztp/common/form-builder';
+import { DynamicFormFacade } from '@ztp/common/dynamic-form';
+import { ExamplesUtilsModule } from '@ztp/examples/utils';
 import { ExampleFormBuilderDisplayComponent } from './display.component';
 
 describe('ExampleFormBuilderDisplayComponent', () => {

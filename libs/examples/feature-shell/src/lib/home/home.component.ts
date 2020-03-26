@@ -1,10 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { IExample, ExamplesFacade } from '@uqt/examples/data-access';
+import { IExample, ExamplesFacade } from '@ztp/examples/data-access';
 
 @Component({
-  selector: 'uqt-examples-home',
+  selector: 'ztp-examples-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

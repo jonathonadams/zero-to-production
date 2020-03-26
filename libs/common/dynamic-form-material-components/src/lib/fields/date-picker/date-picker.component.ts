@@ -15,7 +15,7 @@ import {
 import { Subscription } from 'rxjs';
 import { debounceTime, filter, distinctUntilChanged } from 'rxjs/operators';
 import format from 'date-fns/format';
-import { FormGroupTypes, IDatePickerField } from '@uqt/common/dynamic-form';
+import { FormGroupTypes, IDatePickerField } from '@ztp/common/dynamic-form';
 
 function isValidDate(date: Date): Boolean {
   return date instanceof Date && !isNaN(date as any);
@@ -72,7 +72,7 @@ export class MyDateAdapter extends NativeDateAdapter {
  * @class DatePickerComponent
  */
 @Component({
-  selector: 'uqt-form-date-picker',
+  selector: 'ztp-form-date-picker',
   templateUrl: './date-picker.component.html',
   styles: [
     `

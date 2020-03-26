@@ -1,13 +1,13 @@
-<uqt-ui-toolbar class="header">
+<ztp-ui-toolbar class="header">
   <button toolbarLeft (click)="sidenav.toggle()" mat-mini-fab color="accent">
     <mat-icon>menu</mat-icon>
   </button>
 
-  <uqt-toolbar-menu-icon toolbarRight></uqt-toolbar-menu-icon>
-</uqt-ui-toolbar>
+  <ztp-toolbar-menu-icon toolbarRight></ztp-toolbar-menu-icon>
+</ztp-ui-toolbar>
 
-<uqt-common-ui-sidenav
+<ztp-common-ui-sidenav
   class="app-content"
   #sidenav
   [routes]="routes"
-></uqt-common-ui-sidenav>
+></ztp-common-ui-sidenav>

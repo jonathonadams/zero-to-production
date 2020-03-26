@@ -1,9 +1,9 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormGroupTypes, IToggleField } from '@uqt/common/dynamic-form';
+import { FormGroupTypes, IToggleField } from '@ztp/common/dynamic-form';
 
 @Component({
-  selector: 'uqt-form-checkbox',
+  selector: 'ztp-form-checkbox',
   templateUrl: './checkbox.component.html',
   styles: [
     `

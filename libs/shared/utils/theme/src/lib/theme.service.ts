@@ -1,9 +1,11 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class ThemeService {
+export class ThemeService implements OnDestroy {
+  private sub: Subscription;
   storageKey = 'theme-settings';
 
   private darkTheme = new BehaviorSubject<boolean>(false);
@@ -11,14 +13,14 @@ export class ThemeService {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    overlayContainer: OverlayContainer
   ) {
-    // overlayContainer: OverlayContainer
-    // this.subscription = this.darkTheme$.subscribe(active => {
-    //   active
-    //     ? overlayContainer.getContainerElement().classList.add('dark-theme')
-    //     : overlayContainer.getContainerElement().classList.remove('dark-theme');
-    // });
+    this.sub = this.darkTheme$.subscribe((active) => {
+      active
+        ? overlayContainer.getContainerElement().classList.add('dark-theme')
+        : overlayContainer.getContainerElement().classList.remove('dark-theme');
+    });
   }
 
   setThemeColors(colors: any): void {
@@ -65,6 +67,10 @@ export class ThemeService {
   setDarkThemeStatus(darkMode: boolean): void {
     this.darkTheme.next(darkMode);
     this.setThemeSettings({ darkMode });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }
 

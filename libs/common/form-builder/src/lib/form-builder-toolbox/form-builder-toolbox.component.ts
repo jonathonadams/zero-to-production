@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroupTypes, FormFieldTypes } from '@uqt/common/dynamic-form';
+import { FormGroupTypes, FormFieldTypes } from '@ztp/common/dynamic-form';
 import { Observable } from 'rxjs';
 import {
   faPen,
@@ -13,7 +13,7 @@ import {
 import { FormBuilderConstructorService } from '../form-constructor.service';
 
 @Component({
-  selector: 'uqt-form-builder-toolbox',
+  selector: 'ztp-form-builder-toolbox',
   templateUrl: './form-builder-toolbox.component.html',
   styleUrls: ['./form-builder-toolbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,4 +1,4 @@
-// UQT_UPDATE -> change the url to point to your own API server
+// ZTP_AFTER_CLONE -> change the url to point to your own API server
 const serverUrl = 'https://fns.zero-to-production.dev';
 
 export const environment = {

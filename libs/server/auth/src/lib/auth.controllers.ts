@@ -11,7 +11,7 @@ import {
   RevokeControllerConfig,
   AvailableControllerConfig,
 } from './auth.interface';
-import { IUser } from '@uqt/data';
+import { IUser } from '@ztp/data';
 import { isPasswordAllowed, userToJSON } from './auth-utils';
 import { verifyRefreshToken } from './authenticate';
 

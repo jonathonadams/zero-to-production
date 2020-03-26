@@ -3,10 +3,10 @@ import { TodoDetailComponent } from './todo-detail.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TodosFacade, TodosService } from '@uqt/todos/data-access';
+import { TodosFacade, TodosService } from '@ztp/todos/data-access';
 import { of } from 'rxjs';
-import { DynamicFormFacade } from '@uqt/common/dynamic-form';
-import { RouterFacade } from '@uqt/shared/data-access/router';
+import { DynamicFormFacade } from '@ztp/common/dynamic-form';
+import { RouterFacade } from '@ztp/shared/data-access/router';
 
 // TODO -> TESTS -> Get from old
 

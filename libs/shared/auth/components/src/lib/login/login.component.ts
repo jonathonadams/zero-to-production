@@ -12,8 +12,8 @@ import {
   FormGroupTypes,
   FormFieldTypes,
   InputFieldTypes,
-} from '@uqt/common/dynamic-form';
-import { AuthFacade, ILoginCredentials } from '@uqt/shared/data-access/auth';
+} from '@ztp/common/dynamic-form';
+import { AuthFacade, ILoginCredentials } from '@ztp/shared/auth/data-access';
 
 const STRUCTURE: TFormStructure = [
   {
@@ -40,7 +40,7 @@ const STRUCTURE: TFormStructure = [
 ];
 
 @Component({
-  selector: 'uqt-login',
+  selector: 'ztp-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

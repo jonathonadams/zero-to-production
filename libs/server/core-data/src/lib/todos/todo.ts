@@ -1,6 +1,6 @@
 import { Connection, Model, Schema, Document } from 'mongoose';
-import { defaultSchemaOptions } from '@uqt/server/utils';
-import { ITodo } from '@uqt/data';
+import { defaultSchemaOptions } from '@ztp/server/utils';
+import { ITodo } from '@ztp/data';
 import { ITodoNoteDocument } from './notes';
 
 // both keys need to be defined here for circular reference reasons

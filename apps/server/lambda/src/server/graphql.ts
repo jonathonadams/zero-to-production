@@ -6,13 +6,13 @@ import {
   createApollo,
   createTypeDefs,
   createSchema,
-} from '@uqt/server/graphql';
-import { todoTypeDef, userTypeDef } from '@uqt/server/core-data';
+} from '@ztp/server/graphql';
+import { todoTypeDef, userTypeDef } from '@ztp/server/core-data';
 import { config } from '../environments/environment';
 import { authDirectives } from './auth/auth.guards';
 import { usersResolvers, todosResolvers } from './api';
 
-// UQT_UPDATE -> delete the 'demo' import and uncomment the 'auth' input
+// ZTP_AFTER_CLONE -> delete the 'demo' import and uncomment the 'auth' input
 import { createAuthSchemaFromConnection } from './auth/demo.auth';
 // import { createAuthSchemaFromConnection } from './auth/auth'
 

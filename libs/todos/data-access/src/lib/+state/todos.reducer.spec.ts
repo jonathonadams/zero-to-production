@@ -13,7 +13,7 @@ import {
 } from './todos.reducer';
 import * as TodoActions from './todos.actions';
 import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { ITodo } from '@uqt/data';
+import { ITodo } from '@ztp/data';
 
 describe('TodoReducer', () => {
   let adapter: EntityAdapter<ITodo>;

@@ -5,8 +5,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ThemeService } from '@uqt/common/theme';
-import { CodeHighlightService } from '@uqt/examples/utils';
+import { ThemeService } from '@ztp/common/theme';
+import { CodeHighlightService } from '@ztp/examples/utils';
 import { css, ts, appInit } from './css-theming.code';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Observable } from 'rxjs';

@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { ModuleLoaderService } from '../module-loader.service';
 
 @Directive({
-  selector: '[uqtLazyLoadScroll]',
+  selector: '[ztpLazyLoadScroll]',
 })
 export class LazyLoadScrollDirective implements OnDestroy {
   private index = 1;

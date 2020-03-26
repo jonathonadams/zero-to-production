@@ -3,7 +3,7 @@ import { Injectable, InjectionToken, Inject, PLATFORM_ID } from '@angular/core';
 import jwtDecode from 'jwt-decode';
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
-import { IUser } from '@uqt/data';
+import { IUser } from '@ztp/data';
 import {
   ILoginCredentials,
   ILoginResponse,
@@ -93,8 +93,10 @@ export class AuthService {
     });
   }
 
-  get authToken(): string | null {
-    return localStorage.getItem(this.storageKey);
+  get authToken(): string | null | undefined {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem(this.storageKey);
+    }
   }
 
   setSession({ token, expiresIn }: ILoginResponse): void {

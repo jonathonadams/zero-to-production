@@ -53,7 +53,7 @@
     "nx-enforce-module-boundaries": [
       true,
       {
-        "allow": ["@uqt/tests/*"],
+        "allow": ["@ztp/tests/*"],
         "depConstraints": [
           {
             "sourceTag": "*",

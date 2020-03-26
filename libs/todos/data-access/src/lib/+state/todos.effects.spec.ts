@@ -6,8 +6,8 @@ import { Actions } from '@ngrx/effects';
 import { hot, cold } from 'jest-marbles';
 import * as TodoActions from './todos.actions';
 import { TodosService } from '../todos.service';
-import { ITodo } from '@uqt/data';
-import { createSpyObj } from '@uqt/tests/client';
+import { ITodo } from '@ztp/data';
+import { createSpyObj } from '@ztp/tests/client';
 import { GraphQLError } from 'graphql';
 import { TodosFacade } from './todos.facade';
 

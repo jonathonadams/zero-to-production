@@ -4,12 +4,12 @@ import { Actions } from '@ngrx/effects';
 import { GraphQLError } from 'graphql';
 import { cold, hot, Scheduler } from 'jest-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { createSpyObj } from '@uqt/tests/client';
+import { createSpyObj } from '@ztp/tests/client';
 import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
 import * as AuthActions from './auth.actions';
 import { ILoginCredentials, IRegistrationDetails } from '../auth.interface';
-import { IUser } from '@uqt/data';
+import { IUser } from '@ztp/data';
 
 describe('AuthEffects', () => {
   let effects: AuthEffects;

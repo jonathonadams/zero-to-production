@@ -1,10 +1,10 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { FormBuilderFacade } from '@uqt/common/form-builder';
+import { FormBuilderFacade } from '@ztp/common/form-builder';
 import {
   DynamicFormFacade,
   IDynamicFormConfig,
-} from '@uqt/common/dynamic-form';
+} from '@ztp/common/dynamic-form';
 
 @Component({
   selector: 'ex-example-form-builder-display',

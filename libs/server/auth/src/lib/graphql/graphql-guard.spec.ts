@@ -10,7 +10,7 @@ import {
 } from './graphql.guards';
 import { signAccessToken } from '../sign-tokens';
 import { MockUserModel } from '../__tests__/user.mock';
-import { IUserDocument, IUserModel } from '@uqt/server/core-data';
+import { IUserDocument, IUserModel } from '@ztp/server/core-data';
 import {
   privateKey,
   invalidPrivateKey,

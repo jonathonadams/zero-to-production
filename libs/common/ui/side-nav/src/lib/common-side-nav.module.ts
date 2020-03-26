@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
+import { CustomMaterialModule } from '@ztp/common/ui/custom-material';
 import { CommonUiSideNavComponent } from './side-nav.component';
 
 @NgModule({

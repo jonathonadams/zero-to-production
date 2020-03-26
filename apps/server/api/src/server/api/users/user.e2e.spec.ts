@@ -1,11 +1,11 @@
 import Koa from 'koa';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { ExecutionResultDataDefault } from 'graphql/execution/execute';
-import { runQuery, setupTestDB, signTestAccessToken } from '@uqt/tests/server';
-import { IUserDocument } from '@uqt/server/core-data';
+import { runQuery, setupTestDB, signTestAccessToken } from '@ztp/tests/server';
+import { IUserDocument } from '@ztp/server/core-data';
 import { schema } from '../../graphql';
 import { authConfig } from '../../../environments';
-import { IUser } from '@uqt/data';
+import { IUser } from '@ztp/data';
 import ApiServer from '../../server';
 import { Server } from 'http';
 import { User } from './user.model';

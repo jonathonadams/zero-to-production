@@ -8,7 +8,7 @@ import {
 } from '@angular/animations';
 
 @Directive({
-  selector: '[uqt-raised-button]',
+  selector: '[ztp-raised-button]',
 })
 export class RaisedButtonDirective implements OnInit {
   player: AnimationPlayer;

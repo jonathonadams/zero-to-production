@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
-import { TestServerConfig } from '@uqt/data';
-import { AuthEnvironnementConfig } from '@uqt/server/auth';
+import { TestServerConfig } from '@ztp/data';
+import { AuthEnvironnementConfig } from '@ztp/server/auth';
 
 const audience = 'http://localhost:3000';
 const authServerUrl = audience;

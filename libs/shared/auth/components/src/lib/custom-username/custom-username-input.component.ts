@@ -18,11 +18,11 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable, Subject } from 'rxjs';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { AuthFacade } from '@uqt/shared/data-access/auth';
-import { IInputField } from '@uqt/common/dynamic-form';
+import { AuthFacade } from '@ztp/shared/auth/data-access';
+import { IInputField } from '@ztp/common/dynamic-form';
 
 @Component({
-  selector: 'uqt-custom-username-input',
+  selector: 'ztp-custom-username-input',
   templateUrl: './custom-username-input.component.html',
   styleUrls: ['./custom-username-input.component.scss'],
   providers: [

@@ -1,15 +1,15 @@
-@import 'libs/common/theme/material-theme.scss';
+@import 'theme/material-theme.scss';
 @import 'ui-drop-down-menu.theme';
 
 // Light theme
 @include drop-down-menu-theme($app-theme);
 
-// Dark theme
-.dark-theme {
+// dark theme
+:host-context(.dark-theme) {
   @include drop-down-menu-theme($dark-theme);
 }
 
-.drop-down-menu-overlay-container {
+.menu {
   border-radius: 0.2em;
   width: 10em;
 }

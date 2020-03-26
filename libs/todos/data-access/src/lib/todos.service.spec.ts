@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { TodosService } from './todos.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ITodo } from '@uqt/data';
+import { ITodo } from '@ztp/data';
 import {
   ALL_TODOS_QUERY,
   LOAD_TODO_QUERY,

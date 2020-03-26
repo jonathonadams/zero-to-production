@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CssThemingComponent } from './css-theming.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ThemeService } from '@uqt/common/theme';
-import { CodeHighlightService } from '@uqt/examples/utils';
+import { ThemeService } from '@ztp/common/theme';
+import { CodeHighlightService } from '@ztp/examples/utils';
 
 describe('CssThemingComponent', () => {
   let component: CssThemingComponent;

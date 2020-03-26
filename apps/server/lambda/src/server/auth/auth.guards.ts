@@ -1,11 +1,11 @@
 import { Connection } from 'mongoose';
-import { getUserModel } from '@uqt/server/core-data';
+import { getUserModel } from '@ztp/server/core-data';
 import {
   getGraphQLGuards,
   getRestGuards,
   generateAuthGuardConfig,
   createAuthDirectives,
-} from '@uqt/server/auth';
+} from '@ztp/server/auth';
 import { config, authConfig } from '../../environments/environment';
 
 /**

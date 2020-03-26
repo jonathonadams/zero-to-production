@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormDatePickerComponent } from './date-picker.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DynamicFormService } from '@uqt/common/dynamic-form';
+import { DynamicFormService } from '@ztp/common/dynamic-form';
 
 describe('DatePickerComponent', () => {
   let component: FormDatePickerComponent;

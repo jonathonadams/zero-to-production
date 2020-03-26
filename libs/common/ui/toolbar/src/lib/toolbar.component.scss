@@ -1,19 +1,24 @@
-.uqt-toolbar {
-  overflow: visible;
-  height: 3.5em;
-  padding: 0 0.5em;
-  @media screen and (min-width: 600px) {
-    height: 4em;
-    padding: 0 1em;
-  }
-  background-color: var(--light-primary-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+:host {
+  display: block;
 
-.dark-theme {
-  .uqt-toolbar {
-    background-color: var(--dark-primary-color);
+  :host-context(.dark-theme) {
+    .ztp-toolbar {
+      background-color: var(--dark-primary-color);
+    }
+  }
+
+  .ztp-toolbar {
+    overflow: visible;
+    height: 3.5em;
+    padding: 0 0.5em;
+    background-color: var(--light-primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media screen and (min-width: 600px) {
+      height: 4em;
+      padding: 0 1em;
+    }
   }
 }

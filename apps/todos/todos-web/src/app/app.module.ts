@@ -9,19 +9,19 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { SharedDataAccessApiModule } from '@uqt/shared/data-access/api';
+import { SharedDataAccessApiModule } from '@ztp/shared/data-access/api';
 import {
   SharedAuthDataAccessModule,
   authProviderFactory,
   AuthService,
-} from '@uqt/shared/data-access/auth';
-import { SharedUsersDataAccessModule } from '@uqt/shared/users/data-access';
-import { TodosFeatureShellModule } from '@uqt/todos/feature-shell';
+} from '@ztp/shared/auth/data-access';
+import { SharedUsersDataAccessModule } from '@ztp/shared/users/data-access';
+import { TodosFeatureShellModule } from '@ztp/todos/feature-shell';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { AppEffects } from './+state/app.effects';
 import { AppState, appReducerMap } from './+state/app.state';
-import { CommonDynamicFormModule } from '@uqt/common/dynamic-form';
-import { CommonDynamicFormMaterialComponentsModule } from '@uqt/common/dynamic-form-material-components';
+import { CommonDynamicFormModule } from '@ztp/common/dynamic-form';
+import { CommonDynamicFormMaterialComponentsModule } from '@ztp/common/dynamic-form-material-components';
 import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
 
 @NgModule({

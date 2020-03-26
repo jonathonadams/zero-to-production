@@ -5,11 +5,11 @@ import {
   FormFieldTypes,
   TFormStructure,
   InputFieldTypes,
-} from '@uqt/common/dynamic-form';
+} from '@ztp/common/dynamic-form';
 import {
   UsernameAvailableValidator,
   passwordValidator,
-} from '@uqt/shared/data-access/auth';
+} from '@ztp/shared/auth/data-access';
 
 const PASSWORD_GROUP: IFormGroup = {
   groupName: 'password',

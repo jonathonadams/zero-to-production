@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TodosFacade } from '@uqt/todos/data-access';
+import { TodosFacade } from '@ztp/todos/data-access';
 import { AllTodosComponent } from './all-todos.component';
-import { DynamicFormFacade } from '@uqt/common/dynamic-form';
+import { DynamicFormFacade } from '@ztp/common/dynamic-form';
 
 describe('AllTodosComponent', () => {
   let component: AllTodosComponent;

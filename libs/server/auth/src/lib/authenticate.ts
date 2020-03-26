@@ -1,7 +1,7 @@
 import { createPublicKey } from 'crypto';
 import { verify, decode } from 'jsonwebtoken';
 import { unauthorized } from '@hapi/boom';
-import { IUserModel } from '@uqt/server/core-data';
+import { IUserModel } from '@ztp/server/core-data';
 import {
   VerifyTokenBaseConfig,
   RefreshTokenConfig,

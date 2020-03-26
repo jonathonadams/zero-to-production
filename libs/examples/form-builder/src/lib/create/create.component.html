@@ -6,16 +6,16 @@
   storage and will not persist once you clear your browser cache.
 </p>
 
-<uqt-card>
+<ztp-card>
   <h3>Create New Form</h3>
   <app-dynamic-form [formName]="formName">
     <button type="submit" mat-raised-button class="submit-button">
       create Form
     </button>
   </app-dynamic-form>
-</uqt-card>
+</ztp-card>
 
-<uqt-card class="list">
+<ztp-card class="list">
   <h4>Forms</h4>
   <mat-list>
     <mat-list-item
@@ -31,7 +31,7 @@
       <button
         class="trash-button"
         type="button"
-        uqt-icon-button
+        ztp-icon-button
         (click)="delete(form)"
       >
         <fa-icon [icon]="faTrash"></fa-icon>
@@ -40,4 +40,4 @@
       <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
     </mat-list-item>
   </mat-list>
-</uqt-card>
+</ztp-card>

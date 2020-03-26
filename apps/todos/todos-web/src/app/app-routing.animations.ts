@@ -19,7 +19,7 @@ export const appRouterAnimations = trigger('appRouterAnimations', [
     // complete all animations in order
     sequence([
       // need to query the nested element
-      query(':leave uqt-login', [
+      query(':leave ztp-login', [
         style({ opacity: 1, transform: 'none' }),
         animate(
           `100ms ease-in`,

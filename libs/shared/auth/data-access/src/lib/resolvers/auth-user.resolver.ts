@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take, filter, tap } from 'rxjs/operators';
 import { Resolve } from '@angular/router';
-import { IUser } from '@uqt/data';
+import { IUser } from '@ztp/data';
 import { AuthFacade } from '../+state/auth.facade';
 
 @Injectable({ providedIn: 'root' })

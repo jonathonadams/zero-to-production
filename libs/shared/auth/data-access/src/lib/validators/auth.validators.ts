@@ -4,7 +4,7 @@ import {
   ValidationErrors,
   FormGroup,
 } from '@angular/forms';
-// import { isPasswordAllowed } from '@uqt/server/auth';
+// import { isPasswordAllowed } from '@ztp/server/auth';
 
 // TODO -> Move to shared
 export function isPasswordAllowed(password: string): boolean {

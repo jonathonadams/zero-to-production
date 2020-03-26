@@ -10,7 +10,7 @@ import {
 import { FormGroup, FormArray, ValidatorFn } from '@angular/forms';
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { map, debounceTime, switchMap, takeUntil } from 'rxjs/operators';
-import { expandFromCenter } from '@uqt/common/animations';
+import { expandFromCenter } from '@ztp/common/animations';
 import { DynamicFormService } from '../dynamic-form.service';
 import { DynamicFormErrorsService } from '../form-errors/form-errors.service';
 import {

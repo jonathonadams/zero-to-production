@@ -1,4 +1,4 @@
-// UQT_UPDATE -> Delete this file
+// ZTP_AFTER_CLONE -> Delete this file
 
 import Koa from 'koa';
 import Router from '@koa/router';

@@ -15,12 +15,12 @@ import {
   IDynamicFormConfig,
   FormFieldTypes,
   FormGroupTypes,
-} from '@uqt/common/dynamic-form';
+} from '@ztp/common/dynamic-form';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { expandAnimation } from '../form.animation';
 
 @Component({
-  selector: 'uqt-form-builder',
+  selector: 'ztp-form-builder',
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

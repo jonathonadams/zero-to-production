@@ -3,11 +3,11 @@ import {
   ChangeDetectionStrategy,
   AfterViewInit,
 } from '@angular/core';
-import { CodeHighlightService } from '@uqt/examples/utils';
+import { CodeHighlightService } from '@ztp/examples/utils';
 import { clone } from './guides.code';
 
 @Component({
-  selector: 'uqt-guides',
+  selector: 'ztp-guides',
   templateUrl: './guides.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,5 +1,5 @@
 import { notFound, unauthorized } from '@hapi/boom';
-import { ITodo } from '@uqt/data';
+import { ITodo } from '@ztp/data';
 import { ITodoModel, ITodoDocument } from './todo';
 import { ITodoNoteModel } from './notes';
 

@@ -3,7 +3,7 @@ import {
   getRestGuards,
   generateAuthGuardConfig,
   createAuthDirectives,
-} from '@uqt/server/auth';
+} from '@ztp/server/auth';
 import { config, authConfig } from '../../environments';
 import { User } from '../api/users';
 

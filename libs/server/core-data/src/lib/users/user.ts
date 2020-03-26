@@ -1,6 +1,6 @@
 import { Connection, Schema, Document, Model } from 'mongoose';
-import { IUser } from '@uqt/data';
-import { defaultSchemaOptions } from '@uqt/server/utils';
+import { IUser } from '@ztp/data';
+import { defaultSchemaOptions } from '@ztp/server/utils';
 export { userTypeDef } from './user.type';
 
 export const userDbKey = 'user';
@@ -24,7 +24,7 @@ export const userSchema = new Schema<IUser>(
     email: {
       type: String,
       required: true,
-      unique: false, // UQT_UPDATE -> set `unique: true`
+      unique: false, // ZTP_AFTER_CLONE -> set `unique: true`
     },
     dateOfBirth: {
       type: String,

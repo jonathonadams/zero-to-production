@@ -4,7 +4,7 @@ import {
   createTodosResolver,
   createTodosRouter,
   getTodoNoteModel,
-} from '@uqt/server/core-data';
+} from '@ztp/server/core-data';
 
 export const todosResolvers = (con: Connection) => {
   const Todo = getTodoModel(con);

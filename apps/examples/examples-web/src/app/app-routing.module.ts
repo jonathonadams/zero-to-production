@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SelectivePreloadingStrategyService } from '@uqt/shared/data-access/router';
+import { SelectivePreloadingStrategyService } from '@ztp/shared/data-access/router';
 
 @NgModule({
   imports: [

@@ -1,16 +1,11 @@
-import {
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ThemeService } from '@uqt/common/theme';
+import { ThemeService } from '@ztp/common/theme';
 
 @Component({
-  selector: 'uqt-examples-header',
+  selector: 'ztp-examples-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamplesHeaderComponent {

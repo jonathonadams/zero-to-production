@@ -1,7 +1,7 @@
 export const moduleProviders = `// examples.ts
 export const LAZY_MODULES: ILazyModuleRegistry = {
   ...
-  'form-builder': () => import('@uqt/examples/form-builder').then(m => m.ExamplesFormBuilderModule),
+  'form-builder': () => import('@ztp/examples/form-builder').then(m => m.ExamplesFormBuilderModule),
    ...
 };
 

@@ -1,4 +1,4 @@
-import { IExample } from '@uqt/examples/data-access';
+import { IExample } from '@ztp/examples/data-access';
 
 export const EXAMPLES: IExample[] = [
   // The Dynamic Form Component must be the first example to align with the lazy load modules

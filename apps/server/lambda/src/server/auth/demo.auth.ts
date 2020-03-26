@@ -1,13 +1,13 @@
-// UQT_UPDATE -> delete this file
+// ZTP_AFTER_CLONE -> delete this file
 import Koa from 'koa';
 import { Connection } from 'mongoose';
-import { getUserModel } from '@uqt/server/core-data';
+import { getUserModel } from '@ztp/server/core-data';
 import {
   applyDemoAuthRoutes,
   generateDemoAuthModuleConfig,
   getDemoAuthResolvers,
   createDemoAuthSchema,
-} from '@uqt/server/auth';
+} from '@ztp/server/auth';
 import { authConfig } from '../../environments/environment';
 
 /**

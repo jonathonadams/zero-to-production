@@ -38,7 +38,7 @@ $darkColor: rgba(white, 0.74);
   }
 }
 
-.dark-theme {
+:host-context(.dark-theme) {
   .git-logo {
     p {
       color: $darkColor;

@@ -1,7 +1,7 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[uqt-icon-button]',
+  selector: '[ztp-icon-button]',
 })
 export class IconButtonDirective {
   constructor(private el: ElementRef) {

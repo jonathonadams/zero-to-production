@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthActions } from '@uqt/shared/data-access/auth';
+import { AuthActions } from '@ztp/shared/auth/data-access';
 import { of } from 'rxjs';
 import {
   catchError,
@@ -10,7 +10,7 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { ITodo, ITodoNote } from '@uqt/data';
+import { ITodo, ITodoNote } from '@ztp/data';
 import * as TodoActions from './todos.actions';
 import { TodosService } from '../todos.service';
 import { TodosFacade } from './todos.facade';

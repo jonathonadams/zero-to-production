@@ -1,3 +1,7 @@
+# Tracking Issues
+
+A list of random issues that are either bugs or features that will cause changes in this repo.
+
 - Jest & ES6 Modules
   Currently Jest does not support es6 Modules, so modules can not be used in testing
   lodash-es is tree shakeable, as it date-fn/esm/, however fails tests at the moment so install individual common lodash libraries for now then remove them when

@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IInputField, FormGroupTypes } from '@uqt/common/dynamic-form';
+import { IInputField, FormGroupTypes } from '@ztp/common/dynamic-form';
 
 @Component({
-  selector: 'uqt-custom-username',
+  selector: 'ztp-custom-username',
   templateUrl: './custom-username.component.html',
   styleUrls: ['./custom-username.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

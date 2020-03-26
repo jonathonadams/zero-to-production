@@ -3,7 +3,7 @@ import { authRouterAnimations } from './auth-router.animations';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'uqt-common-auth',
+  selector: 'ztp-common-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

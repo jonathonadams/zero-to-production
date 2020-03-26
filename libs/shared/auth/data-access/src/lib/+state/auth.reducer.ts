@@ -1,6 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as fromAuth from './auth.actions';
-import { IUser } from '@uqt/data';
+import { IUser } from '@ztp/data';
 import { secondsToExpiresAtMillis } from '../utils';
 
 export const authStateKey = 'authStateKey';

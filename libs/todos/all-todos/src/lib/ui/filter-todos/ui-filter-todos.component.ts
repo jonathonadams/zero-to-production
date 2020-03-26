@@ -12,8 +12,8 @@ import {
 import { MatSelectChange } from '@angular/material/select';
 import { Subscription, fromEvent } from 'rxjs';
 import { debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
-import { TodoFilterStatus } from '@uqt/todos/data-access';
-import { ANIMATE_CLASS } from '@uqt/common/animations';
+import { TodoFilterStatus } from '@ztp/todos/data-access';
+import { ANIMATE_CLASS } from '@ztp/common/animations';
 
 @Component({
   selector: 'todo-ui-filter-todos',

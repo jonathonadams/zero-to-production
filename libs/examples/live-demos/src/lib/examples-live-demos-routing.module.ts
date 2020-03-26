@@ -14,7 +14,7 @@ const ROUTES: Routes = [
       {
         path: 'secure',
         loadChildren: () =>
-          import('@uqt/examples/secure-todos').then(
+          import('@ztp/examples/secure-todos').then(
             (m) => m.ExamplesSecureTodosModule
           ),
       },

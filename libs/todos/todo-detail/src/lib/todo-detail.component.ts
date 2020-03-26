@@ -6,14 +6,14 @@ import {
 } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { ITodo, ITodoNote } from '@uqt/data';
-import { TodosFacade, TodosService } from '@uqt/todos/data-access';
+import { ITodo, ITodoNote } from '@ztp/data';
+import { TodosFacade, TodosService } from '@ztp/todos/data-access';
 import {
   DynamicFormFacade,
   TFormStructure,
   FormGroupTypes,
   FormFieldTypes,
-} from '@uqt/common/dynamic-form';
+} from '@ztp/common/dynamic-form';
 
 const STRUCTURE: TFormStructure = [
   {

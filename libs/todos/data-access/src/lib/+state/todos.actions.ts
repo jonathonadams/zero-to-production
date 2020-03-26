@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ITodo, ITodoNote } from '@uqt/data';
+import { ITodo, ITodoNote } from '@ztp/data';
 import { TodoFilterStatus } from './todos.reducer';
 
 export const selectTodo = createAction(

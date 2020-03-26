@@ -7,10 +7,10 @@ import { ExampleDetailComponent } from './example-demos/example-detail/example-d
 import {
   SharedUtilsDynamicModuleLoadingModule,
   LAZY_MODULE_REGISTRY,
-} from '@uqt/shared/utils/dynamic-module-loading';
+} from '@ztp/shared/utils/dynamic-module-loading';
 import { LAZY_MODULES } from './lazy-modules';
-import { ExamplesDynamicFormModule } from '@uqt/examples/dynamic-form';
-import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
+import { ExamplesDynamicFormModule } from '@ztp/examples/dynamic-form';
+import { CommonUiLayoutsModule } from '@ztp/common/ui/layouts';
 
 @NgModule({
   imports: [

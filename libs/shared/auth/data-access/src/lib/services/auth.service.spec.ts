@@ -1,14 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { GraphQLError } from 'graphql';
 import { sign } from 'jsonwebtoken';
-import { GraphQLStub } from '@uqt/tests/client';
+import { GraphQLStub } from '@ztp/tests/client';
 import { AuthService, AUTH_SERVER_URL } from './auth.service';
 import {
   ILoginCredentials,
   ILoginResponse,
   IRegistrationDetails,
 } from '../auth.interface';
-import { IUser } from '@uqt/data';
+import { IUser } from '@ztp/data';
 import { AuthFacade } from '../+state/auth.facade';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Apollo } from 'apollo-angular';

@@ -25,7 +25,7 @@ export enum ElementViewportPosition {
 }
 
 @Directive({
-  selector: '[uqtAnimateScrollEntry]',
+  selector: '[ztpAnimateScrollEntry]',
 })
 export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
   player: AnimationPlayer;

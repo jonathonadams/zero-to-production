@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExamplesFeatureShellComponent } from './examples-feature-shell.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ExamplesFacade } from '@uqt/examples/data-access';
+import { ExamplesFacade } from '@ztp/examples/data-access';
 
 describe('ExamplesFeatureShellComponent', () => {
   let component: ExamplesFeatureShellComponent;

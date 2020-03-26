@@ -5,11 +5,11 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IUser } from '@uqt/data';
-import { AuthFacade } from '@uqt/shared/data-access/auth';
+import { IUser } from '@ztp/data';
+import { AuthFacade } from '@ztp/shared/auth/data-access';
 
 @Component({
-  selector: 'uqt-drop-down-menu',
+  selector: 'ztp-drop-down-menu',
   templateUrl: './drop-down-menu.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

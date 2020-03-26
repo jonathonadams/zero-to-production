@@ -1,3 +1,5 @@
+## TODO
+
 - Nrwl Repo - https://github.com/nrwl/nx/issues/259 & https://github.com/nrwl/nx/issues/1515
 
 ### Docs
@@ -23,13 +25,47 @@
 
 ### Misc
 
-- [ ] Migrate all code to make use ove TSv3.8
 - [ ] Audit for a11y
+  - Title and Meta tags
+- [ ] Migrate all code to make use ove TSv3.8
+- [ ] Change Media Queries to use CSS custom properties
 
-### Dev-Ops
+### DevOps
 
 - [ ] Configure the build script to tag Docker images
 - [ ] Configure the Load Balance to uses HTTP2 from Load balancer through to Reverse Proxy
   - Can the certificates be accessed from the ManagedCertificate Resource?
 - [ ] Create a lambda / cron docker container to create database indexes
 - [ ] Change authentication for Lambda functions to use an authorizer? This means the servers will have to be separated
+
+## Road Map
+
+### Angular App
+
+- [ ] Add a settings section
+- [ ] Rail navigation component
+- [ ] Feature Flag Service
+- [ ] Add following examples
+  - Content Projection with layouts modules
+  - Dynamic Animation Timing
+  - Using Web Components
+
+### API
+
+- [ ] GraphQL: migrate from schema stitching to Apollo Federation?
+
+### Mobile App
+
+- [ ] Create a Nativescript mobile app (see issues regarding monorepo support)
+
+### DevOps
+
+- [x] Cloud Functions, and make library's reusable
+
+### Schematics
+
+- [x] Firebase Functions schematic
+
+### @uqt/ng-node
+
+- [] schematics for new project and library

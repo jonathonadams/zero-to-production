@@ -1,9 +1,5 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-} from '@angular/core';
-import { ThemeService } from '@uqt/common/theme';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ThemeService } from '@ztp/common/theme';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,7 +7,6 @@ import { Observable } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
   darkTheme$: Observable<boolean>;

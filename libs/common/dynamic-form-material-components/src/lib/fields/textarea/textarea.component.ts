@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormGroupTypes, ITextArea } from '@uqt/common/dynamic-form';
+import { FormGroupTypes, ITextArea } from '@ztp/common/dynamic-form';
 
 @Component({
-  selector: 'uqt-app-form-textarea',
+  selector: 'ztp-app-form-textarea',
   templateUrl: './textarea.component.html',
   styles: [
     `

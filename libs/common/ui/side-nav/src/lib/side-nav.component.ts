@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
-import { ROUTER_ANIMATIONS } from '@uqt/common/animations';
+import { ROUTER_ANIMATIONS } from '@ztp/common/animations';
 
 export interface ISideNaveRoute {
   path: string;
@@ -20,7 +20,7 @@ export interface ISideNaveRoute {
 }
 
 @Component({
-  selector: 'uqt-common-ui-sidenav',
+  selector: 'ztp-common-ui-sidenav',
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

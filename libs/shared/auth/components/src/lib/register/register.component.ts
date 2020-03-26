@@ -4,13 +4,13 @@ import {
   ChangeDetectionStrategy,
   OnDestroy,
 } from '@angular/core';
-import { DynamicFormFacade } from '@uqt/common/dynamic-form';
+import { DynamicFormFacade } from '@ztp/common/dynamic-form';
 import { Subscription } from 'rxjs';
 import {
   AuthFacade,
   IRegistrationDetails,
   passwordMatchValidator,
-} from '@uqt/shared/data-access/auth';
+} from '@ztp/shared/auth/data-access';
 import { REGISTER_STRUCTURE } from './register.structure';
 
 interface IRegistrationFormStructure {
@@ -28,7 +28,7 @@ interface IRegistrationFormStructure {
 }
 
 @Component({
-  selector: 'uqt-register',
+  selector: 'ztp-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

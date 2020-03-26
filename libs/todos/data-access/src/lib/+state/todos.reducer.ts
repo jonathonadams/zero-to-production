@@ -1,6 +1,6 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
-import { ITodo } from '@uqt/data';
+import { ITodo } from '@ztp/data';
 import * as TodoActions from './todos.actions';
 
 export enum TodoFilterStatus {

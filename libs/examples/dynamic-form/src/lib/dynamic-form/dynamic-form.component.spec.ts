@@ -2,11 +2,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExampleDynamicFormComponent } from './dynamic-form.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ExamplesFacade } from '@uqt/examples/data-access';
+import { ExamplesFacade } from '@ztp/examples/data-access';
 import { of } from 'rxjs';
-import { DynamicFormFacade } from '@uqt/common/dynamic-form';
-import { CodeHighlightService } from '@uqt/examples/utils';
-import { ExamplesUtilsModule } from '@uqt/examples/utils';
+import { DynamicFormFacade } from '@ztp/common/dynamic-form';
+import { CodeHighlightService } from '@ztp/examples/utils';
+import { ExamplesUtilsModule } from '@ztp/examples/utils';
 
 describe('ExampleDynamicFormComponent', () => {
   let component: ExampleDynamicFormComponent;

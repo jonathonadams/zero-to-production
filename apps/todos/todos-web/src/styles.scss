@@ -11,8 +11,8 @@
 // @import '~prismjs/themes/prism-tomorrow.css';
 
 // import the theming file
-@import 'libs/common/theme/theme.scss';
-@import 'libs/common/theme/material-theme.scss';
+@import 'theme/theme.scss';
+@import 'theme/material-theme.scss';
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -46,8 +46,8 @@ body {
 // Insert additional styles here
 // ------------------------------------------------
 
-.uqt-form {
-  .uqt-nav-buttons {
+.ztp-form {
+  .ztp-nav-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

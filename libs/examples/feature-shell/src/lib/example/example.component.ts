@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { IExample } from '@uqt/examples/data-access';
+import { IExample } from '@ztp/examples/data-access';
 
 @Component({
-  selector: 'uqt-example',
+  selector: 'ztp-example',
   templateUrl: './example.component.html',
   styleUrls: ['./example.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

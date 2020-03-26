@@ -1,15 +1,15 @@
 .search-fields {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
+  flex-direction: column;
   > * {
-    width: 48%;
+    width: 100%;
   }
 
-  @media (max-width: 599px) {
-    flex-direction: column;
+  @media (min-width: 600px) {
+    flex-direction: row;
     > * {
-      width: 100%;
+      width: 48%;
     }
   }
 }

@@ -1,9 +1,9 @@
 import Koa from 'koa';
-import { ITodo } from '@uqt/data';
+import { ITodo } from '@ztp/data';
 import { authConfig } from '../../../environments/index';
 import { schema } from '../../graphql';
 import ApiServer from '../../server';
-import { createGraphQLSpec } from '@uqt/tests/server';
+import { createGraphQLSpec } from '@ztp/tests/server';
 import { Todo } from './todo.model';
 import { User } from '../users';
 

@@ -1,9 +1,9 @@
-// UQT_UPDATE -> Delete this file
+// ZTP_AFTER_CLONE -> Delete this file
 
 import { hash } from 'bcryptjs';
 import Boom from '@hapi/boom';
 import { DemoRegistrationControllerConfig } from './demo.interface';
-import { IUser } from '@uqt/data';
+import { IUser } from '@ztp/data';
 import { isPasswordAllowed, userToJSON } from '../auth-utils';
 
 export function demoSetupRegisterController({

@@ -1,4 +1,4 @@
-// UQT_UPDATE -> Delete this file
+// ZTP_AFTER_CLONE -> Delete this file
 export { applyDemoAuthRoutes } from './demo.routes';
 export { DemoAuthModuleConfig } from './demo.interface';
 export { createDemoAuthSchema } from './schema';

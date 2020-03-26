@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IUser } from '@uqt/data';
+import { IUser } from '@ztp/data';
 import * as AuthActions from './auth.actions';
 import * as fromAuth from './auth.selectors';
 import { ILoginCredentials, IRegistrationDetails } from '../auth.interface';

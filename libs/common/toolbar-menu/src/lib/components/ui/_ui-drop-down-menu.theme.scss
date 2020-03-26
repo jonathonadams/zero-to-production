@@ -2,7 +2,7 @@
 
 @mixin drop-down-menu-theme($theme) {
   $background: map-get($theme, background);
-  .drop-down-menu-overlay-container {
+  .menu {
     background: mat-color($background, card);
   }
 }

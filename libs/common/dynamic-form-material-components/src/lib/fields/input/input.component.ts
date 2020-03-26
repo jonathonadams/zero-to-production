@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormGroupTypes, IInputField } from '@uqt/common/dynamic-form';
+import { FormGroupTypes, IInputField } from '@ztp/common/dynamic-form';
 
 @Component({
-  selector: 'uqt-app-form-input',
+  selector: 'ztp-app-form-input',
   templateUrl: './input.component.html',
   styles: [
     `

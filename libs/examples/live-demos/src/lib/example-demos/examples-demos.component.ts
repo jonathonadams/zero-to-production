@@ -5,11 +5,11 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { ModuleLoaderService } from '@uqt/shared/utils/dynamic-module-loading';
-import { ExamplesFacade, IExample } from '@uqt/examples/data-access';
+import { ModuleLoaderService } from '@ztp/shared/utils/dynamic-module-loading';
+import { ExamplesFacade, IExample } from '@ztp/examples/data-access';
 
 @Component({
-  selector: 'uqt-examples-demos',
+  selector: 'ztp-examples-demos',
   templateUrl: './examples-demos.component.html',
   styleUrls: ['./examples-demos.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

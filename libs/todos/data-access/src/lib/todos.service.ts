@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
 import { FetchResult } from 'apollo-link';
-import { ITodo, ITodoNote } from '@uqt/data';
-import { ApolloUtilsService } from '@uqt/shared/data-access/api';
+import { ITodo, ITodoNote } from '@ztp/data';
+import { ApolloUtilsService } from '@ztp/shared/data-access/api';
 import {
   ALL_TODOS_QUERY,
   LOAD_TODO_QUERY,

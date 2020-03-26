@@ -4,7 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardComponent } from './dashboard.component';
 import { Store } from '@ngrx/store';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonUiCardModule } from '@uqt/common/ui/card';
+import { CommonUiCardModule } from '@ztp/common/ui/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';

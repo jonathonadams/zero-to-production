@@ -1,5 +1,5 @@
 import { sign } from 'jsonwebtoken';
-import { IUser } from '@uqt/data';
+import { IUser } from '@ztp/data';
 import { AccessTokenConfig, RefreshTokenConfig } from './auth.interface';
 
 // A function that returns a singed JWT

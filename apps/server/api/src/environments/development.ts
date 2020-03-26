@@ -1,8 +1,8 @@
 /* istanbul ignore file */
 
-import { getEnvVariableOrWarn, envToNumber } from '@uqt/server/utils';
-import { DevServerConfig } from '@uqt/data';
-import { AuthEnvironnementConfig } from '@uqt/server/auth';
+import { getEnvVariableOrWarn, envToNumber } from '@ztp/server/utils';
+import { DevServerConfig } from '@ztp/data';
+import { AuthEnvironnementConfig } from '@ztp/server/auth';
 
 const audience = process.env.AUDIENCE || `http://localhost:${process.env.PORT}`;
 const authServerUrl =

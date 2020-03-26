@@ -1,7 +1,7 @@
 import {
   FormFieldTypes,
   DynamicFormComponentMap,
-} from '@uqt/common/dynamic-form';
+} from '@ztp/common/dynamic-form';
 import { FormInputComponent } from './fields/input/input.component';
 import { FormSelectComponent } from './fields/select/select.component';
 import { FormToggleComponent } from './fields/toggle/toggle.components';

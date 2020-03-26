@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExampleFormBuilderCreateComponent } from './create.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { FormBuilderFacade } from '@uqt/common/form-builder';
-import { DynamicFormFacade } from '@uqt/common/dynamic-form';
+import { FormBuilderFacade } from '@ztp/common/form-builder';
+import { DynamicFormFacade } from '@ztp/common/dynamic-form';
 import { of } from 'rxjs';
 
 describe('ExampleFormBuilderCreateComponent', () => {

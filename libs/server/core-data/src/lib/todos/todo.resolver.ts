@@ -1,4 +1,4 @@
-import { createTypeResolver, retrieveUserId } from '@uqt/server/utils';
+import { createTypeResolver, retrieveUserId } from '@ztp/server/utils';
 import { ITodoModel, ITodoDocument } from './todo';
 import { ITodoNoteModel } from './notes';
 import { createTodoControllers } from './todo.controllers';

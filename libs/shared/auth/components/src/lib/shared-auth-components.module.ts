@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
+import { CustomMaterialModule } from '@ztp/common/ui/custom-material';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CommonDynamicFormModule } from '@uqt/common/dynamic-form';
-import { CommonUiCardModule } from '@uqt/common/ui/card';
+import { CommonDynamicFormModule } from '@ztp/common/dynamic-form';
+import { CommonUiCardModule } from '@ztp/common/ui/card';
 import { AuthComponent } from './auth.component';
 import { UiLoginComponent } from './ui/login/ui-login.component';
 import { UiRegisterComponent } from './ui/register/ui-register.component';

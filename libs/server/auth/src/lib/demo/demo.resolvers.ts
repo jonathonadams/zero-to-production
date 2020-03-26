@@ -1,8 +1,8 @@
-// UQT_UPDATE -> Delete this file
+// ZTP_AFTER_CLONE -> Delete this file
 
 import { GraphQLFieldResolver } from 'graphql';
 import { IResolvers } from 'graphql-tools';
-import { IUser } from '@uqt/data';
+import { IUser } from '@ztp/data';
 import { demoSetupRegisterController } from './demo.controllers';
 import {
   DemoRegistrationControllerConfig,

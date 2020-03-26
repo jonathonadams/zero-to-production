@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { AuthFacade } from '@uqt/shared/data-access/auth';
+import { AuthFacade } from '@ztp/shared/auth/data-access';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DynamicFormFacade } from '@uqt/common/dynamic-form';
+import { DynamicFormFacade } from '@ztp/common/dynamic-form';
 import { of } from 'rxjs';
 
 // TODO  -> TESTS

@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RegisterComponent } from './register.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
-import { DynamicFormFacade } from '@uqt/common/dynamic-form';
-import { AuthFacade } from '@uqt/shared/data-access/auth';
+import { DynamicFormFacade } from '@ztp/common/dynamic-form';
+import { AuthFacade } from '@ztp/shared/auth/data-access';
 
 // TODO -> TESTS
 describe('RegisterComponent', () => {

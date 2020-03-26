@@ -5,7 +5,7 @@
     cdkDropList
     [cdkDropListConnectedTo]="['fb-form-sections']"
   >
-    <uqt-card
+    <ztp-card
       class="toolbox-element"
       *ngFor="let group of groupTypes"
       cdkDrag
@@ -16,7 +16,7 @@
           group.display
         }}
       </p>
-    </uqt-card>
+    </ztp-card>
   </div>
   <h4>Form Field Types</h4>
   <div
@@ -24,7 +24,7 @@
     cdkDropList
     [cdkDropListConnectedTo]="$any(dropListIds$ | async)"
   >
-    <uqt-card
+    <ztp-card
       class="toolbox-element"
       *ngFor="let field of fieldTypes"
       cdkDrag
@@ -35,6 +35,6 @@
           field.display
         }}
       </p>
-    </uqt-card>
+    </ztp-card>
   </div>
 </aside>

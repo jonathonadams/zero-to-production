@@ -37,7 +37,7 @@
             rel="noreferrer noopener"
             href="https://www.apollographql.com"
             >GraphQL</a
-          >
+          >.
         </li>
         <li>
           A Node.js GraphQL API with
@@ -63,10 +63,11 @@
             href="https://www.mongodb.com"
             >MongoDB</a
           >
-          configured to deploy serverless or with Docker.
+          configured to deploy serverless or with Docker & Kubernetes.
         </li>
         <li>
-          Guide to get you up and running with a deployed project.
+          Guides to get you up and running with a deployed Angular application
+          and API server.
         </li>
       </ul>
 
@@ -76,15 +77,15 @@
       </p>
     </div>
     <div class="examples">
-      <uqt-example
+      <ztp-example
         (click)="showExamples()"
         class="example"
         *ngFor="let example of examples$ | async; let i = index"
         trackBy="trackExample"
-        uqtAnimateScrollEntry
+        ztpAnimateScrollEntry
         [example]="example"
       >
-      </uqt-example>
+      </ztp-example>
     </div>
   </div>
 </section>

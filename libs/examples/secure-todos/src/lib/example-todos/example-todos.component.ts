@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'uqt-example-todos',
+  selector: 'ztp-example-todos',
   templateUrl: './example-todos.component.html',
   styleUrls: ['./example-todos.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
