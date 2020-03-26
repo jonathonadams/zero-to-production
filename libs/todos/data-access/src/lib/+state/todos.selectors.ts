@@ -13,14 +13,14 @@ import {
   TodosEntityState,
   adapter,
   TodoFilterStatus,
-  todosFeatureKey
+  todosFeatureKey,
 } from './todos.reducer';
 import { ITodo } from '@uqt/data';
 import {
   equalsC,
   checkTodoCompleteStatusC,
   todoFilterStatusCheck,
-  isTodoInSearchStringC
+  isTodoInSearchStringC,
 } from './todos-filter-functions';
 
 // Select the top level 'todos' state.
@@ -31,7 +31,7 @@ export const selectTodoState = createFeatureSelector<TodosEntityState>(
 export const {
   selectIds: selectTodoIds,
   selectEntities: selectTodoEntities,
-  selectAll: selectAllTodos
+  selectAll: selectAllTodos,
 } = adapter.getSelectors(selectTodoState);
 
 export const selectCurrentTodoId = createSelector(

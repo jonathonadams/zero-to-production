@@ -19,15 +19,15 @@ describe('ExampleReducer', () => {
           title: 'some title',
           summary: 'some description',
           description: 'some full description',
-          url: 'example-1'
+          url: 'example-1',
         },
         {
           id: '2',
           title: 'another title',
           summary: 'some other description',
           description: 'some other full description',
-          url: 'example-2'
-        }
+          url: 'example-2',
+        },
       ];
 
       const action = ExampleActions.addExamples({ examples });

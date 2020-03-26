@@ -4,7 +4,7 @@ import { CommonDynamicFormMaterialComponentsModule } from './common-dynamic-form
 describe('CommonDynamicFormMaterialComponentsModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonDynamicFormMaterialComponentsModule]
+      imports: [CommonDynamicFormMaterialComponentsModule],
     }).compileComponents();
   }));
 

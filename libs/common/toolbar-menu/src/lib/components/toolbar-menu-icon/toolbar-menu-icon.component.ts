@@ -6,7 +6,7 @@ import { DropDownMenuComponent } from '../drop-down-menu/drop-down-menu.componen
 @Component({
   selector: 'uqt-toolbar-menu-icon',
   templateUrl: './toolbar-menu-icon.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarMenuIconComponent {
   constructor(

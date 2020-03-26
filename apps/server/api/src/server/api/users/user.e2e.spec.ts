@@ -21,7 +21,7 @@ const user: IUser = ({
   surname: 'user',
   email: 'test@domain.com',
   dateOfBirth: '2019-01-01',
-  hashedPassword: 'some-password-hash'
+  hashedPassword: 'some-password-hash',
 } as any) as IUser;
 
 const updatedUser = { username: 'updated user' };

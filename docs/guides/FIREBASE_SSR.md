@@ -48,7 +48,7 @@ A number of files are created and edited as per [Angular Universal] however note
   server.engin(
     'html',
     ngExpressEngine({
-      bootstrap: AppServerModule
+      bootstrap: AppServerModule,
     })
   );
 
@@ -56,7 +56,7 @@ A number of files are created and edited as per [Angular Universal] however note
   server.engin(
     'html',
     ngExpressEngine({
-      bootstrap: AppServerModule
+      bootstrap: AppServerModule,
     }) as any // stop typescript error
   );
   ```

@@ -5,7 +5,7 @@ import {
   transition,
   animate,
   keyframes,
-  animation
+  animation,
 } from '@angular/animations';
 
 export const somePulse = trigger('puleEffect', [
@@ -14,7 +14,7 @@ export const somePulse = trigger('puleEffect', [
     style({
       height: '200px',
       opacity: 1,
-      backgroundColor: 'yellow'
+      backgroundColor: 'yellow',
     })
   ),
   state(
@@ -22,7 +22,7 @@ export const somePulse = trigger('puleEffect', [
     style({
       height: '100px',
       opacity: 0.5,
-      backgroundColor: 'green'
+      backgroundColor: 'green',
     })
   ),
   transition('* => *', [
@@ -32,10 +32,10 @@ export const somePulse = trigger('puleEffect', [
         style({ opacity: 0.1, offset: 0.1 }),
         style({ opacity: 0.6, offset: 0.2 }),
         style({ opacity: 1, offset: 0.5 }),
-        style({ opacity: 0.2, offset: 0.7 })
+        style({ opacity: 0.2, offset: 0.7 }),
       ])
-    )
-  ])
+    ),
+  ]),
 ]);
 
 export const pulseAnimation = animation([
@@ -45,7 +45,7 @@ export const pulseAnimation = animation([
     keyframes([
       style({ transform: 'scale(1)', offset: 0 }),
       style({ transform: 'scale({{ scale }})', offset: 0.5 }),
-      style({ transform: 'scale(1)', offset: 1 })
+      style({ transform: 'scale(1)', offset: 1 }),
     ])
-  )
+  ),
 ]);

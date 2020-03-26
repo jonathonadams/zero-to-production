@@ -4,7 +4,7 @@ import { ExamplesFormBuilderModule } from './examples-form-builder.module';
 describe('ExamplesFormBuilderModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ExamplesFormBuilderModule]
+      imports: [ExamplesFormBuilderModule],
     }).compileComponents();
   }));
 

@@ -2,7 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   OnDestroy,
-  OnInit
+  OnInit,
 } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import {
   DynamicFormFacade,
   TFormStructure,
   FormGroupTypes,
-  FormFieldTypes
+  FormFieldTypes,
 } from '@uqt/common/dynamic-form';
 
 const STRUCTURE: TFormStructure = [
@@ -24,28 +24,28 @@ const STRUCTURE: TFormStructure = [
         type: FormFieldTypes.Input,
         name: 'title',
         label: 'Title',
-        validators: [Validators.required]
+        validators: [Validators.required],
       },
       {
         type: FormFieldTypes.Input,
         name: 'description',
         label: 'Description',
-        validators: [Validators.required]
+        validators: [Validators.required],
       },
       {
         type: FormFieldTypes.DatePicker,
         name: 'dueDate',
-        label: 'Due Date'
-      }
-    ]
-  }
+        label: 'Due Date',
+      },
+    ],
+  },
 ];
 
 @Component({
   selector: 'todo-detail',
   templateUrl: './todo-detail.component.html',
   styleUrls: ['./todo-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoDetailComponent implements OnInit, OnDestroy {
   readonly formName = 'todo-detail';
@@ -66,7 +66,7 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
     // The below operation is synchronous and guaranteed
     // to have set the 'todo' before anything else runs
     (this.facade.selectedTodo$ as Observable<ITodo>).subscribe(
-      todo => (this.todo = todo)
+      (todo) => (this.todo = todo)
     );
 
     this.notes$ = this.service.allTodoNotesQueryRef(this.todo.id);
@@ -78,7 +78,7 @@ export class TodoDetailComponent implements OnInit, OnDestroy {
     this.formFacade.setFormConfig(this.formName, {
       animations: true,
       structure: STRUCTURE,
-      enabled: false
+      enabled: false,
     });
 
     this.formFacade.setData(this.formName, { todo: this.todo });

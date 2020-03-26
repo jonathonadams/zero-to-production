@@ -4,7 +4,7 @@ import {
   ElementRef,
   ViewChild,
   OnInit,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
@@ -14,7 +14,7 @@ import {
   DynamicFormFacade,
   TFormStructure,
   FormGroupTypes,
-  FormFieldTypes
+  FormFieldTypes,
 } from '@uqt/common/dynamic-form';
 import { TodosFacade, TodoFilterStatus } from '@uqt/todos/data-access';
 import { UiFilterTodosComponent } from './ui/filter-todos/ui-filter-todos.component';
@@ -29,28 +29,28 @@ const STRUCTURE: TFormStructure = [
         type: FormFieldTypes.Input,
         name: 'title',
         label: 'Title',
-        validators: [Validators.required]
+        validators: [Validators.required],
       },
       {
         type: FormFieldTypes.Input,
         name: 'description',
         label: 'Description',
-        validators: [Validators.required]
+        validators: [Validators.required],
       },
       {
         type: FormFieldTypes.DatePicker,
         name: 'dueDate',
-        label: 'Due Date'
-      }
-    ]
-  }
+        label: 'Due Date',
+      },
+    ],
+  },
 ];
 
 @Component({
   selector: 'todo-all-todos',
   templateUrl: './all-todos.component.html',
   styleUrls: ['./all-todos.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AllTodosComponent implements OnInit, OnDestroy {
   readonly formName = 'create-todo';
@@ -62,7 +62,7 @@ export class AllTodosComponent implements OnInit, OnDestroy {
   filterOptions = [
     { display: 'All', value: TodoFilterStatus.All },
     { display: 'Completed', value: TodoFilterStatus.Completed },
-    { display: 'Incomplete', value: TodoFilterStatus.InCompleted }
+    { display: 'Incomplete', value: TodoFilterStatus.InCompleted },
   ];
 
   @ViewChild(UiFilterTodosComponent, { static: true }) filter!: ElementRef<
@@ -92,7 +92,7 @@ export class AllTodosComponent implements OnInit, OnDestroy {
 
     this.formFacade.setFormConfig(this.formName, {
       animations: true,
-      structure: STRUCTURE
+      structure: STRUCTURE,
     });
   }
 

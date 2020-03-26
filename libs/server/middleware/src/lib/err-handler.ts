@@ -21,14 +21,14 @@ function handleError(err: any): { status: number; body: any } {
     // Is A Boom
     return {
       status: err.output.statusCode,
-      body: err.output.payload
+      body: err.output.payload,
     };
   } else if ((err as Error).name === 'ValidationError') {
     // It is a a mongoose validation error
     const error = Boom.badRequest(err.message);
     return {
       status: error.output.statusCode,
-      body: error.output.payload
+      body: error.output.payload,
     };
   } else if (err.name === 'MongoError' && err.code === 11000) {
     /**
@@ -45,21 +45,21 @@ function handleError(err: any): { status: number; body: any } {
 
       return {
         status: error.output.statusCode,
-        body: error.output.payload
+        body: error.output.payload,
       };
     } else {
       const error = Boom.badRequest();
 
       return {
         status: error.output.statusCode,
-        body: error.output.payload
+        body: error.output.payload,
       };
     }
   } else {
     const error = Boom.badImplementation(err.message);
     return {
       status: error.output.statusCode,
-      body: error.output.payload
+      body: error.output.payload,
     };
   }
 }

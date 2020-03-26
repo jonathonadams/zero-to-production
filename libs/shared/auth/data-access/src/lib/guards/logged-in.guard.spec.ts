@@ -12,7 +12,7 @@ describe('LoggedInGuard', () => {
 
   const authFacadeSpy = {
     loginRedirect: jest.fn(),
-    isAuthenticated$: of(jest.fn())
+    isAuthenticated$: of(jest.fn()),
   };
   const authServiceSpy = { isLoggedIn: jest.fn() };
 
@@ -21,8 +21,8 @@ describe('LoggedInGuard', () => {
       providers: [
         LoggedInGuard,
         { provide: AuthService, useValue: authServiceSpy },
-        { provide: AuthFacade, useValue: authFacadeSpy }
-      ]
+        { provide: AuthFacade, useValue: authFacadeSpy },
+      ],
     });
 
     loggedInGuard = TestBed.inject<LoggedInGuard>(LoggedInGuard);

@@ -4,7 +4,7 @@ import { TodosDataAccessModule } from './todos-data-access.module';
 describe('TodosDataAccessModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TodosDataAccessModule]
+      imports: [TodosDataAccessModule],
     }).compileComponents();
   }));
 

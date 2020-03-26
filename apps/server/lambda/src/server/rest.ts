@@ -8,7 +8,7 @@ export function applyRestEndpoints(app: Koa, conn: Connection) {
   const { authenticate } = createRestGuards(conn);
 
   const router = new Router({
-    prefix: '/api'
+    prefix: '/api',
   });
 
   // Global check to ensure token is valid

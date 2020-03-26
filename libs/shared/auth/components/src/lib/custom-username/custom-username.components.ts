@@ -6,7 +6,7 @@ import { IInputField, FormGroupTypes } from '@uqt/common/dynamic-form';
   selector: 'uqt-custom-username',
   templateUrl: './custom-username.component.html',
   styleUrls: ['./custom-username.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomUsernameComponent {
   @Input() idx: number; // Only accessed if a FormGroup

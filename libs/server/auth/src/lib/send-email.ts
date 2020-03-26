@@ -3,7 +3,7 @@ import { EmailVerificationConfig } from './auth.interface';
 
 export function setupEmailVerification({
   sendGridApiKey,
-  authServerUrl
+  authServerUrl,
 }: EmailVerificationConfig) {
   // Set the api key
   sgMail.setApiKey(sendGridApiKey);
@@ -13,7 +13,7 @@ export function setupEmailVerification({
       to,
       from: 'register@zero-to-production.com',
       subject: 'Verify Your Email',
-      text: `Click on the link to verify your email ${authServerUrl}/authorize/verify?token=${token}&email=${to}`
+      text: `Click on the link to verify your email ${authServerUrl}/authorize/verify?token=${token}&email=${to}`,
     };
     return await sgMail.send(msg);
   };

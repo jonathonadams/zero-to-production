@@ -5,7 +5,7 @@ import { IUserModel } from '@uqt/server/core-data';
 import {
   VerifyTokenBaseConfig,
   RefreshTokenConfig,
-  JWKSGuardConfig
+  JWKSGuardConfig,
 } from './auth.interface';
 import { koaJwtSecret } from 'jwks-rsa';
 
@@ -18,7 +18,7 @@ export function verifyToken(
     return verify(token, publicKey, {
       algorithms: ['RS256'],
       issuer: config.issuer,
-      audience: config.audience
+      audience: config.audience,
     });
   } catch (err) {
     throw unauthorized(null, 'Bearer');
@@ -63,13 +63,13 @@ export function retrievePublicKeyFormJWKS(config: JWKSGuardConfig) {
     rateLimit: true,
     // jwksRequestsPerMinute: 10, // Default value
     strictSsl: config.production, // strict SSL in production
-    jwksUri
+    jwksUri,
   });
 
   return async (jwt: string) => {
     try {
       const { header } = decode(jwt, {
-        complete: true
+        complete: true,
       }) as { header: { alg: string; kid: string; type: 'JWT' } };
 
       // must await the call to jwtSecret so that if it errors, it is caught here

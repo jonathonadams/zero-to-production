@@ -12,7 +12,7 @@ export interface UsersEntityState extends EntityState<IUser> {
 export const adapter: EntityAdapter<IUser> = createEntityAdapter<IUser>();
 
 const initialSate: UsersEntityState = adapter.getInitialState({
-  selectedUserId: null
+  selectedUserId: null,
 });
 
 export const usersReducer = createReducer(
@@ -20,7 +20,7 @@ export const usersReducer = createReducer(
   on(UserActions.selectUser, (state, { id }) => {
     return { ...state, selectedUserId: id };
   }),
-  on(UserActions.clearSelected, state => {
+  on(UserActions.clearSelected, (state) => {
     return { ...state, selectedUserId: null };
   }),
   on(UserActions.loadUsersSuccess, (state, { users }) => {
@@ -38,7 +38,7 @@ export const usersReducer = createReducer(
   on(UserActions.deleteUserSuccess, (state, { id }) => {
     return adapter.removeOne(id, state);
   }),
-  on(UserActions.clearUsers, state => {
+  on(UserActions.clearUsers, (state) => {
     return adapter.removeAll(state);
   })
 );

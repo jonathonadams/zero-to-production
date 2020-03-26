@@ -10,7 +10,7 @@ describe('MasonryComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MasonryComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

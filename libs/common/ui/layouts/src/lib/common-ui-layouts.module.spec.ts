@@ -4,7 +4,7 @@ import { CommonUiLayoutsModule } from './common-ui-layouts.module';
 describe('CommonUiLayoutsModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonUiLayoutsModule]
+      imports: [CommonUiLayoutsModule],
     }).compileComponents();
   }));
 

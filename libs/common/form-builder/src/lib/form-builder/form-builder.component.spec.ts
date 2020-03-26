@@ -13,13 +13,13 @@ describe('FormBuilderComponent', () => {
   // let facade: FormBuilderFacade;
   // let constructorService: FormBuilderConstructorService;
   const formBuilderSpy = {
-    selectedForm$: of(jest.fn())
+    selectedForm$: of(jest.fn()),
   };
 
   const constructorSpy = {
     toolBoxGroupId: jest.fn(),
     toolBoxFieldId: jest.fn(),
-    dropListIds$: jest.fn()
+    dropListIds$: jest.fn(),
   };
 
   beforeEach(async(() => {
@@ -28,9 +28,9 @@ describe('FormBuilderComponent', () => {
       declarations: [FormBuilderComponent],
       providers: [
         { provide: FormBuilderFacade, useValue: formBuilderSpy },
-        { provide: FormBuilderConstructorService, useValue: constructorSpy }
+        { provide: FormBuilderConstructorService, useValue: constructorSpy },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -13,7 +13,7 @@ export const EXAMPLES: IExample[] = [
       'can become tedious quickly. Creating and using a dynamic form component ' +
       'application wide can significantly simplify forms and help standardize styling, ' +
       'validation, animations etc.',
-    url: 'dynamic-form'
+    url: 'dynamic-form',
   },
   {
     id: '2',
@@ -22,7 +22,7 @@ export const EXAMPLES: IExample[] = [
     description:
       'Building on the Dynamic Form Component, an example of a Drag & Drop Form ' +
       'Builder to allow users to build their own structure (to use with the dynamic form component).',
-    url: 'form-builder'
+    url: 'form-builder',
   },
   {
     id: '3',
@@ -31,7 +31,7 @@ export const EXAMPLES: IExample[] = [
     description:
       'Combing CSS Variables along with a Theming Service to create a user ' +
       'configurable them.',
-    url: 'theming'
+    url: 'theming',
   },
   {
     id: '4',
@@ -41,7 +41,7 @@ export const EXAMPLES: IExample[] = [
       'It is common practice to lazy load modules as child routes, but there are more ' +
       'ways to benefit from code splitting. Scrolling is just one example of how to ' +
       'manually load modules.',
-    url: 'lazy-scroll'
+    url: 'lazy-scroll',
   },
   {
     id: '5',
@@ -50,7 +50,7 @@ export const EXAMPLES: IExample[] = [
     description:
       'We have all seen a Todo App before but this demonstrates how a well structured monorepo ' +
       'can make your code highly reusable.',
-    url: 'secure'
+    url: 'secure',
   },
   {
     id: '6',
@@ -59,6 +59,6 @@ export const EXAMPLES: IExample[] = [
       'Clone, build, deploy! Make this repo the start of your own project.',
     description:
       'Follow the guides to make this repo the beginning of your own project.',
-    url: 'make-it-your-own'
-  }
+    url: 'make-it-your-own',
+  },
 ];

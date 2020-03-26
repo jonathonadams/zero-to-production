@@ -8,7 +8,7 @@ import {
   IInputField,
   ISelectField,
   ISelectOption,
-  IFormGroup
+  IFormGroup,
 } from '@uqt/common/dynamic-form';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -50,16 +50,16 @@ export class FormBuilderConstructorService {
         formName: [config.formName, Validators.required],
         animations: [config.animations],
         paginateSections: [config.paginateSections],
-        structure: this.fb.array([])
-      })
+        structure: this.fb.array([]),
+      }),
     });
 
-    config.structure.forEach(group => {
+    config.structure.forEach((group) => {
       const builderGroup = this.createFormGroupFromGroup(group);
       const fieldsArray = builderGroup.get('fields') as FormArray;
 
       // TODO -> Allow for creating form array fields and form group fields
-      (group as IFormGroup).fields.forEach(field => {
+      (group as IFormGroup).fields.forEach((field) => {
         fieldsArray.push(this.createFieldGroupFromFiled(field));
       });
 
@@ -75,7 +75,7 @@ export class FormBuilderConstructorService {
     return this.fb.group({
       groupName: [group.groupName, Validators.required],
       groupType: [group.groupType, Validators.required],
-      fields: this.fb.array([])
+      fields: this.fb.array([]),
     });
   }
 
@@ -83,7 +83,7 @@ export class FormBuilderConstructorService {
     return this.fb.group({
       groupName: ['', Validators.required],
       groupType: [type, Validators.required],
-      fields: this.fb.array([])
+      fields: this.fb.array([]),
     });
   }
 
@@ -91,19 +91,19 @@ export class FormBuilderConstructorService {
     const baseGroup: any = {
       name: [field.name, Validators.required],
       label: [field.label, Validators.required],
-      type: [field.type, Validators.required]
+      type: [field.type, Validators.required],
     };
 
     if (field.type === FormFieldTypes.Input) {
       baseGroup['inputType'] = [
         (field as IInputField).inputType,
-        Validators.required
+        Validators.required,
       ];
     }
 
     if (field.type === FormFieldTypes.Select) {
       const optionsArray = this.fb.array([]);
-      (field as ISelectField).selectOptions.forEach(option => {
+      (field as ISelectField).selectOptions.forEach((option) => {
         optionsArray.push(this.createSelectOptionFromOption(option));
       });
 
@@ -117,7 +117,7 @@ export class FormBuilderConstructorService {
     const baseGroup: any = {
       name: ['', Validators.required],
       label: ['', Validators.required],
-      type: [type]
+      type: [type],
     };
 
     if (type === FormFieldTypes.Input) {
@@ -135,14 +135,14 @@ export class FormBuilderConstructorService {
   createSelectOptionFromOption(option: ISelectOption) {
     return this.fb.group({
       display: [option.display, Validators.required],
-      value: [option.value, Validators.required]
+      value: [option.value, Validators.required],
     });
   }
 
   createSelectOption() {
     return this.fb.group({
       display: ['', Validators.required],
-      value: ['', Validators.required]
+      value: ['', Validators.required],
     });
   }
 

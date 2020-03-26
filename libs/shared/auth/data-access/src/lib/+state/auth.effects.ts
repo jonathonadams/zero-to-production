@@ -14,7 +14,7 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.login),
-        exhaustMap(credentials =>
+        exhaustMap((credentials) =>
           // Note that when using GraphQL as a login option,
           // Any errors will not be errors in the HTTP request (will be status 200)
           // But rather an array on the result.errors property
@@ -55,7 +55,7 @@ export class AuthEffects {
               errors
                 ? AuthActions.registerFailure({ error: errors[0].message })
                 : AuthActions.registerSuccess({
-                    user: (data as { register: IUser }).register
+                    user: (data as { register: IUser }).register,
                   })
             ),
             catchError((error: HttpErrorResponse) =>
@@ -85,8 +85,8 @@ export class AuthEffects {
   loadAuthUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loadAuthUser),
-      map(action => this.authService.authUserId),
-      switchMap(id => {
+      map((action) => this.authService.authUserId),
+      switchMap((id) => {
         if (!id) {
           return of(
             AuthActions.loadAuthUserFail({ error: 'User is not logged in' })
@@ -97,7 +97,7 @@ export class AuthEffects {
               errors
                 ? AuthActions.loadAuthUserFail({ error: errors[0].message })
                 : AuthActions.loadAuthUserSuccess({
-                    user: (data as { User: IUser }).User
+                    user: (data as { User: IUser }).User,
                   })
             ),
             catchError((error: HttpErrorResponse) =>

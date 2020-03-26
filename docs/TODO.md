@@ -2,7 +2,7 @@
 
 ### Docs
 
-- [ ] Specify minium Node version,
+- [ ] Specify minium Node version (12, TS 3.8 and private fields),
 - [ ] Thoroughly document the API Auth module
 - [ ] Document File Replacement for router animations
 - [ ] Document animations
@@ -16,15 +16,17 @@
 - [ ] Document the current completed tests
 - [ ] Complete Unit tests
 - [ ] Complete e2e tests
+- [ ] Migrate to Angular Test Harness
 - [ ] tests for Lambda API
 - [ ] Dynamic Form
 - [ ] Form Builder
 
-### Accessability
+### Misc
 
+- [ ] Migrate all code to make use ove TSv3.8
 - [ ] Audit for a11y
 
-## Dev-Ops
+### Dev-Ops
 
 - [ ] Configure the build script to tag Docker images
 - [ ] Configure the Load Balance to uses HTTP2 from Load balancer through to Reverse Proxy

@@ -14,7 +14,7 @@ import { SharedDataAccessApiModule } from '@uqt/shared/data-access/api';
 import {
   SharedAuthDataAccessModule,
   authProviderFactory,
-  AuthService
+  AuthService,
 } from '@uqt/shared/data-access/auth';
 import { SharedUsersDataAccessModule } from '@uqt/shared/users/data-access';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
@@ -37,34 +37,34 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     StoreRouterConnectingModule.forRoot(),
     SharedDataAccessApiModule.forRoot(environment),
     SharedAuthDataAccessModule.forRoot({
-      authServerUrl: environment.serverUrl
+      authServerUrl: environment.serverUrl,
     }),
     SharedUsersDataAccessModule.forRoot(),
     CommonDynamicFormMaterialComponentsModule,
     CommonDynamicFormModule.forRoot({
       components: APP_COMPONENTS,
-      errors: APP_ERRORS
+      errors: APP_ERRORS,
     }),
     AppRoutingModule.forRoot(),
     ExamplesFeatureShellModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production
-    })
+      enabled: environment.production,
+    }),
   ],
   providers: [
     {
       provide: APP_INITIALIZER,
       useFactory: themeProviderFactory,
       multi: true,
-      deps: [ThemeService]
+      deps: [ThemeService],
     },
     {
       provide: APP_INITIALIZER,
       useFactory: authProviderFactory,
       multi: true,
-      deps: [AuthService]
-    }
+      deps: [AuthService],
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

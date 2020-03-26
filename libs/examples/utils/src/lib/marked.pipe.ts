@@ -5,7 +5,7 @@ import marked from 'marked';
 import { CodeHighlightService } from './highlight.service';
 
 @Pipe({
-  name: 'marked'
+  name: 'marked',
 })
 export class MarkedPipe implements PipeTransform {
   private options: any;
@@ -20,7 +20,7 @@ export class MarkedPipe implements PipeTransform {
       gfm: true,
       breaks: true,
       highlight: this.hl.highlight,
-      renderer
+      renderer,
     };
   }
 

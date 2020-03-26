@@ -27,9 +27,9 @@ export class OverlayService {
             originX: 'end',
             originY: 'bottom',
             overlayX: 'end',
-            overlayY: 'top'
-          }
-        ])
+            overlayY: 'top',
+          },
+        ]),
     };
   }
 
@@ -49,7 +49,7 @@ export class OverlayService {
     const componentRef: ComponentRef<T> = overlayRef.attach(componentPortal);
 
     // Dispose the overlay ref if the backdrop is clicked
-    overlayRef.backdropClick().subscribe(click => {
+    overlayRef.backdropClick().subscribe((click) => {
       overlayRef.dispose();
     });
 
@@ -61,7 +61,7 @@ export class OverlayService {
 
     return {
       overlayRef,
-      componentRef
+      componentRef,
     };
   }
 }

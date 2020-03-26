@@ -11,12 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [HttpClientModule, ApolloModule, HttpLinkModule],
-  exports: [HttpClientModule, ApolloModule, HttpLinkModule]
+  exports: [HttpClientModule, ApolloModule, HttpLinkModule],
 })
 export class SharedDataAccessApiModule {
   static forRoot({
     graphQLUrl = 'graphql',
-    apiBaseUrl = 'api'
+    apiBaseUrl = 'api',
     // webSocketUrl = '',
     // socketIONamespace = ''
   } = {}): ModuleWithProviders<SharedDataAccessApiModule> {
@@ -27,16 +27,16 @@ export class SharedDataAccessApiModule {
         {
           provide: APOLLO_OPTIONS,
           useFactory: createApollo,
-          deps: [HttpLink, GRAPHQL_URL]
+          deps: [HttpLink, GRAPHQL_URL],
         },
         {
           provide: GRAPHQL_URL,
-          useValue: graphQLUrl
+          useValue: graphQLUrl,
         },
         {
           provide: API_BASE_URL,
-          useValue: apiBaseUrl
-        }
+          useValue: apiBaseUrl,
+        },
         // {
         //   provide: WEBSOCKET_URL,
         //   useValue: webSocketUrl
@@ -45,7 +45,7 @@ export class SharedDataAccessApiModule {
         //   provide: SOCKET_IO_NAMESPACE,
         //   useValue: socketIONamespace
         // }
-      ]
+      ],
     };
   }
 }

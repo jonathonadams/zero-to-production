@@ -13,7 +13,7 @@ const COMPONENTS = [
   AllTodosComponent,
   UiTodoListComponent,
   UiFilterTodosComponent,
-  UiCreateTodoComponent
+  UiCreateTodoComponent,
 ];
 
 @NgModule({
@@ -23,8 +23,8 @@ const COMPONENTS = [
     CommonUiLayoutsModule,
     CommonUiCardModule,
     CustomMaterialModule,
-    CommonDynamicFormModule.forChild()
+    CommonDynamicFormModule.forChild(),
   ],
-  exports: [AllTodosComponent]
+  exports: [AllTodosComponent],
 })
 export class AllTodosModule {}

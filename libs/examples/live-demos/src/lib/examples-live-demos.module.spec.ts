@@ -4,7 +4,7 @@ import { ExamplesLiveDemosModule } from './examples-live-demos.module';
 describe('ExamplesLiveDemosModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ExamplesLiveDemosModule]
+      imports: [ExamplesLiveDemosModule],
     }).compileComponents();
   }));
 

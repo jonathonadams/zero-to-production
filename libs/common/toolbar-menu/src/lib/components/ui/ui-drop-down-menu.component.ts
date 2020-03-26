@@ -4,7 +4,7 @@ import {
   Output,
   ChangeDetectionStrategy,
   ViewEncapsulation,
-  Input
+  Input,
 } from '@angular/core';
 import { IUser } from '@uqt/data';
 
@@ -20,7 +20,7 @@ import { IUser } from '@uqt/data';
   templateUrl: './ui-drop-down-menu.component.html',
   styleUrls: ['./ui-drop-down-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class UiDropDownMenuComponent {
   @Input() user: IUser | null;

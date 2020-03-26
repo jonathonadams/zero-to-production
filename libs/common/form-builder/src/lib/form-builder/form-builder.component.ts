@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   OnInit,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -14,7 +14,7 @@ import { map, filter, tap, first, distinctUntilChanged } from 'rxjs/operators';
 import {
   IDynamicFormConfig,
   FormFieldTypes,
-  FormGroupTypes
+  FormGroupTypes,
 } from '@uqt/common/dynamic-form';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { expandAnimation } from '../form.animation';
@@ -24,7 +24,7 @@ import { expandAnimation } from '../form.animation';
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [expandAnimation]
+  animations: [expandAnimation],
 })
 export class FormBuilderComponent implements OnInit, OnDestroy {
   faTrash = faTrash;
@@ -54,15 +54,15 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = (this.selectedForm$ as Observable<IDynamicFormConfig>)
       .pipe(
-        filter(fb => fb !== undefined),
+        filter((fb) => fb !== undefined),
         // Don't rebuild the form if the name is the same
         // This would only be the case when you click the save button, in which case the forms
         // are in sync
         distinctUntilChanged((prev, curr) => prev.formName === curr.formName),
-        map(fb => this.constructorService.formBuilder(fb)),
-        tap(form => (this.builderForm = form))
+        map((fb) => this.constructorService.formBuilder(fb)),
+        tap((form) => (this.builderForm = form))
       )
-      .subscribe(f => {
+      .subscribe((f) => {
         this.constructorService.createConnectedToId(this.structure.length);
         this.cd.detectChanges();
       });
@@ -94,7 +94,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   removeGroupField({
     groupIndex,
-    fieldIndex
+    fieldIndex,
   }: {
     groupIndex: number;
     fieldIndex: number;
@@ -104,7 +104,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   onSubmit(form: FormGroup) {
     if (form.valid) {
-      this.selectedForm$.pipe(first()).subscribe(builderForm => {
+      this.selectedForm$.pipe(first()).subscribe((builderForm) => {
         const { config } = form.value;
         const newForm = { ...builderForm, ...config };
         this.facade.updateForm(newForm);
@@ -168,7 +168,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   addSelectOption({
     groupIndex,
-    fieldIndex
+    fieldIndex,
   }: {
     groupIndex: number;
     fieldIndex: number;
@@ -182,7 +182,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   deleteSelectOption({
     groupIndex,
     fieldIndex,
-    optionIndex
+    optionIndex,
   }: {
     groupIndex: number;
     fieldIndex: number;

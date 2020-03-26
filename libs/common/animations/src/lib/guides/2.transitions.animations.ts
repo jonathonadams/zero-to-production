@@ -5,7 +5,7 @@ import {
   transition,
   animate,
   query,
-  stagger
+  stagger,
 } from '@angular/animations';
 
 /*
@@ -29,7 +29,7 @@ export const transitionAnimations = trigger('transition', [
   transition('void => *', []),
 
   transition(':enter', []), // alias for void => *
-  transition(':leave', []) // alias for * => void
+  transition(':leave', []), // alias for * => void
 ]);
 
 /*
@@ -47,12 +47,12 @@ export const flyInOutAnimation = trigger('flyInOut', [
   transition(':enter', [
     // Define the starting style -> 100% to lef
     style({
-      transform: 'translateX(-100%)'
+      transform: 'translateX(-100%)',
     }),
     //When styles/keyframes is null, it uses the styles from the destination state.
-    animate(100)
+    animate(100),
   ]),
-  transition(':leave', [animate(100, style({ transform: 'none' }))])
+  transition(':leave', [animate(100, style({ transform: 'none' }))]),
 ]);
 
 /*
@@ -63,13 +63,13 @@ export const notStaggeredAccordion = trigger('badAccordion', [
   transition(':enter', [
     // Animate from 0 height -> style defined height
     style({ opacity: 0, height: 0 }),
-    animate('1s ease-in', style({ opacity: 1, height: '*' }))
+    animate('1s ease-in', style({ opacity: 1, height: '*' })),
   ]),
   transition(':leave', [
     // Animate from current height -> 0
     style({ opacity: 1, height: '*' }),
-    animate('1s ease-out', style({ opacity: 0, height: 0 }))
-  ])
+    animate('1s ease-out', style({ opacity: 0, height: 0 })),
+  ]),
 ]);
 
 /**
@@ -84,14 +84,14 @@ export const notStaggeredAccordion = trigger('badAccordion', [
 export const cellHighligh = trigger('cellHighlightAnimation', [
   transition(':increment', [
     style({
-      boxShadow: '0 0 2em #009882'
+      boxShadow: '0 0 2em #009882',
     }),
-    animate('2s ease', style({ boxShadow: '0 0 2em rgba(0,0,0,0)' }))
+    animate('2s ease', style({ boxShadow: '0 0 2em rgba(0,0,0,0)' })),
   ]),
   transition(':decrement', [
     style({
-      boxShadow: '0 0 2em #ff4181'
+      boxShadow: '0 0 2em #ff4181',
     }),
-    animate('2s ease', style({ boxShadow: '0 0 2em rgba(0,0,0,0)' }))
-  ])
+    animate('2s ease', style({ boxShadow: '0 0 2em rgba(0,0,0,0)' })),
+  ]),
 ]);

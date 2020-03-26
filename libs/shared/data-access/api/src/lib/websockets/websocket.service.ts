@@ -8,7 +8,7 @@ export const SOCKET_IO_NAMESPACE = new InjectionToken<string>(
 );
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WebSocketService {
   private socket: SocketIOClient.Socket;
@@ -31,7 +31,7 @@ export class WebSocketService {
       transports: ['websocket'],
       query: {
         // Add custom query here
-      }
+      },
     };
 
     this.socket = io(`${this.socketUrl}`, socketOptions);
@@ -54,7 +54,7 @@ export class WebSocketService {
     if (this.socket.disconnected) {
       // Reset the access token to handle stale tokens
       this.socket.io.opts.query = {
-        accessToken
+        accessToken,
       };
 
       this.socket.connect();

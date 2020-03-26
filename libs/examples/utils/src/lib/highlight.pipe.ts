@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { CodeHighlightService } from './highlight.service';
 
 @Pipe({
-  name: 'codeHighlight'
+  name: 'codeHighlight',
 })
 export class CodeHighlightPipe implements PipeTransform {
   constructor(private hl: CodeHighlightService) {}

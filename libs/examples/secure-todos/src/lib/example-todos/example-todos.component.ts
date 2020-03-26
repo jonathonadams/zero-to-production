@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
   selector: 'uqt-example-todos',
   templateUrl: './example-todos.component.html',
   styleUrls: ['./example-todos.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleTodosComponent {
   show = false;

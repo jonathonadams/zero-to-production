@@ -6,7 +6,7 @@ import { AuthService, AUTH_SERVER_URL } from './auth.service';
 import {
   ILoginCredentials,
   ILoginResponse,
-  IRegistrationDetails
+  IRegistrationDetails,
 } from '../auth.interface';
 import { IUser } from '@uqt/data';
 import { AuthFacade } from '../+state/auth.facade';
@@ -30,8 +30,8 @@ describe('AuthService', () => {
         AuthService,
         { provide: Apollo, useClass: GraphQLStub },
         { provide: AuthFacade, useValue: facadeStub },
-        { provide: AUTH_SERVER_URL, useValue: 'test-url' }
-      ]
+        { provide: AUTH_SERVER_URL, useValue: 'test-url' },
+      ],
     });
     authService = TestBed.inject<AuthService>(AuthService);
     apollo = (TestBed.inject<Apollo>(Apollo) as unknown) as GraphQLStub;
@@ -48,19 +48,19 @@ describe('AuthService', () => {
       const spy = jest.spyOn(apollo, 'mutate');
       const loginCredentials: ILoginCredentials = {
         username: 'admin',
-        password: 'secret'
+        password: 'secret',
       };
       const expectedResponse: ILoginResponse = {
         token: 'JWT',
-        expiresIn: 1000
+        expiresIn: 1000,
       };
       // Set the response from the the stub
       apollo.setExpectedResponse<{
         login: ILoginResponse;
       }>({
-        login: expectedResponse
+        login: expectedResponse,
       });
-      authService.login(loginCredentials).subscribe(response => {
+      authService.login(loginCredentials).subscribe((response) => {
         expect(response.errors).toBeUndefined();
         expect((response.data as any).login).toBeDefined();
         expect((response.data as any).login).toEqual(expectedResponse);
@@ -72,14 +72,14 @@ describe('AuthService', () => {
       const spy = jest.spyOn(apollo, 'mutate');
       const loginCredentials: ILoginCredentials = {
         username: 'unauthorized',
-        password: 'noi dea'
+        password: 'noi dea',
       };
       const graphErrors = [
-        { name: 'Unauthorized Error', message: 'Unauthorized' }
+        { name: 'Unauthorized Error', message: 'Unauthorized' },
       ] as GraphQLError[];
       // Set the response from the the stub
       apollo.setErrorResponse(graphErrors);
-      authService.login(loginCredentials).subscribe(response => {
+      authService.login(loginCredentials).subscribe((response) => {
         expect(response.data).toEqual(null);
         expect(response.errors).toBeDefined();
         expect((response.errors as any[][0]).message).toEqual('Unauthorized');
@@ -99,24 +99,24 @@ describe('AuthService', () => {
         surname: 'user',
         email: 'test@domain.com',
         dateOfBirth: '2019-01-01',
-        password: 'asF.s0f.s'
+        password: 'asF.s0f.s',
       };
 
       const expectedResponse: IUser = {
         id: 'some-id',
         active: true,
         isVerified: true,
-        ...newUser
+        ...newUser,
       };
 
       // Set the response from the the stub
       apollo.setExpectedResponse<{
         user: IUser;
       }>({
-        user: expectedResponse
+        user: expectedResponse,
       });
 
-      authService.register(newUser).subscribe(response => {
+      authService.register(newUser).subscribe((response) => {
         expect(response.errors).toBeUndefined();
         expect((response.data as any).login).toBeDefined();
         expect((response.data as any).login).toEqual(expectedResponse);
@@ -132,16 +132,16 @@ describe('AuthService', () => {
         givenName: 'test',
         surname: 'user',
         email: 'test@domain.com',
-        dateOfBirth: '2019-01-01'
+        dateOfBirth: '2019-01-01',
       } as any) as IRegistrationDetails;
 
       const graphErrors = [
-        { name: 'Bad request', message: 'No password provided' }
+        { name: 'Bad request', message: 'No password provided' },
       ] as GraphQLError[];
 
       // Set the response from the the stub
       apollo.setErrorResponse(graphErrors);
-      authService.register(newUser).subscribe(response => {
+      authService.register(newUser).subscribe((response) => {
         expect(response.data).toEqual(null);
         expect(response.errors).toBeDefined();
         expect((response.errors as any[][0]).message).toEqual(
@@ -224,7 +224,7 @@ describe('AuthService', () => {
       const subject = '123';
       const JWT = sign({}, 'secret', {
         subject,
-        expiresIn: 1000
+        expiresIn: 1000,
       });
 
       localStorage.setItem(storageKey, JWT);

@@ -3,6 +3,6 @@ import { CommonUiToolbarComponent } from './toolbar.component';
 
 @NgModule({
   declarations: [CommonUiToolbarComponent],
-  exports: [CommonUiToolbarComponent]
+  exports: [CommonUiToolbarComponent],
 })
 export class CommonUiToolbarModule {}

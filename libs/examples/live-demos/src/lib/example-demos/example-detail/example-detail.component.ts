@@ -2,7 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   Input,
-  ComponentFactory
+  ComponentFactory,
 } from '@angular/core';
 import { IExample } from '@uqt/examples/data-access';
 
@@ -10,7 +10,7 @@ import { IExample } from '@uqt/examples/data-access';
   selector: 'uqt-example-detail',
   templateUrl: './example-detail.component.html',
   styleUrls: ['./example-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDetailComponent {
   @Input() example: IExample | null;

@@ -134,18 +134,18 @@ export enum InputFieldTypes {
   Text = 'text',
   Time = 'time',
   Url = 'url',
-  Week = 'week'
+  Week = 'week',
 }
 
 // Muse be strings
 export enum FormGroupTypes {
   Group = 'GROUP',
-  Array = 'ARRAY'
+  Array = 'ARRAY',
 }
 
 export enum FormArrayTypes {
   Group = 'GROUP',
-  Field = 'FIELD'
+  Field = 'FIELD',
 }
 
 export enum FormFieldTypes {
@@ -154,7 +154,7 @@ export enum FormFieldTypes {
   Select = 'SELECT',
   Toggle = 'TOGGLE',
   DatePicker = 'DATE_PICKER',
-  CheckBox = 'CHECK_BOX'
+  CheckBox = 'CHECK_BOX',
 }
 
 export interface DynamicFormConfig {

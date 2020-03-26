@@ -5,13 +5,13 @@ import { MarkdownComponent } from './markdown/markdown.component';
 import { IGuide, GUIDES } from './guides';
 
 function createGuideRoutes(guides: IGuide[]): Routes {
-  return guides.map(guide => ({
+  return guides.map((guide) => ({
     path: guide.path,
     component: MarkdownComponent,
     pathMatch: 'full',
     data: {
-      guide: guide.guide
-    }
+      guide: guide.guide,
+    },
   }));
 }
 
@@ -24,18 +24,18 @@ const ROUTES: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'getting-started'
-      }
-    ]
+        redirectTo: 'getting-started',
+      },
+    ],
   },
   {
     path: '**',
-    redirectTo: '/'
-  }
+    redirectTo: '/',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(ROUTES)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class ExamplesGuidesRoutingModule {}

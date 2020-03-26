@@ -8,7 +8,7 @@ import {
   AsyncValidator,
   Validators,
   FormBuilder,
-  FormArray
+  FormArray,
 } from '@angular/forms';
 import {
   FormGroupTypes,
@@ -18,7 +18,7 @@ import {
   IFormGroup,
   IFormGroupArray,
   IFormFieldArray,
-  FormFieldTypes
+  FormFieldTypes,
 } from './dynamic-form.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -31,7 +31,7 @@ export class DynamicFormService {
     const form = this.fb.group({});
 
     // For each top level group
-    structure.forEach(group => {
+    structure.forEach((group) => {
       const existing = form.get(group.groupName);
       if (existing)
         console.error(
@@ -66,7 +66,7 @@ export class DynamicFormService {
     // Create a form group,
     const fg = this.fb.group({});
     // and add all nested groups to the form
-    group.fields.forEach(field => {
+    group.fields.forEach((field) => {
       const control = this.createControl(field);
       fg.addControl(field.name, control);
     });
@@ -106,7 +106,7 @@ export class DynamicFormService {
   creatFormGroupOfArrayFields(fields: TField[]) {
     const fg = this.fb.group({});
     // and add all nested groups to the form
-    fields.forEach(field => {
+    fields.forEach((field) => {
       const control = this.createControl(field);
       fg.addControl(field.name, control);
     });
@@ -117,7 +117,7 @@ export class DynamicFormService {
   createControl(field: TField): FormControl {
     const asyncValidators: AsyncValidatorFn[] = [];
     if (field.asyncValidators && field.asyncValidators.length > 0) {
-      field.asyncValidators.forEach(di => {
+      field.asyncValidators.forEach((di) => {
         const validator = this.injector.get<AsyncValidator>(di);
         asyncValidators.push(validator.validate.bind(validator));
       });
@@ -163,7 +163,7 @@ export class DynamicFormService {
 
         return {
           ...errors,
-          ...this.getControlErrors(control as FormGroup)
+          ...this.getControlErrors(control as FormGroup),
         };
       } else {
         // it is a control

@@ -10,8 +10,8 @@ import { UsersEffects } from './+state/users.effects';
       fromUsers.usersEntityStateKey,
       fromUsers.reducer
     ),
-    EffectsModule.forFeature([UsersEffects])
-  ]
+    EffectsModule.forFeature([UsersEffects]),
+  ],
 })
 export class RootSharedUsersDataAccessModule {}
 
@@ -19,7 +19,7 @@ export class RootSharedUsersDataAccessModule {}
 export class SharedUsersDataAccessModule {
   static forRoot(): ModuleWithProviders<RootSharedUsersDataAccessModule> {
     return {
-      ngModule: RootSharedUsersDataAccessModule
+      ngModule: RootSharedUsersDataAccessModule,
     };
   }
 }

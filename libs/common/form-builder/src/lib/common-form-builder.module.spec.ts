@@ -4,7 +4,7 @@ import { CommonFormBuilderModule } from './common-form-builder.module';
 describe('CommonFormBuilderModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonFormBuilderModule]
+      imports: [CommonFormBuilderModule],
     }).compileComponents();
   }));
 

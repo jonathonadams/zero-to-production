@@ -2,7 +2,7 @@ import {
   ValidatorFn,
   AbstractControl,
   ValidationErrors,
-  FormGroup
+  FormGroup,
 } from '@angular/forms';
 // import { isPasswordAllowed } from '@uqt/server/auth';
 

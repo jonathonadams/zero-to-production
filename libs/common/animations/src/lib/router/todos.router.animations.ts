@@ -10,8 +10,8 @@ export const ROUTER_ANIMATIONS = trigger(ROUTER_TRIGGER, [
       params: {
         enter: 'translateX(+100%)',
         exit: 'translateX(-100%)',
-        timing: '300ms'
-      }
+        timing: '300ms',
+      },
     })
   ),
   transition(
@@ -20,9 +20,9 @@ export const ROUTER_ANIMATIONS = trigger(ROUTER_TRIGGER, [
       params: {
         enter: 'translateX(-100%)',
         exit: 'translateX(+100%)',
-        timing: '300ms'
-      }
+        timing: '300ms',
+      },
     })
   ),
-  ...WATERFALL_ANIMATION
+  ...WATERFALL_ANIMATION,
 ]);

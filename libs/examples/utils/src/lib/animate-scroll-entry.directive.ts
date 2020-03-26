@@ -4,7 +4,7 @@ import {
   OnDestroy,
   OnInit,
   Inject,
-  PLATFORM_ID
+  PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import {
@@ -13,7 +13,7 @@ import {
   AnimationBuilder,
   style,
   animate,
-  keyframes
+  keyframes,
 } from '@angular/animations';
 import { ScrollDispatcher } from '@angular/cdk/overlay';
 import { Subscription } from 'rxjs';
@@ -21,11 +21,11 @@ import { Subscription } from 'rxjs';
 export enum ElementViewportPosition {
   Above = 'Above',
   On = 'On',
-  Below = 'Below'
+  Below = 'Below',
 }
 
 @Directive({
-  selector: '[uqtAnimateScrollEntry]'
+  selector: '[uqtAnimateScrollEntry]',
 })
 export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
   player: AnimationPlayer;
@@ -78,7 +78,7 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
   private registerScrollDispatcher() {
     this.sub = this.scrollDispatcher
       .ancestorScrolled(this.el, 100)
-      .subscribe(scrolled => {
+      .subscribe((scrolled) => {
         if (scrolled) {
           const elRef = scrolled.getElementRef().nativeElement as HTMLElement;
 
@@ -146,29 +146,29 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
           style({
             opacity: 0,
             transform:
-              'translate3d(0, 200%, -20em) scale3d(0.2, 0.2, 0.2) rotateX(720deg)'
+              'translate3d(0, 200%, -20em) scale3d(0.2, 0.2, 0.2) rotateX(720deg)',
           }),
           style({
             opacity: 0.25,
             transform:
-              'translate3d(0, 120%, -18em) scale3d(0.4, 0.4, 0.4) rotateX(540deg)'
+              'translate3d(0, 120%, -18em) scale3d(0.4, 0.4, 0.4) rotateX(540deg)',
           }),
           style({
             opacity: 0.5,
             transform:
-              'translate3d(0, 60%, -16em) scale3d(0.6, 0.6, 0.6) rotateX(360deg)'
+              'translate3d(0, 60%, -16em) scale3d(0.6, 0.6, 0.6) rotateX(360deg)',
           }),
           style({
             opacity: 0.75,
             transform:
-              'translate3d(0, 20%, -10em) scale3d(0.8, 0.8, 0.8) rotateX(180deg)'
+              'translate3d(0, 20%, -10em) scale3d(0.8, 0.8, 0.8) rotateX(180deg)',
           }),
           style({
             opacity: 1,
-            transform: 'none'
-          })
+            transform: 'none',
+          }),
         ])
-      )
+      ),
     ];
   }
 

@@ -3,7 +3,7 @@ import {
   transition,
   group,
   animate,
-  style
+  style,
 } from '@angular/animations';
 
 export const expandFromCenter = trigger('centerExpand', [
@@ -14,15 +14,15 @@ export const expandFromCenter = trigger('centerExpand', [
         '0.3s 0.1s ease',
         style({
           left: 0,
-          width: '*'
+          width: '*',
         })
       ),
       animate(
         '0.3s ease',
         style({
-          opacity: 1
+          opacity: 1,
         })
-      )
-    ])
-  ])
+      ),
+    ]),
+  ]),
 ]);

@@ -4,7 +4,7 @@ import { ScrollingComponent } from './scrolling/scrolling.component';
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [ScrollingComponent]
+  declarations: [ScrollingComponent],
 })
 export class ExamplesLazyLoadScrollingModule {
   static get lazyEntryComponent() {

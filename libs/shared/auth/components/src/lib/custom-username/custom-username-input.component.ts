@@ -6,13 +6,13 @@ import {
   ElementRef,
   OnDestroy,
   Optional,
-  Self
+  Self,
 } from '@angular/core';
 import {
   FormGroup,
   ControlValueAccessor,
   AbstractControl,
-  NgControl
+  NgControl,
 } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable, Subject } from 'rxjs';
@@ -26,9 +26,9 @@ import { IInputField } from '@uqt/common/dynamic-form';
   templateUrl: './custom-username-input.component.html',
   styleUrls: ['./custom-username-input.component.scss'],
   providers: [
-    { provide: MatFormFieldControl, useExisting: CustomUsernameInputComponent }
+    { provide: MatFormFieldControl, useExisting: CustomUsernameInputComponent },
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomUsernameInputComponent
   implements ControlValueAccessor, MatFormFieldControl<string>, OnDestroy {
@@ -130,7 +130,7 @@ export class CustomUsernameInputComponent
   ) {
     this.isAvailable$ = this.facade.isAvailable$;
 
-    _focusMonitor.monitor(_elRef, true).subscribe(origin => {
+    _focusMonitor.monitor(_elRef, true).subscribe((origin) => {
       if (this.focused && !origin) {
         this.onTouched();
       }

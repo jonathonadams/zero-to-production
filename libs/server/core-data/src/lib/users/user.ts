@@ -11,43 +11,43 @@ export const userSchema = new Schema<IUser>(
       type: String,
       required: true,
       text: true,
-      unique: true
+      unique: true,
     },
     givenName: {
       type: String,
-      required: true
+      required: true,
     },
     surname: {
       type: String,
-      required: true
+      required: true,
     },
     email: {
       type: String,
       required: true,
-      unique: false // UQT_UPDATE -> set `unique: true`
+      unique: false, // UQT_UPDATE -> set `unique: true`
     },
     dateOfBirth: {
       type: String,
-      required: true
+      required: true,
     },
     active: {
       type: Boolean,
       required: true,
-      default: true
+      default: true,
     },
     isVerified: {
       type: Boolean,
       required: true,
-      default: false
+      default: false,
     },
     hashedPassword: {
       type: String,
       required: true,
-      select: false
-    }
+      select: false,
+    },
   },
   {
-    ...defaultSchemaOptions
+    ...defaultSchemaOptions,
   }
 );
 
@@ -56,11 +56,11 @@ export const userSchema = new Schema<IUser>(
  *
  * @param username The username to search by.
  */
-userSchema.statics.findByUsername = function(
+userSchema.statics.findByUsername = function (
   username: string
 ): Promise<IUserDocument | null> {
   return this.findOne({
-    username: username
+    username: username,
   })
     .select('+hashedPassword')
     .exec();

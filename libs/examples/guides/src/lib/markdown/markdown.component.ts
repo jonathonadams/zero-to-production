@@ -2,7 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { MarkdownService } from '@uqt/examples/utils';
 import { Observable } from 'rxjs';
@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './markdown.component.html',
   styleUrls: ['./markdown.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class MarkdownComponent implements OnInit {
   markdown$: Observable<string>;
@@ -25,7 +25,7 @@ export class MarkdownComponent implements OnInit {
 
   ngOnInit() {
     this.markdown$ = this.route.data.pipe(
-      filter(val => val !== undefined),
+      filter((val) => val !== undefined),
       switchMap(({ guide }) => this.mdService.loadMarkdown(guide))
     );
   }

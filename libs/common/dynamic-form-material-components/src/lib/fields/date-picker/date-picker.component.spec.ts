@@ -14,7 +14,7 @@ describe('DatePickerComponent', () => {
       imports: [ReactiveFormsModule],
       providers: [{ provide: DynamicFormService, useValue: {} }],
       declarations: [FormDatePickerComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -4,7 +4,7 @@ import { SharedAuthDataAccessModule } from './shared-auth-data-access.module';
 describe('DataAccessAuthModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedAuthDataAccessModule.forRoot()]
+      imports: [SharedAuthDataAccessModule.forRoot()],
     }).compileComponents();
   }));
 

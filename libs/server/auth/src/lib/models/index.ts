@@ -2,11 +2,11 @@ export {
   refreshTokenDbKey,
   refreshTokenSchema,
   createRefreshTokenModel,
-  getRefreshTokenModel
+  getRefreshTokenModel,
 } from './tokens.model';
 export {
   verificationTokenDbKey,
   verificationTokenSchema,
   createVerificationTokenModel,
-  getVerificationTokenModel
+  getVerificationTokenModel,
 } from './verification-token.model';

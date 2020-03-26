@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import {
   HttpTestingController,
-  HttpClientTestingModule
+  HttpClientTestingModule,
 } from '@angular/common/http/testing';
 import { AuthFacade } from '../+state/auth.facade';
 import { Type } from '@angular/core';
@@ -21,10 +21,10 @@ describe('ErrorInterceptor', () => {
         {
           provide: HTTP_INTERCEPTORS,
           useClass: ErrorInterceptor,
-          multi: true
+          multi: true,
         },
-        { provide: AuthFacade, useValue: authFacadeSpy }
-      ]
+        { provide: AuthFacade, useValue: authFacadeSpy },
+      ],
     });
 
     httpClient = TestBed.inject<HttpClient>(HttpClient);
@@ -38,7 +38,7 @@ describe('ErrorInterceptor', () => {
     const spy = jest.spyOn(authFacade, 'logout');
 
     // Make an HTTP GET request, don't care about the response
-    httpClient.get('/test').subscribe(data => {});
+    httpClient.get('/test').subscribe((data) => {});
 
     const req = httpTestingController.expectOne('/test');
 
@@ -55,7 +55,7 @@ describe('ErrorInterceptor', () => {
     const spy = jest.spyOn(authFacade, 'logout');
 
     // Make an HTTP GET request, don't care about the response
-    httpClient.get('/test').subscribe(data => {});
+    httpClient.get('/test').subscribe((data) => {});
 
     const req = httpTestingController.expectOne('/test');
 

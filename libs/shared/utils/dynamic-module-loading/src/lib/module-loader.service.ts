@@ -6,7 +6,7 @@ import {
   ComponentFactory,
   NgModuleFactory,
   InjectionToken,
-  Inject
+  Inject,
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, distinctUntilChanged, take } from 'rxjs/operators';
@@ -57,18 +57,18 @@ export class ModuleLoaderService {
 
   selectFactory(tag: string): Observable<ComponentFactory<any> | undefined> {
     return this.registry$.pipe(
-      map(registry => registry[tag]),
+      map((registry) => registry[tag]),
       distinctUntilChanged(),
-      map(module => (module && module.factory ? module.factory : undefined))
+      map((module) => (module && module.factory ? module.factory : undefined))
     );
   }
 
   private _registerModule(modules: ILazyModuleRegistry): void {
-    Object.keys(modules).forEach(key => {
+    Object.keys(modules).forEach((key) => {
       const moduleRegister: IModuleRegistry = {
         importPath: modules[key],
         loadComplete: false,
-        loadInitiated: false
+        loadInitiated: false,
       };
       this._registry.set(key, moduleRegister);
     });
@@ -139,7 +139,7 @@ export class ModuleLoaderService {
   }
 
   private registerFactory(key: string, factory: ComponentFactory<any>) {
-    this.registry$.pipe(take(1)).subscribe(registry => {
+    this.registry$.pipe(take(1)).subscribe((registry) => {
       const registryClone = { ...registry };
       registryClone[key] = { factory };
       this.registry.next(registryClone);

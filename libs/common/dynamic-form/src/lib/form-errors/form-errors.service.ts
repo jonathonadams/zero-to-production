@@ -6,7 +6,7 @@ import { FormErrorsComponent } from './form-errors.component';
 import {
   DYNAMIC_FORM_ERRORS,
   DynamicFormErrorsMap,
-  FormErrorTypes
+  FormErrorTypes,
 } from '../form-errors.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -30,7 +30,7 @@ export class DynamicFormErrorsService {
     });
 
     // Dispose the overlay ref if the backdrop is clicked
-    overlayRef.backdropClick().subscribe(click => {
+    overlayRef.backdropClick().subscribe((click) => {
       overlayRef.dispose();
     });
   }
@@ -42,7 +42,7 @@ export class DynamicFormErrorsService {
         .position()
         .global()
         .centerHorizontally()
-        .centerVertically()
+        .centerVertically(),
     };
   }
 
@@ -60,7 +60,7 @@ export class DynamicFormErrorsService {
 
     return {
       overlayRef,
-      componentRef
+      componentRef,
     };
   }
 
@@ -73,7 +73,7 @@ export class DynamicFormErrorsService {
         const errorKeys = Object.keys(errors[topLevelKeys[i]]);
         fieldErrors.push(
           ...errorKeys.map(
-            key => this.formErrors[key as keyof typeof FormErrorTypes]
+            (key) => this.formErrors[key as keyof typeof FormErrorTypes]
           )
         );
       } else {
@@ -97,7 +97,7 @@ function reduceErrorKeysToMessages(
   keys: string[]
 ): string[] {
   return keys.map(
-    key =>
+    (key) =>
       `${splitCamelCaseAndUppercaseFirst(field)} ${
         formErrors[key as keyof typeof FormErrorTypes]
       }`
@@ -107,6 +107,6 @@ function reduceErrorKeysToMessages(
 function splitCamelCaseAndUppercaseFirst(string: string): string {
   return (
     string.substr(0, 1).toUpperCase() +
-    string.substr(1, string.length - 1).replace(/[A-Z]/g, c => ' ' + c)
+    string.substr(1, string.length - 1).replace(/[A-Z]/g, (c) => ' ' + c)
   );
 }

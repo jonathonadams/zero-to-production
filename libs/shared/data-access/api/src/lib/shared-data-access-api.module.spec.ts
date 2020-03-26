@@ -4,7 +4,7 @@ import { SharedDataAccessApiModule } from './shared-data-access-api.module';
 describe('SharedDataAccessApiModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedDataAccessApiModule.forRoot()]
+      imports: [SharedDataAccessApiModule.forRoot()],
     }).compileComponents();
   }));
 

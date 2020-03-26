@@ -11,8 +11,8 @@ import { DashboardComponent } from './dashboard.component';
     CommonModule,
     DashboardRoutingModule,
     CustomMaterialModule,
-    CommonUiCardModule
+    CommonUiCardModule,
   ],
-  exports: [DashboardComponent]
+  exports: [DashboardComponent],
 })
 export class SharedDashboardModule {}

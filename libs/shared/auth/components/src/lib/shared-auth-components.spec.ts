@@ -4,7 +4,7 @@ import { SharedAuthComponentsModule } from './shared-auth-components.module';
 describe('SharedAuthComponentsModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedAuthComponentsModule]
+      imports: [SharedAuthComponentsModule],
     }).compileComponents();
   }));
 

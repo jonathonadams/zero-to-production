@@ -23,9 +23,9 @@ describe('DashboardComponent', () => {
         CommonUiCardModule,
         MatGridListModule,
         MatIconModule,
-        MatMenuModule
+        MatMenuModule,
       ],
-      providers: [{ provide: Store, useValue: {} }]
+      providers: [{ provide: Store, useValue: {} }],
     }).compileComponents();
   }));
 

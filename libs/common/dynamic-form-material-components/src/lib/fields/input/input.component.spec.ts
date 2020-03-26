@@ -12,7 +12,7 @@ describe('FormInputComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule],
-      declarations: [FormInputComponent]
+      declarations: [FormInputComponent],
     }).compileComponents();
   }));
 

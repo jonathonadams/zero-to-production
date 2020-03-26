@@ -5,7 +5,7 @@ import { GUIDES } from '../guides';
   selector: 'uqt-examples-guides',
   templateUrl: './guides.component.html',
   styleUrls: ['./guides.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GuidesComponent {
   guides = GUIDES;

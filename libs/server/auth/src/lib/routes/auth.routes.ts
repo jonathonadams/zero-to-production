@@ -8,7 +8,7 @@ import {
   setupRefreshAccessTokenController,
   setupRevokeRefreshTokenController,
   setupVerifyController,
-  setupUsernameAvailableController
+  setupUsernameAvailableController,
 } from '../auth.controllers';
 import {
   RegistrationControllerConfig,
@@ -18,7 +18,7 @@ import {
   RefreshControllerConfig,
   RevokeControllerConfig,
   AvailableControllerConfig,
-  AuthModuleConfig
+  AuthModuleConfig,
 } from '../auth.interface';
 import { setupEmailVerification } from '../send-email';
 import { isRefreshConfig } from '../auth-utils';
@@ -152,6 +152,6 @@ function restUsernameAndPasswordCheck(ctx: Koa.ParameterizedContext) {
     throw Boom.unauthorized('Username and password must be provided');
   return {
     username,
-    password
+    password,
   };
 }

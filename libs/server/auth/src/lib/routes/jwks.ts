@@ -16,10 +16,10 @@ export function createJsonWebKeySetRoute(
   const jwk: object = pem2jwk(publicKey, {
     alg: 'RS256',
     use: 'sig',
-    kid: keyId
+    kid: keyId,
   });
 
-  router.get(END_POINT, async ctx => {
+  router.get(END_POINT, async (ctx) => {
     ctx.body = { keys: [jwk] };
   });
 }

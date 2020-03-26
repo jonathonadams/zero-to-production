@@ -7,7 +7,7 @@ import {
   LOAD_TODO_QUERY,
   CREATE_TODO_QUERY,
   UPDATE_TODO_QUERY,
-  REMOVE_TODO_QUERY
+  REMOVE_TODO_QUERY,
 } from './todos.queries';
 import { Apollo } from 'apollo-angular';
 
@@ -24,10 +24,10 @@ describe('TodoService', () => {
           provide: Apollo,
           useValue: {
             query: jest.fn(),
-            mutate: jest.fn()
-          }
-        }
-      ]
+            mutate: jest.fn(),
+          },
+        },
+      ],
     });
 
     service = TestBed.inject<TodosService>(TodosService);
@@ -60,7 +60,7 @@ describe('TodoService', () => {
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith({
         query: LOAD_TODO_QUERY,
-        variables: { id: '1' }
+        variables: { id: '1' },
       });
 
       spy.mockReset();
@@ -74,12 +74,12 @@ describe('TodoService', () => {
       const originalTodo: ITodo = {
         userId: '1',
         title: 'some title',
-        description: 'some description'
+        description: 'some description',
       } as ITodo;
 
       const sentTodo = {
         ...originalTodo,
-        completed: false
+        completed: false,
       } as ITodo;
 
       service.createTodo(originalTodo);
@@ -106,7 +106,7 @@ describe('TodoService', () => {
         description: 'some description',
         dueDate: ('2020-01-01' as unknown) as Date,
         notes: [],
-        completed: true
+        completed: true,
       };
 
       service.updateTodo(updatedTodo);
@@ -115,8 +115,8 @@ describe('TodoService', () => {
       expect(spy).toHaveBeenCalledWith({
         mutation: UPDATE_TODO_QUERY,
         variables: {
-          input: updatedTodo
-        }
+          input: updatedTodo,
+        },
       });
 
       spy.mockReset();
@@ -134,7 +134,7 @@ describe('TodoService', () => {
         description: 'some description',
         dueDate: ('2020-01-01' as unknown) as Date,
         notes: [],
-        completed: true
+        completed: true,
       };
 
       service.deleteTodo(todo.id);

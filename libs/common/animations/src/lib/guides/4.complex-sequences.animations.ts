@@ -5,7 +5,7 @@ import {
   style,
   stagger,
   animate,
-  group
+  group,
 } from '@angular/animations';
 
 /*
@@ -22,11 +22,11 @@ export const stackUpDown = trigger('stackUpDown', [
           '.15s',
           style({
             opacity: 1,
-            transform: 'none'
+            transform: 'none',
           })
-        )
-      ])
-    ])
+        ),
+      ]),
+    ]),
   ]),
   transition(':leave', [
     query('input', [
@@ -36,12 +36,12 @@ export const stackUpDown = trigger('stackUpDown', [
           '.15s',
           style({
             opacity: 1,
-            transform: 'translateY(-100%)'
+            transform: 'translateY(-100%)',
           })
-        )
-      ])
-    ])
-  ])
+        ),
+      ]),
+    ]),
+  ]),
 ]);
 
 /*
@@ -56,16 +56,16 @@ export const expandFromLeft = trigger('expandFromLevt', [
       animate(
         '0.3s 0.1s ease',
         style({
-          width: '*'
+          width: '*',
         })
       ),
       animate(
         '0.3s ease',
         style({
-          opacity: 1
+          opacity: 1,
         })
-      )
-    ])
+      ),
+    ]),
   ]),
   transition(':leave', [
     style({ width: '*', opacity: 1 }),
@@ -74,15 +74,15 @@ export const expandFromLeft = trigger('expandFromLevt', [
         '0.3s ease',
         style({
           transform: 'translateX(50px)',
-          width: 0
+          width: 0,
         })
       ),
       animate(
         '0.3s 0.2s ease',
         style({
-          opacity: 0
+          opacity: 0,
         })
-      )
-    ])
-  ])
+      ),
+    ]),
+  ]),
 ]);

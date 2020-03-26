@@ -2,7 +2,7 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  AfterViewInit
+  AfterViewInit,
 } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import {
   FormGroupTypes,
   FormFieldTypes,
   InputFieldTypes,
-  FormArrayTypes
+  FormArrayTypes,
 } from '@uqt/common/dynamic-form';
 import { CodeHighlightService } from '@uqt/examples/utils';
 import { IExample, ExamplesFacade } from '@uqt/examples/data-access';
@@ -20,7 +20,7 @@ import {
   markup,
   submitSyntax,
   moduleRegistry,
-  setStructureMarkup
+  setStructureMarkup,
 } from './dynamic-form.code';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
@@ -34,16 +34,16 @@ const SIMPLE_FORM: TFormStructure = [
         type: FormFieldTypes.Input,
         name: 'firstName',
         label: 'First Name',
-        validators: [Validators.required]
+        validators: [Validators.required],
       },
       {
         type: FormFieldTypes.Input,
         name: 'surname',
         label: 'Surname',
-        validators: [Validators.required]
-      }
-    ]
-  }
+        validators: [Validators.required],
+      },
+    ],
+  },
 ];
 
 const COMPLEX_FORM: TFormStructure = [
@@ -56,27 +56,27 @@ const COMPLEX_FORM: TFormStructure = [
         type: FormFieldTypes.Input,
         name: 'firstName',
         label: 'First Name',
-        validators: [Validators.required]
+        validators: [Validators.required],
       },
       {
         type: FormFieldTypes.Input,
         name: 'surname',
         label: 'Surname',
-        validators: [Validators.required]
+        validators: [Validators.required],
       },
       {
         type: FormFieldTypes.DatePicker,
         name: 'dob',
-        label: 'Date Of Birth'
+        label: 'Date Of Birth',
       },
       {
         type: FormFieldTypes.Input,
         inputType: InputFieldTypes.Email,
         name: 'email',
         label: 'Email Address',
-        validators: [Validators.email]
-      }
-    ]
+        validators: [Validators.email],
+      },
+    ],
   },
   {
     displayName: 'Dependents',
@@ -89,27 +89,27 @@ const COMPLEX_FORM: TFormStructure = [
       {
         type: FormFieldTypes.Input,
         name: 'name',
-        label: 'Name'
+        label: 'Name',
       },
       {
         type: FormFieldTypes.DatePicker,
         name: 'dob',
-        label: 'Date Of Birth'
+        label: 'Date Of Birth',
       },
       {
         type: FormFieldTypes.CheckBox,
         name: 'dependent',
-        label: 'Financially Dependent'
-      }
-    ]
-  }
+        label: 'Financially Dependent',
+      },
+    ],
+  },
 ];
 
 @Component({
   selector: 'uqt-example-dynamic-form',
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
   readonly formName = 'dynamic-form-example';
@@ -134,7 +134,7 @@ export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.formFacade.setFormConfig(this.formName, {
       classes: ['example-form'],
-      structure: SIMPLE_FORM
+      structure: SIMPLE_FORM,
     });
   }
 
@@ -152,19 +152,19 @@ export class ExampleDynamicFormComponent implements OnInit, AfterViewInit {
 
   toggleAnimations(change: MatCheckboxChange) {
     this.formFacade.setFormConfig(this.formName, {
-      animations: change.checked
+      animations: change.checked,
     });
   }
 
   togglePagination(change: MatCheckboxChange) {
     this.formFacade.setFormConfig(this.formName, {
-      paginateSections: change.checked
+      paginateSections: change.checked,
     });
   }
 
   toggleDisabled(change: MatCheckboxChange) {
     this.formFacade.setFormConfig(this.formName, {
-      enabled: !change.checked
+      enabled: !change.checked,
     });
   }
 }

@@ -12,7 +12,7 @@ describe('UiLoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UiLoginComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

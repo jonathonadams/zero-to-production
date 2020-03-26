@@ -2,7 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   OnInit,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import {
   TFormStructure,
   FormGroupTypes,
   FormFieldTypes,
-  InputFieldTypes
+  InputFieldTypes,
 } from '@uqt/common/dynamic-form';
 import { AuthFacade, ILoginCredentials } from '@uqt/shared/data-access/auth';
 
@@ -25,7 +25,7 @@ const STRUCTURE: TFormStructure = [
         name: 'username',
         label: 'Username',
         autocomplete: 'username',
-        validators: [Validators.required]
+        validators: [Validators.required],
       },
       {
         type: FormFieldTypes.Input,
@@ -33,17 +33,17 @@ const STRUCTURE: TFormStructure = [
         name: 'password',
         label: 'Password',
         autocomplete: 'current-password',
-        validators: [Validators.required]
-      }
-    ]
-  }
+        validators: [Validators.required],
+      },
+    ],
+  },
 ];
 
 @Component({
   selector: 'uqt-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
   readonly formName = 'login';
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.formFacade.setFormConfig(this.formName, {
       animations: false,
-      structure: STRUCTURE
+      structure: STRUCTURE,
     });
   }
 

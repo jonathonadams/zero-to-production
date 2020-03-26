@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   Input,
-  ChangeDetectorRef
+  ChangeDetectorRef,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -24,7 +24,7 @@ export interface ISideNaveRoute {
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [ROUTER_ANIMATIONS]
+  animations: [ROUTER_ANIMATIONS],
 })
 export class CommonUiSideNavComponent {
   @ViewChild('sidenav') sidenav: MatSidenav;

@@ -6,23 +6,23 @@ import { IUser } from '@uqt/data';
 import { demoSetupRegisterController } from './demo.controllers';
 import {
   DemoRegistrationControllerConfig,
-  DemoAuthModuleConfig
+  DemoAuthModuleConfig,
 } from './demo.interface';
 import {
   loginResolver,
-  usernameAvailableResolver
+  usernameAvailableResolver,
 } from '../graphql/auth.resolvers';
 
 // Verify can not be done via GraphQL because it will be a hyperlink in the
 export function getDemoAuthResolvers(config: DemoAuthModuleConfig): IResolvers {
   return {
     Query: {
-      usernameAvailable: usernameAvailableResolver(config.login)
+      usernameAvailable: usernameAvailableResolver(config.login),
     },
     Mutation: {
       login: loginResolver(config.login),
-      register: registerResolver(config.register)
-    }
+      register: registerResolver(config.register),
+    },
   };
 }
 

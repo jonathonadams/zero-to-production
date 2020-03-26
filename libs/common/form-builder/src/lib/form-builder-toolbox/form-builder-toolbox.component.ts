@@ -8,7 +8,7 @@ import {
   faCheckSquare,
   faToggleOn,
   faAlignJustify,
-  faObjectGroup
+  faObjectGroup,
 } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilderConstructorService } from '../form-constructor.service';
 
@@ -16,7 +16,7 @@ import { FormBuilderConstructorService } from '../form-constructor.service';
   selector: 'uqt-form-builder-toolbox',
   templateUrl: './form-builder-toolbox.component.html',
   styleUrls: ['./form-builder-toolbox.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormBuilderToolboxComponent {
   toolBoxGroupId: string;
@@ -30,7 +30,7 @@ export class FormBuilderToolboxComponent {
   }
 
   groupTypes = [
-    { display: 'Group', value: FormGroupTypes.Group, icon: faObjectGroup }
+    { display: 'Group', value: FormGroupTypes.Group, icon: faObjectGroup },
     // { display: 'Array', value: FormGroupTypes.Array, icon: faLayerGroup }
   ];
 
@@ -41,9 +41,13 @@ export class FormBuilderToolboxComponent {
     {
       display: 'Checkbox',
       value: FormFieldTypes.CheckBox,
-      icon: faCheckSquare
+      icon: faCheckSquare,
     },
     { display: 'Toggle', value: FormFieldTypes.Toggle, icon: faToggleOn },
-    { display: 'Text Area', value: FormFieldTypes.Toggle, icon: faAlignJustify }
+    {
+      display: 'Text Area',
+      value: FormFieldTypes.Toggle,
+      icon: faAlignJustify,
+    },
   ];
 }

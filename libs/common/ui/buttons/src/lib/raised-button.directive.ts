@@ -4,11 +4,11 @@ import {
   AnimationPlayer,
   AnimationMetadata,
   style,
-  animate
+  animate,
 } from '@angular/animations';
 
 @Directive({
-  selector: '[uqt-raised-button]'
+  selector: '[uqt-raised-button]',
 })
 export class RaisedButtonDirective implements OnInit {
   player: AnimationPlayer;
@@ -55,9 +55,9 @@ export class RaisedButtonDirective implements OnInit {
       animate(
         '100ms ease',
         style({
-          borderRadius: '50px'
+          borderRadius: '50px',
         })
-      )
+      ),
     ];
   }
 
@@ -67,9 +67,9 @@ export class RaisedButtonDirective implements OnInit {
       animate(
         '100ms ease',
         style({
-          borderRadius: '4px'
+          borderRadius: '4px',
         })
-      )
+      ),
     ];
   }
 }

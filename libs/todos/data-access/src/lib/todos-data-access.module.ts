@@ -10,7 +10,7 @@ import { TodoEffects } from './+state/todos.effects';
       fromTodos.todosFeatureKey,
       fromTodos.reducer
     ),
-    EffectsModule.forFeature([TodoEffects])
-  ]
+    EffectsModule.forFeature([TodoEffects]),
+  ],
 })
 export class TodosDataAccessModule {}

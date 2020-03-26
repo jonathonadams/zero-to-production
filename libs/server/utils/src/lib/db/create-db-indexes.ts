@@ -13,7 +13,7 @@ export function createDbIndexes(config: ServerConfig, url: string) {
 
 async function checkIndexes(mg: typeof mongoose) {
   const modelNames = mg.modelNames();
-  const models = modelNames.map(n => mg.model(n));
-  const indexes = models.map(m => m.ensureIndexes());
+  const models = modelNames.map((n) => mg.model(n));
+  const indexes = models.map((m) => m.ensureIndexes());
   return Promise.all(indexes);
 }

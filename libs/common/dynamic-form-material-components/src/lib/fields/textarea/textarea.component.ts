@@ -13,9 +13,9 @@ import { FormGroupTypes, ITextArea } from '@uqt/common/dynamic-form';
       .mat-form-field {
         width: 100%;
       }
-    `
+    `,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormTextAreaComponent {
   @Input() idx: number; // Only accessed if it is a FormArrayGroup

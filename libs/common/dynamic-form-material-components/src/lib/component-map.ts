@@ -1,6 +1,6 @@
 import {
   FormFieldTypes,
-  DynamicFormComponentMap
+  DynamicFormComponentMap,
 } from '@uqt/common/dynamic-form';
 import { FormInputComponent } from './fields/input/input.component';
 import { FormSelectComponent } from './fields/select/select.component';
@@ -15,5 +15,5 @@ export const MATERIAL_COMPONENT_MAP: DynamicFormComponentMap = {
   [FormFieldTypes.Select]: FormSelectComponent,
   [FormFieldTypes.Toggle]: FormToggleComponent,
   [FormFieldTypes.DatePicker]: FormDatePickerComponent,
-  [FormFieldTypes.CheckBox]: FormCheckBoxComponent
+  [FormFieldTypes.CheckBox]: FormCheckBoxComponent,
 };

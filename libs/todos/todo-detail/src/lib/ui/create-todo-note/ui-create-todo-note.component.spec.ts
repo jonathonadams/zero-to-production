@@ -10,7 +10,7 @@ describe('UiCreateTodoNoteComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UiCreateTodoNoteComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

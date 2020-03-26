@@ -4,7 +4,7 @@ import {
   getGraphQLGuards,
   getRestGuards,
   generateAuthGuardConfig,
-  createAuthDirectives
+  createAuthDirectives,
 } from '@uqt/server/auth';
 import { config, authConfig } from '../../environments/environment';
 

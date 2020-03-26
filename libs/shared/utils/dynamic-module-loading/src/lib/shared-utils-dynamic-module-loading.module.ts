@@ -4,12 +4,12 @@ import { LazyLoadScrollDirective } from './scroll/lazy-load-scroll.directive';
 import { ModuleLoaderService } from './module-loader.service';
 
 const DECLARATIONS = [
-  [ComponentFactorRendererDirective, LazyLoadScrollDirective]
+  [ComponentFactorRendererDirective, LazyLoadScrollDirective],
 ];
 
 @NgModule({
   declarations: DECLARATIONS,
   exports: DECLARATIONS,
-  providers: [ModuleLoaderService]
+  providers: [ModuleLoaderService],
 })
 export class SharedUtilsDynamicModuleLoadingModule {}

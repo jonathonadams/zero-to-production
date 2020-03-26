@@ -4,13 +4,13 @@ import {
   Output,
   EventEmitter,
   Input,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ModuleLoaderService } from '../module-loader.service';
 
 @Directive({
-  selector: '[uqtLazyLoadScroll]'
+  selector: '[uqtLazyLoadScroll]',
 })
 export class LazyLoadScrollDirective implements OnDestroy {
   private index = 1;
@@ -25,7 +25,7 @@ export class LazyLoadScrollDirective implements OnDestroy {
   @Output() loadIndex = new EventEmitter<number>();
 
   constructor(private loadingService: ModuleLoaderService) {
-    this.sub = this.loadingService.moduleLoaded$.subscribe(moduleKey => {
+    this.sub = this.loadingService.moduleLoaded$.subscribe((moduleKey) => {
       this.initLoad = false;
       // Unsubscribe if there are no modules to load anymore
       if (this.index === this.modules) {

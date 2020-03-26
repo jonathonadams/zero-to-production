@@ -16,7 +16,7 @@ const COMPONENTS = [
   ExampleFormBuilderCreateComponent,
   ExampleFormBuilderBuildComponent,
   ExampleFormBuilderDisplayComponent,
-  ExampleFormBuilderOverviewComponent
+  ExampleFormBuilderOverviewComponent,
 ];
 
 @NgModule({
@@ -29,8 +29,8 @@ const COMPONENTS = [
     CustomMaterialModule,
     CommonDynamicFormModule,
     CommonFormBuilderModule,
-    ExamplesUtilsModule
-  ]
+    ExamplesUtilsModule,
+  ],
 })
 export class ExamplesFormBuilderModule {
   static get lazyEntryComponent() {

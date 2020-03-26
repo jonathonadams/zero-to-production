@@ -8,8 +8,8 @@ export const GRAPHQL_URL = new InjectionToken<string>('GraphQLUrl');
 // Currently set cache to be ignored, change this as required
 export function createApollo(httpLink: HttpLink, uri: string) {
   const cache = new InMemoryCache({
-    dataIdFromObject: o => o.id,
-    addTypename: true
+    dataIdFromObject: (o) => o.id,
+    addTypename: true,
   });
 
   const http = httpLink.create({ uri });
@@ -24,7 +24,7 @@ export function createApollo(httpLink: HttpLink, uri: string) {
   return {
     link: concat(removeTypenameMiddleware, http),
     cache,
-    connectToDevTools: false
+    connectToDevTools: false,
   };
 }
 
@@ -38,7 +38,7 @@ function removeTypenameProperty(value: any): any {
   if (value === null || value === undefined) {
     return value;
   } else if (Array.isArray(value)) {
-    return value.map(v => removeTypenameProperty(v));
+    return value.map((v) => removeTypenameProperty(v));
   } else if (typeof value === 'object') {
     const newObj: any = {};
     Object.entries(value).forEach(([key, v]) => {

@@ -4,7 +4,7 @@ import { SharedUsersDataAccessModule } from './shared-users-data-access.module';
 describe('SharedUsersDataAccessModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedUsersDataAccessModule]
+      imports: [SharedUsersDataAccessModule],
     }).compileComponents();
   }));
 

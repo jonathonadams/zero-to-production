@@ -4,11 +4,11 @@ import {
   Input,
   ComponentFactory,
   ComponentRef,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 
 @Directive({
-  selector: '[uqtFactoryRenderer]'
+  selector: '[uqtFactoryRenderer]',
 })
 export class ComponentFactorRendererDirective implements OnDestroy {
   private componentRef: ComponentRef<any> | undefined;

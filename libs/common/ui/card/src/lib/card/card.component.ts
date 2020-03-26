@@ -2,7 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   ViewEncapsulation,
-  Input
+  Input,
 } from '@angular/core';
 import { ANIMATE_CLASS } from '@uqt/common/animations';
 
@@ -11,7 +11,7 @@ import { ANIMATE_CLASS } from '@uqt/common/animations';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class CardComponent {
   @Input() routerAnimate = false;

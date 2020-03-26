@@ -8,16 +8,16 @@ export const todoNoteSchema = new Schema<ITodoNote>(
     todoId: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: todoDbKey
+      ref: todoDbKey,
     },
     body: String,
     createdOn: {
       type: Date,
-      default: new Date()
-    }
+      default: new Date(),
+    },
   },
   {
-    ...defaultSchemaOptions
+    ...defaultSchemaOptions,
   }
 );
 

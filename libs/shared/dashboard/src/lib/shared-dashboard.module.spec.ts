@@ -4,7 +4,7 @@ import { SharedDashboardModule } from './shared-dashboard.module';
 describe('SharedDashboardModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedDashboardModule]
+      imports: [SharedDashboardModule],
     }).compileComponents();
   }));
 

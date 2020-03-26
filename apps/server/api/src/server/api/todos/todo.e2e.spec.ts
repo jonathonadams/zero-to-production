@@ -14,11 +14,11 @@ const server = new ApiServer(new Koa());
 
 const todo = {
   title: 'Some Todo',
-  description: 'A todo that needs to be done'
+  description: 'A todo that needs to be done',
 } as ITodo;
 
 const updatedTodo = {
-  completed: true
+  completed: true,
 };
 
 createGraphQLSpec(

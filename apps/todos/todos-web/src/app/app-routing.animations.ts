@@ -5,7 +5,7 @@ import {
   animate,
   trigger,
   sequence,
-  keyframes
+  keyframes,
 } from '@angular/animations';
 
 export const appRouterAnimations = trigger('appRouterAnimations', [
@@ -26,32 +26,32 @@ export const appRouterAnimations = trigger('appRouterAnimations', [
           keyframes([
             style({
               opacity: 0.75,
-              transform: 'translate3d(0, 20%, -10em) scale3d(1, 1, 1)'
+              transform: 'translate3d(0, 20%, -10em) scale3d(1, 1, 1)',
             }),
             style({
               opacity: 0.5,
-              transform: 'translate3d(0, 60%, -16em) scale3d(0.8, 0.8, 0.8)'
+              transform: 'translate3d(0, 60%, -16em) scale3d(0.8, 0.8, 0.8)',
             }),
             style({
               opacity: 0.25,
-              transform: 'translate3d(0, 120%, -18em) scale3d(0.5, 0.5, 0.5)'
+              transform: 'translate3d(0, 120%, -18em) scale3d(0.5, 0.5, 0.5)',
             }),
             style({
               opacity: 0,
-              transform: 'translate3d(0, 200%, -20em) scale3d(0.2, 0.2, 0.2)'
-            })
+              transform: 'translate3d(0, 200%, -20em) scale3d(0.2, 0.2, 0.2)',
+            }),
           ])
-        )
+        ),
       ]),
       query(':leave', [style({ left: '100%', position: 'absolute' })]),
       query(':enter', [
         style({
           position: 'relative',
           left: 0,
-          opacity: 0
+          opacity: 0,
         }),
-        animate(`100ms ease-out`, style({ opacity: 1 }))
-      ])
-    ])
-  ])
+        animate(`100ms ease-out`, style({ opacity: 1 })),
+      ]),
+    ]),
+  ]),
 ]);

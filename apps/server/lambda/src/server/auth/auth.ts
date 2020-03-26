@@ -7,7 +7,7 @@ import {
   getRefreshTokenModel,
   generateAuthModuleConfig,
   applyAuthRoutes,
-  createAuthSchema
+  createAuthSchema,
 } from '@uqt/server/auth';
 import { authConfig } from '../../environments/environment';
 

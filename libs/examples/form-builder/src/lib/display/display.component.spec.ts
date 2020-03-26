@@ -12,7 +12,7 @@ describe('ExampleFormBuilderDisplayComponent', () => {
   let fixture: ComponentFixture<ExampleFormBuilderDisplayComponent>;
 
   const builderSpy = {
-    selectedForm$: of(jest.fn())
+    selectedForm$: of(jest.fn()),
   };
 
   beforeEach(async(() => {
@@ -21,9 +21,9 @@ describe('ExampleFormBuilderDisplayComponent', () => {
       declarations: [ExampleFormBuilderDisplayComponent],
       providers: [
         { provide: FormBuilderFacade, useValue: builderSpy },
-        { provide: DynamicFormFacade, useValue: {} }
+        { provide: DynamicFormFacade, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

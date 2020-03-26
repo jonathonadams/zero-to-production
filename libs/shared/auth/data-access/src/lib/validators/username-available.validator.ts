@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   AsyncValidator,
   AbstractControl,
-  ValidationErrors
+  ValidationErrors,
 } from '@angular/forms';
 import { Observable, of, timer } from 'rxjs';
 import { map, catchError, tap, switchMap, take } from 'rxjs/operators';
@@ -24,14 +24,14 @@ export class UsernameAvailableValidator implements AsyncValidator {
           ? this.facade.usernamePending()
           : this.facade.clearAvailable()
       ),
-      switchMap(val => this.auth.isUsernameAvailable(ctrl.value)),
+      switchMap((val) => this.auth.isUsernameAvailable(ctrl.value)),
       map(
-        mutationResponse =>
+        (mutationResponse) =>
           (mutationResponse.data as {
             usernameAvailable: { isAvailable: boolean };
           }).usernameAvailable
       ),
-      tap(available => this.facade.usernameAvailable(available)), // set the available status
+      tap((available) => this.facade.usernameAvailable(available)), // set the available status
       map(({ isAvailable }) => (isAvailable ? null : { notAvailable: true })),
       catchError((e: any) => of(null))
     );

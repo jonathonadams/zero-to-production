@@ -16,7 +16,7 @@ describe('CommonUiSideNavComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [CommonUiSideNavComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -12,7 +12,7 @@ describe('GuidesComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [GuidesComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -6,7 +6,7 @@ import {
   transition,
   query,
   animateChild,
-  group
+  group,
 } from '@angular/animations';
 
 /*
@@ -25,10 +25,10 @@ export const childAnimation = trigger('childAnimation', [
     query(':leave', animateChild()),
     group([
       query(':leave', [animate('300ms ease-out', style({ left: '100%' }))]),
-      query(':enter', [animate('300ms ease-out', style({ left: '0%' }))])
+      query(':enter', [animate('300ms ease-out', style({ left: '0%' }))]),
     ]),
-    query(':enter', animateChild())
-  ])
+    query(':enter', animateChild()),
+  ]),
 ]);
 
 /*
@@ -74,10 +74,10 @@ const keyframe = trigger('keyframe', [
       keyframes([
         style({ backgroundColor: 'blue' }), // offset 0
         style({ backgroundColor: 'red' }), // offset 0.5
-        style({ backgroundColor: 'orange' }) // offset 1
+        style({ backgroundColor: 'orange' }), // offset 1
       ])
-    )
-  ])
+    ),
+  ]),
 ]);
 
 const keyframeWithOffset = trigger('keyframe', [
@@ -87,8 +87,8 @@ const keyframeWithOffset = trigger('keyframe', [
       keyframes([
         style({ backgroundColor: 'blue', offset: 0 }),
         style({ backgroundColor: 'red', offset: 0.2 }),
-        style({ backgroundColor: 'orange', offset: 1 })
+        style({ backgroundColor: 'orange', offset: 1 }),
       ])
-    )
-  ])
+    ),
+  ]),
 ]);

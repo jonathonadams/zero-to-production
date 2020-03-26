@@ -16,7 +16,7 @@ export const initialState: AuthState = {
   isAuthenticated: false,
   expiresAt: null,
   user: null,
-  isAvailable: null
+  isAvailable: null,
 };
 
 const authReducer = createReducer(
@@ -25,13 +25,13 @@ const authReducer = createReducer(
     return {
       ...state,
       isAuthenticated: true,
-      expiresAt: secondsToExpiresAtMillis(expiresIn) // expiresIn will be in seconds
+      expiresAt: secondsToExpiresAtMillis(expiresIn), // expiresIn will be in seconds
     };
   }),
-  on(fromAuth.registerSuccess, state => {
+  on(fromAuth.registerSuccess, (state) => {
     return { ...state, isAvailable: null };
   }),
-  on(fromAuth.logout, state => {
+  on(fromAuth.logout, (state) => {
     return { ...state, isAuthenticated: false };
   }),
   on(fromAuth.setAuthenticated, (state, { isAuthenticated, expiresAt }) => {
@@ -40,19 +40,19 @@ const authReducer = createReducer(
   on(fromAuth.loadAuthUserSuccess, (state, { user }) => {
     return { ...state, user };
   }),
-  on(fromAuth.clearAuthUser, state => {
+  on(fromAuth.clearAuthUser, (state) => {
     return { ...state, user: null };
   }),
-  on(fromAuth.logout, state => {
+  on(fromAuth.logout, (state) => {
     return { ...state, isAuthenticated: false };
   }),
-  on(fromAuth.usernamePending, state => {
+  on(fromAuth.usernamePending, (state) => {
     return { ...state, isAvailable: 'pending' as 'pending' };
   }),
   on(fromAuth.usernameAvailable, (state, { isAvailable }) => {
     return { ...state, isAvailable };
   }),
-  on(fromAuth.clearAvailable, state => {
+  on(fromAuth.clearAvailable, (state) => {
     return { ...state, available: null };
   })
 );

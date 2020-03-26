@@ -8,7 +8,7 @@ import * as fromDynamicForm from './dynamic-form.selectors';
 import {
   TFormStructure,
   IDynamicFormConfig,
-  DynamicFormState
+  DynamicFormState,
 } from '../dynamic-form.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -55,8 +55,8 @@ export class PrivateDynamicFormFacade {
 
   setData$(formName: string) {
     return this.setDataSubject.pipe(
-      map(data => data[formName]),
-      filter(data => data !== undefined)
+      map((data) => data[formName]),
+      filter((data) => data !== undefined)
     );
   }
 
@@ -77,7 +77,7 @@ export class PrivateDynamicFormFacade {
   }
 
   submitTriggers(formName: string) {
-    return this.submitTriggers$.pipe(filter(fN => fN === formName));
+    return this.submitTriggers$.pipe(filter((fN) => fN === formName));
   }
 
   clearErrors(formName: string) {

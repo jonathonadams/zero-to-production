@@ -16,9 +16,9 @@ describe('CssThemingComponent', () => {
       declarations: [CssThemingComponent],
       providers: [
         { provide: ThemeService, useValue: {} },
-        { provide: CodeHighlightService, useValue: {} }
+        { provide: CodeHighlightService, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -28,7 +28,7 @@ export class MockVerificationToken {
     return {
       exec: async () => {
         return token;
-      }
+      },
     };
   }
 

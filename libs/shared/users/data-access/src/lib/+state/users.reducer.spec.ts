@@ -15,7 +15,7 @@ describe('UsersReducer', () => {
   describe('LoadSuccess action', () => {
     it('should add the user to the user state', () => {
       const users = [
-        { id: '2', username: 'someUser', email: 'some@email.com' }
+        { id: '2', username: 'someUser', email: 'some@email.com' },
       ] as IUser[];
       const action = UserActions.loadUsersSuccess({ users });
 
@@ -30,23 +30,23 @@ describe('UsersReducer', () => {
       const user = {
         id: '1',
         username: 'initialUser',
-        email: 'some@email.com'
+        email: 'some@email.com',
       } as IUser;
 
       const initialState: UsersEntityState = {
         ids: [user.id],
         entities: {
-          [user.id]: user
+          [user.id]: user,
         },
-        selectedUserId: null
+        selectedUserId: null,
       };
 
       const userToUpdate = { id: '1', username: 'updatedName' } as IUser;
       const action = UserActions.updateUserSuccess({
         user: {
           id: userToUpdate.id,
-          changes: userToUpdate
-        }
+          changes: userToUpdate,
+        },
       });
 
       const result = usersReducer(initialState, action);
@@ -60,15 +60,15 @@ describe('UsersReducer', () => {
       const user = {
         id: '1',
         username: 'initialUser',
-        email: 'some@email.com'
+        email: 'some@email.com',
       } as IUser;
 
       const initialState: UsersEntityState = {
         ids: [user.id],
         entities: {
-          [user.id]: user
+          [user.id]: user,
         },
-        selectedUserId: null
+        selectedUserId: null,
       };
 
       const userToDelete = { id: '1' } as IUser;

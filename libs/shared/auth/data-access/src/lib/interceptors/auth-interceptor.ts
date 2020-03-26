@@ -3,7 +3,7 @@ import {
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
-  HttpEvent
+  HttpEvent,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
       // Clone the request and replace the original headers with
       // cloned headers, updated with the authorization.
       const authReq = req.clone({
-        setHeaders: { Authorization: `Bearer ${authToken}` }
+        setHeaders: { Authorization: `Bearer ${authToken}` },
       });
       // send cloned request with header to the next handler.
       return next.handle(authReq);

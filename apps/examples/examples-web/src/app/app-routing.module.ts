@@ -9,10 +9,10 @@ import { SelectivePreloadingStrategyService } from '@uqt/shared/data-access/rout
       preloadingStrategy: SelectivePreloadingStrategyService,
       relativeLinkResolution: 'corrected',
       scrollPositionRestoration: 'enabled',
-      anchorScrolling: 'enabled'
-    })
+      anchorScrolling: 'enabled',
+    }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class RootAppRoutingModule {}
 
@@ -20,7 +20,7 @@ export class RootAppRoutingModule {}
 export class AppRoutingModule {
   static forRoot(): ModuleWithProviders<RootAppRoutingModule> {
     return {
-      ngModule: RootAppRoutingModule
+      ngModule: RootAppRoutingModule,
     };
   }
 }

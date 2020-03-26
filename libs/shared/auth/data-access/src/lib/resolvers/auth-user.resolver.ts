@@ -19,8 +19,8 @@ export class AuthUsersResolver implements Resolve<IUser | null> {
      * the current authenticated user, i.e. logout and then log back in
      */
     return this.facade.user$.pipe(
-      tap(user => (!user ? this.facade.loadLoggedInUser() : undefined)),
-      filter(user => user !== undefined),
+      tap((user) => (!user ? this.facade.loadLoggedInUser() : undefined)),
+      filter((user) => user !== undefined),
       take(1)
     );
   }

@@ -6,5 +6,5 @@ module.exports = {
   runner: './single-thread.js',
   testEnvironment: 'node',
   preset: '../../../jest.config.js',
-  coverageDirectory: '../../../coverage/apps/server/api'
+  coverageDirectory: '../../../coverage/apps/server/api',
 };

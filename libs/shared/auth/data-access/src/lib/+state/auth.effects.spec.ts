@@ -19,7 +19,7 @@ describe('AuthEffects', () => {
     'login',
     'register',
     'setSession',
-    'removeSession'
+    'removeSession',
   ]);
 
   beforeEach(() => {
@@ -27,8 +27,8 @@ describe('AuthEffects', () => {
       providers: [
         AuthEffects,
         { provide: AuthService, useValue: authSpy },
-        provideMockActions(() => actions$)
-      ]
+        provideMockActions(() => actions$),
+      ],
     });
 
     effects = TestBed.inject<AuthEffects>(AuthEffects);
@@ -47,7 +47,7 @@ describe('AuthEffects', () => {
       actions$ = hot('-a---', { a: action });
       // Example graphql response below
       const response = cold('-a|', {
-        a: { data: { login: { token, expiresIn } } }
+        a: { data: { login: { token, expiresIn } } },
       });
       const expected = cold('--b', { b: completion });
       authService.login = jest.fn(() => response);
@@ -58,7 +58,7 @@ describe('AuthEffects', () => {
     it('should return a new LoginFailure if the login service throws', () => {
       const credentials: ILoginCredentials = {
         username: 'someOne',
-        password: ''
+        password: '',
       };
       const action = AuthActions.login(credentials);
       const error = new GraphQLError('Invalid username or password');
@@ -92,7 +92,7 @@ describe('AuthEffects', () => {
       expect(effects.loginSuccess$).toBeObservable(expected);
     });
 
-    it('should invoke the AuthService.setSession with the access token', done => {
+    it('should invoke the AuthService.setSession with the access token', (done) => {
       const spy = jest.spyOn(authService, 'setSession');
       spy.mockReset();
       const token = 'JWT.TOKEN';
@@ -101,7 +101,7 @@ describe('AuthEffects', () => {
 
       actions$ = hot('-a---', { a: action });
 
-      effects.loginSuccess$.subscribe(someAction => {
+      effects.loginSuccess$.subscribe((someAction) => {
         expect(spy).toHaveBeenCalled();
         expect(spy).toHaveBeenCalledWith({ token, expiresIn });
         done();
@@ -121,14 +121,14 @@ describe('AuthEffects', () => {
         surname: 'user',
         email: 'test@domain.com',
         dateOfBirth: '2019-01-01',
-        password: 'asF.s0f.s'
+        password: 'asF.s0f.s',
       };
 
       const registeredUser: IUser = {
         id: 'some-id',
         active: true,
         isVerified: true,
-        ...newUser
+        ...newUser,
       };
 
       const action = AuthActions.register({ details: newUser });
@@ -137,7 +137,7 @@ describe('AuthEffects', () => {
       actions$ = hot('-a---', { a: action });
       // Example graphql response below
       const response = cold('-a|', {
-        a: { data: { register: registeredUser } }
+        a: { data: { register: registeredUser } },
       });
       const expected = cold('--b', { b: completion });
       authService.register = jest.fn(() => response);
@@ -158,9 +158,9 @@ describe('AuthEffects', () => {
             lightAccent: '',
             lightPrimary: '',
             darkAccent: '',
-            darkPrimary: ''
-          }
-        }
+            darkPrimary: '',
+          },
+        },
       } as any) as IRegistrationDetails;
 
       const action = AuthActions.register({ details: newUser });
@@ -201,14 +201,14 @@ describe('AuthEffects', () => {
       expect(effects.logout$).toBeObservable(expected);
     });
 
-    it('should call the AuthService.removeSession with the returned token', done => {
+    it('should call the AuthService.removeSession with the returned token', (done) => {
       const spy = jest.spyOn(authService, 'removeSession');
       spy.mockReset();
       const action = AuthActions.logout();
 
       actions$ = hot('-a---', { a: action });
 
-      effects.logout$.subscribe(act => {
+      effects.logout$.subscribe((act) => {
         expect(spy).toHaveBeenCalled();
         done();
       });

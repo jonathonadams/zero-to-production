@@ -4,7 +4,7 @@ import { ExamplesDynamicFormModule } from './examples-dynamic-form.module';
 describe('ExamplesDynamicFormModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ExamplesDynamicFormModule]
+      imports: [ExamplesDynamicFormModule],
     }).compileComponents();
   }));
 

@@ -8,7 +8,7 @@ export const selectUserState = createFeatureSelector<
 export const {
   selectIds: selectUserIds,
   selectEntities: selectUserEntities,
-  selectAll: selectAllUsers
+  selectAll: selectAllUsers,
 } = fromUsers.adapter.getSelectors(selectUserState);
 
 export const selectCurrentUserId = createSelector(

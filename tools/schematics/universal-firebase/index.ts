@@ -7,7 +7,7 @@ import {
   Rule,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import { names } from '@nrwl/workspace';
 
@@ -16,7 +16,7 @@ interface FireBaseFunctionsSchema {
   firebaseProject: string;
 }
 
-export default function(schema: FireBaseFunctionsSchema): Rule {
+export default function (schema: FireBaseFunctionsSchema): Rule {
   return chain([
     addProjectFiles(schema.clientProject),
     updateServerDistributionPath(schema.clientProject),
@@ -25,7 +25,7 @@ export default function(schema: FireBaseFunctionsSchema): Rule {
     addProjectToNxJson(schema.clientProject),
     updateOutputPathsAndBaserHref(schema.clientProject),
     addTestFirebaseConfiguration(schema.clientProject, schema.firebaseProject),
-    addFirebaseTarget(schema.clientProject)
+    addFirebaseTarget(schema.clientProject),
   ]);
 }
 
@@ -47,9 +47,9 @@ function addProjectFiles(name: string): Rule {
           tmpl: '',
           ...names(`${name}-functions`),
           relativePath,
-          projectDirectory
+          projectDirectory,
         }),
-        move(normalize(projectDirectory))
+        move(normalize(projectDirectory)),
       ])
     );
   };
@@ -108,7 +108,7 @@ function addTestFirebaseConfiguration(
     const config = {
       outputPath: `${projectDirectory}/dist/browser`,
       index: `${projectRoot}/src/index.original.html`,
-      baseHref: `/${firebaseProject}/us-central1/universal/`
+      baseHref: `/${firebaseProject}/us-central1/universal/`,
     };
 
     angularJson.projects[name].architect.build.configurations[
@@ -154,7 +154,7 @@ function addProjectToNxJson(name: string): Rule {
 
     const project = {
       tags: [`scope:${scope}`, 'type:app', 'platform:web'],
-      implicitDependencies: [name]
+      implicitDependencies: [name],
     };
 
     nxJson.projects[projectName] = project;
@@ -182,93 +182,93 @@ function addProjectToAngularJson(name: string, firebaseProject: string): Rule {
           options: {
             outputPath: `${functionsDirectory}/dist`,
             src: `${functionsDirectory}/src`,
-            tsConfig: `${functionsDirectory}/tsconfig.json`
-          }
+            tsConfig: `${functionsDirectory}/tsconfig.json`,
+          },
         },
         'build-all': {
           builder: '@angular-devkit/architect:concat',
           options: {
             targets: [
               {
-                target: `${name}:build:functions`
+                target: `${name}:build:functions`,
               },
               {
-                target: `${name}:server`
+                target: `${name}:server`,
               },
               {
-                target: `${projectName}:build`
-              }
-            ]
+                target: `${projectName}:build`,
+              },
+            ],
           },
           configurations: {
             production: {
               targets: [
                 {
-                  target: `${name}:build:functions, production`
+                  target: `${name}:build:functions, production`,
                 },
                 {
-                  target: `${name}:server:production`
+                  target: `${name}:server:production`,
                 },
                 {
-                  target: `${projectName}:build`
-                }
-              ]
-            }
-          }
+                  target: `${projectName}:build`,
+                },
+              ],
+            },
+          },
         },
         serve: {
           builder: '@angular-devkit/architect:concat',
           options: {
             targets: [
               { target: `${projectName}:build-all` },
-              { target: `${projectName}:run` }
-            ]
-          }
+              { target: `${projectName}:run` },
+            ],
+          },
         },
         run: {
           builder: '@nrwl/workspace:run-commands',
           options: {
             commands: [
               {
-                command: `firebase serve --project ${firebaseProject}`
-              }
+                command: `firebase serve --project ${firebaseProject}`,
+              },
             ],
-            cwd: functionsDirectory
-          }
+            cwd: functionsDirectory,
+          },
         },
         deploy: {
           builder: '@nrwl/workspace:run-commands',
           options: {
             commands: [
-              { command: `firebase deploy --project ${firebaseProject}` }
+              { command: `firebase deploy --project ${firebaseProject}` },
             ],
-            cwd: functionsDirectory
-          }
+            cwd: functionsDirectory,
+          },
         },
         'build-and-deploy': {
           builder: '@angular-devkit/architect:concat',
           options: {
             targets: [
               { target: `${projectName}:build-all:production` },
-              { target: `${projectName}:deploy` }
-            ]
-          }
+              { target: `${projectName}:deploy` },
+            ],
+          },
         },
         lint: {
           builder: '@angular-devkit/build-angular:tslint',
           options: {
             tsConfig: [`${functionsDirectory}/tsconfig.spec.json`],
-            exclude: ['**/node_modules/**', `!${functionsDirectory}**`]
-          }
+            exclude: ['**/node_modules/**', `!${functionsDirectory}**`],
+          },
         },
         test: {
           builder: '@nrwl/jest:jest',
           options: {
             jestConfig: `${functionsDirectory}/jest.config.js`,
-            tsConfig: `${functionsDirectory}/tsconfig.spec.json`
-          }
-        }
-      }
+            tsConfig: `${functionsDirectory}/tsconfig.spec.json`,
+          },
+        },
+      },
     };
 
     angularJson.projects[projectName] = project;
@@ -284,18 +284,18 @@ function addFirebaseTarget(name: string): Rule {
         targets: [
           { target: `${name}:build:functions` },
           { target: `${name}:server` },
-          { target: `${name}-functions:build` }
-        ]
+          { target: `${name}-functions:build` },
+        ],
       },
       configurations: {
         production: {
           targets: [
             { target: `${name}:build:production,production` },
             { target: `${name}:server:production` },
-            { target: `${name}-functions:build` }
-          ]
-        }
-      }
+            { target: `${name}-functions:build` },
+          ],
+        },
+      },
     };
 
     const angularJson = JSON.parse(

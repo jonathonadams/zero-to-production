@@ -29,7 +29,7 @@ export const createSpyObj = (
 /** Button events to pass to `DebugElement.triggerEventHandler` for RouterLink event handler */
 export const ButtonClickEvents = {
   left: { button: 0 },
-  right: { button: 2 }
+  right: { button: 2 },
 };
 
 /** Simulate element click. Defaults to mouse left-button click event. */
@@ -47,5 +47,5 @@ export function click(
 export const storeStub = {
   dispatch: jest.fn(),
   select: jest.fn(),
-  pipe: jest.fn()
+  pipe: jest.fn(),
 };

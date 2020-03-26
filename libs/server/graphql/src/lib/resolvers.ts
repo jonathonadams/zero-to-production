@@ -7,7 +7,7 @@ import { GraphQLDate, GraphQLTime, GraphQLDateTime } from 'graphql-iso-date';
 const resolverFunctions = {
   Date: GraphQLDate,
   Time: GraphQLTime,
-  DateTime: GraphQLDateTime
+  DateTime: GraphQLDateTime,
 };
 
 export function createResolvers(...resolvers: IResolvers[]): IResolvers[] {

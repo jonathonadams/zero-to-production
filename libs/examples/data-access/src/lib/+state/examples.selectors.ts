@@ -7,5 +7,5 @@ export const selectExampleState = createFeatureSelector<
 
 export const {
   selectEntities: selectExampleEntities,
-  selectAll: selectAllExamples
+  selectAll: selectAllExamples,
 } = fromExamples.adapter.getSelectors(selectExampleState);

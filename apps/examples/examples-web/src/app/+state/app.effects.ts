@@ -7,7 +7,7 @@ import { NotificationService } from '@uqt/utils/notifications';
 import { AuthActions } from '@uqt/shared/data-access/auth';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppEffects {
   loginRedirects$ = createEffect(
@@ -32,11 +32,11 @@ export class AppEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.logoutRedirect),
-        tap(action => {
+        tap((action) => {
           this.apollo.getClient().clearStore();
           this.apollo.getClient().cache.reset();
         }),
-        tap(action => this.router.navigate(['examples', 'secure', 'login']))
+        tap((action) => this.router.navigate(['examples', 'secure', 'login']))
       ),
     { dispatch: false }
   );
@@ -50,7 +50,7 @@ export class AppEffects {
         )
       ),
     {
-      dispatch: false
+      dispatch: false,
     }
   );
 

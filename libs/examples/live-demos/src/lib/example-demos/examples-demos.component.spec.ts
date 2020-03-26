@@ -14,9 +14,9 @@ describe('ExamplesDemosComponent', () => {
       declarations: [ExamplesDemosComponent],
       providers: [
         { provide: ExamplesFacade, useValue: { examples$: of(jest.fn()) } },
-        { provide: ModuleLoaderService, useValue: {} }
+        { provide: ModuleLoaderService, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

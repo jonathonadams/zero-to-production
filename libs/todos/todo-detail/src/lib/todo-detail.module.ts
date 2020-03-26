@@ -15,7 +15,7 @@ import { UiCreateTodoNoteComponent } from './ui/create-todo-note/ui-create-todo-
     TodoDetailComponent,
     UiTodoDetailComponent,
     UiCreateTodoNoteComponent,
-    UiTodoNotesComponent
+    UiTodoNotesComponent,
   ],
   imports: [
     CommonModule,
@@ -23,8 +23,8 @@ import { UiCreateTodoNoteComponent } from './ui/create-todo-note/ui-create-todo-
     RouterModule,
     CommonUiCardModule,
     CustomMaterialModule,
-    CommonDynamicFormModule.forChild()
+    CommonDynamicFormModule.forChild(),
   ],
-  exports: [TodoDetailComponent]
+  exports: [TodoDetailComponent],
 })
 export class TodosDetailModule {}

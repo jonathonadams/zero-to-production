@@ -4,13 +4,13 @@ import {
   Input,
   OnDestroy,
   Injectable,
-  OnInit
+  OnInit,
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import {
   MAT_DATE_FORMATS,
   NativeDateAdapter,
-  DateAdapter
+  DateAdapter,
 } from '@angular/material/core';
 import { Subscription } from 'rxjs';
 import { debounceTime, filter, distinctUntilChanged } from 'rxjs/operators';
@@ -23,14 +23,14 @@ function isValidDate(date: Date): Boolean {
 
 const APP_DATE_FORMATS = {
   parse: {
-    dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
+    dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
   },
   display: {
     dateInput: 'input',
     monthYearLabel: { year: 'numeric', month: 'short' },
     dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
-    monthYearA11yLabel: { year: 'numeric', month: 'long' }
-  }
+    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+  },
 };
 
 // TODO -> i18n localTimeformat
@@ -82,13 +82,13 @@ export class MyDateAdapter extends NativeDateAdapter {
       .mat-form-field {
         width: 100%;
       }
-    `
+    `,
   ],
   providers: [
     { provide: DateAdapter, useClass: MyDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormDatePickerComponent implements OnInit, OnDestroy {
   date = new FormControl();
@@ -121,7 +121,7 @@ export class FormDatePickerComponent implements OnInit, OnDestroy {
       this.date.valueChanges
         .pipe(
           debounceTime(200),
-          filter(val => val !== null),
+          filter((val) => val !== null),
           distinctUntilChanged()
         )
         .subscribe((date: Date) => {
@@ -138,7 +138,7 @@ export class FormDatePickerComponent implements OnInit, OnDestroy {
 
   listenToStatusChanges(formGroup: FormGroup) {
     this.sub.add(
-      formGroup.statusChanges.subscribe(status => {
+      formGroup.statusChanges.subscribe((status) => {
         if (status === 'DISABLED') {
           this.date.disable();
         } else if (this.date.disabled) {

@@ -5,7 +5,7 @@ export {
   createTodoModel,
   todoDbKey,
   todoSchema,
-  todoNoteDbKey
+  todoNoteDbKey,
 } from './todo';
 export { todoTypeDef } from './todo.type';
 export { createTodosResolver } from './todo.resolver';
@@ -16,5 +16,5 @@ export {
   ITodoNoteModel,
   getTodoNoteModel,
   createTodoNoteModel,
-  todoNoteSchema
+  todoNoteSchema,
 } from './notes';

@@ -12,12 +12,12 @@ describe('ExampleFormBuilderCreateComponent', () => {
 
   const builderSpy = {
     selectedForm$: jest.fn(),
-    form$: jest.fn()
+    form$: jest.fn(),
   };
 
   const formSpy = {
     createFormIfNotExist: jest.fn(),
-    formSubmits$: () => of(jest.fn())
+    formSubmits$: () => of(jest.fn()),
   };
 
   beforeEach(async(() => {
@@ -25,9 +25,9 @@ describe('ExampleFormBuilderCreateComponent', () => {
       declarations: [ExampleFormBuilderCreateComponent],
       providers: [
         { provide: FormBuilderFacade, useValue: builderSpy },
-        { provide: DynamicFormFacade, useValue: formSpy }
+        { provide: DynamicFormFacade, useValue: formSpy },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

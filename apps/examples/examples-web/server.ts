@@ -20,7 +20,7 @@ export function app() {
   server.engine(
     'html',
     ngExpressEngine({
-      bootstrap: AppServerModule
+      bootstrap: AppServerModule,
     }) as any
   );
 
@@ -33,7 +33,7 @@ export function app() {
   server.get(
     '*.*',
     express.static(distFolder, {
-      maxAge: '1y'
+      maxAge: '1y',
     })
   );
 
@@ -41,7 +41,7 @@ export function app() {
   server.get('*', (req, res) => {
     res.render(indexHtml, {
       req,
-      providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }]
+      providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }],
     });
   });
 

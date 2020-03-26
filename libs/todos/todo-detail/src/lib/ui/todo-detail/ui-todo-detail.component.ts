@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
 } from '@angular/core';
 import { ITodo } from '@uqt/data';
 
@@ -11,7 +11,7 @@ import { ITodo } from '@uqt/data';
   selector: 'todo-ui-todo-detail',
   templateUrl: './ui-todo-detail.component.html',
   styleUrls: ['./ui-todo-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UiTodoDetailComponent {
   enabled = false;

@@ -10,7 +10,7 @@ describe('NotificationService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [NotificationService, { provide: MatSnackBar, useValue: spy }]
+      providers: [NotificationService, { provide: MatSnackBar, useValue: spy }],
     });
     notificationService = TestBed.inject<NotificationService>(
       NotificationService

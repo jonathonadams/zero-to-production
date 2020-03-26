@@ -10,9 +10,9 @@ import { ExamplesUtilsModule } from '@uqt/examples/utils';
     CommonModule,
     CommonDynamicFormModule.forChild(),
     CustomMaterialModule,
-    ExamplesUtilsModule
+    ExamplesUtilsModule,
   ],
   declarations: [ExampleDynamicFormComponent],
-  exports: [ExampleDynamicFormComponent]
+  exports: [ExampleDynamicFormComponent],
 })
 export class ExamplesDynamicFormModule {}

@@ -6,7 +6,7 @@ import * as TodoActions from './todos.actions';
 export enum TodoFilterStatus {
   All,
   Completed,
-  InCompleted
+  InCompleted,
 }
 
 export const todosFeatureKey = 'todosFeatureState';
@@ -28,7 +28,7 @@ export const initialTodoState: TodosEntityState = adapter.getInitialState({
   selectedTodoId: null,
   statusFilter: TodoFilterStatus.InCompleted,
   searchFilter: '',
-  loaded: false
+  loaded: false,
 });
 
 export const todosReducer = createReducer(
@@ -36,7 +36,7 @@ export const todosReducer = createReducer(
   on(TodoActions.selectTodo, (state, { id }) => {
     return { ...state, selectedTodoId: id };
   }),
-  on(TodoActions.clearSelected, state => {
+  on(TodoActions.clearSelected, (state) => {
     return { ...state, selectedTodoId: null };
   }),
   on(TodoActions.searchFilter, (state, { search }) => {
@@ -63,7 +63,7 @@ export const todosReducer = createReducer(
   on(TodoActions.deleteTodoSuccess, (state, { id }) => {
     return adapter.removeOne(id, state);
   }),
-  on(TodoActions.clearTodos, state => {
+  on(TodoActions.clearTodos, (state) => {
     return { ...adapter.removeAll(state), loaded: false };
   })
 );

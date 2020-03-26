@@ -1,7 +1,7 @@
 import {
   getUserModel,
   createUsersResolver,
-  createUsersRouter
+  createUsersRouter,
 } from '@uqt/server/core-data';
 import { Connection } from 'mongoose';
 

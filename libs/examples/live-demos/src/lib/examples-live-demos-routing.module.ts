@@ -15,20 +15,20 @@ const ROUTES: Routes = [
         path: 'secure',
         loadChildren: () =>
           import('@uqt/examples/secure-todos').then(
-            m => m.ExamplesSecureTodosModule
-          )
-      }
-    ]
+            (m) => m.ExamplesSecureTodosModule
+          ),
+      },
+    ],
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'examples'
-  }
+    redirectTo: 'examples',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(ROUTES)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class ExamplesLiveDemosRoutingModule {}

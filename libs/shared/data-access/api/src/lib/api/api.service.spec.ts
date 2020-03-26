@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import {
   HttpClientTestingModule,
-  HttpTestingController
+  HttpTestingController,
 } from '@angular/common/http/testing';
 
 interface TestData {
@@ -22,7 +22,7 @@ describe('ApiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ApiService, { provide: API_BASE_URL, useValue: 'api' }]
+      providers: [ApiService, { provide: API_BASE_URL, useValue: 'api' }],
     });
 
     // Inject the http service and test controller for each test
@@ -40,7 +40,7 @@ describe('ApiService', () => {
   describe('get', () => {
     it('should make a GET request to the API url /resources without query params', () => {
       // Make an HTTP GET request
-      apiService.get<TestData>('test').subscribe(data => {
+      apiService.get<TestData>('test').subscribe((data) => {
         // When observable resolves, result should match test data
         expect(data).toEqual([testData]);
       });
@@ -64,7 +64,7 @@ describe('ApiService', () => {
     it('should make a GET request to the API url /resources with query params', () => {
       apiService
         .get<TestData>('test', { data: 'some data' })
-        .subscribe(data => {
+        .subscribe((data) => {
           expect(data).toEqual(testData);
         });
 
@@ -81,7 +81,7 @@ describe('ApiService', () => {
 
   describe('getOne', () => {
     it('should make a GET request to the API url /resources/:id', () => {
-      apiService.getOne<TestData>('test', testData.id).subscribe(data => {
+      apiService.getOne<TestData>('test', testData.id).subscribe((data) => {
         expect(data).toEqual(testData);
       });
 
@@ -95,7 +95,7 @@ describe('ApiService', () => {
 
   describe('post', () => {
     it('should make a POST request to the API url /resources', () => {
-      apiService.post<TestData>('test', testData).subscribe(data => {
+      apiService.post<TestData>('test', testData).subscribe((data) => {
         expect(data).toEqual(testData);
       });
 
@@ -110,7 +110,7 @@ describe('ApiService', () => {
 
   describe('put', () => {
     it('should make a PUT request to the API url /resources/:id', () => {
-      apiService.put<TestData>('test', testData).subscribe(data => {
+      apiService.put<TestData>('test', testData).subscribe((data) => {
         expect(data).toEqual(testData);
       });
 
@@ -124,7 +124,7 @@ describe('ApiService', () => {
 
   describe('delete', () => {
     it('should make a DELETE request to the API url /resources/:id', () => {
-      apiService.delete<TestData>('test', testData).subscribe(data => {
+      apiService.delete<TestData>('test', testData).subscribe((data) => {
         expect(data).toEqual(testData);
       });
 

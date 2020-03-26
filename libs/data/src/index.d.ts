@@ -6,5 +6,5 @@ export {
   GlobalServerConfig,
   ProductionServerConfig,
   TestServerConfig,
-  DevServerConfig
+  DevServerConfig,
 } from './lib/server';

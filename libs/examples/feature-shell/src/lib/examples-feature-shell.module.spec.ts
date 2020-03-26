@@ -4,7 +4,7 @@ import { ExamplesFeatureShellModule } from './examples-feature-shell.module';
 describe('ExamplesFeatureShellModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ExamplesFeatureShellModule]
+      imports: [ExamplesFeatureShellModule],
     }).compileComponents();
   }));
 

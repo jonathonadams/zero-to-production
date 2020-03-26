@@ -3,7 +3,7 @@ import {
   style,
   query,
   animateChild,
-  animate
+  animate,
 } from '@angular/animations';
 
 /**
@@ -22,7 +22,7 @@ export const routerCardFlipAnimation = animation([
 
   query(':leave', [style({ position: 'relative' })]),
   query(':enter', [
-    style({ position: 'absolute', transform: 'translate(1000%)' })
+    style({ position: 'absolute', transform: 'translate(1000%)' }),
   ]),
 
   // Allow the children of the leaving element to animate
@@ -32,7 +32,7 @@ export const routerCardFlipAnimation = animation([
     style({ transform: 'none' }),
     animate('{{ timing }} ease-in', style({ transform: '{{ exitFlip }}' })),
     // Once it has flipped, set to absolute positioning and move off screen
-    style({ position: 'absolute', transform: 'translate(1000%)' })
+    style({ position: 'absolute', transform: 'translate(1000%)' }),
   ]),
 
   // Change the height of the parent component and set to absolute to stop any overflow
@@ -43,14 +43,14 @@ export const routerCardFlipAnimation = animation([
   query(':enter', [
     style({
       position: 'relative',
-      transform: '{{ enterFlip }}'
+      transform: '{{ enterFlip }}',
     }),
 
     // animate to normal positions
-    animate('{{ timing }} ease-out', style({ transform: 'none' }))
+    animate('{{ timing }} ease-out', style({ transform: 'none' })),
   ]),
 
   // query(':enter', style([{ position: '*', left: '*' }])),
   // Allow children to animate
-  query(':enter', animateChild())
+  query(':enter', animateChild()),
 ]);

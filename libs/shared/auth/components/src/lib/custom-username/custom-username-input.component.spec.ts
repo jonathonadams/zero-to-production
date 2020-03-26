@@ -13,9 +13,9 @@ describe('CustomUsernameInputComponent', () => {
     TestBed.configureTestingModule({
       declarations: [CustomUsernameInputComponent],
       providers: [
-        { provide: AuthFacade, useValue: { isAvailable$: jest.fn() } }
+        { provide: AuthFacade, useValue: { isAvailable$: jest.fn() } },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

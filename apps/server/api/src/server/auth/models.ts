@@ -7,7 +7,7 @@ import {
   verificationTokenDbKey,
   verificationTokenSchema,
   IVerificationTokenDocument,
-  IVerificationTokenModel
+  IVerificationTokenModel,
 } from '@uqt/server/auth';
 
 export const RefreshToken = model<IRefreshTokenDocument, IRefreshTokenModel>(

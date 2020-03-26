@@ -3,7 +3,7 @@ import {
   userDbKey,
   userSchema,
   IUserDocument,
-  IUserModel
+  IUserModel,
 } from '@uqt/server/core-data';
 
 export const User = model<IUserDocument, IUserModel>(userDbKey, userSchema);

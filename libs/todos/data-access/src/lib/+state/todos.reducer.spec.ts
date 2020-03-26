@@ -9,7 +9,7 @@
 import {
   todosReducer,
   TodosEntityState,
-  TodoFilterStatus
+  TodoFilterStatus,
 } from './todos.reducer';
 import * as TodoActions from './todos.actions';
 import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
@@ -25,17 +25,17 @@ describe('TodoReducer', () => {
     description: 'some description',
     dueDate: ('2020-01-01' as unknown) as Date,
     notes: [],
-    completed: true
+    completed: true,
   };
   const initialState: TodosEntityState = {
     ids: [todo.id],
     entities: {
-      [todo.id]: todo
+      [todo.id]: todo,
     },
     selectedTodoId: null,
     statusFilter: TodoFilterStatus.InCompleted,
     searchFilter: '',
-    loaded: false
+    loaded: false,
   };
 
   beforeEach(() => {
@@ -60,7 +60,7 @@ describe('TodoReducer', () => {
           description: 'some description',
           dueDate: ('2020-01-01' as unknown) as Date,
           notes: [],
-          completed: true
+          completed: true,
         },
         {
           id: '2',
@@ -69,8 +69,8 @@ describe('TodoReducer', () => {
           description: 'another description',
           dueDate: ('2020-01-01' as unknown) as Date,
           notes: [],
-          completed: false
-        }
+          completed: false,
+        },
       ];
 
       const action = TodoActions.loadTodosSuccess({ todos });
@@ -88,7 +88,7 @@ describe('TodoReducer', () => {
         description: 'another description',
         dueDate: ('2020-01-01' as unknown) as Date,
         notes: [],
-        completed: false
+        completed: false,
       };
 
       const action = TodoActions.createTodoSuccess({ todo: newTodo });
@@ -106,7 +106,7 @@ describe('TodoReducer', () => {
         description: 'some description',
         dueDate: ('2020-01-01' as unknown) as Date,
         notes: [],
-        completed: false
+        completed: false,
       };
       const todo2 = { ...todo1, id: '2', title: 'anotherTodo' };
 
@@ -114,21 +114,21 @@ describe('TodoReducer', () => {
         ids: [todo1.id, todo2.id],
         entities: {
           [todo1.id]: todo1,
-          [todo2.id]: todo2
+          [todo2.id]: todo2,
         },
         selectedTodoId: null,
         statusFilter: TodoFilterStatus.InCompleted,
         searchFilter: '',
-        loaded: true
+        loaded: true,
       };
 
       const updateTodo = {
         id: '2',
-        completed: true
+        completed: true,
       } as ITodo;
 
       const action = TodoActions.updateTodoSuccess({
-        todo: updateTodo
+        todo: updateTodo,
       });
       const result = todosReducer(state, action);
       expect(result).toMatchSnapshot();
@@ -144,7 +144,7 @@ describe('TodoReducer', () => {
         description: 'some description',
         dueDate: ('2020-01-01' as unknown) as Date,
         notes: [],
-        completed: true
+        completed: true,
       };
       const todo2 = { ...todo1, id: '2', title: 'anotherTodo' };
 
@@ -152,16 +152,16 @@ describe('TodoReducer', () => {
         ids: [todo1.id, todo2.id],
         entities: {
           [todo1.id]: todo1,
-          [todo2.id]: todo2
+          [todo2.id]: todo2,
         },
         selectedTodoId: null,
         statusFilter: TodoFilterStatus.InCompleted,
         searchFilter: '',
-        loaded: true
+        loaded: true,
       };
 
       const todoToDelete = {
-        id: '2'
+        id: '2',
       } as ITodo;
 
       const action = TodoActions.deleteTodoSuccess(todoToDelete);

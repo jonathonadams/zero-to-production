@@ -3,7 +3,7 @@ import {
   getTodoModel,
   createTodosResolver,
   createTodosRouter,
-  getTodoNoteModel
+  getTodoNoteModel,
 } from '@uqt/server/core-data';
 
 export const todosResolvers = (con: Connection) => {

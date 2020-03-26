@@ -20,7 +20,7 @@ export function signTestAccessToken(config: {
         expiresIn: config.expireTime,
         issuer: config.issuer,
         keyid: config.keyId,
-        audience: config.audience
+        audience: config.audience,
       }
     );
   };

@@ -3,7 +3,7 @@ export {
   isPasswordAllowed,
   generateAuthGuardConfig,
   generateAuthModuleConfig,
-  createPublicPemFromPrivate
+  createPublicPemFromPrivate,
 } from './lib/auth-utils';
 export {
   AuthModuleConfig,
@@ -15,7 +15,7 @@ export {
   AuthEnvironnementConfig,
   JWKSGuarConfig,
   GuardConfig,
-  JWKSRouteConfig
+  JWKSRouteConfig,
 } from './lib/auth.interface';
 export { getRestGuards } from './lib/routes/route.guards';
 export { applyAuthRoutes } from './lib/routes/auth.routes';

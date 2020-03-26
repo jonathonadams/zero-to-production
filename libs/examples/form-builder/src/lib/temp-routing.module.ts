@@ -6,12 +6,12 @@ const ROUTES: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: ExampleFormBuilderOverviewComponent
-  }
+    component: ExampleFormBuilderOverviewComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(ROUTES)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class TempRoutingModule {}

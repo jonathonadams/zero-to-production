@@ -4,7 +4,7 @@ import { GuidesComponent } from './guides/guides.component';
 
 @NgModule({
   imports: [RouterModule],
-  declarations: [GuidesComponent]
+  declarations: [GuidesComponent],
 })
 export class ExamplesStartYourOwnModule {
   static get lazyEntryComponent() {

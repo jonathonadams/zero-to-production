@@ -8,7 +8,7 @@ const COMPONENTS = [ExampleTodosComponent];
 
 @NgModule({
   imports: [CommonModule, MatButtonModule, ExamplesSecureTodosRoutingModule],
-  declarations: COMPONENTS
+  declarations: COMPONENTS,
 })
 export class ExamplesSecureTodosModule {
   static get lazyEntryComponent() {

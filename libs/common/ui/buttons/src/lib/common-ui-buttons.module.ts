@@ -4,6 +4,6 @@ import { RaisedButtonDirective } from './raised-button.directive';
 
 @NgModule({
   declarations: [IconButtonDirective, RaisedButtonDirective],
-  exports: [IconButtonDirective, RaisedButtonDirective]
+  exports: [IconButtonDirective, RaisedButtonDirective],
 })
 export class CommonUiButtonsModule {}

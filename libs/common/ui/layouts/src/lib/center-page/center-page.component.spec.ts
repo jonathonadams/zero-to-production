@@ -8,7 +8,7 @@ describe('CenterPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CenterPageComponent]
+      declarations: [CenterPageComponent],
     }).compileComponents();
   }));
 

@@ -4,7 +4,7 @@ import {
   query,
   style,
   stagger,
-  animate
+  animate,
 } from '@angular/animations';
 
 export const stackUpDown = trigger('stackUpDown', [
@@ -16,11 +16,11 @@ export const stackUpDown = trigger('stackUpDown', [
           '.15s',
           style({
             opacity: 1,
-            transform: 'none'
+            transform: 'none',
           })
-        )
-      ])
-    ])
+        ),
+      ]),
+    ]),
   ]),
   transition(':leave', [
     query('<some-css-query-to-select-inner-html-elements>', [
@@ -30,10 +30,10 @@ export const stackUpDown = trigger('stackUpDown', [
           '.15s',
           style({
             opacity: 1,
-            transform: 'translateY(-100%)'
+            transform: 'translateY(-100%)',
           })
-        )
-      ])
-    ])
-  ])
+        ),
+      ]),
+    ]),
+  ]),
 ]);

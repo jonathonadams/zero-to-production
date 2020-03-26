@@ -24,12 +24,12 @@ export class MockRefreshTokenModel {
         if (t) {
           return {
             ...t,
-            remove: async () => true
+            remove: async () => true,
           };
         } else {
           return null;
         }
-      }
+      },
     };
   }
 

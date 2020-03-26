@@ -13,11 +13,11 @@ export interface FormBuilderEntityState
 export const adapter: EntityAdapter<IDynamicFormConfig> = createEntityAdapter<
   IDynamicFormConfig
 >({
-  selectId: (a: IDynamicFormConfig) => a.formName
+  selectId: (a: IDynamicFormConfig) => a.formName,
 });
 
 export const initialState: FormBuilderEntityState = adapter.getInitialState({
-  selectedFormName: null
+  selectedFormName: null,
 });
 
 export const formsReducer = createReducer(
@@ -25,7 +25,7 @@ export const formsReducer = createReducer(
   on(FormActions.selectForm, (state, { formName }) => {
     return { ...state, selectedFormName: formName };
   }),
-  on(FormActions.clearSelected, state => {
+  on(FormActions.clearSelected, (state) => {
     return { ...state, selectedFormName: null };
   }),
   on(FormActions.loadFormsSuccess, (state, { forms }) => {

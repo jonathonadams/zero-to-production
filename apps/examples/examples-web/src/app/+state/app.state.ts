@@ -7,5 +7,5 @@ export interface AppState {
 }
 
 export const appReducerMap: ActionReducerMap<AppState> = {
-  router: routerReducer
+  router: routerReducer,
 };

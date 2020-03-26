@@ -4,7 +4,7 @@ import { SharedUtilsOverlayModule } from './shared-utils-overlay.module';
 describe('SharedUtilsOverlayModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedUtilsOverlayModule]
+      imports: [SharedUtilsOverlayModule],
     }).compileComponents();
   }));
 

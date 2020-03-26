@@ -10,7 +10,7 @@ export const createTodosResolver = (
   const baseResolver = createTypeResolver<ITodoDocument>({
     model: Todo,
     name: 'Todo',
-    userResourcesOnly: true
+    userResourcesOnly: true,
   });
 
   const todoNoteControllers = createTodoControllers(Todo, TodoNote);
@@ -41,7 +41,7 @@ export const createTodosResolver = (
   baseResolver.Mutation.removeTodoNote = removeTodoNoteResolver;
   // field level resolvers
   baseResolver.Todo = {
-    notes: todoNoteControllers.todoNotesFieldController
+    notes: todoNoteControllers.todoNotesFieldController,
   };
 
   return baseResolver;

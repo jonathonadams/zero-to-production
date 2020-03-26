@@ -9,7 +9,7 @@ export type TResolverAuthGuard = (
 export function createTypeResolver<T extends mongoose.Document>({
   model,
   name,
-  userResourcesOnly = false
+  userResourcesOnly = false,
 }: {
   model: mongoose.Model<T>;
   name: string;
@@ -32,13 +32,13 @@ export function createTypeResolver<T extends mongoose.Document>({
   const typeResolver = {
     Query: {
       [`${name}`]: resolvers.getOne,
-      [`all${name}s`]: resolvers.getAll
+      [`all${name}s`]: resolvers.getAll,
     },
     Mutation: {
       [`new${name}`]: resolvers.createOne,
       [`update${name}`]: resolvers.updateOne,
-      [`remove${name}`]: resolvers.removeOne
-    }
+      [`remove${name}`]: resolvers.removeOne,
+    },
   };
   return typeResolver;
 }

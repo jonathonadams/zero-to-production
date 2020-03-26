@@ -21,8 +21,8 @@ export const config: ServerConfig = {
     useCreateIndex: true,
     useFindAndModify: false,
     bufferCommands: false, // Disable mongoose buffering
-    bufferMaxEntries: 0 // and MongoDB driver buffering
-  }
+    bufferMaxEntries: 0, // and MongoDB driver buffering
+  },
 };
 
 export const authConfig: AuthEnvironnementConfig = {
@@ -37,16 +37,16 @@ export const authConfig: AuthEnvironnementConfig = {
     ),
     issuer: getEnvVariableOrWarn('ISSUER'),
     audience,
-    keyId
+    keyId,
   },
   refreshToken: {
     privateKey: getEnvVariableOrWarn('REFRESH_TOKEN_PRIVATE_KEY'),
     issuer: getEnvVariableOrWarn('ISSUER'),
     publicKey: getEnvVariableOrWarn('REFRESH_TOKEN_PUBLIC_KEY'),
-    audience
+    audience,
   },
   email: {
     sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY'),
-    authServerUrl
-  }
+    authServerUrl,
+  },
 };

@@ -2,7 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   AfterViewInit,
-  OnInit
+  OnInit,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ThemeService } from '@uqt/common/theme';
@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
   selector: 'ex-css-theming',
   templateUrl: './css-theming.component.html',
   styleUrls: ['./css-theming.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CssThemingComponent implements OnInit, AfterViewInit {
   form: FormGroup;
@@ -33,7 +33,7 @@ export class CssThemingComponent implements OnInit, AfterViewInit {
     this.dark$ = this.themeService.darkTheme$;
     this.form = this.fb.group(this.baseTheme);
 
-    this.form.valueChanges.subscribe(themeSettings => {
+    this.form.valueChanges.subscribe((themeSettings) => {
       this.themeService.setThemeColors(themeSettings);
     });
   }
@@ -52,7 +52,7 @@ export class CssThemingComponent implements OnInit, AfterViewInit {
       lightPrimary: ['#ffaa00'],
       lightAccent: ['#0047B3'],
       darkPrimary: ['#d33685'],
-      darkAccent: ['#20eff0']
+      darkAccent: ['#20eff0'],
     };
   }
 

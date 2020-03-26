@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import {
   HttpTestingController,
-  HttpClientTestingModule
+  HttpClientTestingModule,
 } from '@angular/common/http/testing';
 import { AuthInterceptor } from './auth-interceptor';
 import { Type } from '@angular/core';
@@ -14,7 +14,7 @@ describe('AuthInterceptor', () => {
   let authService: AuthService;
 
   const authSpy = {
-    authToken: jest.fn()
+    authToken: jest.fn(),
   };
 
   beforeEach(() => {
@@ -24,10 +24,10 @@ describe('AuthInterceptor', () => {
         {
           provide: HTTP_INTERCEPTORS,
           useClass: AuthInterceptor,
-          multi: true
+          multi: true,
         },
-        { provide: AuthService, useValue: authSpy }
-      ]
+        { provide: AuthService, useValue: authSpy },
+      ],
     });
 
     httpClient = TestBed.inject<HttpClient>(HttpClient);
@@ -43,13 +43,13 @@ describe('AuthInterceptor', () => {
     Object.defineProperty(authService, 'authToken', {
       get: () => {
         return token;
-      }
+      },
     });
 
     const someData = { data: 'someData ' };
 
     // Make an HTTP GET request
-    httpClient.get('/test').subscribe(data => {
+    httpClient.get('/test').subscribe((data) => {
       // When observable resolves, result should match test data
       expect(data).toEqual(someData);
     });
@@ -76,13 +76,13 @@ describe('AuthInterceptor', () => {
     Object.defineProperty(authService, 'authToken', {
       get: () => {
         return null;
-      }
+      },
     });
 
     const someData = { data: 'someData ' };
 
     // Make an HTTP GET request
-    httpClient.get('/test').subscribe(data => {
+    httpClient.get('/test').subscribe((data) => {
       // When observable resolves, result should match test data
       expect(data).toEqual(someData);
     });

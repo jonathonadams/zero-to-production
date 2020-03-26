@@ -9,12 +9,12 @@ const ROUTES: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('@uqt/todos/feature-shell').then(m => m.TodosFeatureShellModule)
-  }
+      import('@uqt/todos/feature-shell').then((m) => m.TodosFeatureShellModule),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(ROUTES)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class ExamplesSecureTodosRoutingModule {}

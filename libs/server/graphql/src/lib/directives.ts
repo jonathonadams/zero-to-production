@@ -4,7 +4,7 @@ import {
   GraphQLString,
   GraphQLField,
   GraphQLObjectType,
-  GraphQLInterfaceType
+  GraphQLInterfaceType,
 } from 'graphql';
 import formatDate from 'date-fns/format';
 
@@ -18,7 +18,7 @@ export class LogDirective extends SchemaDirectiveVisitor {
   visitFieldDefinition(field: TField, details: TVisitedFieldDetails) {
     const { resolve = defaultFieldResolver } = field;
 
-    field.resolve = async function(root, args, ctx, info) {
+    field.resolve = async function (root, args, ctx, info) {
       console.log(`⚡️  ${details.objectType}.${field.name}`);
       return resolve.call(this, root, args, ctx, info);
     };
@@ -32,10 +32,10 @@ export class FormatDateDirective extends SchemaDirectiveVisitor {
 
     field.args.push({
       name: 'format',
-      type: GraphQLString
+      type: GraphQLString,
     } as any);
 
-    field.resolve = async function(root, { format, ...rest }, ctx, info) {
+    field.resolve = async function (root, { format, ...rest }, ctx, info) {
       const date = await resolve.call(this, root, rest, ctx, info);
       return formatDate(date, format || defaultFormat);
     };

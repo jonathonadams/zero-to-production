@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
     this.auth.isLoggedIn();
 
     return this.facade.isAuthenticated$.pipe(
-      tap(loggedIn => (!loggedIn ? this.facade.logout() : undefined))
+      tap((loggedIn) => (!loggedIn ? this.facade.logout() : undefined))
     );
   }
 }

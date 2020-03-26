@@ -12,10 +12,10 @@ describe('CheckForUpdatesService', () => {
   let appRef: ApplicationRef;
   const updateSpy = {
     available: of(jest.fn()),
-    activated: of(jest.fn())
+    activated: of(jest.fn()),
   };
   const appRefSpy = {
-    isStable: of(jest.fn())
+    isStable: of(jest.fn()),
   };
 
   beforeEach(() => {
@@ -24,8 +24,8 @@ describe('CheckForUpdatesService', () => {
         CheckForUpdatesService,
         { provide: SwUpdate, useValue: updateSpy },
         { provide: ApplicationRef, useValue: appRefSpy },
-        { provide: DOCUMENT, useValue: {} }
-      ]
+        { provide: DOCUMENT, useValue: {} },
+      ],
     });
     swService = TestBed.inject<CheckForUpdatesService>(CheckForUpdatesService);
     updates = TestBed.inject<SwUpdate>(SwUpdate);

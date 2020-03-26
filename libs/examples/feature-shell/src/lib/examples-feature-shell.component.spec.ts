@@ -14,7 +14,7 @@ describe('ExamplesFeatureShellComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ExamplesFeatureShellComponent],
       providers: [{ provide: ExamplesFacade, useValue: facadeSpy }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

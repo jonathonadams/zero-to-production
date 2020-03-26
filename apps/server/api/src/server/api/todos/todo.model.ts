@@ -7,7 +7,7 @@ import {
   ITodoNoteDocument,
   ITodoNoteModel,
   todoNoteDbKey,
-  todoNoteSchema
+  todoNoteSchema,
 } from '@uqt/server/core-data';
 
 export const Todo = model<ITodoDocument, ITodoModel>(todoDbKey, todoSchema);

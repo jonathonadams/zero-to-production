@@ -3,7 +3,7 @@ import { IUser } from '@uqt/data';
 import {
   ILoginCredentials,
   ILoginResponse,
-  IRegistrationDetails
+  IRegistrationDetails,
 } from '../auth.interface';
 
 export const loginRedirect = createAction('[Auth] Login Redirect');

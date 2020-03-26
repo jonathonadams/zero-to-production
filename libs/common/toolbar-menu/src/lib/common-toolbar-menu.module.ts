@@ -12,15 +12,15 @@ import { UiDropDownMenuComponent } from './components/ui/ui-drop-down-menu.compo
   declarations: [
     ToolbarMenuIconComponent,
     DropDownMenuComponent,
-    UiDropDownMenuComponent
+    UiDropDownMenuComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     CustomMaterialModule,
     SharedUtilsOverlayModule,
-    SharedUsersDataAccessModule
+    SharedUsersDataAccessModule,
   ],
-  exports: [ToolbarMenuIconComponent]
+  exports: [ToolbarMenuIconComponent],
 })
 export class CommonToolbarMenuModule {}

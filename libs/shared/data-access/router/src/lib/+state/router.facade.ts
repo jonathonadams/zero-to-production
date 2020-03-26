@@ -8,7 +8,7 @@ import {
   selectRouteParam,
   selectQueryParam,
   selectRouteData,
-  selectUrl
+  selectUrl,
 } from './router.selector';
 
 @Injectable({ providedIn: 'root' })

@@ -3,5 +3,5 @@ export {
   ModuleLoaderService,
   LAZY_MODULE_REGISTRY,
   // TModuleImportPath,
-  ILazyModuleRegistry
+  ILazyModuleRegistry,
 } from './lib/module-loader.service';
