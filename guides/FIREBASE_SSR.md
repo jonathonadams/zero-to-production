@@ -6,11 +6,12 @@ Ensure you have all the [prerequisites] setup and ready prior to starting this g
 
 ## Firebase Tools
 
-While deploying your SSR application is pretty straight forward there are a couple of gotchas that need to be understood and configured.
+// TODO -> Reword
+While deploying your SSR application is pretty straight forward there are a couple of TODO tips gotchas that need to be understood and configured.
 
-As it stands, Firebase tools is not really built to work nicely with Monorepos. By default if you run `firebase init` and select cloud functions (TS or JS), it will create a `functions/` directory at the root of your project. It will also create a `package.json` that lists build scrips, dependencies and most importantly the entry point to your functions via the `main` field. It will also prompt you to install required dependencies **INSIDE** the `functions/` directory, which you do **NOT** want.
+As it stands, Firebase tools is not really built to work nicely with Monorepos. By default, if you run `firebase init` and select cloud functions (TS or JS) it will create a `functions/` directory at the root of your project. It will also create a `package.json` inside the `functions/` directory that lists build scripts, dependencies and most importantly the entry point to your functions via the `main` field. It will also prompt you to install required dependencies **inside** the `functions/` directory which you do **not** want.
 
-It is important to understand that the reason the `package.json` is added inside the `functions` directory is that when you deploy your functions with `firebase deploy`, firebase tools will deploy the entire contends of the `functions/` directory to firebase (including the `package.json`), install dependencies with `npm i`, run any commands listed under the `predeploy` field under the `functions` field in `firebase.json` then run the entry file designated in the `main` field in the `package.json`. Note that the scripts listed in the `predeploy` are those listed in the `package.json` file inside of the `functions/` directory. Effectively if you want anything to be deployed to [Firebase Functions] it must be inside of the specified directory
+It is important to understand that the reason the `package.json` is added inside the `functions/` directory is that when you deploy your functions with `firebase deploy`, firebase tools will deploy the entire contents of the `functions/` directory. Firebase will then install all dependencies, run any commands listed under the `predeploy` field under the `functions` field in `firebase.json` and then run the entry file designated in the `main` field in the `package.json`. Note that the scripts listed in the `predeploy` are those listed in the `package.json` file inside of the `functions/` directory. Effectively if you want anything to be deployed to [Firebase Functions] it must be inside of the specified directory.
 
 Although by default the directory that is deployed is the `functions/` directory, this can be configured in `firebase.json` (see below). Currently only one deployment directory can be specified and only one `firebase.json` file is supported. See [#590] & [#1115] for further details.
 
@@ -18,7 +19,7 @@ The limitation of the single `firebase.json` can be worked around with the help 
 
 ## Add Angular Universal
 
-With all that being said this guide will walk through deploying the `todos` application using Angular Universal SSR. It is advised to read through the [Angular Universal] guide to help understand the complexity that Angular Universal is hiding for you. Some of the limitations of using SSR will become apparent with the `todos` app and the decision to use SSR is not always straight forward.
+With all that being said this guide will walk through deploying the `todos-web` application using Angular Universal SSR. It is advised to read through the [Angular Universal] guide to help understand the complexity that Angular Universal is taking care of for you. Some of the limitations of using SSR will become apparent with the `todos` app and the decision to use SSR is not always straight forward.
 
 ### 1. Add & Configure Angular Universal for the Todo Application
 
@@ -28,10 +29,10 @@ Add angular universal to the Todos Application with the express engine schematic
 $ ng add @nguniversal/express-engine --clientProject todos-web
 ```
 
-A number of files are created and edited as per [Angular Universal] however note the following:
+A number of files are created and edited as per the docs at [Angular Universal], however note the following:
 
 - `AppModule`: the imported `BrowserModule` now calls `withServerTransition({appId: 'serverApp'})`. Change `serverApp` to something like `todoApp`.
-- `server.ts`: there will be some errors, one because of our typescript configuration and a type definition mismatch. Change the following two statements.
+- `server.ts`: there will be some errors because of the TypeScript configuration and a type definition mismatch. Change the following two statements.
 
   ```typescript
   // change
@@ -63,29 +64,29 @@ A number of files are created and edited as per [Angular Universal] however note
 
 Some additional build targets in `angular.json` and scripts in `package.json` have been added. Notice that the `outputPath` has been altered for the app. The browser build now outputs to the `browser` directory and the new server build outputs to `server` directory.
 
-In the `server.ts` file, take note of the currently set distribution folder
+In the `server.ts` file take note of the distribution folder
 
 ```typescript
 const distFolder = join(process.cwd(), 'dist/todos-web/browser');
 ```
 
-Note that it is pointing to the output directory of the browser build and that it is assumes the current working directory is the root directory. While this is fine initially the path will be altered later when configuring for Firebase functions.
+Note that it is pointing to the output directory of the browser build and that it is assumes the current working directory is the root directory. While this is fine initially, the path will be altered later when configuring for Firebase functions.
 
-### 2. Test SSR is working.
+### 2. Test SSR is working
 
-Test that SSR is working correctly by opening an incognito browser window and **disable JavaScript** (ctrl + shift + p) in the developers console so that we can see the server rendered application only. Then run to serve.
+Test that SSR is working correctly by opening an incognito browser window and **disable JavaScript** (ctrl + shift + p in the developers console) so that we can see the server rendered application only. Then run to server.
 
 ```bash
 $ npm run dev:srr
 ```
 
-Once compiled visit `http://localhost:4200` to access your App. The normal `login` page should be shown. If you try to login, nothing will happen. Because the JavaScript can not bootstrap some feature will not work, e.g. forms.
+Once compiled, visit `http://localhost:4200` to access your application. The normal `login` page should be shown. If you try to login, nothing will happen. Because JavaScript can not bootstrap some features will not work, e.g. forms.
 
-Open another incognito window and try again. All functionality should work as normal. Locally it will almost be too quick to notice the server rendered output but once the `.js` bundles load the client application bootstraps and transitions from the server rendered to client rendered. To view the original server rendered markup right click & `inspect source`.
+Open another incognito window and try again. All functionality should work as normal. It will almost be too quick to notice the server rendered output when run locally but once the `.js` bundles load the client application bootstraps and transitions from server rendered to client rendered. To view the original server rendered markup right click & `inspect source`.
 
-While the Todo application might have limited benefits for SSR your application might i.e only part of the application might require authentication. The 'Examples' application (this site) mostly will work without JavaScript enabled, try it out.
+While the Todo application might have limited benefits for SSR, your application might i.e only part of the application might require authentication. The 'examples' application (this site) mostly will work without JavaScript enabled, try it out.
 
-Word of warning - If you access browser API's (such as `localStorage`) these will throw errors in the server rendered application depending on when you access them. Ensure to check what platform the application is currently running on when the API is accessed.
+A word of warning - If you access browser API's (such as `localStorage`) these will throw errors in the server rendered application depending on when you access them. Ensure to check what platform the application is currently running on when the API is accessed.
 
 ```typescript
 constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
@@ -101,23 +102,23 @@ someMethod() {
 
 ## Initialize & Configure Firebase Functions
 
-Because of the limitations of the Firebase Cli as discussed above, there is some setup required to make it work nicely with the Monorepo structure. Rather than create and setup the files manually a workspace schematic is provided in `tools/schematics/` to scaffold a new _functions_ project and modify our Todos application. To run the schematic run the following.
-
-The Firebase project option is the project name as listed on Firebase.
+Because of the limitations of the Firebase Cli as discussed above, there is some setup required to make it work nicely with the Monorepo structure. Rather than create and setup the files manually, a workspace schematic is provided in `tools/schematics/` to scaffold a new _functions_ project and modify our Todos application. To run the schematic run the following:
 
 ```bash
 $ npx nx workspace-schematic universal-firebase --clientProject=todos-web --firebaseProject=<your-firebase-project-name>
 ```
 
+The Firebase project option is the project name as listed on Firebase.
+
 This will create a new project in `apps/todos/todos-web-functions`.
 
-If a firebase project has previously been initialized `.firebaserc` & `firebase.json` files should be present in the root directory. These files can now be deleted as they are not needed.
+If a firebase project has previously been initialized, a `firebase.json` file should be present in the root directory. These files can now be deleted as they are not needed.
 
 ## What has the schematic done?
 
-The schematic has taken care of scaffolding and configuring the Universal Application and has configured the following. A new `todos-web-functions` project has been added to the `angular.json`.
+The schematic has taken care of scaffolding and configuring the Universal Application and has added a new `todos-web-functions` project.
 
-When you deploy the functions only resources packaged inside the projects directory (`apps/todos/todos-web-functions`) are published so the project is configured to build into a `dist/` directory **inside** the project directory, i.e. `apps/todos/todos-web-functions/dist/`. This means the **current working directory** of the server process (`server.ts`) will be different when hosted on cloud functions and the `distFolder` has been altered to reflect.
+When you deploy to Firebase only resources packaged inside the project directory (`apps/todos/todos-web-functions`) are published so the project is configured to build into a `dist/` directory **inside** the source directory, i.e. `apps/todos/todos-web-functions/dist/`. This means the **current working directory** of the server process (`server.ts`) will be different when hosted on cloud functions and the `distFolder` inside `server.ts` has been altered to reflect the new current working directory.
 
 ```typescript
 // server.ts
@@ -128,9 +129,11 @@ const distFolder = join(process.cwd(), 'dist/todos-web/browser');
 const distFolder = join(process.cwd(), 'dist/browser');
 ```
 
-Along with the normal cli targets, **`ng build|test|lint <project>`**, additional target have been added.
+Along with the normal Angular Cli targets, **`ng build|test|lint <project>`**, additional targets have been added.
 
-- **`build-all`** (& **`build-all:production`**): This will build the functions as well as both the client app and server side bundle into the functions `dist/` directory. Specifically, the client app is build with `functions` target, e.g `todos-web:build:functions`.
+// CONTINUE FROM HERE
+
+- **`build-all`** (& **`build-all:production`**): this will build the functions as well as both the client app and server side bundle into the functions `dist/` directory. Specifically, the client app is build with `functions` target, e.g `todos-web:build:functions`.
 - **`run`**: sets the CWD to the project src directory (i.e. `apps/todos/todos-web-functions`) and executes
   ```bash
   $ firebase server --project <your-firebase-project>

@@ -2,7 +2,7 @@
 
 ## Before you Start
 
-Ensure you have all the [prerequisites] setup and ready prior to starting this guide.
+Ensure you have all the [prerequisites] completed prior to starting this guide.
 
 ## Run you Functions locally
 
