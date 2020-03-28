@@ -1,13 +1,8 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewChild,
-  Input,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MatSidenav } from '@angular/material/sidenav';
 import { ROUTER_ANIMATIONS } from '@ztp/common/animations';
+
+// https://jonsuh.com/hamburgers/
 
 export interface ISideNaveRoute {
   path: string;
@@ -27,15 +22,11 @@ export interface ISideNaveRoute {
   animations: [ROUTER_ANIMATIONS],
 })
 export class CommonUiSideNavComponent {
-  @ViewChild('sidenav') sidenav: MatSidenav;
+  isOpen = false;
+
+  @Input() menuButton = true;
   @Input() routes: ISideNaveRoute[] | null;
-
-  constructor(private cd: ChangeDetectorRef) {}
-
-  public toggle() {
-    this.sidenav.toggle();
-    this.cd.markForCheck();
-  }
+  @Input() mode = 'push';
 
   prepareRoute(outlet: RouterOutlet) {
     return (

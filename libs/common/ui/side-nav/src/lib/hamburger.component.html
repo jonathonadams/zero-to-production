@@ -1,0 +1,10 @@
+<button
+  class="hamburger hamburger--slider mat-elevation-z3"
+  type="button"
+  [ngClass]="{ 'is-active': isOpen }"
+  (click)="toggle.emit(!isOpen)"
+>
+  <span aria-hidden="true" class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>

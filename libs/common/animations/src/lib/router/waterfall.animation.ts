@@ -18,9 +18,11 @@ export const WATERFALL_ANIMATION: AnimationMetadata[] = [
     // aligned at the top of the container using absolute positioning. The
     // top container (the one with [@routerAnimations]) needs to relative...
     style({ position: 'relative' }),
+    // Don't set the 'top' property, because the router might not be at the top of the page
     query(
       ':enter, :leave',
-      style({ position: 'absolute', top: 0, left: 0, right: 0 })
+      style({ position: 'absolute', left: 0, right: 0 }),
+      { optional: true }
     ),
     // hide all the cards since each route makes use of that
     query(

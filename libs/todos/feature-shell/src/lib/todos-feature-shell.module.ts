@@ -10,7 +10,6 @@ import { CommonDynamicFormModule } from '@ztp/common/dynamic-form';
 import { TodosFeatureShellRoutingModule } from './todos-feature-shell-routing.module';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
 import { SharedAuthComponentsModule } from '@ztp/shared/auth/components';
-import { CustomMaterialModule } from '@ztp/common/ui/custom-material';
 
 @NgModule({
   declarations: [TodoFeatureShellComponent],
@@ -24,7 +23,6 @@ import { CustomMaterialModule } from '@ztp/common/ui/custom-material';
     TodosFeatureShellRoutingModule,
     CommonToolbarMenuModule,
     CommonUiLayoutsModule,
-    CustomMaterialModule,
     SharedAuthComponentsModule,
   ],
 })

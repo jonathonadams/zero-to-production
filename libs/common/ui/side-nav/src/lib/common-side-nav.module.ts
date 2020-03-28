@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CustomMaterialModule } from '@ztp/common/ui/custom-material';
 import { CommonUiSideNavComponent } from './side-nav.component';
+import { HamburgerComponent } from './hamburger.component';
 
 @NgModule({
-  declarations: [CommonUiSideNavComponent],
+  declarations: [CommonUiSideNavComponent, HamburgerComponent],
   imports: [CommonModule, RouterModule, CustomMaterialModule],
   exports: [CommonUiSideNavComponent],
 })

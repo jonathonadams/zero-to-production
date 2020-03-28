@@ -1,13 +1,5 @@
-<ztp-ui-toolbar class="header">
-  <button toolbarLeft (click)="sidenav.toggle()" mat-mini-fab color="accent">
-    <mat-icon>menu</mat-icon>
-  </button>
-
-  <ztp-toolbar-menu-icon toolbarRight></ztp-toolbar-menu-icon>
-</ztp-ui-toolbar>
-
-<ztp-common-ui-sidenav
-  class="app-content"
-  #sidenav
-  [routes]="routes"
-></ztp-common-ui-sidenav>
+<ztp-common-ui-sidenav [routes]="routes" [mode]="'push'">
+  <ztp-ui-toolbar toolbar>
+    <ztp-toolbar-menu-icon toolbarRight></ztp-toolbar-menu-icon>
+  </ztp-ui-toolbar>
+</ztp-common-ui-sidenav>
