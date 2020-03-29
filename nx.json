@@ -106,13 +106,13 @@
     "common-form-builder": {
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
+    "common-grid": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
+    },
     "common-toolbar-menu": {
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
     "common-ui-side-nav": {
-      "tags": ["scope:shared", "type:ui", "platform:web"]
-    },
-    "common-ui-custom-material": {
       "tags": ["scope:shared", "type:ui", "platform:web"]
     },
     "common-ui-toolbar": {

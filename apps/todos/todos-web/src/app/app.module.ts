@@ -17,7 +17,7 @@ import {
 } from '@ztp/shared/auth/data-access';
 import { SharedUsersDataAccessModule } from '@ztp/shared/users/data-access';
 import { TodosFeatureShellModule } from '@ztp/todos/feature-shell';
-import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AppEffects } from './+state/app.effects';
 import { AppState, appReducerMap } from './+state/app.state';
 import { CommonDynamicFormModule } from '@ztp/common/dynamic-form';

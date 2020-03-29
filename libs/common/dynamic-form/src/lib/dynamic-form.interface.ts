@@ -77,12 +77,12 @@ export interface ISelectField extends IBaseField {
   selectOptions: ISelectOption[];
 }
 
-export interface IToggleField extends IBaseField {
-  type: FormFieldTypes.Toggle;
-}
-
 export interface IDatePickerField extends IBaseField {
   type: FormFieldTypes.DatePicker;
+}
+
+export interface ICheckBoxField extends IBaseField {
+  type: FormFieldTypes.CheckBox;
 }
 
 export interface ISelectOption {
@@ -97,9 +97,9 @@ export interface ICustomInput extends IBaseField {
 export type TField =
   | IInputField
   | ISelectField
-  | IToggleField
   | IDatePickerField
   | ITextArea
+  | ICheckBoxField
   | ICustomInput;
 
 // There are more to complete here
@@ -152,7 +152,6 @@ export enum FormFieldTypes {
   Input = 'INPUT',
   TextArea = 'TEXT_AREA',
   Select = 'SELECT',
-  Toggle = 'TOGGLE',
   DatePicker = 'DATE_PICKER',
   CheckBox = 'CHECK_BOX',
 }

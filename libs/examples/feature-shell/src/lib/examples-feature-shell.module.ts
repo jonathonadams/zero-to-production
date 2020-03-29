@@ -6,19 +6,21 @@ import { CommonUiToolbarModule } from '@ztp/common/ui/toolbar';
 import { CommonUiCardModule } from '@ztp/common/ui/card';
 import { AnimateScrollEntryDirective } from '@ztp/examples/utils';
 import { ExampleComponent } from './example/example.component';
-import { CustomMaterialModule } from '@ztp/common/ui/custom-material';
 import { ExamplesDataAccessModule } from '@ztp/examples/data-access';
 import { ExamplesHomeComponent } from './home/home.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ExamplesHeaderComponent } from './header/header.component';
+import { SharedUtilsNotificationModule } from '@ztp/shared/utils/notifications';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
-    CustomMaterialModule,
     CommonUiToolbarModule,
     CommonUiCardModule,
+    MatButtonModule,
     ScrollingModule,
+    SharedUtilsNotificationModule,
     ExamplesDataAccessModule,
     ExamplesFeatureShellRoutingModule,
   ],

@@ -7,13 +7,13 @@
   $nav-background: mat-color($background, dialog);
 
   $hover: mat-color($background, hover);
-  $border: solid 1px mat-color($foreground, divider);
+  // $border: solid 1px mat-color($foreground, divider);
 
   .main-menu {
     background-color: $nav-background;
     a {
       color: mat-color($foreground, text);
-      border-bottom: $border;
+      // border-bottom: $border;
 
       &:hover,
       &:focus {
@@ -21,8 +21,8 @@
       }
     }
 
-    li:first-of-type a {
-      border-top: $border;
-    }
+    // li:first-of-type a {
+    // border-top: $border;
+    // }
   }
 }

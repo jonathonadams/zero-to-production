@@ -43,10 +43,9 @@ export class FormBuilderToolboxComponent {
       value: FormFieldTypes.CheckBox,
       icon: faCheckSquare,
     },
-    { display: 'Toggle', value: FormFieldTypes.Toggle, icon: faToggleOn },
     {
       display: 'Text Area',
-      value: FormFieldTypes.Toggle,
+      value: FormFieldTypes.TextArea,
       icon: faAlignJustify,
     },
   ];

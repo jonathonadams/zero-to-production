@@ -129,10 +129,8 @@ export class DynamicFormService {
 
     // If the default value is either a toggle or a checkbox, then set default value to false rather than empty string
     const defaultVal =
-      field.type === FormFieldTypes.Toggle ||
-      field.type === FormFieldTypes.CheckBox
-        ? false
-        : '';
+      // field.type === FormFieldTypes.Toggle ||
+      field.type === FormFieldTypes.CheckBox ? false : '';
 
     return this.fb.control(defaultVal, validators, asyncValidators);
   }

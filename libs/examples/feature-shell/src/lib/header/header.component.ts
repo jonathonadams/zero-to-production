@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ThemeService } from '@ztp/common/theme';
+import { ThemeService } from '@ztp/shared/utils/theme';
 
 @Component({
   selector: 'ztp-examples-header',

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CustomMaterialModule } from '@ztp/common/ui/custom-material';
 import { CommonUiSideNavComponent } from './side-nav.component';
 import { HamburgerComponent } from './hamburger.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [CommonUiSideNavComponent, HamburgerComponent],
-  imports: [CommonModule, RouterModule, CustomMaterialModule],
+  imports: [CommonModule, RouterModule, MatIconModule],
   exports: [CommonUiSideNavComponent],
 })
 export class CommonUiSideNavModule {}

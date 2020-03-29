@@ -42,8 +42,9 @@
 
 ### Angular App
 
+- [x] Rail navigation component
+- [ ] Drag & Drop Grid/Dashboard System
 - [ ] Add a settings section
-- [ ] Rail navigation component
 - [ ] Feature Flag Service
 - [ ] Add following examples
   - Content Projection with layouts modules

@@ -13,7 +13,6 @@ import {
   faCalendarAlt,
   faCheckSquare,
   faList,
-  faToggleOn,
   faAlignJustify,
   IconDefinition,
   faTrash,
@@ -84,8 +83,6 @@ export class FormBuilderFieldComponent {
         return faList;
       case FormFieldTypes.TextArea:
         return faAlignJustify;
-      case FormFieldTypes.Toggle:
-        return faToggleOn;
     }
   }
 }

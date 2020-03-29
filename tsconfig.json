@@ -37,17 +37,16 @@
         "libs/shared/utils/service-worker/src/index.ts"
       ],
       "@ztp/shared/utils/storage": ["libs/shared/utils/storage/src/index.ts"],
+      "@ztp/shared/utils/theme": ["libs/shared/utils/theme/src/index.ts"],
       "@ztp/common/animations": ["libs/common/animations/src/index.ts"],
       "@ztp/common/dynamic-form": ["libs/common/dynamic-form/src/index.ts"],
       "@ztp/common/dynamic-form-material-components": [
         "libs/common/dynamic-form-material-components/src/index.ts"
       ],
       "@ztp/common/form-builder": ["libs/common/form-builder/src/index.ts"],
-      "@ztp/common/theme": ["libs/shared/utils/theme/src/index.ts"],
+      "@ztp/common/grid": ["libs/common/grid/src/index.ts"],
+
       "@ztp/common/ui/side-nav": ["libs/common/ui/side-nav/src/index.ts"],
-      "@ztp/common/ui/custom-material": [
-        "libs/common/ui/custom-material/src/index.ts"
-      ],
       "@ztp/common/ui/toolbar": ["libs/common/ui/toolbar/src/index.ts"],
       "@ztp/common/ui/card": ["libs/common/ui/card/src/index.ts"],
       "@ztp/common/ui/layouts": ["libs/common/ui/layouts/src/index.ts"],

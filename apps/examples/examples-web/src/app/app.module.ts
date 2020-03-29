@@ -24,7 +24,7 @@ import { ExamplesFeatureShellModule } from '@ztp/examples/feature-shell';
 import { CommonDynamicFormModule } from '@ztp/common/dynamic-form';
 import { CommonDynamicFormMaterialComponentsModule } from '@ztp/common/dynamic-form-material-components';
 import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
-import { themeProviderFactory, ThemeService } from '@ztp/common/theme';
+import { themeProviderFactory, ThemeService } from '@ztp/shared/utils/theme';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({

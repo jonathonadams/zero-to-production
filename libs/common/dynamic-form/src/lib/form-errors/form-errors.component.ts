@@ -48,6 +48,7 @@ export class FormErrorsComponent implements OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // FocusMonitor
     timer(100)
       .pipe(take(1))
       .subscribe(() => {

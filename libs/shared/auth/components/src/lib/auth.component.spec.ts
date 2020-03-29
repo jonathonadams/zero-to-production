@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthComponent } from './auth.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ThemeService } from '@ztp/common/theme';
+import { ThemeService } from '@ztp/shared/utils/theme';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';

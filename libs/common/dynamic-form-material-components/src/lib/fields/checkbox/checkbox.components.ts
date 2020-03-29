@@ -1,6 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormGroupTypes, IToggleField } from '@ztp/common/dynamic-form';
+import { FormGroupTypes, ICheckBoxField } from '@ztp/common/dynamic-form';
 
 @Component({
   selector: 'ztp-form-checkbox',
@@ -17,6 +17,6 @@ import { FormGroupTypes, IToggleField } from '@ztp/common/dynamic-form';
 export class FormCheckBoxComponent {
   @Input() idx: number; // Only accessed if it is a FormArrayGroup
   @Input() type: FormGroupTypes;
-  @Input() field: IToggleField;
+  @Input() field: ICheckBoxField;
   @Input() group: FormGroup;
 }

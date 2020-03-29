@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+.grid-container {
+  --columns: 2;
+  --rows: 2;
+  --row-height: 20em;
+  --row-gap: 10px;
+  --column-gap: 10px;
+
+  padding: var(--row-gap) var(--column-gap);
+  height: calc(var(--rows) * var(--row-height));
+
+  // set the overflow to hidden, to prevent any animations causing parents to grow
+  overflow-y: hidden;
+  max-width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+
+  // The 'grid-' prefix is deprecated, so define them twice
+  grid-gap: var(--row-gap) var(--column-gap);
+  gap: var(--row-gap) var(--column-gap);
+}

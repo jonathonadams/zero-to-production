@@ -28,6 +28,7 @@ nav a {
 .nav-container {
   --total-width: 150px;
   --rail-width: 0px;
+  --desktop-rail-width: 3.8em;
   --hamburger-height: 3.5em;
   --anchor-padding: 0.75em;
   position: relative;
@@ -41,7 +42,7 @@ nav a {
   .nav-container {
     --hamburger-height: 4em;
     --total-width: 180px;
-    --rail-width: 4em;
+    --rail-width: var(--desktop-rail-width);
   }
 }
 
@@ -61,7 +62,7 @@ nav a {
   position: absolute;
   display: block;
   height: var(--hamburger-height);
-  width: 4em;
+  width: var(--desktop-rail-width);
   display: flex;
   justify-content: center;
   align-items: center;
