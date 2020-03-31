@@ -44,8 +44,9 @@
 
 - [x] Rail navigation component
 - [ ] Drag & Drop Grid/Dashboard System
-- [ ] Add a settings section
+- [ ] Add a settings section (theme, drag & drop dashboard builder)
 - [ ] Feature Flag Service
+- [ ] Add Social system
 - [ ] Add following examples
   - Content Projection with layouts modules
   - Dynamic Animation Timing
