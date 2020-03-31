@@ -19,8 +19,7 @@
 
   .about {
     border-radius: 10px;
-    & h1,
-    h2 {
+    .heading {
       text-align: center;
       display: block;
     }

@@ -1,8 +1,5 @@
 // Normalize css
 @import '~normalize.css';
-// Muli font
-@import url('https://fonts.googleapis.com/css?family=Muli:400,500&display=swap');
-
 // Angular Material Themeing Mixins
 @import '~@angular/material/theming';
 
@@ -10,8 +7,9 @@
 @import '~prismjs/themes/prism.css';
 // @import '~prismjs/themes/prism-tomorrow.css';
 
-// import the theming file
+// import the theming & typography file
 @import 'theme/theme.scss';
+@import 'theme/typography.scss';
 @import 'theme/material-theme.scss';
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -36,10 +34,7 @@ examples-root {
 }
 
 body {
-  font-family: Muli, 'Helvetica Neue', sans-serif;
-  font-weight: 500;
-  font-size: 1em;
-  line-height: 1.3rem;
+  font-family: Muli, sans-serif;
 }
 
 // ------------------------------------------------
