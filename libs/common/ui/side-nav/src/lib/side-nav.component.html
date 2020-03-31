@@ -5,7 +5,6 @@
     <ztp-sidenav-hamburger
       class="burger"
       *ngIf="menuButton"
-      aria-label="Open main menu"
       [isOpen]="isOpen"
       (toggle)="isOpen = $event"
     >
@@ -32,8 +31,10 @@
     (click)="isOpen = false"
   ></div>
 
-  <section class="app-content" [@routeAnimations]="prepareRoute(appContent)">
+  <div class="app-content" [@routeAnimations]="prepareRoute(appContent)">
     <ng-content select="[toolbar]"></ng-content>
-    <router-outlet #appContent="outlet"></router-outlet>
-  </section>
+    <main>
+      <router-outlet #appContent="outlet"></router-outlet>
+    </main>
+  </div>
 </div>

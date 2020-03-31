@@ -1,5 +1,6 @@
 <button
-  class="hamburger hamburger--slider mat-elevation-z3"
+  class="hamburger slider mat-elevation-z3"
+  aria-label="Open main menu"
   type="button"
   [ngClass]="{ 'is-active': isOpen }"
   (click)="toggle.emit(!isOpen)"
