@@ -173,9 +173,22 @@
               "apps/todos/todos-web/src/favicon.ico",
               "apps/todos/todos-web/src/assets"
             ],
-            "styles": ["apps/todos/todos-web/src/styles.scss"],
+            "styles": [
+              "apps/todos/todos-web/src/styles.scss",
+              {
+                "input": "theme/theme-default.scss",
+                "lazy": true,
+                "bundleName": "theme-default"
+              },
+              {
+                "input": "theme/theme-default-dark.scss",
+                "lazy": true,
+                "bundleName": "theme-default-dark"
+              }
+            ],
             "scripts": [],
             "aot": true,
+            "extractCss": true,
             "fileReplacements": [
               {
                 "replace": "libs/common/animations/src/lib/router/router.animations.ts",
@@ -1311,6 +1324,7 @@
             "polyfills": "apps/examples/examples-web/src/polyfills.ts",
             "tsConfig": "apps/examples/examples-web/tsconfig.app.json",
             "aot": true,
+            "extractCss": true,
             "baseHref": "/",
             "assets": [
               "apps/examples/examples-web/src/favicon.ico",
@@ -1322,7 +1336,19 @@
                 "output": "./assets/guides/"
               }
             ],
-            "styles": ["apps/examples/examples-web/src/styles.scss"],
+            "styles": [
+              "apps/examples/examples-web/src/styles.scss",
+              {
+                "input": "apps/examples/examples-web/src/theme/theme-default.scss",
+                "lazy": true,
+                "bundleName": "theme-default"
+              },
+              {
+                "input": "apps/examples/examples-web/src/theme/theme-default-dark.scss",
+                "lazy": true,
+                "bundleName": "theme-default-dark"
+              }
+            ],
             "fileReplacements": [
               {
                 "replace": "libs/common/animations/src/lib/router/router.animations.ts",

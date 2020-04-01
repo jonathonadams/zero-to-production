@@ -1,0 +1,7 @@
+// Angular Material Themeing Mixins
+@import '~@angular/material/theming';
+@import 'theme/material-theme';
+
+@import '~prismjs/themes/prism-tomorrow.css';
+
+@include angular-material-theme($app-theme);

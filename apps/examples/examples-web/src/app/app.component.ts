@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  darkTheme$: Observable<boolean>;
+  darkMode$: Observable<boolean>;
   constructor(private themeService: ThemeService) {
-    this.darkTheme$ = this.themeService.darkTheme$;
+    this.darkMode$ = this.themeService.darkMode$;
   }
 }

@@ -3,31 +3,17 @@
 // Angular Material Themeing Mixins
 @import '~@angular/material/theming';
 
-// Themes for Prism.js syntax highlighting
-@import '~prismjs/themes/prism-tomorrow.css';
-
 // import the theming & typography file
 @import 'theme/theme.scss';
 @import 'theme/typography.scss';
 // @import 'theme/shared.scss';
-@import 'theme/material-theme.scss';
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
-@include angular-material-theme($app-theme);
-
-.dark-theme {
-  @include angular-material-theme($dark-theme);
-  // Themes for Prism.js syntax highlighting in dark mode
-  @import '~prismjs/themes/prism-solarizedlight';
-  color: rgba(white, 0.74);
-}
-
 /* You can add global styles to this file, and also import other style files */
-
 html,
 body,
 examples-root {

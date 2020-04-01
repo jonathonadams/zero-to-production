@@ -17,7 +17,7 @@ describe('AuthComponent', () => {
       imports: [NoopAnimationsModule, RouterTestingModule],
       declarations: [AuthComponent],
       providers: [
-        { provide: ThemeService, useValue: { darkTheme$: of(jest.fn()) } },
+        { provide: ThemeService, useValue: { darkMode$: of(jest.fn()) } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

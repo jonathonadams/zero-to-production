@@ -30,7 +30,7 @@ export class CssThemingComponent implements OnInit, AfterViewInit {
     private themeService: ThemeService,
     private highlightService: CodeHighlightService
   ) {
-    this.dark$ = this.themeService.darkTheme$;
+    this.dark$ = this.themeService.darkMode$;
     this.form = this.fb.group(this.baseTheme);
 
     this.form.valueChanges.subscribe((themeSettings) => {
