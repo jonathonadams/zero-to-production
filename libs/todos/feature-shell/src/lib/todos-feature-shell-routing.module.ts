@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard, LoggedInGuard } from '@ztp/shared/auth/data-access';
+import { AuthGuard, LoggedInGuard } from '@ztp/common/auth/data-access';
 import {
   LoginComponent,
   RegisterComponent,
   AuthComponent,
-} from '@ztp/shared/auth/components';
+} from '@ztp/common/auth/components';
 import { AllTodosComponent } from '@ztp/todos/all-todos';
 import { TodoDetailComponent } from '@ztp/todos/todo-detail';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';

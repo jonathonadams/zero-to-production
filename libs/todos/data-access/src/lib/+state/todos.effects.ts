@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthActions } from '@ztp/shared/auth/data-access';
+import { AuthActions } from '@ztp/common/auth/data-access';
 import { of } from 'rxjs';
 import {
   catchError,

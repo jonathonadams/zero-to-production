@@ -5,7 +5,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { ModuleLoaderService } from '@ztp/shared/utils/dynamic-module-loading';
+import { ModuleLoaderService } from '@ztp/common/utils/dynamic-module-loading';
 import { ExamplesFacade, IExample } from '@ztp/examples/data-access';
 
 @Component({

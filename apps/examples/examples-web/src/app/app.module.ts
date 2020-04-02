@@ -10,12 +10,12 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { SharedDataAccessApiModule } from '@ztp/shared/data-access/api';
+import { CommonDataAccessApiModule } from '@ztp/common/data-access/api';
 import {
-  SharedAuthDataAccessModule,
+  CommonAuthDataAccessModule,
   authProviderFactory,
   AuthService,
-} from '@ztp/shared/auth/data-access';
+} from '@ztp/common/auth/data-access';
 import { SharedUsersDataAccessModule } from '@ztp/shared/users/data-access';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { AppEffects } from './+state/app.effects';
@@ -24,7 +24,7 @@ import { ExamplesFeatureShellModule } from '@ztp/examples/feature-shell';
 import { CommonDynamicFormModule } from '@ztp/common/dynamic-form';
 import { CommonDynamicFormMaterialComponentsModule } from '@ztp/common/dynamic-form-material-components';
 import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
-import { themeProviderFactory, ThemeService } from '@ztp/shared/utils/theme';
+import { themeProviderFactory, ThemeService } from '@ztp/common/utils/theme';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
@@ -35,8 +35,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     StoreModule.forRoot<AppState>(appReducerMap),
     EffectsModule.forRoot([AppEffects]),
     StoreRouterConnectingModule.forRoot(),
-    SharedDataAccessApiModule.forRoot(environment),
-    SharedAuthDataAccessModule.forRoot({
+    CommonDataAccessApiModule.forRoot(environment),
+    CommonAuthDataAccessModule.forRoot({
       authServerUrl: environment.serverUrl,
     }),
     SharedUsersDataAccessModule.forRoot(),

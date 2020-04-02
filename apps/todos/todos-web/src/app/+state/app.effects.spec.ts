@@ -5,9 +5,9 @@ import { hot, Scheduler } from 'jest-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { createSpyObj } from '@ztp/tests/client';
 import { AppEffects } from './app.effects';
-import { NotificationService } from '@ztp/shared/utils/notifications';
+import { NotificationService } from '@ztp/common/utils/notifications';
 import { Router } from '@angular/router';
-import { AuthActions } from '@ztp/shared/auth/data-access';
+import { AuthActions } from '@ztp/common/auth/data-access';
 import { Apollo } from 'apollo-angular';
 
 describe('AppEffects', () => {

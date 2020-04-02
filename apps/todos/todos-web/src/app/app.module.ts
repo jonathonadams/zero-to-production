@@ -9,12 +9,12 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { SharedDataAccessApiModule } from '@ztp/shared/data-access/api';
+import { CommonDataAccessApiModule } from '@ztp/common/data-access/api';
 import {
-  SharedAuthDataAccessModule,
+  CommonAuthDataAccessModule,
   authProviderFactory,
   AuthService,
-} from '@ztp/shared/auth/data-access';
+} from '@ztp/common/auth/data-access';
 import { SharedUsersDataAccessModule } from '@ztp/shared/users/data-access';
 import { TodosFeatureShellModule } from '@ztp/todos/feature-shell';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -32,8 +32,8 @@ import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
     StoreModule.forRoot<AppState>(appReducerMap),
     EffectsModule.forRoot([AppEffects]),
     StoreRouterConnectingModule.forRoot(),
-    SharedDataAccessApiModule.forRoot(environment),
-    SharedAuthDataAccessModule.forRoot({
+    CommonDataAccessApiModule.forRoot(environment),
+    CommonAuthDataAccessModule.forRoot({
       authServerUrl: environment.serverUrl,
     }),
     SharedUsersDataAccessModule.forRoot(),

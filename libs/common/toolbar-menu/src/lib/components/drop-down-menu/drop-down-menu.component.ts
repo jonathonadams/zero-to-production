@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IUser } from '@ztp/data';
-import { AuthFacade } from '@ztp/shared/auth/data-access';
+import { AuthFacade } from '@ztp/common/auth/data-access';
 import { MatButton } from '@angular/material/button';
 
 @Component({

@@ -9,8 +9,8 @@ import { CommonUiLayoutsModule } from '@ztp/common/ui/layouts';
 import { CommonDynamicFormModule } from '@ztp/common/dynamic-form';
 import { TodosFeatureShellRoutingModule } from './todos-feature-shell-routing.module';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
-import { SharedAuthComponentsModule } from '@ztp/shared/auth/components';
-import { SharedUtilsNotificationModule } from '@ztp/shared/utils/notifications';
+import { CommonAuthComponentsModule } from '@ztp/common/auth/components';
+import { CommonUtilsNotificationModule } from '@ztp/common/utils/notifications';
 
 @NgModule({
   declarations: [TodoFeatureShellComponent],
@@ -24,8 +24,8 @@ import { SharedUtilsNotificationModule } from '@ztp/shared/utils/notifications';
     TodosFeatureShellRoutingModule,
     CommonToolbarMenuModule,
     CommonUiLayoutsModule,
-    SharedAuthComponentsModule,
-    SharedUtilsNotificationModule,
+    CommonAuthComponentsModule,
+    CommonUtilsNotificationModule,
   ],
 })
 export class TodosFeatureShellModule {}

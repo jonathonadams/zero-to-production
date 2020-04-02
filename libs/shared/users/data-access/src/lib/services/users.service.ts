@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiService } from '@ztp/shared/data-access/api';
+import { ApiService } from '@ztp/common/data-access/api';
 import { IUser } from '@ztp/data';
 
 @Injectable({ providedIn: 'root' })

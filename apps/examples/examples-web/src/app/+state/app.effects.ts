@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { Apollo } from 'apollo-angular';
-import { NotificationService } from '@ztp/shared/utils/notifications';
-import { AuthActions } from '@ztp/shared/auth/data-access';
+import { NotificationService } from '@ztp/common/utils/notifications';
+import { AuthActions } from '@ztp/common/auth/data-access';
 
 @Injectable({
   providedIn: 'root',

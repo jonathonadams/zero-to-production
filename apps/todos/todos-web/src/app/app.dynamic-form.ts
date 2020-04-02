@@ -1,5 +1,5 @@
 import { MATERIAL_COMPONENT_MAP } from '@ztp/common/dynamic-form-material-components';
-import { CustomUsernameComponent } from '@ztp/shared/auth/components';
+import { CustomUsernameComponent } from '@ztp/common/auth/components';
 import { defaultErrorMessages } from '@ztp/common/dynamic-form';
 
 export const APP_COMPONENTS = {

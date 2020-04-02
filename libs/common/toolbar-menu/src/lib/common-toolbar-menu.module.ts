@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { SharedUtilsOverlayModule } from '@ztp/shared/utils/overlay';
+import { CommonUtilsOverlayModule } from '@ztp/common/utils/overlay';
 import { SharedUsersDataAccessModule } from '@ztp/shared/users/data-access';
 import { ToolbarMenuIconComponent } from './components/toolbar-menu-icon/toolbar-menu-icon.component';
 import { DropDownMenuComponent } from './components/drop-down-menu/drop-down-menu.component';
@@ -16,7 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
     RouterModule,
     MatIconModule,
     MatButtonModule,
-    SharedUtilsOverlayModule,
+    CommonUtilsOverlayModule,
     SharedUsersDataAccessModule,
   ],
   exports: [ToolbarMenuIconComponent],

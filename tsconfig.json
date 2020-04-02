@@ -10,34 +10,34 @@
       "@ztp/server/core-data": ["libs/server/core-data/src/index.ts"],
       "@ztp/server/graphql": ["libs/server/graphql/src/index.ts"],
       "@ztp/server/utils": ["libs/server/utils/src/index.ts"],
-      "@ztp/shared/data-access/api": [
-        "libs/shared/data-access/api/src/index.ts"
+      "@ztp/common/data-access/api": [
+        "libs/common/data-access/api/src/index.ts"
       ],
-      "@ztp/shared/auth/data-access": [
-        "libs/shared/auth/data-access/src/index.ts"
+      "@ztp/common/auth/data-access": [
+        "libs/common/auth/data-access/src/index.ts"
       ],
-      "@ztp/shared/auth/components": [
-        "libs/shared/auth/components/src/index.ts"
+      "@ztp/common/auth/components": [
+        "libs/common/auth/components/src/index.ts"
       ],
       "@ztp/shared/users/data-access": [
         "libs/shared/users/data-access/src/index.ts"
       ],
-      "@ztp/shared/data-access/router": [
-        "libs/shared/data-access/router/src/index.ts"
+      "@ztp/common/data-access/router": [
+        "libs/common/data-access/router/src/index.ts"
       ],
       "@ztp/shared/dashboard": ["libs/shared/dashboard/src/index.ts"],
-      "@ztp/shared/utils/dynamic-module-loading": [
-        "libs/shared/utils/dynamic-module-loading/src/index.ts"
+      "@ztp/common/utils/dynamic-module-loading": [
+        "libs/common/utils/dynamic-module-loading/src/index.ts"
       ],
-      "@ztp/shared/utils/overlay": ["libs/shared/utils/overlay/src/index.ts"],
-      "@ztp/shared/utils/notifications": [
-        "libs/shared/utils/notifications/src/index.ts"
+      "@ztp/common/utils/overlay": ["libs/common/utils/overlay/src/index.ts"],
+      "@ztp/common/utils/notifications": [
+        "libs/common/utils/notifications/src/index.ts"
       ],
-      "@ztp/shared/utils/service-worker": [
-        "libs/shared/utils/service-worker/src/index.ts"
+      "@ztp/common/utils/service-worker": [
+        "libs/common/utils/service-worker/src/index.ts"
       ],
-      "@ztp/shared/utils/storage": ["libs/shared/utils/storage/src/index.ts"],
-      "@ztp/shared/utils/theme": ["libs/shared/utils/theme/src/index.ts"],
+      "@ztp/common/utils/storage": ["libs/common/utils/storage/src/index.ts"],
+      "@ztp/common/utils/theme": ["libs/common/utils/theme/src/index.ts"],
       "@ztp/common/animations": ["libs/common/animations/src/index.ts"],
       "@ztp/common/dynamic-form": ["libs/common/dynamic-form/src/index.ts"],
       "@ztp/common/dynamic-form-material-components": [

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ThemeService } from '@ztp/shared/utils/theme';
+import { ThemeService } from '@ztp/common/utils/theme';
 import { Observable } from 'rxjs';
 
 @Component({

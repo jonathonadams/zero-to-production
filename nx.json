@@ -43,7 +43,7 @@
     "server-utils": {
       "tags": ["scope:shared", "type:util", "platform:server"]
     },
-    "shared-data-access-api": {
+    "common-data-access-api": {
       "tags": [
         "scope:shared",
         "type:data-access",
@@ -51,7 +51,7 @@
         "platform:mobile"
       ]
     },
-    "shared-auth-data-access": {
+    "common-auth-data-access": {
       "tags": [
         "scope:shared",
         "type:data-access",
@@ -59,10 +59,10 @@
         "platform:mobile"
       ]
     },
-    "shared-auth-components": {
+    "common-auth-components": {
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
-    "shared-data-access-router": {
+    "common-data-access-router": {
       "tags": ["scope:shared", "type:data-access", "platform:web"]
     },
     "shared-users-data-access": {
@@ -76,22 +76,22 @@
     "shared-dashboard": {
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
-    "shared-utils-dynamic-module-loading": {
+    "common-utils-dynamic-module-loading": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
-    "shared-utils-notifications": {
+    "common-utils-notifications": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
-    "shared-utils-overlay": {
+    "common-utils-overlay": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
-    "shared-utils-service-worker": {
+    "common-utils-service-worker": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
-    "shared-utils-storage": {
+    "common-utils-storage": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
-    "shared-utils-theme": {
+    "common-utils-theme": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
     "common-animations": {

@@ -4,8 +4,8 @@ import {
   ElementRef,
   ViewChild,
 } from '@angular/core';
-import { OverlayService } from '@ztp/shared/utils/overlay';
-import { AuthFacade } from '@ztp/shared/auth/data-access';
+import { OverlayService } from '@ztp/common/utils/overlay';
+import { AuthFacade } from '@ztp/common/auth/data-access';
 import { DropDownMenuComponent } from '../drop-down-menu/drop-down-menu.component';
 import { MatButton } from '@angular/material/button';
 

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { AuthActions } from '@ztp/shared/auth/data-access';
+import { AuthActions } from '@ztp/common/auth/data-access';
 import { tap } from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
 import { Router } from '@angular/router';
-import { NotificationService } from '@ztp/shared/utils/notifications';
+import { NotificationService } from '@ztp/common/utils/notifications';
 
 @Injectable()
 export class AppEffects {

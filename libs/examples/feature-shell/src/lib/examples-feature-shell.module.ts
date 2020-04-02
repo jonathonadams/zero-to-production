@@ -10,7 +10,7 @@ import { ExamplesDataAccessModule } from '@ztp/examples/data-access';
 import { ExamplesHomeComponent } from './home/home.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ExamplesHeaderComponent } from './header/header.component';
-import { SharedUtilsNotificationModule } from '@ztp/shared/utils/notifications';
+import { CommonUtilsNotificationModule } from '@ztp/common/utils/notifications';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
@@ -20,7 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
     CommonUiCardModule,
     MatButtonModule,
     ScrollingModule,
-    SharedUtilsNotificationModule,
+    CommonUtilsNotificationModule,
     ExamplesDataAccessModule,
     ExamplesFeatureShellRoutingModule,
   ],
