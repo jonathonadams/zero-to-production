@@ -1,7 +1,13 @@
-import { Component, ChangeDetectionStrategy, ElementRef } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { OverlayService } from '@ztp/shared/utils/overlay';
 import { AuthFacade } from '@ztp/shared/auth/data-access';
 import { DropDownMenuComponent } from '../drop-down-menu/drop-down-menu.component';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'ztp-toolbar-menu-icon',
@@ -9,6 +15,8 @@ import { DropDownMenuComponent } from '../drop-down-menu/drop-down-menu.componen
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarMenuIconComponent {
+  @ViewChild('open', { static: true }) open: MatButton;
+
   constructor(
     private el: ElementRef,
     private overlay: OverlayService,
@@ -25,6 +33,13 @@ export class ToolbarMenuIconComponent {
     componentRef.instance.logout.subscribe(() => {
       this.auth.logout();
       overlayRef.dispose();
+    });
+
+    // dismiss is only called form pushing the escape key
+    // set focus back to the open button
+    componentRef.instance.dismiss.subscribe(() => {
+      overlayRef.dispose();
+      this.open.focus();
     });
 
     overlayRef.backdropClick().subscribe(() => {

@@ -1,4 +1,15 @@
-<ztp-ui-drop-down-menu
-  [user]="user$ | async"
-  (logout)="logout.emit()"
-></ztp-ui-drop-down-menu>
+<div class="menu mat-elevation-z4">
+  <h4 class="name" *ngIf="user$ | async as user">
+    {{ user.givenName }} {{ user.surname }}
+  </h4>
+  <button
+    #logoutBtn
+    mat-button
+    class="logout-button"
+    type="button"
+    aria-label="logs user out"
+    (click)="logout.emit()"
+  >
+    Logout
+  </button>
+</div>

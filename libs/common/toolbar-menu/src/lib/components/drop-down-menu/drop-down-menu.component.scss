@@ -1,5 +1,5 @@
 @import 'theme/material-theme.scss';
-@import 'ui-drop-down-menu.theme';
+@import 'drop-down-menu.theme';
 
 // Light theme
 @include drop-down-menu-theme($app-theme);
@@ -11,11 +11,19 @@
 
 .menu {
   border-radius: 0.2em;
-  width: 10em;
+  // width: 10em;
+  padding: 0.75em;
+}
+
+.menu > * {
+  display: block;
+  margin-bottom: 0.5em;
+}
+.menu > *:last-child {
+  margin-bottom: 0;
 }
 
 .name {
-  display: block;
   margin: auto;
 }
 

@@ -63,6 +63,10 @@ export class CommonUiSideNavComponent {
     }
   }
 
+  trackBy(i: number, link: ISideNaveRoute) {
+    return i;
+  }
+
   prepareRoute(outlet: RouterOutlet) {
     return (
       outlet &&

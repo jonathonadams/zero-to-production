@@ -14,7 +14,7 @@
   <!-- Only need aria-label on nav tag if more than one nav on page -->
   <nav class="main-menu mat-elevation-z2" [ngClass]="{ open: isOpen }">
     <ul id="ztp-side-menu" class="route-list" role="list">
-      <li *ngFor="let route of routes">
+      <li *ngFor="let route of routes; trackBy: trackBy">
         <a [routerLink]="[route.path]" #navLinks
           ><span class="route-icon">
             <mat-icon>{{ route.icon }}</mat-icon></span
