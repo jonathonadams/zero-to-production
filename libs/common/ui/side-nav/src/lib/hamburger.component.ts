@@ -4,6 +4,8 @@ import {
   Input,
   Output,
   EventEmitter,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 
 // All credit goes to
@@ -18,4 +20,9 @@ import {
 export class HamburgerComponent {
   @Input() isOpen = false;
   @Output() toggle = new EventEmitter<boolean>();
+  @ViewChild('burger', { static: true }) button: ElementRef<HTMLElement>;
+
+  focus() {
+    this.button.nativeElement.focus();
+  }
 }

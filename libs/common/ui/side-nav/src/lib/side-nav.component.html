@@ -6,16 +6,16 @@
       class="burger"
       *ngIf="menuButton"
       [isOpen]="isOpen"
-      (toggle)="isOpen = $event"
+      (toggle)="menuButtonToggled($event)"
     >
     </ztp-sidenav-hamburger>
   </div>
 
   <!-- Only need aria-label on nav tag if more than one nav on page -->
   <nav class="main-menu mat-elevation-z2" [ngClass]="{ open: isOpen }">
-    <ul class="route-list">
+    <ul id="ztp-side-menu" class="route-list" role="list">
       <li *ngFor="let route of routes">
-        <a [routerLink]="[route.path]"
+        <a [routerLink]="[route.path]" #navLinks
           ><span class="route-icon">
             <mat-icon>{{ route.icon }}</mat-icon></span
           ><span class="route-label">{{ route.label }}</span></a
