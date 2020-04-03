@@ -1,9 +1,9 @@
-import { Injectable, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable, ElementRef } from '@angular/core';
 
-// Grid per module, not a global service
+// Grid per 'grid-layout-component', not a global service
 @Injectable()
 export class GridLayoutService {
+  elementRef: ElementRef;
   // CCS Properties to set
   // --columns: 2;
   _columns = 2;
@@ -19,14 +19,16 @@ export class GridLayoutService {
   _minColumns = 0;
   _minRows = 0;
 
-  constructor(@Inject(DOCUMENT) private document: Document) {}
-
   get columns() {
     return this._columns;
   }
 
   get rows() {
     return this._rows;
+  }
+
+  setElementRef(el: ElementRef) {
+    this.elementRef = el;
   }
 
   addColumn() {
@@ -89,7 +91,8 @@ export class GridLayoutService {
   }
 
   setProperty(property: string, value: string) {
-    const grid = this.document.querySelector('.grid-container') as HTMLElement;
-    grid.style.setProperty(property, value);
+    if (this.elementRef) {
+      this.elementRef.nativeElement.style.setProperty(property, value);
+    }
   }
 }

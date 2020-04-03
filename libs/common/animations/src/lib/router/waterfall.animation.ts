@@ -27,7 +27,7 @@ export const WATERFALL_ANIMATION: AnimationMetadata[] = [
     // hide all the cards since each route makes use of that
     query(
       `:enter .${ANIMATE_CLASS}`,
-      [style({ opacity: 0, transform: 'translateY(100%)' })],
+      [style({ opacity: 0, transform: 'translateY(+100%)' })],
       { optional: true }
     ),
     // animate away an in each of the cards on the pages
@@ -37,7 +37,7 @@ export const WATERFALL_ANIMATION: AnimationMetadata[] = [
         stagger('100ms', [
           animate(
             '300ms cubic-bezier(.35,0,.25,1)',
-            style({ transform: 'translateY(+200%)', opacity: 0 })
+            style({ transform: 'translateY(+100%)', opacity: 0 })
           ),
         ]),
         { optional: true }

@@ -1,14 +1,13 @@
 :host {
   display: block;
-}
-
-.grid-container {
   --columns: 2;
   --rows: 2;
   --row-height: 20em;
   --row-gap: 10px;
   --column-gap: 10px;
+}
 
+section.ztp-grid-container {
   padding: var(--row-gap) var(--column-gap);
   height: calc(var(--rows) * var(--row-height));
 

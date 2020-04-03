@@ -5,7 +5,8 @@ import {
   ContentChildren,
   QueryList,
   AfterViewInit,
-  OnChanges,
+  ElementRef,
+  OnInit,
 } from '@angular/core';
 import type { IGrid } from '../grid.interface';
 import { GridTileComponent } from '../grid-tile/grid-tile.component';
@@ -15,31 +16,37 @@ import { GridLayoutService } from '../grid-layout.service';
   selector: 'ztp-grid-layout',
   templateUrl: './grid-layout.component.html',
   styleUrls: ['./grid-layout.component.scss'],
+  providers: [GridLayoutService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GridLayoutComponent implements AfterViewInit, OnChanges {
-  constructor(private service: GridLayoutService) {}
+export class GridLayoutComponent implements OnInit, AfterViewInit {
+  constructor(private service: GridLayoutService, private el: ElementRef) {}
 
-  @Input() grid: IGrid[] | null;
+  _grid: IGrid[] | null;
+  @Input()
+  set grid(grid: IGrid[] | null) {
+    this._grid = grid;
+    this.setGrid();
+  }
   @ContentChildren(GridTileComponent, { descendants: true }) tiles: QueryList<
     GridTileComponent
   >;
+
+  ngOnInit() {
+    this.service.setElementRef(this.el);
+  }
 
   ngAfterViewInit() {
     this.setGrid();
   }
 
-  ngOnChanges() {
-    this.setGrid();
-  }
-
   setGrid() {
-    if (this.grid && this.tiles) {
+    if (this._grid && this.tiles) {
       const tileArray = this.tiles.toArray();
       let minColumns = 0;
       let minRows = 0;
 
-      this.grid.forEach((grid, i) => {
+      this._grid.forEach((grid, i) => {
         if (grid.colEnd > minColumns) minColumns = grid.colEnd;
         if (grid.rowEnd > minRows) minRows = grid.rowEnd;
 
