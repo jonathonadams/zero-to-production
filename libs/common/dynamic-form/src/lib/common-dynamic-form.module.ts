@@ -18,6 +18,7 @@ import {
   defaultErrorMessages,
 } from './form-errors.interface';
 import * as fromDynamicForm from './+state/dynamic-form.reducer';
+import { A11yModule } from '@angular/cdk/a11y';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatIconModule],
@@ -54,6 +55,7 @@ export class CommonDynamicFormModule {
 @NgModule({
   imports: [
     CommonModule,
+    A11yModule,
     MatButtonModule,
     MatIconModule,
     StoreModule.forFeature<fromDynamicForm.DynamicFormEntityState>(

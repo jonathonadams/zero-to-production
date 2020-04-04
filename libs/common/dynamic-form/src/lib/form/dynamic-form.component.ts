@@ -6,6 +6,7 @@ import {
   ViewEncapsulation,
   OnChanges,
   ChangeDetectorRef,
+  ElementRef,
 } from '@angular/core';
 import { FormGroup, FormArray, ValidatorFn } from '@angular/forms';
 import { Observable, Subject, combineLatest } from 'rxjs';
@@ -23,6 +24,8 @@ import {
 } from '../dynamic-form.interface';
 import { DynamicFormFacade } from '../+state/dynamic-form.facade';
 import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade';
+
+// TODO -> Make a11y. Focus and aria
 
 @Component({
   selector: 'app-dynamic-form',
@@ -51,7 +54,8 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
     private errorsService: DynamicFormErrorsService,
     private facade: DynamicFormFacade,
     private pFacade: PrivateDynamicFormFacade,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private el: ElementRef
   ) {}
 
   ngOnChanges() {

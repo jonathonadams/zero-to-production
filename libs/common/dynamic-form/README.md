@@ -16,10 +16,6 @@ Run `ng test common-dynamic-form` to execute the unit tests.
 
 formGroup names need to be unique
 
-## Outstanding
-
-- a11y Announcer
-
 ## Potential updates
 
 - allow field of a form group to be an array

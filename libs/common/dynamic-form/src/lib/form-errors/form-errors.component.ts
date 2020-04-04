@@ -1,20 +1,18 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  OnDestroy,
   Output,
   EventEmitter,
   Input,
   ViewChild,
-  AfterViewInit,
+  HostListener,
 } from '@angular/core';
-import { timer, Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { formErrorsAnimations } from './form-errors.animations';
 import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade';
-import { first, map, take } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { MatButton } from '@angular/material/button';
-
-// TODO a11y Announcer
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-form-errors',
@@ -23,40 +21,39 @@ import { MatButton } from '@angular/material/button';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [formErrorsAnimations],
 })
-export class FormErrorsComponent implements OnDestroy, AfterViewInit {
+export class FormErrorsComponent {
+  errors$: Observable<string[]>;
+
+  @Output() dismiss = new EventEmitter<void>();
   @ViewChild('dismissButton', { static: true }) button: MatButton;
 
-  private autoClose = 5000; // ms until close
-  errors$: Observable<string[] | undefined>;
-  private sub: Subscription;
+  @HostListener('window:keyup', ['$event'])
+  onKeyPress(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.dismiss.emit();
+    }
+  }
 
   @Input()
   set formName(name: string) {
-    this.errors$ = this.facade
-      .selectForm(name)
-      .pipe(map((form) => form?.errors));
+    this.errors$ = this.facade.selectForm(name).pipe(
+      map((form) => form?.errors as string[]),
+      tap((errors) => this.announceErrors(name, errors))
+    );
   }
 
-  @Output() dismiss = new EventEmitter<void>();
+  constructor(
+    private liveAnnouncer: LiveAnnouncer,
+    private facade: PrivateDynamicFormFacade
+  ) {}
 
-  constructor(private facade: PrivateDynamicFormFacade) {
-    this.sub = timer(this.autoClose)
-      .pipe(first())
-      .subscribe(() => {
-        this.dismiss.emit();
-      });
+  announceErrors(formName: string, errors: string[]) {
+    const message =
+      `The ${formName} form has ${errors.length} errors. ` + errors.join(', ');
+    this.liveAnnouncer.announce(message, 'polite');
   }
 
-  ngAfterViewInit() {
-    // FocusMonitor
-    timer(100)
-      .pipe(take(1))
-      .subscribe(() => {
-        this.button.focus();
-      });
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+  onAnimationEvent(event: any) {
+    this.button.focus();
   }
 }
