@@ -186,7 +186,7 @@
                 "bundleName": "theme-default-dark"
               }
             ],
-            "scripts": [],
+            "scripts": ["node_modules/focus-visible/dist/focus-visible.min.js"],
             "aot": true,
             "extractCss": true,
             "fileReplacements": [
@@ -1349,6 +1349,7 @@
                 "bundleName": "theme-default-dark"
               }
             ],
+            "scripts": ["node_modules/focus-visible/dist/focus-visible.min.js"],
             "fileReplacements": [
               {
                 "replace": "libs/common/animations/src/lib/router/router.animations.ts",

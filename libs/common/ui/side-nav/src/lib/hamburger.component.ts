@@ -18,8 +18,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HamburgerComponent {
-  @Input() isOpen = false;
-  @Output() toggle = new EventEmitter<boolean>();
+  @Input() isOpen: boolean;
+  @Output() toggle = new EventEmitter<MouseEvent | KeyboardEvent>();
   @ViewChild('burger', { static: true }) button: ElementRef<HTMLElement>;
 
   focus() {

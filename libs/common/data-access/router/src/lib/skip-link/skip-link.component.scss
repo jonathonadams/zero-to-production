@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  position: relative;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.skip-link {
+  display: inline-block;
+  opacity: 0;
+  position: absolute;
+
+  // text-decoration: none;
+}
+.skip-link:before {
+  content: '⇽';
+  display: inline;
+}
+.skip-link:focus,
+.skip-link:hover {
+  opacity: 1;
+}
+
+// Currently not supported very well, but when it is widely supported :focus-visible is keyboard only!
+.skip-link:focus:not(:focus-visible) {
+  opacity: 0;
+}
+
+.skip-link:focus-visible {
+  opacity: 1;
+}
+
+// Polyfill code (.focus-visible) is added to element if it should match
+// TODO -> Delete once happy with browser support 'npm uninstall focus-visible'
+:focus:not(.focus-visible),
+:hover:not(.focus-visible) {
+  // outline: none;
+  opacity: 0;
+}
+
+.focus-visible {
+  opacity: 1;
+  // outline: 5px auto lightblue;
+  // outline: 5px auto -webkit-focus-ring-color;
+}

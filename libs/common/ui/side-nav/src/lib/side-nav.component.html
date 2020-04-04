@@ -14,8 +14,13 @@
   <!-- Only need aria-label on nav tag if more than one nav on page -->
   <nav class="main-menu mat-elevation-z2" [ngClass]="{ open: isOpen }">
     <ul id="ztp-side-menu" class="route-list" role="list">
-      <li *ngFor="let route of routes; trackBy: trackBy">
-        <a [routerLink]="[route.path]" #navLinks
+      <li *ngFor="let route of routes; trackBy: trackBy; let i = index">
+        <a
+          #navLinks
+          [routerLink]="[route.path]"
+          ztpSkipLink
+          [state]="{ skipLink: 'main-nav-' + i }"
+          [title]="'main-nav-' + i"
           ><span class="route-icon">
             <mat-icon>{{ route.icon }}</mat-icon></span
           ><span class="route-label">{{ route.label }}</span></a
@@ -34,6 +39,7 @@
   <div class="app-content" [@routeAnimations]="prepareRoute(appContent)">
     <ng-content select="[toolbar]"></ng-content>
     <main>
+      <ztp-router-skip-link class="skip-link"></ztp-router-skip-link>
       <router-outlet #appContent="outlet"></router-outlet>
     </main>
   </div>

@@ -6,7 +6,7 @@
   aria-controls="ztp-side-menu"
   type="button"
   [ngClass]="{ 'is-active': isOpen }"
-  (click)="toggle.emit(!isOpen)"
+  (click)="toggle.emit($event)"
 >
   <span aria-hidden="true" class="hamburger-box">
     <span class="hamburger-inner"></span>

@@ -53,9 +53,10 @@ export class CommonUiSideNavComponent {
     }
   }
 
-  menuButtonToggled(open: boolean) {
-    this.isOpen = open;
-    if (open) {
+  menuButtonToggled(event: MouseEvent | KeyboardEvent) {
+    this.isOpen = !this.isOpen;
+    console.log(event);
+    if (this.isOpen) {
       // on mobile devices, the side menu is completely removed from all presentations, display: none
       // the links query needs to be repopulated before sending focusing on the first element
       this.cd.detectChanges();
