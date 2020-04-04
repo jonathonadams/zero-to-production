@@ -6,12 +6,10 @@ import {
   QueryList,
   ElementRef,
   HostListener,
-  ViewChild,
   ChangeDetectorRef,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ROUTER_ANIMATIONS } from '@ztp/common/animations';
-import { HamburgerComponent } from './hamburger.component';
 
 // https://jonsuh.com/hamburgers/
 
@@ -38,7 +36,6 @@ export class CommonUiSideNavComponent {
   @Input() menuButton = true;
   @Input() routes: ISideNaveRoute[] | null;
   @Input() mode = 'push';
-  @ViewChild(HamburgerComponent) button: HamburgerComponent;
   @ViewChildren('navLinks') links: QueryList<ElementRef<HTMLElement>>;
 
   constructor(private cd: ChangeDetectorRef) {}
@@ -49,13 +46,11 @@ export class CommonUiSideNavComponent {
     if (this.isOpen && event.key === 'Escape') {
       // close the window and send focus back to the open button
       this.isOpen = false;
-      this.button.focus();
     }
   }
 
   menuButtonToggled(event: MouseEvent | KeyboardEvent) {
     this.isOpen = !this.isOpen;
-    console.log(event);
     if (this.isOpen) {
       // on mobile devices, the side menu is completely removed from all presentations, display: none
       // the links query needs to be repopulated before sending focusing on the first element

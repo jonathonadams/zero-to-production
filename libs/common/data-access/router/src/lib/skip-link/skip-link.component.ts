@@ -4,12 +4,13 @@ import {
   OnDestroy,
   Inject,
   ChangeDetectorRef,
+  Input,
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { SkipLinkService } from '../skip-link.server';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { DOCUMENT } from '@angular/common';
 
 import 'focus-visible';
 
@@ -20,6 +21,16 @@ import 'focus-visible';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RouterSkipLinkComponent implements OnDestroy {
+  _previousNav: boolean | undefined;
+  _active = true;
+  @Input()
+  set active(active: boolean | undefined) {
+    if (active !== undefined) {
+      this._active = active;
+      this.triggerFocusLink();
+    }
+  }
+
   private sub: Subscription;
   trace = '';
 
@@ -32,21 +43,29 @@ export class RouterSkipLinkComponent implements OnDestroy {
     this.sub = this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe(() => {
-        const navigation = router.getCurrentNavigation();
-        // Check if it has navigated before, this is to not focus on first load
-        const trace = this.skipLink.trace;
-        if (navigation?.previousNavigation && trace) {
-          this.trace = trace;
-
-          const skpLink = this.document.querySelector(
-            '#skip-link'
-          ) as HTMLElement;
-          if (skipLink) {
-            skpLink.focus();
-          }
-          this.cd.markForCheck();
+        const navigation = this.router.getCurrentNavigation();
+        // Check if it has navigated before, this is to prevent focus on first load
+        if (this._previousNav === true) {
+          this.triggerFocusLink();
+        } else if (navigation?.previousNavigation) {
+          this._previousNav = true;
+        } else {
+          this._previousNav = false;
         }
       });
+  }
+
+  triggerFocusLink() {
+    const trace = this.skipLink.trace;
+    if (this._active && this._previousNav && trace) {
+      this.trace = trace;
+
+      const skipLink = this.document.querySelector('#skip-link') as HTMLElement;
+      if (skipLink) {
+        skipLink.focus();
+      }
+      this.cd.markForCheck();
+    }
   }
 
   revertFocus() {

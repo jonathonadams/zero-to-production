@@ -39,7 +39,10 @@
   <div class="app-content" [@routeAnimations]="prepareRoute(appContent)">
     <ng-content select="[toolbar]"></ng-content>
     <main>
-      <ztp-router-skip-link class="skip-link"></ztp-router-skip-link>
+      <ztp-router-skip-link
+        class="skip-link"
+        [active]="!isOpen"
+      ></ztp-router-skip-link>
       <router-outlet #appContent="outlet"></router-outlet>
     </main>
   </div>
