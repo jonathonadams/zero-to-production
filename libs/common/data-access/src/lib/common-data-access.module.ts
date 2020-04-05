@@ -13,15 +13,15 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [HttpClientModule, ApolloModule, HttpLinkModule],
   exports: [HttpClientModule, ApolloModule, HttpLinkModule],
 })
-export class CommonDataAccessApiModule {
+export class CommonDataAccessModule {
   static forRoot({
     graphQLUrl = 'graphql',
     apiBaseUrl = 'api',
     // webSocketUrl = '',
     // socketIONamespace = ''
-  } = {}): ModuleWithProviders<CommonDataAccessApiModule> {
+  } = {}): ModuleWithProviders<CommonDataAccessModule> {
     return {
-      ngModule: CommonDataAccessApiModule,
+      ngModule: CommonDataAccessModule,
       providers: [
         ApiService,
         {

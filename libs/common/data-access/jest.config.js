@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'common-data-access-api',
-  preset: '../../../../jest.config.js',
-  coverageDirectory: '../../../../coverage/libs/common/data-access/api',
+  name: 'common-data-access',
+  preset: '../../../jest.config.js',
+  coverageDirectory: '../../../coverage/libs/common/data-access',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

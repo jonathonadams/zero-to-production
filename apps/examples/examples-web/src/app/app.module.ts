@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { CommonDataAccessApiModule } from '@ztp/common/data-access/api';
+import { CommonDataAccessModule } from '@ztp/common/data-access';
 import {
   CommonAuthDataAccessModule,
   authProviderFactory,
@@ -35,7 +35,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     StoreModule.forRoot<AppState>(appReducerMap),
     EffectsModule.forRoot([AppEffects]),
     StoreRouterConnectingModule.forRoot(),
-    CommonDataAccessApiModule.forRoot(environment),
+    CommonDataAccessModule.forRoot(environment),
     CommonAuthDataAccessModule.forRoot({
       authServerUrl: environment.serverUrl,
     }),

@@ -10,9 +10,7 @@
       "@ztp/server/core-data": ["libs/server/core-data/src/index.ts"],
       "@ztp/server/graphql": ["libs/server/graphql/src/index.ts"],
       "@ztp/server/utils": ["libs/server/utils/src/index.ts"],
-      "@ztp/common/data-access/api": [
-        "libs/common/data-access/api/src/index.ts"
-      ],
+      "@ztp/common/data-access": ["libs/common/data-access/src/index.ts"],
       "@ztp/common/auth/data-access": [
         "libs/common/auth/data-access/src/index.ts"
       ],
@@ -22,9 +20,7 @@
       "@ztp/shared/users/data-access": [
         "libs/shared/users/data-access/src/index.ts"
       ],
-      "@ztp/common/data-access/router": [
-        "libs/common/data-access/router/src/index.ts"
-      ],
+      "@ztp/common/router": ["libs/common/router/src/index.ts"],
       "@ztp/shared/dashboard": ["libs/shared/dashboard/src/index.ts"],
       "@ztp/common/utils/dynamic-module-loading": [
         "libs/common/utils/dynamic-module-loading/src/index.ts"

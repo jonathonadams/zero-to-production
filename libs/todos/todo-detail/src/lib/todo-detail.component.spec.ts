@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TodosFacade, TodosService } from '@ztp/todos/data-access';
 import { of } from 'rxjs';
 import { DynamicFormFacade } from '@ztp/common/dynamic-form';
-import { RouterFacade } from '@ztp/common/data-access/router';
+import { RouterFacade } from '@ztp/common/router';
 
 // TODO -> TESTS -> Get from old
 

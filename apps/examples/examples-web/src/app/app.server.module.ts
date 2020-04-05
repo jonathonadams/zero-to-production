@@ -3,7 +3,7 @@ import { ServerModule } from '@angular/platform-server';
 
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
-import { UniversalInterceptor } from '@ztp/common/data-access/api';
+import { UniversalInterceptor } from '@ztp/common/data-access';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({

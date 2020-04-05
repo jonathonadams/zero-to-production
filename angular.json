@@ -455,28 +455,28 @@
         }
       }
     },
-    "common-data-access-api": {
+    "common-data-access": {
       "projectType": "library",
-      "root": "libs/common/data-access/api",
-      "sourceRoot": "libs/common/data-access/api/src",
+      "root": "libs/common/data-access",
+      "sourceRoot": "libs/common/data-access/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/common/data-access/api/tsconfig.lib.json",
-              "libs/common/data-access/api/tsconfig.spec.json"
+              "libs/common/data-access/tsconfig.lib.json",
+              "libs/common/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/data-access/api/**"]
+            "exclude": ["**/node_modules/**", "!libs/common/data-access/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/common/data-access/api/jest.config.js",
-            "tsConfig": "libs/common/data-access/api/tsconfig.spec.json",
-            "setupFile": "libs/common/data-access/api/src/test-setup.ts",
+            "jestConfig": "libs/common/data-access/jest.config.js",
+            "tsConfig": "libs/common/data-access/tsconfig.spec.json",
+            "setupFile": "libs/common/data-access/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -544,23 +544,20 @@
         }
       }
     },
-    "common-data-access-router": {
+    "common-router": {
       "projectType": "library",
-      "root": "libs/common/data-access/router",
-      "sourceRoot": "libs/common/data-access/router/src",
+      "root": "libs/common/router",
+      "sourceRoot": "libs/common/router/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/common/data-access/router/tsconfig.lib.json",
-              "libs/common/data-access/router/tsconfig.spec.json"
+              "libs/common/router/tsconfig.lib.json",
+              "libs/common/router/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/common/data-access/router/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/common/router/**"]
           }
         }
       },

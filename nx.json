@@ -43,7 +43,7 @@
     "server-utils": {
       "tags": ["scope:shared", "type:util", "platform:server"]
     },
-    "common-data-access-api": {
+    "common-data-access": {
       "tags": [
         "scope:shared",
         "type:data-access",
@@ -62,8 +62,8 @@
     "common-auth-components": {
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
-    "common-data-access-router": {
-      "tags": ["scope:shared", "type:data-access", "platform:web"]
+    "common-router": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
     },
     "shared-users-data-access": {
       "tags": [
