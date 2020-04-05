@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThemeService } from '@ztp/common/utils/theme';
 import { Observable } from 'rxjs';
+import { AnimationService } from '@ztp/common/animations';
 
 @Component({
   selector: 'examples-root',
@@ -10,7 +11,13 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   darkMode$: Observable<boolean>;
-  constructor(private themeService: ThemeService) {
+  animationsEnabled$: Observable<boolean>;
+
+  constructor(
+    private themeService: ThemeService,
+    private animationService: AnimationService
+  ) {
     this.darkMode$ = this.themeService.darkMode$;
+    this.animationsEnabled$ = this.animationService.enabled$;
   }
 }

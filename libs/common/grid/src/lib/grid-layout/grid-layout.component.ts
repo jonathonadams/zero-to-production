@@ -22,10 +22,10 @@ import { GridLayoutService } from '../grid-layout.service';
 export class GridLayoutComponent implements OnInit, AfterViewInit {
   constructor(private service: GridLayoutService, private el: ElementRef) {}
 
-  _grid: IGrid[] | null;
+  #_grid: IGrid[] | null;
   @Input()
   set grid(grid: IGrid[] | null) {
-    this._grid = grid;
+    this.#_grid = grid;
     this.setGrid();
   }
   @ContentChildren(GridTileComponent, { descendants: true }) tiles: QueryList<
@@ -41,12 +41,12 @@ export class GridLayoutComponent implements OnInit, AfterViewInit {
   }
 
   setGrid() {
-    if (this._grid && this.tiles) {
+    if (this.#_grid && this.tiles) {
       const tileArray = this.tiles.toArray();
       let minColumns = 0;
       let minRows = 0;
 
-      this._grid.forEach((grid, i) => {
+      this.#_grid.forEach((grid, i) => {
         if (grid.colEnd > minColumns) minColumns = grid.colEnd;
         if (grid.rowEnd > minRows) minRows = grid.rowEnd;
 

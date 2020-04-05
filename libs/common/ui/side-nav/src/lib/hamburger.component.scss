@@ -141,3 +141,15 @@ $hamburger-hover-opacity: 0.7 !default;
     }
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .hamburger-inner,
+  .slider .hamburger-inner::before,
+  .slider .hamburger-inner::after,
+  .slider.is-active .hamburger-inner,
+  .slider.is-active .hamburger-inner::before,
+  .slider.is-active .hamburger-inner::after {
+    animation: none;
+    transition: none;
+  }
+}
