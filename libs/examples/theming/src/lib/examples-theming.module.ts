@@ -5,11 +5,13 @@ import { CssThemingComponent } from './css-theming/css-theming.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatButtonModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,

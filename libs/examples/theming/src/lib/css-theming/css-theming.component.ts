@@ -40,7 +40,7 @@ export class CssThemingComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     const theme = this.themeService.themeSettings;
-    this.form.reset(theme ? theme : this.baseTheme);
+    this.form.reset(theme ? theme : this.baseTheme, { emitEvent: false });
   }
 
   resetTheme() {
@@ -48,11 +48,12 @@ export class CssThemingComponent implements OnInit, AfterViewInit {
   }
 
   get baseTheme() {
+    const defaultTheme = this.themeService.defaultTheme;
     return {
-      lightPrimary: ['#ffaa00'],
-      lightAccent: ['#0047B3'],
-      darkPrimary: ['#d33685'],
-      darkAccent: ['#20eff0'],
+      lightPrimary: [defaultTheme.lightPrimary],
+      lightAccent: [defaultTheme.lightAccent],
+      darkPrimary: [defaultTheme.darkPrimary],
+      darkAccent: [defaultTheme.darkAccent],
     };
   }
 
