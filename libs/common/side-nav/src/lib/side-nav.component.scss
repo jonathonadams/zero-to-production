@@ -56,28 +56,6 @@ nav a {
   display: none;
 }
 
-// desktop display
-@media (min-width: 600px) {
-  .nav-container {
-    --hamburger-height: 4em;
-    --total-width: 180px;
-    --rail-width: var(--desktop-rail-width);
-  }
-
-  // on larger displays display the list always so that the rail navigation
-  // is still visible
-  .main-menu:not(.open) > ul {
-    display: block;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .main-menu {
-    animation: none;
-    transition: none;
-  }
-}
-
 .menu-icon {
   position: absolute;
   display: block;
@@ -171,4 +149,26 @@ nav a {
 
 .skip-link {
   z-index: 2;
+}
+
+// desktop display
+@media (min-width: 600px) {
+  .nav-container {
+    --hamburger-height: 4em;
+    --total-width: 180px;
+    --rail-width: var(--desktop-rail-width);
+  }
+
+  // on larger displays display the list always so that the rail navigation
+  // is still visible
+  .main-menu:not(.open) > ul {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main-menu {
+    animation: none;
+    transition: none;
+  }
 }

@@ -112,7 +112,7 @@
     "common-toolbar-menu": {
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
-    "common-ui-side-nav": {
+    "common-side-nav": {
       "tags": ["scope:shared", "type:ui", "platform:web"]
     },
     "common-ui-toolbar": {

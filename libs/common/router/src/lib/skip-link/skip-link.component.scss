@@ -3,40 +3,28 @@
   position: relative;
   margin-top: 0.5rem;
   margin-left: 0.5rem;
-}
 
-.skip-link {
-  display: inline-block;
-  opacity: 0;
-  position: absolute;
-}
+  .skip-link {
+    display: inline-block;
+    opacity: 0;
+    position: absolute;
+  }
 
-.skip-link:before {
-  content: '⇽';
-  display: inline;
-}
-.skip-link.active:focus,
-.skip-link.active:hover {
-  opacity: 1;
-}
+  .skip-link:before {
+    content: '⇽';
+    display: inline;
+  }
+  .skip-link.active:focus,
+  .skip-link.active:hover {
+    opacity: 1;
+  }
 
-// Currently not supported very well, but when it is widely supported :focus-visible is keyboard only!
-.skip-link:focus:not(:focus-visible) {
-  opacity: 0;
-}
+  // Currently not supported very well, but when it is widely supported :focus-visible is keyboard only!
+  .skip-link:focus:not(:focus-visible) {
+    opacity: 0;
+  }
 
-.skip-link.active:focus-visible {
-  opacity: 1;
-}
-
-// Polyfill code (.focus-visible) is added to element if it should match
-// TODO -> Delete once happy with browser support 'npm uninstall focus-visible'
-// https://caniuse.com/#search=focus-visible
-.skip-link:focus:not(.focus-visible),
-.skip-link:hover:not(.focus-visible) {
-  opacity: 0;
-}
-
-.skip-link.active.focus-visible {
-  opacity: 1;
+  .skip-link.active:focus-visible {
+    opacity: 1;
+  }
 }

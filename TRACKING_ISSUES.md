@@ -36,9 +36,6 @@ A list of random issues that are either bugs or features that will cause changes
   once this is implemented, then there will be no need for the `tsconfig.docker.json` files for the building of docker
   https://github.com/microsoft/TypeScript/issues/25613
 
-* Improve firebase function schematic to point to local firebase.json once implemented
-  https://github.com/firebase/firebase-tools/issues/590
-
 * remove utility middleware once this is supported natively
   https://github.com/apollographql/apollo-feature-requests/issues/6
 
@@ -47,6 +44,6 @@ A list of random issues that are either bugs or features that will cause changes
 
 * Currently the todos query manually removes a todo from the cache on the all todos query ONLY
   This is not an issue in the Todo App because there is only one query, however this would not work
-  If different queries quried todos.
+  If different queries queried todos.
   When Apollo Client v3 (apollo-angular 2) is released, use the cache.evict /.release /.gc etc
   https://github.com/apollographql/apollo-feature-requests/issues/5

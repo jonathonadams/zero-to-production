@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ISideNaveRoute } from '@ztp/common/ui/side-nav';
+import { ISideNaveRoute } from '@ztp/common/side-nav';
 
 @Component({
   selector: 'todo-feature-shell',
@@ -16,14 +16,14 @@ export class TodoFeatureShellComponent {
    * https://github.com/angular/angular/issues/13011
    */
   // DELETE
-  routes: ISideNaveRoute[] = [
-    { path: 'home', icon: 'home', label: 'Home' },
-    { path: 'todos', icon: 'list', label: 'Todos' },
-  ];
+  // routes: ISideNaveRoute[] = [
+  //   { path: 'home', icon: 'home', label: 'Home' },
+  //   { path: 'todos', icon: 'list', label: 'Todos' },
+  // ];
 
   // UNCOMMENT
-  // routes: ISideNaveRoute[] = [
-  //   { path: '/home', icon: 'home', label: 'Home' },
-  //   { path: '/todos', icon: 'list', label: 'Todos' }
-  // ];
+  routes: ISideNaveRoute[] = [
+    { path: '/home', icon: 'home', label: 'Home', aria: 'home' },
+    { path: '/todos', icon: 'list', label: 'Todos', aria: 'todos' },
+  ];
 }

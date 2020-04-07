@@ -19,7 +19,7 @@ import {
 })
 export class HamburgerComponent {
   @Input() isOpen: boolean;
-  @Output() toggle = new EventEmitter<MouseEvent | KeyboardEvent>();
+  @Output() toggle = new EventEmitter<void>();
   @ViewChild('burger', { static: true }) button: ElementRef<HTMLElement>;
 
   focus() {

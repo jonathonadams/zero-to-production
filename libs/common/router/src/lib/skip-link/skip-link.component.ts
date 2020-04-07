@@ -12,8 +12,6 @@ import { SkipLinkService } from '../skip-link.server';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import 'focus-visible';
-
 @Component({
   selector: 'ztp-router-skip-link',
   templateUrl: './skip-link.component.html',
@@ -23,6 +21,9 @@ import 'focus-visible';
 export class RouterSkipLinkComponent implements OnDestroy {
   _previousNav: boolean | undefined;
   _active = true;
+  private sub: Subscription;
+  trace = '';
+
   @Input()
   set active(active: boolean | undefined) {
     if (active !== undefined) {
@@ -30,9 +31,6 @@ export class RouterSkipLinkComponent implements OnDestroy {
       this.triggerFocusLink();
     }
   }
-
-  private sub: Subscription;
-  trace = '';
 
   constructor(
     @Inject(DOCUMENT) private document: Document,

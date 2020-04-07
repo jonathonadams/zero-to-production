@@ -186,7 +186,6 @@
                 "bundleName": "theme-default-dark"
               }
             ],
-            "scripts": ["node_modules/focus-visible/dist/focus-visible.min.js"],
             "aot": true,
             "extractCss": true,
             "fileReplacements": [
@@ -1241,28 +1240,28 @@
         }
       }
     },
-    "common-ui-side-nav": {
+    "common-side-nav": {
       "projectType": "library",
-      "root": "libs/common/ui/side-nav",
-      "sourceRoot": "libs/common/ui/side-nav/src",
+      "root": "libs/common/side-nav",
+      "sourceRoot": "libs/common/side-nav/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/common/ui/side-nav/tsconfig.lib.json",
-              "libs/common/ui/side-nav/tsconfig.spec.json"
+              "libs/common/side-nav/tsconfig.lib.json",
+              "libs/common/side-nav/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/ui/side-nav/**"]
+            "exclude": ["**/node_modules/**", "!libs/common/side-nav/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/common/ui/side-nav/jest.config.js",
-            "tsConfig": "libs/common/ui/side-nav/tsconfig.spec.json",
-            "setupFile": "libs/common/ui/side-nav/src/test-setup.ts",
+            "jestConfig": "libs/common/side-nav/jest.config.js",
+            "tsConfig": "libs/common/side-nav/tsconfig.spec.json",
+            "setupFile": "libs/common/side-nav/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1346,7 +1345,6 @@
                 "bundleName": "theme-default-dark"
               }
             ],
-            "scripts": ["node_modules/focus-visible/dist/focus-visible.min.js"],
             "fileReplacements": [
               {
                 "replace": "libs/common/animations/src/lib/router/router.animations.ts",

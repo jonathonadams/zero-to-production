@@ -17,10 +17,7 @@ export interface ISideNaveRoute {
   path: string;
   icon: string;
   label: string;
-  children?: {
-    path: string;
-    label: string;
-  }[];
+  aria: string;
 }
 
 @Component({
@@ -43,23 +40,26 @@ export class CommonUiSideNavComponent {
   @HostListener('window:keyup', ['$event'])
   onWindowKeyup(event: KeyboardEvent) {
     // When the escape key is pressed and the toggle is open
-    if (this.isOpen && event.key === 'Escape') {
-      // close the window and send focus back to the open button
-      this.isOpen = false;
+    if (this.isOpen) {
+      if (event.key === 'Escape') {
+        // close the window and send focus back to the open button
+        this.isOpen = false;
+        return;
+      }
     }
   }
 
-  menuButtonToggled(event: MouseEvent | KeyboardEvent) {
+  menuButtonToggled() {
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
-      // on mobile devices, the side menu is completely removed from all presentations, display: none
-      // the links query needs to be repopulated before sending focusing on the first element
-      this.cd.detectChanges();
+      // on mobile devices, the side menu is completely removed from all presentations with 'display: none'
+      // the links query needs to be repopulated before sending focus on the first element
+      this.cd.markForCheck();
       this.links.first.nativeElement.focus();
     }
   }
 
-  trackBy(i: number, link: ISideNaveRoute) {
+  trackBy(i: number) {
     return i;
   }
 
