@@ -50,6 +50,7 @@
   - Content Projection with layouts modules
   - Dynamic Animation Timing
   - Using Web Components
+- [ ] Create own overlay component via using the HTML5.2 <dialog> element
 
 ### API
 
