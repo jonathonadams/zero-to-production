@@ -3,17 +3,17 @@ import { Injectable, ElementRef } from '@angular/core';
 // Grid per 'grid-layout-component', not a global service
 @Injectable()
 export class GridLayoutService {
-  elementRef: ElementRef;
+  _el: ElementRef;
   // CCS Properties to set
-  // --columns: 2;
+  // --grid-columns: 2;
   _columns = 2;
-  // --rows: 2;
+  // --grid-rows: 2;
   _rows = 2;
-  // --row-height: 20em;
+  // --grid-row-height: 20em;
   _rowHeight = 20;
-  // --row-gap: 10px;
+  // --grid-row-gap: 10px;
   _rowGap = 10;
-  // --column-gap: 10px;
+  // --grid-column-gap: 10px;
   _columnGap = 10;
 
   _minColumns = 0;
@@ -28,7 +28,7 @@ export class GridLayoutService {
   }
 
   setElementRef(el: ElementRef) {
-    this.elementRef = el;
+    this._el = el;
   }
 
   addColumn() {
@@ -64,35 +64,35 @@ export class GridLayoutService {
   setColumns(columns: number) {
     if (columns !== this._columns && columns >= this._minColumns) {
       this._columns = columns;
-      this.setProperty('--columns', columns.toString());
+      this.setProperty('--grid-columns', columns.toString());
     }
   }
 
   setRows(rows: number) {
     if (rows !== this._rows && rows >= this._minRows) {
       this._rows = rows;
-      this.setProperty('--rows', rows.toString());
+      this.setProperty('--grid-rows', rows.toString());
     }
   }
 
   setRowHeight(height: number) {
     this._rowHeight = height;
-    this.setProperty('--row-height', height + 'em');
+    this.setProperty('--grid-row-height', height + 'em');
   }
 
   setRowGap(gap: number) {
     this._rowGap = gap;
-    this.setProperty('--row-gap', gap + 'px');
+    this.setProperty('--grid-row-gap', gap + 'px');
   }
 
   setColumnGap(gap: number) {
     this._columnGap = gap;
-    this.setProperty('--column-gap', gap + 'px');
+    this.setProperty('--grid-column-gap', gap + 'px');
   }
 
   setProperty(property: string, value: string) {
-    if (this.elementRef) {
-      this.elementRef.nativeElement.style.setProperty(property, value);
+    if (this._el) {
+      this._el.nativeElement.style.setProperty(property, value);
     }
   }
 }
