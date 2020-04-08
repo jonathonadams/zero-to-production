@@ -1,35 +1,155 @@
 :host {
   display: block;
 }
+/* let the table scroll as a backup */
+// .tablescroll {
+//   overflow-x: auto;
+// }
 
-.notes {
+/* basic table styling */
+table {
   width: 100%;
-  display: table;
   border-collapse: collapse;
+  // border: 1px solid #ccc;
+}
+tbody tr:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.04);
+}
 
-  .header-row,
-  .table-row {
-    height: 2em;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+th {
+  text-align: left;
+}
 
-    & > * {
-      text-align: left;
-      padding: 0 0.25em;
-    }
+td p {
+  margin: 0;
+}
+
+tbody td:nth-child(2) {
+  white-space: pre-wrap;
+}
+
+// mobile
+/* Force table to not be like tables anymore */
+table,
+thead,
+tbody,
+th,
+tr {
+  display: block;
+}
+
+caption {
+  width: 100%;
+  text-align: left;
+  font-weight: bold;
+  font-size: var(--h2);
+  padding: 0.5rem;
+  display: block;
+}
+
+/* Hide table headers (but not display: none;, for accessibility -- sighted users will see labels below) */
+thead tr {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+// table tr {
+// border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+// }
+
+td {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 0.5rem;
+}
+td:before {
+  font-weight: bold;
+  width: 4rem;
+  margin-right: 2rem;
+}
+
+td:nth-of-type(1):before {
+  content: 'Crated: ';
+}
+td:nth-of-type(2):before {
+  content: 'Note: ';
+}
+td:nth-of-type(3):before {
+  content: 'Delete: ';
+  align-self: center;
+}
+
+/* For wider dimensions, change our layout so the table can take the full width of the screen. */
+/* table MQ's */
+@media (min-width: 600px) {
+  /* td:before is not specific enough to override the original declarations, thus this method */
+  // td:nth-of-type(n):before,
+  td:nth-of-type(n):before {
+    content: none;
+    margin-right: 0;
+  }
+  thead tr {
+    position: static;
+  }
+  thead,
+  tbody {
+    display: table-row-group;
   }
 
-  .delete {
+  tbody td:nth-child(1) {
+    width: 20%;
+  }
+  tbody td:nth-child(2) {
+    width: 70%;
+  }
+  tbody td:nth-child(3) {
     text-align: center;
     width: 10%;
   }
-
-  .table-row {
-    .date {
-      width: 20%;
-    }
-    .body {
-      width: 70%;
-      white-space: pre-wrap;
-    }
+  th,
+  td {
+    display: table-cell;
+    padding: 0 0.25em;
+  }
+  tr {
+    height: 2rem;
+    display: table-row;
+  }
+  table {
+    display: table;
+  }
+  caption {
+    font-size: var(--font-size);
   }
 }
+
+// Original Code
+// table {
+//   width: 100%;
+//   display: table;
+//   border-collapse: collapse;
+// }
+
+// table tr {
+//   height: 2em;
+//   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+// }
+
+// table tr > * {
+//   text-align: left;
+//   padding: 0 0.25em;
+// }
+
+// table tr > :last-child {
+//   text-align: center;
+//   width: 10%;
+// }
+
+// tbody td:nth-child(0) {
+//   width: 20%;
+// }
+// tbody td:nth-child(2) {
+//   width: 70%;
+//   white-space: pre-wrap;
+// }

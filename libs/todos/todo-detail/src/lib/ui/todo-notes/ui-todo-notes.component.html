@@ -1,21 +1,30 @@
 <ztp-card [routerAnimate]="true">
+  <!-- <div
+    class="tablescroll"
+    role="region"
+    aria-labelledby="todonotes"
+    tabindex="0"
+  > -->
   <table class="notes">
+    <caption id="todonotes">
+      Todo Notes
+    </caption>
     <thead>
-      <tr class="header-row">
-        <th>Created</th>
-        <th>Note</th>
-        <th class="delete">Delete</th>
+      <tr>
+        <th scope="col">Created</th>
+        <th scope="col">Note</th>
+        <th scope="col">Delete</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="table-row" *ngFor="let note of notes">
-        <td class="date">
+      <tr *ngFor="let note of notes">
+        <td>
           <p>{{ note.createdOn | date }}</p>
         </td>
-        <td class="body">
+        <td>
           <p>{{ note.body }}</p>
         </td>
-        <td class="delete">
+        <td>
           <button type="button" mat-icon-button (click)="delete.emit(note.id)">
             <mat-icon>delete</mat-icon>
           </button>
@@ -23,4 +32,5 @@
       </tr>
     </tbody>
   </table>
+  <!-- </div> -->
 </ztp-card>
