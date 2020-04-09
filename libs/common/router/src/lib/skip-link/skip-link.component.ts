@@ -19,7 +19,7 @@ import { filter } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RouterSkipLinkComponent implements OnDestroy {
-  _previousNav: boolean | undefined;
+  _previousNav = false;
   _active = true;
   private sub: Subscription;
   trace = '';
@@ -43,7 +43,7 @@ export class RouterSkipLinkComponent implements OnDestroy {
       .subscribe(() => {
         const navigation = this.router.getCurrentNavigation();
         // Check if it has navigated before, this is to prevent focus on first load
-        if (this._previousNav === true) {
+        if (this._previousNav) {
           this.triggerFocusLink();
         } else if (navigation?.previousNavigation) {
           this._previousNav = true;
@@ -61,8 +61,8 @@ export class RouterSkipLinkComponent implements OnDestroy {
       const skipLink = this.document.querySelector('#skip-link') as HTMLElement;
       if (skipLink) {
         skipLink.focus();
+        this.cd.markForCheck();
       }
-      this.cd.markForCheck();
     }
   }
 

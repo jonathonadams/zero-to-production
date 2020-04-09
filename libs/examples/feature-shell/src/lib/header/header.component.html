@@ -1,13 +1,21 @@
 <ztp-ui-toolbar class="header">
   <ng-container toolbarLeft>
-    <a
-      class="nav-button"
-      mat-button
-      *ngFor="let button of navButtons"
-      [routerLink]="button.link"
-    >
-      {{ button.label }}
-    </a>
+    <nav role="navigation" aria-label="Main navigation">
+      <a
+        *ngFor="let route of navRoutes"
+        class="nav-button"
+        ztp-anchor
+        [routerLink]="route.link"
+        [state]="{ skipLink: 'main-nav-' + route.aria }"
+        ztpSkipLink
+        [title]="'main-nav-' + route.aria"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+      >
+        {{ route.label }}
+      </a>
+    </nav>
   </ng-container>
 
   <a
@@ -16,6 +24,7 @@
     class="git-logo"
     rel="noreferrer noopener"
     href="https://github.com/unquenchablethyrst/zero-to-production"
+    aria-label="Opens GitHub repo"
   >
     <svg
       aria-labelledby="title"

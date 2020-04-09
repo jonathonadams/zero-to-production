@@ -74,7 +74,6 @@
     </div>
     <div class="examples">
       <ztp-example
-        (click)="showExamples()"
         class="example"
         *ngFor="let example of examples$ | async; let i = index"
         trackBy="trackExample"

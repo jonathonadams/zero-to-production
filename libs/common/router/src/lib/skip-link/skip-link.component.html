@@ -1,8 +1,8 @@
 <button
   id="skip-link"
   class="skip-link"
-  [ngClass]="{ active: _active }"
-  mat-stroked-button
+  [ngClass]="{ active: _active && _previousNav }"
+  mat-raised-button
   [attr.aria-label]="'back to ' + trace"
   [title]="'Skip to ' + trace"
   (click)="revertFocus()"

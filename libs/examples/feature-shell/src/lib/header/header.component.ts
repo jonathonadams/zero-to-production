@@ -7,9 +7,9 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamplesHeaderComponent {
-  navButtons = [
-    { label: 'Home', link: '/' },
-    { label: 'Examples', link: '/examples' },
-    { label: 'Guides', link: '/guides' },
+  navRoutes = [
+    { label: 'Home', link: '/home', aria: 'home' },
+    { label: 'Examples', link: '/examples', aria: 'examples' },
+    { label: 'Guides', link: '/guides', aria: 'guides' },
   ];
 }

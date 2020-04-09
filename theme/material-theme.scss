@@ -4,10 +4,11 @@
 
 /* 
  The below hard-coded colors have been taken from the source code below.
- https://github.com/angular/material2/blob/master/src/lib/core/theming/_palette.scss
+ https://github.com/angular/components/tree/master/src/material/core/theming
+ https://github.com/angular/components/blob/master/src/material/core/theming/_palette.scss
 
  Normally you do not redeclare all these variables, however to change any of them
- (i.e the disabled form field text then you need to redeclare them
+ (i.e the disabled form field text) then you need to redeclare them
 
  Un comment below to access / modify the colors
 */
@@ -23,42 +24,85 @@
 // $light-dividers: rgba(white, 0.12);
 // $light-focused: rgba(white, 0.12);
 
+// Alias for alternate spelling.
+// $mat-blue-gray: $mat-blue-grey;
+
+// Background palette for light themes.
+$mat-light-theme-background: (
+  status-bar: map_get($mat-grey, 300),
+  app-bar: map_get($mat-grey, 100),
+  background: white,
+  hover: rgba(black, 0.04),
+  // TODO(kara): check style with Material Design UX
+    card: white,
+  dialog: white,
+  disabled-button: rgba(black, 0.12),
+  raised-button: white,
+  focused-button: $dark-focused,
+  selected-button: map_get($mat-grey, 300),
+  selected-disabled-button: map_get($mat-grey, 400),
+  disabled-button-toggle: map_get($mat-grey, 200),
+  unselected-chip: map_get($mat-grey, 300),
+  disabled-list-option: map_get($mat-grey, 200),
+  tooltip: map_get($mat-grey, 700),
+);
+// background: map_get($mat-grey, 50),
+
+// // Background palette for dark themes.
+// $mat-dark-theme-background: (
+//   status-bar: black,
+//   app-bar:    map_get($mat-grey, 900),
+//   background: #303030,
+//   hover:      rgba(white, 0.04), // TODO(kara): check style with Material Design UX
+//   card:       map_get($mat-grey, 800),
+//   dialog:     map_get($mat-grey, 800),
+//   disabled-button: rgba(white, 0.12),
+//   raised-button: map-get($mat-grey, 800),
+//   focused-button: $light-focused,
+//   selected-button: map_get($mat-grey, 900),
+//   selected-disabled-button: map_get($mat-grey, 800),
+//   disabled-button-toggle: black,
+//   unselected-chip: map_get($mat-grey, 700),
+//   disabled-list-option: black,
+//   tooltip: map_get($mat-grey, 700),
+// );
+
 // // Foreground palette for light themes.
 // $mat-light-theme-foreground: (
-//   base: black,
-//   divider: $dark-dividers,
-//   dividers: $dark-dividers,
-//   disabled: $dark-disabled-text,
-//   disabled-button: rgba(black, 0.26),
-//   disabled-text: $dark-disabled-text,
-//   elevation: black,
-//   hint-text: $dark-disabled-text,
-//   secondary-text: $dark-secondary-text,
-//   icon: rgba(black, 0.54),
-//   icons: rgba(black, 0.54),
-//   text: rgba(black, 0.87),
-//   slider-min: rgba(black, 0.87),
-//   slider-off: rgba(black, 0.26),
-//   slider-off-active: rgba(black, 0.38)
+//   base:              black,
+//   divider:           $dark-dividers,
+//   dividers:          $dark-dividers,
+//   disabled:          $dark-disabled-text,
+//   disabled-button:   rgba(black, 0.26),
+//   disabled-text:     $dark-disabled-text,
+//   elevation:         black,
+//   hint-text:         $dark-disabled-text,
+//   secondary-text:    $dark-secondary-text,
+//   icon:              rgba(black, 0.54),
+//   icons:             rgba(black, 0.54),
+//   text:              rgba(black, 0.87),
+//   slider-min:        rgba(black, 0.87),
+//   slider-off:        rgba(black, 0.26),
+//   slider-off-active: rgba(black, 0.38),
 // );
 
 // // Foreground palette for dark themes.
 // $mat-dark-theme-foreground: (
-//   base: white,
-//   divider: $light-dividers,
-//   dividers: $light-dividers,
-//   disabled: $light-disabled-text,
-//   disabled-button: rgba(white, 0.3),
-//   disabled-text: $light-disabled-text,
-//   elevation: black,
-//   hint-text: $light-disabled-text,
-//   secondary-text: $light-secondary-text,
-//   icon: white,
-//   icons: white,
-//   text: white,
-//   slider-min: white,
-//   slider-off: rgba(white, 0.3),
-//   slider-off-active: rgba(white, 0.3)
+//   base:              white,
+//   divider:           $light-dividers,
+//   dividers:          $light-dividers,
+//   disabled:          $light-disabled-text,
+//   disabled-button:   rgba(white, 0.3),
+//   disabled-text:     $light-disabled-text,
+//   elevation:         black,
+//   hint-text:         $light-disabled-text,
+//   secondary-text:    $light-secondary-text,
+//   icon:              white,
+//   icons:             white,
+//   text:              white,
+//   slider-min:        white,
+//   slider-off:        rgba(white, 0.3),
+//   slider-off-active: rgba(white, 0.3),
 // );
 
 $light-primary-pallet: (

@@ -9,7 +9,7 @@ export const EXAMPLES_ROUTES: Routes = [
     component: ExamplesFeatureShellComponent,
     children: [
       {
-        path: '',
+        path: 'home',
         pathMatch: 'full',
         component: ExamplesHomeComponent,
       },
@@ -27,11 +27,11 @@ export const EXAMPLES_ROUTES: Routes = [
           import('@ztp/examples/guides').then((m) => m.ExamplesGuidesModule),
         data: { preload: true }, // Preload this route
       },
+      {
+        path: '**',
+        redirectTo: 'home', // TODO -> 404 page
+      },
     ],
-  },
-  {
-    path: '**',
-    redirectTo: '/', // TODO -> 404 page
   },
 ];
 

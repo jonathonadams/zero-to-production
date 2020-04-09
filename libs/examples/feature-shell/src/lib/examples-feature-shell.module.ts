@@ -12,17 +12,21 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ExamplesHeaderComponent } from './header/header.component';
 import { CommonUtilsNotificationModule } from '@ztp/common/utils/notifications';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonRouterModule } from '@ztp/common/router';
+import { CommonUiButtonsModule } from '@ztp/common/ui/buttons';
 
 @NgModule({
   imports: [
+    ExamplesDataAccessModule,
+    ExamplesFeatureShellRoutingModule,
     CommonModule,
     CommonUiToolbarModule,
     CommonUiCardModule,
+    CommonUiButtonsModule,
+    CommonRouterModule,
+    CommonUtilsNotificationModule,
     MatButtonModule,
     ScrollingModule,
-    CommonUtilsNotificationModule,
-    ExamplesDataAccessModule,
-    ExamplesFeatureShellRoutingModule,
   ],
   declarations: [
     ExamplesFeatureShellComponent,
