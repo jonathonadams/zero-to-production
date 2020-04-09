@@ -20,15 +20,9 @@
 - [ ] Complete e2e tests
 - [ ] Migrate to Angular Test Harness
 - [ ] tests for Lambda API
-- [ ] Dynamic Form
-- [ ] Form Builder
-
-### Misc
-
-- [ ] Audit for a11y
-  - Title and Meta tags
-- [ ] Migrate all code to make use ove TSv3.8
-- [ ] Change Media Queries to use CSS custom properties
+- Common Library
+  - [ ] Dynamic Form
+  - [ ] Form Builder
 
 ### DevOps
 
@@ -51,6 +45,7 @@
   - Dynamic Animation Timing
   - Using Web Components
 - [ ] Create own overlay component via using the HTML5.2 <dialog> element
+- [ ] Migrate away from Angular Material
 
 ### API
 
