@@ -1,25 +1,25 @@
-# Deploy your client app Firebase Hosting
+# Deploy your Web App with Firebase Hosting
 
 ## Before you Start
 
-Ensure you have all the [prerequisites] setup and ready prior to starting this guide.
+Ensure you have all the [prerequisites] completed prior to starting this guide.
 
 ## Configure App
 
-The only configuration that is required is configure the API url to point to your cloud API (if you have not done so already).
+The only configuration that is required is set the API URL to point to your cloud API.
 Change `serverUrl` in `apps/todos/todos-web/src/environments/environments.prod.ts` to point to your API server.
 
-## Analyze your build (Optional)
+## Analyze your build (optional)
 
-Prior to deploying your application, it is recommended to analyze the production bundle.
+Prior to deploying your application it is recommended to analyze the production bundle.
 
-1. make a production build of your application with and `stats.json`
+1. Make a production build of your application with a `stats.json`
 
    ```bash
    $ ng build <target> --prod --stats-json
    ```
 
-2. analyze the bundle with `webpack-bundle-analyzer`
+2. Analyze the bundle with `webpack-bundle-analyzer`
 
    ```bash
    $ npm run bundle:analyze -- path/to/distribution/directory/stats.json
@@ -27,31 +27,31 @@ Prior to deploying your application, it is recommended to analyze the production
 
 ## Deploy on Firebase Hosting
 
-1. make a production build of your application
+1. Make a production build of your application
 
    ```bash
    $ ng build <target> --prod
    ```
 
-2. **optional**: test the production build with [Nginx & Docker]
-3. authenticate with Firebase
+2. **Optional**: test the production build with [Nginx & Docker]
+3. Authenticate with Firebase
 
    ```bash
    $ firebase login
    ```
 
-4. instantiate a new firebase project
+4. Initiate a new firebase project
 
    ```bash
    $ firebase init
    ```
 
-5. choose **Hosting**
-6. choose **Use an existing project** and select your desired project.
-7. chose the desired output directory e.g. `dist/apps/todos/todos-web`
-8. select yest to configure as a single-page app
-9. select **NO** to overwriting your existing `index.html`.
-10. deploy your project
+5. Choose **Hosting**
+6. Choose **Use an existing project** and select your desired project
+7. Chose the desired output directory e.g. `dist/apps/todos/todos-web`
+8. Select **yes** to configure as a single-page app
+9. Select **no** to override your existing `index.html`
+10. Deploy your project
 
     ```bash
     $ firebase deploy
