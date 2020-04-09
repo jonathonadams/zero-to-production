@@ -1,8 +1,8 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { FormErrorsComponent } from './form-errors.component';
-import { DynamicFormFacade } from '../+state/dynamic-form.facade';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { PrivateDynamicFormFacade } from '../+state/private-dynamic-form.facade';
 
 describe('FormErrorsComponent', () => {
@@ -16,6 +16,7 @@ describe('FormErrorsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [NoopAnimationsModule],
       declarations: [FormErrorsComponent],
       providers: [{ provide: PrivateDynamicFormFacade, useValue: facadeSpy }],
       schemas: [NO_ERRORS_SCHEMA],
