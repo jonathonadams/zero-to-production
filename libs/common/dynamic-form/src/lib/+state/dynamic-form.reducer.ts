@@ -26,7 +26,7 @@ export const formReducer = createReducer(
   initialEntityFormState,
   on(DynamicFormActions.createForm, (state, { formName }) => {
     // Only creates if it does not yet currently exist
-    if ((state.ids as string[]).indexOf(formName) === -1) {
+    if (!(state.ids as string[]).includes(formName)) {
       return adapter.addOne(generateInitialFormState(formName), state);
     } else {
       return state;

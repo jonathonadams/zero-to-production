@@ -1,3 +1,8 @@
-<div class="main-app-content" [@appRouterAnimations]="prepareRoute(outlet)">
+<div
+  class="app"
+  [ngClass]="{ 'dark-theme': darkMode$ | async }"
+  [@appRouterAnimations]="prepareRoute(outlet)"
+  [@.disabled]="!(animationsEnabled$ | async)"
+>
   <router-outlet #outlet="outlet"></router-outlet>
 </div>

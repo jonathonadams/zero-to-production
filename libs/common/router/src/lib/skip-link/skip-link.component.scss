@@ -1,0 +1,28 @@
+:host {
+  position: relative;
+
+  .skip-link {
+    margin: 0.5rem 0 0 0.5rem;
+    display: inline-block;
+    opacity: 0;
+    position: absolute;
+  }
+
+  .skip-link:before {
+    content: '⇽';
+    display: inline;
+  }
+  .skip-link.active:focus,
+  .skip-link.active:hover {
+    opacity: 1;
+  }
+
+  // Currently not supported very well, but when it is widely supported :focus-visible is keyboard only!
+  .skip-link:focus:not(:focus-visible) {
+    opacity: 0;
+  }
+
+  .skip-link.active:focus-visible {
+    opacity: 1;
+  }
+}

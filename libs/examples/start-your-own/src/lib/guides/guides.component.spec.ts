@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GuidesComponent } from './guides.component';
-import { CodeHighlightService } from '@uqt/examples/utils';
+import { CodeHighlightService } from '@ztp/examples/utils';
 
 describe('GuidesComponent', () => {
   let component: GuidesComponent;

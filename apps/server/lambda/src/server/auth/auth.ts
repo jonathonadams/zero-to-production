@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import { Connection } from 'mongoose';
-import { getUserModel } from '@uqt/server/core-data';
+import { getUserModel } from '@ztp/server/core-data';
 import {
   getAuthResolvers,
   getVerificationTokenModel,
@@ -8,7 +8,7 @@ import {
   generateAuthModuleConfig,
   applyAuthRoutes,
   createAuthSchema,
-} from '@uqt/server/auth';
+} from '@ztp/server/auth';
 import { authConfig } from '../../environments/environment';
 
 /**

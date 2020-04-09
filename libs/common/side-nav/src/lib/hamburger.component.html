@@ -1,0 +1,14 @@
+<button
+  #burger
+  class="hamburger slider mat-elevation-z3"
+  aria-label="Open main menu"
+  aria-haspopup="true"
+  aria-controls="ztp-side-menu"
+  type="button"
+  [ngClass]="{ 'is-active': isOpen }"
+  (click)="toggle.emit()"
+>
+  <span aria-hidden="true" class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>

@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+div.ztp-grid-container {
+  --grid-columns: 2;
+  --grid-rows: 2;
+  --grid-row-height: 20em;
+  --grid-row-gap: 10px;
+  --grid-column-gap: 10px;
+
+  padding: var(--grid-row-gap) var(--grid-column-gap);
+  height: calc(var(--grid-rows) * var(--grid-row-height));
+  max-width: 100%;
+
+  // set the overflow to hidden, to prevent any animations causing parents to grow
+  overflow-y: hidden;
+
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+
+  // The 'grid-' prefix is deprecated, so define it twice
+  grid-gap: var(--grid-row-gap) var(--grid-column-gap);
+  gap: var(--grid-row-gap) var(--grid-column-gap);
+}

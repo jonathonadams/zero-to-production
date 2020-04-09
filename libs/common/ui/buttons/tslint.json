@@ -1,8 +1,8 @@
 {
   "extends": "../../../../tslint.json",
   "rules": {
-    "directive-selector": [true, "attribute", "uqt", "kebab-case"],
-    "component-selector": [true, "element", "uqt", "kebab-case"]
+    "directive-selector": [true, "attribute", "ztp", "kebab-case"],
+    "component-selector": [true, "element", "ztp", "kebab-case"]
   },
   "linterOptions": {
     "exclude": ["!**/*"]

@@ -1,19 +1,23 @@
-.grid-container {
-  margin: 20px;
+:host {
+  display: block;
+}
+
+article {
+  height: 100%;
 }
 
 .dashboard-card {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
-}
+  position: relative;
+  height: 100%;
 
-.more-button {
-  position: absolute;
-  top: 5px;
-  right: 10px;
+  h3 {
+    margin: 0;
+  }
+  .more-button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
 }
 
 .dashboard-card-content {

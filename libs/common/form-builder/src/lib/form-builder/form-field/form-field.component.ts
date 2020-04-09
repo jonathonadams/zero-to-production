@@ -7,13 +7,12 @@ import {
   HostListener,
 } from '@angular/core';
 import { FormGroup, AbstractControl, FormArray } from '@angular/forms';
-import { FormFieldTypes, InputFieldTypes } from '@uqt/common/dynamic-form';
+import { FormFieldTypes, InputFieldTypes } from '@ztp/common/dynamic-form';
 import {
   faPen,
   faCalendarAlt,
   faCheckSquare,
   faList,
-  faToggleOn,
   faAlignJustify,
   IconDefinition,
   faTrash,
@@ -22,7 +21,7 @@ import {
 import { expandAnimation } from '../../form.animation';
 
 @Component({
-  selector: 'uqt-form-builder-field',
+  selector: 'ztp-form-builder-field',
   templateUrl: './form-field.component.html',
   styleUrls: ['./form-field.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -84,8 +83,6 @@ export class FormBuilderFieldComponent {
         return faList;
       case FormFieldTypes.TextArea:
         return faAlignJustify;
-      case FormFieldTypes.Toggle:
-        return faToggleOn;
     }
   }
 }

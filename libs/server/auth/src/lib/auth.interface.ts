@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { GraphQLFieldResolver } from 'graphql';
-import { IUserModel, IUserDocument } from '@uqt/server/core-data';
+import { IUserModel, IUserDocument } from '@ztp/server/core-data';
 
 export type TResolver = GraphQLFieldResolver<any, any, any>;
 export type TResolverFactory = (next: TResolver) => TResolver;

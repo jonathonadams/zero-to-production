@@ -1,28 +1,15 @@
-import {
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-} from '@angular/core';
-import { Observable } from 'rxjs';
-import { ThemeService } from '@uqt/common/theme';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'uqt-examples-header',
+  selector: 'ztp-examples-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamplesHeaderComponent {
-  darkTheme$: Observable<boolean>;
-
-  constructor(private theme: ThemeService) {
-    this.darkTheme$ = this.theme.darkTheme$;
-  }
-
-  navButtons = [
-    { label: 'Home', link: '/' },
-    { label: 'Examples', link: '/examples' },
-    { label: 'Guides', link: '/guides' },
+  navRoutes = [
+    { label: 'Home', link: '/home', aria: 'home' },
+    { label: 'Examples', link: '/examples', aria: 'examples' },
+    { label: 'Guides', link: '/guides', aria: 'guides' },
   ];
 }

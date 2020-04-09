@@ -1,0 +1,28 @@
+@import '~@angular/material/theming';
+
+@mixin side-nav-theme($theme) {
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  $nav-background: mat-color($background, dialog);
+
+  $hover: mat-color($background, hover);
+  // $border: solid 1px mat-color($foreground, divider);
+
+  .main-menu {
+    background-color: $nav-background;
+    a {
+      color: mat-color($foreground, text);
+      // border-bottom: $border;
+
+      &:hover,
+      &:focus {
+        background-color: $hover;
+      }
+    }
+
+    // li:first-of-type a {
+    // border-top: $border;
+    // }
+  }
+}

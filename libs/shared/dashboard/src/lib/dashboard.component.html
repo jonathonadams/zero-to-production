@@ -1,28 +1,26 @@
-<div class="grid-container">
-  <mat-grid-list [cols]="2" rowHeight="350px">
-    <mat-grid-tile
-      *ngFor="let card of cards | async"
-      [colspan]="card.cols"
-      [rowspan]="card.rows"
-    >
-      <uqt-card class="dashboard-card" [routerAnimate]="true">
-        <h3>
-          {{ card.title }}
-        </h3>
-        <button
-          mat-icon-button
-          class="more-button"
-          [matMenuTriggerFor]="menu"
-          aria-label="Toggle menu"
-        >
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item>Expand</button>
-          <button mat-menu-item>Remove</button>
-        </mat-menu>
-        <div>Card Content Here</div>
-      </uqt-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
+<section>
+  <ztp-grid-layout [grid]="grid$ | async">
+    <ztp-grid-tile *ngFor="let card of cards">
+      <article>
+        <ztp-card [routerAnimate]="true" class="dashboard-card">
+          <h3>
+            {{ card.title }}
+          </h3>
+          <button
+            mat-icon-button
+            class="more-button"
+            [matMenuTriggerFor]="menu"
+            aria-label="Toggle menu"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item>Expand</button>
+            <button mat-menu-item>Remove</button>
+          </mat-menu>
+          <div>Card Content Here</div>
+        </ztp-card>
+      </article>
+    </ztp-grid-tile>
+  </ztp-grid-layout>
+</section>

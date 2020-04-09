@@ -1,6 +1,6 @@
 import { GraphQLFieldResolver } from 'graphql';
 import { IResolvers } from 'graphql-tools';
-import { IUser } from '@uqt/data';
+import { IUser } from '@ztp/data';
 import {
   setupLoginController,
   setupRegisterController,

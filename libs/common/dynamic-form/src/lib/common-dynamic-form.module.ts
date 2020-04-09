@@ -1,9 +1,10 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { DynamicFormComponent } from './form/dynamic-form.component';
 import {
   DynamicFormFieldDirective,
@@ -17,9 +18,10 @@ import {
   defaultErrorMessages,
 } from './form-errors.interface';
 import * as fromDynamicForm from './+state/dynamic-form.reducer';
+import { A11yModule } from '@angular/cdk/a11y';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, CustomMaterialModule],
+  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatIconModule],
   declarations: [DynamicFormComponent, DynamicFormFieldDirective],
   exports: [DynamicFormComponent],
 })
@@ -53,7 +55,9 @@ export class CommonDynamicFormModule {
 @NgModule({
   imports: [
     CommonModule,
-    CustomMaterialModule,
+    A11yModule,
+    MatButtonModule,
+    MatIconModule,
     StoreModule.forFeature<fromDynamicForm.DynamicFormEntityState>(
       fromDynamicForm.dynamicFormKey,
       fromDynamicForm.reducer

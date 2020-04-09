@@ -1,4 +1,4 @@
-// UQT_UPDATE -> delete this file
+// ZTP_AFTER_CLONE -> delete this file
 
 import Koa from 'koa';
 import {
@@ -6,7 +6,7 @@ import {
   generateDemoAuthModuleConfig,
   createDemoAuthSchema,
   getDemoAuthResolvers,
-} from '@uqt/server/auth';
+} from '@ztp/server/auth';
 import { authConfig } from '../../environments';
 import { User } from '../api/users';
 

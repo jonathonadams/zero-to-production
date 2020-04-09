@@ -8,6 +8,7 @@ import {
   ViewContainerRef,
   Inject,
   InjectionToken,
+  OnDestroy,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
@@ -30,7 +31,7 @@ export const DYNAMIC_FORM_COMPONENTS = new InjectionToken<
 @Directive({
   selector: '[appDynamicFormField]',
 })
-export class DynamicFormFieldDirective implements OnInit, OnChanges {
+export class DynamicFormFieldDirective implements OnInit, OnChanges, OnDestroy {
   @Input() idx: number | undefined;
   @Input() type: FormGroupTypes;
   @Input() field: TField;
@@ -66,5 +67,9 @@ export class DynamicFormFieldDirective implements OnInit, OnChanges {
     this.component.instance.field = this.field;
     this.component.instance.group = this.group;
     this.component.instance.idx = this.idx;
+  }
+
+  ngOnDestroy() {
+    this.viewContainerRef.clear();
   }
 }

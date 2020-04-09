@@ -1,22 +1,29 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IExample, ExamplesFacade } from '@uqt/examples/data-access';
+import { IExample, ExamplesFacade } from '@ztp/examples/data-access';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
-  selector: 'uqt-examples-home',
+  selector: 'ztp-examples-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExamplesHomeComponent {
+export class ExamplesHomeComponent implements OnInit {
+  title = 'Home - Zero To Production';
+  description = 'Full Stack Monorepo Starter';
   examples$: Observable<IExample[]>;
-  constructor(private facade: ExamplesFacade, private router: Router) {
+  constructor(
+    private facade: ExamplesFacade,
+    private meta: Meta,
+    private titleService: Title
+  ) {
     this.examples$ = this.facade.examples$;
   }
 
-  showExamples() {
-    this.router.navigate(['examples']);
+  ngOnInit() {
+    this.titleService.setTitle(this.title);
+    this.meta.updateTag({ name: 'description', content: this.description });
   }
 
   trackExample(i: number, e: IExample) {

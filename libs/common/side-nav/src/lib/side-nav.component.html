@@ -1,0 +1,60 @@
+<div class="nav-container" [ngClass]="mode">
+  <!-- The icon is a sibling of the main-menu because it floats in the upper left screen -->
+  <!-- and it needs to be displayed even when the rail navigation is offscreen on mobile -->
+  <div class="menu-icon">
+    <ztp-sidenav-hamburger
+      class="burger"
+      *ngIf="menuButton"
+      [isOpen]="isOpen"
+      (toggle)="menuButtonToggled()"
+    >
+    </ztp-sidenav-hamburger>
+  </div>
+
+  <!-- Only need aria-label on nav tag if more than one nav on page -->
+  <nav
+    role="navigation"
+    aria-label="Main navigation"
+    class="main-menu mat-elevation-z2"
+    [ngClass]="{ open: isOpen }"
+    [cdkTrapFocus]="isOpen"
+  >
+    <ul id="ztp-side-menu" class="route-list" role="list">
+      <li *ngFor="let route of routes; trackBy: trackBy">
+        <a
+          #navLinks
+          [routerLink]="[route.path]"
+          [state]="{ skipLink: 'main-nav-' + route.aria }"
+          ztpSkipLink
+          [title]="'main-nav-' + route.aria"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [attr.aria-current]="rla.isActive ? 'page' : null"
+          ><span aria-hidden="true" class="route-icon">
+            <mat-icon>{{ route.icon }}</mat-icon></span
+          ><span class="route-label">{{ route.label }}</span></a
+        >
+      </li>
+    </ul>
+  </nav>
+  <!-- backdrop must be a sibling of the menu for z-index stacking -->
+  <div
+    class="backdrop"
+    hidden
+    [ngClass]="{ closed: !isOpen }"
+    (click)="isOpen = false"
+  ></div>
+
+  <div class="app-content" [@routeAnimations]="prepareRoute(appContent)">
+    <ng-content select="[toolbar]"></ng-content>
+
+    <main role="main">
+      <ztp-router-skip-link
+        class="skip-link"
+        [active]="!isOpen"
+      ></ztp-router-skip-link>
+      <router-outlet #appContent="outlet"></router-outlet>
+    </main>
+    <ng-content select="[footer]"></ng-content>
+  </div>
+</div>

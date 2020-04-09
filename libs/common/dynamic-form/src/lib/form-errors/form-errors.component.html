@@ -1,19 +1,27 @@
 <div
-  (click)="dismiss.emit()"
-  class="error-container mat-elevation-z6"
+  cdkTrapFocus
+  class="container mat-elevation-z6"
   @formErrorsAnimations
+  (@formErrorsAnimations.done)="onAnimationEvent($event)"
 >
-  <ul class="error-messages">
-    <li class="error-text" *ngFor="let error of errors$ | async">
-      {{ error }}
-    </li>
-  </ul>
+  <div class="errors">
+    <h4 class="heading">Form Errors</h4>
+    <ul class="messages">
+      <li class="error-text" *ngFor="let error of errors$ | async">
+        <p>
+          {{ error }}
+        </p>
+      </li>
+    </ul>
+  </div>
   <button
     class="dismiss"
     mat-button
     #dismissButton
     (click)="dismiss.emit()"
     type="button"
+    title="Dismiss form errors"
+    aria-label="Dismiss form error"
   >
     Dismiss
   </button>

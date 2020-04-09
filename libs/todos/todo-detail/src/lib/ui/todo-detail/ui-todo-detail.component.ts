@@ -5,7 +5,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { ITodo } from '@uqt/data';
+import { ITodo } from '@ztp/data';
 
 @Component({
   selector: 'todo-ui-todo-detail',

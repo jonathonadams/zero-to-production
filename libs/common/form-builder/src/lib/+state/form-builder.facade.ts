@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { IDynamicFormConfig } from '@uqt/common/dynamic-form';
+import { IDynamicFormConfig } from '@ztp/common/dynamic-form';
 import * as fromFormBuilder from './form-builder.selectors';
 import * as FormBuilderActions from './form-builder.actions';
 

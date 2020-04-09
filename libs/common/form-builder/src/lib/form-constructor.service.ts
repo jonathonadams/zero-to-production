@@ -9,7 +9,7 @@ import {
   ISelectField,
   ISelectOption,
   IFormGroup,
-} from '@uqt/common/dynamic-form';
+} from '@ztp/common/dynamic-form';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 
@@ -19,10 +19,10 @@ export class FormBuilderConstructorService {
   dropListIds$: Observable<string[]> = this.dropListIdsSubject.asObservable();
 
   get toolBoxGroupId() {
-    return 'uqt-tb-form-group';
+    return 'ztp-tb-form-group';
   }
   get toolBoxFieldId() {
-    return 'uqt-tb-field-group';
+    return 'ztp-tb-field-group';
   }
 
   constructor(private fb: FormBuilder) {}
@@ -40,7 +40,7 @@ export class FormBuilderConstructorService {
   }
 
   createFieldId(index: number) {
-    return `uqt-fb-fields-${index}`;
+    return `ztp-fb-fields-${index}`;
   }
 
   formBuilder(config: IDynamicFormConfig): FormGroup {

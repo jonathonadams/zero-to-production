@@ -1,6 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { EntityState, createEntityAdapter, EntityAdapter } from '@ngrx/entity';
-import { IUser } from '@uqt/data';
+import { IUser } from '@ztp/data';
 import * as UserActions from './users.actions';
 
 export const usersEntityStateKey = 'usersState';

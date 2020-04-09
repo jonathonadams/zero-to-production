@@ -5,19 +5,19 @@ import { ExamplesLiveDemosRoutingModule } from './examples-live-demos-routing.mo
 import { ExamplesDemosComponent } from './example-demos/examples-demos.component';
 import { ExampleDetailComponent } from './example-demos/example-detail/example-detail.component';
 import {
-  SharedUtilsDynamicModuleLoadingModule,
+  CommonUtilsDynamicModuleLoadingModule,
   LAZY_MODULE_REGISTRY,
-} from '@uqt/shared/utils/dynamic-module-loading';
+} from '@ztp/common/utils/dynamic-module-loading';
 import { LAZY_MODULES } from './lazy-modules';
-import { ExamplesDynamicFormModule } from '@uqt/examples/dynamic-form';
-import { CommonUiLayoutsModule } from '@uqt/common/ui/layouts';
+import { ExamplesDynamicFormModule } from '@ztp/examples/dynamic-form';
+import { CommonUiLayoutsModule } from '@ztp/common/ui/layouts';
 
 @NgModule({
   imports: [
     CommonModule,
     ExamplesLiveDemosRoutingModule,
     CommonUiLayoutsModule,
-    SharedUtilsDynamicModuleLoadingModule,
+    CommonUtilsDynamicModuleLoadingModule,
     ExamplesDynamicFormModule,
     ScrollingModule, // only needed for drag & drop form builder
   ],

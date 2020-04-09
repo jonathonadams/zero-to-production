@@ -119,8 +119,8 @@ function checkAppliedDirectives(
     field.astNode.directives &&
     field.astNode.directives.length !== 0
   ) {
-    for (let directive of field.astNode.directives) {
-      if (directiveNames.indexOf(directive.name.value) !== -1) {
+    for (const directive of field.astNode.directives) {
+      if (directiveNames.includes(directive.name.value)) {
         return true;
       }
     }

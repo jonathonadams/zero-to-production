@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard, LoggedInGuard } from '@uqt/shared/data-access/auth';
+import { AuthGuard, LoggedInGuard } from '@ztp/common/auth/data-access';
 import {
   LoginComponent,
   RegisterComponent,
   AuthComponent,
-} from '@uqt/shared/auth/components';
-import { AllTodosComponent } from '@uqt/todos/all-todos';
-import { TodoDetailComponent } from '@uqt/todos/todo-detail';
+} from '@ztp/common/auth/components';
+import { AllTodosComponent } from '@ztp/todos/all-todos';
+import { TodoDetailComponent } from '@ztp/todos/todo-detail';
 import { TodoFeatureShellComponent } from './todos-feature-shell.component';
-import { TodoResolver } from '@uqt/todos/data-access';
+import { TodoResolver } from '@ztp/todos/data-access';
 
 export const TODOS_ROUTES: Routes = [
   {
@@ -19,7 +19,7 @@ export const TODOS_ROUTES: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('@uqt/shared/dashboard').then((m) => m.SharedDashboardModule),
+          import('@ztp/shared/dashboard').then((m) => m.SharedDashboardModule),
       },
       {
         path: 'todos',

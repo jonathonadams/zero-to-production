@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { IDynamicFormConfig } from '@uqt/common/dynamic-form';
+import { IDynamicFormConfig } from '@ztp/common/dynamic-form';
 
 export const selectForm = createAction(
   '[Form/Builder] Select',

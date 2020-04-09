@@ -6,7 +6,7 @@
   <form [formGroup]="builderForm" (ngSubmit)="onSubmit(builderForm)">
     <div formGroupName="config">
       <div class="form-config">
-        <uqt-form-builder-header [form]="builderForm"></uqt-form-builder-header>
+        <ztp-form-builder-header [form]="builderForm"></ztp-form-builder-header>
       </div>
       <div
         id="fb-form-sections"
@@ -15,7 +15,7 @@
         cdkDropList
         (cdkDropListDropped)="formGroupDropped($event)"
       >
-        <uqt-card
+        <ztp-card
           cdkDrag
           class="group-section"
           *ngFor="let group of structure.controls; let groupIndex = index"
@@ -35,7 +35,7 @@
 
               <button
                 type="button"
-                uqt-icon-button
+                ztp-icon-button
                 (click)="deleteFormGroup(groupIndex)"
               >
                 <fa-icon [icon]="faTrash"></fa-icon>
@@ -60,7 +60,7 @@
                   let fieldIndex = index
                 "
               >
-                <uqt-form-builder-field
+                <ztp-form-builder-field
                   [form]="builderForm"
                   [field]="field"
                   [groupIndex]="groupIndex"
@@ -69,11 +69,11 @@
                   (addSelectOption)="addSelectOption($event)"
                   (deleteSelectOption)="deleteSelectOption($event)"
                 >
-                </uqt-form-builder-field>
+                </ztp-form-builder-field>
               </div>
             </div>
           </div>
-        </uqt-card>
+        </ztp-card>
       </div>
     </div>
   </form>

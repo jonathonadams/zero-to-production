@@ -1,5 +1,5 @@
 import { Schema, Connection } from 'mongoose';
-import { defaultSchemaOptions } from '@uqt/server/utils';
+import { defaultSchemaOptions } from '@ztp/server/utils';
 import { IRefreshTokenDocument, IRefreshTokenModel } from '../auth.interface';
 
 /**

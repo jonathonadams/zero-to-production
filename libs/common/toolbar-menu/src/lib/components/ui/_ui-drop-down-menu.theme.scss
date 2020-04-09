@@ -1,8 +1,0 @@
-@import '~@angular/material/theming';
-
-@mixin drop-down-menu-theme($theme) {
-  $background: map-get($theme, background);
-  .drop-down-menu-overlay-container {
-    background: mat-color($background, card);
-  }
-}

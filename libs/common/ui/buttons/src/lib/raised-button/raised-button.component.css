@@ -1,0 +1,17 @@
+:host {
+  display: inline-block;
+  padding: 5px;
+  border: 2px solid;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+  transition: border-radius 100ms ease;
+}
+
+:host:hover,
+:host:focus,
+:host.active {
+  border-radius: 50px;
+}

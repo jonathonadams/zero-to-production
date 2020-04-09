@@ -1,7 +1,7 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as FormActions from './form-builder.actions';
 import { createReducer, on, Action } from '@ngrx/store';
-import { IDynamicFormConfig } from '@uqt/common/dynamic-form';
+import { IDynamicFormConfig } from '@ztp/common/dynamic-form';
 
 export const formBuilderKey = 'formBuilder';
 

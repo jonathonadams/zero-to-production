@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import {
   IDynamicFormConfig,
   generateInitialFormConfig,
-} from '@uqt/common/dynamic-form';
+} from '@ztp/common/dynamic-form';
 
 /**
  * Very Simple storage in local-storage

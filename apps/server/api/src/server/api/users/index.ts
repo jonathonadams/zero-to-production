@@ -1,5 +1,5 @@
 import { User } from './user.model';
-import { createUsersResolver, createUsersRouter } from '@uqt/server/core-data';
+import { createUsersResolver, createUsersRouter } from '@ztp/server/core-data';
 
 export { User };
 

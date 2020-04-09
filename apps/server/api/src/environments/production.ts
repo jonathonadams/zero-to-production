@@ -1,8 +1,8 @@
 /* istanbul ignore file */
 
-import { getEnvVariableOrWarn, envToNumber } from '@uqt/server/utils';
-import { ProductionServerConfig } from '@uqt/data';
-import { AuthEnvironnementConfig } from '@uqt/server/auth';
+import { getEnvVariableOrWarn, envToNumber } from '@ztp/server/utils';
+import { ProductionServerConfig } from '@ztp/data';
+import { AuthEnvironnementConfig } from '@ztp/server/auth';
 
 const audience = getEnvVariableOrWarn('AUDIENCE');
 const authServerUrl = getEnvVariableOrWarn('AUTH_SERVER_URL');

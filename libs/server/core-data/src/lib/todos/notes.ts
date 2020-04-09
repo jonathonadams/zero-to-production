@@ -1,6 +1,6 @@
 import { Connection, Model, Schema, Document } from 'mongoose';
-import { defaultSchemaOptions } from '@uqt/server/utils';
-import { ITodoNote } from '@uqt/data';
+import { defaultSchemaOptions } from '@ztp/server/utils';
+import { ITodoNote } from '@ztp/data';
 import { todoDbKey, todoNoteDbKey } from './todo';
 
 export const todoNoteSchema = new Schema<ITodoNote>(

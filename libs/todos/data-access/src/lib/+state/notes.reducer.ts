@@ -1,6 +1,6 @@
 // import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 // import { createReducer, on, Action } from '@ngrx/store';
-// import { ITodoNote } from '@uqt/data';
+// import { ITodoNote } from '@ztp/data';
 
 // // 1. define the entity state
 // export interface TodoNotesEntityState extends EntityState<ITodoNote> {}

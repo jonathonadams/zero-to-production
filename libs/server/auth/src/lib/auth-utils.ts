@@ -1,8 +1,8 @@
 import { createPublicKey } from 'crypto';
 // @ts-ignore
 import omit from 'lodash.omit';
-import { IUserModel } from '@uqt/server/core-data';
-import { ServerConfig } from '@uqt/data';
+import { IUserModel } from '@ztp/server/core-data';
+import { ServerConfig } from '@ztp/data';
 import {
   JWKSGuarConfig,
   GuardConfig,

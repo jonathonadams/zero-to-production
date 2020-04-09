@@ -1,4 +1,4 @@
-import { generateRestRouter, retrieveUserId } from '@uqt/server/utils';
+import { generateRestRouter, retrieveUserId } from '@ztp/server/utils';
 import { ITodoModel, ITodoDocument } from './todo';
 import { createTodoControllers } from './todo.controllers';
 import { ITodoNoteModel } from './notes';

@@ -1,0 +1,9 @@
+// Angular Material Themeing Mixins
+@import '~@angular/material/theming';
+@import 'theme/material-theme';
+
+.dark-theme {
+  @include angular-material-theme($dark-theme);
+  // Themes for Prism.js syntax highlighting in dark mode
+  color: rgba(white, 0.74);
+}

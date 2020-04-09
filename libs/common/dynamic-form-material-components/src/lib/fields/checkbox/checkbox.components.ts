@@ -1,9 +1,9 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormGroupTypes, IToggleField } from '@uqt/common/dynamic-form';
+import { FormGroupTypes, ICheckBoxField } from '@ztp/common/dynamic-form';
 
 @Component({
-  selector: 'uqt-form-checkbox',
+  selector: 'ztp-form-checkbox',
   templateUrl: './checkbox.component.html',
   styles: [
     `
@@ -17,6 +17,6 @@ import { FormGroupTypes, IToggleField } from '@uqt/common/dynamic-form';
 export class FormCheckBoxComponent {
   @Input() idx: number; // Only accessed if it is a FormArrayGroup
   @Input() type: FormGroupTypes;
-  @Input() field: IToggleField;
+  @Input() field: ICheckBoxField;
   @Input() group: FormGroup;
 }

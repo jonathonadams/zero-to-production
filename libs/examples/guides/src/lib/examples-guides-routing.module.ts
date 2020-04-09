@@ -11,6 +11,7 @@ function createGuideRoutes(guides: IGuide[]): Routes {
     pathMatch: 'full',
     data: {
       guide: guide.guide,
+      description: guide.description,
     },
   }));
 }
@@ -26,11 +27,11 @@ const ROUTES: Routes = [
         pathMatch: 'full',
         redirectTo: 'getting-started',
       },
+      {
+        path: '**',
+        redirectTo: '/',
+      },
     ],
-  },
-  {
-    path: '**',
-    redirectTo: '/',
   },
 ];
 

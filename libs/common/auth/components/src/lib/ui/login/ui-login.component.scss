@@ -1,0 +1,13 @@
+.login-page {
+  display: block;
+  width: 16em;
+  text-align: center;
+
+  @media (min-width: 600px) {
+    width: 20em;
+  }
+
+  .submit-button {
+    width: 100%;
+  }
+}

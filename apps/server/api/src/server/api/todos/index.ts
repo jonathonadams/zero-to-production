@@ -1,5 +1,5 @@
 import { Todo, TodoNote } from './todo.model';
-import { createTodosResolver, createTodosRouter } from '@uqt/server/core-data';
+import { createTodosResolver, createTodosRouter } from '@ztp/server/core-data';
 
 export { Todo, TodoNote };
 

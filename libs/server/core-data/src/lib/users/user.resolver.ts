@@ -1,5 +1,5 @@
-import { IUserDocument } from '@uqt/server/core-data';
-import { generateResolvers } from '@uqt/server/utils';
+import { IUserDocument } from '@ztp/server/core-data';
+import { generateResolvers } from '@ztp/server/utils';
 import { IUserModel } from './user';
 
 export const createUsersResolver = (User: IUserModel) => {

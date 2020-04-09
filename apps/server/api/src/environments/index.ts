@@ -4,12 +4,12 @@ import {
   GlobalServerConfig,
   EnvironnementConfig,
   ServerConfig,
-} from '@uqt/data';
-import { envToNumber } from '@uqt/server/utils';
+} from '@ztp/data';
+import { envToNumber } from '@ztp/server/utils';
 import { devConfig, devAuthConfig } from './development';
 import { prodConfig, prodAuthConfig } from './production';
 import { testConfig, testAuthConfig } from './test';
-import { AuthEnvironnementConfig } from '@uqt/server/auth';
+import { AuthEnvironnementConfig } from '@ztp/server/auth';
 
 /**
  * Config values common across all environments environments

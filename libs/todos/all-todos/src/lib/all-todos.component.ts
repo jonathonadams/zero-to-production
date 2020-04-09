@@ -9,14 +9,14 @@ import {
 import { Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { Subscription, Observable } from 'rxjs';
-import { ITodo } from '@uqt/data';
+import { ITodo } from '@ztp/data';
 import {
   DynamicFormFacade,
   TFormStructure,
   FormGroupTypes,
   FormFieldTypes,
-} from '@uqt/common/dynamic-form';
-import { TodosFacade, TodoFilterStatus } from '@uqt/todos/data-access';
+} from '@ztp/common/dynamic-form';
+import { TodosFacade, TodoFilterStatus } from '@ztp/todos/data-access';
 import { UiFilterTodosComponent } from './ui/filter-todos/ui-filter-todos.component';
 import { Router, ActivatedRoute } from '@angular/router';
 

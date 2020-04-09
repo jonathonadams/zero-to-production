@@ -5,14 +5,14 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { FormBuilderFacade } from '@uqt/common/form-builder';
+import { FormBuilderFacade } from '@ztp/common/form-builder';
 import {
   TFormStructure,
   FormGroupTypes,
   FormFieldTypes,
   DynamicFormFacade,
   IDynamicFormConfig,
-} from '@uqt/common/dynamic-form';
+} from '@ztp/common/dynamic-form';
 import { Validators } from '@angular/forms';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 

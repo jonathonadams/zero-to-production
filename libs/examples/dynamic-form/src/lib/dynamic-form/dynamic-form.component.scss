@@ -9,17 +9,17 @@
   .config {
     margin: 1em;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     flex-wrap: wrap;
+    --flex-direction: column;
+    --align-items: flex-start;
 
-    @media (max-width: 599px) {
-      flex-direction: column;
-      align-items: center;
-      & > * {
-        margin-top: 0.5em;
-      }
+    flex-direction: var(--flex-direction);
+    align-items: var(--flex-direction);
+
+    @media (min-width: 600px) {
+      --flex-direction: row;
+      --align-items: center;
     }
   }
 }

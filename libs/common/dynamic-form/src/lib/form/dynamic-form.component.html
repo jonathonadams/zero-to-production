@@ -7,7 +7,7 @@ is currently configured.
  -->
 <form
   *ngIf="form"
-  class="uqt-form"
+  class="ztp-form"
   [ngClass]="config.classes ? config.classes : []"
   [formGroup]="form"
   autocomplete="off"
@@ -21,7 +21,7 @@ is currently configured.
     "
     [ngTemplateOutletContext]="topLevelContext"
   ></ng-container>
-  <span class="uqt-action-buttons">
+  <span class="ztp-action-buttons">
     <ng-content select='button[type="submit"]'></ng-content>
     <ng-content select='button[type="reset"]'></ng-content>
   </span>
@@ -54,7 +54,7 @@ is currently configured.
 
   <!-- selection buttons -->
   <ng-container *ngIf="structure$ | async as str">
-    <div class="uqt-nav-buttons" *ngIf="str && str.length > 1">
+    <div class="ztp-nav-buttons" *ngIf="str && str.length > 1">
       <button
         type="button"
         mat-icon-button
@@ -104,7 +104,7 @@ is currently configured.
 >
   <ng-container [formGroup]="formGroup">
     <article
-      class="uqt-form-section"
+      class="ztp-form-section"
       [ngClass]="structure.classes ? structure.classes : []"
       [formGroupName]="structure.groupName"
       @centerExpand
@@ -147,12 +147,12 @@ is currently configured.
   <ng-container [formGroup]="formGroup">
     <!-- The array group is a collection of form controls -->
     <article
-      class="uqt-form-section uqt-field-array"
+      class="ztp-form-section ztp-field-array"
       [ngClass]="structure.classes ? structure.classes : []"
       [formArrayName]="structure.groupName"
       @centerExpand
     >
-      <span class="uqt-form-header">
+      <span class="ztp-form-header">
         <h4 *ngIf="structure.displayName">{{ structure.displayName }}</h4>
         <button
           type="button"
@@ -174,7 +174,7 @@ is currently configured.
         [group]="getFormGroup(formGroup, structure.groupName)"
       >
         <button
-          class="uqt-remove-button"
+          class="ztp-remove-button"
           mat-icon-button
           type="button"
           (click)="removeArrayField(formGroup, i, structure.groupName)"
@@ -194,12 +194,12 @@ is currently configured.
 >
   <ng-container [formGroup]="formGroup">
     <article
-      class="uqt-form-section"
+      class="ztp-form-section"
       [ngClass]="structure.classes ? structure.classes : []"
       [formArrayName]="structure.groupName"
       @centerExpand
     >
-      <span class="uqt-form-header">
+      <span class="ztp-form-header">
         <h4 *ngIf="structure.displayName">{{ structure.displayName }}</h4>
         <button
           type="button"
@@ -228,7 +228,7 @@ is currently configured.
           >
           </ng-container>
           <button
-            class="uqt-remove-button"
+            class="ztp-remove-button"
             mat-icon-button
             type="button"
             (click)="removeArrayField(formGroup, i, structure.groupName)"

@@ -1,0 +1,32 @@
+@import 'theme/material-theme.scss';
+@import 'drop-down-menu.theme';
+
+// Light theme
+@include drop-down-menu-theme($app-theme);
+
+// dark theme
+:host-context(.dark-theme) {
+  @include drop-down-menu-theme($dark-theme);
+}
+
+.menu {
+  border-radius: 0.2em;
+  // width: 10em;
+  padding: 0.75em;
+}
+
+.menu > * {
+  display: block;
+  margin-bottom: 0.5em;
+}
+.menu > *:last-child {
+  margin-bottom: 0;
+}
+
+.name {
+  margin: auto;
+}
+
+.logout-button {
+  margin: 0 auto;
+}

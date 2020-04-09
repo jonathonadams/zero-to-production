@@ -2,21 +2,31 @@
   display: block;
 }
 
-.error-container {
+.container {
   background: white;
   border-radius: 4px;
   padding-bottom: 0.5em;
 }
 
-.error-messages {
+.errors {
+  text-align: center;
+  padding: 1rem;
+}
+
+.heading {
+  margin: 0.5rem 0;
+}
+
+.messages {
+  margin: 0;
+  padding: 0;
   display: block;
-  margin: 0.5em;
-  padding: 0.5em 0 0;
   text-align: center;
   list-style-type: none;
 }
 
-.error-text {
+.error-text p {
+  margin: 0;
   line-height: 1.4em;
   font-size: 1.2rem;
 }

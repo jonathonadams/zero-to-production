@@ -2,7 +2,7 @@
 
 This library contains all modules and service to authenticate users and secure your REST or GraphQL API.
 
-## UQT_UPDATE - Delete these after cloning the repo
+## ZTP_AFTER_CLONE - Delete these after cloning the repo
 
 1. Delete the demo folder first. These are simplified auth controllers for the purpose of the demo website, e.g. no email verification.
 2. Remove the references from the demo directory in the [index.ts](./src/index.ts) file.

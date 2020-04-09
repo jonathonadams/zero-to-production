@@ -1,5 +1,5 @@
 import Router from '@koa/router';
-import { generateRestControllers } from '@uqt/server/utils';
+import { generateRestControllers } from '@ztp/server/utils';
 import { IUserModel, IUserDocument } from './user';
 
 export const createUsersRouter = (User: IUserModel) => {

@@ -3,11 +3,11 @@ import {
   ChangeDetectionStrategy,
   AfterViewInit,
 } from '@angular/core';
-import { CodeHighlightService } from '@uqt/examples/utils';
+import { CodeHighlightService } from '@ztp/examples/utils';
 import { moduleLoadingService, moduleProviders } from './scrolling.code';
 
 @Component({
-  selector: 'uqt-scrolling',
+  selector: 'ztp-scrolling',
   templateUrl: './scrolling.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

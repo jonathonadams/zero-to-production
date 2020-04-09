@@ -3,9 +3,9 @@ import Router from '@koa/router';
 import { Connection } from 'mongoose';
 import { applyRestEndpoints } from './rest';
 import { applyGraphQLEndpoint } from './graphql';
-// UQT_UPDATE -> delete the below import
+// ZTP_AFTER_CLONE -> delete the below import
 import { applyAuthRoutes } from './auth/demo.auth';
-// UQT_UPDATE -> uncomment the below import
+// ZTP_AFTER_CLONE -> uncomment the below import
 // import { applyAuthRoutes } from './auth/auth';
 
 /**

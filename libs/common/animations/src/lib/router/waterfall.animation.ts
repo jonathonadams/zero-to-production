@@ -18,14 +18,16 @@ export const WATERFALL_ANIMATION: AnimationMetadata[] = [
     // aligned at the top of the container using absolute positioning. The
     // top container (the one with [@routerAnimations]) needs to relative...
     style({ position: 'relative' }),
+    // Don't set the 'top' property, because the router might not be at the top of the page
     query(
       ':enter, :leave',
-      style({ position: 'absolute', top: 0, left: 0, right: 0 })
+      style({ position: 'absolute', left: 0, right: 0 }),
+      { optional: true }
     ),
     // hide all the cards since each route makes use of that
     query(
       `:enter .${ANIMATE_CLASS}`,
-      [style({ opacity: 0, transform: 'translateY(100%)' })],
+      [style({ opacity: 0, transform: 'translateY(+100%)' })],
       { optional: true }
     ),
     // animate away an in each of the cards on the pages
@@ -35,7 +37,7 @@ export const WATERFALL_ANIMATION: AnimationMetadata[] = [
         stagger('100ms', [
           animate(
             '300ms cubic-bezier(.35,0,.25,1)',
-            style({ transform: 'translateY(+200%)', opacity: 0 })
+            style({ transform: 'translateY(+100%)', opacity: 0 })
           ),
         ]),
         { optional: true }

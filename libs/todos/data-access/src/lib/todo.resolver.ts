@@ -14,7 +14,7 @@ import {
   timeout,
   catchError,
 } from 'rxjs/operators';
-import { ITodo } from '@uqt/data';
+import { ITodo } from '@ztp/data';
 import { TodosFacade } from './+state/todos.facade';
 
 @Injectable({ providedIn: 'root' })

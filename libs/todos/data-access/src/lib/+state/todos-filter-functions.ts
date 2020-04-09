@@ -3,7 +3,7 @@ import equals from 'ramda/src/equals';
 import or from 'ramda/src/or';
 import toLower from 'ramda/src/toLower';
 
-import { ITodo } from '@uqt/data';
+import { ITodo } from '@ztp/data';
 import { TodoFilterStatus } from './todos.reducer';
 
 function checkTodoCompleteStatus(completeStatus: boolean, todo: ITodo) {

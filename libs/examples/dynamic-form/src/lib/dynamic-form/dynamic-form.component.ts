@@ -13,9 +13,9 @@ import {
   FormFieldTypes,
   InputFieldTypes,
   FormArrayTypes,
-} from '@uqt/common/dynamic-form';
-import { CodeHighlightService } from '@uqt/examples/utils';
-import { IExample, ExamplesFacade } from '@uqt/examples/data-access';
+} from '@ztp/common/dynamic-form';
+import { CodeHighlightService } from '@ztp/examples/utils';
+import { IExample, ExamplesFacade } from '@ztp/examples/data-access';
 import {
   markup,
   submitSyntax,
@@ -106,7 +106,7 @@ const COMPLEX_FORM: TFormStructure = [
 ];
 
 @Component({
-  selector: 'uqt-example-dynamic-form',
+  selector: 'ztp-example-dynamic-form',
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

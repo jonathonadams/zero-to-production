@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import { hash } from 'bcryptjs';
 import 'jest-extended';
-import { IUser } from '@uqt/data';
-import { IUserModel } from '@uqt/server/core-data';
+import { IUser } from '@ztp/data';
+import { IUserModel } from '@ztp/server/core-data';
 import {
   setupRegisterController,
   setupLoginController,

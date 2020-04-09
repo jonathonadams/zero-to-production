@@ -1,0 +1,14 @@
+.register-page {
+  display: block;
+  width: 16em;
+  text-align: center;
+
+  @media (min-width: 600px) {
+    width: 20em;
+  }
+
+  .register-button {
+    width: 40%;
+    margin: auto;
+  }
+}

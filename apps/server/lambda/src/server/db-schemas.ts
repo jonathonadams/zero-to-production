@@ -3,11 +3,11 @@ import {
   createUserModel,
   createTodoModel,
   createTodoNoteModel,
-} from '@uqt/server/core-data';
+} from '@ztp/server/core-data';
 import {
   createRefreshTokenModel,
   createVerificationTokenModel,
-} from '@uqt/server/auth';
+} from '@ztp/server/auth';
 
 /**
  * Initialize all mongoose schemas

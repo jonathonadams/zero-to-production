@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ISideNaveRoute } from '@uqt/common/ui/side-nav';
+import { ISideNaveRoute } from '@ztp/common/side-nav';
 
 @Component({
   selector: 'todo-feature-shell',
@@ -9,7 +9,7 @@ import { ISideNaveRoute } from '@uqt/common/ui/side-nav';
 })
 export class TodoFeatureShellComponent {
   /*
-   * UQT_UPDATE -> Use absolute routes when you build the Todo application by itself.
+   * ZTP_AFTER_CLONE -> Use absolute routes when you build the Todo application by itself.
    * Currently a bug where if the relative route matches on a an empty path at the root
    * level the router serialization does not work correctly
    *
@@ -17,13 +17,13 @@ export class TodoFeatureShellComponent {
    */
   // DELETE
   routes: ISideNaveRoute[] = [
-    { path: 'home', icon: 'home', label: 'Home' },
-    { path: 'todos', icon: 'list', label: 'Todos' },
+    { path: 'home', icon: 'home', label: 'Home', aria: 'home' },
+    { path: 'todos', icon: 'list', label: 'Todos', aria: 'todos' },
   ];
 
   // UNCOMMENT
   // routes: ISideNaveRoute[] = [
-  //   { path: '/home', icon: 'home', label: 'Home' },
-  //   { path: '/todos', icon: 'list', label: 'Todos' }
+  //   { path: '/home', icon: 'home', label: 'Home', aria: 'home' },
+  //   { path: '/todos', icon: 'list', label: 'Todos', aria: 'todos' },
   // ];
 }

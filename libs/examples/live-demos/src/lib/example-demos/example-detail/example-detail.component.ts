@@ -4,10 +4,10 @@ import {
   Input,
   ComponentFactory,
 } from '@angular/core';
-import { IExample } from '@uqt/examples/data-access';
+import { IExample } from '@ztp/examples/data-access';
 
 @Component({
-  selector: 'uqt-example-detail',
+  selector: 'ztp-example-detail',
   templateUrl: './example-detail.component.html',
   styleUrls: ['./example-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

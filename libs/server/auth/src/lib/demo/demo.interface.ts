@@ -1,6 +1,6 @@
-// UQT_UPDATE -> Delete this file
+// ZTP_AFTER_CLONE -> Delete this file
 
-import { IUserModel } from '@uqt/server/core-data';
+import { IUserModel } from '@ztp/server/core-data';
 import { JWKSRouteConfig, LoginControllerConfig } from '../auth.interface';
 
 export interface DemoAuthModuleConfig {

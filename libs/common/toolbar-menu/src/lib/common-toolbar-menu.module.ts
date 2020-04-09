@@ -1,24 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CustomMaterialModule } from '@uqt/common/ui/custom-material';
-import { SharedUtilsOverlayModule } from '@uqt/utils/overlay';
-import { SharedUsersDataAccessModule } from '@uqt/shared/users/data-access';
+import { CommonUtilsOverlayModule } from '@ztp/common/utils/overlay';
+import { SharedUsersDataAccessModule } from '@ztp/shared/users/data-access';
 import { ToolbarMenuIconComponent } from './components/toolbar-menu-icon/toolbar-menu-icon.component';
 import { DropDownMenuComponent } from './components/drop-down-menu/drop-down-menu.component';
-import { UiDropDownMenuComponent } from './components/ui/ui-drop-down-menu.component';
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [
-    ToolbarMenuIconComponent,
-    DropDownMenuComponent,
-    UiDropDownMenuComponent,
-  ],
+  declarations: [ToolbarMenuIconComponent, DropDownMenuComponent],
   imports: [
     CommonModule,
     RouterModule,
-    CustomMaterialModule,
-    SharedUtilsOverlayModule,
+    MatIconModule,
+    MatButtonModule,
+    CommonUtilsOverlayModule,
     SharedUsersDataAccessModule,
   ],
   exports: [ToolbarMenuIconComponent],

@@ -1,4 +1,4 @@
-import { IUserModel } from '@uqt/server/core-data';
+import { IUserModel } from '@ztp/server/core-data';
 import { AuthEnvironnementConfig } from '../auth.interface';
 import { DemoAuthModuleConfig } from './demo.interface';
 import { createPublicPemFromPrivate } from '../auth-utils';

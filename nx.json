@@ -1,5 +1,5 @@
 {
-  "npmScope": "uqt",
+  "npmScope": "ztp",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -22,17 +22,6 @@
       "tags": ["scope:todos", "type:app", "platform:web"],
       "implicitDependencies": ["todos-web"]
     },
-    "examples-web": {
-      "tags": ["scope:examples", "type:app", "platform:web"]
-    },
-    "examples-web-e2e": {
-      "tags": ["scope:examples", "type:app", "platform:web"],
-      "implicitDependencies": ["examples-web"]
-    },
-    "examples-web-functions": {
-      "tags": ["scope:examples", "type:app", "platform:web"],
-      "implicitDependencies": ["examples-web"]
-    },
     "testing": {
       "tags": ["scope:shared", "type:util", "platform:shared"]
     },
@@ -54,7 +43,7 @@
     "server-utils": {
       "tags": ["scope:shared", "type:util", "platform:server"]
     },
-    "shared-data-access-api": {
+    "common-data-access": {
       "tags": [
         "scope:shared",
         "type:data-access",
@@ -62,7 +51,7 @@
         "platform:mobile"
       ]
     },
-    "shared-auth-data-access": {
+    "common-auth-data-access": {
       "tags": [
         "scope:shared",
         "type:data-access",
@@ -70,11 +59,11 @@
         "platform:mobile"
       ]
     },
-    "shared-auth-components": {
+    "common-auth-components": {
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
-    "shared-data-access-router": {
-      "tags": ["scope:shared", "type:data-access", "platform:web"]
+    "common-router": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
     },
     "shared-users-data-access": {
       "tags": [
@@ -87,19 +76,22 @@
     "shared-dashboard": {
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
-    "shared-utils-overlay": {
+    "common-utils-dynamic-module-loading": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
-    "shared-utils-notifications": {
+    "common-utils-notifications": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
-    "shared-utils-service-worker": {
+    "common-utils-overlay": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
-    "shared-utils-dynamic-module-loading": {
+    "common-utils-service-worker": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
-    "shared-utils-storage": {
+    "common-utils-storage": {
+      "tags": ["scope:shared", "type:util", "platform:web"]
+    },
+    "common-utils-theme": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
     "common-animations": {
@@ -108,22 +100,19 @@
     "common-dynamic-form": {
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
-    "common-form-builder": {
-      "tags": ["scope:shared", "type:feature", "platform:web"]
-    },
     "common-dynamic-form-material-components": {
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
-    "shared-utils-theme": {
-      "tags": ["scope:shared", "type:util", "platform:web"]
+    "common-form-builder": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
+    },
+    "common-grid": {
+      "tags": ["scope:shared", "type:feature", "platform:web"]
     },
     "common-toolbar-menu": {
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
-    "common-ui-side-nav": {
-      "tags": ["scope:shared", "type:ui", "platform:web"]
-    },
-    "common-ui-custom-material": {
+    "common-side-nav": {
       "tags": ["scope:shared", "type:ui", "platform:web"]
     },
     "common-ui-toolbar": {
@@ -149,6 +138,17 @@
     },
     "todos-all-todos": {
       "tags": ["scope:todos", "type:feature", "platform:web"]
+    },
+    "examples-web": {
+      "tags": ["scope:examples", "type:app", "platform:web"]
+    },
+    "examples-web-e2e": {
+      "tags": ["scope:examples", "type:app", "platform:web"],
+      "implicitDependencies": ["examples-web"]
+    },
+    "examples-web-functions": {
+      "tags": ["scope:examples", "type:app", "platform:web"],
+      "implicitDependencies": ["examples-web"]
     },
     "examples-feature-shell": {
       "tags": ["scope:examples", "type:feature", "platform:web"]
@@ -177,11 +177,11 @@
     "examples-start-your-own": {
       "tags": ["scope:examples", "type:feature", "platform:web"]
     },
-    "examples-utils": {
-      "tags": ["scope:examples", "type:util", "platform:web"]
-    },
     "examples-guides": {
       "tags": ["scope:examples", "type:feature", "platform:web"]
+    },
+    "examples-utils": {
+      "tags": ["scope:examples", "type:util", "platform:web"]
     }
   }
 }

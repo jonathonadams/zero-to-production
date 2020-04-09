@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { expandAnimation } from '../../form.animation';
 
 @Component({
-  selector: 'uqt-form-builder-header',
+  selector: 'ztp-form-builder-header',
   templateUrl: './form-header.component.html',
   styleUrls: ['./form-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

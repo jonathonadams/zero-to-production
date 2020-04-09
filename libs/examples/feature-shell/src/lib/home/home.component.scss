@@ -19,8 +19,7 @@
 
   .about {
     border-radius: 10px;
-    & h1,
-    h2 {
+    .heading {
       text-align: center;
       display: block;
     }
@@ -36,7 +35,7 @@
     padding-bottom: 2em;
 
     .example {
-      cursor: pointer;
+      // cursor: pointer;
       margin: 0.5em;
       height: auto;
       min-height: 8em;

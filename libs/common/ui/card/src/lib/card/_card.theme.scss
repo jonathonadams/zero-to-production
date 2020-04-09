@@ -3,7 +3,7 @@
 @mixin card-theme($theme) {
   $background: map-get($theme, background);
 
-  .uqt-card {
+  .ztp-card {
     background-color: mat-color($background, card);
   }
 }
