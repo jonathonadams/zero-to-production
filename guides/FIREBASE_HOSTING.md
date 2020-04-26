@@ -66,6 +66,6 @@ Follow the firebase docs to configure your [custom domain].
 When your ready to add server side rendering follow [SSR and deploy on Firebase Functions] guide.
 
 [prerequisites]: https://zero-to-prouction.dev/guides/getting-started
-[nginx & docker]: https://github.com/unquenchablethyrst/zero-to-production/docker/README.md
+[nginx & docker]: https://github.com/jonathonadams/zero-to-production/docker/README.md
 [custom domain]: https://firebase.google.com/docs/hosting/custom-domain
 [ssr and deploy on firebase functions]: https://zerp-to-production/guides/ssr-firebase-functions

@@ -26,6 +26,6 @@ export * from './lib/graphql';
  * ZTP_AFTER_CLONE -> Delete from this line onwards after cloning the repo
  *
  * For further details, see
- * https://github.com/unquenchablethyrst/zero-to-production/tree/master/libs/server/auth/README.md
+ * https://github.com/jonathonadams/zero-to-production/tree/master/libs/server/auth/README.md
  */
 export * from './lib/demo/index';

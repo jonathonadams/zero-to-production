@@ -85,6 +85,6 @@ In a real production server you would setup VPC Network Peering between your Mon
 See the [Mongo VPC Peering] docs on how to set up VPC Network Peering
 
 [prerequisites]: https://zero-to-prouction.dev/guides/getting-started
-[docker readme]: https://github.com/unquenchablethyrst/zero-to-production/docker/README.md
+[docker readme]: https://github.com/jonathonadams/zero-to-production/docker/README.md
 [traefik]: https://docs.traefik.io/
 [mongo vpc peering]: https://docs.atlas.mongodb.com/security-vpc-peering

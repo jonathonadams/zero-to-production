@@ -7,7 +7,7 @@ If you want to use this monorepo as the starting point for your next project or 
 Clone and install all dependencies.
 
 ```bash
-$ git clone https://github.com/unquenchablethyrst/zero-to-production.git workspace
+$ git clone https://github.com/jonathonadams/zero-to-production.git workspace
 
 $ cd workspace
 
@@ -136,7 +136,7 @@ To complete the guides you will need to complete the following
   - Click **connect > connect your application** and get your connection string. By default the connection string will point to the `test` database. Replace the test database with the desired database, i.e. `mongodb+srv://.../my-database-name?retryWrites=true&w=majority`
 
 [zero-to-production.dev]: https://zero-to-production.dev
-[docker cheat-sheet]: https://github.com/unquenchablethyrst/zero-to-production/docker/DOCKER_CHEAT_SHEET.md
+[docker cheat-sheet]: https://github.com/jonathonadams/zero-to-production/docker/DOCKER_CHEAT_SHEET.md
 [aws lambda]: https://zero-to-production/guides/guides/aws-lambda
 [firebase hosting]: https://zero-to-production/guides/guides/firebase-hosting
 [angular universal & firebase functions]: https://zero-to-production/guides/ssr-firebase-functions
@@ -146,7 +146,7 @@ To complete the guides you will need to complete the following
 [kubernetes ctl]: https://kubernetes.io/docs/reference/kubectl
 [aws cli]: https://docs.aws.amazon.com/cli/latest/userguide/indstall-cliv2.html
 [mongo atlas]: https://www.mongodb.com/cloud/atlas
-[api authentication library]: https://github.com/unquenchablethyrst/zero-to-production/libs/server/auth/README.md
+[api authentication library]: https://github.com/jonathonadams/zero-to-production/libs/server/auth/README.md
 [json web key set (jwks)]: https://tools.ietf.org/html/rfc7517
 [auth 0]: https://auth0.com/docs/tokens/concepts/jwks
 [nrwl]: https://nrwl.io
