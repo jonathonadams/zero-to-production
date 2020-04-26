@@ -6,7 +6,8 @@ A full stack Monorepo starter with Angular, NgRx, Koa.js, GraphQL.
 
 Deploy serverless on AWS Lambda or in Kubernetes Cluster on Google Cloud.
 
-by Jonathon Adams
+by Jonathon Adams  
+Email: [jono.adams22@gmail.com](mailto:jono.adams22@gmail.com?subject=Zero%20to%20Production)
 
 Visit the [demo site]
 
