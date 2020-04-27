@@ -4,7 +4,7 @@
 
 ## Before you Start
 
-Ensure you have all the [prerequisites] setup and ready prior to starting this guide.
+Ensure you have completed all the [prerequisites].
 
 ## Google Cloud Build Trigger
 

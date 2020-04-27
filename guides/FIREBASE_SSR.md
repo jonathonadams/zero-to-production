@@ -2,24 +2,19 @@
 
 ## Before you Start
 
-Ensure you have all the [prerequisites] setup and ready prior to starting this guide.
+Ensure you have completed all the [prerequisites].
 
 ## Firebase Tools
 
-// TODO -> Reword
-While deploying your SSR application is pretty straight forward there are a couple of TODO tips gotchas that need to be understood and configured.
+As it stands, Firebase tools is not really built to work nicely with Monorepos. By default if you run `firebase init` and select cloud functions (TS or JS) it will create a `functions/` directory at the root of your project. It will also create a `package.json` inside the `functions/` directory that lists build scripts, dependencies and the entry point to your function via the `main` field. It will also prompt you to install required dependencies **inside** the `functions/` directory which you do **not** want.
 
-As it stands, Firebase tools is not really built to work nicely with Monorepos. By default, if you run `firebase init` and select cloud functions (TS or JS) it will create a `functions/` directory at the root of your project. It will also create a `package.json` inside the `functions/` directory that lists build scripts, dependencies and most importantly the entry point to your functions via the `main` field. It will also prompt you to install required dependencies **inside** the `functions/` directory which you do **not** want.
+It is important to understand that the reason the `package.json` is added inside the `functions/` directory is that when you deploy your functions with `firebase deploy`, firebase tools will deploy the entire contents of the `functions/` directory. Firebase will then install all dependencies and run any commands listed under the `predeploy` field of the `functions` field in `firebase.json`. If scripts are listed in the `predeploy` field they must be listed in the `package.json` that is deployed to Firebase.
 
-It is important to understand that the reason the `package.json` is added inside the `functions/` directory is that when you deploy your functions with `firebase deploy`, firebase tools will deploy the entire contents of the `functions/` directory. Firebase will then install all dependencies, run any commands listed under the `predeploy` field under the `functions` field in `firebase.json` and then run the entry file designated in the `main` field in the `package.json`. Note that the scripts listed in the `predeploy` are those listed in the `package.json` file inside of the `functions/` directory. Effectively if you want anything to be deployed to [Firebase Functions] it must be inside of the specified directory.
-
-Although by default the directory that is deployed is the `functions/` directory, this can be configured in `firebase.json` (see below). Currently only one deployment directory can be specified and only one `firebase.json` file is supported. See [#590] & [#1115] for further details.
-
-The limitation of the single `firebase.json` can be worked around with the help of **Angular CLI Builders** as seen below.
+Currently `firebase-tools` only supports a single `firebase.json` file (and subsequently only one Functions directory). The limitation of the single `firebase.json` can be worked around with the help of **Angular CLI Builders** as seen below. See [#590] & [#1115] for further details.
 
 ## Add Angular Universal
 
-With all that being said this guide will walk through deploying the `todos-web` application using Angular Universal SSR. It is advised to read through the [Angular Universal] guide to help understand the complexity that Angular Universal is taking care of for you. Some of the limitations of using SSR will become apparent with the `todos` app and the decision to use SSR is not always straight forward.
+It is advised to read through the [Angular Universal] guide to help understand the complexity that Angular Universal is handling for you. When you add Angular Universal to the `todos` app some of the limitations of using SSR will become apparent and you might decide that your project does not warrant server side rendering.
 
 ### 1. Add & Configure Angular Universal for the Todo Application
 
@@ -31,7 +26,7 @@ $ ng add @nguniversal/express-engine --clientProject todos-web
 
 A number of files are created and edited as per the docs at [Angular Universal], however note the following:
 
-- `AppModule`: the imported `BrowserModule` now calls `withServerTransition({appId: 'serverApp'})`. Change `serverApp` to something like `todoApp`.
+- `app.module.ts`: The imported `BrowserModule` in `AppModule` now calls `withServerTransition({appId: 'serverApp'})`. Change `serverApp` to something like `todoApp`.
 - `server.ts`: there will be some errors because of the TypeScript configuration and a type definition mismatch. Change the following two statements.
 
   ```typescript
@@ -62,33 +57,30 @@ A number of files are created and edited as per the docs at [Angular Universal],
   );
   ```
 
-Some additional build targets in `angular.json` and scripts in `package.json` have been added. Notice that the `outputPath` has been altered for the app. The browser build now outputs to the `browser` directory and the new server build outputs to `server` directory.
-
-In the `server.ts` file take note of the distribution folder
+In the `server.ts` file take note of the defined distribution folder
 
 ```typescript
 const distFolder = join(process.cwd(), 'dist/todos-web/browser');
 ```
 
-Note that it is pointing to the output directory of the browser build and that it is assumes the current working directory is the root directory. While this is fine initially, the path will be altered later when configuring for Firebase functions.
+Note that it is pointing to the output directory of the browser build and that it is assumes the current working directory is the root directory of the repo. While this is fine initially it will be altered later when configuring for Firebase functions.
 
 ### 2. Test SSR is working
 
-Test that SSR is working correctly by opening an incognito browser window and **disable JavaScript** (ctrl + shift + p in the developers console) so that we can see the server rendered application only. Then run to server.
+Test that SSR is working correctly by opening an incognito browser window and **disable JavaScript** (ctrl + shift + p in the developers console) so that you can see the server rendered output only. Then run to server.
 
 ```bash
 $ npm run dev:srr
 ```
 
-Once compiled, visit `http://localhost:4200` to access your application. The normal `login` page should be shown. If you try to login, nothing will happen. Because JavaScript can not bootstrap some features will not work, e.g. forms.
+Once compiled, visit `http://localhost:4200` to access your application. The normal `login` page should be shown. If you try to login, nothing will happen. Because JavaScript can not bootstrap and run some features will not work such as `reactive forms`. Open another incognito window and reload the app. All functionality should work as normal once the client application bootstraps.
 
-Open another incognito window and try again. All functionality should work as normal. It will almost be too quick to notice the server rendered output when run locally but once the `.js` bundles load the client application bootstraps and transitions from server rendered to client rendered. To view the original server rendered markup right click & `inspect source`.
-
-While the Todo application might have limited benefits for SSR, your application might i.e only part of the application might require authentication. The 'examples' application (this site) mostly will work without JavaScript enabled, try it out.
+While the Todo application might have limited benefits for SSR, your application might i.e only part of the application might require authentication.
 
 A word of warning - If you access browser API's (such as `localStorage`) these will throw errors in the server rendered application depending on when you access them. Ensure to check what platform the application is currently running on when the API is accessed.
 
 ```typescript
+// some.component.ts
 constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
 someMethod() {
@@ -97,7 +89,6 @@ someMethod() {
     const foo: any = localStorage.getItem('foo');
   }
 }
-
 ```
 
 ## Initialize & Configure Firebase Functions
@@ -108,20 +99,16 @@ Because of the limitations of the Firebase Cli as discussed above, there is some
 $ npx nx workspace-schematic universal-firebase --clientProject=todos-web --firebaseProject=<your-firebase-project-name>
 ```
 
-The Firebase project option is the project name as listed on Firebase.
+The Firebase project option is the project name as listed on the Firebase console.
 
-This will create a new project in `apps/todos/todos-web-functions`.
-
-If a firebase project has previously been initialized, a `firebase.json` file should be present in the root directory. These files can now be deleted as they are not needed.
+A new project has been created in `apps/todos/todos-web-functions`. It is now safe to delete the `firebase.json` in the root directory.
 
 ## What has the schematic done?
 
-The schematic has taken care of scaffolding and configuring the Universal Application and has added a new `todos-web-functions` project.
-
-When you deploy to Firebase only resources packaged inside the project directory (`apps/todos/todos-web-functions`) are published so the project is configured to build into a `dist/` directory **inside** the source directory, i.e. `apps/todos/todos-web-functions/dist/`. This means the **current working directory** of the server process (`server.ts`) will be different when hosted on cloud functions and the `distFolder` inside `server.ts` has been altered to reflect the new current working directory.
+The schematic has taken care of scaffolding and configuring the Universal Application and has added a new `todos-web-functions` project. The project is configured to build into a `dist/` directory **inside** the source directory, i.e. `apps/todos/todos-web-functions/dist/`. This means the **current working directory** of the server process (`server.ts`) will be different when hosted on Firebase functions and the `distFolder` inside `server.ts` has been altered to reflect the new current working directory.
 
 ```typescript
-// server.ts
+// apps/todos/todos-web/server.ts
 // this
 const distFolder = join(process.cwd(), 'dist/todos-web/browser');
 
@@ -129,26 +116,24 @@ const distFolder = join(process.cwd(), 'dist/todos-web/browser');
 const distFolder = join(process.cwd(), 'dist/browser');
 ```
 
-Along with the normal Angular Cli targets, **`ng build|test|lint <project>`**, additional targets have been added.
+Along with the normal Angular Cli targets (**`ng build|test|lint <project>`**) some additional targets have been added.
 
-// CONTINUE FROM HERE
-
-- **`build-all`** (& **`build-all:production`**): this will build the functions as well as both the client app and server side bundle into the functions `dist/` directory. Specifically, the client app is build with `functions` target, e.g `todos-web:build:functions`.
+- **`build-all`** (& **`build-all:production`**): build the functions as well as both the client app and server side bundle into the functions `dist/` directory.
 - **`run`**: sets the CWD to the project src directory (i.e. `apps/todos/todos-web-functions`) and executes
   ```bash
   $ firebase server --project <your-firebase-project>
   ```
-- **`serve`**: executes `build-all` and `run`
+- **`serve`**: executes `build-all` then `run`
 - **`deploy`**: sets the CWD the project src directory (i.e. `apps/todos/todos-web-functions`) and executes.
   ```bash
   $ firebase deploy --project <your-firebase-project>
   ```
-- **`build-and-deploy`**: runs a production build and deploys.
+- **`build-and-deploy`**: runs `build-all:production` then `deploy`
 
-Additionally a **`functions`** build target has been added to the client project as below.
+Additionally a **`functions`** build target has been added to the `todos-web` project as below.
 
 ```json
-// examples-web > architect > build > configurations
+// todos-web > architect > build > configurations
 
 "functions": {
   "outputPath": "apps/todos/todos-web-functions/dist/browser",
@@ -161,7 +146,7 @@ Additionally a **`functions`** build target has been added to the client project
 
 * **index**: Use the `index.original.html` generated by the schematic in place of `index.html`.
 
-  The current rewrite rules in the generated `firebase.json` in the new functions project would indicate that if a resource was accessed with a `*.html` extension then it would be served via the cloud function.
+  The rewrite rules in the newly generated `firebase.json` would suggest that if a resource was requested with a `*.html` extension then it would be served via the cloud function.
 
   ```json
   // apps/todos/todos-web-functions/firebase.json
@@ -178,7 +163,9 @@ Additionally a **`functions`** build target has been added to the client project
   ]
   ```
 
-  That is not the case however. Irrespective of the rewrite rules Firebase will **always** serve an `index.html` file if present in the hosting directory. The Universal Server if configured to serve an `index.original.html` instead of an `index.html` if it is found in the client directory. All other static resources are served from the hosting directory.
+  CONTINUE HERE
+
+  That is not the case. Irrespective of the rewrite rules Firebase will **always** serve an `index.html` file if it is present in the hosting directory. The Universal Server is configured to serve an `index.original.html` instead of an `index.html` if it is found in the client directory. All other static resources are served from the hosting directory.
 
   ```ts
   // server.ts
@@ -187,7 +174,7 @@ Additionally a **`functions`** build target has been added to the client project
     : 'index';
   ```
 
-- **baseHref**: For local testing **only**, running `firebase serve` will serve the function at `http://localhost:5001/<your-firebase-project>/us-central1/universal/`. If the `baseHref` is set to `/` (default), all static assets will fail to load. When building for production this is overridden by production target.
+- **baseHref**: during local development running `firebase serve` will serve the function at `http://localhost:5001/<your-firebase-project>/us-central1/universal/`. If the `baseHref` is set to `/` (default), all static assets will fail to load. When building for production this is overridden by production target.
 
   Note: For the `baseHref` property to be applied at build time, resource must be loaded relatively.
 

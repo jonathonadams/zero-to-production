@@ -131,7 +131,7 @@ To complete the guides you will need to complete the following
 
 ## Next Steps
 
-Deploy your Angular application on [Firebase Hosting]
+Deploy your serverless API with [AWS Lambda]
 
 [zero-to-production.dev]: https://zero-to-production.dev
 [docker cheat-sheet]: https://github.com/jonathonadams/zero-to-production/docker/DOCKER_CHEAT_SHEET.md
@@ -148,14 +148,14 @@ Deploy your Angular application on [Firebase Hosting]
 [firebase]: https://firebase.google.com
 [google cloud]: https://cloud.google.com
 [aws]: https://aws.amazon.com/
-[firebase hosting]: https://zero-to-production/guides/guides/firebase-hosting
+[aws lambda]: https://zero-to-production/guides/guides/aws-lambda
 
 <!-- - Deploy your serverless API with [AWS Lambda]
 - Deploy you Angular app with [Firebase Hosting]
 - Add server side rendering to your Angular app with [Angular Universal & Firebase Functions]
 - Migrate your API from serverless functions to a Kubernetes Cluster with [Google Cloud Kubernetes] -->
 
-<!-- [aws lambda]: https://zero-to-production/guides/guides/aws-lambda -->
+<!-- [firebase hosting]: https://zero-to-production/guides/guides/firebase-hosting -->
 <!--
 [angular universal & firebase functions]: https://zero-to-production/guides/ssr-firebase-functions -->
 <!-- [google cloud kubernetes]: https://zero-to-production/guides/google-cloud-k8s -->
