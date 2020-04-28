@@ -4,7 +4,7 @@
 #
 # kubectl apply -f gcl-managed-certificate.yaml
 #
-apiVersion: networking.gke.io/v1beta1
+apiVersion: networking.gke.io/v1beta2
 kind: ManagedCertificate
 metadata:
   name: z2p-managed-certificate

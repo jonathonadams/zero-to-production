@@ -1,0 +1,6 @@
+# kind: compute#urlMap
+kind: urlMap
+name: web-map-http
+defaultUrlRedirect:
+  redirectResponseCode: 301 # Moved Permanently
+  httpsRedirect: True

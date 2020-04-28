@@ -14,13 +14,13 @@ metadata:
     kubernetes.io/ingress.class: gce
     # By defining the static ip address, the L7 will create all necessary forwarding rules
     # When it is creates the global load balancer
-    # https://cloud.google.com/kubernetes-engine/docs/concepts/ingress#static_ip_addresses_for_https_load_balancers
+    # https://cloud.google.com/kubernetes-engine/docs/concepts/ingress-xlb#static_ip_addresses_for_https_load_balancers
     kubernetes.io/ingress.global-static-ip-name: z2p-api
     # Google cloud managed certificate resource
     # https://cloud.google.com/kubernetes-engine/docs/concepts/ingress
     networking.gke.io/managed-certificates: z2p-managed-certificate
     # When creating the forwarding rules, it will disable http traffic
-    # https://cloud.google.com/kubernetes-engine/docs/concepts/ingress#disabling_http
+    # https://cloud.google.com/kubernetes-engine/docs/concepts/ingress-xlb#disabling_http
     kubernetes.io/ingress.allow-http: 'false'
     # Redirect http to http is coming soon
     # https://issuetracker.google.com/issues/35904733
