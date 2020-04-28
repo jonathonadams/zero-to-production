@@ -64,7 +64,8 @@
             "outputPath": "apps/server/lambda/dist",
             "tsConfig": "apps/server/lambda/tsconfig.app.json",
             "main": "apps/server/lambda/src/main.ts",
-            "assets": []
+            "assets": [],
+            "buildLibsFromSource": true
           },
           "configurations": {
             "production": {

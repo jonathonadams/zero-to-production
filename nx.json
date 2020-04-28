@@ -183,5 +183,13 @@
     "examples-utils": {
       "tags": ["scope:examples", "type:util", "platform:web"]
     }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
   }
 }
