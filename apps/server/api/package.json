@@ -14,6 +14,7 @@
     "apollo-server-koa": "^2.11.0",
     "bcryptjs": "^2.4.3",
     "dataloader": "^2.0.0",
+    "date-fns": "^2.11.0",
     "graphql": "^14.6.0",
     "graphql-iso-date": "^3.6.1",
     "graphql-tools": "^4.0.7",
