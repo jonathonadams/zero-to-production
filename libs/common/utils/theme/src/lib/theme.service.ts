@@ -48,6 +48,7 @@ export class ThemeService implements OnDestroy {
     if (isPlatformBrowser(this.platformId) && window.matchMedia) {
       // The 'matches' property will return true if the the user prefers dark mode
       const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+      // console.log(prefersDarkMode);
       // If the user prefers dark mode then set to true
       setDarkMode = prefersDarkMode.matches;
       this.mql = prefersDarkMode;
@@ -57,7 +58,11 @@ export class ThemeService implements OnDestroy {
         this.setDarkThemeStatus(mq.matches);
       };
 
-      this.mql.addEventListener('change', this.mqlListener);
+      if (this.mql.addEventListener as any) {
+        this.mql.addEventListener('change', this.mqlListener);
+      } else {
+        this.mql.addListener(this.mqlListener);
+      }
     }
 
     this.darkMode = new BehaviorSubject<boolean>(setDarkMode);
@@ -160,7 +165,12 @@ export class ThemeService implements OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
     if (this.mql && this.mqlListener) {
-      this.mql.removeEventListener('change', this.mqlListener);
+      if (this.mql.removeEventListener) {
+        this.mql.removeEventListener('change', this.mqlListener);
+      } else {
+        this.mql.removeListener(this.mqlListener);
+      }
+
       this.mql = this.mqlListener = null;
     }
   }

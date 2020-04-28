@@ -24,7 +24,11 @@ export class AnimationService implements OnDestroy {
         this.onMediaMatchChange(mq.matches);
       };
 
-      this.mql.addEventListener('change', this.mqlListener);
+      if (this.mql.addEventListener as any) {
+        this.mql.addEventListener('change', this.mqlListener);
+      } else {
+        this.mql.addListener(this.mqlListener);
+      }
     }
 
     this.enabled = new BehaviorSubject(animations);
@@ -41,7 +45,12 @@ export class AnimationService implements OnDestroy {
 
   ngOnDestroy() {
     if (this.mql && this.mqlListener) {
-      this.mql.removeEventListener('change', this.mqlListener);
+      if (this.mql.removeEventListener) {
+        this.mql.removeEventListener('change', this.mqlListener);
+      } else {
+        this.mql.removeListener(this.mqlListener);
+      }
+
       this.mql = this.mqlListener = null;
     }
   }
