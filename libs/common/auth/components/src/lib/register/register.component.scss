@@ -1,6 +1,16 @@
+@import 'register.theme.scss';
+@import 'theme/material-theme.scss';
+
 :host {
   height: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  @include register-theme($app-theme);
+
+  // dark theme
+  :host-context(.dark-theme) {
+    @include register-theme($dark-theme);
+  }
 }

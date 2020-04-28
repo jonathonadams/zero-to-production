@@ -1,6 +1,16 @@
+@import 'login.theme.scss';
+@import 'theme/material-theme.scss';
+
 :host {
   height: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  @include login-theme($app-theme);
+
+  // dark theme
+  :host-context(.dark-theme) {
+    @include login-theme($dark-theme);
+  }
 }
