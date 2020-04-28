@@ -54,9 +54,9 @@ Prior to deploying your application it is recommended to analyze the production 
 9.  Select **no** to override your existing `index.html`
 10. Deploy your project
 
-        ```bash
-        $ firebase deploy
-        ```
+    ```bash
+    $ firebase deploy
+    ```
 
 The URL's that your application is hosted at will be output to the terminal.
 
