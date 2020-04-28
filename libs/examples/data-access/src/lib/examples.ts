@@ -9,7 +9,7 @@ export const EXAMPLES: IExample[] = [
     summary:
       'Create a dynamic form component to remove the pain from using angular form.',
     description:
-      'With the amount of boiler plate required to use forms in Angular, they ' +
+      'With the amount of boiler plate required to use forms in Angular they ' +
       'can become tedious quickly. Creating and using a dynamic form component ' +
       'application wide can significantly simplify forms and help standardize styling, ' +
       'validation, animations etc.',
@@ -21,7 +21,7 @@ export const EXAMPLES: IExample[] = [
     summary: 'A Drag & Drop form builder for user creatable forms.',
     description:
       'Building on the Dynamic Form Component, an example of a Drag & Drop Form ' +
-      'Builder to allow users to build their own structure (to use with the dynamic form component).',
+      'Builder to allow users to build their own forms.',
     url: 'form-builder',
   },
   {
@@ -29,8 +29,8 @@ export const EXAMPLES: IExample[] = [
     title: 'Themeing with CSS Variables',
     summary: 'Using CSS Variables to create a user configurable theme.',
     description:
-      'Combing CSS Variables along with a Theming Service to create a user ' +
-      'configurable them.',
+      'Combing CSS Variables along with a Theming Service for user ' +
+      'configurable themes.',
     url: 'theming',
   },
   {
@@ -38,9 +38,9 @@ export const EXAMPLES: IExample[] = [
     title: 'Lazy Load Scrolling',
     summary: 'A scrolling strategy to manually lazy load feature modules.',
     description:
-      'It is common practice to lazy load modules as child routes, but there are more ' +
+      'It is common practice to lazy load modules as child routes but there are more ' +
       'ways to benefit from code splitting. Scrolling is just one example of how to ' +
-      'manually load modules.',
+      'manually load modules and components.',
     url: 'lazy-scroll',
   },
   {

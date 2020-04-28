@@ -44,23 +44,23 @@ export class ThemeService implements OnDestroy {
     rendererFactory: RendererFactory2,
     overlayContainer: OverlayContainer
   ) {
-    let preferDarkMode = false;
+    let setDarkMode = false;
     if (isPlatformBrowser(this.platformId) && window.matchMedia) {
       // The 'matches' property will return true if the the user prefers dark mode
       const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
-      // If the user want animations, then set to true
-      if (prefersDarkMode.matches) preferDarkMode = true;
+      // If the user prefers dark mode then set to true
+      setDarkMode = prefersDarkMode.matches;
       this.mql = prefersDarkMode;
 
       /* Register for future events */
       this.mqlListener = (mq) => {
-        this.onMediaMatchChange(mq.matches);
+        this.setDarkThemeStatus(mq.matches);
       };
 
       this.mql.addEventListener('change', this.mqlListener);
     }
 
-    this.darkMode = new BehaviorSubject<boolean>(preferDarkMode);
+    this.darkMode = new BehaviorSubject<boolean>(setDarkMode);
     this.darkMode$ = this.darkMode.asObservable();
 
     this._renderer = rendererFactory.createRenderer(null, null);
@@ -155,10 +155,6 @@ export class ThemeService implements OnDestroy {
       this._renderer.appendChild(this.head, linkEl);
       this.themeLinks = [...this.themeLinks, linkEl];
     });
-  }
-
-  private onMediaMatchChange(prefersDarkMode: boolean) {
-    this.setDarkThemeStatus(prefersDarkMode);
   }
 
   ngOnDestroy() {

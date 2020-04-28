@@ -7,7 +7,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ThemeService } from '@ztp/common/utils/theme';
 import { CodeHighlightService } from '@ztp/examples/utils';
-import { css, ts, appInit } from './css-theming.code';
+import { css, ts, appInit, prefersDarkMode } from './css-theming.code';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Observable } from 'rxjs';
 
@@ -23,6 +23,7 @@ export class CssThemingComponent implements OnInit, AfterViewInit {
 
   css = css;
   ts = ts;
+  prefersDarkMode = prefersDarkMode;
   appInit = appInit;
 
   constructor(

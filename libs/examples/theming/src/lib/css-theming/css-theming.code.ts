@@ -64,3 +64,19 @@ export function themeProviderFactory(service: ThemeService) {
   bootstrap: [AppComponent]
 })
 export class AppModule {}`;
+
+export const prefersDarkMode = `// theme.service.ts
+let setDarkMode = false;
+if (isPlatformBrowser(this.platformId) && window.matchMedia) {
+  // The 'matches' property will return true if the the user prefers dark mode
+  const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+  // If the user prefers dark mode then set to true
+  setDarkMode = prefersDarkMode.matches;
+  this.mql = prefersDarkMode;
+  /* Register for future events */
+  this.mqlListener = (mq) => {
+    this.setDarkThemeStatus(mq.matches);
+  };
+
+  this.mql.addEventListener('change', this.mqlListener);
+}`;

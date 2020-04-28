@@ -6,17 +6,16 @@
     href="https://github.com/angular/angular/issues/14324"
     >bug/feature request</a
   >
-  in Angulars View Engine, it has is not been possible to lazy load entry
+  in Angulars View Engine it has is not been possible to lazy load entry
   components. This limitation could be worked around by using Web Components and
-  Angular Elements. With the introduction of the Ivy Rendering Engine this is no
-  longer needed (as entry components have been depreciated)
+  Angular Elements, however with with the introduction of the Ivy Rendering
+  Engine this is no longer needed (entry components have been depreciated).
 </p>
 <p>
   Define a 'registry' of modules to be lazy loaded. The import path follows the
-  same convention as when defining a route based lazy loaded module via the
-  <em>loadChildren</em> route property. The Angular Compiler & Webpack will take
-  care of code splitting for you. Then provide the registry as a provider to the
-  parent module.
+  same convention as when defining a lazy loaded routed module. The Angular
+  Compiler & Webpack will take care of code splitting for you. Then provide the
+  registry as a provider to the parent module.
 </p>
 <pre><code class="language-ts">{{ moduleProviders }}</code></pre>
 <p>
@@ -26,7 +25,7 @@
 <pre><code class="language-ts">{{ moduleLoadingService }}</code></pre>
 <p>
   The lazy loading strategy (scrolling, dialog etc) will determine what to do
-  once the module is loaded and compiled. For this example, The module loading
+  once the module is loaded and compiled. For this example the module loading
   service produces an Observable of the component factory so the scrolling
   component can subscribe and render the entry component once loaded.
 </p>

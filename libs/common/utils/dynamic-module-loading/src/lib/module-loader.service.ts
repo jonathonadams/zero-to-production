@@ -130,7 +130,7 @@ export class ModuleLoaderService {
         this.registerFactory(key, factory);
         return true;
       } catch (err) {
-        console.error('error loading module', err);
+        // console.error('error loading module', err);
         return false;
       }
     } else {

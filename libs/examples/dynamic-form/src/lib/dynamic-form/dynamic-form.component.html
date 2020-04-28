@@ -3,13 +3,13 @@
     <h2>{{ (example$ | async)?.title }}</h2>
     <p>{{ (example$ | async)?.description }}</p>
   </header>
-  <aside class="example-demonstration">
+  <div class="example-demonstration">
     <h3>How to use</h3>
     <p>
-      First, register the dynamic form module in the root AppModule. Here you
-      provide a registry of what components you would like the form to render
-      for each form element type. Optionally, you can provide custom error
-      messages for each error type.
+      First register the dynamic form module in the root AppModule. Here you
+      provide a registry of components the form will render for each form
+      element type. Optionally, you can provide custom error messages for each
+      error type.
     </p>
     <p>
       NOTE: For convenience, a Material Design component registry is provided in
@@ -18,7 +18,7 @@
         rel="noreferrer noopener"
         href="https://github.com/jonathonadams/zero-to-production/tree/master/libs/common/dynamic-form-material-components"
         >libs/common/dynamic-form-material-components</a
-      >, but go ahead and make your own (and let me know how it goes).
+      >. Go ahead and make your own (and let me know how it goes).
     </p>
     <pre><code class="language-ts">{{ moduleRegistry }}</code></pre>
     <p>
@@ -26,8 +26,8 @@
       the <em>formName</em> property.
     </p>
     <p>
-      Create a new form instance, then define and set the structure to render
-      your form.
+      Create a new form instance and define and set the structure to render the
+      form.
     </p>
     <pre><code class="language-ts">{{ setStructureMarkup }}</code></pre>
     <p>
@@ -36,15 +36,14 @@
       property.
     </p>
     <pre><code class="language-html">{{ markup }}</code></pre>
-
     <p>
       The output of submitting the form is provided via an observable from the
       <em>DynamicFormsFacade</em>.
     </p>
     <pre><code class="language-ts">{{ submitSyntax }}</code></pre>
     <p>
-      For a complete guide on how to make your own components, provide custom
-      error messages and styling, please see the
+      For a complete guide on how to make your own form components, provide
+      custom error messages and styling, please see the
       <a
         target="_blank"
         rel="noreferrer noopener"
@@ -83,5 +82,5 @@
         class="language-json"
       ><code class="language=json" [innerHtml]="submit$ | async | json | codeHighlight"></code></pre>
     </div>
-  </aside>
+  </div>
 </article>
