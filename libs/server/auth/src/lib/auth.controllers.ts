@@ -9,11 +9,11 @@ import {
   AuthorizeControllerConfig,
   RefreshControllerConfig,
   RevokeControllerConfig,
-  AvailableControllerConfig,
 } from './auth.interface';
 import { IUser } from '@ztp/data';
 import { isPasswordAllowed, userToJSON } from './auth-utils';
 import { verifyRefreshToken } from './authenticate';
+import { GraphQLFieldResolver } from 'graphql';
 
 // TODO -> Does mongoose create the ID on save or on crete, might be able to refactor the controllers to use Promise.all() instead
 
@@ -215,7 +215,7 @@ export function setupRevokeRefreshTokenController({
 }
 
 export function setupUsernameAvailableController(
-  config: AvailableControllerConfig
+  config: LoginControllerConfig
 ) {
   const { User } = config;
 

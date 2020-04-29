@@ -17,7 +17,6 @@ import {
   AuthorizeControllerConfig,
   RefreshControllerConfig,
   RevokeControllerConfig,
-  AvailableControllerConfig,
   AuthModuleConfig,
 } from '../auth.interface';
 import { setupEmailVerification } from '../send-email';
@@ -135,7 +134,7 @@ export function revokeRefreshToken(config: RevokeControllerConfig) {
   };
 }
 
-export function usernameAvailable(config: AvailableControllerConfig) {
+export function usernameAvailable(config: LoginControllerConfig) {
   const usernameAvailableController = setupUsernameAvailableController(config);
   return async (ctx: Koa.ParameterizedContext) => {
     const username: string | undefined = ctx.query.username;

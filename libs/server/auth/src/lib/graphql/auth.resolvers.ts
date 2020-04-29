@@ -10,7 +10,6 @@ import {
   LoginControllerConfig,
   RegistrationControllerConfig,
   AuthModuleConfig,
-  AvailableControllerConfig,
 } from '../auth.interface';
 import { setupEmailVerification } from '../send-email';
 
@@ -58,7 +57,7 @@ export function registerResolver(
 }
 
 export function usernameAvailableResolver(
-  config: AvailableControllerConfig
+  config: LoginControllerConfig
 ): GraphQLFieldResolver<any, { input: IUser }, any> {
   const usernameAvailableController = setupUsernameAvailableController(config);
   return (root, args, ctx, i) => {

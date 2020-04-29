@@ -1,17 +1,11 @@
 import { GraphQLField, defaultFieldResolver, GraphQLObjectType } from 'graphql';
 import { SchemaDirectiveVisitor } from 'graphql-tools';
-import { JWKSGuarConfig, GuardConfig } from '../auth.interface';
-import { createGraphQLGuards } from './graphql.guards';
-
-export enum AuthDirectiveName {
-  authenticated = 'authenticated',
-  activeUser = 'activeUser',
-}
-
-enum DirectiveWrapped {
-  auth = '_authFieldWrapped',
-  authUser = '_authUserFieldWrapped',
-}
+import {
+  checkAppliedDirectives,
+  TAuthResolver,
+  DirectiveWrapped,
+  AuthDirectiveName,
+} from './utils';
 
 /**
  * The AuthDirective use the auth guards. These functions just wrap the resolvers and call them if they don't throw.
@@ -24,12 +18,9 @@ enum DirectiveWrapped {
  * If at a later field (or Type), the  '@activeUser` directive is applied, if no checks were done then it would wrap the authenticated
  * middleware, not the other way around as the '@activeUser' middleware requires the '@authenticated' to run first
  */
-export function createAuthDirectives(
-  config: JWKSGuarConfig | GuardConfig
-): { [key in AuthDirectiveName]: typeof SchemaDirectiveVisitor } {
-  //
-  const { authenticate, verifyUser } = createGraphQLGuards(config);
-
+export function createAuthenticateDirective(
+  authenticate: TAuthResolver
+): typeof SchemaDirectiveVisitor {
   /**
    * The 'AuthenticatedDirective' wraps resolvers with the 'authenticated' middleware.
    *
@@ -75,56 +66,5 @@ export function createAuthDirectives(
     }
   }
 
-  class ActiveUserDirective extends SchemaDirectiveVisitor {
-    visitObject(type: GraphQLObjectType) {
-      // Check if the Type has previously been applied
-      // Mark the GraphQLObjectType object to avoid re-wrapping:
-      if ((type as any)[DirectiveWrapped.authUser]) return;
-      (type as any)[DirectiveWrapped.authUser] = true;
-
-      // For each field, call the 'visitFieldDefinition'
-      const fields = type.getFields();
-      Object.keys(fields).forEach((fieldName) => {
-        const field: GraphQLField<any, any> = fields[fieldName];
-        this.visitFieldDefinition(field);
-      });
-    }
-
-    visitFieldDefinition(field: GraphQLField<any, any>) {
-      // Check if the field has previously been applied
-      // Mark the GraphQLField to avoid re-wrapping:
-      if ((field as any)[DirectiveWrapped.authUser]) return;
-      (field as any)[DirectiveWrapped.authUser] = true;
-
-      const { resolve = defaultFieldResolver } = field;
-
-      const next = resolve.bind(this);
-
-      field.resolve = authenticate(verifyUser(next));
-    }
-  }
-
-  return {
-    [AuthDirectiveName.authenticated]: AuthenticateDirective,
-    [AuthDirectiveName.activeUser]: ActiveUserDirective,
-  };
-}
-
-function checkAppliedDirectives(
-  field: GraphQLField<any, any> | GraphQLObjectType,
-  directiveNames: string[]
-) {
-  if (
-    field.astNode &&
-    field.astNode.directives &&
-    field.astNode.directives.length !== 0
-  ) {
-    for (const directive of field.astNode.directives) {
-      if (directiveNames.includes(directive.name.value)) {
-        return true;
-      }
-    }
-  }
-
-  return false;
+  return AuthenticateDirective;
 }

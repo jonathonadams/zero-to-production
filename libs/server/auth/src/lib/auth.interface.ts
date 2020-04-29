@@ -73,9 +73,9 @@ export interface RegistrationControllerConfig extends VerifyControllerConfig {
   verificationEmail: VerifyEmail;
 }
 
-export interface AvailableControllerConfig {
-  User: IUserModel;
-}
+// export interface AvailableControllerConfig {
+//   User: IUserModel;
+// }
 
 export interface AuthorizeControllerConfig
   extends LoginControllerConfig,
