@@ -17,7 +17,11 @@ import { MockRefreshTokenModel } from './refresh-token.mock';
 import { signRefreshToken } from '../sign-tokens';
 import { MockVerificationToken } from './verification.mock';
 import { privateKey } from './rsa-keys';
-import { IVerificationTokenModel, IRefreshTokenModel } from '../auth.interface';
+import {
+  IVerificationTokenModel,
+  IRefreshTokenModel,
+  LoginControllerConfig,
+} from '../auth.interface';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
@@ -100,7 +104,7 @@ function mockRevokeController() {
 function mockUsernameAvailableController() {
   return setupUsernameAvailableController({
     User: (MockUserModel as unknown) as IUserModel,
-  });
+  } as LoginControllerConfig);
 }
 
 describe(`Authentication Controllers`, () => {

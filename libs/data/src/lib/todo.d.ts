@@ -5,7 +5,7 @@ export interface ITodo {
   description: string;
   completed: boolean;
   dueDate: Date;
-  notes: ITodoNote[];
+  notes: ITodoNote[] | string[];
 }
 
 export interface ITodoNote {
