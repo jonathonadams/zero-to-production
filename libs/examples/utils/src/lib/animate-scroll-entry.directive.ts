@@ -14,9 +14,11 @@ import {
   style,
   animate,
   keyframes,
+  AnimationFactory,
 } from '@angular/animations';
 import { ScrollDispatcher } from '@angular/cdk/overlay';
 import { Subscription } from 'rxjs';
+import { AnimationService } from '@ztp/common/animations';
 
 export enum ElementViewportPosition {
   Above = 'Above',
@@ -31,6 +33,7 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
   player: AnimationPlayer;
   previousPosition: ElementViewportPosition;
   animationCompleted = true;
+  animate = false;
 
   private sub: Subscription;
 
@@ -38,8 +41,13 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
     @Inject(PLATFORM_ID) private platform: Object,
     private el: ElementRef,
     private builder: AnimationBuilder,
-    private scrollDispatcher: ScrollDispatcher
-  ) {}
+    private scrollDispatcher: ScrollDispatcher,
+    private animationService: AnimationService
+  ) {
+    this.sub = this.animationService.enabled$.subscribe((enabled) => {
+      this.animate = enabled;
+    });
+  }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platform)) {
@@ -76,47 +84,49 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
   }
 
   private registerScrollDispatcher() {
-    this.sub = this.scrollDispatcher
-      .ancestorScrolled(this.el, 100)
-      .subscribe((scrolled) => {
-        if (scrolled) {
-          const elRef = scrolled.getElementRef().nativeElement as HTMLElement;
+    this.sub.add(
+      this.scrollDispatcher
+        .ancestorScrolled(this.el, 100)
+        .subscribe((scrolled) => {
+          if (scrolled) {
+            const elRef = scrolled.getElementRef().nativeElement as HTMLElement;
 
-          const clientTop = elRef.clientTop;
-          const clientHeight = elRef.clientHeight;
-          const offsetTop = elRef.offsetTop;
+            const clientTop = elRef.clientTop;
+            const clientHeight = elRef.clientHeight;
+            const offsetTop = elRef.offsetTop;
 
-          const newPosition = this.elementScrollPosition(
-            this.el,
-            clientTop + offsetTop,
-            clientHeight + offsetTop
-          );
+            const newPosition = this.elementScrollPosition(
+              this.el,
+              clientTop + offsetTop,
+              clientHeight + offsetTop
+            );
 
-          const oldPosition = this.previousPosition;
+            const oldPosition = this.previousPosition;
 
-          // Only play a new animation if the old has stopped playing
-          if (this.animationCompleted) {
-            // Only play the intro animation if the old position was below the current viewport
-            // i.e. scrolling up.
-            if (
-              oldPosition === ElementViewportPosition.Below &&
-              newPosition === ElementViewportPosition.On
-            ) {
-              this.playAnimation(this.flipInto());
+            // Only play a new animation if the old has stopped playing
+            if (this.animationCompleted) {
+              // Only play the intro animation if the old position was below the current viewport
+              // i.e. scrolling up.
+              if (
+                oldPosition === ElementViewportPosition.Below &&
+                newPosition === ElementViewportPosition.On
+              ) {
+                this.playAnimation(this.flipInto());
 
-              // Only hide if the new position is below the viewport
-              // if it is above, keep its current state
-            } else if (
-              oldPosition === ElementViewportPosition.On &&
-              newPosition === ElementViewportPosition.Below
-            ) {
-              this.playAnimation(this.hide());
+                // Only hide if the new position is below the viewport
+                // if it is above, keep its current state
+              } else if (
+                oldPosition === ElementViewportPosition.On &&
+                newPosition === ElementViewportPosition.Below
+              ) {
+                this.playAnimation(this.opacity(0));
+              }
+
+              this.previousPosition = newPosition;
             }
-
-            this.previousPosition = newPosition;
           }
-        }
-      });
+        })
+    );
   }
 
   private playAnimation(metadata: AnimationMetadata[]) {
@@ -124,7 +134,13 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
       this.player.destroy();
     }
 
-    const factory = this.builder.build(metadata);
+    let factory: AnimationFactory;
+    if (this.animate === false) {
+      factory = this.builder.build(this.opacity(1));
+    } else {
+      factory = this.builder.build(metadata);
+    }
+
     this.player = factory.create(this.el.nativeElement);
 
     // register an onDone function to toggle the state once it is completed
@@ -172,8 +188,8 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
     ];
   }
 
-  private hide(): AnimationMetadata[] {
-    return [style({ opacity: 0 })];
+  private opacity(op: number): AnimationMetadata[] {
+    return [style({ opacity: op })];
   }
 
   /**
@@ -199,6 +215,6 @@ export class AnimateScrollEntryDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.sub) this.sub.unsubscribe();
+    this.sub.unsubscribe();
   }
 }

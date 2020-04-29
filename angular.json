@@ -826,6 +826,41 @@
       },
       "schematics": {}
     },
+    "common-utils-media-query": {
+      "projectType": "library",
+      "root": "libs/common/utils/media-query",
+      "sourceRoot": "libs/common/utils/media-query/src",
+      "prefix": "ztp",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/common/utils/media-query/tsconfig.lib.json",
+              "libs/common/utils/media-query/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/utils/media-query/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/common/utils/media-query/jest.config.js",
+            "tsConfig": "libs/common/utils/media-query/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/common/utils/media-query/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
     "todos-feature-shell": {
       "projectType": "library",
       "root": "libs/todos/feature-shell",

@@ -94,6 +94,9 @@
     "common-utils-theme": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
+    "common-utils-media-query": {
+      "tags": ["scope:shared", "type:util", "platform:web"]
+    },
     "common-animations": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },

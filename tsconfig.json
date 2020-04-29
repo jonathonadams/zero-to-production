@@ -34,6 +34,9 @@
       ],
       "@ztp/common/utils/storage": ["libs/common/utils/storage/src/index.ts"],
       "@ztp/common/utils/theme": ["libs/common/utils/theme/src/index.ts"],
+      "@ztp/common/utils/media-query": [
+        "libs/common/utils/media-query/src/index.ts"
+      ],
       "@ztp/common/animations": ["libs/common/animations/src/index.ts"],
       "@ztp/common/dynamic-form": ["libs/common/dynamic-form/src/index.ts"],
       "@ztp/common/dynamic-form-material-components": [
@@ -41,7 +44,6 @@
       ],
       "@ztp/common/form-builder": ["libs/common/form-builder/src/index.ts"],
       "@ztp/common/grid": ["libs/common/grid/src/index.ts"],
-
       "@ztp/common/side-nav": ["libs/common/side-nav/src/index.ts"],
       "@ztp/common/ui/toolbar": ["libs/common/ui/toolbar/src/index.ts"],
       "@ztp/common/ui/card": ["libs/common/ui/card/src/index.ts"],

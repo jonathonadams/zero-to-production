@@ -9,6 +9,7 @@ import {
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Observable, BehaviorSubject, Subscription, combineLatest } from 'rxjs';
+import { MediaQueryService } from '@ztp/common/utils/media-query';
 
 interface IThemeSettings {
   darkMode?: boolean;
@@ -19,22 +20,19 @@ interface IThemeSettings {
 }
 
 @Injectable({ providedIn: 'root' })
-export class ThemeService implements OnDestroy {
-  private mql: MediaQueryList | undefined | null;
-  private mqlListener: ((mql: MediaQueryListEvent) => void) | null;
+export class ThemeService extends MediaQueryService implements OnDestroy {
   private sub: Subscription;
   private _renderer: Renderer2;
   private head: HTMLElement;
   storageKey = 'theme-settings';
+  private themeLinks: HTMLElement[] = [];
 
-  private darkMode: BehaviorSubject<boolean>;
-  public darkMode$: Observable<boolean>;
+  private darkMode = new BehaviorSubject<boolean>(false);
+  darkMode$ = this.darkMode.asObservable();
 
   private _mainTheme$: BehaviorSubject<string> = new BehaviorSubject(
     'theme-default'
   );
-
-  private themeLinks: HTMLElement[] = [];
 
   theme$: Observable<[string, boolean]>;
 
@@ -44,29 +42,16 @@ export class ThemeService implements OnDestroy {
     rendererFactory: RendererFactory2,
     overlayContainer: OverlayContainer
   ) {
-    let setDarkMode = false;
-    if (isPlatformBrowser(this.platformId) && window.matchMedia) {
-      // The 'matches' property will return true if the the user prefers dark mode
-      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
-      // console.log(prefersDarkMode);
-      // If the user prefers dark mode then set to true
-      setDarkMode = prefersDarkMode.matches;
-      this.mql = prefersDarkMode;
+    super();
 
-      /* Register for future events */
-      this.mqlListener = (mq) => {
-        this.setDarkThemeStatus(mq.matches);
-      };
+    if (isPlatformBrowser(this.platformId)) {
+      const prefersDarkMode = this.listenToMediaQuery(
+        '(prefers-color-scheme: dark)',
+        this.setDarkThemeStatus.bind(this)
+      );
 
-      if (this.mql.addEventListener as any) {
-        this.mql.addEventListener('change', this.mqlListener);
-      } else {
-        this.mql.addListener(this.mqlListener);
-      }
+      if (prefersDarkMode !== undefined) this.darkMode.next(prefersDarkMode);
     }
-
-    this.darkMode = new BehaviorSubject<boolean>(setDarkMode);
-    this.darkMode$ = this.darkMode.asObservable();
 
     this._renderer = rendererFactory.createRenderer(null, null);
     this.head = this.document.head;
@@ -164,15 +149,7 @@ export class ThemeService implements OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-    if (this.mql && this.mqlListener) {
-      if (this.mql.removeEventListener) {
-        this.mql.removeEventListener('change', this.mqlListener);
-      } else {
-        this.mql.removeListener(this.mqlListener);
-      }
-
-      this.mql = this.mqlListener = null;
-    }
+    this.removeMediaListener();
   }
 }
 
