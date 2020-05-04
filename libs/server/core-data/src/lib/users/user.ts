@@ -1,4 +1,4 @@
-import { Connection, Schema, Document, Model } from 'mongoose';
+import { Connection, Schema, Document, Model, Mongoose } from 'mongoose';
 import { IUser } from '@ztp/data';
 import { defaultSchemaOptions } from '@ztp/server/utils';
 export { userTypeDef } from './user.type';
@@ -56,15 +56,17 @@ export const userSchema = new Schema<IUser>(
  *
  * @param username The username to search by.
  */
-userSchema.statics.findByUsername = function (
-  username: string
-): Promise<IUserDocument | null> {
-  return this.findOne({
-    username: username,
-  })
-    .select('+hashedPassword')
-    .exec();
-};
+export class UserClass extends Model {
+  static findByUsername(username: string): Promise<IUserDocument | null> {
+    return this.findOne({
+      username,
+    })
+      .select('+hashedPassword')
+      .exec();
+  }
+}
+
+userSchema.loadClass(UserClass);
 
 export function createUserModel(con: Connection): IUserModel {
   return con.model<IUserDocument, IUserModel>(userDbKey, userSchema);

@@ -157,7 +157,7 @@ export interface IVerificationTokenModel
 // -------------------------------------
 // Interfaces for the auth environment config
 // -------------------------------------
-export interface AuthEnvironnementConfig {
+export interface ServerAuthConfig {
   authServerUrl: string;
   jwksRoute?: boolean;
   accessToken: {

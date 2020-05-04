@@ -12,7 +12,7 @@ export {
   IVerificationToken,
   IVerificationTokenDocument,
   IVerificationTokenModel,
-  AuthEnvironnementConfig,
+  ServerAuthConfig,
   JWKSGuarConfig,
   GuardConfig,
   JWKSRouteConfig,

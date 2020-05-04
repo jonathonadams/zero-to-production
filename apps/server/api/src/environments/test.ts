@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
 import { TestServerConfig } from '@ztp/data';
-import { AuthEnvironnementConfig } from '@ztp/server/auth';
+import { ServerAuthConfig } from '@ztp/server/auth';
 
 const audience = 'http://localhost:3000';
 const authServerUrl = audience;
@@ -58,7 +58,7 @@ export const testConfig: TestServerConfig = {
   },
 };
 
-export const testAuthConfig: AuthEnvironnementConfig = {
+export const testAuthConfig: ServerAuthConfig = {
   jwksRoute: true,
   authServerUrl,
   accessToken: {

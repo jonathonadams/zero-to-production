@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import { ServerConfig } from '@ztp/data';
 import { envToNumber, getEnvVariableOrWarn } from '@ztp/server/utils';
-import { AuthEnvironnementConfig } from '@ztp/server/auth';
+import { ServerAuthConfig } from '@ztp/server/auth';
 
 const audience = getEnvVariableOrWarn('AUDIENCE');
 const authServerUrl = getEnvVariableOrWarn('AUTH_SERVER_URL');
@@ -25,7 +25,7 @@ export const config: ServerConfig = {
   },
 };
 
-export const authConfig: AuthEnvironnementConfig = {
+export const authConfig: ServerAuthConfig = {
   jwksRoute: false,
   authServerUrl,
   accessToken: {

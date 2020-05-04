@@ -13,7 +13,7 @@ import { ROUTER_ANIMATIONS } from '@ztp/common/animations';
 
 // https://jonsuh.com/hamburgers/
 
-export interface ISideNaveRoute {
+export interface ISideNavRoute {
   path: string;
   icon: string;
   label: string;
@@ -31,7 +31,7 @@ export class CommonUiSideNavComponent {
   isOpen = false;
 
   @Input() menuButton = true;
-  @Input() routes: ISideNaveRoute[] | null;
+  @Input() routes: ISideNavRoute[] | null;
   @Input() mode = 'push';
   @ViewChildren('navLinks') links: QueryList<ElementRef<HTMLElement>>;
 

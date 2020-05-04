@@ -1,6 +1,6 @@
 import { Connection, Model, Schema, Document } from 'mongoose';
 import { defaultSchemaOptions } from '@ztp/server/utils';
-import { ITodo } from '@ztp/data';
+import { ITodo, ITodoNote } from '@ztp/data';
 import { ITodoNoteDocument } from './notes';
 
 // both keys need to be defined here for circular reference reasons
@@ -36,10 +36,10 @@ todoSchema.pre('findOneAndRemove', async function (doc) {
   this.populate('notes');
 });
 
-todoSchema.post('findOneAndRemove', async function (doc: ITodoDocument) {
+todoSchema.post('findOneAndRemove', async (doc: ITodoDocument) => {
   // delete all the associated notes as well
   await Promise.all(
-    doc.notes.map((note) => (note as ITodoNoteDocument).remove())
+    (doc.notes as ITodoNoteDocument[]).map((note) => note.remove())
   );
 });
 

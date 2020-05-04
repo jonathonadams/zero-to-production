@@ -8,7 +8,7 @@ import {
   GuardConfig,
   LoginAndRegisterConfig,
   AuthWithRefreshTokenConfig,
-  AuthEnvironnementConfig,
+  ServerAuthConfig,
   IVerificationTokenModel,
   IRefreshTokenModel,
   AuthModuleConfig,
@@ -43,7 +43,7 @@ export function isRefreshConfig(
 
 export function generateAuthGuardConfig(
   config: ServerConfig,
-  authConfig: AuthEnvironnementConfig,
+  authConfig: ServerAuthConfig,
   User: IUserModel
 ): GuardConfig | JWKSGuarConfig {
   if (authConfig.accessToken.publicKey) {
@@ -69,7 +69,7 @@ export function generateAuthModuleConfig(
   User: IUserModel,
   VerificationToken: IVerificationTokenModel,
   RefreshToken: IRefreshTokenModel,
-  config: AuthEnvironnementConfig
+  config: ServerAuthConfig
 ): AuthModuleConfig {
   const { publicKey, privateKey } = config.accessToken;
   return {
