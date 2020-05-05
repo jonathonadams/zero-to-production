@@ -1,7 +1,7 @@
 // ZTP_AFTER_CLONE -> Delete this file
 
 import { GraphQLFieldResolver } from 'graphql';
-import { IResolvers } from 'graphql-tools';
+import { IResolvers } from 'apollo-server-koa';
 import { IUser } from '@ztp/data';
 import { demoSetupRegisterController } from './demo.controllers';
 import {

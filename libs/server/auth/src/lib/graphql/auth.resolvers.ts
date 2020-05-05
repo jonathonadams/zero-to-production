@@ -1,5 +1,5 @@
 import { GraphQLFieldResolver } from 'graphql';
-import { IResolvers } from 'graphql-tools';
+import { IResolvers } from 'apollo-server-koa';
 import { IUser } from '@ztp/data';
 import {
   setupLoginController,

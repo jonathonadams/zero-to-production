@@ -1,4 +1,4 @@
-import { makeExecutableSchema, IResolvers } from 'graphql-tools';
+import { makeExecutableSchema, IResolvers } from 'apollo-server-koa';
 import { authTypeDef } from '../graphql/auth.types';
 
 export function createDemoAuthSchema(resolvers: IResolvers) {

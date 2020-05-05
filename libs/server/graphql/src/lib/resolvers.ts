@@ -1,5 +1,6 @@
+// @ts-ignore
 import merge from 'lodash.merge';
-import { IResolvers } from 'graphql-tools';
+import { IResolvers } from 'apollo-server-koa';
 // @ts-ignore
 import { GraphQLDate, GraphQLTime, GraphQLDateTime } from 'graphql-iso-date';
 

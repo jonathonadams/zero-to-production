@@ -1,5 +1,5 @@
 import { GraphQLField, defaultFieldResolver, GraphQLObjectType } from 'graphql';
-import { SchemaDirectiveVisitor } from 'graphql-tools';
+import { SchemaDirectiveVisitor } from 'apollo-server-koa';
 import {
   checkAppliedDirectives,
   TAuthResolver,

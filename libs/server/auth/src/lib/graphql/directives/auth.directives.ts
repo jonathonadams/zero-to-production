@@ -1,4 +1,4 @@
-import { SchemaDirectiveVisitor } from 'graphql-tools';
+import { SchemaDirectiveVisitor } from 'apollo-server-koa';
 import { JWKSGuarConfig, GuardConfig } from '../../auth.interface';
 import { createGraphQLGuards } from '../graphql.guards';
 import { createAuthenticateDirective } from './authenticated.directive';
