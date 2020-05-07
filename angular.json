@@ -177,12 +177,12 @@
             "styles": [
               "apps/todos/todos-web/src/styles.scss",
               {
-                "input": "theme/theme-default.scss",
+                "input": "styles/theme-default.scss",
                 "lazy": true,
                 "bundleName": "theme-default"
               },
               {
-                "input": "theme/theme-default-dark.scss",
+                "input": "styles/theme-default-dark.scss",
                 "lazy": true,
                 "bundleName": "theme-default-dark"
               }

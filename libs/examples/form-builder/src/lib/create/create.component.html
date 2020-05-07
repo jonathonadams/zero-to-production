@@ -7,7 +7,7 @@
 </p>
 
 <ztp-card>
-  <h3>Create New Form</h3>
+  <h4>Create New Form</h4>
   <app-dynamic-form [formName]="formName">
     <button type="submit" mat-raised-button class="submit-button">
       create Form
@@ -22,7 +22,7 @@
       *ngFor="let form of form$ | async; trackBy: trackForms; last as last"
       class="record"
     >
-      <h3 matLine>{{ form.formName }}</h3>
+      <h4 matLine>{{ form.formName }}</h4>
 
       <button mat-stroked-button type="button" (click)="edit(form)">
         Edit

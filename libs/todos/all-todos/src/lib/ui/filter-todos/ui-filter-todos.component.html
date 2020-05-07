@@ -5,11 +5,8 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Status</mat-label>
-    <mat-select
-      [value]="todoFilter"
-      (selectionChange)="selectFilterChanged.emit($event)"
-    >
-      <mat-option *ngFor="let option of filterOptions" [value]="option.value">{{
+    <mat-select [value]="status" (selectionChange)="statusChanged.emit($event)">
+      <mat-option *ngFor="let option of options" [value]="option.value">{{
         option.display
       }}</mat-option>
     </mat-select>

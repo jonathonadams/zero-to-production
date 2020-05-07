@@ -1,10 +1,8 @@
-# Angular Universal with Firebase Functions
-
-## Before you Start
+### Angular Universal with Firebase Functions
 
 Ensure you have completed all the [prerequisites].
 
-## Firebase Tools
+#### Firebase Tools
 
 As it stands, Firebase tools is not really built to work nicely with Monorepos. By default if you run `firebase init` and select cloud functions (TS or JS) it will create a `functions/` directory at the root of your project. It will also create a `package.json` inside the `functions/` directory that lists build scripts, dependencies and the entry point to your function via the `main` field. It will also prompt you to install required dependencies **inside** the `functions/` directory which you do **not** want.
 
@@ -12,11 +10,11 @@ It is important to understand that the reason the `package.json` is added inside
 
 Currently `firebase-tools` only supports a single `firebase.json` file (and subsequently only one Functions directory). The limitation of the single `firebase.json` can be worked around with the help of **Angular CLI Builders** as seen below. See [#590] & [#1115] for further details.
 
-## Add Angular Universal
+#### Add Angular Universal
 
 It is advised to read through the [Angular Universal] guide to help understand the complexity that Angular Universal is handling for you. When you add Angular Universal to the `todos` app some of the limitations of using SSR will become apparent and you might decide that your project does not warrant server side rendering.
 
-### 1. Add & Configure Angular Universal for the Todo Application
+##### 1. Add & Configure Angular Universal for the Todo Application
 
 Add angular universal to the Todos Application with the express engine schematics.
 
@@ -65,7 +63,7 @@ const distFolder = join(process.cwd(), 'dist/todos-web/browser');
 
 Note that it is pointing to the output directory of the browser build and that it is assumes the current working directory is the root directory of the repo. While this is fine initially it will be altered later when configuring for Firebase functions.
 
-### 2. Test SSR is working
+##### 2. Test SSR is working
 
 Test that SSR is working correctly by opening an incognito browser window and **disable JavaScript** (ctrl + shift + p in the developers console) so that you can see the server rendered output only. Then run to server.
 
@@ -91,7 +89,7 @@ someMethod() {
 }
 ```
 
-## Initialize & Configure Firebase Functions
+#### Initialize & Configure Firebase Functions
 
 Because of the limitations of the Firebase Cli as discussed above, there is some setup required to make it work nicely with the Monorepo structure. Rather than create and setup the files manually, a workspace schematic is provided in `tools/schematics/` to scaffold a new _functions_ project and modify our Todos application. To run the schematic run the following:
 
@@ -103,7 +101,7 @@ The Firebase project option is the project name as listed on the Firebase consol
 
 A new project has been created in `apps/todos/todos-web-functions`. It is now safe to delete the `firebase.json` in the root directory.
 
-## What has the schematic done?
+#### What has the schematic done?
 
 The schematic has taken care of scaffolding and configuring the Universal Application and has added a new `todos-web-functions` project. The project is configured to build into a `dist/` directory **inside** the source directory, i.e. `apps/todos/todos-web-functions/dist/`. This means the **current working directory** of the server process (`server.ts`) will be different when hosted on Firebase functions and the `distFolder` inside `server.ts` has been altered to reflect the new current working directory.
 
@@ -184,7 +182,7 @@ Additionally a **`functions`** build target has been added to the `todos-web` pr
   <img src="./assets/images/github-white.svg" alt="(opens GitHub repo)" />
   ```
 
-## Try it out
+#### Try it out
 
 Serve the Firebase function locally
 
@@ -212,11 +210,11 @@ $ ng run todos-web-functions:build-and-deploy
 
 The URL's that your application is hosted at will be output to the terminal.
 
-## Setup a Custom Domain
+#### Setup a Custom Domain
 
 If you have not set up a custom domain your functions will most probably not serve properly due to the `baseHref` as described earlier. Follow the Firebase docs to configure your [custom domain].
 
-## Add a Service Worker (Optional)
+#### Add a Service Worker (Optional)
 
 While not directly associated with server side rendering, a Service Worker plays nicely with a server rendered application. The SSR application is rendered first and the client application bootstraps once all resources are loaded. Once the client application bootstraps it will activate the service worker and cache all client resources. On next visit the service worker will serve the cached client files before any request are made and the application will load instantly. See here for more details on the [Angular Service Worker].
 
@@ -271,11 +269,11 @@ Visit the locally hosted URL to test your app. The server side app should load a
 
 Refresh the browser with the network turned off and you should still get the same result and the application will now work offline.
 
-### Considerations
+##### Considerations
 
 Not every applications will benefit from all aspects of server side rendering, specifically the time to first paint. Depending on the traffic load, if the function is not "hot" the cold start associated with cloud function first loads may cause your app to load significantly slower than a non SSR rendered application.
 
-[prerequisites]: https://zero-to-prouction.dev/guides/getting-started
+[prerequisites]: https://zero-to-production.dev/guides/getting-started
 [#590]: https://github.com/firebase/firebase-tools/issues/590
 [#1115]: https://github.com/firebase/firebase-tools/issues/1115
 [angular universal]: https://angular.io/guide/universal

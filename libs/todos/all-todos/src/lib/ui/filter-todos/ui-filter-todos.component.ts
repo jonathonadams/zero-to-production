@@ -23,37 +23,34 @@ import { ANIMATE_CLASS } from '@ztp/common/animations';
 })
 export class UiFilterTodosComponent implements OnInit, OnDestroy {
   animate = ANIMATE_CLASS;
+  sub: Subscription | undefined;
 
-  subscription: Subscription | undefined;
   @Input()
-  todoFilter: TodoFilterStatus | null | undefined;
+  status: TodoFilterStatus | null | undefined;
   @Input()
-  filterOptions: { display: string; value: TodoFilterStatus }[] | undefined;
+  options: { display: string; value: TodoFilterStatus }[] | undefined;
   @Output()
-  selectFilterChanged = new EventEmitter<MatSelectChange>();
+  statusChanged = new EventEmitter<MatSelectChange>();
   @Output()
-  searchStringChanged = new EventEmitter<string>();
+  searchChanged = new EventEmitter<string>();
 
-  @ViewChild('todoSearch', { static: true }) searchInput: ElementRef<
+  @ViewChild('todoSearch', { static: true }) input: ElementRef<
     HTMLInputElement
   >;
 
   ngOnInit() {
-    this.subscription = fromEvent<KeyboardEvent>(
-      this.searchInput.nativeElement,
-      'keyup'
-    )
+    this.sub = fromEvent<KeyboardEvent>(this.input.nativeElement, 'keyup')
       .pipe(
         debounceTime(100),
-        map((event: KeyboardEvent) => (<HTMLInputElement>event.target).value),
+        map((event) => (event.target as HTMLInputElement).value),
         distinctUntilChanged()
       )
-      .subscribe((searchString) => {
-        this.searchStringChanged.emit(searchString);
+      .subscribe((search) => {
+        this.searchChanged.emit(search);
       });
   }
 
   ngOnDestroy() {
-    if (this.subscription) this.subscription.unsubscribe();
+    if (this.sub) this.sub.unsubscribe();
   }
 }

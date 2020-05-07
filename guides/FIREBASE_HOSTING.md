@@ -1,16 +1,14 @@
-# Deploy your Web App with Firebase Hosting
-
-## Before you Start
+### Deploy your Web App with Firebase Hosting
 
 Ensure you have completed all the [prerequisites].
 
-## Configure the Application
+#### Configure the Application
 
 The only configuration that is required is set the API URL to point to your deployed API.
 
 Change `serverUrl` in `apps/todos/todos-web/src/environments/environments.prod.ts` to point to your API server. If you are following along with the guides this will be the URL configured on AWS Lambda
 
-## Analyze your build (optional)
+#### Analyze your build (optional)
 
 Prior to deploying your application it is recommended to analyze the production bundle.
 
@@ -26,7 +24,7 @@ Prior to deploying your application it is recommended to analyze the production 
    $ npm run bundle:analyze -- path/to/distribution/directory/stats.json
    ```
 
-## Deploy on Firebase Hosting
+#### Deploy on Firebase Hosting
 
 1.  Make a production build of your application
 
@@ -60,15 +58,15 @@ Prior to deploying your application it is recommended to analyze the production 
 
 The URL's that your application is hosted at will be output to the terminal.
 
-## Setup Custom Domain
+#### Setup Custom Domain
 
 Follow the firebase docs to configure your [custom domain] for your application.
 
-## Add Server Side Rendering & Service Worker
+#### Add Server Side Rendering & Service Worker
 
 When your application warrants it add server side rendering by follow the [SSR and deploy on Firebase Functions] guide.
 
-[prerequisites]: https://zero-to-prouction.dev/guides/getting-started
+[prerequisites]: https://zero-to-production.dev/guides/getting-started
 [nginx & docker]: https://github.com/jonathonadams/zero-to-production/docker/README.md
 [custom domain]: https://firebase.google.com/docs/hosting/custom-domain
 [ssr and deploy on firebase functions]: https://zerp-to-production/guides/ssr-firebase-functions

@@ -69,10 +69,10 @@
     "@hapi/boom": "^9.1.0",
     "@koa/cors": "^3.0.0",
     "@koa/router": "^8.0.8",
-    "@ngrx/effects": "9.1.0",
-    "@ngrx/entity": "9.1.0",
-    "@ngrx/router-store": "9.1.0",
-    "@ngrx/store": "9.1.0",
+    "@ngrx/effects": "^9.1.0",
+    "@ngrx/entity": "^9.1.0",
+    "@ngrx/router-store": "^9.1.0",
+    "@ngrx/store": "^9.1.0",
     "@nguniversal/express-engine": "^9.1.0",
     "@sendgrid/mail": "^7.0.1",
     "apollo-angular": "^1.9.1",
@@ -121,8 +121,8 @@
     "@commitlint/config-conventional": "^8.3.4",
     "@nguniversal/builders": "^9.1.0",
     "@nrwl/angular": "^9.2.3",
-    "@nrwl/jest": "9.2.3",
-    "@nrwl/node": "9.2.3",
+    "@nrwl/jest": "^9.2.3",
+    "@nrwl/node": "^9.2.3",
     "@nrwl/workspace": "^9.2.3",
     "@testing-library/jest-dom": "^5.5.0",
     "@types/bcryptjs": "^2.4.2",
@@ -136,10 +136,8 @@
     "@types/node": "^12.12.37",
     "@types/ramda": "^0.27.4",
     "@types/testing-library__jest-dom": "^5.0.3",
-    "@uqt/ng-node": "0.0.6",
+    "@uqt/ng-node": "^0.0.6",
     "codelyzer": "^5.2.2",
-    "commitizen": "^4.0.4",
-    "cz-conventional-changelog": "^3.1.0",
     "dotenv": "^8.0.0",
     "glob": "^7.1.6",
     "husky": "^4.2.5",
@@ -165,10 +163,5 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
   }
 }

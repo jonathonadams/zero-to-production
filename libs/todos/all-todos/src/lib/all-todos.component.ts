@@ -59,7 +59,7 @@ export class AllTodosComponent implements OnInit, OnDestroy {
 
   private sub: Subscription;
 
-  filterOptions = [
+  options = [
     { display: 'All', value: TodoFilterStatus.All },
     { display: 'Completed', value: TodoFilterStatus.Completed },
     { display: 'Incomplete', value: TodoFilterStatus.InCompleted },
@@ -96,16 +96,16 @@ export class AllTodosComponent implements OnInit, OnDestroy {
     });
   }
 
-  searchStringChanged(string: string) {
+  searchChanged(string: string) {
     this.facade.searchStringChanged(string);
   }
 
-  selectFilterChanged(event: MatSelectChange) {
+  statusChanged(event: MatSelectChange) {
     this.facade.statusChange(event.value);
   }
 
   update({ todo, completed }: { todo: ITodo; completed: boolean }) {
-    const updatedTodo: ITodo = { ...todo, completed };
+    const updatedTodo = { ...todo, completed };
     this.facade.updateTodo(updatedTodo);
   }
 
