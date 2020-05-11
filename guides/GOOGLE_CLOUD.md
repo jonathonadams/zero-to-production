@@ -1,14 +1,12 @@
-# Deploy your API Server in Google Cloud Kubernetes
-
-**WARNING**: This guide is in no way a comprehensive or 'production grade' guide to deploying your application in Kubernetes, rather a starting point for you to test and get your feet wet with deploying your containers to the cloud. This examples deploys the single node API with [traefik] as a reveres proxy, an architect that may not warrant the complexity. That being said, the kubernetes resource configurations should give you an idea of how to add additional services and deployments to you cluster e.g. separate the Authentication module to it's own server.
-
-## Before you Start
+### Deploy your API on Google Cloud Kubernetes
 
 Ensure you have completed all the [prerequisites].
 
 All files related to deploying to Google Cloud Kubernetes are located in the `dev-ops/` directory.
 
-## Google Cloud Build Trigger
+**WARNING**: This guide is in no way a comprehensive or 'production grade' guide to deploying your application in Kubernetes, rather a starting point for you to test and get your feet wet with deploying your containers to the cloud. This examples deploys the single node API with [traefik] as a reveres proxy, an architect that may not warrant the complexity. That being said, the kubernetes resource configurations should give you an idea of how to add additional services and deployments to you cluster e.g. separate the Authentication module to it's own server.
+
+#### Google Cloud Build Trigger
 
 A `Dockerfile` to build our API project from the source files is provided at `docker/server.Dockerfile`. Please see the [Docker README] for further details.
 
@@ -29,9 +27,9 @@ The image that you build and is subsequently pushed to the Google Cloud Registry
 
 4. Manually trigger the build to test that the build runs and your container image is visible in the **Container Registry** once complete.
 
-## Google Cloud - Kubernetes Cluster
+#### Google Cloud - Kubernetes Cluster
 
-Follow the next steps to deploy you production container.
+Follow the next steps to deploy you production container. A pre-configured set of Kubernetes deployment configurations is located in `/dev-ops/kubernetes/`.
 
 1. Reserve a Static IP address to allow the load balancer to auto create global forwarding rules. **VPC Network > External IP Address > Reserve Static IP**.
 2. Create a new Kubernetes Cluster, **Kuberetes Engine > Clusters > Create Cluster** and follow the guides as necessary. For testing select the preset 'My first cluster'. Once up and running connect to your cluster from your terminal.
@@ -75,25 +73,25 @@ Follow the next steps to deploy you production container.
 
 6. Wait for all your containers to be provisioned. You can view your Deployments and Ingress resources under **Kubernetes Engine** -> **Workloads/Services & Ingress**
 
-### Notes
+##### Notes
 
 In the Global Load Balancer config, `HTTP` traffic has been disabled so you can only access your cluster via `HTTPS`, hence you will have to also configure your DNS provider (see below). HTTP to HTTPS redirect is coming soong
 
-## Configure Your DNS Provider
+#### Configure Your DNS Provider
 
 To access your cluster via your domain name, e.g. `api.zero-to-production.dev` you will have to configure your DNS records with your domain name provider. Assuming you are hosting your API at the subdomain `api.your-domain.tld`, then create an **A** record (or **AAAA** if using **IPv6**) that directs your subdomain to the static IP address reserved at **1**. This will take time to propagate (up to 24 hours). Once updated test your cluster is running correctly by visiting the `/healthz` url for your domain (this is the readiness probe route). You should receive status **200** OK response back.
 
-## Reconfigure Client Application
+#### Reconfigure Client Application
 
 If you have completed the previous guides you would have deployed the Angular Todo application on Firebase Functions. The application would currently have the API URL configured the AWS Lambda functions. Updated this to point to the Kubernetes API and redeploy you application.
 
-## VPC Network Peering (if using Mongo Atlas)
+#### VPC Network Peering (if using Mongo Atlas)
 
 In a real production server you would setup VPC Network Peering between your Mongo Atlas Project and your Google Cloud Project and only whitelist the Google Cloud CIDR range. However this feature is not available for the free tier cluster.
 
 See the [Mongo VPC Peering] docs on how to set up VPC Network Peering
 
-[prerequisites]: https://zero-to-prouction.dev/guides/getting-started
+[prerequisites]: https://zero-to-production.dev/guides/getting-started
 [docker readme]: https://github.com/jonathonadams/zero-to-production/docker/README.md
 [traefik]: https://docs.traefik.io/
 [google managed certificate]: https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs

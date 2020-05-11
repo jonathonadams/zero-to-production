@@ -1,10 +1,10 @@
 <article class="example">
   <header class="example-description">
-    <h2>{{ (example$ | async)?.title }}</h2>
+    <h3>{{ (example$ | async)?.title }}</h3>
     <p>{{ (example$ | async)?.description }}</p>
   </header>
   <div class="example-demonstration">
-    <h3>How to use</h3>
+    <h4>How to use</h4>
     <p>
       First register the dynamic form module in the root AppModule. Here you
       provide a registry of components the form will render for each form
@@ -52,7 +52,7 @@
       >
     </p>
 
-    <h3>Try it below</h3>
+    <h4>Try it below</h4>
     <section class="form-config">
       <aside class="config">
         <mat-checkbox (change)="complexForm($event.checked)">

@@ -40,8 +40,8 @@ export class UiTodoListComponent {
     this.update.emit({ todo, completed: change.checked });
   }
 
-  trackTodos(index: number, todo: ITodo) {
-    return todo.id;
+  trackTodos(i: number, t: ITodo) {
+    return t.id;
   }
 
   prepareListState() {

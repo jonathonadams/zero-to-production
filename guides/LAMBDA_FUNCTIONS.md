@@ -1,10 +1,8 @@
-# Deploy your API on AWS Lambda functions
-
-## Before you Start
+### Deploy your API on AWS Lambda
 
 Ensure you have completed all the [prerequisites].
 
-## Run you Functions locally
+#### Run you Functions locally
 
 Almost all of the heavy lifting of deploying and configuring your [AWS Lambda] functions is taken care of by the [Serverless] framework.
 
@@ -16,7 +14,7 @@ For local testing run the following command to build and serve locally with [ser
 ng serve server-lambda
 ```
 
-## Deploy to AWS
+#### Deploy to AWS
 
 When you are ready to build and deploy your cloud functions run
 
@@ -28,7 +26,7 @@ This will build and bundle your application inside the `dist/` directory of the 
 
 Your API URL will be output in the console once successfully deployed.
 
-### Add environment variables
+##### Add environment variables
 
 For your API to function correctly, environment variables must be set. The environment variables can be set one of two ways, either by creating a `.env.production` file in the project directory (`apps/server/lambda/.env.production`), or on the AWS console. If you create an `.env.production` file serverless will auto configure the variables for you.
 
@@ -37,11 +35,11 @@ To add them on AWS, select the deployed service in Functions console.
 On the configuration page scroll down to the **Environment Variables** and add the desired variables. For multiline variables, e.g. private/public keys, put all values on one line separated by line break characters e.g.
 
 ```bash
-# this
+### this
 -----BEGIN PRIVATE KEY-----
 MIIEvgIBADANBgkqhkiG9w0B...
 
-# becomes
+### becomes
 -----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0B...
 ```
 
@@ -53,7 +51,7 @@ The environment variables required for the Serverless API are:
 - ISSUER
 - AUDIENCE
 
-## Configure Your Custom Domain
+#### Configure Your Custom Domain
 
 Assuming the subdomain of `fns.zero-to-production.dev`
 
@@ -68,13 +66,13 @@ Assuming the subdomain of `fns.zero-to-production.dev`
 
 Once the DNS record propagates you should be able to access your API at the desired subdomain, e.g. `fns.zero-to-production.dev`
 
-## VPC Network Peering (if using Mongo Atlas)
+#### VPC Network Peering (if using Mongo Atlas)
 
 In a real production server you would setup VPC Network Peering between your Mongo Atlas Project and your AWS Lambda service, however this feature is not available for the free tier cluster.
 
 See the [AWS Lambda Best Practices] & [Mongo VPC Peering] docs on how to set up VPC Network Peering.
 
-## Additional Notes
+#### Additional Notes
 
 If you look at the source code for our Lambda API (`apps/server/lambda`) you will notice the way that the [Mongoose] schemas are defined and referenced differs slightly from the Docker API server.
 
@@ -102,7 +100,7 @@ const User = connection.model('User');
 
 See the documentation on using [Mongoose with AWS Lambda] for further details.
 
-[prerequisites]: https://zero-to-prouction.dev/guides/getting-started
+[prerequisites]: https://zero-to-production.dev/guides/getting-started
 [aws lambda]: https://aws.amazon.com/lambda
 [serverless]: https://serverless.com
 [serverless-offline]: https://github.com/dherault/serverless-offline

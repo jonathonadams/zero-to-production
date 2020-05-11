@@ -1,0 +1,36 @@
+.visually-hidden {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+// https://tympanus.net/Development/InlineAnchorStyles/
+
+a[href*='http'] {
+  --anchor-link: var(--anchor-link-http-light);
+  outline: none;
+  text-decoration: none;
+  padding: 2px 1px 0;
+
+  &:link,
+  &:visited {
+    color: var(--anchor-link);
+  }
+
+  &:focus,
+  &:hover,
+  &:active {
+    text-decoration: underline;
+  }
+}
+
+.dark-theme {
+  a[href*='http'] {
+    --anchor-link: var(--anchor-link-http-dark);
+  }
+}

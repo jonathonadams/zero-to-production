@@ -1,8 +1,8 @@
-# Getting Started
+### Getting Started
 
 If you want to use this monorepo as the starting point for your next project or to work through the guides then follow the below instructions to tidy up and remove all unused apps & libs.
 
-## Clone & install all dependencies
+#### Clone & install all dependencies
 
 ```bash
 $ git clone https://github.com/jonathonadams/zero-to-production.git workspace
@@ -12,14 +12,14 @@ $ cd workspace
 $ npm i
 ```
 
-### Housekeeping
+##### Housekeeping
 
 - change `package.json` fields as required, e.g. `name`, `license`, `version`, `repository`.
 - change the application prefix by doing a `search and replace` for **ztp** and replace with your desired app prefix.
 - edit/delete `CODE_OF_CONDUCT.md` and `LICENSE.md` files as desired.
-- create you own color theme in `theme/theme.scss`
+- create you own color theme in `styles/theme.scss`
 
-### Remove "Examples" Project Files (Optional)
+##### Remove "Examples" Project Files (Optional)
 
 The "Examples" angular app and respective libs are all the files
 associated with this demo site at [zero-to-production.dev]
@@ -57,7 +57,7 @@ associated with this demo site at [zero-to-production.dev]
   - `express`
   - `@types/express`
 
-### Project Structure
+##### Project Structure
 
 The repo follows the [Nrwl] monorepo guidelines where all applications are in the `apps/` directory and all associated libraries are in the `libs/` directory. Assuming you have followed the above and deleted the `examples` applications you should be left with the following app structure:
 
@@ -68,13 +68,13 @@ The repo follows the [Nrwl] monorepo guidelines where all applications are in th
 
 See the [NX] site for further details on project structure.
 
-### Configure the Application (Important)
+##### Configure the Application (Important)
 
 Some parts of the project have been configured specifically for the [zero-to-production.dev], such as configuring the API `User` model to not require unique emails. These places have been commented with the required steps to correct.
 
 In your IDE, search for `ZTP_AFTER_CLONE` and make the appropriate changes as per the comments.
 
-## Local Development
+#### Local Development
 
 Local development is relatively simple.
 
@@ -89,7 +89,7 @@ Note that before you can run the the API the following must be configured
 
   **WARNING** - Do NOT use the `RSA256` private / public keys that are in `.env.example`. They are example keys are public and are not secure, they are just demonstrating how to set them in the `.env` file.
 
-## Project Configuration
+#### Project Configuration
 
 - TypeScript `strict` mode - This project has be configured to use `strict` mode (along with Angular full template checking). This is not for everyone. This can be configured in `tsconfig.base.json`. The `strictPropertyInitialization` option has been set to `false` as compilation errors will be thrown for property inputs in Angular components.
 
@@ -97,13 +97,13 @@ Note that before you can run the the API the following must be configured
 
 - Nested `package.json` files - Although this is a Monorepo with a root level `package.json` for managing dependencies, an additional `package.json` file is located within the API server directory. The `server.Dockerfile` build process will use the nested `package.json` to install all its development & production dependencies that are specific to the the server project only. If you install or remove any dependencies (via `npm install/uninstall <package>`) for the API they will have to be added manually to nested `package.json` file. Once the dependencies have been added, on each git commit the version numbering will be synced to the root `package.json` file automatically.
 
-## Guides & Deployment
+#### Guides & Deployment
 
 The following guides are a series of instructions to take your newly cloned project from local development to a deployed working frontend & API.
 
 It is advised to follow the guides in the following order as they are designed to get you up and running and deployed and then progressively increase in complexity as your application grows and warrants it.
 
-### Prerequisites
+##### Prerequisites
 
 To complete the guides you will need to complete the following
 
@@ -129,7 +129,7 @@ To complete the guides you will need to complete the following
   - Once your cluster is up an running, click **collections** and create a database (note the name) and the first collection i.e. the `users` collection.
   - Click **connect > connect your application** and get your connection string. By default the connection string will point to the `test` database. Replace the test database with the desired database, i.e. `mongodb+srv://.../my-database-name?retryWrites=true&w=majority`
 
-## Next Steps
+#### Next Steps
 
 Deploy your serverless API with [AWS Lambda]
 

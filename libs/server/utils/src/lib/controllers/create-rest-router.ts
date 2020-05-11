@@ -58,7 +58,7 @@ export function generateRestControllers<T extends Document>(
     },
     updateOne: async (ctx: ParameterizedContext, next: () => Promise<any>) => {
       const userId = userResourcesOnly ? retrieveUserId(ctx) : undefined;
-      ctx.status = 201;
+      ctx.status = 200;
       ctx.body = await controllers.updateOne(
         ctx.state.id,
         (ctx.request as any).body,

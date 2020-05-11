@@ -5,10 +5,10 @@
     </article>
     <article twoColumnRight>
       <todo-ui-filter-todos
-        [todoFilter]="todoFilter$ | async"
-        [filterOptions]="filterOptions"
-        (selectFilterChanged)="selectFilterChanged($event)"
-        (searchStringChanged)="searchStringChanged($event)"
+        [status]="todoFilter$ | async"
+        [options]="options"
+        (statusChanged)="statusChanged($event)"
+        (searchChanged)="searchChanged($event)"
       ></todo-ui-filter-todos>
       <todo-ui-todo-list
         [todos]="filteredTodo$ | async"
