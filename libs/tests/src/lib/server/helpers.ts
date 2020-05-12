@@ -32,7 +32,7 @@ export function newId() {
   return mongoose.Types.ObjectId().toHexString();
 }
 
-export const runQuery = function (schema: GraphQLSchema) {
+export const runQuery = (schema: GraphQLSchema) => {
   return async (
     query: string,
     variables: { [prop: string]: any },
@@ -59,9 +59,9 @@ export async function setupTestDB(): Promise<{
   mongoServer: MongoMemoryServer;
 }> {
   const mongoServer = new MongoMemoryServer();
-  const mongoUri: string = await mongoServer.getUri();
+  const dbUri: string = await mongoServer.getUri();
   return {
-    dbUri: mongoUri,
-    mongoServer: mongoServer,
+    dbUri,
+    mongoServer,
   };
 }

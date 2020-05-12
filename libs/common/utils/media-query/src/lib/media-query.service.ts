@@ -14,9 +14,10 @@ export class MediaQueryService {
       /* Register for future events */
       this.mqlListener = (mq) => listener(mq.matches);
 
-      if (this.mql.addEventListener as any) {
+      if (this.mql.addEventListener) {
         this.mql.addEventListener('change', this.mqlListener);
       } else {
+        // tslint:disable-next-line
         this.mql.addListener(this.mqlListener);
       }
 
@@ -29,6 +30,7 @@ export class MediaQueryService {
       if (this.mql.removeEventListener) {
         this.mql.removeEventListener('change', this.mqlListener);
       } else {
+        // tslint:disable-next-line
         this.mql.removeListener(this.mqlListener);
       }
 

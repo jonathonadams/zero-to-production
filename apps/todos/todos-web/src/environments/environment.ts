@@ -8,7 +8,7 @@ const serverUrl = 'http://localhost:3000';
 
 export const environment = {
   production: false,
-  serverUrl: serverUrl,
+  serverUrl,
   apiBaseUrl: `${serverUrl}/api`,
   graphQLUrl: `${serverUrl}/graphql`,
 };

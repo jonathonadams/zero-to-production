@@ -1,7 +1,7 @@
 <div
   class="app"
   [ngClass]="{ 'dark-theme': darkMode$ | async }"
-  [@.disabled]="!(animationsEnabled$ | async)"
+  [@.disabled]="(animationsEnabled$ | async) === false"
 >
   <router-outlet #outlet="outlet"></router-outlet>
 </div>

@@ -1,5 +1,6 @@
 import { randomBytes } from 'crypto';
 import { compare, hash } from 'bcryptjs';
+import { Types } from 'mongoose';
 import Boom from '@hapi/boom';
 import { signAccessToken, signRefreshToken } from './sign-tokens';
 import {
@@ -13,9 +14,6 @@ import {
 import { IUser } from '@ztp/data';
 import { isPasswordAllowed, userToJSON } from './auth-utils';
 import { verifyRefreshToken } from './authenticate';
-import { GraphQLFieldResolver } from 'graphql';
-
-// TODO -> Does mongoose create the ID on save or on crete, might be able to refactor the controllers to use Promise.all() instead
 
 export function setupRegisterController({
   User,
@@ -35,18 +33,27 @@ export function setupRegisterController({
 
     user.hashedPassword = await hash(password, 10);
 
-    const newUser = new User({ ...user, isVerified: false, active: true });
-    await newUser.save();
+    // Generate the id
+    const id = Types.ObjectId();
+    const newUser = new User({
+      ...user,
+      isVerified: false,
+      active: true,
+      id,
+    });
 
     const verificationToken = new VerificationToken({
-      userId: newUser.id,
+      userId: id,
       token: randomBytes(16).toString('hex'),
     });
 
-    await await verificationToken.save();
-    await verificationEmail(user.email, verificationToken.token);
+    const [savedUser] = await Promise.all([
+      newUser.save(),
+      verificationToken.save(),
+      verificationEmail(user.email, verificationToken.token),
+    ]);
 
-    return userToJSON(newUser.toJSON());
+    return userToJSON<IUser>(savedUser);
   };
 }
 
@@ -154,7 +161,7 @@ export function setupAuthorizeController(config: AuthorizeControllerConfig) {
     return {
       token: accessToken,
       expiresIn: config.expireTime,
-      refreshToken: refreshToken,
+      refreshToken,
     };
   };
 }

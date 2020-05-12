@@ -1,6 +1,5 @@
 import Koa from 'koa';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { ExecutionResultDataDefault } from 'graphql/execution/execute';
 import { runQuery, setupTestDB, signTestAccessToken } from '@ztp/tests/server';
 import { IUserDocument } from '@ztp/server/core-data';
 import { schema } from '../../graphql';
@@ -54,7 +53,7 @@ describe(`GraphQL / User`, () => {
   describe(`allUsers`, () => {
     it(`should return all Users`, async () => {
       const queryName = `allUsers`;
-      //language=GraphQL
+      // language=GraphQL
       const result = await runQuery(schema)(
         `
         {
@@ -68,9 +67,7 @@ describe(`GraphQL / User`, () => {
       );
 
       expect(result.errors).not.toBeDefined();
-      expect(
-        (result.data as ExecutionResultDataDefault)[queryName]
-      ).toBeArray();
+      expect((result.data as any)[queryName]).toBeArray();
     });
   });
 
@@ -90,10 +87,8 @@ describe(`GraphQL / User`, () => {
       );
 
       expect(result.errors).not.toBeDefined();
-      expect(
-        (result.data as ExecutionResultDataDefault)[queryName]
-      ).toBeObject();
-      expect((result.data as ExecutionResultDataDefault)[queryName].id).toEqual(
+      expect((result.data as any)[queryName]).toBeObject();
+      expect((result.data as any)[queryName].id).toEqual(
         createdUser.id.toString()
       );
     });
@@ -127,13 +122,13 @@ describe(`GraphQL / User`, () => {
 
   //     expect(result.errors).not.toBeDefined();
   //     expect(
-  //       (result.data as ExecutionResultDataDefault)[queryName]
+  //       (result.data as any)[queryName]
   //     ).toBeObject();
   //     expect(
-  //       (result.data as ExecutionResultDataDefault)[queryName].id
+  //       (result.data as any)[queryName].id
   //     ).toBeString();
   //     expect(
-  //       (result.data as ExecutionResultDataDefault)[queryName].username
+  //       (result.data as any)[queryName].username
   //     ).toEqual(differentUser.username);
   //   });
   // });
@@ -157,10 +152,8 @@ describe(`GraphQL / User`, () => {
       );
 
       expect(result.errors).not.toBeDefined();
-      expect(
-        (result.data as ExecutionResultDataDefault)[queryName]
-      ).toBeObject();
-      expect((result.data as ExecutionResultDataDefault)[queryName].id).toEqual(
+      expect((result.data as any)[queryName]).toBeObject();
+      expect((result.data as any)[queryName].id).toEqual(
         createdUser.id.toString()
       );
     });
@@ -181,9 +174,7 @@ describe(`GraphQL / User`, () => {
       );
 
       expect(result.errors).not.toBeDefined();
-      expect(
-        (result.data as ExecutionResultDataDefault)[queryName]
-      ).toBeObject();
+      expect((result.data as any)[queryName]).toBeObject();
     });
   });
 });

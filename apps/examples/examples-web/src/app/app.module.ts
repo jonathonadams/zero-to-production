@@ -45,7 +45,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       components: APP_COMPONENTS,
       errors: APP_ERRORS,
     }),
-    AppRoutingModule.forRoot(),
+    AppRoutingModule,
     ExamplesFeatureShellModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

@@ -11,7 +11,7 @@ export class GraphQLStub {
 
   setExpectedResponse<T>(data: T): void {
     this.expectedResponse = {
-      data: data,
+      data,
       loading: false,
       stale: false,
       networkStatus: 7,
@@ -21,7 +21,7 @@ export class GraphQLStub {
   setErrorResponse(errors: GraphQLError[]): void {
     this.expectedResponse = {
       data: null,
-      errors: errors,
+      errors,
       loading: false,
       stale: false,
       networkStatus: 7,

@@ -148,7 +148,7 @@ describe(`Authentication Controllers`, () => {
         ...userWithPassword,
       });
 
-      expect(createdUser.password).not.toBeDefined();
+      expect((createdUser as any).password).not.toBeDefined();
       expect(createdUser.hashedPassword).not.toBeDefined();
 
       MockUserModel.reset();

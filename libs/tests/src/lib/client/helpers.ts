@@ -1,14 +1,20 @@
 import { defer } from 'rxjs';
 import { DebugElement } from '@angular/core';
 
-/** Create async observable that emits-once and completes
- *  after a JS engine turn */
+/**
+ * Create async observable that emits-once and completes
+ * after a JS engine turn
+ * @param data
+ */
 export function asyncData<T>(data: T) {
   return defer(() => Promise.resolve(data));
 }
 
-/** Create async observable error that errors
- *  after a JS engine turn */
+/**
+ * Create async observable error that errors
+ * after a JS engine turn
+ * @param errorObject
+ */
 export function asyncError<T>(errorObject: any) {
   return defer(() => Promise.reject(errorObject));
 }
@@ -19,6 +25,7 @@ export const createSpyObj = (
 ): { [key: string]: jest.Mock<any, any> } => {
   const obj: any = {};
 
+  // tslint:disable-next-line
   for (let i = 0; i < methodNames.length; i++) {
     obj[methodNames[i]] = jest.fn();
   }

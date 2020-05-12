@@ -33,13 +33,13 @@ export function createGraphQLSpec<T>(
   authServer: any,
   userResource = false
 ) {
-  return function (
+  return (
     model: typeof Model,
     resourceName: string,
     resourceToCreate: any,
     resourceToUpdate: any,
     userModel?: typeof Model
-  ) {
+  ) => {
     if (!resourceToCreate || Object.keys(resourceToCreate).length === 0) {
       throw new Error(
         'Must provide an object to create with properties of at least length 1'

@@ -4,7 +4,7 @@ module.exports = {
     '^.+\\.(ts|js|html)$': 'ts-jest',
   },
   resolver: '@nrwl/jest/plugins/resolver',
-  verbose: true,
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageReporters: ['html'],
+  verbose: true,
 };

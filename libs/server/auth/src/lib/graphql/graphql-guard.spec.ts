@@ -120,7 +120,7 @@ describe('GraphQL Auth Guards', () => {
         authenticatedJWKS({
           production: false,
           authServerUrl: 'http://some-url',
-          issuer: issuer,
+          issuer,
           audience,
         })(noOpNext)(
           {},

@@ -18,15 +18,11 @@ import { applyRestEndpoints } from './rest';
  */
 export default class ApiServer {
   constructor(private app: Koa) {}
+
   /**
+   *
    * Sets up all the server configuration and applies the routes
-   * @param {Koa} app an instance of a koa server
-  /**
-   *
-   *
-   * @param {string} [dbUrl]
-   * @returns {Server}
-   * @memberof ApiServer
+   * @param dbUrl
    */
   async initializeServer(dbUrl?: string) {
     /**

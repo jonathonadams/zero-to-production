@@ -76,9 +76,7 @@ export function saveFileBufferToUploads(file: MulterUpload) {
     file.fileName = fileName;
     file.filePath = filePath;
 
-    fs.writeFile('./uploads/' + filePath, file.buffer, 'binary', function (
-      err
-    ) {
+    fs.writeFile('./uploads/' + filePath, file.buffer, 'binary', (err) => {
       if (err) {
         reject(err);
       } else {

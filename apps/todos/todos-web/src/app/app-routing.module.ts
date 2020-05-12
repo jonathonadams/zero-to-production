@@ -10,13 +10,4 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [RouterModule],
 })
-export class RootAppRoutingModule {}
-
-@NgModule()
-export class AppRoutingModule {
-  static forRoot(): ModuleWithProviders<RootAppRoutingModule> {
-    return {
-      ngModule: RootAppRoutingModule,
-    };
-  }
-}
+export class AppRoutingModule {}

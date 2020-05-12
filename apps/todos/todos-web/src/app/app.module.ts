@@ -42,7 +42,7 @@ import { APP_COMPONENTS, APP_ERRORS } from './app.dynamic-form';
       errors: APP_ERRORS,
     }),
     CommonDynamicFormMaterialComponentsModule,
-    AppRoutingModule.forRoot(),
+    AppRoutingModule,
     TodosFeatureShellModule,
   ],
   bootstrap: [AppComponent],

@@ -2,11 +2,22 @@
   "npmScope": "ztp",
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
     "tsconfig.json": "*",
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
   },
   "projects": {
     "server-api": {
@@ -116,7 +127,7 @@
       "tags": ["scope:shared", "type:feature", "platform:web"]
     },
     "common-side-nav": {
-      "tags": ["scope:shared", "type:ui", "platform:web"]
+      "tags": ["scope:shared", "type:feature", "platform:web"]
     },
     "common-ui-toolbar": {
       "tags": ["scope:shared", "type:ui", "platform:web"]
@@ -185,14 +196,6 @@
     },
     "examples-utils": {
       "tags": ["scope:examples", "type:util", "platform:web"]
-    }
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
-      }
     }
   }
 }

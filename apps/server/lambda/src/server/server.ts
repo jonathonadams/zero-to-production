@@ -13,15 +13,10 @@ import { applyAuthRoutes } from './auth/demo.auth';
  */
 export default class LambdaServer {
   constructor(private app: Koa) {}
+
   /**
    * Sets up all the server configuration and applies the routes
-   * @param {Koa} app an instance of a koa server
-  /**
-   *
-   *
-   * @param {string} [dbUrl]
-   * @returns {Server}
-   * @memberof ApiServer
+   * @param conn
    */
   initializeServer(conn: Connection) {
     const app = this.app;
