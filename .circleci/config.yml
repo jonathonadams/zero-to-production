@@ -1,0 +1,64 @@
+version: 2
+
+setup: &setup
+  working_directory: ~/ztp
+  docker:
+    - image: circleci/node:latest
+
+deps-restore: &deps-restore
+  restore_cache:
+    key: zero-to-production-{{ checksum "package-lock.json" }}
+
+deps-cache: &deps-cache
+  save_cache:
+    key: zero-to-production-{{ checksum "package-lock.json" }}
+    paths:
+      - ./node_modules
+
+jobs:
+  checkout-and-install:
+    <<: *setup
+    steps:
+      - checkout
+      - <<: *deps-restore
+      - run: npm install --no-save --silent
+      - <<: *deps-cache
+
+  build-and-test-affected:
+    <<: *setup
+    steps:
+      - checkout
+      - <<: *deps-restore
+      - run:
+          name: Testing Affected Packages
+          command: npx nx affected --target=test --base=origin/master
+      - run:
+          name: Linting Affected Packages
+          command: npx nx affected --target=lint --base=origin/master
+      - run:
+          name: Building Affected Applications
+          command: npx nx affected --target=build --base=origin/master
+
+#   release:
+#     <<: *setup
+#     steps:
+#       - checkout
+#       - <<: *deps-restore
+#       - run:
+#           name: Release
+#           command: npm run semantic-release || true
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - checkout-and-install
+      - build-and-test-affected:
+          requires:
+            - checkout-and-install
+    #   - release:
+    #       requires:
+    #         - build-and-validate
+    #       filters:
+    #         branches:
+    #           only: master
