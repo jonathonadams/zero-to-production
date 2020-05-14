@@ -1,9 +1,13 @@
-version: 2
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@1.0.0
+  serverless-framework: circleci/serverless-framework@1.0.1
 
 setup: &setup
   working_directory: ~/ztp
   docker:
-    - image: circleci/node:latest
+    - image: circleci/node:12
 
 deps-restore: &deps-restore
   restore_cache:
@@ -24,41 +28,91 @@ jobs:
       - run: npm install --no-save --silent
       - <<: *deps-cache
 
-  build-and-test-affected:
+  affected-build-and-test:
     <<: *setup
     steps:
       - checkout
       - <<: *deps-restore
       - run:
           name: Testing Affected Packages
-          command: npx nx affected --target=test --base=origin/master
+          command: npx nx affected --target=test --base=master --head=HEAD
       - run:
           name: Linting Affected Packages
-          command: npx nx affected --target=lint --base=origin/master
+          command: npx nx affected --target=lint --base=master --head=HEAD
       - run:
           name: Building Affected Applications
-          command: npx nx affected --target=build --base=origin/master
+          command: npx nx affected --target=build --base=master --head=HEAD
 
-#   release:
-#     <<: *setup
-#     steps:
-#       - checkout
-#       - <<: *deps-restore
-#       - run:
-#           name: Release
-#           command: npm run semantic-release || true
+  release:
+    <<: *setup
+    steps:
+      - checkout
+      - <<: *deps-restore
+      - run:
+          name: Release
+          command: npm run semantic-release || true
+
+  server-lambda-deploy:
+    <<: *setup
+    steps:
+      - checkout
+      - <<: *deps-restore
+      - aws-cli/setup:
+          profile-name: default
+      - run:
+          name: Deploy the API to AWS lambda
+          command: |-
+            AFFECTED=$(npx nx affected:apps --plain --base=master~1 --head=master);
+            if [[ ${AFFECTED} == *"server-lambda"* ]]
+            then
+              echo "Server Lambda affected. Deploying new version";
+              npx ng run server-lambda:build:production,ci;
+              npx nx run server-lambda:serverless-deploy;
+            else
+              echo "Server Lambda was not affected";
+            fi
+
+  examples-web-deploy:
+    <<: *setup
+    steps:
+      - checkout
+      - <<: *deps-restore
+      - run:
+          name: Deploy the examples site to Firebase Functions
+          command: |-
+            AFFECTED=$(npx nx affected:apps --plain --base=master~1 --head=master);
+            if [[ ${AFFECTED} == *"examples-web-functions"* ]]
+            then
+              echo "Examples Web Functions affected. Deploying new version";
+              npx nx run examples-web-functions:build:production;
+              npx nx run examples-web-functions:deploy-ci --args="--token=${FIREBASE_TOKEN}";
+            else
+              echo "Examples Web Functions was not affected";
+            fi
 
 workflows:
   version: 2
   build-and-test:
     jobs:
       - checkout-and-install
-      - build-and-test-affected:
+      - affected-build-and-test:
           requires:
             - checkout-and-install
-    #   - release:
-    #       requires:
-    #         - build-and-validate
-    #       filters:
-    #         branches:
-    #           only: master
+      - release:
+          requires:
+            - affected-build-and-test
+          filters:
+            branches:
+              only: master
+      - server-lambda-deploy:
+          requires:
+            - release
+          filters:
+            branches:
+              only: master
+      - examples-web-deploy:
+          requires:
+            - release
+          filters:
+            branches:
+              only: master

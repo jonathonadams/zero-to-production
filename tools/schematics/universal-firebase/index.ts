@@ -177,7 +177,7 @@ function addProjectToAngularJson(name: string, firebaseProject: string): Rule {
       sourceRoot: `${functionsDirectory}/src`,
       projectType: `application`,
       architect: {
-        build: {
+        'build-functions': {
           builder: '@uqt/ng-node:build',
           options: {
             outputPath: `${functionsDirectory}/dist`,
@@ -185,7 +185,7 @@ function addProjectToAngularJson(name: string, firebaseProject: string): Rule {
             tsConfig: `${functionsDirectory}/tsconfig.json`,
           },
         },
-        'build-all': {
+        build: {
           builder: '@angular-devkit/architect:concat',
           options: {
             targets: [
@@ -196,7 +196,7 @@ function addProjectToAngularJson(name: string, firebaseProject: string): Rule {
                 target: `${name}:server`,
               },
               {
-                target: `${projectName}:build`,
+                target: `${projectName}:build-functions`,
               },
             ],
           },
@@ -220,7 +220,7 @@ function addProjectToAngularJson(name: string, firebaseProject: string): Rule {
           builder: '@angular-devkit/architect:concat',
           options: {
             targets: [
-              { target: `${projectName}:build-all` },
+              { target: `${projectName}:build` },
               { target: `${projectName}:run` },
             ],
           },
@@ -236,7 +236,7 @@ function addProjectToAngularJson(name: string, firebaseProject: string): Rule {
             cwd: functionsDirectory,
           },
         },
-        deploy: {
+        'firebase-deploy': {
           builder: '@nrwl/workspace:run-commands',
           options: {
             commands: [
@@ -245,12 +245,12 @@ function addProjectToAngularJson(name: string, firebaseProject: string): Rule {
             cwd: functionsDirectory,
           },
         },
-        'build-and-deploy': {
+        deploy: {
           builder: '@angular-devkit/architect:concat',
           options: {
             targets: [
-              { target: `${projectName}:build-all:production` },
-              { target: `${projectName}:deploy` },
+              { target: `${projectName}:build:production` },
+              { target: `${projectName}:firebase-deploy` },
             ],
           },
         },
