@@ -14,7 +14,7 @@ export class MarkdownService {
     return md
       ? of(md)
       : this.http
-          .get(`./assets/guides/${fileName}.md`, {
+          .get(`assets/guides/${fileName}.md`, {
             responseType: 'text',
           })
           .pipe(tap((mdString) => (this.simpleCache[fileName] = mdString)));
