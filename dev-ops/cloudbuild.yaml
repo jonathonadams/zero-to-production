@@ -1,24 +1,50 @@
 # The build file is generic and requires Substitution to build correctly and will
 # Error if not set.
-# $_IMAGE_NAME : The name of the image once build
-# $_PROJECT_DIRECTORY: The directory of src file
 #
+# $_PROJECT_NAME : The name of the project in the monorepo
+# $_PROJECT_DIRECTORY: The directory of src files
+#
+# This may vary for your use case, however for the purpose of the example/guide the build
+# trigger is set up to trigger when a new tag (semantic release bot) of 'v*' is pushed to
+# the repo. This will trigger and new
+
 # https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values
 #
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
+  # Build the container
+  - name: gcr.io/cloud-builders/docker
     args:
-      [
-        'build',
-        '-t',
-        '$_IMAGE_NAME',
-        '-f',
-        'docker/server.Dockerfile',
-        '--build-arg',
-        'PROJECT_DIRECTORY=$_PROJECT_DIRECTORY',
-        '.',
-      ]
+      - build
+      - -t
+      - gcr.io/[PROJECT_ID]/$_PROJECT_NAME
+      - -f
+      - docker/server.Dockerfile
+      - --build-arg
+      - PROJECT_DIRECTORY=$_PROJECT_DIRECTORY
+      - .
     timeout: 500s
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', '$_IMAGE_NAME']
-images: ['$_IMAGE_NAME']
+
+  # Tag with the version
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - tag
+      - gcr.io/[PROJECT_ID]/$_PROJECT_NAME
+      - gcr.io/[PROJECT_ID]/$_PROJECT_NAME:[$TAG_NAME]
+
+  # Push the image to Google Cloud Registry
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - gcr.io/[PROJECT_ID]/$_PROJECT_NAME:[$TAG_NAME]
+
+  # Trigger a rolling update for the cluster
+  - name: gcr.io/cloud-builders/kubectl
+    args:
+      - rollout
+      - restart
+      - deployment
+      - $_DEPLOYMENT_NAME
+    env:
+      # - CLOUDSDK_COMPUTE_REGION=$_CLUSTER_REGION
+      - CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE #us-central1-a
+      - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME #z2p-api
