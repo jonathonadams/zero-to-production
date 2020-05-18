@@ -115,10 +115,10 @@ workflows:
             - checkout-and-install
   release-and-deploy:
     jobs:
-      - checkout-and-install
+      - checkout-and-install:
           filters:
-              branches:
-                only: master
+            branches:
+              only: master
       - build-and-test-latest:
           requires:
             - checkout-and-install
