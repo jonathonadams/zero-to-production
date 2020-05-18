@@ -28,7 +28,7 @@ jobs:
       - run: npm install --no-save --silent
       - <<: *deps-cache
 
-  affected-build-and-test:
+  build-and-test-affected:
     <<: *setup
     steps:
       - checkout
@@ -42,6 +42,21 @@ jobs:
       - run:
           name: Building Affected Applications
           command: npx nx affected --target=build --base=master --head=HEAD
+
+  build-and-test-latest:
+    <<: *setup
+    steps:
+      - checkout
+      - <<: *deps-restore
+      - run:
+          name: Testing Affected Packages
+          command: npx nx affected --target=test --base=master~1 --head=master
+      - run:
+          name: Linting Affected Packages
+          command: npx nx affected --target=lint --base=master~1 --head=master
+      - run:
+          name: Building Affected Applications
+          command: npx nx affected --target=build --base=master~1 --head=master
 
   release:
     <<: *setup
@@ -95,12 +110,24 @@ workflows:
   build-and-test:
     jobs:
       - checkout-and-install
-      - affected-build-and-test:
+      - build-and-test-affected:
           requires:
             - checkout-and-install
+  release-and-deploy:
+    jobs:
+      - checkout-and-install
+          filters:
+              branches:
+                only: master
+      - build-and-test-latest:
+          requires:
+            - checkout-and-install
+          filters:
+            branches:
+              only: master
       - release:
           requires:
-            - affected-build-and-test
+            - build-and-test-latest
           filters:
             branches:
               only: master
