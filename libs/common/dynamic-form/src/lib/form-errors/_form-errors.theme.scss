@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin form-errors-theme($theme) {
+  $background: map-get($theme, background);
+
+  .container {
+    background-color: mat-color($background, card);
+  }
+}

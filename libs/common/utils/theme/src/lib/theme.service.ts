@@ -69,11 +69,13 @@ export class ThemeService extends MediaQueryService implements OnDestroy {
 
     this.sub.add(
       this.darkMode$.subscribe((active) => {
-        active
-          ? overlayContainer.getContainerElement().classList.add('dark-theme')
-          : overlayContainer
-              .getContainerElement()
-              .classList.remove('dark-theme');
+        const overlayClassList = overlayContainer.getContainerElement()
+          .classList;
+        if (active) {
+          overlayClassList.add('dark-theme');
+        } else {
+          overlayClassList.remove('dark-theme');
+        }
       })
     );
   }
