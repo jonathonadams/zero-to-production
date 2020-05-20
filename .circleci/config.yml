@@ -40,13 +40,13 @@ jobs:
       - <<: *deps-restore
       - run:
           name: Testing Affected Packages
-          command: npx nx affected --target=test --base=master --head=HEAD
+          command: npx nx affected --target=test --base=origin/master --head=HEAD
       - run:
           name: Linting Affected Packages
-          command: npx nx affected --target=lint --base=master --head=HEAD
+          command: npx nx affected --target=lint --base=origin/master --head=HEAD
       - run:
           name: Building Affected Applications
-          command: npx nx affected --target=build --base=master --head=HEAD --parallel=false --configuration=ci
+          command: npx nx affected --target=build --base=origin/master --head=HEAD --parallel=false --configuration=ci
 
   build-and-test-latest:
     <<: *setup
