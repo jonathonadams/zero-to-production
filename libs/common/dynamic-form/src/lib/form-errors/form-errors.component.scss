@@ -1,37 +1,47 @@
+@import 'styles/material-theme.scss';
+@import 'form-errors.theme';
+
 :host {
   display: block;
-}
 
-.container {
-  background: white;
-  border-radius: 4px;
-  padding-bottom: 0.5em;
-}
+  // Light theme
+  @include form-errors-theme($app-theme);
 
-.errors {
-  text-align: center;
-  padding: 1rem;
-}
+  // dark theme
+  :host-context(.dark-theme) {
+    @include form-errors-theme($dark-theme);
+  }
 
-.heading {
-  margin: 0.5rem 0;
-}
+  .container {
+    border-radius: 4px;
+    padding: 1rem;
+  }
 
-.messages {
-  margin: 0;
-  padding: 0;
-  display: block;
-  text-align: center;
-  list-style-type: none;
-}
+  .errors {
+    text-align: center;
+    padding: 1rem;
+  }
 
-.error-text p {
-  margin: 0;
-  line-height: 1.4em;
-  font-size: 1.2rem;
-}
+  .heading {
+    margin: 0.5rem 0;
+  }
 
-.dismiss {
-  display: block;
-  margin: 0 auto;
+  .messages {
+    margin: 0;
+    padding: 0;
+    display: block;
+    text-align: center;
+    list-style-type: none;
+  }
+
+  .error-text p {
+    margin: 0;
+    line-height: 1.4em;
+    font-size: 1.2rem;
+  }
+
+  .dismiss {
+    display: block;
+    margin: 0 auto;
+  }
 }
