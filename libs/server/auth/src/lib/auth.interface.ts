@@ -70,7 +70,7 @@ export interface VerifyControllerConfig {
 }
 
 export interface RegistrationControllerConfig extends VerifyControllerConfig {
-  verificationEmail: VerifyEmail;
+  verifyEmail: VerifyEmail;
 }
 
 // export interface AvailableControllerConfig {
@@ -165,7 +165,6 @@ export interface ServerAuthConfig {
     publicKey?: string;
     expireTime: number;
     issuer: string;
-    keyId: string;
     audience: string;
   };
   refreshToken: {
