@@ -2,10 +2,10 @@
 
 import { getEnvVariableOrWarn, envToNumber } from '@ztp/server/utils';
 import { DevServerConfig } from '@ztp/data';
-import { ServerAuthConfig } from '@ztp/server/auth';
+import { AuthEnv } from '@ztp/server/auth';
 
 const audience = process.env.AUDIENCE || `http://localhost:${process.env.PORT}`;
-const authServerUrl =
+const authServerHost =
   process.env.AUTH_SERVER_URL || `http://localhost:${process.env.PORT}`;
 
 /**
@@ -21,9 +21,9 @@ export const devConfig: DevServerConfig = {
   },
 };
 
-export const devAuthConfig: ServerAuthConfig = {
+export const devAuthConfig: AuthEnv = {
   jwksRoute: true,
-  authServerUrl,
+  authServerHost,
   accessToken: {
     privateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
     publicKey: getEnvVariableOrWarn('ACCESS_TOKEN_PUBLIC_KEY'),
@@ -36,9 +36,5 @@ export const devAuthConfig: ServerAuthConfig = {
     publicKey: getEnvVariableOrWarn('REFRESH_TOKEN_PUBLIC_KEY'),
     issuer: getEnvVariableOrWarn('ISSUER'),
     audience,
-  },
-  email: {
-    authServerUrl,
-    sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY'),
   },
 };

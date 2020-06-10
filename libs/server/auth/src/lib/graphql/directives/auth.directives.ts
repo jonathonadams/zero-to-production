@@ -1,9 +1,9 @@
 import { SchemaDirectiveVisitor } from 'apollo-server-koa';
-import { JWKSGuarConfig, GuardConfig } from '../../auth.interface';
-import { createGraphQLGuards } from '../graphql.guards';
+import { createGraphQLGuards } from '../graphql-guards';
 import { createAuthenticateDirective } from './authenticated.directive';
 import { createActiveUserDirective } from './active-user.directive';
 import { AuthDirectiveName } from './utils';
+import { AuthUser, AuthGuard } from '../../types';
 
 /**
  * The AuthDirective use the auth guards. These functions just wrap the resolvers and call them if they don't throw.
@@ -16,19 +16,19 @@ import { AuthDirectiveName } from './utils';
  * If at a later field (or Type), the  '@activeUser` directive is applied, if no checks were done then it would wrap the authenticated
  * middleware, not the other way around as the '@activeUser' middleware requires the '@authenticated' to run first
  */
-export function createAuthDirectives(
-  config: JWKSGuarConfig | GuardConfig
+export function createAuthDirectives<U extends AuthUser>(
+  config: AuthGuard<U>
 ): { [key in AuthDirectiveName]: typeof SchemaDirectiveVisitor } {
   //
-  const { authenticate, verifyUser } = createGraphQLGuards(config);
+  const { authenticate, verifyIsActive } = createGraphQLGuards(config);
 
   return {
     [AuthDirectiveName.authenticated]: createAuthenticateDirective(
       authenticate
     ),
-    [AuthDirectiveName.activeUser]: createActiveUserDirective(
+    [AuthDirectiveName.isActiveUser]: createActiveUserDirective(
       authenticate,
-      verifyUser
+      verifyIsActive
     ),
   };
 }

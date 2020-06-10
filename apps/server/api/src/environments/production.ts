@@ -2,10 +2,10 @@
 
 import { getEnvVariableOrWarn, envToNumber } from '@ztp/server/utils';
 import { ProductionServerConfig } from '@ztp/data';
-import { ServerAuthConfig } from '@ztp/server/auth';
+import { AuthEnv } from '@ztp/server/auth';
 
 const audience = getEnvVariableOrWarn('AUDIENCE');
-const authServerUrl = getEnvVariableOrWarn('AUTH_SERVER_URL');
+const authServerHost = getEnvVariableOrWarn('AUTH_SERVER_URL');
 
 /**
  * Production environment settings
@@ -19,9 +19,9 @@ export const prodConfig: ProductionServerConfig = {
   },
 };
 
-export const prodAuthConfig: ServerAuthConfig = {
+export const prodAuthConfig: AuthEnv = {
   jwksRoute: true,
-  authServerUrl,
+  authServerHost,
   accessToken: {
     privateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
     publicKey: getEnvVariableOrWarn('ACCESS_TOKEN_PUBLIC_KEY'),
@@ -37,9 +37,5 @@ export const prodAuthConfig: ServerAuthConfig = {
     publicKey: getEnvVariableOrWarn('REFRESH_TOKEN_PUBLIC_KEY'),
     issuer: getEnvVariableOrWarn('ISSUER'),
     audience,
-  },
-  email: {
-    sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY'),
-    authServerUrl,
   },
 };

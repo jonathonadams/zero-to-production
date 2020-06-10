@@ -1,51 +1,33 @@
-import { IRefreshToken } from '../auth.interface';
-import { IUser } from '@ztp/data';
+import { BaseMockModel } from './base-mock';
+import { Refresh } from '../types';
 
-export class MockRefreshTokenModel {
-  static _token: IRefreshToken | null | undefined;
-  _token: IRefreshToken;
+export class MockRefreshModel extends BaseMockModel<Refresh> {
+  _props = ['id', 'user', 'token'];
 
-  constructor(token: IRefreshToken) {
-    this._token = { ...token } as IRefreshToken;
+  constructor(token: Refresh) {
+    super(token);
+    return new Proxy(this, this);
   }
 
-  static async create(token: { user: IUser; token: string }) {
-    return new MockRefreshTokenModel((token as unknown) as IRefreshToken);
+  static set tokenToRespondWith(token: any | null) {
+    if (token) {
+      this._model = new MockRefreshModel(token);
+    } else {
+      this._model = null;
+    }
   }
 
-  static set findByTokenWithUserResponse(response: IRefreshToken) {
-    this._token = response;
-  }
-
-  static findOne(where: { token: string }) {
-    return {
-      exec: async () => {
-        const t = await this.findByTokenWithUser(where.token);
-        if (t) {
-          return {
-            ...t,
-            remove: async () => true,
-          };
-        } else {
-          return null;
-        }
-      },
-    };
-  }
-
-  static async findByTokenWithUser(tokenString: string) {
-    if (this._token && this._token.token === tokenString) {
-      return this._token;
+  static async findByToken(token: string) {
+    if (this._model && this._model._details.token === token) {
+      return this._model;
     } else {
       return null;
     }
   }
 
-  static reset() {
-    this._token = undefined;
-  }
-
-  toJSON() {
-    return this._token;
+  async remove() {
+    this._details = undefined as any;
+    MockRefreshModel.tokenToRespondWith = null;
+    return this;
   }
 }

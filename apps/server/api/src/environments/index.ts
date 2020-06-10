@@ -5,11 +5,11 @@ import {
   EnvironnementConfig,
   ServerConfig,
 } from '@ztp/data';
-import { envToNumber } from '@ztp/server/utils';
+import { envToNumber, getEnvVariableOrWarn } from '@ztp/server/utils';
+import { AuthEnv } from '@ztp/server/auth';
 import { devConfig, devAuthConfig } from './development';
 import { prodConfig, prodAuthConfig } from './production';
 import { testConfig, testAuthConfig } from './test';
-import { ServerAuthConfig } from '@ztp/server/auth';
 
 /**
  * Config values common across all environments environments
@@ -36,6 +36,7 @@ const globalConfig: GlobalServerConfig = {
     useCreateIndex: true,
     useFindAndModify: false,
   },
+  sendgridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY'),
 };
 
 /**
@@ -44,7 +45,7 @@ const globalConfig: GlobalServerConfig = {
  * TODO -> Top level await when ts is updated to 3.8
  */
 let environmentSettings: EnvironnementConfig;
-export let authConfig: ServerAuthConfig;
+export let authConfig: AuthEnv;
 switch (process.env.NODE_ENV) {
   case 'prod':
   case 'production':

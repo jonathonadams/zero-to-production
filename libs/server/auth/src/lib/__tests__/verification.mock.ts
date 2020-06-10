@@ -1,49 +1,39 @@
-import mongoose from 'mongoose';
-
-export function newId() {
-  return mongoose.Types.ObjectId().toHexString();
-}
+import { BaseMockModel } from './base-mock';
+import { Verify } from '../types';
 
 /**
  * A mock VerificationToken to test the auth routes
  */
-export class MockVerificationToken {
-  static _token: any | null | undefined;
-  _token: any;
+export class MockVerifyModel extends BaseMockModel<Verify> {
+  _props = ['userId', 'token'];
 
-  constructor(details: { userId: string; token: string }) {
-    this._token = details;
+  constructor(details: any) {
+    super(details);
+    return new Proxy(this, this);
   }
 
   static set tokenToRespondWith(token: any | null) {
-    if (!token) {
-      this._token = token;
+    if (token) {
+      this._model = new MockVerifyModel(token);
     } else {
-      this._token = { ...token };
+      this._model = null;
     }
   }
 
-  static findOne(details: any) {
-    const token = this._token;
-    return {
-      exec: async () => {
-        return token;
-      },
-    };
-  }
-
-  static reset() {
-    this._token = undefined;
+  static async findByToken(token: string) {
+    const setToken = this._model;
+    if (setToken) {
+      const t = setToken.toJSON();
+      if (token && token === t.token) {
+        return setToken;
+      }
+    }
+    return null;
   }
 
   async remove() {
-    return true;
-  }
-
-  async save() {
-    if (!this._token.id) {
-      this._token.id = newId();
-    }
-    return this._token;
+    this._details = undefined as any;
+    MockVerifyModel.tokenToRespondWith = null;
+    return this;
   }
 }

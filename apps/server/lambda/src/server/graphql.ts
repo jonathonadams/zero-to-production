@@ -9,12 +9,9 @@ import {
 } from '@ztp/server/graphql';
 import { todoTypeDef, userTypeDef } from '@ztp/server/core-data';
 import { config } from '../environments/environment';
-import { authDirectives } from './auth/auth.guards';
+import { authDirectives } from './auth/guards';
 import { usersResolvers, todosResolvers } from './api';
-
-// ZTP_AFTER_CLONE -> delete the 'demo' import and uncomment the 'auth' input
-import { createAuthSchemaFromConnection } from './auth/demo.auth';
-// import { createAuthSchemaFromConnection } from './auth/auth'
+import { authSchema } from './auth/auth';
 
 // A function that applies the middleware to the app.
 export function applyGraphQLEndpoint(app: Koa, conn: Connection) {
@@ -27,10 +24,8 @@ export function applyGraphQLEndpoint(app: Koa, conn: Connection) {
     directives: authDirectives(conn),
   });
 
-  const authSchema = createAuthSchemaFromConnection(conn);
-
   const apolloServer = createApollo({
-    schemas: [schema, authSchema],
+    schemas: [schema, authSchema(conn)],
     production: config.production,
   });
 

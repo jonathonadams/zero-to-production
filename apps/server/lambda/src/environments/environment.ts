@@ -1,10 +1,10 @@
 /* istanbul ignore file */
 import { ServerConfig } from '@ztp/data';
 import { envToNumber, getEnvVariableOrWarn } from '@ztp/server/utils';
-import { ServerAuthConfig } from '@ztp/server/auth';
+import { AuthEnv } from '@ztp/server/auth';
 
 const audience = process.env.AUDIENCE || `http://localhost:${process.env.PORT}`;
-const authServerUrl =
+const authServerHost =
   process.env.AUTH_SERVER_URL || `http://localhost:${process.env.PORT}`;
 
 export const config: ServerConfig = {
@@ -22,11 +22,12 @@ export const config: ServerConfig = {
     bufferCommands: false, // Disable mongoose buffering
     bufferMaxEntries: 0, // and MongoDB driver buffering
   },
+  sendgridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY'),
 };
 
-export const authConfig: ServerAuthConfig = {
+export const authConfig: AuthEnv = {
   jwksRoute: false,
-  authServerUrl,
+  authServerHost,
   accessToken: {
     privateKey: getEnvVariableOrWarn('ACCESS_TOKEN_PRIVATE_KEY'),
     publicKey: getEnvVariableOrWarn('ACCESS_TOKEN_PUBLIC_KEY'),
@@ -39,9 +40,5 @@ export const authConfig: ServerAuthConfig = {
     publicKey: getEnvVariableOrWarn('REFRESH_TOKEN_PUBLIC_KEY'),
     issuer: getEnvVariableOrWarn('ISSUER'),
     audience,
-  },
-  email: {
-    authServerUrl,
-    sendGridApiKey: getEnvVariableOrWarn('SENDGRID_API_KEY'),
   },
 };

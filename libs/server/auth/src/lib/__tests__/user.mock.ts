@@ -1,70 +1,71 @@
-import { IUser } from '@ztp/data';
-import mongoose from 'mongoose';
-
-export function newId() {
-  return mongoose.Types.ObjectId().toHexString();
-}
+import { BaseMockModel } from './base-mock';
+import { AuthUser, AuthUserModel } from '../types';
 
 /**
  * A mock user to test the auth routes
  */
-export class MockUserModel {
-  static _user: IUser | null | undefined;
-  _user: IUser;
+export class MockAuthUserModel extends BaseMockModel<AuthUser> {
+  _props = [
+    'id',
+    'username',
+    'email',
+    'active',
+    'isVerified',
+    'hashedPassword',
+  ];
 
-  constructor(user: IUser) {
-    this._user = { ...user };
+  constructor(user: AuthUser) {
+    super(user);
+    return new Proxy(this, this);
   }
 
-  static set userToRespondWith(user: IUser | null) {
-    if (!user) {
-      this._user = user;
+  static set userToRespondWith(user: AuthUser | null) {
+    if (user) {
+      this._model = new this(user);
     } else {
-      this._user = { ...user } as IUser;
+      this._model = null;
     }
   }
 
   static async findByUsername(username: string) {
-    if (this._user && username === this._user.username) {
-      return this._user;
-    } else {
-      return null;
+    const currentUser = this._model;
+    if (currentUser) {
+      const user = currentUser.toJSON();
+
+      if (user && username === user.username) {
+        return currentUser;
+      }
     }
+    return null;
   }
 
-  static async findById(id: string) {
-    if (this._user && id === this._user.id) {
-      return this._user;
-    } else {
-      return null;
+  static async findByUserId(id: string) {
+    const currentUser = this._model;
+    if (currentUser) {
+      const user = currentUser.toJSON();
+
+      if (user && id === user.id) {
+        return currentUser;
+      }
     }
+    return null;
   }
 
-  static findOne(details: any) {
-    const user = this._user;
-    return {
-      exec: async () => {
-        return user;
-      },
-    };
-  }
+  static async findByEmail(email: string) {
+    const currentUser = this._model;
+    if (currentUser) {
+      const user = currentUser.toJSON();
 
-  static reset() {
-    this._user = undefined;
-  }
-
-  toJSON() {
-    return this._user;
-  }
-
-  set(details: any) {
-    this._user = { ...this._user, ...details };
-  }
-
-  async save() {
-    if (!this._user.id) {
-      this._user.id = newId();
+      if (user && email === user.email) {
+        return currentUser;
+      }
     }
-    return this._user;
+    return null;
+  }
+
+  async remove() {
+    this._details = undefined as any;
+    MockAuthUserModel.userToRespondWith = null;
+    return this;
   }
 }
