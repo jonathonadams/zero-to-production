@@ -1,0 +1,37 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.container {
+  height: 100%;
+  overflow-y: auto;
+
+  .example {
+    padding: 0 0.5rem 2rem;
+
+    @media (max-width: 599px) {
+      padding: 0 1rem 2rem;
+    }
+
+    .select-header {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+
+    .selected-example {
+      width: 15rem;
+    }
+
+    .example-title {
+      margin-top: 0;
+    }
+
+    .example-description {
+      margin-bottom: 1em;
+      p {
+        word-wrap: break-word;
+      }
+    }
+  }
+}
