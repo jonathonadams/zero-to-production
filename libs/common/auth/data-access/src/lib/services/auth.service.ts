@@ -1,8 +1,6 @@
 import { Injectable, InjectionToken, Inject, PLATFORM_ID } from '@angular/core';
-// @ts-ignore
-import jwtDecode from 'jwt-decode';
-import gql from 'graphql-tag';
-import { Apollo } from 'apollo-angular';
+import { gql } from '@apollo/client/core';
+import { GraphQLService } from '@ztp/common/data-access';
 import { IUser } from '@ztp/data';
 import {
   ILoginCredentials,
@@ -13,6 +11,30 @@ import {
 import { secondsToExpiresAtMillis } from '../utils';
 import { AuthFacade } from '../+state/auth.facade';
 import { isPlatformBrowser } from '@angular/common';
+
+function jwtDecode<T>(token: string | null | undefined): T | any {
+  if (token) {
+    try {
+      // second index is the body
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join('')
+      );
+
+      return JSON.parse(jsonPayload);
+    } catch (e) {
+      // ignore
+    }
+  } else {
+    return null;
+  }
+}
 
 export const AUTH_SERVER_URL = new InjectionToken<string>(
   'forRoot() Auth Server Url'
@@ -25,7 +47,7 @@ export class AuthService {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private apollo: Apollo,
+    private graphQl: GraphQLService,
     private facade: AuthFacade
   ) {}
 
@@ -40,7 +62,7 @@ export class AuthService {
         }
       }
     `;
-    return this.apollo.mutate<{ login: ILoginResponse }>({
+    return this.graphQl.mutate<{ login: ILoginResponse }>({
       mutation,
       variables: credentials,
     });
@@ -54,7 +76,7 @@ export class AuthService {
         }
       }
     `;
-    return this.apollo.mutate<{ register: IUser }>({
+    return this.graphQl.mutate<{ register: IUser }>({
       mutation,
       variables: {
         input: details,
@@ -75,7 +97,7 @@ export class AuthService {
       }
     `;
 
-    return this.apollo.query<{ User: IUser }>({ query, variables: { id } });
+    return this.graphQl.query<{ User: IUser }>({ query, variables: { id } });
   }
 
   public isUserAvailable(username: string) {
@@ -87,7 +109,7 @@ export class AuthService {
       }
     `;
 
-    return this.apollo.query<{ userAvailable: { isAvailable: boolean } }>({
+    return this.graphQl.query<{ userAvailable: { isAvailable: boolean } }>({
       query,
       variables: { username },
     });

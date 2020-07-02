@@ -8,16 +8,16 @@ import { AppEffects } from './app.effects';
 import { NotificationService } from '@ztp/common/utils/notifications';
 import { Router } from '@angular/router';
 import { AuthActions } from '@ztp/common/auth/data-access';
-import { Apollo } from 'apollo-angular';
+import { GraphQLService } from '@ztp/common/data-access';
 
 describe('AppEffects', () => {
   let effects: AppEffects;
   let actions$: Observable<any>;
   let router: Router;
   let ns: NotificationService;
-  let apollo: Apollo;
+  let graphQl: GraphQLService;
   const nsSpy = createSpyObj('NotificationService', ['emit']);
-  const apolloSpy = {
+  const gqlSpy = {
     getClient: () => ({
       clearStore: jest.fn(),
       cache: { reset: jest.fn() },
@@ -30,7 +30,7 @@ describe('AppEffects', () => {
         AppEffects,
         { provide: Router, useValue: { navigate: jest.fn() } },
         { provide: NotificationService, useValue: nsSpy },
-        { provide: Apollo, useValue: apolloSpy },
+        { provide: GraphQLService, useValue: gqlSpy },
         provideMockActions(() => actions$),
       ],
     });
@@ -39,7 +39,7 @@ describe('AppEffects', () => {
     actions$ = TestBed.inject<Actions>(Actions);
     router = TestBed.inject<Router>(Router);
     ns = TestBed.inject<NotificationService>(NotificationService);
-    apollo = TestBed.inject<Apollo>(Apollo);
+    graphQl = TestBed.inject<GraphQLService>(GraphQLService);
   });
 
   describe('loginRedirect$', () => {
@@ -79,7 +79,7 @@ describe('AppEffects', () => {
 
   describe('logoutRedirect$', () => {
     it('should clear the GraphQL cache', () => {
-      const spy = jest.spyOn(apollo, 'getClient');
+      const spy = jest.spyOn(graphQl, 'getClient');
       jest.resetAllMocks();
       const action = AuthActions.logoutRedirect();
       actions$ = hot('-a---', { a: action });
