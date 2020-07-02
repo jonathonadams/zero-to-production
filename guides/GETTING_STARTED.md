@@ -92,7 +92,7 @@ Note that before you can run the the API the following must be configured
 
 #### Project Configuration
 
-- TypeScript `strict` mode - This project has be configured to use `strict` mode (along with Angular full template checking). This is not for everyone. This can be configured in `tsconfig.base.json`. The `strictPropertyInitialization` option has been set to `false` as compilation errors will be thrown for property inputs in Angular components.
+- TypeScript `strict` mode - This project has be configured to use `strict` mode (along with Angular full template checking). This is not for everyone. This can be configured in `tsconfig.json`. The `strictPropertyInitialization` option has been set to `false` as compilation errors will be thrown for property inputs in Angular components.
 
 - [TypeScript project references] - The repo makes use of TypeScript project references for all server and shared libs as the Docker API does not use `webpack` to bundle the server side code. For an example of configuring a project and library using project references, see `apps/server/api/tsconfig.json` for referencing an external library and `libs/server/auth/tsconfig.json` & `libs/server/auth/tsconfig.lib.json` for configuring the build file via the `buildInfoFile` property.
 
