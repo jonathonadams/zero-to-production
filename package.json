@@ -154,8 +154,7 @@
     "ts-node": "^8.10.2",
     "tslint": "~6.1.0",
     "typescript": "~3.9.5",
-    "webpack-bundle-analyzer": "^3.8.0",
-    "@types/jest": "25.1.4"
+    "webpack-bundle-analyzer": "^3.8.0"
   },
   "commitlint": {
     "extends": [

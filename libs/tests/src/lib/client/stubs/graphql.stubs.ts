@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { ApolloQueryResult } from '@apollo/client';
+import type { ApolloQueryResult } from '@apollo/client/core';
 import { FetchResult } from 'apollo-link';
 import { GraphQLError } from 'graphql';
 
