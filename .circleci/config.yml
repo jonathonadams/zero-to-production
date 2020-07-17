@@ -87,20 +87,29 @@ jobs:
           name: Building Affected Applications
           command: npx nx affected --target=build --base=<< parameters.base >> --head=<< parameters.head >> --parallel=false --configuration=ci
 
-  build-and-test-all:
+  build-and-test-latest:
     <<: *setup
     steps:
       - checkout
       - <<: *deps-restore
       - run:
           name: Testing Affected Packages
-          command: npx nx affected --target=test --all
+          command: |-
+            TAG=$(git tag --sort=-committerdate --list 'v[0-9]*' | head -1);
+            COMMIT=$(git rev-parse ${TAG});
+            npx nx affected --target=test --base=${COMMIT} --head=origin/head
       - run:
           name: Linting Affected Packages
-          command: npx nx affected --target=lint --all
+          command: |-
+            TAG=$(git tag --sort=-committerdate --list 'v[0-9]*' | head -1);
+            COMMIT=$(git rev-parse ${TAG});
+            npx nx affected --target=lint --base=${COMMIT} --head=origin/head
       - run:
           name: Building Affected Applications
-          command: npx nx affected --target=build --all --parallel=false --configuration=c
+          command: |-
+            TAG=$(git tag --sort=-committerdate --list 'v[0-9]*' | head -1);
+            COMMIT=$(git rev-parse ${TAG});
+            npx nx affected --target=build --base=${COMMIT} --head=origin/head
 
   # Run semantic release to create a new semver release and publish to github
   release:
@@ -157,11 +166,17 @@ workflows:
   develop:
     jobs:
       - checkout-and-install:
-          <<: *ignore-master
-          <<: *ignore-develop
+          filters:
+            branches:
+              ignore:
+                - master
+                - develop
       - build-and-test:
-          <<: *ignore-master
-          <<: *ignore-develop
+          filters:
+            branches:
+              ignore:
+                - master
+                - develop
           base: origin/develop
           head: HEAD
           requires:
@@ -180,14 +195,14 @@ workflows:
     jobs:
       - checkout-and-install:
           <<: *master-only
-      - build-and-test-all:
+      - build-and-test-latest:
           <<: *master-only
           requires:
             - checkout-and-install
       - release:
           <<: *master-only
           requires:
-            - build-and-test-all
+            - build-and-test-latest
       - server-lambda-deploy:
           context: aws
           <<: *master-only
