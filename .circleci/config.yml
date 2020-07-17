@@ -202,7 +202,7 @@ workflows:
       - release:
           <<: *master-only
           requires:
-            - build-and-test-all
+            - build-and-test-latest
       - server-lambda-deploy:
           context: aws
           <<: *master-only
