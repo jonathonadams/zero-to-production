@@ -1,5 +1,14 @@
-<h5>Status</h5>
+<h5>API</h5>
 <div class="container">
+  <mat-form-field class="select">
+    <mat-label>Selected API</mat-label>
+    <mat-select [value]="selected" (selectionChange)="selectApi($event)">
+      <mat-option *ngFor="let server of servers" [value]="server.url">{{
+        server.label
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <div class="server">
     <span>{{ servers[0].label }}:&nbsp;&nbsp;</span>
     <span class="status">
@@ -15,13 +24,4 @@
       <ztp-api-status [status]="awsStatus$ | async"> </ztp-api-status>
     </span>
   </div>
-
-  <mat-form-field>
-    <mat-label>Selected API</mat-label>
-    <mat-select [value]="selected" (selectionChange)="selectApi($event)">
-      <mat-option *ngFor="let server of servers" [value]="server.url">{{
-        server.label
-      }}</mat-option>
-    </mat-select>
-  </mat-form-field>
 </div>
