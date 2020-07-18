@@ -109,7 +109,7 @@ jobs:
           command: |-
             TAG=$(git tag --sort=-committerdate --list 'v[0-9]*' | head -1);
             COMMIT=$(git rev-parse ${TAG});
-            npx nx affected --target=build --base=${COMMIT} --head=origin/master
+            npx nx affected --target=build --base=${COMMIT} --head=origin/master --parallel=false --configuration=ci
 
   # Run semantic release to create a new semver release and publish to github
   release:
