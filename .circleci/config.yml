@@ -121,7 +121,7 @@ jobs:
           name: Release
           command: npm run semantic-release || true
 
-  # Check if the 'server-lambda' project was affected and deploy
+  # Check if the 'server-lambda' project was affected since last release
   server-lambda-deploy:
     <<: *setup
     steps:
@@ -132,7 +132,9 @@ jobs:
       - run:
           name: Deploy the API to AWS lambda
           command: |-
-            AFFECTED=$(npx nx affected:apps --plain --base=master~1 --head=master);
+            TAG=$(git tag --sort=-committerdate --list 'v[0-9]*' | head -1);
+            COMMIT=$(git rev-parse ${TAG})
+            AFFECTED=$(npx nx affected:apps --plain --base=${COMMIT} --head=master);
             if [[ ${AFFECTED} == *"server-lambda"* ]]
             then
               echo "Server Lambda affected. Deploying new version";
@@ -142,7 +144,7 @@ jobs:
               echo "Server Lambda was not affected";
             fi
 
-  # Check if the 'demo-web-functions' project was affected and deploy
+  # Check if the 'demo-web-functions' project was affected since last release
   demo-web-functions-deploy:
     <<: *setup
     steps:
@@ -151,7 +153,9 @@ jobs:
       - run:
           name: Deploy the demo site to Firebase Functions
           command: |-
-            AFFECTED=$(npx nx affected:apps --plain --base=master~1 --head=master);
+            TAG=$(git tag --sort=-committerdate --list 'v[0-9]*' | head -1);
+            COMMIT=$(git rev-parse ${TAG})
+            AFFECTED=$(npx nx affected:apps --plain --base=${COMMIT} --head=master);
             if [[ ${AFFECTED} == *"demo-web-functions"* ]]
             then
               echo "Demo Web Functions affected. Deploying new version";
