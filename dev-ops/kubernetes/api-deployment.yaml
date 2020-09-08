@@ -58,26 +58,21 @@ spec:
                 secretKeyRef:
                   name: auth
                   key: access.privateKey
-            - name: REFRESH_TOKEN_PRIVATE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: auth
-                  key: refresh.privateKey
-            - name: SENDGRID_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: auth
-                  key: sendGridApiKey
             - name: ACCESS_TOKEN_PUBLIC_KEY
               valueFrom:
                 secretKeyRef:
                   name: auth
                   key: access.publicKey
-            - name: REFRESH_TOKEN_PUBLIC_KEY
+            - name: REFRESH_TOKEN_SECRET
               valueFrom:
                 secretKeyRef:
                   name: auth
-                  key: refresh.publicKey
+                  key: refresh.secret
+            - name: SENDGRID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: auth
+                  key: sendGridApiKey
           readinessProbe:
             # The URL and port must match the exposed port/url on the API container
             httpGet:
