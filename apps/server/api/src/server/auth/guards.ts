@@ -1,13 +1,23 @@
 import {
   getGraphQLGuards,
   getRestGuards,
-  generateAuthGuardConfig,
   createAuthDirectives,
+  VerifyJWKS,
 } from '@ztp/server/auth';
-import { authConfig } from '../../environments';
+import { config, authConfig } from '../../environments';
 import { User } from '../api/users';
 
-const guardConfig = generateAuthGuardConfig(authConfig, User);
+const guard: VerifyJWKS = {
+  issuer: authConfig.accessToken.issuer,
+  audience: authConfig.accessToken.audience,
+  authServerHost: authConfig.authServerHost,
+  allowHttp: config.production,
+};
+
+const guardConfig = {
+  authenticate: guard,
+  activeUser: { User },
+};
 
 /**
  * Guards for use in Routes

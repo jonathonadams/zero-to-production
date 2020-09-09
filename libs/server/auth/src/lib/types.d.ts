@@ -189,11 +189,19 @@ export interface AuthEnv {
   };
 }
 
-export interface AuthGuardConfig {
-  authServerHost: string;
-  accessToken: {
-    publicKey?: string;
-    issuer: string;
-    audience: string;
-  };
-}
+// export interface JWKSGuardOpts {
+//   authServerHost: string;
+//   accessToken: {
+//     issuer: string;
+//     audience: string;
+//   };
+// }
+// export interface AuthGuardOpts {
+//   accessToken: {
+//     publicKey: string;
+//     issuer: string;
+//     audience: string;
+//   };
+// }
+
+// export type AuthGuardConfig = JWKSGuardOpts | AuthGuardOpts;

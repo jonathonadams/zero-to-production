@@ -7,6 +7,8 @@ export type {
   Refresh,
   VerifyModel,
   Verify,
+  VerifyToken,
+  VerifyJWKS,
 } from './lib/types';
 
 export {
@@ -14,7 +16,6 @@ export {
   generateAuthModuleConfig,
   createPublicPemFromPrivate,
   createEmailMessage,
-  generateAuthGuardConfig,
 } from './lib/core';
 
 export * from './lib/routes';

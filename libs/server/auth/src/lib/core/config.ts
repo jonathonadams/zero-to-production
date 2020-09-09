@@ -9,10 +9,6 @@ import {
   Refresh,
   VerifyModel,
   RefreshModel,
-  AuthGuard,
-  ActiveUserGuard,
-  VerifyToken,
-  VerifyJWKS,
   AuthModuleConfig,
 } from '../types';
 
@@ -71,34 +67,5 @@ export function generateAuthModuleConfig<
     revoke: {
       Refresh: RefreshM,
     },
-  };
-}
-
-export function generateAuthGuardConfig<U extends AuthUser>(
-  authConfig: AuthEnv,
-  User: AuthUserModel<U>,
-  production: boolean = false
-): AuthGuard<U> {
-  const activeUser: ActiveUserGuard<U> = { User };
-  let auth: VerifyToken | VerifyJWKS;
-
-  if (authConfig.accessToken.publicKey) {
-    // The public key is provide, so do not need a JWKS
-    auth = {
-      issuer: authConfig.accessToken.issuer,
-      audience: authConfig.accessToken.audience,
-      publicKey: authConfig.accessToken.publicKey,
-    } as VerifyToken;
-  } else {
-    auth = {
-      allowHttp: production,
-      authServerHost: authConfig.authServerHost,
-      issuer: authConfig.accessToken.issuer,
-      audience: authConfig.accessToken.audience,
-    } as VerifyJWKS;
-  }
-  return {
-    authenticate: auth,
-    activeUser,
   };
 }

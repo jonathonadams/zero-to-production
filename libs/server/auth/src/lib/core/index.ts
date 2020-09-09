@@ -22,7 +22,7 @@ export {
   noOpEmailVerification,
 } from './utils';
 
-export { generateAuthGuardConfig, generateAuthModuleConfig } from './config';
+export { generateAuthModuleConfig } from './config';
 
 export {
   retrievePublicKeyFromJWKS,
