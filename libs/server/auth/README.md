@@ -118,20 +118,8 @@ const authRoutes = applyAuthRoutes(authModuleConfig)
 app.use(authRoutes)
 ```
 
-The routes that will be applied are as follows:
-
-Basic Auth:
-
-- **POST** - `/login`: returns short live access token when user successfully logs in.
-- **POST** - `/register`: registers a new user and returns the newly created user.
-- **GET** - `/available`: returns the availability status given username.
-
-If including email verification:
-
 - **GET** - `/verify` : verify the newly registered user via email.
-
-If including refresh tokens:
-
+- **POST** - `/register`: registers a new user and returns the newly created user.
 - **POST** - `/authorize`: returns an access token and refresh token.
 - **POST** - `/authorize/refresh`: returns a new access token if a valid refresh token is provided.
 - **POST** - `/authorize/revoke`: revokes the provided refresh token.
@@ -166,15 +154,9 @@ const apolloServer = new ApolloServer({schema: authSchema})
 
 The Authentication Schema will create the following Queries and Mutations:
 
-Basic Auth:
-
-- **Query** - `userAvailable(username: String!): UserAvailable!`: userAvailable(username: String!): UserAvailable!
+- **Query** - `verify(email: String!, token: String!): VerifyUser!` : verify the newly registered user via email.
 - **Mutation** - `register(input: RegisterInput!): RegisterSuccess!`: registers a new user and returns the newly created user.
 - **Mutation** - `login(username: String!, password: String!): AuthPayload!`: returns short live access token when user successfully logs in.
-
-If including email verification:
-
-- **Query** - `verify(email: String!, token: String!): VerifyUser!` : verify the newly registered user via email.
 
 Note: although the `verify` query should technically be a mutation (it will update the user `isVerified` property), GraphQL does not allow `Mutations` to be made via a `GET` request. Hence it is a `Query` so that it can be executed via an email link.
 
