@@ -29,7 +29,7 @@ export const examples: IExample[] = [
     description:
       'Combing CSS Variables along with a Theming Service for user ' +
       'configurable themes.',
-    libPath: 'libs/common/utils/theme',
+    libPath: 'libs/common/theme',
   },
   {
     url: 'lazy-scrolling',

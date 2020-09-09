@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { appRouterAnimations } from './app-routing.animations';
 import { AnimationService } from '@ztp/common/animations';
 import { Observable } from 'rxjs';
-import { ThemeService } from '@ztp/common/utils/theme';
+import { ThemeService } from '@ztp/common/theme';
 
 @Component({
   selector: 'todo-root',

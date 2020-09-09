@@ -138,7 +138,7 @@
     "common-utils-storage": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
-    "common-utils-theme": {
+    "common-theme": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
     "common-utils-media-query": {

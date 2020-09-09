@@ -49,7 +49,7 @@
         "libs/common/utils/service-worker/src/index.ts"
       ],
       "@ztp/common/utils/storage": ["libs/common/utils/storage/src/index.ts"],
-      "@ztp/common/utils/theme": ["libs/common/utils/theme/src/index.ts"],
+      "@ztp/common/theme": ["libs/common/theme/src/index.ts"],
       "@ztp/common/utils/media-query": [
         "libs/common/utils/media-query/src/index.ts"
       ],

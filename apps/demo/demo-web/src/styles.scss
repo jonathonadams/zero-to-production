@@ -4,9 +4,9 @@
 @import '~@angular/material/theming';
 
 // import the theming & typography file
-@import 'styles/theme.scss';
-@import 'styles/typography.scss';
-@import 'styles/common.scss';
+@import 'libs/common/theme/styles/theme.scss';
+@import 'libs/common/theme/styles/typography.scss';
+@import 'libs/common/theme/styles/common.scss';
 
 @include mat-core();
 

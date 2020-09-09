@@ -14,7 +14,7 @@ steps:
       - -t
       - gcr.io/$PROJECT_ID/$_PROJECT_NAME
       - -f
-      - docker/server.Dockerfile
+      - dev-ops/docker/server.Dockerfile
       - --build-arg
       - PROJECT_DIRECTORY=$_PROJECT_DIRECTORY
       - .

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { ThemeService } from '@ztp/common/utils/theme';
+import { ThemeService } from '@ztp/common/theme';
 import { Observable } from 'rxjs';
 import { AnimationService } from '@ztp/common/animations';
 import { Meta } from '@angular/platform-browser';

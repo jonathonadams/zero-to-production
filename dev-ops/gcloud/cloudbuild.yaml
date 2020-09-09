@@ -29,26 +29,23 @@ steps:
       - -t
       - gcr.io/$PROJECT_ID/$_PROJECT_NAME
       - -f
-      - docker/server.Dockerfile
+      - dev-ops/docker/server.Dockerfile
       - --build-arg
       - PROJECT_DIRECTORY=$_PROJECT_DIRECTORY
       - .
     timeout: 500s
-
     # Tag with the latest
   - name: gcr.io/cloud-builders/docker
     args:
       - tag
       - gcr.io/$PROJECT_ID/$_PROJECT_NAME
       - gcr.io/$PROJECT_ID/$_PROJECT_NAME:latest
-
   # Tag with the version
   - name: gcr.io/cloud-builders/docker
     args:
       - tag
       - gcr.io/$PROJECT_ID/$_PROJECT_NAME
       - gcr.io/$PROJECT_ID/$_PROJECT_NAME:$TAG_NAME
-
   # Push the image to Google Cloud Registry
   - name: gcr.io/cloud-builders/docker
     args:
@@ -58,7 +55,6 @@ steps:
     args:
       - push
       - gcr.io/$PROJECT_ID/$_PROJECT_NAME:latest
-
   # Trigger a rolling update for the cluster
   - name: gcr.io/cloud-builders/kubectl
     args:

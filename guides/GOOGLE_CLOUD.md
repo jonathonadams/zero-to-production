@@ -8,7 +8,7 @@ All files related to deploying to Google Cloud Kubernetes are located in the `de
 
 #### Google Cloud Build Trigger - Initial Image
 
-Rather than build and push our container to the cloud registry, Google Cloud offers a Cloud Build service to build your images from source. A `Dockerfile` to build our API project from the source files is provided at `docker/server.Dockerfile`. Please see the [Docker README] for further details.
+Rather than build and push our container to the cloud registry, Google Cloud offers a Cloud Build service to build your images from source. A `Dockerfile` to build our API project from the source files is provided at `dev-ops/docker/server.Dockerfile`. Please see the [Docker README] for further details.
 
 1. On Google Cloud, navigate to **Tools > Cloud Build**.
 2. Follow the steps to connect you **`Git`** repo.
@@ -16,7 +16,7 @@ Rather than build and push our container to the cloud registry, Google Cloud off
 
    - For the initial build select `Push to a branch` and enter the `master` branch.
 
-   - When selecting the `Build Configuration` select the `Cloud Build Configuration File` option and point it at `/dev-ops/cloudbuild.initial.yaml`
+   - When selecting the `Build Configuration` select the `Cloud Build Configuration File` option and point it at `dev-ops/gcloud/cloudbuild.initial.yaml`
 
    - The build file is set up to use _substitutions_ for the image name and the source directory of the project. The **\_PROJECT_NAME** and **\_PROJECT_DIRECTORY** variables must be set and the project directory is relative to the `apps/` directory.
 
@@ -31,11 +31,11 @@ Rather than build and push our container to the cloud registry, Google Cloud off
 
 #### Google Cloud - Kubernetes Engine
 
-Follow the next steps to deploy you production container. A pre-configured set of Kubernetes deployment `.yaml` files are located in `/dev-ops/kubernetes/`.
+Follow the next steps to deploy you production container. A pre-configured set of Kubernetes deployment `.yaml` files are located in `dev-ops/kubernetes/`.
 
 1. Reserve a Static IP address to allow the load balancer to auto create global forwarding rules. **VPC Network > External IP Address > Reserve Static IP**.
 2. Create a new Kubernetes Cluster, **Kuberetes Engine > Clusters > Create Cluster** and follow the guides as necessary. For testing select the preset 'My first cluster'. Once up and running connect to your cluster from your terminal.
-3. Once connected, the first step is to apply all configuration and secrets to the cluster that your containers may require. For this setup all required setup files are located in the `dev-ops/config/` directory.
+3. Once connected, the first step is to apply all configuration and secrets to the cluster that your containers may require. For this setup all required setup files are located in the `dev-ops/kubernetes/config/` directory.
 
    - **No changes required**: `config.yaml` - Contains non sensitive information and is a `ConfigMap` resource.
    - **Changes required**: `secrets.yaml` - A `Secret` resource that contains all sensitive information. All values here must be base64 encoded strings. Rename `example.secrets.yaml` to `secrets.yaml` and Replace the PLACEHOLDER entries with your respective encoded strings. **DO NOT COMMIT THIS INTO SOURCE CONTROL**.
@@ -93,7 +93,7 @@ This repo is configured that any commit (via PR) to the master branch will run a
 
    - Select `Push new tag` and enter the tag regex as `v.*`. Note this will trigger of any tag starting with `v`, you might want to be more clever with the regex match and only match a semver versioning etc.
 
-   - When selecting the `Build Configuration` select the `Cloud Build Configuration File` option and point it at `/dev-ops/cloudbuild.yaml`
+   - When selecting the `Build Configuration` select the `Cloud Build Configuration File` option and point it at `dev-ops/gcloud/cloudbuild.yaml`
 
    - Enter the appropriate _substitutions_ for your project
 
@@ -111,7 +111,7 @@ This repo is configured that any commit (via PR) to the master branch will run a
 
 Each time a release tag is pushed, i.e `v1.4.1`, the trigger will rebuild the container image, tag the image with with the semver version and set the container image of the kubernetes deployment to the new version. Kubernetes will perform a rolling update ane replace the old containers with ones from the new image.
 
-Please see `dev-ops/cloudbuild.yaml` for further details.
+Please see `dev-ops/gcloud/cloudbuild.yaml` for further details.
 
 #### Reconfigure Client Application
 

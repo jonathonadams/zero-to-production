@@ -30,7 +30,7 @@ import {
   CommonDynamicFormModule,
   defaultErrorMessages,
 } from '@ztp/common/dynamic-form';
-import { themeProviderFactory, ThemeService } from '@ztp/common/utils/theme';
+import { themeProviderFactory, ThemeService } from '@ztp/common/theme';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { DemoApiService, DemoGraphQLService } from '@ztp/demo/data-access';
 import {

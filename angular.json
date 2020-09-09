@@ -180,13 +180,13 @@
             "styles": [
               "apps/todos/todos-web/src/styles.scss",
               {
-                "input": "styles/theme-default.scss",
-                "lazy": true,
+                "input": "libs/common/theme/styles/theme-default.scss",
+                "inject": false,
                 "bundleName": "theme-default"
               },
               {
-                "input": "styles/theme-default-dark.scss",
-                "lazy": true,
+                "input": "libs/common/theme/styles/theme-default-dark.scss",
+                "inject": false,
                 "bundleName": "theme-default-dark"
               }
             ],
@@ -779,26 +779,26 @@
         }
       }
     },
-    "common-utils-theme": {
+    "common-theme": {
       "projectType": "library",
-      "root": "libs/common/utils/theme",
-      "sourceRoot": "libs/common/utils/theme/src",
+      "root": "libs/common/theme",
+      "sourceRoot": "libs/common/theme/src",
       "prefix": "todo",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/common/utils/theme/tsconfig.lib.json",
-              "libs/common/utils/theme/tsconfig.spec.json"
+              "libs/common/theme/tsconfig.lib.json",
+              "libs/common/theme/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/utils/theme/**/*"]
+            "exclude": ["**/node_modules/**", "!libs/common/theme/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/common/utils/theme/jest.config.js",
+            "jestConfig": "libs/common/theme/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -1318,12 +1318,12 @@
             "styles": [
               "apps/demo/demo-web/src/styles.scss",
               {
-                "input": "styles/theme-default.scss",
+                "input": "libs/common/theme/styles/theme-default.scss",
                 "inject": false,
                 "bundleName": "theme-default"
               },
               {
-                "input": "styles/theme-default-dark.scss",
+                "input": "libs/common/theme/styles/theme-default-dark.scss",
                 "inject": false,
                 "bundleName": "theme-default-dark"
               }

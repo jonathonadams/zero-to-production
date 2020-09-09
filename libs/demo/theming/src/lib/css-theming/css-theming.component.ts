@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ThemeService } from '@ztp/common/utils/theme';
+import { ThemeService } from '@ztp/common/theme';
 import { CodeHighlightService } from '@ztp/demo/utils';
 import { css, ts, appInit, prefersDarkMode } from './css-theming.code';
 import { MatCheckboxChange } from '@angular/material/checkbox';

@@ -6,7 +6,7 @@ import {
   Renderer2,
   OnDestroy,
 } from '@angular/core';
-import { ThemeService } from '@ztp/common/utils/theme';
+import { ThemeService } from '@ztp/common/theme';
 import { DOCUMENT } from '@angular/common';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Subscription } from 'rxjs';

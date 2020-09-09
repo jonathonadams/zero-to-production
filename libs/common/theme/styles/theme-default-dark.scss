@@ -1,6 +1,6 @@
 // Angular Material Themeing Mixins
 @import '~@angular/material/theming';
-@import 'styles/material-theme';
+@import 'libs/common/theme/styles/material-theme';
 
 .dark-theme {
   @include angular-material-theme($dark-theme);

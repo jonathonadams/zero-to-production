@@ -1,6 +1,32 @@
 ### Getting Started
 
-If you want to use this monorepo as the starting point for your next project or to work through the guides then follow the below instructions to tidy up and remove all unused apps & libs.
+If you want to use this monorepo as the starting point for your next project and to work through the guides then follow the below instructions to tidy up and remove all unused apps & libs.
+
+#### Prerequisites
+
+To complete the guides you will need to do the following
+
+- **Create Cloud Providers Accounts** - If you do not have accounts already you will need to create accounts with **[Firebase]**, **[AWS]** & **[Google Cloud]**.
+
+- **Install CLI's & global npm packages**
+
+  - Install the [Google Cloud SDK] and [Kubernetes CLI] and authenticate to your Google Cloud Account (**Kubernetes guide only**).
+  - Install the [AWS CLI] and login and create a profile for your AWS account (**AWS Lambda guide only**).
+  - Install the following global npm packages
+    ```bash
+    npm install -g @angular/cli firebase-tools serverless
+    ```
+
+- **Domain Name**: To work through the guides you will need a domain name. The following guides will assume a domain name of `zero-to-production.dev`. For the API deployment the guides will assume AWS Lambda functions will be hosted at the subdomain `fns.zero-to-production.dev` and the Google Cloud K8s will be hosted at the subdomain `api.zero-to-production.dev`
+
+* **RS256 Private & Public Key**: A Private & Public key is required for signing your JWT access tokens. Depending on the authentication setup (see the [API Authentication Library]) the public key may be served as a [JSON Web Key Set (JWKS)] at the url `/.well-know/jwks.json`. See [Auth 0] for further explanation and rational behind a JWKS.  
+  There is a helper script in `tools/scripts/bin/generate-rsa.js` to generate an RSA256 Private Key (pkcs8).
+
+* **Mongo Database**: You will need a Mongo Database for your API to connect to. It is entirely up to you how & where you host your DB but [Mongo Atlas] has a free tier that you can use to test with. A couple of notes on setting up Mongo Atlas.
+
+  - For this testing setup, allow connections from all IP Addresses. See the notes later about setting up **VPC Network Peering** in production.
+  - Once your cluster is up an running, click **collections** and create a database (note the name) and the first collection i.e. the `users` collection.
+  - Click **connect > connect your application** and get your connection string. By default the connection string will point to the `test` database. Replace the test database with the desired database, i.e. `mongodb+srv://.../my-database-name?retryWrites=true&w=majority`
 
 #### Clone & install all dependencies
 
@@ -17,7 +43,7 @@ $ npm i
 - change `package.json` fields as required, e.g. `name`, `license`, `version`, `repository`.
 - change the application prefix by doing a `search and replace` for **ztp** and replace with your desired app prefix.
 - edit/delete `CODE_OF_CONDUCT.md` and `LICENSE.md` files as desired.
-- create you own color theme in `styles/theme.scss`
+- create you own color theme in `libs/common/theme/styles/theme.scss`
 - delete the `/meta` directory.
 
 ##### Remove "Demo" Project Files (Optional)
@@ -52,9 +78,8 @@ associated with this demo site at [zero-to-production.dev]
   - `firebase-functions`
   - `@angular/service-worker`
   - `@angular/platform-server`
-  - `@nguniversal/express-engine`
-  - `express`
-  - `@types/express`
+  - `@nguniversal/common`
+  - `@nguniversal/builders`
 
 ##### Project Structure
 
@@ -109,32 +134,6 @@ Edit the CI config file located at`.circleci/config.yml` to suite your own needs
 The following guides are a series of instructions to take your newly cloned project from local development to a deployed working frontend & API.
 
 It is advised to follow the guides in the following order as they are designed to get you up and running and deployed and then progressively increase in complexity as your application grows and warrants it.
-
-##### Prerequisites
-
-To complete the guides you will need to complete the following
-
-- **Create Cloud Providers Accounts** - If you do not have accounts already you will need to create accounts with **[Firebase]**, **[AWS]** & **[Google Cloud]**.
-
-- **Install CLI's & global npm packages**
-
-  - Install the [Google Cloud SDK] and [Kubernetes CLI] and authenticate to your Google Cloud Account (**Kubernetes guide only**).
-  - Install the [AWS CLI] and login and create a profile for your AWS account (**AWS Lambda guide only**).
-  - Install the following global npm packages
-    ```bash
-    npm install -g @angular/cli firebase-tools serverless
-    ```
-
-- **Domain Name**: To work through the guides you will need a domain name. The following guides will assume a domain name of `zero-to-production.dev`. For the API deployment the guides will assume AWS Lambda functions will be hosted at the subdomain `fns.zero-to-production.dev` and the Google Cloud K8s will be hosted at the subdomain `api.zero-to-production.dev`
-
-* **RS256 Private & Public Key**: A Private & Public key is required for signing your JWT access tokens. Depending on the authentication setup (see the [API Authentication Library]) the public key may be served as a [JSON Web Key Set (JWKS)] at the url `/.well-know/jwks.json`. See [Auth 0] for further explanation and rational behind a JWKS.  
-  There is a helper script in `tools/scripts/bin/generate-rsa.js` to generate an RSA256 Private Key (pkcs8).
-
-* **Mongo Database**: You will need a Mongo Database for your API to connect to. It is entirely up to you how & where you host your DB but [Mongo Atlas] has a free tier that you can use to test with. A couple of notes on setting up Mongo Atlas.
-
-  - For this testing setup, allow connections from all IP Addresses. See the notes later about setting up **VPC Network Peering** in production.
-  - Once your cluster is up an running, click **collections** and create a database (note the name) and the first collection i.e. the `users` collection.
-  - Click **connect > connect your application** and get your connection string. By default the connection string will point to the `test` database. Replace the test database with the desired database, i.e. `mongodb+srv://.../my-database-name?retryWrites=true&w=majority`
 
 #### Next Steps
 
