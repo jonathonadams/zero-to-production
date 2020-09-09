@@ -27,13 +27,14 @@ export class MarkedPipe implements PipeTransform {
 
       const renderer = new this.marked.Renderer();
       renderer.link = this.openInNewTabLink.bind(this);
+      const highlight = this.hl.highlight.bind(this.hl);
 
       this.options = {
         smartLists: true,
         smartypants: true,
         gfm: true,
         breaks: true,
-        highlight: this.hl.highlight,
+        highlight,
         renderer,
       };
     }
