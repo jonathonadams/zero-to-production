@@ -3,7 +3,7 @@
 import { TestServerConfig } from '@ztp/data';
 import { AuthEnv } from '@ztp/server/auth';
 
-const audience = 'http://localhost:3000';
+const audience = `http://localhost:${process.env.PORT}`;
 const authServerHost = audience;
 
 const privateKey = `-----BEGIN PRIVATE KEY-----

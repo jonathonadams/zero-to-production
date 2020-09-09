@@ -1,5 +1,4 @@
 /* istanbul ignore file */
-
 import 'jest-extended';
 import { GraphQLSchema } from 'graphql';
 import { MongoMemoryServer } from 'mongodb-memory-server';

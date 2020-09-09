@@ -1,3 +1,6 @@
+process.env.PORT = '9999';
+
+import { createHash } from 'crypto';
 import Koa from 'koa';
 import { ITodo } from '@ztp/data';
 import { authConfig } from '../../../environments/index';
@@ -6,6 +9,10 @@ import ApiServer from '../../server';
 import { createGraphQLSpec } from '@ztp/tests/server';
 import { Todo } from './todo.model';
 import { User } from '../users';
+
+const keyId = createHash('md5')
+  .update(authConfig.accessToken.publicKey as string)
+  .digest('hex');
 
 // Need to import and run the server because
 // the server is also our "auth server"
@@ -23,7 +30,7 @@ const updatedTodo = {
 
 createGraphQLSpec(
   schema,
-  { ...authConfig.accessToken, keyId: 'keyId' },
+  { ...authConfig.accessToken, keyId },
   server,
   /*userResource */ true
 )(Todo, 'Todo', todo, updatedTodo, User);

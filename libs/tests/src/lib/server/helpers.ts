@@ -2,29 +2,6 @@ import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { graphql, GraphQLSchema } from 'graphql';
 
-// export interface RESTTestResource<T> {
-//   model: any;
-//   resourceName: string;
-//   urlString: string;
-//   resourceToCreate: any;
-//   resourceToUpdate: any;
-//   testDependents?: TestDependents[];
-// }
-
-// export interface GraphQLTestResource<T> {
-//   model: any;
-//   resourceName: string;
-//   queryName: string;
-//   resourceToCreate: any;
-//   resourceToUpdate: any;
-//   testDependents?: TestDependents[];
-// }
-
-// export interface TestDependents {
-//   model: any;
-//   resource: any;
-// }
-
 /**
  * Helper function to generate ObjectID, note it returns the hex string of the ObjectId
  */

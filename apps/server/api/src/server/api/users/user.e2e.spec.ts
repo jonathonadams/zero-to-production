@@ -1,3 +1,5 @@
+process.env.PORT = '9999';
+
 import Koa from 'koa';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { runQuery, setupTestDB, signTestAccessToken } from '@ztp/tests/server';
@@ -8,6 +10,11 @@ import { IUser } from '@ztp/data';
 import ApiServer from '../../server';
 import { Server } from 'http';
 import { User } from './user.model';
+import { createHash } from 'crypto';
+
+const keyId = createHash('md5')
+  .update(authConfig.accessToken.publicKey as string)
+  .digest('hex');
 
 // Need to import and run the server because
 // the server is also our "auth server"
@@ -41,10 +48,11 @@ describe(`GraphQL / User`, () => {
     testServer = await server.initializeServer(dbUri);
 
     createdUser = await User.create(user);
+
     [createdUser.id, createdUser._id] = [createdUser._id, createdUser.id];
-    jwt = signTestAccessToken({ ...authConfig.accessToken, keyId: 'id' })(
-      createdUser
-    );
+
+    const config = { ...authConfig.accessToken, keyId };
+    jwt = signTestAccessToken(config)(createdUser);
   });
 
   afterAll(async () => {
