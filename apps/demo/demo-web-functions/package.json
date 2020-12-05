@@ -6,8 +6,8 @@
     "node": "12"
   },
   "dependencies": {
-    "firebase-functions": "^3.11.0",
-    "firebase-admin": "^9.1.1"
+    "firebase-functions": "^3.12.0",
+    "firebase-admin": "^9.4.1"
   },
   "private": true,
   "sideEffects": false
