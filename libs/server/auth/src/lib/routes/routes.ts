@@ -1,6 +1,5 @@
 import type { ParameterizedContext } from 'koa';
 import Router, { Middleware } from '@koa/router';
-import Boom from '@hapi/boom';
 import {
   setupRegisterController,
   setupAuthorizeController,
@@ -13,19 +12,12 @@ import {
   AuthorizeController,
   RefreshController,
   RevokeController,
-  AuthUser,
-  Verify,
-  Refresh,
   AuthModuleConfig,
   RegisterController,
 } from '../types';
 import { createJsonWebKeySetRoute } from './jwks';
 
-export function applyAuthRoutes<
-  U extends AuthUser,
-  V extends Verify,
-  R extends Refresh
->(config: AuthModuleConfig<U, R, V>): Middleware {
+export function applyAuthRoutes(config: AuthModuleConfig): Middleware {
   const { register, authorize, refresh, revoke } = config;
 
   const router = new Router();
@@ -44,10 +36,8 @@ export function applyAuthRoutes<
   return router.routes();
 }
 
-export function registerRoute<U extends AuthUser, V extends Verify>(
-  config: RegisterController<U, V>
-) {
-  const registerController = setupRegisterController<U, V>(config);
+export function registerRoute(config: RegisterController) {
+  const registerController = setupRegisterController(config);
 
   return async (ctx: ParameterizedContext) => {
     const user = (ctx.request as any).body;
@@ -55,9 +45,7 @@ export function registerRoute<U extends AuthUser, V extends Verify>(
   };
 }
 
-export function verifyRoute<U extends AuthUser, V extends Verify>(
-  config: VerifyController<U, V>
-) {
+export function verifyRoute(config: VerifyController) {
   const verifyController = setupVerifyController(config);
   return async (ctx: ParameterizedContext) => {
     const email = ctx.query.email;
@@ -66,22 +54,20 @@ export function verifyRoute<U extends AuthUser, V extends Verify>(
   };
 }
 
-export function authorizeRoute<U extends AuthUser, R extends Refresh>(
-  config: AuthorizeController<U, R>
-) {
+export function authorizeRoute(config: AuthorizeController) {
   const authorizeController = setupAuthorizeController(config);
 
   return async (ctx: ParameterizedContext) => {
-    const username: string = (ctx.request as any).body.username;
-    const password: string = (ctx.request as any).body.password;
+    const {
+      username,
+      password,
+    }: { username: string; password: string } = (ctx.request as any).body;
 
     ctx.body = await authorizeController(username, password, ctx.cookies);
   };
 }
 
-export function refreshTokenRoute<R extends Refresh>(
-  config: RefreshController<R>
-) {
+export function refreshTokenRoute(config: RefreshController) {
   const refreshAccessTokenCtr = setupRefreshAccessTokenController(config);
 
   return async (ctx: ParameterizedContext) => {
@@ -94,9 +80,7 @@ export function refreshTokenRoute<R extends Refresh>(
   };
 }
 
-export function revokeRefreshRoute<R extends Refresh>(
-  config: RevokeController<R>
-) {
+export function revokeRefreshRoute(config: RevokeController) {
   const revokeTokenController = setupRevokeRefreshTokenController(config);
   return async (ctx: ParameterizedContext) => {
     const token =

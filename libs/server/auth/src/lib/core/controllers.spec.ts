@@ -19,12 +19,11 @@ import {
   mockRevokeConfig,
   MockAuthUserModel,
   MockVerifyModel,
-  privateKey,
   MockRefreshModel,
   cookiesMock,
   refreshSecret,
 } from '../__tests__/index';
-import { VerifyModel, AuthUser, AuthUserModel, Verify } from '../types';
+import { VerifyModel, AuthUser, AuthUserModel } from '../types';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
@@ -73,8 +72,8 @@ describe('Auth - Controllers', () => {
       MockAuthUserModel.userToRespondWith = null;
 
       const createdUser = await setupRegisterController({
-        User: (MockAuthUserModel as unknown) as AuthUserModel<AuthUser>,
-        Verify: (MockVerifyModel as unknown) as VerifyModel<Verify>,
+        User: (MockAuthUserModel as unknown) as AuthUserModel,
+        Verify: (MockVerifyModel as unknown) as VerifyModel,
         verifyEmail: jest.fn(),
       })({ ...userWithPassword });
 

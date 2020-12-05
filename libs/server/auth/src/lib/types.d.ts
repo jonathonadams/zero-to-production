@@ -8,14 +8,14 @@
  */
 
 // AuthUser Model
-export interface AuthUserModel<U extends AuthUser> {
-  new (user: any): U;
+export interface AuthUserModel {
+  new (user: any): AuthUser;
   // NOTE -> TypeScript does not currently allow derived classes to override parent static methods
   // and have different call signatures, hence User.findById should no be declared here as the return
   // signature may differ from the base implementation, i.e. Mongoose.
-  findByUserId(id: string | undefined): Promise<U | null>;
-  findByUsername(username: string): Promise<U | null>;
-  findByEmail(email: string): Promise<U | null>;
+  findByUserId(id: string | undefined): Promise<AuthUser | null>;
+  findByUsername(username: string): Promise<AuthUser | null>;
+  findByEmail(email: string): Promise<AuthUser | null>;
 }
 
 // User
@@ -30,10 +30,10 @@ export interface AuthUser {
 }
 
 // Refresh Token Model
-export interface RefreshModel<T extends Refresh> {
-  new (token: any): T;
-  findByToken(token: string): Promise<T | null>;
-  removeByToken(token: string): Promise<T | null>;
+export interface RefreshModel {
+  new (token: any): Refresh;
+  findByToken(token: string): Promise<Refresh | null>;
+  removeByToken(token: string): Promise<Refresh | null>;
   removeUserTokens(
     id: string
   ): Promise<{
@@ -52,9 +52,9 @@ export interface Refresh {
 }
 
 // Verification Token Model -  Used for email verification
-export interface VerifyModel<V extends Verify> {
-  new (token: any): V;
-  findByToken(token: string): Promise<V | null>;
+export interface VerifyModel {
+  new (token: any): Verify;
+  findByToken(token: string): Promise<Verify | null>;
 }
 
 // Verification Token
@@ -62,6 +62,7 @@ export interface Verify {
   userId: AuthUser | string;
   token: string;
   save(): Promise<this>;
+  remove(): Promise<this>;
 }
 
 // -------------------------------------
@@ -72,18 +73,14 @@ export interface Verify {
 export type VerifyEmail = (email: string, token: string) => Promise<any>;
 export type PasswordValidator = (password: string) => boolean;
 
-export interface AuthModuleConfig<
-  U extends AuthUser,
-  R extends Refresh,
-  V extends Verify
-> {
+export interface AuthModuleConfig {
   jwks?: JWKSRoute;
   authServerHost: string;
-  authorize: AuthorizeController<U, R>;
-  register: RegisterController<U, V>;
-  verify: VerifyController<U, V>;
-  refresh: RefreshController<R>;
-  revoke: RevokeController<R>;
+  authorize: AuthorizeController;
+  register: RegisterController;
+  verify: VerifyController;
+  refresh: RefreshController;
+  revoke: RevokeController;
 }
 
 // -------------------------------------
@@ -94,38 +91,38 @@ export interface JWKSRoute {
   keyId: string;
 }
 
-export interface BasicRegistrationController<U extends AuthUser> {
-  User: AuthUserModel<U>;
+export interface BasicRegistrationController {
+  User: AuthUserModel;
   validatePassword?: PasswordValidator;
 }
 
-export interface RegisterController<U extends AuthUser, V extends Verify> {
-  User: AuthUserModel<U>;
-  Verify: VerifyModel<V>;
+export interface RegisterController {
+  User: AuthUserModel;
+  Verify: VerifyModel;
   verifyEmail: VerifyEmail;
   validatePassword?: PasswordValidator;
 }
 
-export interface VerifyController<U extends AuthUser, V extends Verify> {
-  User: AuthUserModel<U>;
-  Verify: VerifyModel<V>;
+export interface VerifyController {
+  User: AuthUserModel;
+  Verify: VerifyModel;
 }
 
-export interface AuthorizeController<U extends AuthUser, R extends Refresh> {
+export interface AuthorizeController {
   access: SignAccessToken;
   refresh: RefreshToken;
-  User: AuthUserModel<U>;
-  Refresh: RefreshModel<R>;
+  User: AuthUserModel;
+  Refresh: RefreshModel;
 }
 
-export interface RefreshController<R extends Refresh> {
+export interface RefreshController {
   access: SignAccessToken;
   refresh: RefreshToken;
-  Refresh: RefreshModel<R>;
+  Refresh: RefreshModel;
 }
 
-export interface RevokeController<R extends Refresh> {
-  Refresh: RefreshModel<R>;
+export interface RevokeController {
+  Refresh: RefreshModel;
 }
 
 // -------------------------------------
@@ -159,13 +156,13 @@ export interface RefreshToken {
   secret: string;
 }
 
-export interface ActiveUserGuard<U extends AuthUser> {
-  User: AuthUserModel<U>;
+export interface ActiveUserGuard {
+  User: AuthUserModel;
 }
 
-export interface AuthGuard<U extends AuthUser> {
+export interface AuthGuard {
   authenticate: VerifyToken | VerifyJWKS;
-  activeUser: ActiveUserGuard<U>;
+  activeUser: ActiveUserGuard;
 }
 
 // -------------------------------------
@@ -188,20 +185,3 @@ export interface AuthEnv {
     secret: string;
   };
 }
-
-// export interface JWKSGuardOpts {
-//   authServerHost: string;
-//   accessToken: {
-//     issuer: string;
-//     audience: string;
-//   };
-// }
-// export interface AuthGuardOpts {
-//   accessToken: {
-//     publicKey: string;
-//     issuer: string;
-//     audience: string;
-//   };
-// }
-
-// export type AuthGuardConfig = JWKSGuardOpts | AuthGuardOpts;

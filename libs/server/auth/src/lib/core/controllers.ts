@@ -11,18 +11,16 @@ import type {
   RevokeController,
   RegisterController,
   AuthUser,
-  Refresh,
-  Verify as VerifyM,
 } from '../types';
 import Cookies from 'cookies';
 import { setRefreshTokenCookie } from './cookies';
 
-export function setupRegisterController<U extends AuthUser, V extends VerifyM>({
+export function setupRegisterController({
   User,
   Verify,
   verifyEmail,
   validatePassword = isPasswordAllowed,
-}: RegisterController<U, V>) {
+}: RegisterController) {
   return async (user: AuthUser) => {
     const password: string = (user as any).password;
     if (!password) badRequest('No password provided');
@@ -69,7 +67,7 @@ export function setupRegisterController<U extends AuthUser, V extends VerifyM>({
 export function setupVerifyController({
   User,
   Verify: Token,
-}: VerifyController<any, any>) {
+}: VerifyController) {
   return async (email: string, token: string) => {
     if (!email || !token)
       throw unauthorized('email address and token must be provided');
@@ -91,7 +89,7 @@ export function setupVerifyController({
     /**
      * Is the provided token and email a match
      */
-    if (verificationToken.userId.toString() !== user.id.toString())
+    if (verificationToken.userId.toString() !== user.id?.toString())
       throw badRequest('Token does not match email address');
 
     user.isVerified = true;
@@ -104,9 +102,7 @@ export function setupVerifyController({
   };
 }
 
-export function setupAuthorizeController<U extends AuthUser, R extends Refresh>(
-  config: AuthorizeController<U, R>
-) {
+export function setupAuthorizeController(config: AuthorizeController) {
   const { User, Refresh: Token } = config;
   const createAccessToken = signAccessToken(config.access);
   const createRefreshToken = signRefreshToken(config.refresh);
@@ -149,9 +145,7 @@ export function setupAuthorizeController<U extends AuthUser, R extends Refresh>(
 }
 
 // a controller that receives a refresh token and returns an access token.
-export function setupRefreshAccessTokenController<R extends Refresh>(
-  config: RefreshController<R>
-) {
+export function setupRefreshAccessTokenController(config: RefreshController) {
   const { Refresh: Token } = config;
 
   // const publicKey = createPublicPemFromPrivate(config.privateKey);
@@ -196,9 +190,9 @@ export function setupRefreshAccessTokenController<R extends Refresh>(
 }
 
 // a controller to revoke a refresh token
-export function setupRevokeRefreshTokenController<R extends Refresh>({
+export function setupRevokeRefreshTokenController({
   Refresh: Token,
-}: RevokeController<R>) {
+}: RevokeController) {
   return async (token: string, cookies: Cookies) => {
     // delete the cookie regardless
     setRefreshTokenCookie(cookies);

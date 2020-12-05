@@ -20,14 +20,14 @@ import {
   refreshSecret,
 } from '../__tests__';
 import { signRefreshToken } from '../core/tokens';
-import type { AuthUser, Refresh, Verify, AuthModuleConfig } from '../types';
+import type { AuthUser, AuthModuleConfig } from '../types';
 
 const URL = 'http://localhost';
 const PORT = 9999;
 
 const agentRequest = request(URL, PORT);
 
-const config: AuthModuleConfig<AuthUser, Refresh, Verify> = {
+const config: AuthModuleConfig = {
   verify: mockVerificationConfig(),
   register: mockRegistrationConfig(),
   authorize: mockAuthorizeConfig(),

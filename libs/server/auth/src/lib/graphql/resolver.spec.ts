@@ -15,7 +15,7 @@ import {
   mockRevokeConfig,
   cookiesMock,
 } from '../__tests__';
-import { AuthUser, Verify, AuthModuleConfig, Refresh } from '../types';
+import { AuthUser, AuthModuleConfig } from '../types';
 import { Server } from 'http';
 import { graphQLVerifyUrl } from './utils';
 
@@ -28,7 +28,7 @@ export const runQuery = (sc: GraphQLSchema) => {
   };
 };
 
-const config: AuthModuleConfig<AuthUser, Refresh, Verify> = {
+const config: AuthModuleConfig = {
   authorize: mockAuthorizeConfig(),
   verify: mockVerificationConfig(),
   register: mockRegistrationConfig(),
