@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import { Connection } from 'mongoose';
 import serverless, { Handler } from 'serverless-http';
-import { setupGlobalMiddleware } from '@ztp/server/middleware';
+import { globalMiddleware } from '@ztp/server/middleware';
 import { config } from '../environments/environment';
 import LambdaServer from './server';
 
@@ -12,13 +12,13 @@ export async function createHandler(conn: Connection) {
   if (handler) {
     return handler;
   }
-  const koa = new Koa();
-  koa.proxy = config.production;
+  const app = new Koa();
+  app.proxy = config.production;
 
-  setupGlobalMiddleware(koa);
+  app.use(globalMiddleware);
 
-  const app = new LambdaServer(koa);
+  const server = new LambdaServer(app);
 
-  handler = serverless(app.initializeServer(conn), { basePath: '' });
+  handler = serverless(server.initializeServer(conn), { basePath: '' });
   return handler;
 }

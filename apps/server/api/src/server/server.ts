@@ -2,7 +2,7 @@ import { createServer } from 'http';
 import Koa from 'koa';
 import Router from '@koa/router';
 import { notImplemented, methodNotAllowed } from '@hapi/boom';
-import { setupGlobalMiddleware } from '@ztp/server/middleware';
+import { globalMiddleware } from '@ztp/server/middleware';
 import { apolloServer } from './graphql';
 import { applyApiAuthRoutes } from './auth/auth';
 import { config } from '../environments';
@@ -38,7 +38,7 @@ export default class ApiServer {
     /**
      * Setup all the required middleware for the app
      */
-    setupGlobalMiddleware(app);
+    app.use(globalMiddleware);
 
     /**
      * Apply the REST & GraphQL endpoints

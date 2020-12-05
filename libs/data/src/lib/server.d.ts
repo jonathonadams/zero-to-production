@@ -12,7 +12,7 @@ export interface GlobalServerConfig {
   sendgridApiKey?: string;
 }
 
-export type EnvironnementConfig =
+export type EnvironmentConfig =
   | ProductionServerConfig
   | DevServerConfig
   | TestServerConfig;
@@ -35,4 +35,4 @@ export interface ProductionServerConfig {
   databaseOptions?: ConnectionOptions;
 }
 
-export type ServerConfig = GlobalServerConfig & EnvironnementConfig;
+export type ServerConfig = GlobalServerConfig & EnvironmentConfig;

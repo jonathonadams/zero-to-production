@@ -2,7 +2,7 @@ export * from './lib/user';
 export * from './lib/todo';
 export {
   ServerConfig,
-  EnvironnementConfig,
+  EnvironmentConfig,
   GlobalServerConfig,
   ProductionServerConfig,
   TestServerConfig,
