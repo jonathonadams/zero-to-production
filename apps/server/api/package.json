@@ -30,7 +30,7 @@
     "ramda": "^0.27.1"
   },
   "devDependencies": {
-    "@angular/cli": "^10.1.1",
+    "@angular/cli": "^11.0.3",
     "@angular-devkit/architect": "^0.1001.1",
     "@uqt/ng-node": "^1.0.2",
     "typescript": "~4.0.2",

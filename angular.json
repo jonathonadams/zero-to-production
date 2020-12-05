@@ -181,17 +181,16 @@
               "apps/todos/todos-web/src/styles.scss",
               {
                 "input": "libs/common/theme/styles/theme-default.scss",
-                "inject": false,
+                "inject": true,
                 "bundleName": "theme-default"
               },
               {
                 "input": "libs/common/theme/styles/theme-default-dark.scss",
-                "inject": false,
+                "inject": true,
                 "bundleName": "theme-default-dark"
               }
             ],
             "aot": true,
-            "extractCss": true,
             "fileReplacements": [
               {
                 "replace": "libs/common/animations/src/lib/router/router.animations.ts",
@@ -210,7 +209,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -1303,7 +1301,6 @@
             "polyfills": "apps/demo/demo-web/src/polyfills.ts",
             "tsConfig": "apps/demo/demo-web/tsconfig.app.json",
             "aot": true,
-            "extractCss": true,
             "baseHref": "/",
             "assets": [
               "apps/demo/demo-web/src/favicon.ico",
@@ -1319,12 +1316,12 @@
               "apps/demo/demo-web/src/styles.scss",
               {
                 "input": "libs/common/theme/styles/theme-default.scss",
-                "inject": false,
+                "inject": true,
                 "bundleName": "theme-default"
               },
               {
                 "input": "libs/common/theme/styles/theme-default-dark.scss",
-                "inject": false,
+                "inject": true,
                 "bundleName": "theme-default-dark"
               }
             ],
@@ -1347,7 +1344,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
