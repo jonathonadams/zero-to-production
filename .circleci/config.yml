@@ -59,7 +59,7 @@ jobs:
     steps:
       - checkout
       - <<: *deps-restore
-      - run: npm install --no-save --silent
+      - run: HUSKY_SKIP_INSTALL=1 npm install --no-save --silent
       - <<: *deps-cache
 
   build-and-test:

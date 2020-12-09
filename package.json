@@ -32,7 +32,8 @@
     "build:scripts": "tsc -p tools/scripts/tsconfig.json",
     "validate-packages": "node ./tools/scripts/bin/validate-packages.js && git add */package.json",
     "semantic-release": "semantic-release",
-    "nx": "nx"
+    "nx": "nx",
+    "postinstall": "husky install"
   },
   "husky": {
     "hooks": {
@@ -129,7 +130,7 @@
     "codelyzer": "^6.0.1",
     "dotenv": "^8.0.0",
     "firebase-tools": "^8.17.0",
-    "husky": "^4.3.4",
+    "husky": "^5.0.4",
     "jest": "^26.6.3",
     "jest-extended": "^0.11.5",
     "jest-marbles": "^2.5.1",
