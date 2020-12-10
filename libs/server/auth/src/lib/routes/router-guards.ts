@@ -5,13 +5,7 @@ import {
   retrievePublicKeyFromJWKS,
   verifyAccessToken,
 } from '../core';
-import {
-  AuthGuard,
-  VerifyToken,
-  VerifyJWKS,
-  ActiveUserGuard,
-  AuthUser,
-} from '../types';
+import { AuthGuard, VerifyToken, VerifyJWKS, ActiveUserGuard } from '../types';
 
 export type RouterGuard = (
   ctx: ParameterizedContext,

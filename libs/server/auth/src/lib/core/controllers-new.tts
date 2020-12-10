@@ -1,0 +1,152 @@
+import type { AuthConfig } from '@server/env';
+import {
+  Either,
+  EitherMonad,
+  eitherToTask,
+  Task,
+  TaskMonad,
+} from '@workspace/types';
+import type {
+  Credentials,
+  IError,
+  KoaTask,
+  UserDocument,
+  UserModel,
+} from './types';
+import { compare } from './auth';
+import { createAccessToken } from './tokens';
+import type { ParameterizedContext } from 'koa';
+
+const { Left, Right } = Either;
+
+function checkCredentials(
+  username?: string,
+  password?: string
+): EitherMonad<IError | Credentials> {
+  return !username || !password
+    ? Left({
+        code: 401,
+        message: 'Username and password must be provided',
+      })
+    : Right({ username, password });
+}
+
+function retrieveUser({ findByUsername }: UserModel) {
+  return ({ username }: Credentials) => {
+    return Task<IError, EitherMonad<UserDocument | IError>>((rej, res) => {
+      findByUsername(username)
+        .then((user) => {
+          res(user === null ? Left({ code: 401 }) : Right(user));
+        })
+        .catch(rej);
+    });
+  };
+}
+
+function userIsActive(user: UserDocument): EitherMonad<IError | UserDocument> {
+  return user.active !== true
+    ? Left<IError>({ code: 401 })
+    : Right<UserDocument>(user);
+}
+
+function comparePassword(pwd: string, user: UserDocument) {
+  return Task<IError, EitherMonad<UserDocument | IError>>((rej, res) => {
+    compare(pwd, user.hashedPassword)
+      .then((same) => {
+        res(same !== true ? Left({ code: 401 }) : Right(user));
+      })
+      .catch((err) => {
+        rej({ code: 401, message: err });
+      });
+  });
+}
+
+export function setupLogin(CONFIG: AuthConfig, User: UserModel) {
+  const signAccessToken = createAccessToken(CONFIG.ACCESS_TOKEN);
+  const findUser = retrieveUser(User);
+
+  return ({ username, password }: Credentials): TaskMonad<IError, KoaTask> =>
+    // Task<Either<credentials} :: Credentials>>
+    Task.of<IError, EitherMonad<Credentials | IError>>(
+      checkCredentials(username, password)
+    )
+      // Task<credentials} :: Credentials>
+      .chain(eitherToTask)
+      // Task<Either<user :: UserDocument>>
+      .chain(findUser)
+      // Task<user :: UserDocument>
+      .chain(eitherToTask)
+      // Task<Either<activeUser :: UserDocument>>
+      .map(userIsActive)
+      // Task<activeUser :: UserDocument>
+      .chain(eitherToTask)
+      // Task<Either<validUser :: UserDocument>>
+      .chain((activeUser) => comparePassword(password, activeUser))
+      // Task<validUser :: UserDocument>
+      .chain(eitherToTask)
+      // Task<token :: string>
+      .map(signAccessToken)
+      // Task<{accessToken :: string, expiredIn :: number }>
+      .map((accessToken) => ({
+        accessToken,
+        expiresIn: CONFIG.ACCESS_TOKEN.options.expiresIn,
+      }))
+      // Task<KoaTask>
+      .map((success) => ({ code: 200, body: success }));
+}
+
+export function executeKoaTask(
+  task: TaskMonad<IError, KoaTask>,
+  ctx: ParameterizedContext
+) {
+  return new Promise((res) => {
+    task.fork(
+      function onReject({ code, message }) {
+        ctx.status = code;
+        res(message);
+      },
+      function onSuccess({ code, body }) {
+        ctx.status = code;
+        ctx.body = body;
+        res(body);
+      }
+    );
+  });
+}
+
+export function login(
+  loginTask: ({ username, password }: Credentials) => TaskMonad<IError, KoaTask>
+): Middleware {
+  return (ctx) => {
+    const {
+      username,
+      password,
+    }: { username: string; password: string } = (ctx.request as any).body;
+
+    // Task monad is a lazy promise... nothing happens until you fork it!!
+    const task = loginTask({ username, password });
+
+    return executeKoaTask(task, ctx);
+  };
+}
+
+export function createAuthModule({ AUTH }: ServerConfig, db: Firestore) {
+  const router = new Router({
+    prefix: AUTH.ROUTE_PREFIX,
+  });
+
+  const users = db.collection('users');
+
+  const guards = createAuthGuards(users, AUTH);
+
+  const User = createUser(users);
+
+  const loginTask = setupLogin(AUTH, User);
+
+  router.post('/login', login(loginTask));
+
+  return {
+    routes: router.routes(),
+    guards,
+  };
+}

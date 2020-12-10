@@ -23,24 +23,24 @@ export const refreshSecret = 'super-secret';
 
 export function mockRegistrationConfig(
   email: jest.Mock<any, any> = jest.fn()
-): RegisterController<AuthUser, Verify> {
+): RegisterController {
   return {
-    User: (MockAuthUserModel as unknown) as AuthUserModel<AuthUser>,
-    Verify: (MockVerifyModel as unknown) as VerifyModel<Verify>,
+    User: (MockAuthUserModel as unknown) as AuthUserModel,
+    Verify: (MockVerifyModel as unknown) as VerifyModel,
     verifyEmail: email,
   };
 }
 
-export function mockVerificationConfig(): VerifyController<AuthUser, Verify> {
+export function mockVerificationConfig(): VerifyController {
   return {
-    User: (MockAuthUserModel as unknown) as AuthUserModel<AuthUser>,
-    Verify: (MockVerifyModel as unknown) as VerifyModel<Verify>,
+    User: (MockAuthUserModel as unknown) as AuthUserModel,
+    Verify: (MockVerifyModel as unknown) as VerifyModel,
   };
 }
 
-export function mockAuthorizeConfig(): AuthorizeController<AuthUser, Refresh> {
+export function mockAuthorizeConfig(): AuthorizeController {
   return {
-    User: (MockAuthUserModel as unknown) as AuthUserModel<AuthUser>,
+    User: (MockAuthUserModel as unknown) as AuthUserModel,
     access: {
       expireTime: 100000,
       issuer,
@@ -53,11 +53,11 @@ export function mockAuthorizeConfig(): AuthorizeController<AuthUser, Refresh> {
       issuer,
       audience,
     },
-    Refresh: (MockRefreshModel as unknown) as RefreshModel<Refresh>,
+    Refresh: (MockRefreshModel as unknown) as RefreshModel,
   };
 }
 
-export function mockRefreshTokenConfig(): RefreshController<Refresh> {
+export function mockRefreshTokenConfig(): RefreshController {
   return {
     access: {
       privateKey,
@@ -71,12 +71,12 @@ export function mockRefreshTokenConfig(): RefreshController<Refresh> {
       audience,
       issuer,
     },
-    Refresh: (MockRefreshModel as unknown) as RefreshModel<Refresh>,
+    Refresh: (MockRefreshModel as unknown) as RefreshModel,
   };
 }
 
-export function mockRevokeConfig(): RevokeController<Refresh> {
+export function mockRevokeConfig(): RevokeController {
   return {
-    Refresh: (MockRefreshModel as unknown) as RefreshModel<Refresh>,
+    Refresh: (MockRefreshModel as unknown) as RefreshModel,
   };
 }

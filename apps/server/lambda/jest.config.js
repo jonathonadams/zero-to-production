@@ -6,5 +6,5 @@ module.exports = {
   testEnvironment: 'node',
   preset: '../../../jest.config.js',
   coverageDirectory: '../../../coverage/apps/server/lambda',
-  globals: { 'ts-jest': { tsConfig: '<rootDir>/tsconfig.spec.json' } },
+  globals: { 'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' } },
 };

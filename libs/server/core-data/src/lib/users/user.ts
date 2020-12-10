@@ -74,16 +74,22 @@ export class UserClass extends Model {
   static findByUserId(id: string | undefined): Promise<IUserDocument | null> {
     return super.findById(id).exec();
   }
+
+  static deleteById(id: string): Promise<boolean> {
+    return this.deleteOne({ id })
+      .exec()
+      .then(({ ok, n }) => ok === 1);
+  }
 }
 
 userSchema.loadClass(UserClass);
 
 export function createUserModel(con: Connection) {
-  con.model<IUserDocument, IUserModel>(userDbKey, userSchema);
+  con.model<IUserDocument>(userDbKey, userSchema);
 }
 
 export function getUserModel(con: Connection): IUserModel {
-  return con.model<IUserDocument, IUserModel>(userDbKey);
+  return con.model<IUserDocument>(userDbKey) as IUserModel;
 }
 
 export interface IUserDocument extends IUser, Document {
@@ -94,4 +100,5 @@ export interface IUserModel extends Model<IUserDocument> {
   findByUsername(username: string): Promise<IUserDocument | null>;
   findByEmail(username: string): Promise<IUserDocument | null>;
   findByUserId(id: string | undefined): Promise<IUserDocument | null>;
+  deleteById(id: string): Promise<boolean>;
 }

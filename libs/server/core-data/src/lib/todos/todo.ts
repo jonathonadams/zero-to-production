@@ -47,11 +47,11 @@ todoSchema.post('findOneAndRemove', async (doc: ITodoDocument) => {
 });
 
 export function createTodoModel(con: Connection) {
-  con.model<ITodoDocument, ITodoModel>(todoDbKey, todoSchema);
+  con.model<ITodoDocument>(todoDbKey, todoSchema);
 }
 
 export function getTodoModel(con: Connection): ITodoModel {
-  return con.model<ITodoDocument, ITodoModel>(todoDbKey);
+  return con.model<ITodoDocument>(todoDbKey);
 }
 
 export interface ITodoDocument extends ITodo, Document {

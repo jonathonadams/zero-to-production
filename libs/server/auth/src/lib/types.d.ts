@@ -1,3 +1,4 @@
+import type { Query } from 'mongoose';
 /**
  * Interfaces for each of the model.
  *
@@ -40,6 +41,7 @@ export interface RefreshModel {
     ok?: number | undefined;
     n?: number | undefined;
   }>;
+  deleteById(id: string): Promise<boolean>;
 }
 
 // Refresh Token
@@ -48,21 +50,21 @@ export interface Refresh {
   user: AuthUser;
   token: string;
   save(): Promise<this>;
-  remove(): Promise<this>;
 }
 
 // Verification Token Model -  Used for email verification
 export interface VerifyModel {
   new (token: any): Verify;
   findByToken(token: string): Promise<Verify | null>;
+  deleteById(id: string): Promise<boolean>;
 }
 
 // Verification Token
 export interface Verify {
+  id: string;
   userId: AuthUser | string;
   token: string;
   save(): Promise<this>;
-  remove(): Promise<this>;
 }
 
 // -------------------------------------

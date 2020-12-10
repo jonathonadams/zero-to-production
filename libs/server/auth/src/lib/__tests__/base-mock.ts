@@ -24,6 +24,15 @@ export abstract class BaseMockModel<T> {
     return null;
   }
 
+  static async deleteById(id: string) {
+    if (this._model && this._model._details.id === id) {
+      this._model = null;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   static findOne(details: { [prop: string]: any }) {
     const model = this._model;
     return {
@@ -86,6 +95,4 @@ export abstract class BaseMockModel<T> {
     }
     return Promise.resolve(this._details);
   }
-
-  abstract async remove(): Promise<this>;
 }

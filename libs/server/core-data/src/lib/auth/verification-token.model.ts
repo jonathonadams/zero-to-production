@@ -38,6 +38,7 @@ export interface IVerificationTokenDocument extends Document {
 export interface IVerificationTokenModel
   extends Model<IVerificationTokenDocument> {
   findByToken(token: string): Promise<IVerificationTokenDocument | null>;
+  deleteById(id: string): Promise<boolean>;
 }
 
 export class VerificationTokenClass extends Model {
@@ -48,21 +49,25 @@ export class VerificationTokenClass extends Model {
       token,
     }).exec();
   }
+
+  static deleteById(id: string): Promise<boolean> {
+    return this.deleteOne({ id })
+      .exec()
+      .then(({ ok, n }) => ok === 1);
+  }
 }
 
 verificationTokenSchema.loadClass(VerificationTokenClass);
 
 export function createVerificationTokenModel(con: Connection) {
-  con.model<IVerificationTokenDocument, IVerificationTokenModel>(
+  con.model<IVerificationTokenDocument>(
     verificationTokenDbKey,
     verificationTokenSchema
   );
 }
 
-export function getVerificationTokenModel(
-  con: Connection
-): IVerificationTokenModel {
-  return con.model<IVerificationTokenDocument, IVerificationTokenModel>(
+export function getVerificationTokenModel(con: Connection) {
+  return con.model<IVerificationTokenDocument>(
     verificationTokenDbKey
-  );
+  ) as IVerificationTokenModel;
 }

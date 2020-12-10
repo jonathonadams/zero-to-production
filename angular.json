@@ -1375,7 +1375,6 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "baseHref": "/",
             "browserTarget": "demo-web:build"
           },
           "configurations": {

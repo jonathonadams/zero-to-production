@@ -254,7 +254,7 @@ describe('Router - Auth Guards', () => {
       MockAuthUserModel.userToRespondWith = mockUser;
       await expect(
         verifyActiveUser({
-          User: (MockAuthUserModel as unknown) as AuthUserModel<AuthUser>,
+          User: (MockAuthUserModel as unknown) as AuthUserModel,
         })(
           ({ user: { sub: id } } as unknown) as Koa.ParameterizedContext,
           nextSpy
@@ -282,7 +282,7 @@ describe('Router - Auth Guards', () => {
 
       await expect(
         verifyActiveUser({
-          User: (MockAuthUserModel as unknown) as AuthUserModel<AuthUser>,
+          User: (MockAuthUserModel as unknown) as AuthUserModel,
         })(
           ({ user: { sub: wrongId } } as unknown) as Koa.ParameterizedContext,
           nextSpy
@@ -308,7 +308,7 @@ describe('Router - Auth Guards', () => {
       MockAuthUserModel.userToRespondWith = mockUser;
       await expect(
         verifyActiveUser({
-          User: (MockAuthUserModel as unknown) as AuthUserModel<AuthUser>,
+          User: (MockAuthUserModel as unknown) as AuthUserModel,
         })(
           ({ user: { sub: id } } as unknown) as Koa.ParameterizedContext,
           nextSpy

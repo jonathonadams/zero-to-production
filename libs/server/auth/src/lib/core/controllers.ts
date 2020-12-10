@@ -1,4 +1,4 @@
-import { randomBytes } from 'crypto';
+import { randomBytes, Verify } from 'crypto';
 import { compare, hash } from 'bcryptjs';
 import { badImplementation, unauthorized, badRequest } from '@hapi/boom';
 import { signAccessToken, signRefreshToken } from './tokens';
@@ -96,7 +96,7 @@ export function setupVerifyController({
     /**
      * Update the user status to valid, and remove the token from the db.
      */
-    await Promise.all([user.save(), verificationToken.remove()]);
+    await Promise.all([user.save(), Token.deleteById(verificationToken.id)]);
 
     return { message: `User with ${user.email} has been verified` };
   };
@@ -175,7 +175,7 @@ export function setupRefreshAccessTokenController(config: RefreshController) {
 
     // revoke refreshToken if user is inactive
     if (savedToken.user.active !== true) {
-      await savedToken.remove();
+      await Token.deleteById(savedToken.id);
       setRefreshTokenCookie(cookies);
       return { expiresIn: null, token: null };
     }
@@ -203,7 +203,7 @@ export function setupRevokeRefreshTokenController({
     const refreshToken = await Token.findByToken(token);
 
     if (refreshToken !== null) {
-      await refreshToken.remove();
+      await Token.deleteById(refreshToken.id);
     }
 
     return { success: true };
