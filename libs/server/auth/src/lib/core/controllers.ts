@@ -1,4 +1,4 @@
-import { randomBytes, Verify } from 'crypto';
+import { randomBytes } from 'crypto';
 import { compare, hash } from 'bcryptjs';
 import { badImplementation, unauthorized, badRequest } from '@hapi/boom';
 import { signAccessToken, signRefreshToken } from './tokens';
