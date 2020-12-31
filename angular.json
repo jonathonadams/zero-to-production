@@ -39,7 +39,10 @@
               "apps/server/api/tsconfig.app.json",
               "apps/server/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/server/api/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/server/api/**/*"
+            ]
           }
         },
         "test": {
@@ -47,7 +50,10 @@
           "options": {
             "jestConfig": "apps/server/api/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/server/api"
+          ]
         }
       }
     },
@@ -84,7 +90,10 @@
               "maxWorkers": 2,
               "memoryLimit": 1024
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/architect:concat",
@@ -142,7 +151,10 @@
               "apps/server/lambda/tsconfig.app.json",
               "apps/server/lambda/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/server/lambda/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/server/lambda/**/*"
+            ]
           }
         },
         "test": {
@@ -150,7 +162,10 @@
           "options": {
             "jestConfig": "apps/server/lambda/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/server/lambda"
+          ]
         }
       }
     },
@@ -228,7 +243,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -254,7 +272,10 @@
               "apps/todos/todos-web/tsconfig.app.json",
               "apps/todos/todos-web/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/todos/todos-web/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/todos/todos-web/**/*"
+            ]
           }
         },
         "test": {
@@ -262,7 +283,10 @@
           "options": {
             "jestConfig": "apps/todos/todos-web/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/todos/todos-web"
+          ]
         }
       }
     },
@@ -288,7 +312,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/todos/todos-web-e2e/tsconfig.e2e.json",
-            "exclude": ["!apps/todos/todos-web-e2e/**/*"]
+            "exclude": [
+              "!apps/todos/todos-web-e2e/**/*"
+            ]
           }
         }
       }
@@ -302,8 +328,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/tests/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/tests/**/*"]
+            "tsConfig": [
+              "libs/tests/tsconfig.lib.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/tests/**/*"
+            ]
           }
         }
       }
@@ -321,7 +352,10 @@
               "libs/data/tsconfig.lib.json",
               "libs/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/data/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/data/**/*"
+            ]
           }
         }
       }
@@ -339,7 +373,10 @@
               "libs/server/auth/tsconfig.lib.json",
               "libs/server/auth/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/server/auth/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/server/auth/**/*"
+            ]
           }
         },
         "test": {
@@ -347,7 +384,10 @@
           "options": {
             "jestConfig": "libs/server/auth/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/server/auth"
+          ]
         }
       }
     },
@@ -364,7 +404,10 @@
               "libs/server/middleware/tsconfig.lib.json",
               "libs/server/middleware/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/server/middleware/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/server/middleware/**/*"
+            ]
           }
         },
         "test": {
@@ -372,7 +415,10 @@
           "options": {
             "jestConfig": "libs/server/middleware/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/server/middleware"
+          ]
         }
       }
     },
@@ -389,7 +435,10 @@
               "libs/server/core-data/tsconfig.lib.json",
               "libs/server/core-data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/server/core-data/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/server/core-data/**/*"
+            ]
           }
         },
         "test": {
@@ -397,7 +446,10 @@
           "options": {
             "jestConfig": "libs/server/core-data/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/server/core-data"
+          ]
         }
       }
     },
@@ -414,7 +466,10 @@
               "libs/server/graphql/tsconfig.lib.json",
               "libs/server/graphql/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/server/graphql/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/server/graphql/**/*"
+            ]
           }
         },
         "test": {
@@ -422,7 +477,10 @@
           "options": {
             "jestConfig": "libs/server/graphql/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/server/graphql"
+          ]
         }
       }
     },
@@ -439,7 +497,10 @@
               "libs/server/utils/tsconfig.lib.json",
               "libs/server/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/server/utils/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/server/utils/**/*"
+            ]
           }
         },
         "test": {
@@ -447,7 +508,10 @@
           "options": {
             "jestConfig": "libs/server/utils/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/server/utils"
+          ]
         }
       }
     },
@@ -464,7 +528,10 @@
               "libs/common/data-access/tsconfig.lib.json",
               "libs/common/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/data-access/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/data-access/**/*"
+            ]
           }
         },
         "test": {
@@ -472,7 +539,10 @@
           "options": {
             "jestConfig": "libs/common/data-access/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/data-access"
+          ]
         }
       }
     },
@@ -500,7 +570,10 @@
           "options": {
             "jestConfig": "libs/common/auth/data-access/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/auth/data-access"
+          ]
         }
       }
     },
@@ -528,7 +601,10 @@
           "options": {
             "jestConfig": "libs/common/auth/components/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/auth/components"
+          ]
         }
       },
       "schematics": {
@@ -550,7 +626,10 @@
               "libs/common/router/tsconfig.lib.json",
               "libs/common/router/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/router/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/router/**/*"
+            ]
           }
         }
       },
@@ -584,7 +663,10 @@
           "options": {
             "jestConfig": "libs/shared/users/data-access/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/shared/users/data-access"
+          ]
         }
       }
     },
@@ -601,7 +683,10 @@
               "libs/shared/dashboard/tsconfig.lib.json",
               "libs/shared/dashboard/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/dashboard/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/dashboard/**/*"
+            ]
           }
         },
         "test": {
@@ -609,7 +694,10 @@
           "options": {
             "jestConfig": "libs/shared/dashboard/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/shared/dashboard"
+          ]
         }
       },
       "schematics": {
@@ -642,7 +730,10 @@
           "options": {
             "jestConfig": "libs/common/dynamic-module-loading/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/dynamic-module-loading"
+          ]
         }
       },
       "schematics": {
@@ -675,7 +766,10 @@
           "options": {
             "jestConfig": "libs/common/utils/notifications/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/utils/notifications"
+          ]
         }
       },
       "schematics": {
@@ -697,7 +791,10 @@
               "libs/common/utils/overlay/tsconfig.lib.json",
               "libs/common/utils/overlay/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/utils/overlay/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/utils/overlay/**/*"
+            ]
           }
         },
         "test": {
@@ -705,7 +802,10 @@
           "options": {
             "jestConfig": "libs/common/utils/overlay/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/utils/overlay"
+          ]
         }
       },
       "schematics": {
@@ -738,7 +838,10 @@
           "options": {
             "jestConfig": "libs/common/utils/service-worker/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/utils/service-worker"
+          ]
         }
       },
       "schematics": {
@@ -760,7 +863,10 @@
               "libs/common/utils/storage/tsconfig.lib.json",
               "libs/common/utils/storage/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/utils/storage/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/utils/storage/**/*"
+            ]
           }
         },
         "test": {
@@ -768,7 +874,10 @@
           "options": {
             "jestConfig": "libs/common/utils/storage/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/utils/storage"
+          ]
         }
       },
       "schematics": {
@@ -790,7 +899,10 @@
               "libs/common/theme/tsconfig.lib.json",
               "libs/common/theme/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/theme/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/theme/**/*"
+            ]
           }
         },
         "test": {
@@ -798,7 +910,10 @@
           "options": {
             "jestConfig": "libs/common/theme/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/theme"
+          ]
         }
       },
       "schematics": {}
@@ -827,7 +942,10 @@
           "options": {
             "jestConfig": "libs/common/utils/media-query/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/utils/media-query"
+          ]
         }
       },
       "schematics": {
@@ -849,7 +967,10 @@
               "libs/todos/feature-shell/tsconfig.lib.json",
               "libs/todos/feature-shell/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/todos/feature-shell/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/todos/feature-shell/**/*"
+            ]
           }
         },
         "test": {
@@ -857,7 +978,10 @@
           "options": {
             "jestConfig": "libs/todos/feature-shell/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/todos/feature-shell"
+          ]
         }
       },
       "schematics": {
@@ -879,7 +1003,10 @@
               "libs/todos/data-access/tsconfig.lib.json",
               "libs/todos/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/todos/data-access/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/todos/data-access/**/*"
+            ]
           }
         },
         "test": {
@@ -887,7 +1014,10 @@
           "options": {
             "jestConfig": "libs/todos/data-access/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/todos/data-access"
+          ]
         }
       },
       "schematics": {}
@@ -905,7 +1035,10 @@
               "libs/todos/todo-detail/tsconfig.lib.json",
               "libs/todos/todo-detail/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/todos/todo-detail/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/todos/todo-detail/**/*"
+            ]
           }
         },
         "test": {
@@ -913,7 +1046,10 @@
           "options": {
             "jestConfig": "libs/todos/todo-detail/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/todos/todo-detail"
+          ]
         }
       },
       "schematics": {
@@ -935,7 +1071,10 @@
               "libs/todos/all-todos/tsconfig.lib.json",
               "libs/todos/all-todos/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/todos/all-todos/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/todos/all-todos/**/*"
+            ]
           }
         },
         "test": {
@@ -943,7 +1082,10 @@
           "options": {
             "jestConfig": "libs/todos/all-todos/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/todos/all-todos"
+          ]
         }
       },
       "schematics": {
@@ -965,7 +1107,10 @@
               "libs/common/animations/tsconfig.lib.json",
               "libs/common/animations/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/animations/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/animations/**/*"
+            ]
           }
         },
         "test": {
@@ -973,7 +1118,10 @@
           "options": {
             "jestConfig": "libs/common/animations/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/animations"
+          ]
         }
       },
       "schematics": {
@@ -995,7 +1143,10 @@
               "libs/common/dynamic-form/tsconfig.lib.json",
               "libs/common/dynamic-form/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/dynamic-form/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/dynamic-form/**/*"
+            ]
           }
         },
         "test": {
@@ -1003,7 +1154,10 @@
           "options": {
             "jestConfig": "libs/common/dynamic-form/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/dynamic-form"
+          ]
         }
       },
       "schematics": {
@@ -1036,7 +1190,10 @@
           "options": {
             "jestConfig": "libs/common/dynamic-form-material-components/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/dynamic-form-material-components"
+          ]
         }
       },
       "schematics": {
@@ -1058,7 +1215,10 @@
               "libs/common/form-builder/tsconfig.lib.json",
               "libs/common/form-builder/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/form-builder/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/form-builder/**/*"
+            ]
           }
         },
         "test": {
@@ -1066,7 +1226,10 @@
           "options": {
             "jestConfig": "libs/common/form-builder/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/form-builder"
+          ]
         }
       },
       "schematics": {
@@ -1088,7 +1251,10 @@
               "libs/common/grid/tsconfig.lib.json",
               "libs/common/grid/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/grid/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/grid/**/*"
+            ]
           }
         },
         "test": {
@@ -1096,7 +1262,10 @@
           "options": {
             "jestConfig": "libs/common/grid/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/grid"
+          ]
         }
       },
       "schematics": {
@@ -1118,7 +1287,10 @@
               "libs/common/toolbar-menu/tsconfig.lib.json",
               "libs/common/toolbar-menu/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/toolbar-menu/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/toolbar-menu/**/*"
+            ]
           }
         },
         "test": {
@@ -1126,7 +1298,10 @@
           "options": {
             "jestConfig": "libs/common/toolbar-menu/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/toolbar-menu"
+          ]
         }
       },
       "schematics": {
@@ -1148,7 +1323,10 @@
               "libs/common/ui/layouts/tsconfig.lib.json",
               "libs/common/ui/layouts/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/ui/layouts/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/ui/layouts/**/*"
+            ]
           }
         },
         "test": {
@@ -1156,7 +1334,10 @@
           "options": {
             "jestConfig": "libs/common/ui/layouts/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/ui/layouts"
+          ]
         }
       },
       "schematics": {
@@ -1178,7 +1359,10 @@
               "libs/common/ui/buttons/tsconfig.lib.json",
               "libs/common/ui/buttons/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/ui/buttons/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/ui/buttons/**/*"
+            ]
           }
         },
         "test": {
@@ -1186,7 +1370,10 @@
           "options": {
             "jestConfig": "libs/common/ui/buttons/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/ui/buttons"
+          ]
         }
       },
       "schematics": {
@@ -1208,7 +1395,10 @@
               "libs/common/ui/card/tsconfig.lib.json",
               "libs/common/ui/card/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/ui/card/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/ui/card/**/*"
+            ]
           }
         },
         "test": {
@@ -1216,7 +1406,10 @@
           "options": {
             "jestConfig": "libs/common/ui/card/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/ui/card"
+          ]
         }
       },
       "schematics": {
@@ -1238,7 +1431,10 @@
               "libs/common/side-nav/tsconfig.lib.json",
               "libs/common/side-nav/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/side-nav/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/side-nav/**/*"
+            ]
           }
         },
         "test": {
@@ -1246,7 +1442,10 @@
           "options": {
             "jestConfig": "libs/common/side-nav/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/side-nav"
+          ]
         }
       },
       "schematics": {
@@ -1268,7 +1467,10 @@
               "libs/common/ui/toolbar/tsconfig.lib.json",
               "libs/common/ui/toolbar/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/ui/toolbar/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/ui/toolbar/**/*"
+            ]
           }
         },
         "test": {
@@ -1276,7 +1478,10 @@
           "options": {
             "jestConfig": "libs/common/ui/toolbar/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/ui/toolbar"
+          ]
         }
       },
       "schematics": {}
@@ -1370,7 +1575,10 @@
               "index": "apps/demo/demo-web/src/index.original.html",
               "baseHref": "/z2p-firebase/us-central1/universal/"
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -1396,7 +1604,10 @@
               "apps/demo/demo-web/tsconfig.app.json",
               "apps/demo/demo-web/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/demo/demo-web/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/demo/demo-web/**/*"
+            ]
           }
         },
         "test": {
@@ -1404,7 +1615,10 @@
           "options": {
             "jestConfig": "apps/demo/demo-web/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/demo/demo-web"
+          ]
         },
         "server": {
           "builder": "@angular-devkit/build-angular:server",
@@ -1445,7 +1659,10 @@
           "options": {
             "browserTarget": "demo-web:build:production",
             "serverTarget": "demo-web:server:production",
-            "routes": ["/", "/demo"]
+            "routes": [
+              "/",
+              "/demo"
+            ]
           },
           "configurations": {
             "production": {}
@@ -1559,8 +1776,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/demo/demo-web-functions/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!apps/demo/demo-web-functions**"]
+            "tsConfig": [
+              "apps/demo/demo-web-functions/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/demo/demo-web-functions**"
+            ]
           }
         },
         "test": {
@@ -1568,7 +1790,10 @@
           "options": {
             "jestConfig": "apps/demo/demo-web-functions/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/demo/demo-web-functions"
+          ]
         }
       }
     },
@@ -1593,8 +1818,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/demo/demo-web-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/demo/demo-web-e2e/**/*"]
+            "tsConfig": [
+              "apps/demo/demo-web-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/demo/demo-web-e2e/**/*"
+            ]
           }
         }
       }
@@ -1612,7 +1842,10 @@
               "libs/demo/feature-shell/tsconfig.lib.json",
               "libs/demo/feature-shell/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/demo/feature-shell/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/demo/feature-shell/**/*"
+            ]
           }
         },
         "test": {
@@ -1620,7 +1853,10 @@
           "options": {
             "jestConfig": "libs/demo/feature-shell/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/demo/feature-shell"
+          ]
         }
       },
       "schematics": {
@@ -1642,7 +1878,10 @@
               "libs/demo/data-access/tsconfig.lib.json",
               "libs/demo/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/demo/data-access/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/demo/data-access/**/*"
+            ]
           }
         },
         "test": {
@@ -1650,7 +1889,10 @@
           "options": {
             "jestConfig": "libs/demo/data-access/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/demo/data-access"
+          ]
         }
       },
       "schematics": {
@@ -1672,7 +1914,10 @@
               "libs/demo/form-builder/tsconfig.lib.json",
               "libs/demo/form-builder/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/demo/form-builder/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/demo/form-builder/**/*"
+            ]
           }
         },
         "test": {
@@ -1680,7 +1925,10 @@
           "options": {
             "jestConfig": "libs/demo/form-builder/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/demo/form-builder"
+          ]
         }
       },
       "schematics": {
@@ -1702,7 +1950,10 @@
               "libs/demo/theming/tsconfig.lib.json",
               "libs/demo/theming/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/demo/theming/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/demo/theming/**/*"
+            ]
           }
         },
         "test": {
@@ -1710,7 +1961,10 @@
           "options": {
             "jestConfig": "libs/demo/theming/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/demo/theming"
+          ]
         }
       },
       "schematics": {
@@ -1732,7 +1986,10 @@
               "libs/demo/utils/tsconfig.lib.json",
               "libs/demo/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/demo/utils/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/demo/utils/**/*"
+            ]
           }
         }
       },
@@ -1755,7 +2012,10 @@
               "libs/demo/secure-todos/tsconfig.lib.json",
               "libs/demo/secure-todos/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/demo/secure-todos/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/demo/secure-todos/**/*"
+            ]
           }
         },
         "test": {
@@ -1763,7 +2023,10 @@
           "options": {
             "jestConfig": "libs/demo/secure-todos/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/demo/secure-todos"
+          ]
         }
       },
       "schematics": {
@@ -1796,7 +2059,10 @@
           "options": {
             "jestConfig": "libs/demo/lazy-load-scrolling/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/demo/lazy-load-scrolling"
+          ]
         }
       },
       "schematics": {
@@ -1818,7 +2084,10 @@
               "libs/demo/dynamic-form/tsconfig.lib.json",
               "libs/demo/dynamic-form/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/demo/dynamic-form/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/demo/dynamic-form/**/*"
+            ]
           }
         },
         "test": {
@@ -1826,7 +2095,10 @@
           "options": {
             "jestConfig": "libs/demo/dynamic-form/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/demo/dynamic-form"
+          ]
         }
       },
       "schematics": {
@@ -1848,7 +2120,10 @@
               "libs/demo/start-your-own/tsconfig.lib.json",
               "libs/demo/start-your-own/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/demo/start-your-own/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/demo/start-your-own/**/*"
+            ]
           }
         },
         "test": {
@@ -1856,7 +2131,10 @@
           "options": {
             "jestConfig": "libs/demo/start-your-own/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/demo/start-your-own"
+          ]
         }
       },
       "schematics": {
@@ -1878,7 +2156,10 @@
               "libs/demo/guides/tsconfig.lib.json",
               "libs/demo/guides/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/demo/guides/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/demo/guides/**/*"
+            ]
           }
         },
         "test": {
@@ -1886,7 +2167,10 @@
           "options": {
             "jestConfig": "libs/demo/guides/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/demo/guides"
+          ]
         }
       },
       "schematics": {
@@ -1908,7 +2192,10 @@
               "libs/demo/examples/tsconfig.lib.json",
               "libs/demo/examples/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/demo/examples/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/demo/examples/**/*"
+            ]
           }
         },
         "test": {
@@ -1916,7 +2203,10 @@
           "options": {
             "jestConfig": "libs/demo/examples/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/demo/examples"
+          ]
         }
       },
       "schematics": {
@@ -1949,7 +2239,10 @@
           "options": {
             "jestConfig": "libs/common/universal-engine/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/common/universal-engine"
+          ]
         }
       }
     }
