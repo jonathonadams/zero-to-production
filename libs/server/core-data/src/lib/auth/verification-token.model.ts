@@ -6,15 +6,17 @@ import { TSchemaDefinition } from '../interface';
 
 export interface IVerificationToken {
   id: string;
-  userId: IUser;
+  user: IUser;
   token: string;
 }
+
 export const verificationTokenDbKey = 'verificationToken';
 
 export const verificationSchemaDef: TSchemaDefinition<IVerificationToken> = {
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     required: true,
+    ref: 'user',
   },
   token: {
     type: String,
@@ -22,12 +24,9 @@ export const verificationSchemaDef: TSchemaDefinition<IVerificationToken> = {
   },
 };
 
-export const verificationTokenSchema = new Schema<IVerificationToken>(
-  verificationSchemaDef,
-  {
-    ...defaultSchemaOptions,
-  }
-);
+export const verificationTokenSchema = new Schema(verificationSchemaDef, {
+  ...defaultSchemaOptions,
+});
 
 export interface IVerificationTokenDocument extends Document {
   id: string;

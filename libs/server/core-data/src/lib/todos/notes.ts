@@ -17,7 +17,7 @@ export const todoSchemaDefinition: TSchemaDefinition<ITodoNote> = {
   },
 };
 
-export const todoNoteSchema = new Schema<ITodoNote>(todoSchemaDefinition, {
+export const todoNoteSchema = new Schema(todoSchemaDefinition, {
   ...defaultSchemaOptions,
 });
 

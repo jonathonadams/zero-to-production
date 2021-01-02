@@ -47,7 +47,7 @@ const schemaDefinition: TSchemaDefinition<IUser> = {
   },
 };
 
-export const userSchema = new Schema<IUser>(schemaDefinition, {
+export const userSchema = new Schema(schemaDefinition, {
   ...defaultSchemaOptions,
 });
 
