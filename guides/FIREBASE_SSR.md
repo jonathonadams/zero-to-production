@@ -91,7 +91,7 @@ someMethod() {
 
 #### Initialize & Configure Firebase Functions
 
-Because of the limitations of the Firebase Cli as discussed above, there is some setup required to make it work nicely with the Monorepo structure. Rather than create and setup the files manually, a workspace schematic is provided in `tools/schematics/` to scaffold a new _functions_ project and modify our Todos application. To run the schematic run the following:
+Because of the limitations of the Firebase Cli as discussed above, there is some setup required to make it work nicely with the Monorepo structure. Rather than create and setup the files manually, a workspace schematic is provided in `tools/generators/` to scaffold a new _functions_ project and modify our Todos application. To run the schematic run the following:
 
 ```bash
 $ npx nx workspace-schematic universal-firebase --clientProject=todos-web --firebaseProject=<your-firebase-project-name>

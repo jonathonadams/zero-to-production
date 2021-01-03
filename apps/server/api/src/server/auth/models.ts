@@ -3,19 +3,19 @@ import {
   refreshTokenDbKey,
   refreshTokenSchema,
   IRefreshTokenDocument,
-  IRefreshTokenModel,
   verificationTokenDbKey,
   verificationTokenSchema,
   IVerificationTokenDocument,
   IVerificationTokenModel,
+  IRefreshTokenModel,
 } from '@ztp/server/core-data';
 
-export const RefreshToken = model<IRefreshTokenDocument, IRefreshTokenModel>(
+export const RefreshToken = model<IRefreshTokenDocument>(
   refreshTokenDbKey,
   refreshTokenSchema
-);
+) as IRefreshTokenModel;
 
-export const VerificationToken = model<
-  IVerificationTokenDocument,
-  IVerificationTokenModel
->(verificationTokenDbKey, verificationTokenSchema);
+export const VerificationToken = model<IVerificationTokenDocument>(
+  verificationTokenDbKey,
+  verificationTokenSchema
+) as IVerificationTokenModel;

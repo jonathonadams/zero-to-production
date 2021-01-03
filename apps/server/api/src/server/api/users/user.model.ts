@@ -6,4 +6,4 @@ import {
   IUserModel,
 } from '@ztp/server/core-data';
 
-export const User = model<IUserDocument, IUserModel>(userDbKey, userSchema);
+export const User = model<IUserDocument>(userDbKey, userSchema) as IUserModel;

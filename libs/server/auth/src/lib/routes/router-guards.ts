@@ -5,13 +5,7 @@ import {
   retrievePublicKeyFromJWKS,
   verifyAccessToken,
 } from '../core';
-import {
-  AuthGuard,
-  VerifyToken,
-  VerifyJWKS,
-  ActiveUserGuard,
-  AuthUser,
-} from '../types';
+import { AuthGuard, VerifyToken, VerifyJWKS, ActiveUserGuard } from '../types';
 
 export type RouterGuard = (
   ctx: ParameterizedContext,
@@ -23,10 +17,10 @@ export interface RouterGuards {
   verifyIsActive: RouterGuard;
 }
 
-export function getRestGuards<U extends AuthUser>({
+export function getRestGuards({
   authenticate: auth,
   activeUser,
-}: AuthGuard<U>): RouterGuards {
+}: AuthGuard): RouterGuards {
   // Check if using JWKS guards or if public key is provided
   return {
     authenticate: isJWKS(auth) ? authenticate(auth) : authenticateJWKS(auth),
@@ -77,9 +71,7 @@ export function authenticateJWKS(config: VerifyJWKS) {
  * will contain the decoded token, and hence the 'sub' property will be the id
  *
  */
-export function verifyActiveUser<U extends AuthUser>({
-  User,
-}: ActiveUserGuard<U>) {
+export function verifyActiveUser({ User }: ActiveUserGuard) {
   const activeUser = isActiveUser(User);
   return async (ctx: ParameterizedContext, next: () => Promise<any>) => {
     // Set the user on the ctx.user property

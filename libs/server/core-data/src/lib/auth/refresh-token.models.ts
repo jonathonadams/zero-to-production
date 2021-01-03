@@ -27,6 +27,7 @@ export interface IRefreshTokenModel extends Model<IRefreshTokenDocument> {
     ok?: number | undefined;
     n?: number | undefined;
   }>;
+  deleteById(id: string): Promise<boolean>;
 }
 
 /**
@@ -68,19 +69,22 @@ export class RefreshTokenClass extends Model {
   }> {
     return this.deleteMany({ user: id }).exec();
   }
+
+  static deleteById(id: string): Promise<boolean> {
+    return this.deleteOne({ id })
+      .exec()
+      .then(({ ok, n }) => ok === 1);
+  }
 }
 
 refreshTokenSchema.loadClass(RefreshTokenClass);
 
 export function createRefreshTokenModel(con: Connection) {
-  con.model<IRefreshTokenDocument, IRefreshTokenModel>(
-    refreshTokenDbKey,
-    refreshTokenSchema
-  );
+  con.model<IRefreshTokenDocument>(refreshTokenDbKey, refreshTokenSchema);
 }
 
-export function getRefreshTokenModel(con: Connection): IRefreshTokenModel {
-  return con.model<IRefreshTokenDocument, IRefreshTokenModel>(
+export function getRefreshTokenModel(con: Connection) {
+  return con.model<IRefreshTokenDocument>(
     refreshTokenDbKey
-  );
+  ) as IRefreshTokenModel;
 }

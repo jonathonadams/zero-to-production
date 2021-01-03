@@ -1,10 +1,6 @@
 /* istanbul ignore file */
 
-import {
-  GlobalServerConfig,
-  EnvironnementConfig,
-  ServerConfig,
-} from '@ztp/data';
+import { GlobalServerConfig, EnvironmentConfig, ServerConfig } from '@ztp/data';
 import { envToNumber, getEnvVariableOrWarn } from '@ztp/server/utils';
 import { AuthEnv } from '@ztp/server/auth';
 import { devConfig, devAuthConfig } from './development';
@@ -44,7 +40,7 @@ const globalConfig: GlobalServerConfig = {
  *
  * TODO -> Top level await when ts is updated to 3.8
  */
-let environmentSettings: EnvironnementConfig;
+let environmentSettings: EnvironmentConfig;
 export let authConfig: AuthEnv;
 switch (process.env.NODE_ENV) {
   case 'prod':

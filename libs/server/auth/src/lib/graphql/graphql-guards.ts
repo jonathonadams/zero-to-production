@@ -16,7 +16,7 @@ import {
 
 export type TResolver = GraphQLFieldResolver<any, any, any>;
 
-export function getGraphQLGuards<U extends AuthUser>(config: AuthGuard<U>) {
+export function getGraphQLGuards(config: AuthGuard) {
   const { authenticate, verifyIsActive } = createGraphQLGuards(config);
 
   return {
@@ -27,10 +27,10 @@ export function getGraphQLGuards<U extends AuthUser>(config: AuthGuard<U>) {
   };
 }
 
-export function createGraphQLGuards<U extends AuthUser>({
+export function createGraphQLGuards({
   authenticate: auth,
   activeUser,
-}: AuthGuard<U>) {
+}: AuthGuard) {
   // Check if using JWKS or if public key is provided
   const authenticate = isJWKS(auth)
     ? authenticated(auth)
@@ -71,9 +71,7 @@ export function authenticatedJWKS(config: VerifyJWKS) {
  * Verify the user is a valid user in the database
  *
  */
-export function verifyActiveUser<U extends AuthUser>({
-  User,
-}: ActiveUserGuard<U>) {
+export function verifyActiveUser({ User }: ActiveUserGuard) {
   const activeUser = isActiveUser(User);
   return (next: TResolver): TResolver => async (root, args, ctx, info) => {
     ctx.user = await activeUser(ctx.user.sub);

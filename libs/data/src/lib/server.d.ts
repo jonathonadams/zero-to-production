@@ -1,4 +1,4 @@
-import { ConnectionOptions } from 'mongoose';
+import { ConnectOptions } from 'mongoose';
 /*
  * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-connect
  * http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html
@@ -6,13 +6,13 @@ import { ConnectionOptions } from 'mongoose';
 
 export interface GlobalServerConfig {
   port?: number;
-  databaseOptions: ConnectionOptions;
+  databaseOptions: ConnectOptions;
   dbConnectionString?: string;
   production?: boolean;
   sendgridApiKey?: string;
 }
 
-export type EnvironnementConfig =
+export type EnvironmentConfig =
   | ProductionServerConfig
   | DevServerConfig
   | TestServerConfig;
@@ -20,19 +20,19 @@ export type EnvironnementConfig =
 export interface DevServerConfig {
   production: false;
   dbConnectionString: string;
-  databaseOptions: ConnectionOptions;
+  databaseOptions: ConnectOptions;
 }
 
 export interface TestServerConfig {
   production: false;
   dbConnectionString: string;
-  databaseOptions: ConnectionOptions;
+  databaseOptions: ConnectOptions;
 }
 
 export interface ProductionServerConfig {
   production: true;
   dbConnectionString: string;
-  databaseOptions?: ConnectionOptions;
+  databaseOptions?: ConnectOptions;
 }
 
-export type ServerConfig = GlobalServerConfig & EnvironnementConfig;
+export type ServerConfig = GlobalServerConfig & EnvironmentConfig;

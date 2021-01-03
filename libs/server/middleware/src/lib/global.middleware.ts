@@ -1,45 +1,35 @@
-import Koa from 'koa';
-// @ts-ignore
-// import helmet from 'koa-helmet';
-// @ts-ignore
-import compress from 'koa-compress';
+import type { Context, Next } from 'koa';
+import compose from 'koa-compose';
 import bodyParser from 'koa-bodyparser';
 import cors from '@koa/cors';
 import { helmet } from './helmet';
-import { bearerToken } from './bearer-token';
+import { authToken } from './auth-token';
 import { errorHandler } from './err-handler';
 
 // Configure middleware to parse income requests
-export function setupGlobalMiddleware(app: Koa) {
+export const globalMiddleware = compose([
   /**
    * This is a workaround because Koa does not allow you to set the cookie secure flag over http (behind a load balancer)
    */
-  app.use((ctx, next) => {
+  (ctx: Context, next: Next) => {
     ctx.cookies.secure = true;
     return next();
-  });
-
-  app.use(
-    helmet({
-      contentSecurityPolicy: false,
-      expectCt: { enforce: true },
-      hsts: {
-        maxAge: 63072000, // two years
-        preload: true,
-      },
-      xssFilter: false,
-      noSniff: false,
-    })
-  );
-  app.use(compress());
-  app.use(bodyParser());
-  app.use(
-    cors({
-      credentials: true,
-    })
-  );
-  app.use(bearerToken());
-
+  },
+  helmet({
+    contentSecurityPolicy: false,
+    expectCt: { enforce: true },
+    hsts: {
+      maxAge: 63072000, // two years
+      preload: true,
+    },
+    xssFilter: false,
+    noSniff: false,
+  }),
+  bodyParser(),
+  cors({
+    credentials: true,
+  }),
+  authToken(),
   // Custom error handling
-  app.use(errorHandler);
-}
+  errorHandler,
+]);

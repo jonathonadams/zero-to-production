@@ -1,10 +1,10 @@
 import { decode } from 'jsonwebtoken';
 import { unauthorized } from '@hapi/boom';
 import { koaJwtSecret } from 'jwks-rsa';
-import { VerifyJWKS, AuthUserModel, AuthUser, RefreshToken } from '../types';
+import { VerifyJWKS, AuthUserModel, RefreshToken } from '../types';
 import { verifyRefreshToken } from './tokens';
 
-export function isActiveUser<U extends AuthUser>(User: AuthUserModel<U>) {
+export function isActiveUser(User: AuthUserModel) {
   return async (id: string | undefined) => {
     const user = await User.findByUserId(id);
     if (!user || !user.active) throw unauthorized(null, 'Bearer');

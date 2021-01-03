@@ -1,4 +1,4 @@
-import { Model, Document } from 'mongoose';
+import type { Model, Document } from 'mongoose';
 import { ObjectId } from 'mongodb';
 import { notFound } from '@hapi/boom';
 import { swapId } from '../utils';
@@ -16,20 +16,20 @@ import { swapId } from '../utils';
 export function createControllers<T extends Document>(model: Model<T>) {
   return {
     // Get All
-    getAll: async (userId?: string) => {
+    getAll: async (userId?: string): Promise<T[]> => {
       const query = model.find();
-      if (userId) query.where({ userId });
-      const resources: T[] = await query.lean<T>().exec();
+      if (userId) query.where('userId').equals(userId);
+      const resources = await query.lean().exec();
 
       return resources.map<T>(swapId);
     },
 
     // Get an individual resource
-    getOne: async (id: ObjectId, userId?: string) => {
+    getOne: async (id: ObjectId, userId?: string): Promise<T> => {
       const query = model.findById(id);
-      if (userId) query.where({ userId });
+      if (userId) query.where('userId').equals(userId);
 
-      const resource = await query.lean<T | null>().exec();
+      const resource = await query.lean().exec();
 
       if (!resource)
         throw notFound('Cannot find a resource with the supplied parameters.');
@@ -44,9 +44,13 @@ export function createControllers<T extends Document>(model: Model<T>) {
     },
 
     // Update a resource
-    updateOne: async (id: ObjectId, values: any, userId?: string) => {
+    updateOne: async (
+      id: ObjectId,
+      values: any,
+      userId?: string
+    ): Promise<T> => {
       const query = model.findByIdAndUpdate(id, values, { new: true });
-      if (userId) query.where({ userId });
+      if (userId) query.where('userId').equals(userId);
       const resource = await query.lean().exec();
 
       if (!resource)
@@ -55,9 +59,9 @@ export function createControllers<T extends Document>(model: Model<T>) {
     },
 
     // Remove one
-    removeOne: async (id: ObjectId, userId?: string) => {
+    removeOne: async (id: ObjectId, userId?: string): Promise<T> => {
       const query = model.findByIdAndRemove(id);
-      if (userId) query.where({ userId });
+      if (userId) query.where('userId').equals(userId);
 
       // Don't use lean for this, pre/post hooks might require 'mongoose' object
       // to delete/update etc other resources

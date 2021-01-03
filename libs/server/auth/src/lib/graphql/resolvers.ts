@@ -8,8 +8,6 @@ import {
 import {
   AuthUser,
   VerifyController,
-  Verify,
-  Refresh,
   AuthorizeController,
   AuthModuleConfig,
   RegisterController,
@@ -27,12 +25,8 @@ export interface AuthResolvers extends IResolvers {
   };
 }
 
-export function getAuthResolvers<
-  U extends AuthUser,
-  V extends Verify,
-  R extends Refresh
->(config: AuthModuleConfig<U, R, V>): AuthResolvers {
-  const { register, verify, authorize, refresh, revoke } = config;
+export function getAuthResolvers(config: AuthModuleConfig): AuthResolvers {
+  const { register, verify, authorize } = config;
 
   return {
     Query: {
@@ -45,8 +39,8 @@ export function getAuthResolvers<
   };
 }
 
-export function registerResolver<U extends AuthUser, V extends Verify>(
-  config: RegisterController<U, V>
+export function registerResolver(
+  config: RegisterController
 ): GraphQLFieldResolver<any, { input: AuthUser }, any> {
   const registerController = setupRegisterController(config);
   return function register(root, args, ctx, i) {
@@ -54,8 +48,8 @@ export function registerResolver<U extends AuthUser, V extends Verify>(
   };
 }
 
-export function verifyResolver<U extends AuthUser, V extends Verify>(
-  config: VerifyController<U, V>
+export function verifyResolver(
+  config: VerifyController
 ): GraphQLFieldResolver<any, { email: string; token: string }, any> {
   const verifyController = setupVerifyController(config);
 
@@ -67,8 +61,8 @@ export function verifyResolver<U extends AuthUser, V extends Verify>(
   };
 }
 
-export function authorizeResolver<U extends AuthUser, R extends Refresh>(
-  config: AuthorizeController<U, R>
+export function authorizeResolver(
+  config: AuthorizeController
 ): GraphQLFieldResolver<
   any,
   { email: string; token: string; cookies: any },

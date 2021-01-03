@@ -17,16 +17,16 @@ export const todoSchemaDefinition: TSchemaDefinition<ITodoNote> = {
   },
 };
 
-export const todoNoteSchema = new Schema<ITodoNote>(todoSchemaDefinition, {
+export const todoNoteSchema = new Schema(todoSchemaDefinition, {
   ...defaultSchemaOptions,
 });
 
 export function createTodoNoteModel(con: Connection) {
-  con.model<ITodoNoteDocument, ITodoNoteModel>(todoNoteDbKey, todoNoteSchema);
+  con.model<ITodoNoteDocument>(todoNoteDbKey, todoNoteSchema);
 }
 
 export function getTodoNoteModel(con: Connection): ITodoNoteModel {
-  return con.model<ITodoNoteDocument, ITodoNoteModel>(todoNoteDbKey);
+  return con.model<ITodoNoteDocument>(todoNoteDbKey);
 }
 
 export interface ITodoNoteDocument extends ITodoNote, Document {

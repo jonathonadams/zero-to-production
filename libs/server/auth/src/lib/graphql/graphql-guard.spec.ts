@@ -253,7 +253,7 @@ describe('GraphQL - Auth Guards', () => {
 
       await expect(
         verifyActiveUser({
-          User: (MockAuthUserModel as unknown) as AuthUserModel<AuthUser>,
+          User: (MockAuthUserModel as unknown) as AuthUserModel,
         })(noOpNext)({}, {}, ctx, {} as GraphQLResolveInfo)
       ).resolves.not.toThrowError();
 
@@ -275,7 +275,7 @@ describe('GraphQL - Auth Guards', () => {
 
       await expect(
         verifyActiveUser({
-          User: (MockAuthUserModel as unknown) as AuthUserModel<AuthUser>,
+          User: (MockAuthUserModel as unknown) as AuthUserModel,
         })(noOpNext)({}, {}, ctx, {} as GraphQLResolveInfo)
       ).rejects.toThrowError('Unauthorized');
 
@@ -300,7 +300,7 @@ describe('GraphQL - Auth Guards', () => {
 
       await expect(
         verifyActiveUser({
-          User: (MockAuthUserModel as unknown) as AuthUserModel<AuthUser>,
+          User: (MockAuthUserModel as unknown) as AuthUserModel,
         })(noOpNext)({}, {}, ctx, {} as GraphQLResolveInfo)
       ).rejects.toThrowError('Unauthorized');
 

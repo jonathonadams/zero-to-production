@@ -16,8 +16,8 @@ import { AuthUser, AuthGuard } from '../../types';
  * If at a later field (or Type), the  '@activeUser` directive is applied, if no checks were done then it would wrap the authenticated
  * middleware, not the other way around as the '@activeUser' middleware requires the '@authenticated' to run first
  */
-export function createAuthDirectives<U extends AuthUser>(
-  config: AuthGuard<U>
+export function createAuthDirectives(
+  config: AuthGuard
 ): { [key in AuthDirectiveName]: typeof SchemaDirectiveVisitor } {
   //
   const { authenticate, verifyIsActive } = createGraphQLGuards(config);

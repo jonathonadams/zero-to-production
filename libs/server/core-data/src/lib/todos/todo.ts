@@ -25,12 +25,9 @@ export const todoSchemaDefinition: TSchemaDefinition<ITodo> = {
   notes: [{ type: Schema.Types.ObjectId, ref: todoNoteDbKey }],
 };
 
-export const todoSchema = new Schema<TSchemaDefinition<ITodo>>(
-  todoSchemaDefinition,
-  {
-    ...defaultSchemaOptions,
-  }
-);
+export const todoSchema = new Schema(todoSchemaDefinition, {
+  ...defaultSchemaOptions,
+});
 
 // the hook 'findOneAndRemove' must line up with the method that is used
 // in the create controllers method
@@ -47,11 +44,11 @@ todoSchema.post('findOneAndRemove', async (doc: ITodoDocument) => {
 });
 
 export function createTodoModel(con: Connection) {
-  con.model<ITodoDocument, ITodoModel>(todoDbKey, todoSchema);
+  con.model<ITodoDocument>(todoDbKey, todoSchema);
 }
 
 export function getTodoModel(con: Connection): ITodoModel {
-  return con.model<ITodoDocument, ITodoModel>(todoDbKey);
+  return con.model<ITodoDocument>(todoDbKey);
 }
 
 export interface ITodoDocument extends ITodo, Document {

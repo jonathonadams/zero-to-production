@@ -47,7 +47,8 @@
           "options": {
             "jestConfig": "apps/server/api/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/server/api"]
         }
       }
     },
@@ -84,7 +85,8 @@
               "maxWorkers": 2,
               "memoryLimit": 1024
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/architect:concat",
@@ -150,7 +152,8 @@
           "options": {
             "jestConfig": "apps/server/lambda/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/server/lambda"]
         }
       }
     },
@@ -181,17 +184,16 @@
               "apps/todos/todos-web/src/styles.scss",
               {
                 "input": "libs/common/theme/styles/theme-default.scss",
-                "inject": false,
+                "inject": true,
                 "bundleName": "theme-default"
               },
               {
                 "input": "libs/common/theme/styles/theme-default-dark.scss",
-                "inject": false,
+                "inject": true,
                 "bundleName": "theme-default-dark"
               }
             ],
             "aot": true,
-            "extractCss": true,
             "fileReplacements": [
               {
                 "replace": "libs/common/animations/src/lib/router/router.animations.ts",
@@ -210,7 +212,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -230,7 +231,8 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -264,7 +266,8 @@
           "options": {
             "jestConfig": "apps/todos/todos-web/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/todos/todos-web"]
         }
       }
     },
@@ -349,7 +352,8 @@
           "options": {
             "jestConfig": "libs/server/auth/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/server/auth"]
         }
       }
     },
@@ -374,7 +378,8 @@
           "options": {
             "jestConfig": "libs/server/middleware/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/server/middleware"]
         }
       }
     },
@@ -399,7 +404,8 @@
           "options": {
             "jestConfig": "libs/server/core-data/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/server/core-data"]
         }
       }
     },
@@ -424,7 +430,8 @@
           "options": {
             "jestConfig": "libs/server/graphql/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/server/graphql"]
         }
       }
     },
@@ -449,7 +456,8 @@
           "options": {
             "jestConfig": "libs/server/utils/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/server/utils"]
         }
       }
     },
@@ -474,7 +482,8 @@
           "options": {
             "jestConfig": "libs/common/data-access/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/data-access"]
         }
       }
     },
@@ -502,7 +511,8 @@
           "options": {
             "jestConfig": "libs/common/auth/data-access/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/auth/data-access"]
         }
       }
     },
@@ -530,7 +540,8 @@
           "options": {
             "jestConfig": "libs/common/auth/components/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/auth/components"]
         }
       },
       "schematics": {
@@ -586,7 +597,8 @@
           "options": {
             "jestConfig": "libs/shared/users/data-access/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/shared/users/data-access"]
         }
       }
     },
@@ -611,7 +623,8 @@
           "options": {
             "jestConfig": "libs/shared/dashboard/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/shared/dashboard"]
         }
       },
       "schematics": {
@@ -644,7 +657,8 @@
           "options": {
             "jestConfig": "libs/common/dynamic-module-loading/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/dynamic-module-loading"]
         }
       },
       "schematics": {
@@ -677,7 +691,8 @@
           "options": {
             "jestConfig": "libs/common/utils/notifications/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/utils/notifications"]
         }
       },
       "schematics": {
@@ -707,7 +722,8 @@
           "options": {
             "jestConfig": "libs/common/utils/overlay/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/utils/overlay"]
         }
       },
       "schematics": {
@@ -740,7 +756,8 @@
           "options": {
             "jestConfig": "libs/common/utils/service-worker/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/utils/service-worker"]
         }
       },
       "schematics": {
@@ -770,7 +787,8 @@
           "options": {
             "jestConfig": "libs/common/utils/storage/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/utils/storage"]
         }
       },
       "schematics": {
@@ -800,7 +818,8 @@
           "options": {
             "jestConfig": "libs/common/theme/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/theme"]
         }
       },
       "schematics": {}
@@ -829,7 +848,8 @@
           "options": {
             "jestConfig": "libs/common/utils/media-query/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/utils/media-query"]
         }
       },
       "schematics": {
@@ -859,7 +879,8 @@
           "options": {
             "jestConfig": "libs/todos/feature-shell/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/todos/feature-shell"]
         }
       },
       "schematics": {
@@ -889,7 +910,8 @@
           "options": {
             "jestConfig": "libs/todos/data-access/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/todos/data-access"]
         }
       },
       "schematics": {}
@@ -915,7 +937,8 @@
           "options": {
             "jestConfig": "libs/todos/todo-detail/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/todos/todo-detail"]
         }
       },
       "schematics": {
@@ -945,7 +968,8 @@
           "options": {
             "jestConfig": "libs/todos/all-todos/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/todos/all-todos"]
         }
       },
       "schematics": {
@@ -975,7 +999,8 @@
           "options": {
             "jestConfig": "libs/common/animations/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/animations"]
         }
       },
       "schematics": {
@@ -1005,7 +1030,8 @@
           "options": {
             "jestConfig": "libs/common/dynamic-form/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/dynamic-form"]
         }
       },
       "schematics": {
@@ -1038,7 +1064,8 @@
           "options": {
             "jestConfig": "libs/common/dynamic-form-material-components/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/dynamic-form-material-components"]
         }
       },
       "schematics": {
@@ -1068,7 +1095,8 @@
           "options": {
             "jestConfig": "libs/common/form-builder/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/form-builder"]
         }
       },
       "schematics": {
@@ -1098,7 +1126,8 @@
           "options": {
             "jestConfig": "libs/common/grid/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/grid"]
         }
       },
       "schematics": {
@@ -1128,7 +1157,8 @@
           "options": {
             "jestConfig": "libs/common/toolbar-menu/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/toolbar-menu"]
         }
       },
       "schematics": {
@@ -1158,7 +1188,8 @@
           "options": {
             "jestConfig": "libs/common/ui/layouts/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/ui/layouts"]
         }
       },
       "schematics": {
@@ -1188,7 +1219,8 @@
           "options": {
             "jestConfig": "libs/common/ui/buttons/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/ui/buttons"]
         }
       },
       "schematics": {
@@ -1218,7 +1250,8 @@
           "options": {
             "jestConfig": "libs/common/ui/card/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/ui/card"]
         }
       },
       "schematics": {
@@ -1248,7 +1281,8 @@
           "options": {
             "jestConfig": "libs/common/side-nav/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/side-nav"]
         }
       },
       "schematics": {
@@ -1278,7 +1312,8 @@
           "options": {
             "jestConfig": "libs/common/ui/toolbar/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/ui/toolbar"]
         }
       },
       "schematics": {}
@@ -1303,7 +1338,6 @@
             "polyfills": "apps/demo/demo-web/src/polyfills.ts",
             "tsConfig": "apps/demo/demo-web/tsconfig.app.json",
             "aot": true,
-            "extractCss": true,
             "baseHref": "/",
             "assets": [
               "apps/demo/demo-web/src/favicon.ico",
@@ -1319,12 +1353,12 @@
               "apps/demo/demo-web/src/styles.scss",
               {
                 "input": "libs/common/theme/styles/theme-default.scss",
-                "inject": false,
+                "inject": true,
                 "bundleName": "theme-default"
               },
               {
                 "input": "libs/common/theme/styles/theme-default-dark.scss",
-                "inject": false,
+                "inject": true,
                 "bundleName": "theme-default-dark"
               }
             ],
@@ -1347,7 +1381,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -1374,12 +1407,12 @@
               "index": "apps/demo/demo-web/src/index.original.html",
               "baseHref": "/z2p-firebase/us-central1/universal/"
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "baseHref": "/",
             "browserTarget": "demo-web:build"
           },
           "configurations": {
@@ -1409,7 +1442,8 @@
           "options": {
             "jestConfig": "apps/demo/demo-web/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/demo/demo-web"]
         },
         "server": {
           "builder": "@angular-devkit/build-angular:server",
@@ -1573,7 +1607,8 @@
           "options": {
             "jestConfig": "apps/demo/demo-web-functions/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/demo/demo-web-functions"]
         }
       }
     },
@@ -1625,7 +1660,8 @@
           "options": {
             "jestConfig": "libs/demo/feature-shell/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/demo/feature-shell"]
         }
       },
       "schematics": {
@@ -1655,7 +1691,8 @@
           "options": {
             "jestConfig": "libs/demo/data-access/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/demo/data-access"]
         }
       },
       "schematics": {
@@ -1685,7 +1722,8 @@
           "options": {
             "jestConfig": "libs/demo/form-builder/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/demo/form-builder"]
         }
       },
       "schematics": {
@@ -1715,7 +1753,8 @@
           "options": {
             "jestConfig": "libs/demo/theming/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/demo/theming"]
         }
       },
       "schematics": {
@@ -1768,7 +1807,8 @@
           "options": {
             "jestConfig": "libs/demo/secure-todos/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/demo/secure-todos"]
         }
       },
       "schematics": {
@@ -1801,7 +1841,8 @@
           "options": {
             "jestConfig": "libs/demo/lazy-load-scrolling/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/demo/lazy-load-scrolling"]
         }
       },
       "schematics": {
@@ -1831,7 +1872,8 @@
           "options": {
             "jestConfig": "libs/demo/dynamic-form/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/demo/dynamic-form"]
         }
       },
       "schematics": {
@@ -1861,7 +1903,8 @@
           "options": {
             "jestConfig": "libs/demo/start-your-own/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/demo/start-your-own"]
         }
       },
       "schematics": {
@@ -1891,7 +1934,8 @@
           "options": {
             "jestConfig": "libs/demo/guides/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/demo/guides"]
         }
       },
       "schematics": {
@@ -1921,7 +1965,8 @@
           "options": {
             "jestConfig": "libs/demo/examples/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/demo/examples"]
         }
       },
       "schematics": {
@@ -1954,7 +1999,8 @@
           "options": {
             "jestConfig": "libs/common/universal-engine/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/common/universal-engine"]
         }
       }
     }

@@ -10,8 +10,8 @@ import {
   todoNoteSchema,
 } from '@ztp/server/core-data';
 
-export const Todo = model<ITodoDocument, ITodoModel>(todoDbKey, todoSchema);
-export const TodoNote = model<ITodoNoteDocument, ITodoNoteModel>(
+export const Todo = model<ITodoDocument>(todoDbKey, todoSchema) as ITodoModel;
+export const TodoNote = model<ITodoNoteDocument>(
   todoNoteDbKey,
   todoNoteSchema
-);
+) as ITodoNoteModel;

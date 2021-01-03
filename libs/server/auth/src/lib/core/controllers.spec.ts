@@ -19,12 +19,11 @@ import {
   mockRevokeConfig,
   MockAuthUserModel,
   MockVerifyModel,
-  privateKey,
   MockRefreshModel,
   cookiesMock,
   refreshSecret,
 } from '../__tests__/index';
-import { VerifyModel, AuthUser, AuthUserModel, Verify } from '../types';
+import { VerifyModel, AuthUser, AuthUserModel } from '../types';
 
 export function newId() {
   return mongoose.Types.ObjectId().toHexString();
@@ -73,8 +72,8 @@ describe('Auth - Controllers', () => {
       MockAuthUserModel.userToRespondWith = null;
 
       const createdUser = await setupRegisterController({
-        User: (MockAuthUserModel as unknown) as AuthUserModel<AuthUser>,
-        Verify: (MockVerifyModel as unknown) as VerifyModel<Verify>,
+        User: (MockAuthUserModel as unknown) as AuthUserModel,
+        Verify: (MockVerifyModel as unknown) as VerifyModel,
         verifyEmail: jest.fn(),
       })({ ...userWithPassword });
 
@@ -463,41 +462,41 @@ describe('Auth - Controllers', () => {
       MockRefreshModel.reset();
     });
   });
-});
 
-describe('revokeRefreshToken', () => {
-  it('should revoke the refresh token provided', async () => {
-    const userWithId = {
-      ...userWithPassword,
-      id: newId(),
-    };
+  describe('revokeRefreshToken', () => {
+    it('should revoke the refresh token provided', async () => {
+      const userWithId = {
+        ...userWithPassword,
+        id: newId(),
+      };
 
-    const refreshTokenString = signRefreshToken({
-      secret: refreshSecret,
-      audience,
-      issuer,
-    })(userWithId);
+      const refreshTokenString = signRefreshToken({
+        secret: refreshSecret,
+        audience,
+        issuer,
+      })(userWithId);
 
-    const refreshToken = {
-      user: {
-        id: userWithId.id,
-        username: userWithId.username,
-      } as AuthUser,
-      token: refreshTokenString,
-    };
+      const refreshToken = {
+        user: {
+          id: userWithId.id,
+          username: userWithId.username,
+        } as AuthUser,
+        token: refreshTokenString,
+      };
 
-    MockRefreshModel.tokenToRespondWith = refreshToken;
+      MockRefreshModel.tokenToRespondWith = refreshToken;
 
-    const { success } = await mockRevokeController()(
-      refreshToken.token,
-      cookiesMock
-    );
+      const { success } = await mockRevokeController()(
+        refreshToken.token,
+        cookiesMock
+      );
 
-    expect(success).toBe(true);
-    // check if remove was called
-    expect(MockRefreshModel.currentSetModel).toBe(null);
+      expect(success).toBe(true);
+      // check if remove was called
+      expect(MockRefreshModel.currentSetModel).toBe(null);
 
-    MockAuthUserModel.reset();
-    MockRefreshModel.reset();
+      MockAuthUserModel.reset();
+      MockRefreshModel.reset();
+    });
   });
 });

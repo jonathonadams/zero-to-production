@@ -6,15 +6,17 @@ import { TSchemaDefinition } from '../interface';
 
 export interface IVerificationToken {
   id: string;
-  userId: IUser;
+  user: IUser;
   token: string;
 }
+
 export const verificationTokenDbKey = 'verificationToken';
 
 export const verificationSchemaDef: TSchemaDefinition<IVerificationToken> = {
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     required: true,
+    ref: 'user',
   },
   token: {
     type: String,
@@ -22,12 +24,9 @@ export const verificationSchemaDef: TSchemaDefinition<IVerificationToken> = {
   },
 };
 
-export const verificationTokenSchema = new Schema<IVerificationToken>(
-  verificationSchemaDef,
-  {
-    ...defaultSchemaOptions,
-  }
-);
+export const verificationTokenSchema = new Schema(verificationSchemaDef, {
+  ...defaultSchemaOptions,
+});
 
 export interface IVerificationTokenDocument extends Document {
   id: string;
@@ -38,6 +37,7 @@ export interface IVerificationTokenDocument extends Document {
 export interface IVerificationTokenModel
   extends Model<IVerificationTokenDocument> {
   findByToken(token: string): Promise<IVerificationTokenDocument | null>;
+  deleteById(id: string): Promise<boolean>;
 }
 
 export class VerificationTokenClass extends Model {
@@ -48,21 +48,25 @@ export class VerificationTokenClass extends Model {
       token,
     }).exec();
   }
+
+  static deleteById(id: string): Promise<boolean> {
+    return this.deleteOne({ id })
+      .exec()
+      .then(({ ok, n }) => ok === 1);
+  }
 }
 
 verificationTokenSchema.loadClass(VerificationTokenClass);
 
 export function createVerificationTokenModel(con: Connection) {
-  con.model<IVerificationTokenDocument, IVerificationTokenModel>(
+  con.model<IVerificationTokenDocument>(
     verificationTokenDbKey,
     verificationTokenSchema
   );
 }
 
-export function getVerificationTokenModel(
-  con: Connection
-): IVerificationTokenModel {
-  return con.model<IVerificationTokenDocument, IVerificationTokenModel>(
+export function getVerificationTokenModel(con: Connection) {
+  return con.model<IVerificationTokenDocument>(
     verificationTokenDbKey
-  );
+  ) as IVerificationTokenModel;
 }

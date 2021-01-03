@@ -4,25 +4,18 @@ import {
   AuthEnv,
   VerifyEmail,
   AuthUserModel,
-  AuthUser,
-  Verify,
-  Refresh,
   VerifyModel,
   RefreshModel,
   AuthModuleConfig,
 } from '../types';
 
-export function generateAuthModuleConfig<
-  U extends AuthUser,
-  V extends Verify,
-  R extends Refresh
->(
+export function generateAuthModuleConfig(
   config: AuthEnv,
-  User: AuthUserModel<U>,
-  RefreshM: RefreshModel<R>,
-  VerifyM: VerifyModel<V>,
+  User: AuthUserModel,
+  RefreshM: RefreshModel,
+  VerifyM: VerifyModel,
   emailClient: VerifyEmail = noOpEmailVerification
-): AuthModuleConfig<U, R, V> {
+): AuthModuleConfig {
   const { publicKey, privateKey } = config.accessToken;
   const pubKey = publicKey ? publicKey : createPublicPemFromPrivate(privateKey);
 
